@@ -1,24 +1,69 @@
-.App {
-  text-align: center;
+.Background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.Background canvas {
+  position: absolute;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.Intro {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.App-intro {
-  font-size: large;
+.Intro__text {
+  max-width: 680px;
+  width: 100%;
+  position: relative;
+  top: -20px;
+  padding: 0 20px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.Intro__name {
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 60px;
+  margin-top: 0;
+}
+
+.Intro__title {
+  display: flex;
+  flex-direction: column;
+  font-size: 100px;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+.Intro__title-word--line {
+  display: flex;
+  align-items: center;
+}
+
+.Intro__title-word--line:after {
+  content: '';
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  width: 120%;
+  display: flex;
+  margin-left: 20px;
+}
+
+.Intro__title-word--plus {
+  margin-right: 10px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.Intro__title-row {
+  display: flex;
+  flex-direction: row;
 }

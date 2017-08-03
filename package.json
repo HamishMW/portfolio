@@ -5,7 +5,10 @@
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "react-three": "^0.9.7",
+    "react-three-renderer": "^3.2.1",
+    "three": "^0.86.0"
   },
   "scripts": {
     "start": "react-scripts start",
