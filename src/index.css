@@ -3,19 +3,34 @@
   src: url('Fonts/gotham-medium.woff2') format('woff2');
 }
 
+:root {
+  --font-stack: 'Gotham', sans-serif;
+  --color-background: 17, 17, 17;
+  --color-text: 255, 255, 255;
+  --outer-spacing: 60px;
+}
+
+@media (max-width: 800px) {
+  :root {
+    --outer-spacing: 40px;
+  }
+}
+
 html,
 body {
   box-sizing: border-box;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-  font-family: 'Gotham', sans-serif;
-  background: #111111;
-  color: white;
+  font-family: var(--font-stack);
+  background: rgba(var(--color-background), 1);
+  color: rgba(var(--color-text), 1);
   border: 0;
   margin: 0;
 }
 
-html * {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
