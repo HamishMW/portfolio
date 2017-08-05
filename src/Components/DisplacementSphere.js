@@ -1,10 +1,11 @@
 import * as THREE from 'three';
-import VertShader from '../Shaders/VertShader';
-import FragmentShader from '../Shaders/FragmentShader';
+import VertShader from '../Shaders/SphereVertShader';
+import FragmentShader from '../Shaders/SphereFragmentShader';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
 const start = Date.now();
+let mouse = {x:0, y:0};
 
 class DisplacementSphere {
   constructor(container, props) {
@@ -16,6 +17,7 @@ class DisplacementSphere {
       pixelRatio: window.devicePixelRatio,
       alpha: true,
     });
+
     this.camera = new THREE.PerspectiveCamera( 55, width / height, 0.1, 5000 );
     this.scene = new THREE.Scene();
     this.light = new THREE.DirectionalLight(0xffffff, 0.6);
@@ -35,7 +37,7 @@ class DisplacementSphere {
       lights: true,
     });
 
-    this.geometry = new THREE.SphereGeometry(30, 200, 200);
+    this.geometry = new THREE.SphereGeometry(32, 180, 180);
     this.sphere = new THREE.Mesh(this.geometry, this.material);
   }
 
@@ -51,15 +53,29 @@ class DisplacementSphere {
     this.scene.add(this.ambientLight);
 
     this.scene.add(this.sphere);
-    this.sphere.position.x = 20;
+    this.sphere.position.x = 25;
     this.sphere.position.y = 10;
     this.sphere.position.z = 0;
     this.sphere.modifier = Math.random();
-    this.sphere.material.transparent = true;
-    this.sphere.material.opacity = 1 * Math.random();
 
     this.container.appendChild(this.renderer.domElement);
+    window.addEventListener('resize', this.onWindowResize, false);
+    // window.addEventListener('mousemove', this.onMouseMove);
     this.animate();
+  }
+
+  onWindowResize = () => {
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  onMouseMove = (e) => {
+    let speed = 0.05;
+    this.camera.position.x += Math.max(Math.min((e.clientX - mouse.x) * 0.01, speed), -speed);
+    this.camera.position.y += Math.max(Math.min((mouse.y - e.clientY) * 0.01, speed), -speed);
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
   }
 
   animate = () => {
@@ -69,13 +85,10 @@ class DisplacementSphere {
 
   render = () => {
     this.uniforms.time.value = .00005 * (Date.now() - start);
-
   	this.sphere.rotation.y += 0.001;
   	this.sphere.rotation.z += 0.001;
   	this.sphere.rotation.x += 0.001;
-
   	this.camera.position.z =  52;
-
     this.renderer.render(this.scene, this.camera);
   }
 }

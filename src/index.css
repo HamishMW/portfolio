@@ -1,21 +1,3 @@
-@font-face {
-  font-family: 'Gotham';
-  src: url('Fonts/gotham-medium.woff2') format('woff2');
-}
-
-:root {
-  --font-stack: 'Gotham', sans-serif;
-  --color-background: 17, 17, 17;
-  --color-text: 255, 255, 255;
-  --outer-spacing: 60px;
-}
-
-@media (max-width: 800px) {
-  :root {
-    --outer-spacing: 40px;
-  }
-}
-
 html,
 body {
   box-sizing: border-box;

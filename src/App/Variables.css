@@ -1,0 +1,21 @@
+:root {
+  --font-stack: 'Gotham', sans-serif;
+  --color-background: 17, 17, 17;
+  --color-text: 255, 255, 255;
+  --color-primary: 0, 229, 255;
+  --spacing-outer: 60px;
+  --spacing-gutter: 20px;
+  --bezier-fastout-slowin: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@media (max-width: 800px) {
+  :root {
+    --spacing-outer: 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --spacing-outer: 20px;
+  }
+}

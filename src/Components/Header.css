@@ -4,10 +4,10 @@
   align-items: center;
   justify-content: flex-start;
   position: absolute;
-  top: var(--outer-spacing);
-  left: var(--outer-spacing);
-  bottom: var(--outer-spacing);
-  width: 50px;
+  top: calc(var(--spacing-outer) + 10px);
+  left: var(--spacing-outer);
+  bottom: calc(var(--spacing-outer) + 10px);
+  width: 45px;
 }
 
 .Header__logo {
@@ -32,6 +32,7 @@
   margin-right: 40px;
   color: rgba(var(--color-text), 0.8);
   text-decoration: none;
+  font-weight: 500;
 }
 
 .Header__nav-link:hover {
@@ -48,4 +49,8 @@
 .Header__nav-icon {
   display: flex;
   margin-top: 20px;
+}
+
+.Header__nav-icon:hover svg {
+  fill: rgba(var(--color-text), 1);
 }
