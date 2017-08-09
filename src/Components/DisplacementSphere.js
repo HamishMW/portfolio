@@ -13,7 +13,7 @@ class DisplacementSphere {
     this.props = props;
 
     this.renderer = new THREE.WebGLRenderer({
-      antialiasing: true,
+      antialias: false,
       pixelRatio: window.devicePixelRatio,
       alpha: true,
     });

@@ -57,11 +57,11 @@
 }
 
 .Intro__text {
-  max-width: 680px;
+  max-width: 800px;
   width: 100%;
   position: relative;
   top: -20px;
-  padding: 0 20px;
+  padding: 0 var(--spacing-outer);
 }
 
 .Intro__name {
@@ -74,6 +74,20 @@
   font-weight: 500;
 }
 
+@media (max-width: 860px) {
+  .Intro__name {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .Intro__name {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+}
+
 .Intro__title {
   display: flex;
   flex-direction: column;
@@ -81,6 +95,18 @@
   margin: 0;
   letter-spacing: -0.005em;
   font-weight: 500;
+}
+
+@media (max-width: 860px) {
+  .Intro__title {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .Intro__title {
+    font-size: 42px;
+  }
 }
 
 .Intro__title-word {

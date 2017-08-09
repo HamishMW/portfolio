@@ -22,6 +22,12 @@
   flex: 1 1 auto;
 }
 
+@media (max-width: 800px) {
+  .Header__nav {
+    display: none;
+  }
+}
+
 .Header__nav-items {
   transform: rotate(-90deg) translateX(-50%);
   display: flex;

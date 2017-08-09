@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as TWEEN from '@tweenjs/tween.js';
 import VertShader from '../Shaders/TerrainVertShader';
 import FragmentShader from '../Shaders/TerrainFragmentShader';
 
@@ -13,6 +14,13 @@ class DisplacementTerrain {
     this.camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100000);
     this.camera.position.z = 7;
     this.camera.position.y = 1;
+    this.tetraGeo = new THREE.TetrahedronGeometry(1, 0);
+    this.tetraMaterial = new THREE.MeshPhongMaterial({color: 0x333333, shading: THREE.FlatShading});
+    this.tetraMesh = new THREE.Mesh(this.tetraGeo, this.tetraMaterial);
+
+    this.directionalLight = new THREE.DirectionalLight(0x3031FF, 1);
+    this.pointLightPink = new THREE.PointLight(0xFF12FF, 0.2, 100);
+    this.light = new THREE.AmbientLight(0x404040);
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -28,6 +36,32 @@ class DisplacementTerrain {
     this.renderer.setClearColor(0x000000);
     this.camera.lookAt(new THREE.Vector3());
     this.scene.add(this.terrain.plane_mesh);
+    this.scene.add(this.tetraMesh);
+
+    this.directionalLight.position.set(1, 1, 5);
+    // var helper = new THREE.DirectionalLightHelper( this.directionalLight, 1);
+    // this.scene.add( helper );
+    this.directionalLight.target.position.set(this.tetraMesh);
+    this.pointLightPink.position.set(0, 0.9, 5.6);
+    // var helper2 = new THREE.PointLightHelper( this.pointLightPink, 1);
+    // this.scene.add( helper2 );
+    this.scene.add(this.directionalLight);
+    this.scene.add(this.pointLightPink);
+    this.scene.add(this.light);
+
+    this.tetraPosition = {z: -2, y: 0.8};
+    this.tetraTarget = {z: 4.8, y: 0.8};
+    this.tetraMesh.position.z = this.tetraPosition.z;
+    this.tetraMesh.position.y = this.tetraPosition.y;
+    this.tetraTween = new TWEEN.Tween(this.tetraPosition).to(this.tetraTarget, 2000);
+    this.tetraTween.easing(TWEEN.Easing.Quartic.InOut);
+
+    this.tetraTween.onUpdate(() => {
+      this.tetraMesh.position.z = this.tetraPosition.z;
+    });
+
+    this.tetraTween.delay(500);
+    this.tetraTween.start();
 
     this.container.appendChild(this.renderer.domElement);
     window.addEventListener('resize', this.onWindowResize, false);
@@ -46,7 +80,10 @@ class DisplacementTerrain {
   }
 
   render = () => {
+    TWEEN.update();
     this.terrain.update();
+    this.tetraMesh.rotation.x += 0.005;
+    this.tetraMesh.rotation.y += 0.005;
     this.renderer.render(this.scene, this.camera);
   }
 }
@@ -57,11 +94,11 @@ class Terrain {
 
     this.options = {
       elevation: 0.5,
-      noise_range: 0.5,
+      noise_range: 0.4,
       sombrero_amplitude: 0,
       sombrero_frequency: 0,
       speed: 0.8,
-      segments: 50,
+      segments: 40,
       wireframe_color: '#3031FF',
       perlin_passes: 1,
       wireframe: true,
@@ -125,11 +162,7 @@ class Terrain {
       uniforms: this.uniforms,
     });
 
-    this.materials = [
-      this.plane_material,
-    ];
-
-    this.plane_mesh = THREE.SceneUtils.createMultiMaterialObject(this.plane_geometry, this.materials);
+    this.plane_mesh = new THREE.Mesh(this.plane_geometry, this.plane_material);
     this.plane_mesh.rotation.x = - Math.PI / 2;
     this.plane_mesh.position.y = -0.5;
   }

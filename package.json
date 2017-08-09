@@ -1,12 +1,15 @@
 {
   "name": "portfolio-2017",
   "version": "0.1.0",
+  "homepage": "https://hamishw.com",
   "private": true,
   "dependencies": {
+    "@tweenjs/tween.js": "^17.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.10",
-    "three": "^0.86.0"
+    "three": "^0.86.0",
+    "three-effectcomposer-es6": "0.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
