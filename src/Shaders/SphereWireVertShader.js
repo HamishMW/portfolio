@@ -223,7 +223,7 @@ void main() {
 
   vUv = uv;
 
-  noise = turbulence(0.005 * position + normal + time * 0.8);
+  noise = turbulence(0.0001 * position + normal + time * 0.01);
   vec3 displacement = vec3((position.x) * noise, position.y * noise, position.z * noise);
   newPosition =  (position + normal) + displacement;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);

@@ -19,7 +19,8 @@ class DisplacementTerrain {
     this.tetraMesh = new THREE.Mesh(this.tetraGeo, this.tetraMaterial);
 
     this.directionalLight = new THREE.DirectionalLight(0x3031FF, 1);
-    this.pointLightPink = new THREE.PointLight(0xFF12FF, 0.2, 100);
+    this.pointLightPink = new THREE.PointLight(0xFF12FF, 0.1, 100);
+    this.pointLightBlue = new THREE.PointLight(0x3031FF, 0.5, 100);
     this.light = new THREE.AmbientLight(0x404040);
 
     this.renderer = new THREE.WebGLRenderer({
@@ -43,10 +44,12 @@ class DisplacementTerrain {
     // this.scene.add( helper );
     this.directionalLight.target.position.set(this.tetraMesh);
     this.pointLightPink.position.set(0, 0.9, 5.6);
+    this.pointLightBlue.position.set(2, 1.5, 5.6);
     // var helper2 = new THREE.PointLightHelper( this.pointLightPink, 1);
     // this.scene.add( helper2 );
     this.scene.add(this.directionalLight);
     this.scene.add(this.pointLightPink);
+    this.scene.add(this.pointLightBlue);
     this.scene.add(this.light);
 
     this.tetraPosition = {z: -2, y: 0.8};

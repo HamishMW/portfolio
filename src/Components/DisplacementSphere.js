@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import VertShader from '../Shaders/SphereVertShader';
 import FragmentShader from '../Shaders/SphereFragmentShader';
+import WireVertShader from '../Shaders/SphereWireVertShader';
+import WireFragmentShader from '../Shaders/SphereWireFragmentShader';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -37,11 +39,24 @@ class DisplacementSphere {
       lights: true,
     });
 
+    this.wireMaterial = new THREE.ShaderMaterial({
+      uniforms: this.uniforms,
+      vertexShader: WireVertShader,
+      fragmentShader: WireFragmentShader,
+      transparent: true,
+      opacity: 0.2,
+      lights: true,
+      wireframe: true,
+    });
+
     this.geometry = new THREE.SphereGeometry(32, 180, 180);
+    this.geometryB = new THREE.SphereGeometry(32, 40, 40);
     this.sphere = new THREE.Mesh(this.geometry, this.material);
+    this.sphereB = new THREE.Mesh(this.geometryB, this.wireMaterial);
   }
 
   init = () => {
+    const rand = Math.random();
     this.renderer.setClearColor(0x000000);
     this.renderer.setSize(width, height);
     this.camera.position.z = 200;
@@ -53,10 +68,16 @@ class DisplacementSphere {
     this.scene.add(this.ambientLight);
 
     this.scene.add(this.sphere);
+    this.scene.add(this.sphereB);
     this.sphere.position.x = 25;
     this.sphere.position.y = 10;
     this.sphere.position.z = 0;
-    this.sphere.modifier = Math.random();
+    this.sphereB.position.x = 25;
+    this.sphereB.position.y = 10;
+    this.sphereB.position.z = 0;
+
+    this.sphere.modifier = rand;
+    this.sphereB.modifier = rand;
 
     this.container.appendChild(this.renderer.domElement);
     window.addEventListener('resize', this.onWindowResize, false);
@@ -88,6 +109,9 @@ class DisplacementSphere {
   	this.sphere.rotation.y += 0.001;
   	this.sphere.rotation.z += 0.001;
   	this.sphere.rotation.x += 0.001;
+    this.sphereB.rotation.y += 0.001;
+    this.sphereB.rotation.z += 0.001;
+    this.sphereB.rotation.x += 0.001;
   	this.camera.position.z =  52;
     this.renderer.render(this.scene, this.camera);
   }

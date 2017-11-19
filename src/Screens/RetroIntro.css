@@ -2,8 +2,11 @@
   --color-hot-pink: 255, 18, 255;
 
   background: linear-gradient(to bottom, rgba(var(--color-background), 1) 0%, #040C4A 100%);
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,23 +54,25 @@
   font-weight: normal;
   text-transform: uppercase;
   font-family: 'Neo Noire', sans-serif;
-  color: rgba(var(--color-primary), 1);
-  font-size: 85px;
+  color: rgba(var(--color-hot-pink), 1);
+  background: -webkit-linear-gradient(rgba(var(--color-hot-pink), 1), rgba(var(--color-hot-pink), 1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 80px;
   transform: rotate(-4deg);
   position: relative;
   top: -40px;
-  text-shadow: rgba(var(--color-primary), 0.5) -2px -2px 60px;
-  z-index: 1;
 }
 
 .RetroIntro__title-sub:after {
   content: attr(data-text);
-  color: rgba(var(--color-hot-pink), 1);
+  background: -webkit-linear-gradient(#01FFDF, #22A7EA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: rgba(var(--color-primary), 1);
   position: absolute;
-  left: 3px;
-  top: 3px;
-  z-index: -1;
-  text-shadow: rgba(var(--color-hot-pink), 0.5) 2px 2px 60px;
+  left: -2px;
+  top: -4px;
 }
 
 .RetroIntro__name {
@@ -75,8 +80,9 @@
   font-size: 24px;
   letter-spacing: 0.2em;
   color: rgba(var(--color-text), 0.8);
-  margin-bottom: 0;
-  margin-top: 0;
+  margin: 0;
   font-weight: 500;
   text-align: center;
+  position: relative;
+  top: -20px;
 }

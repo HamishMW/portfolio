@@ -9,3 +9,9 @@
   font-weight: 500;
   src: url('./gotham-medium.woff2') format('woff2');
 }
+
+@font-face {
+  font-family: 'Gotham';
+  font-weight:700;
+  src: url('./gotham-black.woff2') format('woff2');
+}

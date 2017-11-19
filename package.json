@@ -8,6 +8,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.10",
+    "react-transition-group": "^1.2.0",
     "three": "^0.86.0",
     "three-effectcomposer-es6": "0.0.4"
   },
