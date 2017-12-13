@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 import * as TWEEN from '@tweenjs/tween.js';
-import VertShader from '../Shaders/TerrainVertShader';
-import FragmentShader from '../Shaders/TerrainFragmentShader';
-import BadTVShader from '../Shaders/BadTVShader';
-import vhs from '../Assets/vhs.mp4';
+import VertShader from '../shaders/TerrainVertShader';
+import FragmentShader from '../shaders/TerrainFragmentShader';
+import BadTVShader from '../shaders/BadTVShader';
+import vhs from '../assets/vhs.mp4';
 
 const width = window.innerWidth;
 const height = window.innerHeight;

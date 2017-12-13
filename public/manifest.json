@@ -3,8 +3,13 @@
   "name": "Design Portfolio of Hamish Williams",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "192x192",
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "touch.png",
+      "sizes": "256x256",
       "type": "image/png"
     }
   ],

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import * as TWEEN from '@tweenjs/tween.js';
-import VertShader from '../Shaders/TerrainVertShader';
-import FragmentShader from '../Shaders/TerrainFragmentShader';
+import VertShader from '../shaders/TerrainVertShader';
+import FragmentShader from '../shaders/TerrainFragmentShader';
 
 const width = window.innerWidth;
 const height = window.innerHeight;

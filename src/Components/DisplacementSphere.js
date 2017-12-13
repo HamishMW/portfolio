@@ -1,8 +1,6 @@
 import * as THREE from 'three';
-import VertShader from '../Shaders/SphereVertShader';
-import FragmentShader from '../Shaders/SphereFragmentShader';
-import WireVertShader from '../Shaders/SphereWireVertShader';
-import WireFragmentShader from '../Shaders/SphereWireFragmentShader';
+import VertShader from '../shaders/SphereVertShader';
+import FragmentShader from '../shaders/SphereFragmentShader';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -14,12 +12,7 @@ class DisplacementSphere {
     this.container = container;
     this.props = props;
 
-    this.renderer = new THREE.WebGLRenderer({
-      antialias: false,
-      pixelRatio: window.devicePixelRatio,
-      alpha: true,
-    });
-
+    this.renderer = new THREE.WebGLRenderer();
     this.camera = new THREE.PerspectiveCamera( 55, width / height, 0.1, 5000 );
     this.scene = new THREE.Scene();
     this.light = new THREE.DirectionalLight(0xffffff, 0.6);
@@ -39,27 +32,15 @@ class DisplacementSphere {
       lights: true,
     });
 
-    this.wireMaterial = new THREE.ShaderMaterial({
-      uniforms: this.uniforms,
-      vertexShader: WireVertShader,
-      fragmentShader: WireFragmentShader,
-      transparent: true,
-      opacity: 0.2,
-      lights: true,
-      wireframe: true,
-    });
-
-    this.geometry = new THREE.SphereGeometry(32, 180, 180);
-    this.geometryB = new THREE.SphereGeometry(32, 40, 40);
+    this.geometry = new THREE.SphereGeometry(32, 140, 140);
     this.sphere = new THREE.Mesh(this.geometry, this.material);
-    this.sphereB = new THREE.Mesh(this.geometryB, this.wireMaterial);
   }
 
   init = () => {
     const rand = Math.random();
-    this.renderer.setClearColor(0x000000);
+    this.scene.background = new THREE.Color(0x111111);
     this.renderer.setSize(width, height);
-    this.camera.position.z = 200;
+    this.camera.position.z = 52;
 
     this.light.position.z = 200;
     this.light.position.x = 100;
@@ -68,20 +49,14 @@ class DisplacementSphere {
     this.scene.add(this.ambientLight);
 
     this.scene.add(this.sphere);
-    this.scene.add(this.sphereB);
     this.sphere.position.x = 25;
     this.sphere.position.y = 10;
     this.sphere.position.z = 0;
-    this.sphereB.position.x = 25;
-    this.sphereB.position.y = 10;
-    this.sphereB.position.z = 0;
 
     this.sphere.modifier = rand;
-    this.sphereB.modifier = rand;
 
     this.container.appendChild(this.renderer.domElement);
     window.addEventListener('resize', this.onWindowResize, false);
-    // window.addEventListener('mousemove', this.onMouseMove);
     this.animate();
   }
 
@@ -109,10 +84,7 @@ class DisplacementSphere {
   	this.sphere.rotation.y += 0.001;
   	this.sphere.rotation.z += 0.001;
   	this.sphere.rotation.x += 0.001;
-    this.sphereB.rotation.y += 0.001;
-    this.sphereB.rotation.z += 0.001;
-    this.sphereB.rotation.x += 0.001;
-  	this.camera.position.z =  52;
+
     this.renderer.render(this.scene, this.camera);
   }
 }

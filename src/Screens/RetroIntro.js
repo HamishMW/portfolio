@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import DisplacementTerrain from '../Components/DisplacementTerrain';
+import styled, { injectGlobal } from 'styled-components';
+import DisplacementTerrain from '../components/DisplacementTerrain';
+import NeoNoire from '../fonts/neonoire.woff2';
 import './RetroIntro.css';
-import '../Fonts/Neonoire.css';
 
 class RetroIntro extends Component {
   render() {
@@ -26,5 +27,13 @@ class RetroIntro extends Component {
     terrain.init();
   };
 }
+
+injectGlobal`
+  @font-face {
+    font-family: 'Neo Noire';
+    font-weight: 400;
+    src: url(${NeoNoire}) format('woff2');
+  }
+`;
 
 export default RetroIntro;

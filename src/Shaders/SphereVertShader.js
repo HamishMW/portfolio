@@ -173,7 +173,6 @@ float turbulence(vec3 p) {
 uniform float time;
 varying vec2 vUv;
 varying vec3 vNormal;
-varying vec3 newPosition;
 varying float noise;
 
 #define PHONG
@@ -223,9 +222,8 @@ void main() {
 
   vUv = uv;
 
-  noise = turbulence(0.005 * position + normal + time * 0.8);
+  noise = turbulence(0.01 * position + normal + time * 0.8);
   vec3 displacement = vec3((position.x) * noise, position.y * noise, position.z * noise);
-  newPosition =  (position + normal) + displacement;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4((position + normal) + displacement, 1.0);
 }
 `;

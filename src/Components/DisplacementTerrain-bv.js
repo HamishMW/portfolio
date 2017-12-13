@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 import * as TWEEN from '@tweenjs/tween.js';
-import VertShader from '../Shaders/TerrainVertShader';
-import FragmentShader from '../Shaders/TerrainFragmentShader';
-import GradientVertShader from '../Shaders/GradientVertShader';
-import GradientFragShader from '../Shaders/GradientFragShader';
-import BadTVShader from '../Shaders/BadTVShader';
-import FilmShader from '../Shaders/FilmShader';
-import RgbShader from '../Shaders/RgbShader';
-import StaticShader from '../Shaders/StaticShader';
+import VertShader from '../shaders/TerrainVertShader';
+import FragmentShader from '../shaders/TerrainFragmentShader';
+import GradientVertShader from '../shaders/GradientVertShader';
+import GradientFragShader from '../shaders/GradientFragShader';
+import BadTVShader from '../shaders/BadTVShader';
+import FilmShader from '../shaders/FilmShader';
+import RgbShader from '../shaders/RgbShader';
+import StaticShader from '../shaders/StaticShader';
 import EffectComposer, { RenderPass, ShaderPass, CopyShader } from 'three-effectcomposer-es6';
 
 const width = window.innerWidth;
