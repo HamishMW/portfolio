@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import VertShader from '../shaders/SphereVertShader';
 import FragmentShader from '../shaders/SphereFragmentShader';
+import { Media } from '../utils/StyleUtils';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
 const start = Date.now();
-let mouse = {x:0, y:0};
+let mouse = {x: 0, y: 0};
 
 class DisplacementSphere {
   constructor(container, props) {
@@ -21,11 +22,11 @@ class DisplacementSphere {
     this.uniforms = THREE.UniformsUtils.merge([
       THREE.UniformsLib["ambient"],
       THREE.UniformsLib["lights"],
+      THREE.ShaderLib.phong.uniforms,
       {time: { type: "f", value: 0 }},
-      THREE.ShaderLib.phong.uniforms
     ]);
 
-    this.material = new THREE.ShaderMaterial( {
+    this.material = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
       vertexShader: VertShader,
       fragmentShader: FragmentShader,
@@ -49,25 +50,34 @@ class DisplacementSphere {
     this.scene.add(this.ambientLight);
 
     this.scene.add(this.sphere);
-    this.sphere.position.x = 25;
-    this.sphere.position.y = 10;
     this.sphere.position.z = 0;
 
     this.sphere.modifier = rand;
 
     this.container.appendChild(this.renderer.domElement);
     window.addEventListener('resize', this.onWindowResize, false);
+    this.onWindowResize();
     this.animate();
   }
 
   onWindowResize = () => {
-    this.camera.aspect = window.innerWidth / window.innerHeight;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(width, height);
+
+    if (width <= Media.numMobile) {
+      this.sphere.position.x = 16;
+      this.sphere.position.y = 8;
+    } else {
+      this.sphere.position.x = 25;
+      this.sphere.position.y = 10;
+    }
   }
 
   onMouseMove = (e) => {
-    let speed = 0.05;
+    const speed = 0.05;
     this.camera.position.x += Math.max(Math.min((e.clientX - mouse.x) * 0.01, speed), -speed);
     this.camera.position.y += Math.max(Math.min((mouse.y - e.clientY) * 0.01, speed), -speed);
     mouse.x = e.clientX;

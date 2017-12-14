@@ -8,7 +8,6 @@ const disciplines = ['Developer', 'Animator', 'Illustrator'];
 class Intro extends Component {
   state = {
     disciplineIndex: 0,
-    disciplineWord: disciplines[0],
   }
 
   componentDidMount() {
@@ -17,7 +16,7 @@ class Intro extends Component {
     const sphere = new DisplacementSphere(threeCanvas, props);
     sphere.init();
     this.switchDiscipline();
-  };
+  }
 
   switchDiscipline = () => {
     setInterval(() => {
@@ -31,7 +30,7 @@ class Intro extends Component {
   }
 
   render() {
-    const { disciplineIndex, disciplineWord } = this.state;
+    const { disciplineIndex } = this.state;
 
     return (
       <IntroWrapper>
@@ -43,28 +42,26 @@ class Intro extends Component {
               <IntroTitleWord>Designer</IntroTitleWord>
               <IntroTitleLine />
             </IntroTitleRow>
-            <IntroTitleRow>
-              <TransitionGroup>
-                {disciplines.map((item, index) => (
-                  <Transition
-                    timeout={{enter: 1200, exit: 1000}}
-                    key={`${item}_${index}`}
-                    mountOnEnter
-                    unmountOnExit
-                  >
-                    {(status) => (
-                      <IntroTitleWord
-                        plus
-                        delay="0.3s"
-                        status={status}
-                      >
-                        {item}
-                      </IntroTitleWord>
-                    )}
-                  </Transition>
-                )).filter((item, index) => index === disciplineIndex)}
-              </TransitionGroup>
-            </IntroTitleRow>
+            <TransitionGroup component={IntroTitleRow}>
+              {disciplines.map((item, index) => (
+                <Transition
+                  timeout={{enter: 1200, exit: 1000}}
+                  key={`${item}_${index}`}
+                  mountOnEnter
+                  unmountOnExit
+                >
+                  {(status) => (
+                    <IntroTitleWord
+                      plus
+                      delay="0.3s"
+                      status={status}
+                    >
+                      {item}
+                    </IntroTitleWord>
+                  )}
+                </Transition>
+              )).filter((item, index) => index === disciplineIndex)}
+            </TransitionGroup>
           </IntroTitle>
         </IntroText>
       </IntroWrapper>
@@ -116,6 +113,7 @@ const IntroText = styled.section`
 
   @media (max-width: ${Media.tablet}) {
     padding: 0 ${props => props.theme.spacingOuter.mobile};
+    padding-left: 120px;
   }
 
   @media (max-width: ${Media.mobile}) {
@@ -195,11 +193,6 @@ const AnimTextRevealMask = keyframes`
     transform: scaleX(0);
     transform-origin: right;
   }
-`;
-
-const AnimFade = props => keyframes`
-  0% { opacity: 1; }
-  100% { opacity: 0; }
 `;
 
 const IntroTitleWord = styled.div`

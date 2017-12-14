@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Intro from '../screens/Intro';
 import RetroIntro from '../screens/RetroIntro';
 import Header from '../components/Header';
-import TagManager from '../utils/TagManager';
 import Theme from '../utils/Theme';
 import GothamBlack from '../fonts/gotham-black.woff2';
 import GothamBook from '../fonts/gotham-book.woff2';
@@ -16,18 +15,15 @@ class App extends Component {
   render() {
     return (
       <ThemeProvider theme={Theme}>
-        <Fragment>
-          <TagManager gtmId='GTM-MCT5BTN' />
-          <BrowserRouter>
-            <Fragment>
-              <Switch>
-                <Route exact path="/" component={Intro} />
-                <Route path="/1980" component={RetroIntro} />
-              </Switch>
-              <Header />
-            </Fragment>
-          </BrowserRouter>
-        </Fragment>
+        <BrowserRouter>
+          <Fragment>
+            <Switch>
+              <Route exact path="/" component={Intro} />
+              <Route path="/1980" component={RetroIntro} />
+            </Switch>
+            <Header />
+          </Fragment>
+        </BrowserRouter>
       </ThemeProvider>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Monogram from './Monogram';
 import Icon from '../utils/Icon';
 import { Media } from '../utils/StyleUtils';
@@ -14,13 +14,13 @@ const Header = () => (
         <HeaderNavLink to="/">Details</HeaderNavLink>
       </HeaderNavList>
       <HeaderNavIcons>
-        <HeaderNavIconLink to="/">
+        <HeaderNavIconLink href="/">
           <HeaderNavIcon icon="twitter" />
         </HeaderNavIconLink>
-        <HeaderNavIconLink to="/">
+        <HeaderNavIconLink href="/">
           <HeaderNavIcon icon="dribbble" />
         </HeaderNavIconLink>
-        <HeaderNavIconLink to="/">
+        <HeaderNavIconLink href="/">
           <HeaderNavIcon icon="email" />
         </HeaderNavIconLink>
       </HeaderNavIcons>
@@ -95,7 +95,7 @@ const HeaderNavIcons = styled.div`
   justify-content: center;
 `;
 
-const HeaderNavIconLink = styled(Link)`
+const HeaderNavIconLink = styled.a`
   display: flex;
   margin-top: 20px;
 

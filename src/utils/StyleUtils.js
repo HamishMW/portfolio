@@ -1,7 +1,10 @@
 const Media = {
-  desktop: '1440px',
-  tablet: '1024px',
-  mobile: '600px',
+  numDesktop: 1440,
+  numTablet: 1024,
+  numMobile: 600,
+  get desktop() { return `${this.numDesktop}px` },
+  get tablet() { return `${this.numTablet}px` },
+  get mobile() { return `${this.numMobile}px` },
 }
 
 export { Media };
