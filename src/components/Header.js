@@ -1,26 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Monogram from './Monogram';
 import Icon from '../utils/Icon';
 import { Media } from '../utils/StyleUtils';
 
 const Header = () => (
   <HeaderWrapper>
-    <HeaderLogo />
+    <HeaderLogo to="/"><Monogram /></HeaderLogo>
     <HeaderNav>
       <HeaderNavList>
         <HeaderNavLink to="/">Projects</HeaderNavLink>
         <HeaderNavLink to="/">Details</HeaderNavLink>
       </HeaderNavList>
       <HeaderNavIcons>
-        <HeaderNavIconLink href="/">
+        <HeaderNavIconLink href="https://twitter.com/hamishMW">
           <HeaderNavIcon icon="twitter" />
         </HeaderNavIconLink>
-        <HeaderNavIconLink href="/">
+        <HeaderNavIconLink href="https://dribbble.com/hamishw">
           <HeaderNavIcon icon="dribbble" />
         </HeaderNavIconLink>
-        <HeaderNavIconLink href="/">
+        <HeaderNavIconLink href="mailto:hello@hamishw.com">
           <HeaderNavIcon icon="email" />
         </HeaderNavIconLink>
       </HeaderNavIcons>
@@ -53,7 +53,7 @@ const HeaderWrapper = styled.header`
   }
 `;
 
-const HeaderLogo = styled(Monogram)`
+const HeaderLogo = styled(Link)`
   display: flex;
 `;
 

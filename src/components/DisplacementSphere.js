@@ -6,12 +6,12 @@ import { Media } from '../utils/StyleUtils';
 const width = window.innerWidth;
 const height = window.innerHeight;
 const start = Date.now();
-let mouse = {x: 0, y: 0};
 
 class DisplacementSphere {
   constructor(container, props) {
     this.container = container;
     this.props = props;
+    this.mouse = {x: 0, y: 0};
 
     this.renderer = new THREE.WebGLRenderer();
     this.camera = new THREE.PerspectiveCamera( 55, width / height, 0.1, 5000 );
@@ -56,20 +56,24 @@ class DisplacementSphere {
 
     this.container.appendChild(this.renderer.domElement);
     window.addEventListener('resize', this.onWindowResize, false);
+    // window.addEventListener('mousemove', this.onMouseMove, false);
     this.onWindowResize();
     this.animate();
   }
 
   onWindowResize = () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    this.camera.aspect = width / height;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    this.camera.aspect = windowWidth / windowHeight;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
+    this.renderer.setSize(windowWidth, windowHeight);
 
-    if (width <= Media.numMobile) {
+    if (windowWidth <= Media.numMobile) {
       this.sphere.position.x = 16;
       this.sphere.position.y = 8;
+    } else if (windowWidth <= Media.numTablet) {
+      this.sphere.position.x = 20;
+      this.sphere.position.y = 12;
     } else {
       this.sphere.position.x = 25;
       this.sphere.position.y = 10;
@@ -77,11 +81,14 @@ class DisplacementSphere {
   }
 
   onMouseMove = (e) => {
-    const speed = 0.05;
-    this.camera.position.x += Math.max(Math.min((e.clientX - mouse.x) * 0.01, speed), -speed);
-    this.camera.position.y += Math.max(Math.min((mouse.y - e.clientY) * 0.01, speed), -speed);
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    const speed = 0.005;
+    // this.camera.position.x += Math.max(Math.min((e.clientX - this.mouse.x) * 0.01, speed), -speed);
+    // this.camera.position.y += Math.max(Math.min((this.mouse.y - e.clientY) * 0.01, speed), -speed);
+    this.sphere.rotation.y += Math.max(Math.min((e.clientX - this.mouse.x) * 0.001, speed), -speed);
+    this.sphere.rotation.x += Math.max(Math.min((this.mouse.y - e.clientY) * 0.001, speed), -speed);
+
+    this.mouse.x = e.clientX;
+    this.mouse.y = e.clientY;
   }
 
   animate = () => {

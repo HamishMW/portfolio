@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Intro from '../screens/Intro';
 import RetroIntro from '../screens/RetroIntro';
 import Header from '../components/Header';
+import NavToggle from '../components/NavToggle';
 import Theme from '../utils/Theme';
 import GothamBlack from '../fonts/gotham-black.woff2';
 import GothamBook from '../fonts/gotham-book.woff2';
@@ -12,7 +13,18 @@ import GothamMedium from '../fonts/gotham-medium.woff2';
 const Fragment = React.Fragment;
 
 class App extends Component {
+  state = {
+    menuOpen: false,
+  }
+
+  toggleMenu = () => {
+    const { menuOpen } = this.state;
+    this.setState({menuOpen: !menuOpen});
+  }
+
   render() {
+    const { menuOpen } = this.state;
+
     return (
       <ThemeProvider theme={Theme}>
         <BrowserRouter>
@@ -21,7 +33,8 @@ class App extends Component {
               <Route exact path="/" component={Intro} />
               <Route path="/1980" component={RetroIntro} />
             </Switch>
-            <Header />
+            <Header menuOpen={menuOpen} />
+            <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
           </Fragment>
         </BrowserRouter>
       </ThemeProvider>

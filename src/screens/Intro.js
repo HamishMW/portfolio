@@ -39,7 +39,7 @@ class Intro extends Component {
           <IntroName>Hamish Williams</IntroName>
           <IntroTitle>
             <IntroTitleRow>
-              <IntroTitleWord>Designer</IntroTitleWord>
+              <IntroTitleWord delay="0.2s">Designer</IntroTitleWord>
               <IntroTitleLine />
             </IntroTitleRow>
             <TransitionGroup component={IntroTitleRow}>
@@ -53,7 +53,7 @@ class Intro extends Component {
                   {(status) => (
                     <IntroTitleWord
                       plus
-                      delay="0.3s"
+                      delay="0.5s"
                       status={status}
                     >
                       {item}
@@ -112,8 +112,7 @@ const IntroText = styled.section`
   padding: 0 ${props => props.theme.spacingOuter.desktop};
 
   @media (max-width: ${Media.tablet}) {
-    padding: 0 ${props => props.theme.spacingOuter.mobile};
-    padding-left: 120px;
+    padding: 0 120px;
   }
 
   @media (max-width: ${Media.mobile}) {

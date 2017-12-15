@@ -19,6 +19,11 @@ const Icon = (props) => {
         <path d="M20 8l-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-1.11-.9-2-2-2z"/>
       </svg>
     ),
+    menu: () => (
+      <svg className={className} fill={color} width={size} height={size} viewBox="0 0 24 24">
+        <path d="M2 13h16v-2H2zm0 7h20v-2H2zM2 6h20V4H2z"/>
+      </svg>
+    ),
   }
 
   return Icons[icon]();
