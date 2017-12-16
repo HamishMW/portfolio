@@ -10,14 +10,14 @@ const Header = ({menuOpen, toggleMenu}) => (
   <HeaderWrapper>
     <Transition
       in={menuOpen}
-      timeout={{enter: 0, exit: 600}}
+      timeout={{enter: 0, exit: 400}}
       mountOnEnter
       unmountOnExit
     >
       {(status) => (
         <HeaderMobileNav status={status}>
           <HeaderMobileNavLink
-            delay={350}
+            delay={250}
             status={status}
             onClick={toggleMenu}
             to="/"
@@ -25,7 +25,7 @@ const Header = ({menuOpen, toggleMenu}) => (
             Intro
           </HeaderMobileNavLink>
           <HeaderMobileNavLink
-            delay={400}
+            delay={300}
             status={status}
             onClick={toggleMenu}
             to="/"
@@ -33,7 +33,7 @@ const Header = ({menuOpen, toggleMenu}) => (
             Projects
           </HeaderMobileNavLink>
           <HeaderMobileNavLink
-            delay={450}
+            delay={350}
             status={status}
             onClick={toggleMenu}
             to="/"
@@ -81,7 +81,7 @@ const HeaderWrapper = styled.header`
   align-items: center;
   justify-content: flex-start;
   position: absolute;
-  padding: 10px 0;
+  padding: 0;
   width: 45px;
   z-index: 1024;
   top: ${props => props.theme.spacingOuter.desktop};
@@ -104,6 +104,8 @@ const HeaderWrapper = styled.header`
 const HeaderLogo = styled(Link)`
   display: flex;
   position: relative;
+  padding: 10px;
+  padding-bottom: 0;
 `;
 
 const HeaderNav = styled.nav`
@@ -125,15 +127,35 @@ const HeaderNavList = styled.div`
 `;
 
 const HeaderNavLink = styled(NavLink)`
-  margin-right: 40px;
+  padding: 20px;
   color: ${props => props.theme.colorText(0.8)};
   text-decoration: none;
   font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease 0.1s;
 
   &:hover,
   &:active,
   &:focus {
     color: ${props => props.theme.colorText(1)};
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    left: 10px;
+    height: 4px;
+    background: ${props => props.theme.colorPrimary(1)};
+    transform: scaleX(0) translateY(-2px);
+    transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+    transform-origin: right;
+  }
+
+  &:hover:after {
+    transform: scaleX(1) translateY(-2px);
+    transform-origin: left;
   }
 `;
 
@@ -154,19 +176,16 @@ const HeaderNavIcons = styled.div`
 
 const HeaderNavIconLink = styled.a`
   display: flex;
-  margin-top: 20px;
-
-  &:hover svg {
-    fill: ${props => props.theme.colorText(1)};
-  }
-
-  @media (max-width: ${Media.mobile}) {
-    padding: 10px;
-  }
+  padding: 10px;
 `;
 
 const HeaderNavIcon = styled(Icon)`
   fill: ${props => props.theme.colorText(0.6)};
+  transition: all 0.4s ease;
+
+  ${HeaderNavIconLink}:hover & {
+    fill: ${props => props.theme.colorText(1)};
+  }
 `;
 
 const HeaderMobileNav = styled.nav`
@@ -203,6 +222,8 @@ const HeaderMobileNavLink = styled(NavLink)`
   opacity: 0;
   transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
   transition-delay: ${props => props.delay}ms;
+  position: relative;
+  top: -15px;
 
   ${props => props.status === 'entered' &&`
     opacity: 1;

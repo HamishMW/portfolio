@@ -33,7 +33,7 @@ class App extends Component {
               <Route exact path="/" component={Intro} />
               <Route path="/1980" component={RetroIntro} />
             </Switch>
-            <Header menuOpen={menuOpen} toggleMenu={this.toggleMenu} />
+            <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
             <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
           </Fragment>
         </BrowserRouter>
@@ -81,6 +81,10 @@ injectGlobal`
   *:before,
   *:after {
     box-sizing: border-box;
+  }
+
+  ::selection {
+    background: ${Theme.colorPrimary(0.6)};
   }
 `;
 
