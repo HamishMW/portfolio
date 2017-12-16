@@ -33,7 +33,7 @@ class App extends Component {
               <Route exact path="/" component={Intro} />
               <Route path="/1980" component={RetroIntro} />
             </Switch>
-            <Header menuOpen={menuOpen} />
+            <Header menuOpen={menuOpen} toggleMenu={this.toggleMenu} />
             <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
           </Fragment>
         </BrowserRouter>

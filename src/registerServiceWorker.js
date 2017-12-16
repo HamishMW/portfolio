@@ -18,6 +18,8 @@ const isLocalhost = Boolean(
     )
 );
 
+const isReactSnap = Boolean(window.location.port === '45678');
+
 export default function register() {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -68,7 +70,7 @@ function registerValidSW(swUrl) {
       };
     })
     .catch(error => {
-      console.error('Error during service worker registration:', error);
+      !isReactSnap && console.error('Error during service worker registration:', error);
     });
 }
 

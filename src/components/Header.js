@@ -1,12 +1,59 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
+import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
 import Icon from '../utils/Icon';
 import { Media } from '../utils/StyleUtils';
 
-const Header = () => (
+const Header = ({menuOpen, toggleMenu}) => (
   <HeaderWrapper>
+    <Transition
+      in={menuOpen}
+      timeout={{enter: 0, exit: 600}}
+      mountOnEnter
+      unmountOnExit
+    >
+      {(status) => (
+        <HeaderMobileNav status={status}>
+          <HeaderMobileNavLink
+            delay={350}
+            status={status}
+            onClick={toggleMenu}
+            to="/"
+          >
+            Intro
+          </HeaderMobileNavLink>
+          <HeaderMobileNavLink
+            delay={400}
+            status={status}
+            onClick={toggleMenu}
+            to="/"
+          >
+            Projects
+          </HeaderMobileNavLink>
+          <HeaderMobileNavLink
+            delay={450}
+            status={status}
+            onClick={toggleMenu}
+            to="/"
+          >
+            Details
+          </HeaderMobileNavLink>
+          <HeaderNavIcons>
+            <HeaderNavIconLink href="https://twitter.com/hamishMW">
+              <HeaderNavIcon icon="twitter" />
+            </HeaderNavIconLink>
+            <HeaderNavIconLink href="https://dribbble.com/hamishw">
+              <HeaderNavIcon icon="dribbble" />
+            </HeaderNavIconLink>
+            <HeaderNavIconLink href="mailto:hello@hamishw.com">
+              <HeaderNavIcon icon="email" />
+            </HeaderNavIconLink>
+          </HeaderNavIcons>
+        </HeaderMobileNav>
+      )}
+    </Transition>
     <HeaderLogo to="/"><Monogram /></HeaderLogo>
     <HeaderNav>
       <HeaderNavList>
@@ -36,6 +83,7 @@ const HeaderWrapper = styled.header`
   position: absolute;
   padding: 10px 0;
   width: 45px;
+  z-index: 1024;
   top: ${props => props.theme.spacingOuter.desktop};
   left: ${props => props.theme.spacingOuter.desktop};
   bottom: ${props => props.theme.spacingOuter.desktop};
@@ -55,6 +103,7 @@ const HeaderWrapper = styled.header`
 
 const HeaderLogo = styled(Link)`
   display: flex;
+  position: relative;
 `;
 
 const HeaderNav = styled.nav`
@@ -93,6 +142,14 @@ const HeaderNavIcons = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: ${Media.mobile}) {
+    flex-direction: row;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 const HeaderNavIconLink = styled.a`
@@ -102,10 +159,55 @@ const HeaderNavIconLink = styled.a`
   &:hover svg {
     fill: ${props => props.theme.colorText(1)};
   }
+
+  @media (max-width: ${Media.mobile}) {
+    padding: 10px;
+  }
 `;
 
 const HeaderNavIcon = styled(Icon)`
   fill: ${props => props.theme.colorText(0.6)};
+`;
+
+const HeaderMobileNav = styled.nav`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: ${props => props.theme.colorBackground(0.9)};
+  transform: translate3d(100%, 0, 0);
+  transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  ${props => props.status === 'entered' &&`
+    transform: translate3d(0, 0, 0);
+  `}
+
+  @media (max-width: ${Media.mobile}) {
+    display: flex;
+  }
+`;
+
+const HeaderMobileNavLink = styled(NavLink)`
+  width: 100%;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  color: ${props => props.theme.colorText(1)};
+  padding: 20px;
+  transform: translate3d(0, -30px, 0);
+  opacity: 0;
+  transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
+  transition-delay: ${props => props.delay}ms;
+
+  ${props => props.status === 'entered' &&`
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  `}
 `;
 
 export default Header;
