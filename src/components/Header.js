@@ -211,7 +211,9 @@ const HeaderMobileNav = styled.nav`
   }
 `;
 
-const HeaderMobileNavLink = styled(NavLink)`
+const HeaderMobileNavLink = styled(NavLink).attrs({
+	active: 'active',
+})`
   width: 100%;
   font-size: 24px;
   text-align: center;

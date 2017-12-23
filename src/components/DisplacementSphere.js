@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as TWEEN from '@tweenjs/tween.js';
 import VertShader from '../shaders/SphereVertShader';
 import FragmentShader from '../shaders/SphereFragmentShader';
 import { Media } from '../utils/StyleUtils';
@@ -11,7 +12,8 @@ class DisplacementSphere {
   constructor(container, props) {
     this.container = container;
     this.props = props;
-    this.mouse = {x: 0, y: 0};
+    this.mouse = new THREE.Vector2(0.8, 0.5);
+    this.animating = false;
 
     this.renderer = new THREE.WebGLRenderer();
     this.camera = new THREE.PerspectiveCamera( 55, width / height, 0.1, 5000 );
@@ -56,7 +58,7 @@ class DisplacementSphere {
 
     this.container.appendChild(this.renderer.domElement);
     window.addEventListener('resize', this.onWindowResize, false);
-    // window.addEventListener('mousemove', this.onMouseMove, false);
+    window.addEventListener('mousemove', this.onMouseMove, false);
     this.onWindowResize();
     this.animate();
   }
@@ -81,14 +83,15 @@ class DisplacementSphere {
   }
 
   onMouseMove = (e) => {
-    const speed = 0.005;
-    // this.camera.position.x += Math.max(Math.min((e.clientX - this.mouse.x) * 0.01, speed), -speed);
-    // this.camera.position.y += Math.max(Math.min((this.mouse.y - e.clientY) * 0.01, speed), -speed);
-    this.sphere.rotation.y += Math.max(Math.min((e.clientX - this.mouse.x) * 0.001, speed), -speed);
-    this.sphere.rotation.x += Math.max(Math.min((this.mouse.y - e.clientY) * 0.001, speed), -speed);
+    this.mouse.y = e.clientY / window.innerHeight;
+    this.mouse.x = e.clientX / window.innerWidth;
 
-    this.mouse.x = e.clientX;
-    this.mouse.y = e.clientY;
+    this.sphereTween = new TWEEN.Tween(this.sphere.rotation)
+      .to({x: this.mouse.y / 2, y: this.mouse.x / 2}, 2000)
+      .onStart(() => this.animating = true)
+      .onComplete(() => this.animating = false)
+      .easing(TWEEN.Easing.Quartic.Out)
+      .start();
   }
 
   animate = () => {
@@ -97,11 +100,9 @@ class DisplacementSphere {
   }
 
   render = () => {
+    TWEEN.update();
     this.uniforms.time.value = .00005 * (Date.now() - start);
-  	this.sphere.rotation.y += 0.001;
-  	this.sphere.rotation.z += 0.001;
-  	this.sphere.rotation.x += 0.001;
-
+    this.sphere.rotation.z += 0.001;
     this.renderer.render(this.scene, this.camera);
   }
 }
