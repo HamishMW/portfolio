@@ -2,23 +2,59 @@ import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import DisplacementSphere from '../components/DisplacementSphere';
+import DecoderText from '../components/DecoderText';
+import Button from '../components/Button';
 import { Media } from '../utils/StyleUtils';
+import projectSpr from '../assets/project-spr.png';
+import projectSprLarge from '../assets/project-spr-large.png';
 const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
-
 const Fragment = React.Fragment;
 
 class Intro extends Component {
   state = {
     disciplineIndex: 0,
+    hideScrollIndicator: false,
+    scrollY: 0,
+    currentSection: null,
   }
 
   componentDidMount() {
     const threeCanvas = this.threeCanvas;
-    const props = {};
-    const sphere = new DisplacementSphere(threeCanvas, props);
-    sphere.init();
+    const sphere = new DisplacementSphere(threeCanvas);
+    requestAnimationFrame(() => sphere.init());
     this.switchDiscipline();
+    window.addEventListener('scroll', this.handleScroll);
+    this.setState({currentSection: this.intro});
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = (event) => {
+    const scrollY = window.scrollY;
+    const revealSections = [this.intro, this.projectOne, this.projectTwo];
+
+    if (scrollY >= 50) {
+      this.setState({hideScrollIndicator: true});
+    } else {
+      this.setState({hideScrollIndicator: false});
+    }
+
+    for (const section of revealSections) {
+      const showSection = this.isInViewport(section);
+      if (showSection) this.setState({currentSection: section});
+    }
+
+    this.setState({scrollY});
+  }
+
+  isInViewport = (elem) => {
+    const bounding = elem.getBoundingClientRect();
+    return (
+      bounding.top <= window.innerHeight * 0.8 && bounding.top >= 0
+    );
+  };
 
   switchDiscipline = () => {
     setInterval(() => {
@@ -32,56 +68,103 @@ class Intro extends Component {
   }
 
   render() {
-    const { disciplineIndex } = this.state;
+    const { disciplineIndex, hideScrollIndicator, currentSection } = this.state;
 
     return (
-      <IntroWrapper>
-        <Transition in={true} appear timeout={3000}>
-          {(appearStatus) => (
-            <Fragment>
-              <IntroBackground
-                innerRef={canvas => this.threeCanvas = canvas}
-                status={appearStatus}
-              />
-              <IntroText>
-                <IntroName>Hamish Williams</IntroName>
-                <IntroTitle>
-                  <IntroTitleRow>
-                    <IntroTitleWord status={appearStatus} delay="0.2s">Designer</IntroTitleWord>
-                    <IntroTitleLine status={appearStatus} />
-                  </IntroTitleRow>
-                  <TransitionGroup component={IntroTitleRow}>
-                    {disciplines.map((item, index) => (
-                      <Transition
-                        appear
-                        timeout={{enter: 3000, exit: 2000}}
-                        key={`${item}_${index}`}
-                        mountOnEnter
-                        unmountOnExit
-                      >
-                        {(status) => (
-                          <IntroTitleWord
-                            plus
-                            delay="0.5s"
-                            status={status}
-                          >
-                            {item}
-                          </IntroTitleWord>
-                        )}
-                      </Transition>
-                    )).filter((item, index) => index === disciplineIndex)}
-                  </TransitionGroup>
-                </IntroTitle>
-              </IntroText>
-            </Fragment>
-          )}
-        </Transition>
-      </IntroWrapper>
+      <Container>
+        <IntroContent innerRef={(section) => this.intro = section}>
+          <Transition
+            in={true}
+            appear
+            timeout={3000}
+          >
+            {(appearStatus) => (
+              <Fragment>
+                <IntroBackground
+                  innerRef={canvas => this.threeCanvas = canvas}
+                  status={appearStatus}
+                />
+                <IntroText>
+                  <IntroName>
+                    <DecoderText text="Hamish Williams" />
+                  </IntroName>
+                  <IntroTitle>
+                    <IntroTitleRow>
+                      <IntroTitleWord status={appearStatus} delay="0.2s">Designer</IntroTitleWord>
+                      <IntroTitleLine status={appearStatus} />
+                    </IntroTitleRow>
+                    <TransitionGroup component={IntroTitleRow}>
+                      {disciplines.map((item, index) => (
+                        <Transition
+                          appear
+                          timeout={{enter: 3000, exit: 2000}}
+                          key={`${item}_${index}`}
+                          mountOnEnter
+                          unmountOnExit
+                        >
+                          {(status) => (
+                            <IntroTitleWord
+                              plus
+                              delay="0.5s"
+                              status={status}
+                            >
+                              {item}
+                            </IntroTitleWord>
+                          )}
+                        </Transition>
+                      )).filter((item, index) => index === disciplineIndex)}
+                    </TransitionGroup>
+                  </IntroTitle>
+                </IntroText>
+                <ScrollIndicator isHidden={hideScrollIndicator} status={appearStatus} />
+              </Fragment>
+            )}
+          </Transition>
+        </IntroContent>
+        <ProjectSection innerRef={(project) => this.projectOne = project}>
+          <Transition
+            in={currentSection === this.projectOne}
+            timeout={400}
+          >
+            {(status) => (
+              <Fragment>
+                <ProjectDetails status={status}>
+                  <ProjectIndex>01</ProjectIndex>
+                  <ProjectTitle>Designing the future of education</ProjectTitle>
+                  <ProjectDescription>
+                    A description for this work example to prompt
+                    clicking a link to learn more
+                  </ProjectDescription>
+                  <Button icon="arrowRight">View Project</Button>
+                </ProjectDetails>
+                <ProjectPreview>
+                  <ProjectImageLaptop
+                    status={status}
+                    srcSet={`${projectSpr} 1x, ${projectSprLarge} 2x`}
+                    alt="Smart Sparrow Lesson author"
+                  />
+                </ProjectPreview>
+              </Fragment>
+            )}
+          </Transition>
+        </ProjectSection>
+        <ProjectSection innerRef={(project) => this.projectTwo = project}>
+          Ayy lmao
+        </ProjectSection>
+      </Container>
     );
   }
 }
 
-const IntroWrapper = styled.main`
+const Container = styled.main`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+`;
+
+const IntroContent = styled.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -108,7 +191,7 @@ const AnimBackgroundFade = keyframes`
 `;
 
 const IntroBackground = styled.section`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -149,14 +232,26 @@ const IntroText = styled.section`
   }
 `;
 
+const Fade = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
 const IntroName = styled.h2`
   text-transform: uppercase;
   font-size: 24px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   color: ${props => props.theme.colorText(0.8)};
   margin-bottom: 60px;
   margin-top: 0;
   font-weight: 500;
+  line-height: 1;
+  opacity: 0;
+  animation: ${Fade} 0.5s ease 0.2s forwards;
 
   @media (max-width: 860px) {
     font-size: 18px;
@@ -165,6 +260,16 @@ const IntroName = styled.h2`
 
   @media (max-width: 600px) {
     margin-bottom: 25px;
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .code {
+    opacity: 0.8;
+    font-weight: 400;
+    font-family: 'Hiragino Sans', sans-serif;
+    line-height: 0;
   }
 `;
 
@@ -326,6 +431,174 @@ const IntroTitleLine = styled.div`
     transform: scaleX(1);
     opacity: 1;
   `}
+`;
+
+const AnimScrollIndicator = keyframes`
+  0% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  40% {
+    transform: translate3d(-1px, 8px, 0);
+  }
+  60% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  100% {
+    transform: translate3d(-1px, 0, 0);
+  }
+`;
+
+const ScrollIndicator = styled.div`
+  border: 2px solid ${props => props.theme.colorWhite(0.4)};
+  border-radius: 20px;
+  width: 22px;
+  height: 32px;
+  position: fixed;
+  bottom: 64px;
+  transition: all 0.4s ease;
+  opacity: 0;
+
+  ${props => props.status === 'entered' &&`
+    opacity: 1;
+  `}
+
+  ${props => props.isHidden &&`
+    opacity: 0;
+    transform: translateY(20px);
+  `}
+
+  &:before {
+    content: '';
+    height: 6px;
+    width: 2px;
+    background: ${props => props.theme.colorWhite(0.4)};
+    border-radius: 4px;
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-1px);
+    animation: ${AnimScrollIndicator} 1.2s ease infinite;
+  }
+`;
+
+const ProjectSection = styled.section`
+  height: 100vh;
+  top: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 220px;
+
+  @media (max-width: ${Media.tablet}) {
+    padding-left: 160px;
+    padding-right: 80px;
+    flex-direction: column-reverse;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  @media (max-width: ${Media.mobile}) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+`;
+
+const ProjectDetails = styled.div`
+  flex: 0 0 410px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  ${props => props.status === 'entering' &&`
+    transition-delay: 0.2s;
+    opacity: 1;
+  `}
+
+  ${props => props.status === 'entered' &&`
+    opacity: 1;
+  `}
+
+  @media (max-width: ${Media.tablet}) {
+    flex: 0 0 auto;
+    max-width: 410px;
+  }
+`;
+
+const ProjectPreview = styled.div`
+  flex: 0 1 auto;
+  overflow: hidden;
+`;
+
+const ProjectIndex = styled.div`
+  font-size: 16px;
+  font-weight: 800;
+  color: ${props => props.theme.colorPrimary(1)};
+  position: relative;
+  display: flex;
+  margin-bottom: 32px;
+
+  &:before {
+    content: '';
+    position: relative;
+    display: block;
+    height: 2px;
+    background: ${props => props.theme.colorPrimary(1)};
+    width: 96px;
+    top: 6px;
+    margin-right: 15px;
+  }
+`;
+
+const ProjectTitle = styled.h2`
+  font-size: 42px;
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 16px;
+  padding: 0;
+  color: ${props => props.theme.colorText(1)};
+
+  @media (max-width: ${Media.mobile}) {
+    font-size: 28px;
+  }
+`;
+
+const ProjectDescription = styled.p`
+  font-size: 18px;
+  line-height: 1.4;
+  color: ${props => props.theme.colorText(0.8)};
+  margin-bottom: 38px;
+
+  @media (max-width: ${Media.mobile}) {
+    font-size: 16px;
+  }
+`;
+
+const ProjectImageLaptop = styled.img`
+  width: 140%;
+  transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
+  transform: translate3d(10%, 0, 0);
+  opacity: 0;
+
+  ${props => props.status === 'entering' &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    transition-delay: 0.4s;
+    transition-duration: 1s;
+  `}
+
+  ${props => props.status === 'entered' &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
+
+  @media (max-width: ${Media.tablet}) {
+    width: 100%;
+    margin-bottom: 60px;
+  }
+
+  @media (max-width: ${Media.mobile}) {
+    margin-bottom: 30px;
+  }
 `;
 
 export default Intro;

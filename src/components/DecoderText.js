@@ -1,0 +1,121 @@
+import React, { PureComponent } from 'react';
+
+export default class DecoderText extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    const { text } = this.props;
+
+    this.content = text.split('');
+    this.startTime = 0;
+    this.elapsedTime = 0;
+    this.running = false;
+    this.timeOffset = 100;
+    this.fps = 25;
+    this.chars = [
+      'ア', 'イ', 'ウ', 'エ', 'オ',
+      'カ', 'キ', 'ク', 'ケ', 'コ',
+      'サ', 'シ', 'ス', 'セ', 'ソ',
+      'タ', 'チ', 'ツ', 'テ', 'ト',
+      'ナ', 'ニ', 'ヌ', 'ネ', 'ノ',
+      'ハ', 'ヒ', 'フ', 'ヘ', 'ホ',
+      'マ', 'ミ', 'ム', 'メ', 'モ',
+      'ヤ', 'ユ', 'ヨ', 'ー',
+      'ラ', 'リ', 'ル', 'レ', 'ロ',
+      'ワ', 'ヰ', 'ヱ', 'ヲ', 'ン',
+      'ガ', 'ギ', 'グ', 'ゲ', 'ゴ',
+      'ザ', 'ジ', 'ズ', 'ゼ', 'ゾ',
+      'ダ', 'ヂ', 'ヅ', 'デ', 'ド',
+      'バ', 'ビ', 'ブ', 'ベ', 'ボ',
+      'パ', 'ピ', 'プ', 'ペ', 'ポ',
+    ];
+
+    this.state = {
+      position: 0,
+      output: [{type: 'code', value: '_'}],
+    }
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.start();
+    }, 500);
+  }
+
+  start = () => {
+    this.startTime = Date.now();
+    this.elapsedTime = 0;
+    this.running = true;
+    this.anim();
+  }
+
+  stop = () => {
+    this.running = false;
+  }
+
+  anim = () => {
+    const { position } = this.state;
+  	const elapsedTime = Date.now() - this.startTime;
+  	const deltaTime = elapsedTime - this.elapsedTime;
+  	const needsUpdate = 1000 / this.fps <= deltaTime;
+
+  	if (!needsUpdate) {
+  		requestAnimationFrame(this.anim);
+  		return;
+  	}
+
+  	this.elapsedTime = elapsedTime;
+    this.setState({position: (this.elapsedTime / this.timeOffset) | 0});
+
+  	if (!this.running) return;
+
+  	if (position > this.content.length) {
+  		this.running = false;
+  		return;
+  	}
+
+  	requestAnimationFrame(this.anim);
+
+  	const textArray = this.shuffle(this.content, this.chars, position);
+    this.setState({output: textArray});
+  }
+
+  shuffle = (content, chars, position) => {
+  	const textArray = [];
+
+  	for (let i = 0, l = content.length; i < l; i ++) {
+  		if (i < position) {
+  			textArray.push({type: 'actual', value: content[i]});
+  			continue;
+  		}
+
+  		textArray.push({type: 'code', value: this.getRandCharacter(chars)});
+  	}
+
+  	return textArray;
+  }
+
+
+  getRandCharacter = (chars) => {
+  	const randNum = Math.floor(Math.random() * chars.length);
+  	const lowChoice =	- .5 + Math.random();
+  	const picketCharacter = chars[randNum];
+  	const chosen = lowChoice < 0 ? picketCharacter.toLowerCase() : picketCharacter;
+  	return chosen;
+  }
+
+  render() {
+    const { output } = this.state;
+    return (
+      <React.Fragment>
+        {output.map((item, index) => {
+          if (item.type === 'actual') {
+            return <span key={`${item.value}_${index}`} className="actual">{item.value}</span>
+          } else {
+            return <span key={`${item.value}_${index}`} className="code">{item.value}</span>
+          }
+        })}
+      </React.Fragment>
+    );
+  }
+}

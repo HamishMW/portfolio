@@ -24,6 +24,11 @@ const Icon = (props) => {
         <path d="M2 13h16v-2H2zm0 7h20v-2H2zM2 6h20V4H2z"/>
       </svg>
     ),
+    arrowRight: () => (
+      <svg className={className} fill={color} width={size} height={size}>
+        <path d="M3 11h14.17l-3.58-3.59L15 6l6 6-6 6-1.41-1.41L17.17 13H3z"/>
+      </svg>
+    ),
   }
 
   return Icons[icon]();

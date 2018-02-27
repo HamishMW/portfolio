@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import * as TWEEN from '@tweenjs/tween.js';
+import { Tween, Easing, autoPlay } from 'es6-tween';
 import VertShader from '../shaders/TerrainVertShader';
 import FragmentShader from '../shaders/TerrainFragmentShader';
 
@@ -30,6 +30,8 @@ class DisplacementTerrain {
     });
 
     this.terrain = new Terrain(this.scene);
+
+    autoPlay(true);
   }
 
   init = () => {
@@ -56,8 +58,8 @@ class DisplacementTerrain {
     this.tetraTarget = {z: 4.8, y: 0.8};
     this.tetraMesh.position.z = this.tetraPosition.z;
     this.tetraMesh.position.y = this.tetraPosition.y;
-    this.tetraTween = new TWEEN.Tween(this.tetraPosition).to(this.tetraTarget, 2000);
-    this.tetraTween.easing(TWEEN.Easing.Quartic.InOut);
+    this.tetraTween = new Tween(this.tetraPosition).to(this.tetraTarget, 2000);
+    this.tetraTween.easing(Easing.Quartic.InOut);
 
     this.tetraTween.onUpdate(() => {
       this.tetraMesh.position.z = this.tetraPosition.z;
@@ -83,7 +85,6 @@ class DisplacementTerrain {
   }
 
   render = () => {
-    TWEEN.update();
     this.terrain.update();
     this.tetraMesh.rotation.x += 0.005;
     this.tetraMesh.rotation.y += 0.005;

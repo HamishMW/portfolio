@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { injectGlobal, ThemeProvider } from 'styled-components';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Intro from '../screens/Intro';
-import RetroIntro from '../screens/RetroIntro';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import Theme from '../utils/Theme';
@@ -31,7 +30,6 @@ class App extends Component {
           <Fragment>
             <Switch>
               <Route exact path="/" component={Intro} />
-              <Route path="/1980" component={RetroIntro} />
             </Switch>
             <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
             <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />

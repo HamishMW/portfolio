@@ -16,7 +16,7 @@ const NavToggleButton = styled.button`
   border: 0;
   padding: 0;
   margin: 0;
-  position: absolute;
+  position: fixed;
   top: ${props => props.theme.spacingOuter.mobile};
   right: ${props => props.theme.spacingOuter.mobile};
   margin: 5px 5px 0 0;

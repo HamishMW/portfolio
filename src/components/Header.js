@@ -10,7 +10,7 @@ const Header = ({menuOpen, toggleMenu}) => (
   <HeaderWrapper>
     <Transition
       in={menuOpen}
-      timeout={{enter: 0, exit: 400}}
+      timeout={{enter: 5, exit: 400}}
       mountOnEnter
       unmountOnExit
     >
@@ -80,7 +80,7 @@ const HeaderWrapper = styled.header`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  position: absolute;
+  position: fixed;
   padding: 0;
   width: 45px;
   z-index: 1024;
@@ -153,7 +153,9 @@ const HeaderNavLink = styled(NavLink)`
     transform-origin: right;
   }
 
-  &:hover:after {
+  &:hover:after,
+  &:active:after,
+  &:focus:after {
     transform: scaleX(1) translateY(-2px);
     transform-origin: left;
   }
@@ -184,7 +186,7 @@ const HeaderNavIcon = styled(Icon)`
   transition: all 0.4s ease;
 
   ${HeaderNavIconLink}:hover & {
-    fill: ${props => props.theme.colorText(1)};
+    fill: ${props => props.theme.colorPrimary(1)};
   }
 `;
 
@@ -231,6 +233,26 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     opacity: 1;
     transform: translate3d(0, 0, 0);
   `}
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 60px;
+    left: 60px;
+    height: 4px;
+    background: ${props => props.theme.colorPrimary(1)};
+    transform: scaleX(0) translateY(-2px);
+    transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+    transform-origin: right;
+  }
+
+  &:hover:after,
+  &:active:after,
+  &:focus:after {
+    transform: scaleX(1) translateY(-2px);
+    transform-origin: left;
+  }
 `;
 
 export default Header;
