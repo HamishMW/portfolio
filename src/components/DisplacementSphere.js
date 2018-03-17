@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { Easing, Tween, autoPlay } from 'es6-tween';
+import innerHeight from 'ios-inner-height';
 import VertShader from '../shaders/SphereVertShader';
 import FragmentShader from '../shaders/SphereFragmentShader';
 import { Media } from '../utils/StyleUtils';
@@ -67,9 +68,22 @@ class DisplacementSphere {
   onWindowResize = () => {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
-    this.camera.aspect = windowWidth / windowHeight;
+    const ua = window.navigator.userAgent;
+    const iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+    const webkit = !!ua.match(/WebKit/i);
+    const iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
+
+    if (iOSSafari) {
+      const fullHeight = innerHeight();
+      this.container.style.height = fullHeight;
+      this.renderer.setSize(windowWidth, fullHeight);
+      this.camera.aspect = windowWidth / fullHeight;
+    } else {
+      this.renderer.setSize(windowWidth, windowHeight);
+      this.camera.aspect = windowWidth / windowHeight;
+    }
+
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(windowWidth, windowHeight);
 
     if (windowWidth <= Media.numMobile) {
       this.sphere.position.x = 16;

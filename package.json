@@ -9,8 +9,7 @@
   },
   "dependencies": {
     "es6-tween": "^5.1.0",
-    "glsl-noise": "^0.0.0",
-    "glslify": "^6.1.0",
+    "ios-inner-height": "^1.0.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-google-tag-manager": "^2.2.1",

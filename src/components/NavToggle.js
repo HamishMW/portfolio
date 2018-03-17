@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import Icon from '../utils/Icon';
 import { Media } from '../utils/StyleUtils';
 
-const NavToggle = ({onClick}) => (
-  <NavToggleButton onClick={onClick}>
+const NavToggle = ({onClick, menuOpen}) => (
+  <NavToggleButton aria-label="Menu" onClick={onClick}>
     <NavToggleInner>
-      <Icon icon="menu" color="white" />
+      <NavToggleIcon open={menuOpen} icon="menu" size={32} color="white" />
+      <NavToggleIcon open={menuOpen} icon="close" size={32} color="white" />
     </NavToggleInner>
   </NavToggleButton>
 );
@@ -21,16 +22,16 @@ const NavToggleButton = styled.button`
   right: ${props => props.theme.spacingOuter.mobile};
   margin: 5px 5px 0 0;
   display: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+  width: 48px;
+  height: 48px;
   transition: all 0.4s ease;
   z-index: 1024;
+  clip-path: ${props => props.theme.clipPath(8)};
 
   &:hover,
   &:focus,
   &:active {
-    background: ${props => props.theme.colorWhite(0.2)};
+    background: ${props => props.theme.colorBlack(0.2)};
     outline: none;
   }
 
@@ -45,6 +46,32 @@ const NavToggleInner = styled.div`
   justify-content: center;
   height: 100%;
   width: 100%;
+`;
+
+const NavToggleIcon = styled(Icon)`
+  position: absolute;
+  transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
+  transition-delay: 0.1s;
+  opacity: 1;
+  transform: rotate(0deg);
+
+  ${props => props.icon === 'close' &&`
+    transition-delay: 0s;
+    transform: rotate(-45deg);
+    opacity: 0;
+  `}
+
+  ${props => props.open && props.icon === 'close' &&`
+    transition-delay: 0.1s;
+    transform: rotate(0deg);
+    opacity: 1;
+  `}
+
+  ${props => props.open && props.icon === 'menu' &&`
+    transition-delay: 0s;
+    transform: rotate(45deg);
+    opacity: 0;
+  `}
 `;
 
 export default NavToggle;

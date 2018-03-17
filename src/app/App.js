@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { injectGlobal, ThemeProvider } from 'styled-components';
+import styled, { injectGlobal, ThemeProvider } from 'styled-components';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Intro from '../screens/Intro';
+import Home from '../screens/Home';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import Theme from '../utils/Theme';
@@ -28,11 +28,14 @@ class App extends Component {
       <ThemeProvider theme={Theme}>
         <BrowserRouter>
           <Fragment>
-            <Switch>
-              <Route exact path="/" component={Intro} />
-            </Switch>
+            <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
             <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
             <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
+            <MainContent id="MainContent">
+              <Switch>
+                <Route exact path="/" render={() => <Home />} />
+              </Switch>
+            </MainContent>
           </Fragment>
         </BrowserRouter>
       </ThemeProvider>
@@ -83,6 +86,43 @@ injectGlobal`
 
   ::selection {
     background: ${Theme.colorPrimary(0.6)};
+  }
+`;
+
+const MainContent = styled.main`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+`;
+
+const SkipToMain = styled.a`
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  color: ${props => props.theme.colorBackground(1)};
+  z-index: 99;
+  transform: translate3d(-50%, -40px, 0);
+  transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+  background: ${props => props.theme.colorPrimary(1)};
+  padding: 8px 16px;
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 1;
+  clip-path: ${props => props.theme.clipPath(8)};
+
+  &:focus {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    width: auto;
+    height: auto;
+    outline: none;
+    transform: translate3d(-50%, 0, 0);
   }
 `;
 

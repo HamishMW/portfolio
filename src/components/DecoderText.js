@@ -1,4 +1,12 @@
 import React, { PureComponent } from 'react';
+import styled from 'styled-components';
+
+const Code = styled.span`
+  opacity: 0.8;
+  font-weight: 400;
+  font-family: 'Hiragino Sans', sans-serif;
+  line-height: 0;
+`;
 
 export default class DecoderText extends PureComponent {
   constructor(props) {
@@ -105,17 +113,19 @@ export default class DecoderText extends PureComponent {
   }
 
   render() {
+    const { text } = this.props;
     const { output } = this.state;
+
     return (
-      <React.Fragment>
+      <span aria-label={text}>
         {output.map((item, index) => {
           if (item.type === 'actual') {
-            return <span key={`${item.value}_${index}`} className="actual">{item.value}</span>
+            return <span key={`${item.value}_${index}`} aria-hidden="true">{item.value}</span>
           } else {
-            return <span key={`${item.value}_${index}`} className="code">{item.value}</span>
+            return <Code key={`${item.value}_${index}`} aria-hidden="true">{item.value}</Code>
           }
         })}
-      </React.Fragment>
+      </span>
     );
   }
 }

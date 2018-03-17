@@ -6,6 +6,20 @@ import Monogram from './Monogram';
 import Icon from '../utils/Icon';
 import { Media } from '../utils/StyleUtils';
 
+const HeaderIcons = () => (
+  <HeaderNavIcons>
+    <HeaderNavIconLink aria-label="Twitter" href="https://twitter.com/hamishMW">
+      <HeaderNavIcon icon="twitter" />
+    </HeaderNavIconLink>
+    <HeaderNavIconLink aria-label="Dribbble" href="https://dribbble.com/hamishw">
+      <HeaderNavIcon icon="dribbble" />
+    </HeaderNavIconLink>
+    <HeaderNavIconLink aria-label="Contact" href="mailto:hello@hamishw.com">
+      <HeaderNavIcon icon="email" />
+    </HeaderNavIconLink>
+  </HeaderNavIcons>
+);
+
 const Header = ({menuOpen, toggleMenu}) => (
   <HeaderWrapper>
     <Transition
@@ -28,7 +42,7 @@ const Header = ({menuOpen, toggleMenu}) => (
             delay={300}
             status={status}
             onClick={toggleMenu}
-            to="/"
+            to="#projects"
           >
             Projects
           </HeaderMobileNavLink>
@@ -36,41 +50,23 @@ const Header = ({menuOpen, toggleMenu}) => (
             delay={350}
             status={status}
             onClick={toggleMenu}
-            to="/"
+            to="/#details"
           >
             Details
           </HeaderMobileNavLink>
-          <HeaderNavIcons>
-            <HeaderNavIconLink href="https://twitter.com/hamishMW">
-              <HeaderNavIcon icon="twitter" />
-            </HeaderNavIconLink>
-            <HeaderNavIconLink href="https://dribbble.com/hamishw">
-              <HeaderNavIcon icon="dribbble" />
-            </HeaderNavIconLink>
-            <HeaderNavIconLink href="mailto:hello@hamishw.com">
-              <HeaderNavIcon icon="email" />
-            </HeaderNavIconLink>
-          </HeaderNavIcons>
+          <HeaderIcons />
         </HeaderMobileNav>
       )}
     </Transition>
-    <HeaderLogo to="/"><Monogram /></HeaderLogo>
+    <HeaderLogo to="/" aria-label="Hamish Williams Designer, back to home">
+      <Monogram />
+    </HeaderLogo>
     <HeaderNav>
       <HeaderNavList>
         <HeaderNavLink to="/">Projects</HeaderNavLink>
         <HeaderNavLink to="/">Details</HeaderNavLink>
       </HeaderNavList>
-      <HeaderNavIcons>
-        <HeaderNavIconLink href="https://twitter.com/hamishMW">
-          <HeaderNavIcon icon="twitter" />
-        </HeaderNavIconLink>
-        <HeaderNavIconLink href="https://dribbble.com/hamishw">
-          <HeaderNavIcon icon="dribbble" />
-        </HeaderNavIconLink>
-        <HeaderNavIconLink href="mailto:hello@hamishw.com">
-          <HeaderNavIcon icon="email" />
-        </HeaderNavIconLink>
-      </HeaderNavIcons>
+      <HeaderIcons />
     </HeaderNav>
   </HeaderWrapper>
 );
