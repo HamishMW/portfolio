@@ -20,7 +20,7 @@ const NavToggleButton = styled.button`
   position: fixed;
   top: ${props => props.theme.spacingOuter.mobile};
   right: ${props => props.theme.spacingOuter.mobile};
-  margin: 5px 5px 0 0;
+  margin: 4px 0 0 0;
   display: none;
   width: 48px;
   height: 48px;
@@ -35,7 +35,7 @@ const NavToggleButton = styled.button`
     outline: none;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     display: block;
   }
 `;

@@ -76,6 +76,8 @@ injectGlobal`
     color: ${Theme.colorText(1)};
     border: 0;
     margin: 0;
+    overflow-x: hidden;
+    width: 100vw;
   }
 
   *,
@@ -85,7 +87,7 @@ injectGlobal`
   }
 
   ::selection {
-    background: ${Theme.colorPrimary(0.6)};
+    background: ${Theme.colorPrimary(1)};
   }
 `;
 

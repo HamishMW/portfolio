@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, NavLink } from 'react-router-dom';
+import { NavHashLink as NavLink, HashLink as Link } from 'react-router-hash-link';
 import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
 import Icon from '../utils/Icon';
@@ -31,22 +31,25 @@ const Header = ({menuOpen, toggleMenu}) => (
       {(status) => (
         <HeaderMobileNav status={status}>
           <HeaderMobileNavLink
+            smooth
             delay={250}
             status={status}
             onClick={toggleMenu}
-            to="/"
+            to="/#intro"
           >
             Intro
           </HeaderMobileNavLink>
           <HeaderMobileNavLink
+            smooth
             delay={300}
             status={status}
             onClick={toggleMenu}
-            to="#projects"
+            to="/#projects"
           >
             Projects
           </HeaderMobileNavLink>
           <HeaderMobileNavLink
+            smooth
             delay={350}
             status={status}
             onClick={toggleMenu}
@@ -58,13 +61,13 @@ const Header = ({menuOpen, toggleMenu}) => (
         </HeaderMobileNav>
       )}
     </Transition>
-    <HeaderLogo to="/" aria-label="Hamish Williams Designer, back to home">
+    <HeaderLogo to="/#intro" smooth aria-label="Hamish Williams Designer, back to home">
       <Monogram />
     </HeaderLogo>
     <HeaderNav>
       <HeaderNavList>
-        <HeaderNavLink to="/">Projects</HeaderNavLink>
-        <HeaderNavLink to="/">Details</HeaderNavLink>
+        <HeaderNavLink to="/#projects" smooth>Projects</HeaderNavLink>
+        <HeaderNavLink to="/#details" smooth>Details</HeaderNavLink>
       </HeaderNavList>
       <HeaderIcons />
     </HeaderNav>
@@ -90,7 +93,7 @@ const HeaderWrapper = styled.header`
     bottom: ${props => props.theme.spacingOuter.tablet};
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     top: ${props => props.theme.spacingOuter.mobile};
     left: ${props => props.theme.spacingOuter.mobile};
     bottom: ${props => props.theme.spacingOuter.mobile};
@@ -111,7 +114,7 @@ const HeaderNav = styled.nav`
   align-items: center;
   flex: 1 1 auto;
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     display: none;
   }
 `;
@@ -132,7 +135,8 @@ const HeaderNavLink = styled(NavLink)`
 
   &:hover,
   &:active,
-  &:focus {
+  &:focus,
+  &.active {
     color: ${props => props.theme.colorText(1)};
   }
 
@@ -151,7 +155,8 @@ const HeaderNavLink = styled(NavLink)`
 
   &:hover:after,
   &:active:after,
-  &:focus:after {
+  &:focus:after,
+  &.active:after {
     transform: scaleX(1) translateY(-2px);
     transform-origin: left;
   }
@@ -163,7 +168,7 @@ const HeaderNavIcons = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     flex-direction: row;
     position: absolute;
     bottom: 30px;
@@ -204,7 +209,7 @@ const HeaderMobileNav = styled.nav`
     transform: translate3d(0, 0, 0);
   `}
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     display: flex;
   }
 `;

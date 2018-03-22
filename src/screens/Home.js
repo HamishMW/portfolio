@@ -5,6 +5,10 @@ import Intro from '../components/Intro';
 import Project from '../components/Project';
 import projectSpr from '../assets/project-spr.png';
 import projectSprLarge from '../assets/project-spr-large.png';
+import gamestackLogin from '../assets/gamestack-login.jpg';
+import gamestackLoginLarge from '../assets/gamestack-login-large.jpg';
+import gamestackList from '../assets/gamestack-list.jpg';
+import gamestackListLarge from '../assets/gamestack-list-large.jpg';
 const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
 
 export default class Home extends Component {
@@ -75,6 +79,7 @@ export default class Home extends Component {
     return (
       <HomeContainer>
         <Intro
+          id="intro"
           sectionRef={section => this.intro = section}
           threeCanvas={canvas => this.threeCanvas = canvas}
           disciplines={disciplines}
@@ -82,26 +87,33 @@ export default class Home extends Component {
           hideScrollIndicator={hideScrollIndicator}
         />
         <Project
+          id="projects"
           sectionRef={section => this.projectOne = section}
           visible={visibleSections.includes(this.projectOne)}
           index="01"
           title="Designing the future of education"
           description="A description for this work example to prompt
           clicking a link to learn more"
-          imageSrc={`${projectSpr} 1x, ${projectSprLarge} 2x`}
-          imageAlt="Smart Sparrow lesson author"
+          imageSrc={[`${projectSpr} 1x, ${projectSprLarge} 2x`]}
+          imageAlt={['Smart Sparrow lesson author']}
           imageType="laptop"
         />
         <Project
           sectionRef={section => this.projectTwo = section}
           visible={visibleSections.includes(this.projectTwo)}
           index="02"
-          title="Designing the future of education"
+          title="Video game progress tracking"
           description="A description for this work example to prompt
           clicking a link to learn more"
-          imageSrc={`${projectSpr} 1x, ${projectSprLarge} 2x`}
-          imageAlt="Smart Sparrow lesson author"
-          imageType="laptop"
+          imageSrc={[
+            `${gamestackLogin} 1x, ${gamestackLoginLarge} 2x`,
+            `${gamestackList} 1x, ${gamestackListLarge} 2x`,
+          ]}
+          imageAlt={[
+            'Smart Sparrow lesson author',
+            'Smart Sparrow lesson author',
+          ]}
+          imageType="phone"
         />
     </HomeContainer>
     );

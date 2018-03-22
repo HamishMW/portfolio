@@ -7,13 +7,14 @@ import DecoderText from '../components/DecoderText';
 const Fragment = React.Fragment;
 
 const Intro = ({
+  id,
   sectionRef,
   threeCanvas,
   disciplines,
   disciplineIndex,
   hideScrollIndicator,
 }) => (
-  <IntroContent innerRef={sectionRef}>
+  <IntroContent innerRef={sectionRef} id={id}>
     <Transition
       appear
       in={true}
@@ -60,7 +61,7 @@ const Intro = ({
   </IntroContent>
 );
 
-const IntroContent = styled.div`
+const IntroContent = styled.section`
   position: absolute;
   top: 0;
   right: 0;
@@ -76,7 +77,7 @@ const IntroContent = styled.div`
     padding-left: 60px;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     padding-left: 0;
   }
 `;
@@ -86,7 +87,7 @@ const AnimBackgroundFade = keyframes`
   100% { opacity: 1; }
 `;
 
-const IntroBackground = styled.section`
+const IntroBackground = styled.div`
   position: fixed;
   width: 100vw;
   top: 0;
@@ -120,7 +121,7 @@ const IntroText = styled.section`
     padding: 0 100px;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     padding: 0 ${props => props.theme.spacingOuter.mobile};
     top: 0;
   }
@@ -147,16 +148,21 @@ const IntroName = styled.h2`
   opacity: 0;
   animation: ${Fade} 0.5s ease 0.2s forwards;
 
-  @media (max-width: 860px) {
+  @media (max-width: ${Media.tablet}) {
     font-size: 18px;
     margin-bottom: 40px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: ${Media.mobile}) {
     margin-bottom: 25px;
     letter-spacing: 0.2em;
     white-space: nowrap;
     overflow: hidden;
+  }
+
+  @media ${Media.mobileLS} {
+    margin-bottom: 20px;
+    margin-top: 30px;
   }
 `;
 
@@ -365,6 +371,10 @@ const ScrollIndicator = styled.div`
     left: 50%;
     transform: translateX(-1px);
     animation: ${AnimScrollIndicator} 1.2s ease infinite;
+  }
+
+  @media ${Media.mobileLS} {
+    display: none;
   }
 `;
 

@@ -4,9 +4,12 @@ import { TransitionGroup, Transition } from 'react-transition-group';
 import { Media } from '../utils/StyleUtils';
 import Button from '../components/Button';
 import Svg from '../utils/Svg';
+import phone from '../assets/phone.png';
+import phoneLarge from '../assets/phone-large.png';
 const Fragment = React.Fragment;
 
 const Project = ({
+  id,
   visible,
   sectionRef,
   index,
@@ -16,7 +19,7 @@ const Project = ({
   imageAlt,
   imageType,
 }) => (
-  <ProjectSection innerRef={sectionRef}>
+  <ProjectSection innerRef={sectionRef} id={id}>
     <Transition in={visible} timeout={400}>
       {(status) => (
         <Fragment>
@@ -29,8 +32,20 @@ const Project = ({
           <ProjectPreview>
             {imageType === 'laptop' &&
               <ProjectPreviewContent>
-                <ProjectImageLaptop status={status} srcSet={imageSrc} alt={imageAlt} />
+                <ProjectImageLaptop status={status} srcSet={imageSrc[0]} alt={imageAlt[0]} />
                 <ProjectImageLaptopSvg status={status} icon="projects" />
+              </ProjectPreviewContent>
+            }
+            {imageType === 'phone' &&
+              <ProjectPreviewContent>
+                {imageSrc && imageSrc.map((src, index) => (
+                  <ProjectPhone key={`img_${index}`}>
+                    <ProjectPhoneImage status={status} srcSet={imageSrc[index]} alt={imageAlt[index]} />
+                    <ProjectPhoneFrame srcSet={`${phone} 1x, ${phoneLarge} 2x`} />
+                  </ProjectPhone>
+                ))}
+
+                <ProjectPhoneImageSvg status={status} icon="projects" />
               </ProjectPreviewContent>
             }
           </ProjectPreview>
@@ -44,19 +59,29 @@ const Project = ({
 const ProjectSection = styled.section`
   height: 100vh;
   top: 100vh;
+  margin-bottom: 20vh;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  display: grid;
+  grid-template-columns: 43% 55%;
+  grid-column-gap: 2%;
   padding-left: 220px;
-  overflow: hidden;
+  padding-right: 80px;
+
+  &:nth-child(2n + 1) {
+    grid-template-columns: 55% 40%;
+  }
 
   @media (max-width: ${Media.tablet}) {
+    grid-template-columns: 100%;
     padding-left: 160px;
     padding-right: 80px;
     flex-direction: column-reverse;
     height: auto;
     min-height: 100vh;
+    padding: 10vh 0;
   }
 
   @media (max-width: ${Media.mobile}) {
@@ -67,8 +92,13 @@ const ProjectSection = styled.section`
 
 const ProjectDetails = styled.div`
   flex: 0 0 410px;
+  max-width: 410px;
   opacity: 0;
   transition: opacity 0.4s ease;
+
+  ${ProjectSection}:nth-child(2n + 1) & {
+    order: 2;
+  }
 
   ${props => props.status === 'entering' &&`
     transition-delay: 0.2s;
@@ -82,6 +112,8 @@ const ProjectDetails = styled.div`
   @media (max-width: ${Media.tablet}) {
     flex: 0 0 auto;
     max-width: 410px;
+    order: 2;
+    justify-self: center;
   }
 `;
 
@@ -91,10 +123,17 @@ const ProjectPreview = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
+  justify-self: center;
 `;
 
 const ProjectPreviewContent = styled.div`
   position: relative;
+
+  @media (max-width: ${Media.tablet}) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const ProjectIndex = styled.div`
@@ -120,6 +159,7 @@ const ProjectIndex = styled.div`
 const ProjectTitle = styled.h2`
   font-size: 42px;
   font-weight: 500;
+  line-height: 1.2;
   margin: 0;
   margin-bottom: 16px;
   padding: 0;
@@ -160,11 +200,12 @@ const ProjectImageLaptop = styled.img`
   `}
 
   @media (max-width: ${Media.tablet}) {
-    width: 100%;
+    width: 80%;
     margin-bottom: 60px;
   }
 
   @media (max-width: ${Media.mobile}) {
+    width: 100%;
     margin-bottom: 30px;
   }
 `;
@@ -172,7 +213,8 @@ const ProjectImageLaptop = styled.img`
 const ProjectImageLaptopSvg = styled(Svg)`
   position: absolute;
   bottom: 0;
-  right: -240px;
+  right: -200px;
+  width: 600px;
   opacity: 0;
   transition: opacity 0.4s ease;
 
@@ -186,14 +228,38 @@ const ProjectImageLaptopSvg = styled(Svg)`
   `}
 
   @media (max-width: ${Media.tablet}) {
-    transform: scale(0.8);
-    bottom: 60px;
+    width: 400px;
+    right: 0;
+    bottom: 30px;
   }
 
   @media (max-width: ${Media.mobile}) {
-    transform: scale(0.5);
-    bottom: 0;
+    width: 260px;
+    bottom: -10px;
+    right: 0px;
   }
+`;
+
+const ProjectPhone = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:nth-child(1) {
+    left: 100px;
+  }
+`;
+
+const ProjectPhoneFrame = styled.img`
+  position: absolute;
+`;
+
+const ProjectPhoneImage = styled.img`
+`;
+
+const ProjectPhoneImageSvg = styled(Svg)`
+  position: absolute;
 `;
 
 export default Project;

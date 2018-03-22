@@ -15,10 +15,10 @@
     "react-google-tag-manager": "^2.2.1",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^4.2.2",
+    "react-router-hash-link": "^1.2.0",
     "react-transition-group": "^2.2.1",
     "styled-components": "^2.2.4",
-    "three": "^0.90.0",
-    "three-effectcomposer-es6": "0.0.4"
+    "three": "^0.90.0"
   },
   "scripts": {
     "start": "react-scripts start",

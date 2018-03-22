@@ -45,9 +45,8 @@ export default class DecoderText extends PureComponent {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.start();
-    }, 500);
+    setTimeout(() => this.start(), 500);
+    setTimeout(() => this.timeOut(), 2000);
   }
 
   start = () => {
@@ -55,6 +54,17 @@ export default class DecoderText extends PureComponent {
     this.elapsedTime = 0;
     this.running = true;
     this.anim();
+  }
+
+  timeOut = () => {
+    const { text } = this.props;
+
+    this.setState({output:
+      text.split('').map(letter => ({
+        type: 'actual',
+        value: letter,
+      }))
+    });
   }
 
   stop = () => {
