@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TransitionGroup, Transition } from 'react-transition-group';
+import { Transition } from 'react-transition-group';
 import { Media } from '../utils/StyleUtils';
 import Button from '../components/Button';
 import Svg from '../utils/Svg';
@@ -31,22 +31,21 @@ const Project = ({
           </ProjectDetails>
           <ProjectPreview>
             {imageType === 'laptop' &&
-              <ProjectPreviewContent>
+              <ProjectPreviewContentLaptop>
                 <ProjectImageLaptop status={status} srcSet={imageSrc[0]} alt={imageAlt[0]} />
                 <ProjectImageLaptopSvg status={status} icon="projects" />
-              </ProjectPreviewContent>
+              </ProjectPreviewContentLaptop>
             }
             {imageType === 'phone' &&
-              <ProjectPreviewContent>
+              <ProjectPreviewContentPhone>
+                <ProjectPhoneImageSvg status={status} icon="projects" />
                 {imageSrc && imageSrc.map((src, index) => (
-                  <ProjectPhone key={`img_${index}`}>
-                    <ProjectPhoneImage status={status} srcSet={imageSrc[index]} alt={imageAlt[index]} />
+                  <ProjectPhone first={index === 0} status={status} key={`img_${index}`}>
                     <ProjectPhoneFrame srcSet={`${phone} 1x, ${phoneLarge} 2x`} />
+                    <ProjectPhoneImage srcSet={imageSrc[index]} alt={imageAlt[index]} />
                   </ProjectPhone>
                 ))}
-
-                <ProjectPhoneImageSvg status={status} icon="projects" />
-              </ProjectPreviewContent>
+              </ProjectPreviewContentPhone>
             }
           </ProjectPreview>
         </Fragment>
@@ -80,13 +79,17 @@ const ProjectSection = styled.section`
     padding-right: 80px;
     flex-direction: column-reverse;
     height: auto;
-    min-height: 100vh;
-    padding: 10vh 0;
+    margin-bottom: 10vh;
+
+    &:nth-child(2n + 1) {
+      grid-template-columns: 100%;
+    }
   }
 
   @media (max-width: ${Media.mobile}) {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    overflow-x: hidden;
   }
 `;
 
@@ -122,11 +125,23 @@ const ProjectPreview = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  height: 100%;
   justify-self: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 `;
 
-const ProjectPreviewContent = styled.div`
+const ProjectPreviewContentPhone = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 600px;
+`;
+
+const ProjectPreviewContentLaptop = styled.div`
   position: relative;
 
   @media (max-width: ${Media.tablet}) {
@@ -135,6 +150,7 @@ const ProjectPreviewContent = styled.div`
     justify-content: center;
   }
 `;
+
 
 const ProjectIndex = styled.div`
   font-size: 16px;
@@ -182,9 +198,9 @@ const ProjectDescription = styled.p`
 `;
 
 const ProjectImageLaptop = styled.img`
-  width: 140%;
+  width: 160%;
   transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
-  transform: translate3d(10%, 0, 0);
+  transform: translate3d(40px, 0, 0);
   opacity: 0;
 
   ${props => props.status === 'entering' &&`
@@ -205,7 +221,7 @@ const ProjectImageLaptop = styled.img`
   }
 
   @media (max-width: ${Media.mobile}) {
-    width: 100%;
+    width: 120%;
     margin-bottom: 30px;
   }
 `;
@@ -236,7 +252,7 @@ const ProjectImageLaptopSvg = styled(Svg)`
   @media (max-width: ${Media.mobile}) {
     width: 260px;
     bottom: -10px;
-    right: 0px;
+    right: 0;
   }
 `;
 
@@ -245,21 +261,80 @@ const ProjectPhone = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
+  width: 100%;
+  max-width: 100%;
+  flex: 1 0 100%;
 
-  &:nth-child(1) {
-    left: 100px;
-  }
+  ${props => props.first ?`
+    left: calc(50% - 140px);
+    top: -120px;
+    transform: translate3d(0, -80px, 0);
+
+    @media (max-width: ${Media.tablet}) {
+      left: calc(50% - 48px);
+      top: -60px;
+    }
+  `:`
+    left: calc(-50% + 20px);
+    top: 120px;
+    transform: translate3d(0, 80px, 0);
+
+    @media (max-width: ${Media.tablet}) {
+      left: calc(-50% + 40px);
+      top: 60px;
+    }
+  `}
+
+  ${props => props.status === 'entering' &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    transition-delay: 0.4s;
+    transition-duration: 1s;
+
+    @media (max-width: ${Media.tablet}) {
+      transform: translate3d(0, 0, 0);
+    }
+  `}
+
+  ${props => props.status === 'entered' &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+
+    @media (max-width: ${Media.tablet}) {
+      transform: translate3d(0, 0, 0);
+    }
+  `}
 `;
 
 const ProjectPhoneFrame = styled.img`
   position: absolute;
+
+  @media (max-width: ${Media.tablet}) {
+    width: 248px;
+  }
 `;
 
 const ProjectPhoneImage = styled.img`
+  box-shadow: 0 0 0 2px #1C1C1C;
+  position: relative;
+  top: -15px;
+
+  @media (max-width: ${Media.tablet}) {
+    box-shadow: 0 0 0 1px #1C1C1C;
+    width: 152px;
+    top: -9px;
+  }
 `;
 
 const ProjectPhoneImageSvg = styled(Svg)`
   position: absolute;
+  bottom: 0;
+
+  @media (max-width: ${Media.tablet}) {
+    bottom: 100px;
+  }
 `;
 
 export default Project;

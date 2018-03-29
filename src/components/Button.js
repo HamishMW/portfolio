@@ -19,13 +19,13 @@ const ButtonContainer = styled.button`
   cursor: pointer;
   transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
   display: flex;
-  clip-path: ${props => props.theme.clipPath(16)};
+  clip-path: ${props => props.theme.clipPath(8)};
 
   &:hover,
   &:focus {
     outline: none;
     background: ${props => ColorTint(props.theme.colorPrimary(1), 0.2)};
-    transform: perspective(600px) translateZ(20px);
+    transform: scale(1.1);
   }
 `;
 

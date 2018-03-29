@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Media } from '../utils/StyleUtils';
-import DisplacementSphere from '../components/DisplacementSphere';
 import DecoderText from '../components/DecoderText';
 const Fragment = React.Fragment;
 
