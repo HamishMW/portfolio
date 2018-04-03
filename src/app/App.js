@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled, { injectGlobal, ThemeProvider } from 'styled-components';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import Home from '../screens/Home';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
@@ -34,6 +34,12 @@ class App extends Component {
             <MainContent id="MainContent">
               <Switch>
                 <Route exact path="/" render={() => <Home />} />
+                <Route path="/test" render={() => (
+                    <div>
+                      <h1>TEST</h1>
+                      <Link to="/#projects">go home</Link>
+                    </div>
+                  )}/>
               </Switch>
             </MainContent>
           </Fragment>
@@ -92,11 +98,7 @@ injectGlobal`
 `;
 
 const MainContent = styled.main`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: relative;
 `;
 
 const SkipToMain = styled.a`

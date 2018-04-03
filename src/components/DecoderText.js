@@ -12,13 +12,13 @@ export default class DecoderText extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { text } = this.props;
+    const { text, offset = 100 } = this.props;
 
     this.content = text.split('');
     this.startTime = 0;
     this.elapsedTime = 0;
     this.running = false;
-    this.timeOffset = 100;
+    this.timeOffset = offset;
     this.fps = 25;
     this.chars = [
       'ア', 'イ', 'ウ', 'エ', 'オ',
@@ -40,31 +40,23 @@ export default class DecoderText extends PureComponent {
 
     this.state = {
       position: 0,
+      started: false,
       output: [{type: 'code', value: '_'}],
     }
   }
 
-  componentDidMount() {
-    setTimeout(() => this.start(), 500);
-    setTimeout(() => this.timeOut(), 2000);
+  componentWillReceiveProps(nextProps) {
+    const { start } = nextProps;
+    const { started } = this.state;
+    if (start && !started) setTimeout(() => {this.start()}, 300);
   }
 
   start = () => {
     this.startTime = Date.now();
     this.elapsedTime = 0;
     this.running = true;
+    this.setState({started: true});
     this.anim();
-  }
-
-  timeOut = () => {
-    const { text } = this.props;
-
-    this.setState({output:
-      text.split('').map(letter => ({
-        type: 'actual',
-        value: letter,
-      }))
-    });
   }
 
   stop = () => {

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import DisplacementSphere from '../components/DisplacementSphere';
 import Intro from '../components/Intro';
 import Project from '../components/Project';
+import Profile from '../components/Profile';
 import projectSpr from '../assets/project-spr.png';
 import projectSprLarge from '../assets/project-spr-large.png';
 import gamestackLogin from '../assets/gamestack-login.jpg';
@@ -15,7 +16,6 @@ export default class Home extends Component {
   state = {
     disciplineIndex: 0,
     hideScrollIndicator: false,
-    scrollY: 0,
     visibleSections: [],
   }
 
@@ -35,7 +35,7 @@ export default class Home extends Component {
 
   handleScroll = () => {
     const scrollY = window.scrollY;
-    const revealSections = [this.intro, this.projectOne, this.projectTwo];
+    const revealSections = [this.intro, this.projectOne, this.projectTwo, this.details];
     const { visibleSections } = this.state;
 
     if (scrollY >= 50) {
@@ -44,22 +44,19 @@ export default class Home extends Component {
       this.setState({hideScrollIndicator: false});
     }
 
-    revealSections.map((section) => {
+    for (const section of revealSections) {
       const isVisible = visibleSections.includes(section);
-      const showSection = this.isInViewport(section) && !isVisible;
+      const showSection = this.isInViewport(section, scrollY) && !isVisible;
       if (showSection) {
         const sections = [...visibleSections, section];
         this.setState({visibleSections: sections});
       }
-      return section;
-    });
-
-    this.setState({scrollY});
+    };
   }
 
-  isInViewport = (elem) => {
+  isInViewport = (elem, scrollY) => {
     const bounding = elem.getBoundingClientRect();
-    return bounding.top <= window.innerHeight * 0.8 && bounding.top >= 0;
+    return bounding.top <= scrollY;
   };
 
   switchDiscipline = () => {
@@ -94,8 +91,9 @@ export default class Home extends Component {
           title="Designing the future of education"
           description="A description for this work example to prompt
           clicking a link to learn more"
+          buttonText="View Project"
           imageSrc={[`${projectSpr} 1x, ${projectSprLarge} 2x`]}
-          imageAlt={['Smart Sparrow lesson author']}
+          imageAlt={['Smart Sparrow lesson builder']}
           imageType="laptop"
         />
         <Project
@@ -105,6 +103,8 @@ export default class Home extends Component {
           title="Video game progress tracking"
           description="A description for this work example to prompt
           clicking a link to learn more"
+          buttonText="View Website"
+          buttonLink="https://www.gamestackapp.com"
           imageSrc={[
             `${gamestackLogin} 1x, ${gamestackLoginLarge} 2x`,
             `${gamestackList} 1x, ${gamestackListLarge} 2x`,
@@ -115,15 +115,17 @@ export default class Home extends Component {
           ]}
           imageType="phone"
         />
-    </HomeContainer>
+        <Profile
+          sectionRef={section => this.details = section}
+          visible={visibleSections.includes(this.details)}
+          id="details"
+        />
+      </HomeContainer>
     );
   }
 }
 
 const HomeContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  display: flex;
+  flex-direction: column;
 `;

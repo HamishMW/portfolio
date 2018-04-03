@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavHashLink as NavLink, HashLink as Link } from 'react-router-hash-link';
+import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
 import Icon from '../utils/Icon';
@@ -31,7 +31,6 @@ const Header = ({menuOpen, toggleMenu}) => (
       {(status) => (
         <HeaderMobileNav status={status}>
           <HeaderMobileNavLink
-            smooth
             delay={250}
             status={status}
             onClick={toggleMenu}
@@ -40,7 +39,6 @@ const Header = ({menuOpen, toggleMenu}) => (
             Intro
           </HeaderMobileNavLink>
           <HeaderMobileNavLink
-            smooth
             delay={300}
             status={status}
             onClick={toggleMenu}
@@ -49,7 +47,6 @@ const Header = ({menuOpen, toggleMenu}) => (
             Projects
           </HeaderMobileNavLink>
           <HeaderMobileNavLink
-            smooth
             delay={350}
             status={status}
             onClick={toggleMenu}
@@ -61,13 +58,13 @@ const Header = ({menuOpen, toggleMenu}) => (
         </HeaderMobileNav>
       )}
     </Transition>
-    <HeaderLogo to="/#intro" smooth aria-label="Hamish Williams Designer, back to home">
+    <HeaderLogo to="/#intro" aria-label="Hamish Williams Designer, back to home">
       <Monogram />
     </HeaderLogo>
     <HeaderNav>
       <HeaderNavList>
-        <HeaderNavLink to="/#projects" smooth>Projects</HeaderNavLink>
-        <HeaderNavLink to="/#details" smooth>Details</HeaderNavLink>
+        <HeaderNavLink to="/#projects">Projects</HeaderNavLink>
+        <HeaderNavLink to="/#details">Details</HeaderNavLink>
       </HeaderNavList>
       <HeaderIcons />
     </HeaderNav>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Transition } from 'react-transition-group';
 import { Media } from '../utils/StyleUtils';
-import Button from '../components/Button';
+import Button, { LinkButton } from '../components/Button';
 import Svg from '../utils/Svg';
 import phone from '../assets/phone.png';
 import phoneLarge from '../assets/phone-large.png';
@@ -18,72 +18,95 @@ const Project = ({
   imageSrc,
   imageAlt,
   imageType,
+  buttonText,
+  buttonLink,
 }) => (
-  <ProjectSection innerRef={sectionRef} id={id}>
-    <Transition in={visible} timeout={400}>
-      {(status) => (
-        <Fragment>
-          <ProjectDetails status={status}>
-            <ProjectIndex>{index}</ProjectIndex>
-            <ProjectTitle>{title}</ProjectTitle>
-            <ProjectDescription>{description}</ProjectDescription>
-            <Button iconRight="arrowRight">View Project</Button>
-          </ProjectDetails>
-          <ProjectPreview>
-            {imageType === 'laptop' &&
-              <ProjectPreviewContentLaptop>
-                <ProjectImageLaptop status={status} srcSet={imageSrc[0]} alt={imageAlt[0]} />
-                <ProjectImageLaptopSvg status={status} icon="projects" />
-              </ProjectPreviewContentLaptop>
-            }
-            {imageType === 'phone' &&
-              <ProjectPreviewContentPhone>
-                <ProjectPhoneImageSvg status={status} icon="projects" />
-                {imageSrc && imageSrc.map((src, index) => (
-                  <ProjectPhone first={index === 0} status={status} key={`img_${index}`}>
-                    <ProjectPhoneFrame srcSet={`${phone} 1x, ${phoneLarge} 2x`} />
-                    <ProjectPhoneImage srcSet={imageSrc[index]} alt={imageAlt[index]} />
-                  </ProjectPhone>
-                ))}
-              </ProjectPreviewContentPhone>
-            }
-          </ProjectPreview>
-        </Fragment>
-      )}
-    </Transition>
+  <ProjectSection index={index} innerRef={sectionRef} id={id}>
+    <ProjectContent>
+      <Transition in={visible} timeout={1200}>
+        {(status) => (
+          <Fragment>
+            <ProjectDetails>
+              <ProjectIndex status={status}>
+                <ProjectIndexNumber status={status}>{index}</ProjectIndexNumber>
+              </ProjectIndex>
+              <ProjectTitle status={status}>{title}</ProjectTitle>
+              <ProjectDescription status={status}>{description}</ProjectDescription>
+              <ProjectButton status={status}>
+                {buttonLink ?
+                  <LinkButton
+                    href={buttonLink}
+                    target="_blank"
+                    iconRight="arrowRight"
+                  >
+                    {buttonText}
+                  </LinkButton>
+                  : <Button iconRight="arrowRight">{buttonText}</Button>
+                }
+              </ProjectButton>
+            </ProjectDetails>
+            <ProjectPreview>
+              {imageType === 'laptop' &&
+                <ProjectPreviewContentLaptop>
+                  <ProjectImageLaptop status={status} srcSet={imageSrc[0]} alt={imageAlt[0]} />
+                  <ProjectImageLaptopSvg status={status} icon="projects" />
+                </ProjectPreviewContentLaptop>
+              }
+              {imageType === 'phone' &&
+                <ProjectPreviewContentPhone>
+                  <ProjectPhoneImageSvg status={status} icon="projects" />
+                  {imageSrc && imageSrc.map((src, index) => (
+                    <ProjectPhone first={index === 0} status={status} key={`img_${index}`}>
+                      <ProjectPhoneFrame
+                        srcSet={`${phone} 1x, ${phoneLarge} 2x`}
+                        alt=""
+                        role="presentation"
+                      />
+                      <ProjectPhoneImage
+                        srcSet={imageSrc[index]}
+                        alt={imageAlt[index]}
+                      />
+                    </ProjectPhone>
+                  ))}
+                </ProjectPreviewContentPhone>
+              }
+            </ProjectPreview>
+          </Fragment>
+        )}
+      </Transition>
+    </ProjectContent>
   </ProjectSection>
 );
 
 
 const ProjectSection = styled.section`
+  min-height: 100vh;
   height: 100vh;
-  top: 100vh;
-  margin-bottom: 20vh;
+  width: 100vw;
+  padding-right: 80px;
+  padding-bottom: 40px;
+  padding-left: 220px;
+  margin-top: ${props => props.index === '01' ? '0' : '120px'};
+  margin-bottom: 120px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  display: grid;
-  grid-template-columns: 43% 55%;
-  grid-column-gap: 2%;
-  padding-left: 220px;
-  padding-right: 80px;
 
   &:nth-child(2n + 1) {
     grid-template-columns: 55% 40%;
   }
 
+  @media (min-width: 1440px) {
+    padding-left: 120px;
+  }
+
   @media (max-width: ${Media.tablet}) {
-    grid-template-columns: 100%;
     padding-left: 160px;
     padding-right: 80px;
-    flex-direction: column-reverse;
     height: auto;
-    margin-bottom: 10vh;
-
-    &:nth-child(2n + 1) {
-      grid-template-columns: 100%;
-    }
+    margin-top: ${props => props.index === '01' ? '0' : '60px'};
+    margin-bottom: 60px;
   }
 
   @media (max-width: ${Media.mobile}) {
@@ -93,24 +116,38 @@ const ProjectSection = styled.section`
   }
 `;
 
+const ProjectContent = styled.div`
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 43% 55%;
+  grid-column-gap: 2%;
+
+  ${ProjectSection}:nth-child(2n + 1) & {
+    grid-template-columns: 55% 40%;
+  }
+
+  @media (max-width: ${Media.tablet}) {
+    grid-template-columns: 100%;
+    flex-direction: column-reverse;
+    height: auto;
+
+    ${ProjectSection}:nth-child(2n + 1) & {
+      grid-template-columns: 100%;
+    }
+  }
+`;
+
 const ProjectDetails = styled.div`
   flex: 0 0 410px;
   max-width: 410px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
 
   ${ProjectSection}:nth-child(2n + 1) & {
     order: 2;
   }
-
-  ${props => props.status === 'entering' &&`
-    transition-delay: 0.2s;
-    opacity: 1;
-  `}
-
-  ${props => props.status === 'entered' &&`
-    opacity: 1;
-  `}
 
   @media (max-width: ${Media.tablet}) {
     flex: 0 0 auto;
@@ -153,11 +190,9 @@ const ProjectPreviewContentLaptop = styled.div`
 
 
 const ProjectIndex = styled.div`
-  font-size: 16px;
-  font-weight: 800;
-  color: ${props => props.theme.colorPrimary(1)};
   position: relative;
   display: flex;
+  align-items: center;
   margin-bottom: 32px;
 
   &:before {
@@ -165,11 +200,36 @@ const ProjectIndex = styled.div`
     position: relative;
     display: block;
     height: 2px;
+    top: -1px;
     background: ${props => props.theme.colorPrimary(1)};
     width: 96px;
-    top: 6px;
     margin-right: 15px;
+    transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1s;
+    transform: scale3d(0, 1, 1);
+    transform-origin: left;
   }
+
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
+    &:before {
+      transform: scale3d(1, 1, 1);
+    }
+  `}
+`;
+
+const ProjectIndexNumber = styled.span`
+  font-size: 16px;
+  font-weight: 500;
+  color: ${props => props.theme.colorPrimary(1)};
+  transform: translateX(-10px);
+  opacity: 0;
+  transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1.3s;
+
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
+    transform: translateX(0);
+    opacity: 1;
+  `}
 `;
 
 const ProjectTitle = styled.h2`
@@ -180,6 +240,15 @@ const ProjectTitle = styled.h2`
   margin-bottom: 16px;
   padding: 0;
   color: ${props => props.theme.colorText(1)};
+  transition: all 0.6s ${props => props.theme.curveFastoutSlowin} 0.4s;
+  transform: translate3d(0, 10px, 0);
+  opacity: 0;
+
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
 
   @media (max-width: ${Media.mobile}) {
     font-size: 28px;
@@ -191,10 +260,31 @@ const ProjectDescription = styled.p`
   line-height: 1.4;
   color: ${props => props.theme.colorText(0.8)};
   margin-bottom: 38px;
+  transition: all 0.6s ${props => props.theme.curveFastoutSlowin} 0.6s;
+  transform: translate3d(0, 10px, 0);
+  opacity: 0;
+
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
 
   @media (max-width: ${Media.mobile}) {
     font-size: 16px;
   }
+`;
+
+const ProjectButton = styled.div`
+  transition: all 0.6s ${props => props.theme.curveFastoutSlowin} 0.8s;
+  transform: translate3d(0, 10px, 0);
+  opacity: 0;
+
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
 `;
 
 const ProjectImageLaptop = styled.img`
@@ -203,56 +293,47 @@ const ProjectImageLaptop = styled.img`
   transform: translate3d(40px, 0, 0);
   opacity: 0;
 
-  ${props => props.status === 'entering' &&`
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
     transition-delay: 0.4s;
     transition-duration: 1s;
   `}
 
-  ${props => props.status === 'entered' &&`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
-
   @media (max-width: ${Media.tablet}) {
     width: 80%;
-    margin-bottom: 60px;
+    margin-bottom: 120px;
   }
 
   @media (max-width: ${Media.mobile}) {
     width: 120%;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
   }
 `;
 
 const ProjectImageLaptopSvg = styled(Svg)`
   position: absolute;
-  bottom: 0;
+  bottom: -40px;
   right: -200px;
   width: 600px;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease 0.6s;
 
-  ${props => props.status === 'entering' &&`
-    transition-delay: 0.2s;
-    opacity: 1;
-  `}
-
-  ${props => props.status === 'entered' &&`
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
     opacity: 1;
   `}
 
   @media (max-width: ${Media.tablet}) {
     width: 400px;
     right: 0;
-    bottom: 30px;
+    bottom: 64px;
   }
 
   @media (max-width: ${Media.mobile}) {
     width: 260px;
-    bottom: -10px;
-    right: 0;
+    bottom: 10px;
   }
 `;
 
@@ -287,20 +368,12 @@ const ProjectPhone = styled.div`
     }
   `}
 
-  ${props => props.status === 'entering' &&`
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
     transition-delay: 0.4s;
     transition-duration: 1s;
-
-    @media (max-width: ${Media.tablet}) {
-      transform: translate3d(0, 0, 0);
-    }
-  `}
-
-  ${props => props.status === 'entered' &&`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
 
     @media (max-width: ${Media.tablet}) {
       transform: translate3d(0, 0, 0);
@@ -319,7 +392,7 @@ const ProjectPhoneFrame = styled.img`
 const ProjectPhoneImage = styled.img`
   box-shadow: 0 0 0 2px #1C1C1C;
   position: relative;
-  top: -15px;
+  top: -14px;
 
   @media (max-width: ${Media.tablet}) {
     box-shadow: 0 0 0 1px #1C1C1C;
@@ -330,10 +403,24 @@ const ProjectPhoneImage = styled.img`
 
 const ProjectPhoneImageSvg = styled(Svg)`
   position: absolute;
-  bottom: 0;
+  transform: translateY(260px);
+  width: 600px;
+  transition: opacity 0.6s ease 0.6s;
+  opacity: 0;
+
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
+    opacity: 1;
+  `}
 
   @media (max-width: ${Media.tablet}) {
-    bottom: 100px;
+    width: 400px;
+    transform: translateY(180px);
+  }
+
+  @media (max-width: ${Media.mobile}) {
+    width: 320px;
+    transform: translateY(160px);
   }
 `;
 

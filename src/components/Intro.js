@@ -27,7 +27,7 @@ const Intro = ({
           />
           <IntroText>
             <IntroName>
-              <DecoderText text="Hamish Williams" />
+              <DecoderText text="Hamish Williams" start={true} />
             </IntroName>
             <IntroTitle>
               <IntroTitleRow>
@@ -61,11 +61,7 @@ const Intro = ({
 );
 
 const IntroContent = styled.section`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,7 +105,7 @@ const IntroBackground = styled.div`
   }
 `;
 
-const IntroText = styled.section`
+const IntroText = styled.header`
   max-width: 860px;
   width: 100%;
   position: relative;
@@ -126,15 +122,6 @@ const IntroText = styled.section`
   }
 `;
 
-const Fade = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
 const IntroName = styled.h2`
   text-transform: uppercase;
   font-size: 24px;
@@ -144,8 +131,6 @@ const IntroName = styled.h2`
   margin-top: 0;
   font-weight: 500;
   line-height: 1;
-  opacity: 0;
-  animation: ${Fade} 0.5s ease 0.2s forwards;
 
   @media (max-width: ${Media.tablet}) {
     font-size: 18px;
@@ -154,6 +139,7 @@ const IntroName = styled.h2`
 
   @media (max-width: ${Media.mobile}) {
     margin-bottom: 25px;
+    margin-top: -30px;
     letter-spacing: 0.2em;
     white-space: nowrap;
     overflow: hidden;
@@ -373,6 +359,10 @@ const ScrollIndicator = styled.div`
   }
 
   @media ${Media.mobileLS} {
+    display: none;
+  }
+
+  @media (max-width: ${Media.mobile}) {
     display: none;
   }
 `;
