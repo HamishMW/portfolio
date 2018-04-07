@@ -1,41 +1,114 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import { Transition } from 'react-transition-group';
+import HeadTag from 'react-head';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { Media } from '../utils/StyleUtils';
+import Firebase from '../utils/Firebase';
 
 export default class Contact extends PureComponent {
   state = {
     emailValue: '',
     messageValue: '',
+    sending: false,
+    complete: false,
+  }
+
+  updateEmail = event => {
+    this.setState({emailValue: event.target.value});
+  }
+
+  updateMessage = event => {
+    this.setState({messageValue: event.target.value});
+  }
+
+  onSubmit = event => {
+    const { emailValue, messageValue, sending } = this.state;
+    event.preventDefault();
+
+    if (!sending) {
+      this.setState({sending: true});
+
+      Firebase.database().ref('messages').push({
+        email: emailValue,
+        message: messageValue,
+      }).then(() => {
+        this.setState({complete: true, sending: false});
+      }).catch((error) => {
+        this.setState({sending: false});
+        alert(error);
+      });
+    }
   }
 
   render() {
-    const { emailValue, messageValue } = this.state;
+    const { emailValue, messageValue, sending, complete } = this.state;
 
     return (
       <ContactWrapper>
-        <ContactForm autoComplete="off">
-          <ContactDivider />
-          <ContactInput
-            onChange={event => this.setState({emailValue: event.target.value})}
-            label="Your Email"
-            id="email"
-            type="email"
-            hasValue={!!emailValue}
-            value={emailValue}
-            required
-          />
-          <ContactInput
-            onChange={event => this.setState({messageValue: event.target.value})}
-            label="Message"
-            id="message"
-            hasValue={!!messageValue}
-            value={messageValue}
-            required
-            multiline
-          />
-          <Button icon="send" style={{marginTop: 20}} type="submit">Send Message</Button>
-        </ContactForm>
+        <HeadTag tag="title">Contact me</HeadTag>
+        <HeadTag
+          tag="meta"
+          name="description"
+          content="Send me a message if you're interested in discussing a
+          project or if you just want to say hi"
+        />
+        <Transition appear in={true} timeout={1600}>
+          {(status) => (
+            <React.Fragment>
+              {!complete &&
+                <ContactForm autoComplete="off" onSubmit={this.onSubmit}>
+                  {sending && <h2>sending</h2>}
+                  <ContactDivider status={status} delay={100} />
+                  <ContactInput
+                    status={status}
+                    delay={200}
+                    onChange={this.updateEmail}
+                    label="Your Email"
+                    id="email"
+                    type="email"
+                    hasValue={!!emailValue}
+                    value={emailValue}
+                    maxLength={320}
+                    required
+                  />
+                  <ContactInput
+                    status={status}
+                    delay={300}
+                    onChange={this.updateMessage}
+                    label="Message"
+                    id="message"
+                    hasValue={!!messageValue}
+                    value={messageValue}
+                    maxLength={2000}
+                    required
+                    multiline
+                  />
+                  <ContactButton
+                    disabled={sending}
+                    loading={sending}
+                    status={status}
+                    delay={400}
+                    icon="send"
+                    type="submit"
+                  >
+                    Send Message
+                  </ContactButton>
+                </ContactForm>
+              }
+              {complete &&
+                <ContactComplete>
+                  <ContactCompleteTitle>Message Sent</ContactCompleteTitle>
+                  <ContactCompleteText>
+                    I'll get back to you within a couple days, sit tight
+                  </ContactCompleteText>
+                  <Button secondary>Back to homepage</Button>
+                </ContactComplete>
+              }
+            </React.Fragment>
+          )}
+        </Transition>
       </ContactWrapper>
     );
   }
@@ -45,8 +118,20 @@ const ContactWrapper = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
   width: 100%;
-  height: 100vh;
+  background: ${props => props.theme.colorBackground(0.95)};
+  padding-top: 120px;
+  padding-bottom: 120px;
+  padding-left: 80px;
+
+  @media (max-width: ${Media.tablet}) {
+    padding-left: 60px;
+  }
+
+  @media (max-width: ${Media.mobile}) {
+    padding-left: 0;
+  }
 `;
 
 const ContactForm = styled.form`
@@ -61,6 +146,10 @@ const ContactDivider = styled.div`
   height: 1px;
   background: ${props => props.theme.colorPrimary(1)};
   position: relative;
+  transition: all 0.8s ${props => props.theme.curveFastoutSlowin};
+  transition-delay: ${props => props.delay}ms;
+  transform: translate3d(0, 90px, 0);
+  opacity: 0;
 
   &:before {
     content: '';
@@ -70,10 +159,52 @@ const ContactDivider = styled.div`
     position: absolute;
     bottom: 0;
     transform: translateY(100%);
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 0);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 10px),
+      calc(100% - 10px) 100%,
+      10px 100%,
+      0 0
+    );
   }
+
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
 `;
 
 const ContactInput = styled(Input)`
   padding-bottom: 40px;
+  transition: all 0.8s ${props => props.theme.curveFastoutSlowin};
+  transition-delay: ${props => props.delay}ms;
+  transform: translate3d(0, 80px, 0);
+  opacity: 0;
+
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
 `;
+
+const ContactButton = styled(Button)`
+  margin-top: 20px;
+  transition: all ${props => props.theme.curveFastoutSlowin};
+  transition-delay: ${props => props.status === 'entered' ? '0ms' : `${props.delay}ms`};
+  transition-duration: ${props => props.status === 'entered' ? '0.4s' : '0.8s'};
+  transform: translate3d(0, 80px, 0);
+  opacity: 0;
+
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
+`;
+
+const ContactComplete = styled.div``;
+const ContactCompleteTitle = styled.h1``;
+const ContactCompleteText = styled.p``;

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import styled, { injectGlobal, ThemeProvider } from 'styled-components';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Home from '../screens/Home';
-import Contact from '../screens/Contact';
+import asyncComponent from '../components/AsyncComponent';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import Theme from '../utils/Theme';
@@ -10,7 +9,9 @@ import GothamBlack from '../fonts/gotham-black.woff2';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
 
-const Fragment = React.Fragment;
+const Home = asyncComponent((routeProps) => import("../screens/Home"));
+const Contact = asyncComponent((routeProps) => import("../screens/Contact"));
+const NotFound = asyncComponent((routeProps) => import("../screens/NotFound"));
 
 class App extends Component {
   state = {
@@ -28,24 +29,18 @@ class App extends Component {
     return (
       <ThemeProvider theme={Theme}>
         <BrowserRouter>
-          <Fragment>
+          <React.Fragment>
             <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
             <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
             <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
             <MainContent id="MainContent">
               <Switch>
-                <Route exact path="/" render={(routeProps) => (
-                  <Home {...routeProps} />
-                )}/>
-                <Route path="/test" render={(routeProps) => (
-                  <Contact {...routeProps} />
-                )}/>
+                <Route exact path="/" render={routeProps => <Home {...routeProps} />}/>
+                <Route path="/contact" render={routeProps => <Contact {...routeProps} />}/>
+                <Route render={routeProps => <NotFound {...routeProps} />}/>
               </Switch>
-              <Route path="/contact" render={(routeProps) => (
-                <Contact {...routeProps} />
-              )}/>
             </MainContent>
-          </Fragment>
+          </React.Fragment>
         </BrowserRouter>
       </ThemeProvider>
     );

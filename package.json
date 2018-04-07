@@ -4,17 +4,18 @@
   "homepage": "https://hamishw.com",
   "private": true,
   "devDependencies": {
-    "react-scripts": "1.0.17",
+    "react-scripts": "1.1.4",
     "react-snap": "^1.3.0"
   },
   "dependencies": {
+    "@firebase/app": "^0.1.10",
+    "@firebase/database": "^0.2.1",
     "autosize": "^4.0.1",
     "es6-tween": "^5.1.0",
     "ios-inner-height": "^1.0.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-google-tag-manager": "^2.2.1",
-    "react-helmet": "^5.2.0",
+    "react-head": "^2.0.0",
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.2.1",
     "styled-components": "^2.2.4",
@@ -22,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && react-snap",
+    "build": "react-scripts build",
     "deploy": "firebase deploy --only hosting",
     "serve": "firebase serve --only hosting",
     "test": "react-scripts test --env=jsdom",

@@ -29,10 +29,10 @@ class DisplacementSphere {
     }
 
     this.uniforms = THREE.UniformsUtils.merge([
-      THREE.UniformsLib["ambient"],
-      THREE.UniformsLib["lights"],
+      THREE.UniformsLib['ambient'],
+      THREE.UniformsLib['lights'],
       THREE.ShaderLib.phong.uniforms,
-      {time: { type: "f", value: 0 }},
+      {time: { type: 'f', value: 0 }},
     ]);
 
     this.material = new THREE.ShaderMaterial({

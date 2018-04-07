@@ -14,6 +14,8 @@ const Input = ({
   multiline,
   allowResize,
   className,
+  disabled,
+  maxLength,
 }) => (
   <InputWrapper className={className}>
     <React.Fragment>
@@ -27,6 +29,8 @@ const Input = ({
           onChange={onChange}
           placeholder={placeholder}
           required={required}
+          disabled={disabled}
+          maxLength={maxLength}
         />
       }
       {!!multiline &&
@@ -40,6 +44,8 @@ const Input = ({
           placeholder={placeholder}
           required={required}
           allowResize={allowResize}
+          disabled={disabled}
+          maxLength={maxLength}
         />
       }
       <InputLabel
@@ -77,6 +83,15 @@ const InputElement = styled.input`
   &:focus {
     outline: none;
     box-shadow: inset 0 -2px 0 0 ${props => props.theme.colorPrimary(1)};
+  }
+
+  &::-webkit-contacts-auto-fill-button {
+    background-color: ${props => props.theme.colorText(0.4)};
+    transition: background-color 0.3s ease;
+  }
+
+  &::-webkit-contacts-auto-fill-button:hover {
+    background-color: ${props => props.theme.colorPrimary(1)};
   }
 `;
 

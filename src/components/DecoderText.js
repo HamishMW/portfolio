@@ -1,13 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
-const Code = styled.span`
-  opacity: 0.8;
-  font-weight: 400;
-  font-family: 'Hiragino Sans', sans-serif;
-  line-height: 0;
-`;
-
 export default class DecoderText extends PureComponent {
   constructor(props) {
     super(props);
@@ -19,7 +12,7 @@ export default class DecoderText extends PureComponent {
     this.elapsedTime = 0;
     this.running = false;
     this.timeOffset = offset;
-    this.fps = 25;
+    this.fps = 24;
     this.chars = [
       'ア', 'イ', 'ウ', 'エ', 'オ',
       'カ', 'キ', 'ク', 'ケ', 'コ',
@@ -48,7 +41,11 @@ export default class DecoderText extends PureComponent {
   componentWillReceiveProps(nextProps) {
     const { start } = nextProps;
     const { started } = this.state;
-    if (start && !started) setTimeout(() => {this.start()}, 300);
+    if (start && !started) this.timeout = setTimeout(() => {this.start()}, 300);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
   }
 
   start = () => {
@@ -59,9 +56,7 @@ export default class DecoderText extends PureComponent {
     this.anim();
   }
 
-  stop = () => {
-    this.running = false;
-  }
+  stop = () => this.running = false;
 
   anim = () => {
     const { position } = this.state;
@@ -131,3 +126,10 @@ export default class DecoderText extends PureComponent {
     );
   }
 }
+
+const Code = styled.span`
+  opacity: 0.8;
+  font-weight: 400;
+  font-family: 'Hiragino Sans', sans-serif;
+  line-height: 0;
+`;

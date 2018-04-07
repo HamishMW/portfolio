@@ -6,17 +6,29 @@ import Monogram from './Monogram';
 import Icon from '../utils/Icon';
 import { Media } from '../utils/StyleUtils';
 
-const HeaderIcons = () => (
+const HeaderIcons = ({ toggleMenu }) => (
   <HeaderNavIcons>
-    <HeaderNavIconLink aria-label="Twitter" href="https://twitter.com/hamishMW">
+    <HeaderNavIconLink
+      target="_blank"
+      aria-label="Twitter"
+      href="https://twitter.com/hamishMW"
+    >
       <HeaderNavIcon icon="twitter" />
     </HeaderNavIconLink>
-    <HeaderNavIconLink aria-label="Dribbble" href="https://dribbble.com/hamishw">
+    <HeaderNavIconLink
+      target="_blank"
+      aria-label="Dribbble"
+      href="https://dribbble.com/hamishw"
+    >
       <HeaderNavIcon icon="dribbble" />
     </HeaderNavIconLink>
-    <HeaderNavIconLink aria-label="Contact" href="mailto:hello@hamishw.com">
+    <HeaderNavIconLinkRouter
+      aria-label="Contact"
+      to="/contact"
+      onClick={!!toggleMenu ? () => toggleMenu() : null}
+    >
       <HeaderNavIcon icon="email" />
-    </HeaderNavIconLink>
+    </HeaderNavIconLinkRouter>
   </HeaderNavIcons>
 );
 
@@ -54,7 +66,7 @@ const Header = ({menuOpen, toggleMenu}) => (
           >
             Details
           </HeaderMobileNavLink>
-          <HeaderIcons />
+          <HeaderIcons toggleMenu={toggleMenu} />
         </HeaderMobileNav>
       )}
     </Transition>
@@ -93,7 +105,7 @@ const HeaderWrapper = styled.header`
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     top: ${props => props.theme.spacingOuter.mobile};
     left: ${props => props.theme.spacingOuter.mobile};
-    bottom: ${props => props.theme.spacingOuter.mobile};
+    bottom: auto;
   }
 `;
 
@@ -179,11 +191,14 @@ const HeaderNavIconLink = styled.a`
   padding: 10px;
 `;
 
+const HeaderNavIconLinkRouter = HeaderNavIconLink.withComponent(Link);
+
 const HeaderNavIcon = styled(Icon)`
   fill: ${props => props.theme.colorText(0.6)};
   transition: all 0.4s ease;
 
-  ${HeaderNavIconLink}:hover & {
+  ${HeaderNavIconLink}:hover &,
+  ${HeaderNavIconLinkRouter}:hover & {
     fill: ${props => props.theme.colorPrimary(1)};
   }
 `;

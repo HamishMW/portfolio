@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Icon from '../utils/Icon';
 import { ColorTint } from '../utils/Theme';
 
@@ -35,6 +36,17 @@ const LinkButton = ({ ...props, className, style, secondary,
   </LinkButtonContainer>
 );
 
+const RouterButton = ({ ...props, className, style, secondary, to }) => (
+  <RouterButtonContainer
+    className={className}
+    style={style}
+    to={to}
+    secondary={secondary ? 1 : 0}
+  >
+    <ButtonContent {...props} />
+  </RouterButtonContainer>
+);
+
 const ButtonContainer = styled.button`
   background: ${props => props.theme.colorPrimary(1)};
   height: 56px;
@@ -51,11 +63,17 @@ const ButtonContainer = styled.button`
   text-decoration: none;
   font-family: inherit;
 
-  &:hover,
-  &:focus {
-    outline: none;
-    background: ${props => ColorTint(props.theme.colorPrimary(1), 0.2)};
-    transform: scale(1.05);
+  ${props => !props.disabled &&`
+    &:hover,
+    &:focus {
+      outline: none;
+      background: ${props => ColorTint(props.theme.colorPrimary(1), 0.2)};
+      transform: scale(1.05);
+    }
+  `}
+
+  &:active {
+    transform: scale(1);
   }
 
   ${props => props.secondary &&`
@@ -75,6 +93,7 @@ const ButtonContainer = styled.button`
 `;
 
 const LinkButtonContainer = ButtonContainer.withComponent('a');
+const RouterButtonContainer = ButtonContainer.withComponent(Link);
 
 const ButtonText = styled.span`
   font-size: 18px;
@@ -110,4 +129,4 @@ const ButtonIcon = styled(Icon)`
 `;
 
 export default Button;
-export { LinkButton };
+export { LinkButton, RouterButton };

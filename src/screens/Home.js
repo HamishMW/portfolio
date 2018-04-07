@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import DisplacementSphere from '../components/DisplacementSphere';
-import Intro from '../components/Intro';
-import Project from '../components/Project';
-import Profile from '../components/Profile';
+import HeadTag from 'react-head';
+import Intro from '../screens/Intro';
+import Project from '../screens/Project';
+import Profile from '../screens/Profile';
 import projectSpr from '../assets/project-spr.png';
 import projectSprLarge from '../assets/project-spr-large.png';
 import gamestackLogin from '../assets/gamestack-login.jpg';
@@ -16,19 +16,24 @@ export default class Home extends PureComponent {
   state = {
     disciplineIndex: 0,
     hideScrollIndicator: false,
+    backgroundLoaded: false,
     visibleSections: [],
   }
 
   componentDidMount() {
     const { location } = this.props;
     const threeCanvas = this.threeCanvas;
-    const sphere = new DisplacementSphere(threeCanvas);
-    requestAnimationFrame(() => sphere.init());
+
+    import('../components/DisplacementSphere').then(DisplacementSphere => {
+      this.setState({backgroundLoaded: true});
+      const sphere = new DisplacementSphere.default(threeCanvas);
+      requestAnimationFrame(() => sphere.init());
+    });
 
     window.addEventListener('scroll', this.handleScroll);
     this.setState({visibleSections: [this.intro]});
     this.handleScroll();
-    this.handleHashchange(location.hash);
+    this.handleHashchange(location.hash, false);
     this.switchDiscipline();
   }
 
@@ -43,7 +48,7 @@ export default class Home extends PureComponent {
     const nextHash = nextProps.location.hash;
 
     if (currentHash !== nextHash) {
-      this.handleHashchange(nextHash);
+      this.handleHashchange(nextHash, true);
     }
   }
 
@@ -68,7 +73,7 @@ export default class Home extends PureComponent {
     };
   }
 
-  handleHashchange = (hash) => {
+  handleHashchange = (hash, scroll) => {
     const hashSections = [this.intro, this.projectOne, this.details];
     const hashString = hash.replace('#', '');
     const element = hashSections.filter((item) => {
@@ -76,9 +81,10 @@ export default class Home extends PureComponent {
     })[0];
 
     if (element) {
-      window.scroll({
-        top: element.offsetTop,
-        behavior: 'smooth'
+      element.scrollIntoView({
+        behavior: scroll ? 'smooth' : 'instant',
+        block: 'start',
+        inline: 'nearest',
       });
     }
   }
@@ -100,10 +106,13 @@ export default class Home extends PureComponent {
   }
 
   render() {
-    const { disciplineIndex, hideScrollIndicator, visibleSections } = this.state;
+    const { disciplineIndex, hideScrollIndicator,
+      visibleSections, backgroundLoaded } = this.state;
 
     return (
       <HomeContainer>
+        <HeadTag tag="title">Hamish Williams | Multidisciplinary Designer</HeadTag>
+        <HeadTag tag="meta" name="description" content="Digital designer working on web & mobile apps with a focus on motion design and user experience." />
         <Intro
           id="intro"
           sectionRef={section => this.intro = section}
@@ -111,6 +120,7 @@ export default class Home extends PureComponent {
           disciplines={disciplines}
           disciplineIndex={disciplineIndex}
           hideScrollIndicator={hideScrollIndicator}
+          backgroundLoaded={backgroundLoaded}
         />
         <Project
           id="projects"
