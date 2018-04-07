@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styled, { injectGlobal, ThemeProvider } from 'styled-components';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from '../screens/Home';
+import Contact from '../screens/Contact';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import Theme from '../utils/Theme';
@@ -33,14 +34,16 @@ class App extends Component {
             <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
             <MainContent id="MainContent">
               <Switch>
-                <Route exact path="/" render={() => <Home />} />
-                <Route path="/test" render={() => (
-                    <div>
-                      <h1>TEST</h1>
-                      <Link to="/#projects">go home</Link>
-                    </div>
-                  )}/>
+                <Route exact path="/" render={(routeProps) => (
+                  <Home {...routeProps} />
+                )}/>
+                <Route path="/test" render={(routeProps) => (
+                  <Contact {...routeProps} />
+                )}/>
               </Switch>
+              <Route path="/contact" render={(routeProps) => (
+                <Contact {...routeProps} />
+              )}/>
             </MainContent>
           </Fragment>
         </BrowserRouter>

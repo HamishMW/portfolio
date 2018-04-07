@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import DisplacementSphere from '../components/DisplacementSphere';
 import Intro from '../components/Intro';
@@ -12,7 +12,7 @@ import gamestackList from '../assets/gamestack-list.jpg';
 import gamestackListLarge from '../assets/gamestack-list-large.jpg';
 const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
 
-export default class Home extends Component {
+export default class Home extends PureComponent {
   state = {
     disciplineIndex: 0,
     hideScrollIndicator: false,
@@ -20,17 +20,31 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
+    const { location } = this.props;
     const threeCanvas = this.threeCanvas;
     const sphere = new DisplacementSphere(threeCanvas);
     requestAnimationFrame(() => sphere.init());
-    this.switchDiscipline();
+
     window.addEventListener('scroll', this.handleScroll);
     this.setState({visibleSections: [this.intro]});
     this.handleScroll();
+    this.handleHashchange(location.hash);
+    this.switchDiscipline();
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('hashchange', this.handleHashchange);
+    clearInterval(this.disciplineInterval);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const currentHash = this.props.location.hash;
+    const nextHash = nextProps.location.hash;
+
+    if (currentHash !== nextHash) {
+      this.handleHashchange(nextHash);
+    }
   }
 
   handleScroll = () => {
@@ -54,13 +68,28 @@ export default class Home extends Component {
     };
   }
 
+  handleHashchange = (hash) => {
+    const hashSections = [this.intro, this.projectOne, this.details];
+    const hashString = hash.replace('#', '');
+    const element = hashSections.filter((item) => {
+      return item.id === hashString;
+    })[0];
+
+    if (element) {
+      window.scroll({
+        top: element.offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  }
+
   isInViewport = (elem, scrollY) => {
     const bounding = elem.getBoundingClientRect();
     return bounding.top <= scrollY;
   };
 
   switchDiscipline = () => {
-    setInterval(() => {
+    this.disciplineInterval = setInterval(() => {
       const { disciplineIndex } = this.state;
       const index = disciplineIndex >= disciplines.length - 1 ? 0 : disciplineIndex + 1;
 

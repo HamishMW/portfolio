@@ -42,7 +42,7 @@ class DisplacementSphere {
       lights: true,
     });
 
-    this.geometry = new THREE.SphereGeometry(32, 140, 140);
+    this.geometry = new THREE.SphereBufferGeometry(32, 128, 128);
     this.sphere = new THREE.Mesh(this.geometry, this.material);
 
     autoPlay(true);

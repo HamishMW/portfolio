@@ -16,12 +16,14 @@ const Button = ({ ...props, className, style, secondary }) => (
     className={className}
     style={style}
     secondary={secondary}
+    {...props}
   >
     <ButtonContent {...props} />
   </ButtonContainer>
 );
 
-const LinkButton = ({ ...props, className, style, secondary, href, target }) => (
+const LinkButton = ({ ...props, className, style, secondary,
+  href, target }) => (
   <LinkButtonContainer
     className={className}
     style={style}
@@ -66,6 +68,10 @@ const ButtonContainer = styled.button`
       background: transparent;
     }
   `}
+
+  ${props => props.icon &&`
+    padding-right: 32px;
+  `}
 `;
 
 const LinkButtonContainer = ButtonContainer.withComponent('a');
@@ -74,6 +80,7 @@ const ButtonText = styled.span`
   font-size: 18px;
   font-weight: 500;
   position: relative;
+  line-height: 1;
 
   ${props => props.secondary ?`
     color: ${props.theme.colorPrimary(1)};
