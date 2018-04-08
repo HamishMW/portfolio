@@ -15,20 +15,22 @@ const NotFound = () => (
       {(status) => (
         <React.Fragment>
           <NotfoundDetails>
-            <NotFoundTitle status={status}>404</NotFoundTitle>
-            <NotFoundSubHeading status={status}>Error: Redacted</NotFoundSubHeading>
-            <NotFoundDescription status={status}>
-              This page could not be found. It either doesn't exist or was deleted.
-              Or perhaps you don't exist.
-            </NotFoundDescription>
-            <NotFoundButton
-              secondary
-              status={status}
-              to="/"
-              icon="chevronRight"
-            >
-              Back to homepage
-            </NotFoundButton>
+            <NotFoundText>
+              <NotFoundTitle status={status}>404</NotFoundTitle>
+              <NotFoundSubHeading status={status}>Error: Redacted</NotFoundSubHeading>
+              <NotFoundDescription status={status}>
+                This page could not be found. It either doesn't exist or was deleted.
+                Or perhaps you don't exist.
+              </NotFoundDescription>
+              <NotFoundButton
+                secondary
+                status={status}
+                to="/"
+                icon="chevronRight"
+              >
+                Back to homepage
+              </NotFoundButton>
+            </NotFoundText>
           </NotfoundDetails>
 
           <NotFoundVideoContainer status={status}>
@@ -162,7 +164,7 @@ const NotFoundCredit = styled.a`
 
 const NotfoundDetails = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding: 0 40px;
   height: 100%;
@@ -171,6 +173,12 @@ const NotfoundDetails = styled.div`
     padding: 0 30px;
     order: 2;
   }
+`;
+
+const NotFoundText = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
 `;
 
 const NotFoundTitle = styled.h1`

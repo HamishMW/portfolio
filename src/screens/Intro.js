@@ -114,7 +114,7 @@ const IntroText = styled.header`
 
   @media (min-width: ${Media.desktop}) {
     padding: 0;
-    max-width: 1100px;
+    max-width: 920px;
   }
 
   @media (max-width: ${Media.tablet}) {
@@ -170,7 +170,7 @@ const IntroTitle = styled.h1`
   font-weight: 500;
 
   @media (min-width: ${Media.desktop}) {
-    font-size: 140px;
+    font-size: 120px;
   }
 
   @media (max-width: 860px) {

@@ -272,7 +272,7 @@ const ProfileSvg = styled(Svg)`
   height: 620px;
   z-index: 32;
   opacity: 0;
-  transition: opacity 0.4s ease 0.4s;
+  transition: opacity 0.4s ease 0.6s;
 
   ${props => props.status === 'entered' &&`
     opacity: 1;
