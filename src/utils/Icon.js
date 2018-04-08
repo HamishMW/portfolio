@@ -29,6 +29,11 @@ const Icon = (props) => {
         <path d="M3 11h14.17l-3.58-3.59L15 6l6 6-6 6-1.41-1.41L17.17 13H3z"/>
       </svg>
     ),
+    chevronRight: () => (
+      <svg className={className} fill={color} width={size} height={size} viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
+    ),
     close: () => (
       <svg className={className} fill={color} width={size} height={size} viewBox="0 0 24 24">
         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>

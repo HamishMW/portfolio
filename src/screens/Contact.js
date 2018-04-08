@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-import styled from 'styled-components';
-import { Transition } from 'react-transition-group';
+import styled, { keyframes } from 'styled-components';
+import { TransitionGroup, Transition } from 'react-transition-group';
 import HeadTag from 'react-head';
 import Input from '../components/Input';
-import Button from '../components/Button';
+import Button, { RouterButton } from '../components/Button';
 import { Media } from '../utils/StyleUtils';
 import Firebase from '../utils/Firebase';
 
@@ -54,12 +54,12 @@ export default class Contact extends PureComponent {
           content="Send me a message if you're interested in discussing a
           project or if you just want to say hi"
         />
-        <Transition appear in={true} timeout={1600}>
-          {(status) => (
-            <React.Fragment>
-              {!complete &&
+
+        <TransitionGroup component={React.Fragment}>
+          {!complete &&
+            <Transition appear timeout={1600} mountOnEnter unmountOnExit>
+              {(status) => (
                 <ContactForm autoComplete="off" onSubmit={this.onSubmit}>
-                  {sending && <h2>sending</h2>}
                   <ContactDivider status={status} delay={100} />
                   <ContactInput
                     status={status}
@@ -87,6 +87,7 @@ export default class Contact extends PureComponent {
                   />
                   <ContactButton
                     disabled={sending}
+                    sending={sending}
                     loading={sending}
                     status={status}
                     delay={400}
@@ -96,19 +97,36 @@ export default class Contact extends PureComponent {
                     Send Message
                   </ContactButton>
                 </ContactForm>
-              }
-              {complete &&
+              )}
+            </Transition>
+          }
+          {complete &&
+            <Transition appear timeout={0} mountOnEnter unmountOnExit>
+              {(status) => (
                 <ContactComplete>
-                  <ContactCompleteTitle>Message Sent</ContactCompleteTitle>
-                  <ContactCompleteText>
+                  <ContactCompleteTitle
+                    status={status}
+                    delay="0"
+                  >
+                    Message Sent
+                  </ContactCompleteTitle>
+                  <ContactCompleteText status={status} delay="200">
                     I'll get back to you within a couple days, sit tight
                   </ContactCompleteText>
-                  <Button secondary>Back to homepage</Button>
+                  <ContactCompleteButton
+                    secondary
+                    to="/"
+                    status={status}
+                    delay="400"
+                    icon="chevronRight"
+                  >
+                    Back to homepage
+                  </ContactCompleteButton>
                 </ContactComplete>
-              }
-            </React.Fragment>
-          )}
-        </Transition>
+              )}
+            </Transition>
+          }
+        </TransitionGroup>
       </ContactWrapper>
     );
   }
@@ -132,6 +150,10 @@ const ContactWrapper = styled.section`
   @media (max-width: ${Media.mobile}) {
     padding-left: 0;
   }
+
+  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+    padding-left: 0;
+  }
 `;
 
 const ContactForm = styled.form`
@@ -146,7 +168,9 @@ const ContactDivider = styled.div`
   height: 1px;
   background: ${props => props.theme.colorPrimary(1)};
   position: relative;
-  transition: all 0.8s ${props => props.theme.curveFastoutSlowin};
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.8s;
   transition-delay: ${props => props.delay}ms;
   transform: translate3d(0, 90px, 0);
   opacity: 0;
@@ -174,11 +198,20 @@ const ContactDivider = styled.div`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
+
+  ${props => props.status === 'exiting' &&`
+    transition-duration: 0.4s;
+    transition-delay: 0s;
+    transform: translate3d(0, -40px, 0);
+    opacity: 0;
+  `}
 `;
 
 const ContactInput = styled(Input)`
   padding-bottom: 40px;
-  transition: all 0.8s ${props => props.theme.curveFastoutSlowin};
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.8s;
   transition-delay: ${props => props.delay}ms;
   transform: translate3d(0, 80px, 0);
   opacity: 0;
@@ -188,23 +221,109 @@ const ContactInput = styled(Input)`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
+
+  ${props => props.status === 'exiting' &&`
+    transition-duration: 0.4s;
+    transition-delay: 0s;
+    transform: translate3d(0, -40px, 0);
+    opacity: 0;
+  `}
+`;
+
+const AnimFadeIn = keyframes`
+  0% { opacity: 0 }
+  100% { opacity: 1 }
 `;
 
 const ContactButton = styled(Button)`
   margin-top: 20px;
-  transition: all ${props => props.theme.curveFastoutSlowin};
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-delay: ${props => props.status === 'entered' ? '0ms' : `${props.delay}ms`};
   transition-duration: ${props => props.status === 'entered' ? '0.4s' : '0.8s'};
   transform: translate3d(0, 80px, 0);
   opacity: 0;
+
+  ${props => props.sending &&`
+    svg {
+      transition: transform ${props.curveFastoutSlowin}, opacity 0.3s ease 0.8s;
+      transition-duration: 0.8s;
+      transform: translate3d(150px, 0, 0);
+      opacity: 0;
+    }
+
+    div {
+      opacity: 0;
+      animation: ${AnimFadeIn} 0.5s ease 0.6s forwards;
+    }
+  `}
 
   ${props => (props.status === 'entering' ||
     props.status === 'entered') &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
+
+  ${props => props.status === 'exiting' &&`
+    transition-duration: 0.4s;
+    transition-delay: 0s;
+    transform: translate3d(0, -40px, 0);
+    opacity: 0;
+  `}
 `;
 
-const ContactComplete = styled.div``;
-const ContactCompleteTitle = styled.h1``;
-const ContactCompleteText = styled.p``;
+const ContactComplete = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  position: absolute;
+`;
+
+const ContactCompleteTitle = styled.h1`
+  font-weight: 500;
+  font-size: 32px;
+  margin: 0;
+  text-align: center;
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.8s;
+  transition-delay: ${props => props.delay}ms;
+  transform: translate3d(0, 80px, 0);
+  opacity: 0;
+
+  ${props => props.status === 'entered' &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
+`;
+
+const ContactCompleteText = styled.p`
+  font-size: 18px;
+  text-align: center;
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.8s;
+  transition-delay: ${props => props.delay}ms;
+  transform: translate3d(0, 80px, 0);
+  opacity: 0;
+
+  ${props => props.status === 'entered' &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
+`;
+
+const ContactCompleteButton = styled(RouterButton)`
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.8s;
+  transition-delay: ${props => props.delay}ms;
+  transform: translate3d(0, 80px, 0);
+  opacity: 0;
+
+  ${props => props.status === 'entered' &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
+`;

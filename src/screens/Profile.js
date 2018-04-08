@@ -103,6 +103,10 @@ const ProfileSection = styled.section`
     padding-right: 25px;
     overflow-x: hidden;
   }
+
+  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+    padding: 0 ${props => props.theme.spacingOuter.mobile};
+  }
 `;
 
 const ProfileContent = styled.div`
@@ -123,6 +127,7 @@ const ProfileColumn = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 40px;
+  transform: translate3d(0, 0, 0);
 `;
 
 const ProfileTitle = styled.h2`
@@ -213,6 +218,7 @@ const ProfileImageContainer = styled.div`
   position: relative;
   display: flex;
   align-items: flex-start;
+  transform: translate3d(0, 0, 0);
 
   &:before {
     content: '';
@@ -229,7 +235,7 @@ const ProfileImageContainer = styled.div`
 
   ${props => props.status === 'entering' &&`
     &:before {
-      animation: ${AnimProfileImage} 1.8s ease;
+      animation: ${AnimProfileImage} 1.8s ${props.theme.curveFastoutSlowin};
     }
   `}
 `;

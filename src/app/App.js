@@ -5,7 +5,6 @@ import asyncComponent from '../components/AsyncComponent';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import Theme from '../utils/Theme';
-import GothamBlack from '../fonts/gotham-black.woff2';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
 
@@ -59,13 +58,6 @@ injectGlobal`
     font-family: 'Gotham';
     font-weight: 500;
     src: url(${GothamMedium}) format('woff2');
-    font-display: block;
-  }
-
-  @font-face {
-    font-family: 'Gotham';
-    font-weight:700;
-    src: url(${GothamBlack}) format('woff2');
     font-display: block;
   }
 

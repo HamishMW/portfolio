@@ -122,6 +122,7 @@ const HeaderNav = styled.nav`
   justify-content: space-between;
   align-items: center;
   flex: 1 1 auto;
+  max-width: 45px;
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     display: none;

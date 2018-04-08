@@ -114,6 +114,11 @@ const ProjectSection = styled.section`
     padding-right: 25px;
     overflow-x: hidden;
   }
+
+  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+    padding: 0 ${props => props.theme.spacingOuter.mobile};
+    top: 0;
+  }
 `;
 
 const ProjectContent = styled.div`
@@ -204,7 +209,10 @@ const ProjectIndex = styled.div`
     background: ${props => props.theme.colorPrimary(1)};
     width: 96px;
     margin-right: 15px;
-    transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1s;
+    transition-property: transform, opacity;
+    transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+    transition-duration: 0.4s;
+    transition-delay: 1s;
     transform: scale3d(0, 1, 1);
     transform-origin: left;
   }
@@ -223,7 +231,10 @@ const ProjectIndexNumber = styled.span`
   color: ${props => props.theme.colorPrimary(1)};
   transform: translateX(-10px);
   opacity: 0;
-  transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1.3s;
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.4s;
+  transition-delay: 1.3s;
 
   ${props => (props.status === 'entering' ||
     props.status === 'entered') &&`
@@ -240,7 +251,10 @@ const ProjectTitle = styled.h2`
   margin-bottom: 16px;
   padding: 0;
   color: ${props => props.theme.colorText(1)};
-  transition: all 0.8s ${props => props.theme.curveFastoutSlowin} 0.4s;
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.8s;
+  transition-delay: 0.4s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
@@ -260,7 +274,10 @@ const ProjectDescription = styled.p`
   line-height: 1.4;
   color: ${props => props.theme.colorText(0.8)};
   margin-bottom: 38px;
-  transition: all 0.8s ${props => props.theme.curveFastoutSlowin} 0.6s;
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.8s;
+  transition-delay: 0.6s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
@@ -276,7 +293,10 @@ const ProjectDescription = styled.p`
 `;
 
 const ProjectButton = styled.div`
-  transition: all 0.8s ${props => props.theme.curveFastoutSlowin} 0.8s;
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.8s;
+  transition-delay: 0.8s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
@@ -289,7 +309,10 @@ const ProjectButton = styled.div`
 
 const ProjectImageLaptop = styled.img`
   width: 160%;
-  transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
+  transition-property: transform, opacity;
+  transition-duration: 1s;
+  transition-delay: 0.4s;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transform: translate3d(40px, 0, 0);
   opacity: 0;
 
@@ -297,8 +320,6 @@ const ProjectImageLaptop = styled.img`
     props.status === 'entered') &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
-    transition-delay: 0.4s;
-    transition-duration: 1s;
   `}
 
   @media (max-width: ${Media.tablet}) {
@@ -307,7 +328,7 @@ const ProjectImageLaptop = styled.img`
   }
 
   @media (max-width: ${Media.mobile}) {
-    width: 120%;
+    width: 100%;
     margin-bottom: 60px;
   }
 `;

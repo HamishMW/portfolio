@@ -1,14 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Loader from '../components/Loader';
 import Icon from '../utils/Icon';
-import { ColorTint } from '../utils/Theme';
+import Theme, { ColorTint } from '../utils/Theme';
 
-const ButtonContent = ({ iconRight, icon, children, secondary }) => (
+const ButtonContent = ({ iconRight, icon, children, secondary, loading }) => (
   <React.Fragment>
-    {icon && <ButtonIcon left icon={icon} secondary={secondary}/>}
-    <ButtonText secondary={secondary}>{ children }</ButtonText>
-    {iconRight && <ButtonIcon icon={iconRight} secondary={secondary}/>}
+    {icon && <ButtonIcon loading={loading} left icon={icon} secondary={secondary}/>}
+    <ButtonText loading={loading} secondary={secondary}>{ children }</ButtonText>
+    {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary}/>}
+    {loading &&
+      <Loader
+        style={{position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}
+        size="42"
+        color={Theme.colorBackground(1)}
+      />
+    }
   </React.Fragment>
 );
 
@@ -101,6 +109,10 @@ const ButtonText = styled.span`
   position: relative;
   line-height: 1;
 
+  ${props => props.loading && `
+    visibility: hidden;
+  `}
+
   ${props => props.secondary ?`
     color: ${props.theme.colorPrimary(1)};
   `:`
@@ -121,11 +133,17 @@ const ButtonIcon = styled(Icon)`
   ${ButtonContainer}:hover &,
   ${ButtonContainer}:focus &,
   ${LinkButtonContainer}:hover &,
-  ${LinkButtonContainer}:focus & {
+  ${LinkButtonContainer}:focus &,
+  ${RouterButtonContainer}:hover &,
+  ${RouterButtonContainer}:focus & {
     ${props => props.icon === 'arrowRight' &&`
       transform: translate3d(3px, 0, 0);
     `}
   }
+
+  ${props => props.loading && `
+    visibility: hidden;
+  `}
 `;
 
 export default Button;
