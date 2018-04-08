@@ -20,7 +20,7 @@ const ProfileText = ({ status }) => (
       <DecoderText
         text="Hi there"
         start={status === 'entering'}
-        offset={200}
+        offset={140}
       />
     </ProfileTitle>
     <ProfileDescription status={status}>
@@ -147,7 +147,7 @@ const ProfileDescription = styled.p`
   margin: 0;
   margin-bottom: 30px;
   opacity: 0;
-  transition: opacity 0.8s ease 0.6s;
+  transition: opacity 0.8s ease 0.2s;
 
   ${props => props.status === 'entered' &&`
     opacity: 1;
@@ -243,7 +243,7 @@ const ProfileImageContainer = styled.div`
 
   ${props => props.status === 'entered' &&`
     &:before {
-      animation: ${AnimProfileImage} 1.8s ${props.theme.curveFastoutSlowin};
+      animation: ${AnimProfileImage} 1.8s ${props.theme.curveFastoutSlowin} 0.6s;
     }
   `}
 `;
@@ -253,7 +253,7 @@ const ProfileImage = styled(ProgressiveImage)`
   width: 100%;
   height: auto;
   opacity: 0;
-  transition: opacity 0.4s ease 0.9s;
+  transition: opacity 0.4s ease 1.5s;
 
   ${props => props.status === 'entered' &&`
     opacity: 1;
@@ -285,7 +285,7 @@ const ProfileSvg = styled(Svg)`
 
 const ProfileButton = styled(RouterButton)`
   opacity: 0;
-  transition: opacity 0.8s ease 0.8s;
+  transition: opacity 0.8s ease 0.4s;
 
   ${props => props.status === 'entered' &&`
     opacity: 1;

@@ -128,10 +128,11 @@ export default class DecoderText extends PureComponent {
 }
 
 const DecoderSpan = styled.span`
-  height: 1em;
-  line-height: 1;
+  &:after {
+    content: '_';
+    opacity: 0;
+  }
 `;
-
 
 const DecoderCode = styled.span`
   opacity: 0.8;

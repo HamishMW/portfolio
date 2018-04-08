@@ -18,12 +18,20 @@ import gamestackListPlaceholder from '../assets/gamestack-list-placeholder.jpg';
 const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
 
 export default class Home extends PureComponent {
-  state = {
-    disciplineIndex: 0,
-    hideScrollIndicator: false,
-    backgroundLoaded: false,
-    visibleSections: [],
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      disciplineIndex: 0,
+      hideScrollIndicator: false,
+      backgroundLoaded: false,
+      visibleSections: [],
+    }
+
+    this.scheduledAnimationFrame = false;
+    this.lastScrollY = 0;
   }
+
 
   componentDidMount() {
     const { location } = this.props;
@@ -58,24 +66,29 @@ export default class Home extends PureComponent {
   }
 
   handleScroll = () => {
-    const scrollY = window.scrollY;
-    const revealSections = [this.intro, this.projectOne, this.projectTwo, this.details];
-    const { visibleSections } = this.state;
+    this.lastScrollY = window.scrollY;
+    if (this.scheduledAnimationFrame) return;
+    this.scheduledAnimationFrame = true;
 
-    if (scrollY >= 50) {
-      this.setState({hideScrollIndicator: true});
-    } else {
-      this.setState({hideScrollIndicator: false});
-    }
+    requestAnimationFrame(() => {
+      const revealSections = [this.intro, this.projectOne, this.projectTwo, this.details];
+      const { visibleSections } = this.state;
 
-    for (const section of revealSections) {
-      const isVisible = visibleSections.includes(section);
-      const showSection = this.isInViewport(section, scrollY) && !isVisible;
-      if (showSection) {
-        const sections = [...visibleSections, section];
-        this.setState({visibleSections: sections});
+      if (this.lastScrollY >= 50) {
+        this.setState({hideScrollIndicator: true});
+      } else {
+        this.setState({hideScrollIndicator: false});
       }
-    };
+
+      for (const section of revealSections) {
+        if (visibleSections.includes(section)) continue;
+        if (this.isInViewport(section, this.lastScrollY)) {
+          this.setState({visibleSections: [...visibleSections, section]});
+        }
+      };
+
+      this.scheduledAnimationFrame = false;
+    });
   }
 
   handleHashchange = (hash, scroll) => {
@@ -94,39 +107,13 @@ export default class Home extends PureComponent {
     }
   }
 
-  getAbsoluteBoundingRect = (el) => {
-    const doc  = document;
-    const win  = window;
-    const body = doc.body;
-
-    let offsetX = win.pageXOffset;
-    let offsetY = win.pageYOffset;
-    const rect = el.getBoundingClientRect();
-
-    if (el !== body) {
-      let parent = el.parentNode;
-
-      while (parent !== body) {
-        offsetX += parent.scrollLeft;
-        offsetY += parent.scrollTop;
-        parent = parent.parentNode;
-      }
-    }
-
-    return {
-      bottom: rect.bottom + offsetY,
-      height: rect.height,
-      left: rect.left + offsetX,
-      right: rect.right + offsetX,
-      top: rect.top + offsetY,
-      width: rect.width
-    }
-  }
-
   isInViewport = (elem, scrollY) => {
-    if (elem === this.details) console.log(this.getAbsoluteBoundingRect(elem).top, scrollY)
-    return this.getAbsoluteBoundingRect(elem).top - (window.innerHeight - 200) <= scrollY;
-  };
+    const rect = elem.getBoundingClientRect();
+    const offsetY = window.pageYOffset;
+    const revealOffset = window.innerHeight - 100;
+    const top = rect.top + offsetY;
+    return top - revealOffset <= scrollY;
+  }
 
   switchDiscipline = () => {
     this.disciplineInterval = setInterval(() => {
