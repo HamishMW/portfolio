@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Transition } from 'react-transition-group';
 import { Media } from '../utils/StyleUtils';
 import Button, { LinkButton } from '../components/Button';
+import ProgressiveImage from '../components/ProgressiveImage';
 import Svg from '../utils/Svg';
 import phone from '../assets/phone.png';
 import phoneLarge from '../assets/phone-large.png';
@@ -18,6 +19,7 @@ const Project = ({
   imageSrc,
   imageAlt,
   imageType,
+  imagePlaceholder,
   buttonText,
   buttonLink,
 }) => (
@@ -65,6 +67,7 @@ const Project = ({
                       <ProjectPhoneImage
                         srcSet={imageSrc[index]}
                         alt={imageAlt[index]}
+                        placeholder={imagePlaceholder[index]}
                       />
                     </ProjectPhone>
                   ))}
@@ -408,10 +411,15 @@ const ProjectPhoneFrame = styled.img`
   }
 `;
 
-const ProjectPhoneImage = styled.img`
+const ProjectPhoneImage = styled(ProgressiveImage)`
   box-shadow: 0 0 0 2px #1C1C1C;
   position: relative;
   top: -14px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 
   @media (max-width: ${Media.tablet}) {
     box-shadow: 0 0 0 1px #1C1C1C;

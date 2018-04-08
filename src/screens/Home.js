@@ -8,8 +8,10 @@ import projectSpr from '../assets/project-spr.png';
 import projectSprLarge from '../assets/project-spr-large.png';
 import gamestackLogin from '../assets/gamestack-login.jpg';
 import gamestackLoginLarge from '../assets/gamestack-login-large.jpg';
+import gamestackLoginPlaceholder from '../assets/gamestack-login-placeholder.jpg';
 import gamestackList from '../assets/gamestack-list.jpg';
 import gamestackListLarge from '../assets/gamestack-list-large.jpg';
+import gamestackListPlaceholder from '../assets/gamestack-list-placeholder.jpg';
 const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
 
 export default class Home extends PureComponent {
@@ -128,8 +130,7 @@ export default class Home extends PureComponent {
           visible={visibleSections.includes(this.projectOne)}
           index="01"
           title="Designing the future of education"
-          description="A description for this work example to prompt
-          clicking a link to learn more"
+          description="I designed a web app that helps educators build better online courseware"
           buttonText="View Project"
           imageSrc={[`${projectSpr} 1x, ${projectSprLarge} 2x`]}
           imageAlt={['Smart Sparrow lesson builder']}
@@ -140,8 +141,7 @@ export default class Home extends PureComponent {
           visible={visibleSections.includes(this.projectTwo)}
           index="02"
           title="Video game progress tracking"
-          description="A description for this work example to prompt
-          clicking a link to learn more"
+          description="Design and development for a video game tracking app built in React Native"
           buttonText="View Website"
           buttonLink="https://www.gamestackapp.com"
           imageSrc={[
@@ -151,6 +151,10 @@ export default class Home extends PureComponent {
           imageAlt={[
             'Smart Sparrow lesson author',
             'Smart Sparrow lesson author',
+          ]}
+          imagePlaceholder={[
+            gamestackLoginPlaceholder,
+            gamestackListPlaceholder,
           ]}
           imageType="phone"
         />

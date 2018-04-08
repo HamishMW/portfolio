@@ -4,9 +4,11 @@ import { Transition } from 'react-transition-group';
 import Anchor from '../components/Anchor';
 import { RouterButton } from '../components/Button';
 import DecoderText from '../components/DecoderText';
+import ProgressiveImage from '../components/ProgressiveImage';
 import Svg from '../utils/Svg';
 import ProfileImg from '../assets/profile.jpg';
 import ProfileImgLarge from '../assets/profile-large.jpg';
+import ProfileImgPlaceholder from '../assets/profile-placeholder.jpg';
 import { Media } from '../utils/StyleUtils';
 
 const SparrowLink = 'https://www.smartsparrow.com';
@@ -62,6 +64,7 @@ const Profile = ({
             <ProfileImageContainer status={status}>
               <ProfileImage
                 status={status}
+                placeholder={ProfileImgPlaceholder}
                 srcSet={`${ProfileImg} 1x, ${ProfileImgLarge} 2x`}
                 alt="Me at the Torii on Miyajima, Japan"
               />
@@ -240,7 +243,7 @@ const ProfileImageContainer = styled.div`
   `}
 `;
 
-const ProfileImage = styled.img`
+const ProfileImage = styled(ProgressiveImage)`
   max-width: 480px;
   width: 100%;
   height: auto;
