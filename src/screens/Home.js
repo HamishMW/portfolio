@@ -4,14 +4,17 @@ import HeadTag from 'react-head';
 import Intro from '../screens/Intro';
 import Project from '../screens/Project';
 import Profile from '../screens/Profile';
+
 import projectSpr from '../assets/project-spr.png';
 import projectSprLarge from '../assets/project-spr-large.png';
+import projectSprPlaceholder from '../assets/project-spr-placeholder.png';
 import gamestackLogin from '../assets/gamestack-login.jpg';
 import gamestackLoginLarge from '../assets/gamestack-login-large.jpg';
 import gamestackLoginPlaceholder from '../assets/gamestack-login-placeholder.jpg';
 import gamestackList from '../assets/gamestack-list.jpg';
 import gamestackListLarge from '../assets/gamestack-list-large.jpg';
 import gamestackListPlaceholder from '../assets/gamestack-list-placeholder.jpg';
+
 const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
 
 export default class Home extends PureComponent {
@@ -91,9 +94,38 @@ export default class Home extends PureComponent {
     }
   }
 
+  getAbsoluteBoundingRect = (el) => {
+    const doc  = document;
+    const win  = window;
+    const body = doc.body;
+
+    let offsetX = win.pageXOffset;
+    let offsetY = win.pageYOffset;
+    const rect = el.getBoundingClientRect();
+
+    if (el !== body) {
+      let parent = el.parentNode;
+
+      while (parent !== body) {
+        offsetX += parent.scrollLeft;
+        offsetY += parent.scrollTop;
+        parent = parent.parentNode;
+      }
+    }
+
+    return {
+      bottom: rect.bottom + offsetY,
+      height: rect.height,
+      left: rect.left + offsetX,
+      right: rect.right + offsetX,
+      top: rect.top + offsetY,
+      width: rect.width
+    }
+  }
+
   isInViewport = (elem, scrollY) => {
-    const bounding = elem.getBoundingClientRect();
-    return bounding.top <= scrollY;
+    if (elem === this.details) console.log(this.getAbsoluteBoundingRect(elem).top, scrollY)
+    return this.getAbsoluteBoundingRect(elem).top - (window.innerHeight - 200) <= scrollY;
   };
 
   switchDiscipline = () => {
@@ -114,7 +146,12 @@ export default class Home extends PureComponent {
     return (
       <HomeContainer>
         <HeadTag tag="title">Hamish Williams | Multidisciplinary Designer</HeadTag>
-        <HeadTag tag="meta" name="description" content="Digital designer working on web & mobile apps with a focus on motion design and user experience." />
+        <HeadTag
+          tag="meta"
+          name="description"
+          content="Digital designer working on web &amp; mobile apps with a focus on
+            motion design and user experience."
+        />
         <Intro
           id="intro"
           sectionRef={section => this.intro = section}
@@ -134,6 +171,7 @@ export default class Home extends PureComponent {
           buttonText="View Project"
           imageSrc={[`${projectSpr} 1x, ${projectSprLarge} 2x`]}
           imageAlt={['Smart Sparrow lesson builder']}
+          imagePlaceholder={[projectSprPlaceholder]}
           imageType="laptop"
         />
         <Project

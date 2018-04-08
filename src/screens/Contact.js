@@ -149,6 +149,7 @@ const ContactWrapper = styled.section`
 
   @media (max-width: ${Media.mobile}) {
     padding-left: 0;
+    padding-bottom: 300px;
   }
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {

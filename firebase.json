@@ -7,7 +7,7 @@
     }],
 
     "headers": [{
-      "source" : "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
+      "source" : "**/*.@(eot|otf|ttf|ttc|woff|woff2|font.css)",
       "headers" : [{
         "key" : "Access-Control-Allow-Origin",
         "value" : "*"
@@ -20,6 +20,12 @@
       }]
     },{
       "source" : "**/*.@(css|js)",
+      "headers" : [{
+        "key" : "Cache-Control",
+        "value" : "max-age=604800"
+      }]
+    },{
+      "source" : "**/*.@(woff|woff2)",
       "headers" : [{
         "key" : "Cache-Control",
         "value" : "max-age=604800"

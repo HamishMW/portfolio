@@ -34,7 +34,7 @@ export default class DecoderText extends PureComponent {
     this.state = {
       position: 0,
       started: false,
-      output: [{type: 'code', value: '_'}],
+      output: [{type: 'code', value: ''}],
     }
   }
 
@@ -110,24 +110,30 @@ export default class DecoderText extends PureComponent {
   }
 
   render() {
-    const { text } = this.props;
+    const { text, className, style } = this.props;
     const { output } = this.state;
 
     return (
-      <span aria-label={text}>
+      <DecoderSpan aria-label={text} className={className} style={style}>
         {output.map((item, index) => {
           if (item.type === 'actual') {
             return <span key={`${item.value}_${index}`} aria-hidden="true">{item.value}</span>
           } else {
-            return <Code key={`${item.value}_${index}`} aria-hidden="true">{item.value}</Code>
+            return <DecoderCode key={`${item.value}_${index}`} aria-hidden="true">{item.value}</DecoderCode>
           }
         })}
-      </span>
+      </DecoderSpan>
     );
   }
 }
 
-const Code = styled.span`
+const DecoderSpan = styled.span`
+  height: 1em;
+  line-height: 1;
+`;
+
+
+const DecoderCode = styled.span`
   opacity: 0.8;
   font-weight: 400;
   font-family: 'Hiragino Sans', sans-serif;

@@ -10,6 +10,7 @@ const HeaderIcons = ({ toggleMenu }) => (
   <HeaderNavIcons>
     <HeaderNavIconLink
       target="_blank"
+      rel="noopener"
       aria-label="Twitter"
       href="https://twitter.com/hamishMW"
     >
@@ -17,6 +18,7 @@ const HeaderIcons = ({ toggleMenu }) => (
     </HeaderNavIconLink>
     <HeaderNavIconLink
       target="_blank"
+      rel="noopener"
       aria-label="Dribbble"
       href="https://dribbble.com/hamishw"
     >
@@ -142,6 +144,7 @@ const HeaderNavLink = styled(NavLink)`
   font-weight: 500;
   position: relative;
   transition: color 0.3s ease 0.1s;
+  line-height: 1;
 
   &:hover,
   &:active,
@@ -256,7 +259,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     left: 60px;
     height: 4px;
     background: ${props => props.theme.colorPrimary(1)};
-    transform: scaleX(0) translateY(-2px);
+    transform: scaleX(0) translateY(-1px);
     transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
     transform-origin: right;
   }
@@ -264,7 +267,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   &:hover:after,
   &:active:after,
   &:focus:after {
-    transform: scaleX(1) translateY(-2px);
+    transform: scaleX(1) translateY(-1px);
     transform-origin: left;
   }
 `;

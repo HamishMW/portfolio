@@ -11,14 +11,20 @@ export default class ProgressiveImage extends PureComponent {
   }
 
   render() {
-    const { src, srcSet, alt, placeholder, className, style } = this.props;
+    const { src, srcSet, alt, placeholder, className, style, blur } = this.props;
     const { loaded } = this.state;
 
     return (
       <ImageContainer className={className} style={style}>
-        <ImagePlaceholder loaded={loaded} src={placeholder} />
+        <ImagePlaceholder
+          blur={blur}
+          loaded={loaded}
+          src={placeholder}
+          alt=""
+        />
         <ImageActual
           onLoad={this.onLoad}
+          loaded={loaded}
           src={src}
           srcSet={srcSet}
           alt={alt}
@@ -30,8 +36,6 @@ export default class ProgressiveImage extends PureComponent {
 
 const ImageContainer = styled.div`
   position: relative;
-  transform: translate3d(0, 0, 0);
-  display: flex;
 `;
 
 const ImagePlaceholder = styled.img`
@@ -45,6 +49,11 @@ const ImagePlaceholder = styled.img`
   height: 100%;
   transition: opacity 0.4s ease;
   pointer-events: none;
+  display: block;
+
+  ${props => props.blur &&`
+    filter: blur(${props.blur}px);
+  `}
 
   ${props => props.loaded &&`
     opacity: 0;
@@ -52,5 +61,12 @@ const ImagePlaceholder = styled.img`
 `;
 
 const ImageActual = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
 
+  ${props => props.loaded &&`
+    opacity: 1;
+  `}
 `;

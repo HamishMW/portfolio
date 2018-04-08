@@ -79,6 +79,8 @@ const InputElement = styled.input`
   border: 0;
   padding-bottom: 16px;
   z-index: 16;
+  appearance: none;
+  -webkit-border-radius: 0;
 
   &:focus {
     outline: none;

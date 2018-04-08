@@ -92,9 +92,10 @@ const MainContent = styled.main`
 `;
 
 const SkipToMain = styled.a`
-  position: absolute;
-  left: -10000px;
-  top: auto;
+  position: fixed;
+  clip: rect(1px,1px,1px,1px);
+  top: 16px;
+  left: 50%;
   width: 1px;
   height: 1px;
   overflow: hidden;
@@ -110,9 +111,7 @@ const SkipToMain = styled.a`
   clip-path: ${props => props.theme.clipPath(8)};
 
   &:focus {
-    position: fixed;
-    top: 16px;
-    left: 50%;
+    clip: auto;
     width: auto;
     height: auto;
     outline: none;

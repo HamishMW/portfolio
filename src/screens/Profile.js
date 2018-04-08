@@ -23,15 +23,15 @@ const ProfileText = ({ status }) => (
         offset={200}
       />
     </ProfileTitle>
-    <ProfileDescription>
+    <ProfileDescription status={status}>
       I’m Hamish, currently I live in Sydney, working as the lead product designer
-      at <Anchor href={SparrowLink} target="_blank">Smart Sparrow</Anchor>. My projects
+      at <Anchor href={SparrowLink} target="_blank" rel="noopener">Smart Sparrow</Anchor>. My projects
       include UX design, UI animations, and icon illustration. Being comfortable with
       code allows me to rapidly prototype and validate experiences.
     </ProfileDescription>
-    <ProfileDescription>
+    <ProfileDescription status={status}>
       In my spare time I like to practice Brazilian Jiu Jitsu, play video games,
-      and <Anchor href={ModLink} target="_blank">make mods</Anchor>. I’m always down
+      and <Anchor href={ModLink} target="_blank" rel="noopener">make mods</Anchor>. I’m always down
       for hearing about new projects, so feel free to drop me a line.
     </ProfileDescription>
   </React.Fragment>
@@ -43,19 +43,20 @@ const Profile = ({
   sectionRef,
 }) => (
   <ProfileSection id={id} innerRef={sectionRef}>
-    <Transition in={visible} timeout={3000}>
+    <Transition in={visible} timeout={0} mountOnEnter>
       {(status) => (
         <ProfileContent>
           <ProfileColumn>
             <ProfileText status={status} />
-            <RouterButton
+            <ProfileButton
               secondary
+              status={status}
               to="/contact"
               style={{marginTop: 20}}
               icon="send"
             >
               Send me a message
-            </RouterButton>
+            </ProfileButton>
           </ProfileColumn>
           <ProfileColumn>
             <ProfileTag status={status}>
@@ -68,7 +69,7 @@ const Profile = ({
                 srcSet={`${ProfileImg} 1x, ${ProfileImgLarge} 2x`}
                 alt="Me at the Torii on Miyajima, Japan"
               />
-              <ProfileSvg icon="profile" />
+              <ProfileSvg icon="profile" status={status} />
             </ProfileImageContainer>
           </ProfileColumn>
         </ProfileContent>
@@ -145,6 +146,12 @@ const ProfileDescription = styled.p`
   line-height: 1.4;
   margin: 0;
   margin-bottom: 30px;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.6s;
+
+  ${props => props.status === 'entered' &&`
+    opacity: 1;
+  `}
 
   @media (max-width: ${Media.mobile}) {
     font-size: 18px;
@@ -171,8 +178,7 @@ const ProfileTag = styled.div`
     transform-origin: left;
   }
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     &:before {
       transform: scale3d(1, 1, 1);
     }
@@ -191,8 +197,7 @@ const ProfileTagText = styled.div`
   opacity: 0;
   transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1.3s;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     transform: translateX(0);
     opacity: 1;
   `}
@@ -236,7 +241,7 @@ const ProfileImageContainer = styled.div`
     z-index: 16;
   }
 
-  ${props => props.status === 'entering' &&`
+  ${props => props.status === 'entered' &&`
     &:before {
       animation: ${AnimProfileImage} 1.8s ${props.theme.curveFastoutSlowin};
     }
@@ -250,8 +255,7 @@ const ProfileImage = styled(ProgressiveImage)`
   opacity: 0;
   transition: opacity 0.4s ease 0.9s;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     opacity: 1;
   `}
 `;
@@ -263,6 +267,12 @@ const ProfileSvg = styled(Svg)`
   transform: translate3d(50%, -80px, 0);
   height: 620px;
   z-index: 32;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.4s;
+
+  ${props => props.status === 'entered' &&`
+    opacity: 1;
+  `}
 
   @media (max-width: ${Media.tablet}) {
     height: 460px;
@@ -271,6 +281,15 @@ const ProfileSvg = styled(Svg)`
   @media (max-width: ${Media.mobile}) {
     height: 400px;
   }
+`;
+
+const ProfileButton = styled(RouterButton)`
+  opacity: 0;
+  transition: opacity 0.8s ease 0.8s;
+
+  ${props => props.status === 'entered' &&`
+    opacity: 1;
+  `}
 `;
 
 export default Profile;

@@ -13,7 +13,7 @@ const ButtonContent = ({ iconRight, icon, children, secondary, loading }) => (
     {loading &&
       <Loader
         style={{position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}
-        size="42"
+        size="24"
         color={Theme.colorBackground(1)}
       />
     }
@@ -32,12 +32,13 @@ const Button = ({ ...props, className, style, secondary }) => (
 );
 
 const LinkButton = ({ ...props, className, style, secondary,
-  href, target }) => (
+  href, rel, target }) => (
   <LinkButtonContainer
     className={className}
     style={style}
     secondary={secondary}
     href={href}
+    rel={rel}
     target={target}
   >
     <ButtonContent {...props} />

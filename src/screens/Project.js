@@ -7,7 +7,7 @@ import ProgressiveImage from '../components/ProgressiveImage';
 import Svg from '../utils/Svg';
 import phone from '../assets/phone.png';
 import phoneLarge from '../assets/phone-large.png';
-const Fragment = React.Fragment;
+import phonePlaceholder from '../assets/phone-placeholder.png';
 
 const Project = ({
   id,
@@ -25,9 +25,9 @@ const Project = ({
 }) => (
   <ProjectSection index={index} innerRef={sectionRef} id={id}>
     <ProjectContent>
-      <Transition in={visible} timeout={1200}>
+      <Transition mountOnEnter in={visible} timeout={0}>
         {(status) => (
-          <Fragment>
+          <React.Fragment>
             <ProjectDetails>
               <ProjectIndex status={status}>
                 <ProjectIndexNumber status={status}>{index}</ProjectIndexNumber>
@@ -38,7 +38,7 @@ const Project = ({
                 {buttonLink ?
                   <LinkButton
                     href={buttonLink}
-                    target="_blank"
+                    rel="noopener"
                     iconRight="arrowRight"
                   >
                     {buttonText}
@@ -50,7 +50,13 @@ const Project = ({
             <ProjectPreview>
               {imageType === 'laptop' &&
                 <ProjectPreviewContentLaptop>
-                  <ProjectImageLaptop status={status} srcSet={imageSrc[0]} alt={imageAlt[0]} />
+                  <ProjectImageLaptop
+                    status={status}
+                    srcSet={imageSrc[0]}
+                    alt={imageAlt[0]}
+                    placeholder={imagePlaceholder[0]}
+                    blur={10}
+                  />
                   <ProjectImageLaptopSvg status={status} icon="projects" />
                 </ProjectPreviewContentLaptop>
               }
@@ -63,6 +69,7 @@ const Project = ({
                         srcSet={`${phone} 1x, ${phoneLarge} 2x`}
                         alt=""
                         role="presentation"
+                        placeholder={phonePlaceholder}
                       />
                       <ProjectPhoneImage
                         srcSet={imageSrc[index]}
@@ -74,7 +81,7 @@ const Project = ({
                 </ProjectPreviewContentPhone>
               }
             </ProjectPreview>
-          </Fragment>
+          </React.Fragment>
         )}
       </Transition>
     </ProjectContent>
@@ -220,8 +227,7 @@ const ProjectIndex = styled.div`
     transform-origin: left;
   }
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     &:before {
       transform: scale3d(1, 1, 1);
     }
@@ -239,8 +245,7 @@ const ProjectIndexNumber = styled.span`
   transition-duration: 0.4s;
   transition-delay: 1.3s;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     transform: translateX(0);
     opacity: 1;
   `}
@@ -261,8 +266,7 @@ const ProjectTitle = styled.h2`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -284,8 +288,7 @@ const ProjectDescription = styled.p`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -303,14 +306,13 @@ const ProjectButton = styled.div`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 `;
 
-const ProjectImageLaptop = styled.img`
+const ProjectImageLaptop = styled(ProgressiveImage)`
   width: 160%;
   transition-property: transform, opacity;
   transition-duration: 1s;
@@ -319,8 +321,7 @@ const ProjectImageLaptop = styled.img`
   transform: translate3d(40px, 0, 0);
   opacity: 0;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -344,8 +345,7 @@ const ProjectImageLaptopSvg = styled(Svg)`
   opacity: 0;
   transition: opacity 0.4s ease 0.6s;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     opacity: 1;
   `}
 
@@ -396,14 +396,13 @@ const ProjectPhone = styled.div`
     }
   `}
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 `;
 
-const ProjectPhoneFrame = styled.img`
+const ProjectPhoneFrame = styled(ProgressiveImage)`
   position: absolute;
 
   @media (max-width: ${Media.tablet}) {
@@ -435,8 +434,7 @@ const ProjectPhoneImageSvg = styled(Svg)`
   transition: opacity 0.6s ease 0.6s;
   opacity: 0;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') &&`
+  ${props => props.status === 'entered' &&`
     opacity: 1;
   `}
 
