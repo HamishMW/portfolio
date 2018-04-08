@@ -37,6 +37,7 @@ const NotFound = () => (
             </NotFoundVideo>
             <NotFoundCredit status={status}
               href="https://twitter.com/MrValenberg"
+              target="_blank"
               rel="noopener"
             >
               Animation by Valenberg

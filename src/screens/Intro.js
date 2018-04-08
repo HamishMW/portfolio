@@ -69,6 +69,10 @@ const IntroContent = styled.section`
   flex-direction: column;
   padding-left: 120px;
 
+  @media (min-width: ${Media.desktop}) {
+    padding-right: 80px;
+  }
+
   @media (max-width: ${Media.tablet}) {
     padding-left: 60px;
   }
@@ -108,6 +112,11 @@ const IntroText = styled.header`
   top: -20px;
   padding: 0 ${props => props.theme.spacingOuter.desktop};
 
+  @media (min-width: ${Media.desktop}) {
+    padding: 0;
+    max-width: 1100px;
+  }
+
   @media (max-width: ${Media.tablet}) {
     padding: 0 100px;
   }
@@ -127,6 +136,11 @@ const IntroName = styled.h2`
   margin-top: 0;
   font-weight: 500;
   line-height: 1;
+
+  @media (min-width: ${Media.desktop}) {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
 
   @media (max-width: ${Media.tablet}) {
     font-size: 18px;
@@ -154,6 +168,10 @@ const IntroTitle = styled.h1`
   margin: 0;
   letter-spacing: -0.005em;
   font-weight: 500;
+
+  @media (min-width: ${Media.desktop}) {
+    font-size: 140px;
+  }
 
   @media (max-width: 860px) {
     font-size: 80px;
@@ -205,6 +223,7 @@ const IntroTitleWord = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  line-height: 1;
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
   animation-timing-function: ${props => props.theme.curveFastoutSlowin};

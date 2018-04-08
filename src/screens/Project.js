@@ -38,6 +38,7 @@ const Project = ({
                 {buttonLink ?
                   <LinkButton
                     href={buttonLink}
+                    target="_blank"
                     rel="noopener"
                     iconRight="arrowRight"
                   >
@@ -107,8 +108,10 @@ const ProjectSection = styled.section`
     grid-template-columns: 55% 40%;
   }
 
-  @media (min-width: 1440px) {
+  @media (min-width: ${Media.desktop}) {
     padding-left: 120px;
+    margin-bottom: 0;
+    margin-top: 0;
   }
 
   @media (max-width: ${Media.tablet}) {
@@ -143,6 +146,10 @@ const ProjectContent = styled.div`
 
   ${ProjectSection}:nth-child(2n + 1) & {
     grid-template-columns: 55% 40%;
+  }
+
+  @media (min-width: ${Media.desktop}) {
+    max-width: 1100px;
   }
 
   @media (max-width: ${Media.tablet}) {

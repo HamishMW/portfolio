@@ -90,7 +90,7 @@ const ProfileSection = styled.section`
   display: flex;
   justify-content: center;
 
-  @media (min-width: 1440px) {
+  @media (min-width: ${Media.desktop}) {
     padding-left: 120px;
   }
 
@@ -119,6 +119,10 @@ const ProfileContent = styled.div`
   grid-column-gap: 8%;
   max-width: 1000px;
   width: 100%;
+
+  @media (min-width: ${Media.desktop}) {
+    max-width: 1100px;
+  }
 
   @media (max-width: ${Media.tablet}) {
     grid-template-columns: 100%;
