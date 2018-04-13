@@ -38,7 +38,7 @@ const Header = ({menuOpen, toggleMenu}) => (
   <HeaderWrapper>
     <Transition
       in={menuOpen}
-      timeout={{enter: 5, exit: 400}}
+      timeout={{enter: 5, exit: 500}}
       mountOnEnter
       unmountOnExit
     >
@@ -132,7 +132,7 @@ const HeaderNav = styled.nav`
 `;
 
 const HeaderNavList = styled.div`
-  transform: rotate(-90deg) translateX(-50%);
+  transform: rotate(-90deg) translate3d(-50%, 0, 0);
   display: flex;
   flex-direction: row-reverse;
 `;
@@ -214,8 +214,8 @@ const HeaderMobileNav = styled.nav`
   bottom: 0;
   left: 0;
   background: ${props => props.theme.colorBackground(0.9)};
-  transform: translate3d(100%, 0, 0);
-  transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+  transform: translate3d(0, -100%, 0);
+  transition: transform 0.5s ${props => props.theme.curveFastoutSlowin};
   display: none;
   flex-direction: column;
   align-items: center;

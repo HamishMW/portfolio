@@ -18,12 +18,12 @@ const LoaderContainer = styled.div`
 `;
 
 const AnimGrow = keyframes`
-  0%, 100%{
+  0%, 100% {
     transform: scaleY(0.4);
     opacity: 0.6;
   }
 
-  50%{
+  50% {
     transform: scaleY(0.8);
     opacity: 1;
   }

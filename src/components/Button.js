@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Icon from '../utils/Icon';
-import Theme, { ColorTint } from '../utils/Theme';
+import Theme from '../utils/Theme';
+import { ColorTint } from '../utils/StyleUtils';
 
 const ButtonContent = ({ iconRight, icon, children, secondary, loading }) => (
   <React.Fragment>

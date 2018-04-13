@@ -65,6 +65,9 @@ const NotFoundSection = styled.section`
     grid-template-columns: 100%;
     padding-left: 0;
     padding-top: 80px;
+    min-height: 100vh;
+    height: auto;
+    padding-bottom: 80px;
   }
 `;
 
@@ -96,6 +99,7 @@ const NotFoundVideoContainer = styled.div`
 
   @media (max-width: ${Media.mobile}) {
     order: 1;
+    min-height: 240px;
   }
 
   &:after {
@@ -193,6 +197,10 @@ const NotFoundTitle = styled.h1`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
+  @media (max-width: ${Media.mobile}) {
+    font-size: 64px;
+  }
+
   ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
@@ -213,6 +221,10 @@ const NotFoundSubHeading = styled.h2`
   transition-delay: 0.2s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
+
+  @media (max-width: ${Media.mobile}) {
+    font-size: 18px;
+  }
 
   ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);

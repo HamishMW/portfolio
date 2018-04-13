@@ -100,8 +100,7 @@ export default class DecoderText extends PureComponent {
   	return textArray;
   }
 
-
-  getRandCharacter = (chars) => {
+  getRandCharacter = chars => {
   	const randNum = Math.floor(Math.random() * chars.length);
   	const lowChoice =	- .5 + Math.random();
   	const picketCharacter = chars[randNum];

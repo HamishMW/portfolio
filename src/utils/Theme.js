@@ -18,14 +18,3 @@ export default {
   curveFastoutSlowin: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
   clipPath: size => `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
 }
-
-export const ColorTint = (color, percent) => {
-  const values = color.split(',');
-  const t = percent < 0 ? 0 : 255;
-  const p = percent < 0 ? percent *- 1 : percent;
-  const R = parseInt(values[0].slice(5), 10);
-  const G = parseInt(values[1], 10);
-  const B = parseInt(values[2], 10);
-  const A = parseInt(values[3], 10);
-  return `rgba(${(Math.round((t-R)*p)+R)}, ${(Math.round((t-G)*p)+G)}, ${(Math.round((t-B)*p)+B)}, ${A})`;
-}

@@ -81,7 +81,7 @@ const Profile = ({
 const ProfileSection = styled.section`
   width: 100vw;
   min-height: 100vh;
-  margin-top: 120px;
+  margin-top: 60px;
   margin-bottom: 120px;
   padding-top: 40px;
   padding-right: 80px;
@@ -143,6 +143,7 @@ const ProfileTitle = styled.h2`
   margin: 0;
   font-weight: 500;
   margin-bottom: 40px;
+  white-space: nowrap;
 `;
 
 const ProfileDescription = styled.p`

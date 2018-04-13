@@ -28,18 +28,20 @@ class App extends Component {
     return (
       <ThemeProvider theme={Theme}>
         <BrowserRouter>
-          <React.Fragment>
-            <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
-            <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
-            <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
-            <MainContent id="MainContent">
-              <Switch>
-                <Route exact path="/" render={routeProps => <Home {...routeProps} />}/>
-                <Route path="/contact" render={routeProps => <Contact {...routeProps} />}/>
-                <Route render={routeProps => <NotFound {...routeProps} />}/>
-              </Switch>
-            </MainContent>
-          </React.Fragment>
+          <Route render={({location}) => (
+            <React.Fragment>
+              <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
+              <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
+              <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
+              <MainContent id="MainContent">
+                <Switch location={location}>
+                  <Route exact path="/" render={props => <Home {...props} />}/>
+                  <Route path="/contact" render={props => <Contact {...props} />}/>
+                  <Route render={props => <NotFound {...props} />}/>
+                </Switch>
+              </MainContent>
+            </React.Fragment>
+          )}/>
         </BrowserRouter>
       </ThemeProvider>
     );

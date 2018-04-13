@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import HeadTag from 'react-head';
 import Intro from '../screens/Intro';
-import Project from '../screens/Project';
+import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
 
 import projectSpr from '../assets/project-spr.png';
@@ -14,6 +14,9 @@ import gamestackLoginPlaceholder from '../assets/gamestack-login-placeholder.jpg
 import gamestackList from '../assets/gamestack-list.jpg';
 import gamestackListLarge from '../assets/gamestack-list-large.jpg';
 import gamestackListPlaceholder from '../assets/gamestack-list-placeholder.jpg';
+import projectSlice from '../assets/project-slice.png';
+import projectSliceLarge from '../assets/project-slice-large.png';
+import projectSlicePlaceholder from '../assets/project-slice-placeholder.png';
 
 const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
 
@@ -71,7 +74,13 @@ export default class Home extends PureComponent {
     this.scheduledAnimationFrame = true;
 
     requestAnimationFrame(() => {
-      const revealSections = [this.intro, this.projectOne, this.projectTwo, this.details];
+      const revealSections = [
+        this.intro,
+        this.projectOne,
+        this.projectTwo,
+        this.projectThree,
+        this.details,
+      ];
       const { visibleSections } = this.state;
 
       if (this.lastScrollY >= 50) {
@@ -148,7 +157,7 @@ export default class Home extends PureComponent {
           hideScrollIndicator={hideScrollIndicator}
           backgroundLoaded={backgroundLoaded}
         />
-        <Project
+      <ProjectItem
           id="projects"
           sectionRef={section => this.projectOne = section}
           visible={visibleSections.includes(this.projectOne)}
@@ -161,7 +170,7 @@ export default class Home extends PureComponent {
           imagePlaceholder={[projectSprPlaceholder]}
           imageType="laptop"
         />
-        <Project
+      <ProjectItem
           sectionRef={section => this.projectTwo = section}
           visible={visibleSections.includes(this.projectTwo)}
           index="02"
@@ -182,6 +191,19 @@ export default class Home extends PureComponent {
             gamestackListPlaceholder,
           ]}
           imageType="phone"
+        />
+      <ProjectItem
+          id="projects"
+          sectionRef={section => this.projectThree = section}
+          visible={visibleSections.includes(this.projectThree)}
+          index="03"
+          title="Biomedical image collaboration"
+          description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
+          buttonText="View Project"
+          imageSrc={[`${projectSlice} 1x, ${projectSliceLarge} 2x`]}
+          imageAlt={['Smart Sparrow lesson builder']}
+          imagePlaceholder={[projectSlicePlaceholder]}
+          imageType="laptop"
         />
         <Profile
           sectionRef={section => this.details = section}

@@ -3,7 +3,6 @@ import styled, { keyframes } from 'styled-components';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Media } from '../utils/StyleUtils';
 import DecoderText from '../components/DecoderText';
-const Fragment = React.Fragment;
 
 const Intro = ({
   id,
@@ -21,14 +20,14 @@ const Intro = ({
       timeout={3000}
     >
       {(appearStatus) => (
-        <Fragment>
+        <React.Fragment>
           <IntroBackground
             innerRef={threeCanvas}
             isLoaded={backgroundLoaded}
           />
           <IntroText>
             <IntroName>
-              <DecoderText text="Hamish Williams" start={true} />
+              <DecoderText text="Hamish Williams" start={true} offset={120} />
             </IntroName>
             <IntroTitle>
               <IntroTitleRow>
@@ -55,7 +54,7 @@ const Intro = ({
             </IntroTitle>
           </IntroText>
           <ScrollIndicator isHidden={hideScrollIndicator} status={appearStatus} />
-        </Fragment>
+        </React.Fragment>
       )}
     </Transition>
   </IntroContent>
@@ -127,6 +126,11 @@ const IntroText = styled.header`
   }
 `;
 
+const AnimFadeIn = keyframes`
+  0% { opacity: 0 };
+  100% { opacity: 1 };
+`;
+
 const IntroName = styled.h2`
   text-transform: uppercase;
   font-size: 24px;
@@ -136,6 +140,8 @@ const IntroName = styled.h2`
   margin-top: 0;
   font-weight: 500;
   line-height: 1;
+  opacity: 0;
+  animation: ${AnimFadeIn} 0.4s ease 0.6s forwards;
 
   @media (min-width: ${Media.desktop}) {
     font-size: 28px;

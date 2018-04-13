@@ -60,6 +60,7 @@ export default class Contact extends PureComponent {
             <Transition appear timeout={1600} mountOnEnter unmountOnExit>
               {(status) => (
                 <ContactForm autoComplete="off" onSubmit={this.onSubmit}>
+                  <ContactTitle status={status} delay={50}>Say hello</ContactTitle>
                   <ContactDivider status={status} delay={100} />
                   <ContactInput
                     status={status}
@@ -138,9 +139,6 @@ const ContactWrapper = styled.section`
   justify-content: center;
   min-height: 100vh;
   width: 100%;
-  background: ${props => props.theme.colorBackground(0.95)};
-  padding-top: 120px;
-  padding-bottom: 120px;
   padding-left: 80px;
 
   @media (max-width: ${Media.tablet}) {
@@ -149,7 +147,6 @@ const ContactWrapper = styled.section`
 
   @media (max-width: ${Media.mobile}) {
     padding-left: 0;
-    padding-bottom: 300px;
   }
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
@@ -161,6 +158,38 @@ const ContactForm = styled.form`
   max-width: 440px;
   width: 100%;
   padding: 0 20px;
+  padding-top: 120px;
+  padding-bottom: 120px;
+
+  @media (max-width: ${Media.mobile}) {
+    padding-bottom: 300px;
+  }
+`;
+
+const ContactTitle = styled.h1`
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 40px;
+  margin-top: 0;
+  transition-property: transform, opacity;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.8s;
+  transition-delay: ${props => props.delay}ms;
+  transform: translate3d(0, 90px, 0);
+  opacity: 0;
+
+  ${props => (props.status === 'entering' ||
+    props.status === 'entered') &&`
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  `}
+
+  ${props => props.status === 'exiting' &&`
+    transition-duration: 0.4s;
+    transition-delay: 0s;
+    transform: translate3d(0, -40px, 0);
+    opacity: 0;
+  `}
 `;
 
 const ContactDivider = styled.div`
@@ -277,8 +306,13 @@ const ContactComplete = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 30px;
   position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 `;
 
 const ContactCompleteTitle = styled.h1`
@@ -322,6 +356,8 @@ const ContactCompleteButton = styled(RouterButton)`
   transition-delay: ${props => props.delay}ms;
   transform: translate3d(0, 80px, 0);
   opacity: 0;
+  left: -5px;
+  position: relative;
 
   ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);
