@@ -11,7 +11,7 @@ export default class ProgressiveImage extends PureComponent {
   }
 
   render() {
-    const { src, srcSet, alt, placeholder, className, style, blur } = this.props;
+    const { placeholder, className, style, blur, ...props } = this.props;
     const { loaded } = this.state;
 
     return (
@@ -21,13 +21,12 @@ export default class ProgressiveImage extends PureComponent {
           loaded={loaded}
           src={placeholder}
           alt=""
+          role="presentation"
         />
         <ImageActual
           onLoad={this.onLoad}
           loaded={loaded}
-          src={src}
-          srcSet={srcSet}
-          alt={alt}
+          {...props}
         />
       </ImageContainer>
     )

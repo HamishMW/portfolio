@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Transition } from 'react-transition-group';
 import { Media } from '../utils/StyleUtils';
-import Button, { LinkButton } from '../components/Button';
+import { RouterButton, LinkButton } from '../components/Button';
 import ProgressiveImage from '../components/ProgressiveImage';
 import Svg from '../utils/Svg';
 import phone from '../assets/phone.png';
@@ -22,6 +22,7 @@ const ProjectItem = ({
   imagePlaceholder,
   buttonText,
   buttonLink,
+  buttonTo,
 }) => (
   <ProjectItemSection index={index} innerRef={sectionRef} id={id}>
     <ProjectItemContent>
@@ -44,7 +45,7 @@ const ProjectItem = ({
                   >
                     {buttonText}
                   </LinkButton>
-                  : <Button iconRight="arrowRight">{buttonText}</Button>
+                  : <RouterButton to={buttonTo} iconRight="arrowRight">{buttonText}</RouterButton>
                 }
               </ProjectItemButton>
             </ProjectItemDetails>
@@ -56,6 +57,12 @@ const ProjectItem = ({
                     srcSet={imageSrc[0]}
                     alt={imageAlt[0]}
                     placeholder={imagePlaceholder[0]}
+                    sizes={`
+                      (max-width: ${Media.mobile}) 300px,
+                      (max-width: ${Media.tablet}) 420px,
+                      (max-width: ${Media.desktop}) 860px,
+                      900px
+                    `}
                     blur={10}
                   />
                 <ProjectItemImageLaptopSvg status={status} icon="projects" />
@@ -72,10 +79,11 @@ const ProjectItem = ({
                         role="presentation"
                         placeholder={phonePlaceholder}
                       />
-                    <ProjectItemPhoneImage
+                      <ProjectItemPhoneImage
                         srcSet={imageSrc[index]}
                         alt={imageAlt[index]}
                         placeholder={imagePlaceholder[index]}
+                        sizes={`(max-width: ${Media.tablet}) 152px, 254px`}
                       />
                   </ProjectItemPhone>
                   ))}
@@ -211,7 +219,6 @@ const ProjectItemPreviewContentLaptop = styled.div`
     justify-content: center;
   }
 `;
-
 
 const ProjectItemIndex = styled.div`
   position: relative;
@@ -423,6 +430,7 @@ const ProjectItemPhoneImage = styled(ProgressiveImage)`
   box-shadow: 0 0 0 2px #1C1C1C;
   position: relative;
   top: -14px;
+  width: 254px;
 
   img {
     width: 100%;

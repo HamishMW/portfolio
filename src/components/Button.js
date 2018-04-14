@@ -84,6 +84,7 @@ const ButtonContainer = styled.button`
 
   &:active {
     transform: scale(1);
+    transition-duration: 0.1s;
   }
 
   ${props => props.secondary &&`

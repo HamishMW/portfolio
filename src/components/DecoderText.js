@@ -76,6 +76,8 @@ export default class DecoderText extends PureComponent {
 
   	if (position > this.content.length) {
   		this.running = false;
+      const finalArray = this.setValue(this.content);
+      this.setState({output: finalArray});
   		return;
   	}
 
@@ -85,19 +87,24 @@ export default class DecoderText extends PureComponent {
     this.setState({output: textArray});
   }
 
+  setValue = value => {
+    return value.map(value => ({
+      type: 'actual',
+      value,
+    }));
+  }
+
   shuffle = (content, chars, position) => {
-  	const textArray = [];
+    return content.map((value, index) => {
+      if (index < position) {
+        return {type: 'actual', value};
+      }
 
-  	for (let i = 0, l = content.length; i < l; i ++) {
-  		if (i < position) {
-  			textArray.push({type: 'actual', value: content[i]});
-  			continue;
-  		}
-
-  		textArray.push({type: 'code', value: this.getRandCharacter(chars)});
-  	}
-
-  	return textArray;
+      return {
+        type: 'code',
+        value: this.getRandCharacter(chars),
+      }
+    });
   }
 
   getRandCharacter = chars => {
@@ -116,10 +123,24 @@ export default class DecoderText extends PureComponent {
       <DecoderSpan aria-label={text} className={className} style={style}>
         {output.map((item, index) => {
           if (item.type === 'actual') {
-            return <span key={`${item.value}_${index}`} aria-hidden="true">{item.value}</span>
-          } else {
-            return <DecoderCode key={`${item.value}_${index}`} aria-hidden="true">{item.value}</DecoderCode>
+            return (
+              <span
+                key={`${item.value}_${index}`}
+                aria-hidden="true"
+              >
+                {item.value}
+              </span>
+            )
           }
+
+          return (
+            <DecoderCode
+              key={`${item.value}_${index}`}
+              aria-hidden="true"
+            >
+              {item.value}
+            </DecoderCode>
+          )
         })}
       </DecoderSpan>
     );

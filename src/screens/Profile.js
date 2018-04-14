@@ -9,7 +9,7 @@ import Svg from '../utils/Svg';
 import ProfileImg from '../assets/profile.jpg';
 import ProfileImgLarge from '../assets/profile-large.jpg';
 import ProfileImgPlaceholder from '../assets/profile-placeholder.jpg';
-import { Media } from '../utils/StyleUtils';
+import { Media, ColorTint } from '../utils/StyleUtils';
 
 const SparrowLink = 'https://www.smartsparrow.com';
 const ModLink = 'https://www.nexusmods.com/skyrimspecialedition/mods/4806/';
@@ -66,7 +66,8 @@ const Profile = ({
               <ProfileImage
                 status={status}
                 placeholder={ProfileImgPlaceholder}
-                srcSet={`${ProfileImg} 1x, ${ProfileImgLarge} 2x`}
+                srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
+                sizes={`(max-width: ${Media.mobile}) 300px, 480px`}
                 alt="Me at the Torii on Miyajima, Japan"
               />
               <ProfileSvg icon="profile" status={status} />
@@ -232,6 +233,7 @@ const ProfileImageContainer = styled.div`
   display: flex;
   align-items: flex-start;
   transform: translate3d(0, 0, 0);
+  background: ${props => ColorTint(props.theme.colorBackground(1), 0.05)};
 
   &:before {
     content: '';

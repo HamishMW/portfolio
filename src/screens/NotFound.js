@@ -259,6 +259,8 @@ const NotFoundButton = styled(RouterButton)`
   transition-delay: 0.4s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
+  position: relative;
+  left: -5px;
 
   ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);

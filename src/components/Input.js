@@ -4,18 +4,11 @@ import TextArea from '../components/TextArea';
 
 const Input = ({
   id,
-  value,
   label,
-  type,
   hasValue,
-  placeholder,
-  onChange,
-  required,
   multiline,
-  allowResize,
   className,
-  disabled,
-  maxLength,
+  ...props,
 }) => (
   <InputWrapper className={className}>
     <React.Fragment>
@@ -23,29 +16,16 @@ const Input = ({
         <InputElement
           id={id}
           name={id}
-          type={type}
-          value={value}
           aria-labelledby={`${id}-label`}
-          onChange={onChange}
-          placeholder={placeholder}
-          required={required}
-          disabled={disabled}
-          maxLength={maxLength}
+          {...props}
         />
       }
       {!!multiline &&
         <InputTextArea
           id={id}
           name={id}
-          type={type}
-          value={value}
           aria-labelledby={`${id}-label`}
-          onChange={onChange}
-          placeholder={placeholder}
-          required={required}
-          allowResize={allowResize}
-          disabled={disabled}
-          maxLength={maxLength}
+          {...props}
         />
       }
       <InputLabel

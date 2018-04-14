@@ -8,9 +8,10 @@ import Theme from '../utils/Theme';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
 
-const Home = asyncComponent((routeProps) => import("../screens/Home"));
-const Contact = asyncComponent((routeProps) => import("../screens/Contact"));
-const NotFound = asyncComponent((routeProps) => import("../screens/NotFound"));
+const Home = asyncComponent(props => import("../screens/Home"));
+const Contact = asyncComponent(props => import("../screens/Contact"));
+const ProjectSPR = asyncComponent(props => import("../screens/ProjectSPR"));
+const NotFound = asyncComponent(props => import("../screens/NotFound"));
 
 class App extends Component {
   state = {
@@ -37,6 +38,7 @@ class App extends Component {
                 <Switch location={location}>
                   <Route exact path="/" render={props => <Home {...props} />}/>
                   <Route path="/contact" render={props => <Contact {...props} />}/>
+                  <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} />}/>
                   <Route render={props => <NotFound {...props} />}/>
                 </Switch>
               </MainContent>

@@ -157,7 +157,7 @@ export default class Home extends PureComponent {
           hideScrollIndicator={hideScrollIndicator}
           backgroundLoaded={backgroundLoaded}
         />
-      <ProjectItem
+        <ProjectItem
           id="projects"
           sectionRef={section => this.projectOne = section}
           visible={visibleSections.includes(this.projectOne)}
@@ -165,12 +165,13 @@ export default class Home extends PureComponent {
           title="Designing the future of education"
           description="I designed a web app that helps educators build better online courseware"
           buttonText="View Project"
-          imageSrc={[`${projectSpr} 1x, ${projectSprLarge} 2x`]}
+          buttonTo="/"
+          imageSrc={[`${projectSpr} 980w, ${projectSprLarge} 1376w`]}
           imageAlt={['Smart Sparrow lesson builder']}
           imagePlaceholder={[projectSprPlaceholder]}
           imageType="laptop"
         />
-      <ProjectItem
+        <ProjectItem
           sectionRef={section => this.projectTwo = section}
           visible={visibleSections.includes(this.projectTwo)}
           index="02"
@@ -179,12 +180,12 @@ export default class Home extends PureComponent {
           buttonText="View Website"
           buttonLink="https://www.gamestackapp.com"
           imageSrc={[
-            `${gamestackLogin} 1x, ${gamestackLoginLarge} 2x`,
-            `${gamestackList} 1x, ${gamestackListLarge} 2x`,
+            `${gamestackLogin} 254w, ${gamestackLoginLarge} 508w`,
+            `${gamestackList} 254w, ${gamestackListLarge} 508w`,
           ]}
           imageAlt={[
-            'Smart Sparrow lesson author',
-            'Smart Sparrow lesson author',
+            'App login screen',
+            'List of games being tracked',
           ]}
           imagePlaceholder={[
             gamestackLoginPlaceholder,
@@ -192,16 +193,16 @@ export default class Home extends PureComponent {
           ]}
           imageType="phone"
         />
-      <ProjectItem
-          id="projects"
+        <ProjectItem
           sectionRef={section => this.projectThree = section}
           visible={visibleSections.includes(this.projectThree)}
           index="03"
           title="Biomedical image collaboration"
           description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
           buttonText="View Project"
-          imageSrc={[`${projectSlice} 1x, ${projectSliceLarge} 2x`]}
-          imageAlt={['Smart Sparrow lesson builder']}
+          buttonTo="/projects/slice"
+          imageSrc={[`${projectSlice} 980w, ${projectSliceLarge} 1376w`]}
+          imageAlt={['Annotating a biomedical image in the Slice app']}
           imagePlaceholder={[projectSlicePlaceholder]}
           imageType="laptop"
         />
