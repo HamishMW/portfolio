@@ -4,6 +4,7 @@ import HeadTag from 'react-head';
 import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
+import Footer from '../components/Footer';
 
 import projectSpr from '../assets/project-spr.png';
 import projectSprLarge from '../assets/project-spr-large.png';
@@ -199,8 +200,8 @@ export default class Home extends PureComponent {
           index="03"
           title="Biomedical image collaboration"
           description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
-          buttonText="View Project"
-          buttonTo="/projects/slice"
+          buttonText="View Website"
+          buttonLink="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
           imageSrc={[`${projectSlice} 980w, ${projectSliceLarge} 1376w`]}
           imageAlt={['Annotating a biomedical image in the Slice app']}
           imagePlaceholder={[projectSlicePlaceholder]}
@@ -211,6 +212,7 @@ export default class Home extends PureComponent {
           visible={visibleSections.includes(this.details)}
           id="details"
         />
+        <Footer />
       </HomeContainer>
     );
   }

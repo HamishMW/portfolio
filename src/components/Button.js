@@ -72,6 +72,7 @@ const ButtonContainer = styled.button`
   color: ${props => props.theme.colorBackground(1)};
   text-decoration: none;
   font-family: inherit;
+  position: relative;
 
   ${props => !props.disabled &&`
     &:hover,
@@ -90,11 +91,36 @@ const ButtonContainer = styled.button`
   ${props => props.secondary &&`
     background: none;
     color: ${props.theme.colorPrimary(1)};
-    padding: 0;
+    padding: 0 10px;
+    position: relative;
+    left: -10px;
 
-    &:hover {
+    &:after {
+      content: '';
+      height: 30px;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: ${props.theme.colorPrimary(0.2)};
+      transform: scale3d(0, 1, 1) translateY(-50%);
+      transform-origin: right;
+      transition: transform 0.4s ${props.theme.curveFastoutSlowin};
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
       transform: none;
       background: transparent;
+    }
+
+    &:hover:after,
+    &:focus:after,
+    &:active:after {
+      transform: scale3d(1, 1, 1) translateY(-50%);
+      transform-origin: left;
     }
   `}
 

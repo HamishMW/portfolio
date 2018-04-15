@@ -356,8 +356,7 @@ const ContactCompleteButton = styled(RouterButton)`
   transition-delay: ${props => props.delay}ms;
   transform: translate3d(0, 80px, 0);
   opacity: 0;
-  left: -5px;
-  position: relative;
+  padding-left: 3px;
 
   ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);

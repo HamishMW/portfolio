@@ -8,12 +8,15 @@ and graphic assets behind this site humanstxt.org.
 
 _______________________________________________________________________________
 
-DESIGNER
+DESIGNER | デザイナー
 
 Hamish Williams
+ヘイミッシュ ウィリアムズ
+
 Design & web development
 
 Design tools:
+Sketch
 InVision Studio
 Photoshop
 
@@ -22,15 +25,16 @@ github.com/hamishmw
 
 _______________________________________________________________________________
 
-TECHNOLOGY
+TECHNOLOGY | テクノロジー
 
 React
 Styled components
 Three js
+Firebase
 
 _______________________________________________________________________________
 
-FONTS
+FONTS | フォント
 
 Gotham
 Hiragino Kaku Gothic

@@ -63,7 +63,8 @@ const ProjectItem = ({
                       (max-width: ${Media.desktop}) 860px,
                       900px
                     `}
-                    blur={10}
+                    width="980px"
+                    height="603px"
                   />
                 <ProjectItemImageLaptopSvg status={status} icon="projects" />
                 </ProjectItemPreviewContentLaptop>
@@ -74,18 +75,23 @@ const ProjectItem = ({
                   {imageSrc && imageSrc.map((src, index) => (
                     <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
                       <ProjectItemPhoneFrame
-                        srcSet={`${phone} 1x, ${phoneLarge} 2x`}
+                        srcSet={`${phone} 414w, ${phoneLarge} 828w`}
+                        sizes={`(max-width: ${Media.tablet}) 248px, 414px`}
                         alt=""
                         role="presentation"
                         placeholder={phonePlaceholder}
+                        width="414px"
+                        height="721px"
                       />
                       <ProjectItemPhoneImage
                         srcSet={imageSrc[index]}
                         alt={imageAlt[index]}
                         placeholder={imagePlaceholder[index]}
                         sizes={`(max-width: ${Media.tablet}) 152px, 254px`}
+                        width="254px"
+                        height="452px"
                       />
-                  </ProjectItemPhone>
+                    </ProjectItemPhone>
                   ))}
                 </ProjectItemPreviewContentPhone>
               }
@@ -329,26 +335,37 @@ const ProjectItemButton = styled.div`
 `;
 
 const ProjectItemImageLaptop = styled(ProgressiveImage)`
-  width: 160%;
+  width: 862px;
+  height: 531px;
   transition-property: transform, opacity;
   transition-duration: 1s;
   transition-delay: 0.4s;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transform: translate3d(40px, 0, 0);
   opacity: 0;
+  position: relative;
+  right: -140px;
 
   ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 
+  @media(min-width: 1440px) {
+    width: 880px;
+    height: 542px;
+  }
+
   @media (max-width: ${Media.tablet}) {
-    width: 80%;
+    width: 420px;
+    height: 258px;
     margin-bottom: 120px;
+    right: 0;
   }
 
   @media (max-width: ${Media.mobile}) {
-    width: 100%;
+    width: 336px;
+    height: 206px;
     margin-bottom: 60px;
   }
 `;
@@ -420,9 +437,12 @@ const ProjectItemPhone = styled.div`
 
 const ProjectItemPhoneFrame = styled(ProgressiveImage)`
   position: absolute;
+  width: 414px;
+  height: 721px;
 
   @media (max-width: ${Media.tablet}) {
     width: 248px;
+    height: 431px;
   }
 `;
 
@@ -431,6 +451,7 @@ const ProjectItemPhoneImage = styled(ProgressiveImage)`
   position: relative;
   top: -14px;
   width: 254px;
+  height: 452px;
 
   img {
     width: 100%;
@@ -440,6 +461,7 @@ const ProjectItemPhoneImage = styled(ProgressiveImage)`
   @media (max-width: ${Media.tablet}) {
     box-shadow: 0 0 0 1px #1C1C1C;
     width: 152px;
+    height: 270px;
     top: -9px;
   }
 `;

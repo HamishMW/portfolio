@@ -127,7 +127,6 @@ const NotFoundVideo = styled.video`
   width: 100%;
   height: 100%;
   position: relative;
-  left: 200px;
   opacity: 0;
   transition-property: opacity;
   transition-delay: 1s;
@@ -259,8 +258,8 @@ const NotFoundButton = styled(RouterButton)`
   transition-delay: 0.4s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
-  position: relative;
-  left: -5px;
+  align-self: flex-start;
+  padding-left: 3px;
 
   ${props => props.status === 'entered' &&`
     transform: translate3d(0, 0, 0);

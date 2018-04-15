@@ -4,6 +4,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
 import Icon from '../utils/Icon';
+import Theme from '../utils/Theme';
 import { Media } from '../utils/StyleUtils';
 
 const HeaderIcons = ({ toggleMenu }) => (
@@ -73,7 +74,7 @@ const Header = ({menuOpen, toggleMenu}) => (
       )}
     </Transition>
     <HeaderLogo to="/#intro" aria-label="Hamish Williams Designer, back to home">
-      <Monogram />
+      <Monogram highlight={Theme.colorPrimary(1)}/>
     </HeaderLogo>
     <HeaderNav>
       <HeaderNavList>
@@ -116,6 +117,21 @@ const HeaderLogo = styled(Link)`
   position: relative;
   padding: 10px;
   padding-bottom: 0;
+
+  g rect {
+    opacity: 0;
+    transform: scale3d(1, 0, 1);
+    transform-origin: top;
+    transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+  }
+
+  &:hover g rect,
+  &:focus g rect,
+  &:active g rect {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+    transform-origin: bottom;
+  }
 `;
 
 const HeaderNav = styled.nav`
@@ -188,6 +204,14 @@ const HeaderNavIcons = styled.div`
     left: 50%;
     transform: translateX(-50%);
   }
+
+  @media ${Media.mobileLS} {
+    left: 20px;
+    transform: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const HeaderNavIconLink = styled.a`
@@ -202,7 +226,11 @@ const HeaderNavIcon = styled(Icon)`
   transition: all 0.4s ease;
 
   ${HeaderNavIconLink}:hover &,
-  ${HeaderNavIconLinkRouter}:hover & {
+  ${HeaderNavIconLinkRouter}:hover &,
+  ${HeaderNavIconLink}:focus &,
+  ${HeaderNavIconLinkRouter}:focus &,
+  ${HeaderNavIconLink}:active &,
+  ${HeaderNavIconLinkRouter}:active & {
     fill: ${props => props.theme.colorPrimary(1)};
   }
 `;
@@ -245,6 +273,11 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   transition-delay: ${props => props.delay}ms;
   position: relative;
   top: -15px;
+
+  @media ${Media.mobileLS} {
+    top: auto;
+    font-size: 20px;
+  }
 
   ${props => props.status === 'entered' &&`
     opacity: 1;

@@ -124,6 +124,10 @@ const IntroText = styled.header`
     padding: 0 ${props => props.theme.spacingOuter.mobile};
     top: 0;
   }
+
+  @media ${Media.mobileLS} {
+    padding: 0 100px;
+  }
 `;
 
 const AnimFadeIn = keyframes`

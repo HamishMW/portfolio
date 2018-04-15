@@ -9,7 +9,7 @@ import Svg from '../utils/Svg';
 import ProfileImg from '../assets/profile.jpg';
 import ProfileImgLarge from '../assets/profile-large.jpg';
 import ProfileImgPlaceholder from '../assets/profile-placeholder.jpg';
-import { Media, ColorTint } from '../utils/StyleUtils';
+import { Media } from '../utils/StyleUtils';
 
 const SparrowLink = 'https://www.smartsparrow.com';
 const ModLink = 'https://www.nexusmods.com/skyrimspecialedition/mods/4806/';
@@ -67,8 +67,10 @@ const Profile = ({
                 status={status}
                 placeholder={ProfileImgPlaceholder}
                 srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
-                sizes={`(max-width: ${Media.mobile}) 300px, 480px`}
+                sizes={`(max-width: ${Media.mobile}) 100vw, 480px`}
                 alt="Me at the Torii on Miyajima, Japan"
+                width="480px"
+                height="562px"
               />
               <ProfileSvg icon="profile" status={status} />
             </ProfileImageContainer>
@@ -83,7 +85,7 @@ const ProfileSection = styled.section`
   width: 100vw;
   min-height: 100vh;
   margin-top: 60px;
-  margin-bottom: 120px;
+  margin-bottom: 40px;
   padding-top: 40px;
   padding-right: 80px;
   padding-bottom: 40px;
@@ -100,7 +102,7 @@ const ProfileSection = styled.section`
     padding-right: 80px;
     height: auto;
     margin-top: 80px;
-    margin-bottom: 80px;
+    margin-bottom: 20px;
   }
 
   @media (max-width: ${Media.mobile}) {
@@ -111,6 +113,10 @@ const ProfileSection = styled.section`
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     padding: 0 ${props => props.theme.spacingOuter.mobile};
+  }
+
+  @media ${Media.mobileLS} {
+    padding: 0 100px;
   }
 `;
 
@@ -233,7 +239,7 @@ const ProfileImageContainer = styled.div`
   display: flex;
   align-items: flex-start;
   transform: translate3d(0, 0, 0);
-  background: ${props => ColorTint(props.theme.colorBackground(1), 0.05)};
+  max-width: 100%;
 
   &:before {
     content: '';
@@ -256,8 +262,8 @@ const ProfileImageContainer = styled.div`
 `;
 
 const ProfileImage = styled(ProgressiveImage)`
-  max-width: 480px;
-  width: 100%;
+  max-width: 100%;
+  width: 960px;
   height: auto;
   opacity: 0;
   transition: opacity 0.4s ease 1.5s;
