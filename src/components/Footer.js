@@ -4,7 +4,7 @@ import Anchor from '../components/Anchor';
 import { Media } from '../utils/StyleUtils';
 
 const Footer = () => (
-  <FooterContainer>
+  <FooterContainer role="contentinfo">
     <FooterDate>{`© ${new Date().getFullYear()}`} Hamish Williams.</FooterDate>
     <Anchor secondary href="/humans.txt">Crafted by yours truly</Anchor>
   </FooterContainer>

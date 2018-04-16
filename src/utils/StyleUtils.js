@@ -1,3 +1,10 @@
+import { keyframes } from 'styled-components';
+
+export const AnimFade = keyframes`
+  0% {opacity: 0}
+  100% {opacity: 1}
+`;
+
 export const Media = {
   numDesktop: 1440,
   numTablet: 1024,

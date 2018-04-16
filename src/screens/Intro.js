@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import { Media } from '../utils/StyleUtils';
+import { Media, AnimFade } from '../utils/StyleUtils';
 import DecoderText from '../components/DecoderText';
 
 const Intro = ({
@@ -90,6 +90,9 @@ const IntroBackground = styled.div`
   position: fixed;
   width: 100vw;
   top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
   canvas {
     position: absolute;
@@ -130,11 +133,6 @@ const IntroText = styled.header`
   }
 `;
 
-const AnimFadeIn = keyframes`
-  0% { opacity: 0 };
-  100% { opacity: 1 };
-`;
-
 const IntroName = styled.h2`
   text-transform: uppercase;
   font-size: 24px;
@@ -145,7 +143,7 @@ const IntroName = styled.h2`
   font-weight: 500;
   line-height: 1;
   opacity: 0;
-  animation: ${AnimFadeIn} 0.4s ease 0.6s forwards;
+  animation: ${AnimFade} 0.4s ease 0.6s forwards;
 
   @media (min-width: ${Media.desktop}) {
     font-size: 28px;

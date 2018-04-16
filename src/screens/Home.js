@@ -43,8 +43,8 @@ export default class Home extends PureComponent {
 
     import('../components/DisplacementSphere').then(DisplacementSphere => {
       this.setState({backgroundLoaded: true});
-      const sphere = new DisplacementSphere.default(threeCanvas);
-      requestAnimationFrame(() => sphere.init());
+      this.sphere = new DisplacementSphere.default(threeCanvas);
+      requestAnimationFrame(() => this.sphere.init());
     });
 
     window.addEventListener('scroll', this.handleScroll);
@@ -57,6 +57,7 @@ export default class Home extends PureComponent {
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('hashchange', this.handleHashchange);
+    this.sphere.remove();
     clearInterval(this.disciplineInterval);
   }
 

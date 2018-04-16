@@ -11,7 +11,7 @@
     "@firebase/app": "^0.1.10",
     "@firebase/database": "^0.2.1",
     "autosize": "^4.0.1",
-    "es6-tween": "^5.1.0",
+    "es6-tween": "^5.2.2",
     "ios-inner-height": "^1.0.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -19,7 +19,7 @@
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.2.1",
     "styled-components": "^2.2.4",
-    "three": "^0.90.0"
+    "three": "^0.91.0"
   },
   "scripts": {
     "start": "react-scripts start",

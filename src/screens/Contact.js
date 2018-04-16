@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import HeadTag from 'react-head';
 import Input from '../components/Input';
 import Button, { RouterButton } from '../components/Button';
-import { Media } from '../utils/StyleUtils';
+import { Media, AnimFade } from '../utils/StyleUtils';
 import Firebase from '../utils/Firebase';
 
 export default class Contact extends PureComponent {
@@ -59,7 +59,7 @@ export default class Contact extends PureComponent {
           {!complete &&
             <Transition appear timeout={1600} mountOnEnter unmountOnExit>
               {(status) => (
-                <ContactForm autoComplete="off" onSubmit={this.onSubmit}>
+                <ContactForm autoComplete="off" onSubmit={this.onSubmit} role="form">
                   <ContactTitle status={status} delay={50}>Say hello</ContactTitle>
                   <ContactDivider status={status} delay={100} />
                   <ContactInput
@@ -260,11 +260,6 @@ const ContactInput = styled(Input)`
   `}
 `;
 
-const AnimFadeIn = keyframes`
-  0% { opacity: 0 }
-  100% { opacity: 1 }
-`;
-
 const ContactButton = styled(Button)`
   margin-top: 20px;
   transition-property: transform, opacity;
@@ -284,7 +279,7 @@ const ContactButton = styled(Button)`
 
     div {
       opacity: 0;
-      animation: ${AnimFadeIn} 0.5s ease 0.6s forwards;
+      animation: ${AnimFade} 0.5s ease 0.6s forwards;
     }
   `}
 

@@ -36,7 +36,7 @@ const HeaderIcons = ({ toggleMenu }) => (
 );
 
 const Header = ({menuOpen, toggleMenu}) => (
-  <HeaderWrapper>
+  <HeaderWrapper role="banner">
     <Transition
       in={menuOpen}
       timeout={{enter: 5, exit: 500}}
@@ -73,10 +73,10 @@ const Header = ({menuOpen, toggleMenu}) => (
         </HeaderMobileNav>
       )}
     </Transition>
-    <HeaderLogo to="/#intro" aria-label="Hamish Williams Designer, back to home">
+    <HeaderLogo to="/#intro" aria-label="Back to home">
       <Monogram highlight={Theme.colorPrimary(1)}/>
     </HeaderLogo>
-    <HeaderNav>
+    <HeaderNav role="navigation">
       <HeaderNavList>
         <HeaderNavLink to="/#projects">Projects</HeaderNavLink>
         <HeaderNavLink to="/#details">Details</HeaderNavLink>
@@ -116,13 +116,14 @@ const HeaderLogo = styled(Link)`
   display: flex;
   position: relative;
   padding: 10px;
-  padding-bottom: 0;
 
   g rect {
     opacity: 0;
     transform: scale3d(1, 0, 1);
     transform-origin: top;
-    transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+    transition:
+      transform 0.4s ${props => props.theme.curveFastoutSlowin},
+      opacity 0.1s ease 0.4s;
   }
 
   &:hover g rect,
@@ -131,6 +132,9 @@ const HeaderLogo = styled(Link)`
     opacity: 1;
     transform: scale3d(1, 1, 1);
     transform-origin: bottom;
+    transition:
+      transform 0.4s ${props => props.theme.curveFastoutSlowin},
+      opacity 0.1s ease;
   }
 `;
 
@@ -141,6 +145,8 @@ const HeaderNav = styled.nav`
   align-items: center;
   flex: 1 1 auto;
   max-width: 45px;
+  position: relative;
+  top: -10px;
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     display: none;
@@ -262,7 +268,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
 	active: 'active',
 })`
   width: 100%;
-  font-size: 24px;
+  font-size: 22px;
   text-align: center;
   text-decoration: none;
   color: ${props => props.theme.colorText(1)};
@@ -276,7 +282,6 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
 
   @media ${Media.mobileLS} {
     top: auto;
-    font-size: 20px;
   }
 
   ${props => props.status === 'entered' &&`

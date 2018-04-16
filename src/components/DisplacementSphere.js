@@ -4,10 +4,13 @@ import innerHeight from 'ios-inner-height';
 import VertShader from '../shaders/SphereVertShader';
 import FragmentShader from '../shaders/SphereFragmentShader';
 import { Media } from '../utils/StyleUtils';
-import Theme from '../utils/Theme';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
+const ua = window.navigator.userAgent;
+const iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+const webkit = !!ua.match(/WebKit/i);
+const iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
 const start = Date.now();
 
 class DisplacementSphere {
@@ -17,16 +20,10 @@ class DisplacementSphere {
     this.mouse = new THREE.Vector2(0.8, 0.5);
 
     this.renderer = new THREE.WebGLRenderer();
-    this.camera = new THREE.PerspectiveCamera( 55, width / height, 0.1, 5000 );
+    this.camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 5000);
     this.scene = new THREE.Scene();
-
-    if (Theme.name === 'light') {
-      this.light = new THREE.DirectionalLight(0xffffff, 0.8);
-      this.ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
-    } else {
-      this.light = new THREE.DirectionalLight(0xffffff, 0.6);
-      this.ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
-    }
+    this.light = new THREE.DirectionalLight(0xffffff, 0.6);
+    this.ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
 
     this.uniforms = THREE.UniformsUtils.merge([
       THREE.UniformsLib['ambient'],
@@ -66,19 +63,20 @@ class DisplacementSphere {
     this.sphere.modifier = rand;
 
     this.container.appendChild(this.renderer.domElement);
-    window.addEventListener('resize', this.onWindowResize, false);
-    window.addEventListener('mousemove', this.onMouseMove, false);
+    window.addEventListener('resize', this.onWindowResize);
+    window.addEventListener('mousemove', this.onMouseMove);
     this.onWindowResize();
     this.animate();
+  }
+
+  remove = () => {
+    window.removeEventListener('resize', this.onWindowResize);
+    window.removeEventListener('mousemove', this.onMouseMove);
   }
 
   onWindowResize = () => {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
-    const ua = window.navigator.userAgent;
-    const iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
-    const webkit = !!ua.match(/WebKit/i);
-    const iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
 
     if (iOSSafari) {
       const fullHeight = innerHeight();

@@ -11,6 +11,7 @@ import GothamMedium from '../fonts/gotham-medium.woff2';
 const Home = asyncComponent(props => import("../screens/Home"));
 const Contact = asyncComponent(props => import("../screens/Contact"));
 const ProjectSPR = asyncComponent(props => import("../screens/ProjectSPR"));
+const ProjectSlice = asyncComponent(props => import("../screens/ProjectSlice"));
 const NotFound = asyncComponent(props => import("../screens/NotFound"));
 
 class App extends Component {
@@ -34,11 +35,12 @@ class App extends Component {
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
-              <MainContent id="MainContent">
+              <MainContent id="MainContent" role="main">
                 <Switch location={location}>
                   <Route exact path="/" render={props => <Home {...props} />}/>
                   <Route path="/contact" render={props => <Contact {...props} />}/>
                   <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} />}/>
+                  <Route path="/projects/slice" render={props => <ProjectSlice {...props} />}/>
                   <Route render={props => <NotFound {...props} />}/>
                 </Switch>
               </MainContent>

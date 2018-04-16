@@ -2207,9 +2207,9 @@ es6-symbol@3.1.1, es6-symbol@^3.1.1, es6-symbol@~3.1.1:
     d "1"
     es5-ext "~0.10.14"
 
-es6-tween@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/es6-tween/-/es6-tween-5.1.0.tgz#0a694a4047bfcce32b7df4f2610f8d8e8b804fba"
+es6-tween@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/es6-tween/-/es6-tween-5.2.2.tgz#e2f70a4dfbad56bcf0a472134534f20ef9a8230f"
 
 es6-weak-map@^2.0.1:
   version "2.0.2"
@@ -6346,9 +6346,9 @@ text-table@0.2.0, text-table@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
-three@^0.90.0:
-  version "0.90.0"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.90.0.tgz#be478e7c0f82c5ae742c197db1e38e58b6190d1b"
+three@^0.91.0:
+  version "0.91.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.91.0.tgz#033fe745b64e56e679a86581957cfd1c5f9fe284"
 
 throat@^3.0.0:
   version "3.2.0"

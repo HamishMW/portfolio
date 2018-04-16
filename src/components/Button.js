@@ -58,7 +58,7 @@ const RouterButton = ({ ...props, className, style, secondary, to }) => (
 );
 
 const ButtonContainer = styled.button`
-  background: ${props => props.theme.colorPrimary(1)};
+  background: none;
   height: 56px;
   padding: 0 26px;
   border: 0;
@@ -66,7 +66,6 @@ const ButtonContainer = styled.button`
   cursor: pointer;
   transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
   display: flex;
-  clip-path: ${props => props.theme.clipPath(8)};
   display: inline-flex;
   align-items: center;
   color: ${props => props.theme.colorBackground(1)};
@@ -74,12 +73,51 @@ const ButtonContainer = styled.button`
   font-family: inherit;
   position: relative;
 
-  ${props => !props.disabled &&`
+  ${props => !props.secondary &&`
+    &:before {
+      content: '';
+      transition: all 0.4s ${props.theme.curveFastoutSlowin};
+      background: ${props.theme.colorPrimary(0.2)};
+      clip-path: ${props.theme.clipPath(10)};
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      bottom: -5px;
+      left: -5px;
+      z-index: -1;
+      opacity: 0;
+      transform: scale3d(0.8, 0.8, 1);
+    }
+
+    &:after {
+      content: '';
+      transition: all 0.4s ${props.theme.curveFastoutSlowin};
+      background: ${props.theme.colorPrimary(1)};
+      clip-path: ${props.theme.clipPath(8)};
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+    }
+  `}
+
+  ${props => !props.disabled && !props.secondary &&`
     &:hover,
     &:focus {
       outline: none;
-      background: ${props => ColorTint(props.theme.colorPrimary(1), 0.2)};
       transform: scale(1.05);
+    }
+
+    &:hover:after,
+    &:focus:after {
+      background: ${ColorTint(props.theme.colorPrimary(1), 0.2)};
+    }
+
+    &:focus:before {
+      opacity: 1;
+      transform: scale3d(1, 1, 1);
     }
   `}
 
@@ -112,6 +150,7 @@ const ButtonContainer = styled.button`
     &:hover,
     &:focus,
     &:active {
+      outline: none;
       transform: none;
       background: transparent;
     }
