@@ -1,5 +1,7 @@
 # Personal Portfolio
 
+![Site preview](/public/social-image.png)
+
 A design portfolio to showcase a few projects.
 
 ## Install & Run

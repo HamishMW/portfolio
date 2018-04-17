@@ -59,3 +59,4 @@ typings/
 
 build/
 config.json
+*-temp.studio

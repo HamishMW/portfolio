@@ -39,6 +39,7 @@ export default class ProgressiveImage extends PureComponent {
 
 const ImageContainer = styled.div`
   position: relative;
+  transform: translate3d(0, 0, 0);
 `;
 
 const ImagePlaceholder = styled.img`

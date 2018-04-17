@@ -1,11 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import HeadTag from 'react-head';
 import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
 import Footer from '../components/Footer';
-
 import projectSpr from '../assets/project-spr.png';
 import projectSprLarge from '../assets/project-spr-large.png';
 import projectSprPlaceholder from '../assets/project-spr-placeholder.png';
@@ -21,7 +20,7 @@ import projectSlicePlaceholder from '../assets/project-slice-placeholder.png';
 
 const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
 
-export default class Home extends PureComponent {
+export default class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -76,6 +75,7 @@ export default class Home extends PureComponent {
     this.scheduledAnimationFrame = true;
 
     requestAnimationFrame(() => {
+      const { visibleSections } = this.state;
       const revealSections = [
         this.intro,
         this.projectOne,
@@ -83,7 +83,6 @@ export default class Home extends PureComponent {
         this.projectThree,
         this.details,
       ];
-      const { visibleSections } = this.state;
 
       if (this.lastScrollY >= 50) {
         this.setState({hideScrollIndicator: true});

@@ -1,8 +1,6 @@
 import React from 'react';
 
-const Icon = (props) => {
-  const { className, color, icon, size = 24 } = props;
-
+const Icon = ({ className, color, icon, size = 24 }) => {
   const Icons = {
     twitter: () => (
       <svg className={className} fill={color} width={size} height={size} viewBox="0 0 24 24">

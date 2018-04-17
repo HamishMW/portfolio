@@ -2,8 +2,7 @@ import React from 'react';
 import HeadTag from 'react-head';
 import ProgressiveImage from '../components/ProgressiveImage';
 import Footer from '../components/Footer';
-import { ProjectContainer, ProjectSection, ProjectImage, ProjectSectionHeading,
-  ProjectSectionText, ProjectBackground, ProjectHeader } from '../components/Project';
+import { ProjectContainer, ProjectSection, ProjectImage, ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader } from '../components/Project';
 import { Media } from '../utils/StyleUtils';
 import backgroundSlice from '../assets/background-slice.jpg';
 import backgroundSliceLarge from '../assets/background-slice-large.jpg';
@@ -51,34 +50,12 @@ const ProjectSPR = () => (
           />
         </ProjectImage>
       </ProjectSection>
-      {false &&
-        <React.Fragment>
-        <ProjectSection center>
-          <ProjectSectionHeading>The Challenge</ProjectSectionHeading>
-          <ProjectSectionText>
-            The goal of the new product design was to make creating online learning better for
-            teams. As part of my role as lead product designer, I worked to create a consistent
-            design system that allowed us to quickly design and build prototypes for user testing.
-          </ProjectSectionText>
-        </ProjectSection>
-        <ProjectSection center>
-          <ProjectSectionHeading>A living design system</ProjectSectionHeading>
-          <ProjectSectionText>
-            The goal of the new product design was to make creating online learning better for
-            teams. As part of my role as lead product designer, I worked to create a consistent
-            design system that allowed us to quickly design and build prototypes for user testing.
-          </ProjectSectionText>
-        </ProjectSection>
-        <ProjectSection center>
-          <ProjectSectionHeading>Designing for teams</ProjectSectionHeading>
-          <ProjectSectionText>
-            The goal of the new product design was to make creating online learning better for
-            teams. As part of my role as lead product designer, I worked to create a consistent
-            design system that allowed us to quickly design and build prototypes for user testing.
-          </ProjectSectionText>
-        </ProjectSection>
-        </React.Fragment>
-      }
+      <ProjectSection center>
+        <ProjectSectionHeading>The Challenge</ProjectSectionHeading>
+        <ProjectSectionText>
+          The goal of the new product design was to make creating online learning better for teams. As part of my role as lead product designer, I worked to create a consistent design system that allowed us to quickly design and build prototypes for user testing.
+        </ProjectSectionText>
+      </ProjectSection>
     </ProjectContainer>
     <Footer />
   </React.Fragment>

@@ -272,8 +272,8 @@ export const ProjectSection = styled.section`
 `;
 
 export const ProjectSectionHeading = styled.h2`
-  font-size: 36px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 500;
   margin: 0;
 
   @media (max-width: ${Media.tablet}) {

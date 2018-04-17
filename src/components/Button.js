@@ -175,6 +175,7 @@ const ButtonText = styled.span`
   font-size: 18px;
   font-weight: 500;
   position: relative;
+  top: -2px;
   line-height: 1;
 
   ${props => props.loading && `
