@@ -8,7 +8,7 @@ import { Media } from '../utils/StyleUtils';
 
 const NotFound = () => (
   <NotFoundSection>
-    <HeadTag tag="title">404 Not Found</HeadTag>
+    <HeadTag tag="title">404 | Not Found</HeadTag>
     <HeadTag tag="meta" name="description" content="This page doesn't exist" />
 
     <Transition appear in={true} timeout={0}>
@@ -38,11 +38,11 @@ const NotFound = () => (
               <source src={Notfound} type="video/mp4" />
             </NotFoundVideo>
             <NotFoundCredit status={status}
-              href="https://twitter.com/MrValenberg"
+              href="https://twitter.com/ruinergame"
               target="_blank"
               rel="noopener"
             >
-              Animation by Valenberg
+              Animation from Ruiner
             </NotFoundCredit>
           </NotFoundVideoContainer>
         </React.Fragment>

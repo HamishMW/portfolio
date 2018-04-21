@@ -77,7 +77,7 @@ const ButtonContainer = styled.button`
     &:before {
       content: '';
       transition: all 0.4s ${props.theme.curveFastoutSlowin};
-      background: ${props.theme.colorPrimary(0.2)};
+      background: ${props.theme.colorPrimary(0.4)};
       clip-path: ${props.theme.clipPath(10)};
       position: absolute;
       top: -5px;
@@ -175,8 +175,7 @@ const ButtonText = styled.span`
   font-size: 18px;
   font-weight: 500;
   position: relative;
-  top: -2px;
-  line-height: 1;
+  line-height: 1.2;
 
   ${props => props.loading && `
     visibility: hidden;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled, { injectGlobal, ThemeProvider } from 'styled-components';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import HeadTag from 'react-head';
 import asyncComponent from '../components/AsyncComponent';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
@@ -32,6 +33,23 @@ class App extends Component {
         <BrowserRouter>
           <Route render={({location}) => (
             <React.Fragment>
+              <HeadTag tag="style">
+                {`
+                  @font-face {
+                    font-family: 'Gotham';
+                    font-weight: 400;
+                    src: url(${GothamBook}) format('woff2');
+                    font-display: block;
+                  }
+
+                  @font-face {
+                    font-family: 'Gotham';
+                    font-weight: 500;
+                    src: url(${GothamMedium}) format('woff2');
+                    font-display: block;
+                  }
+                `}
+              </HeadTag>
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
@@ -53,24 +71,9 @@ class App extends Component {
 }
 
 injectGlobal`
-  @font-face {
-    font-family: 'Gotham';
-    font-weight: 400;
-    src: url(${GothamBook}) format('woff2');
-    font-display: block;
-  }
-
-  @font-face {
-    font-family: 'Gotham';
-    font-weight: 500;
-    src: url(${GothamMedium}) format('woff2');
-    font-display: block;
-  }
-
   html,
   body {
     box-sizing: border-box;
-    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
     font-family: ${Theme.fontStack};

@@ -7,10 +7,6 @@ import { Media } from '../utils/StyleUtils';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
-const ua = window.navigator.userAgent;
-const iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
-const webkit = !!ua.match(/WebKit/i);
-const iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
 const start = Date.now();
 
 class DisplacementSphere {
@@ -76,18 +72,11 @@ class DisplacementSphere {
 
   onWindowResize = () => {
     const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
+    const fullHeight = innerHeight();
 
-    if (iOSSafari) {
-      const fullHeight = innerHeight();
-      this.container.style.height = fullHeight;
-      this.renderer.setSize(windowWidth, fullHeight);
-      this.camera.aspect = windowWidth / fullHeight;
-    } else {
-      this.renderer.setSize(windowWidth, windowHeight);
-      this.camera.aspect = windowWidth / windowHeight;
-    }
-
+    this.container.style.height = fullHeight;
+    this.renderer.setSize(windowWidth, fullHeight);
+    this.camera.aspect = windowWidth / fullHeight;
     this.camera.updateProjectionMatrix();
 
     if (windowWidth <= Media.numMobile) {
@@ -102,12 +91,12 @@ class DisplacementSphere {
     }
   }
 
-  onMouseMove = (e) => {
-    this.mouse.y = e.clientY / window.innerHeight;
-    this.mouse.x = e.clientX / window.innerWidth;
+  onMouseMove = (event) => {
+    const mouseY = event.clientY / window.innerHeight;
+    const mouseX = event.clientX / window.innerWidth;
 
     new Tween(this.sphere.rotation)
-      .to({x: this.mouse.y / 2, y: this.mouse.x / 2}, 2000)
+      .to({x: mouseY / 2, y: mouseX / 2}, 2000)
       .easing(Easing.Quartic.Out)
       .start();
   }

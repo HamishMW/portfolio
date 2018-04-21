@@ -31,7 +31,7 @@ const Input = ({
       <InputLabel
         id={`${id}-label`}
         hasValue={hasValue}
-        for={id}
+        htmlFor={id}
       >
         {label}
       </InputLabel>

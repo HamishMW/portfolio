@@ -2,15 +2,15 @@ import React from 'react';
 import HeadTag from 'react-head';
 import ProgressiveImage from '../components/ProgressiveImage';
 import Footer from '../components/Footer';
-import { ProjectContainer, ProjectSection, ProjectImage, ProjectSectionHeading,
-  ProjectSectionText, ProjectBackground, ProjectHeader } from '../components/Project';
+import { ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
+  ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader } from '../components/Project';
 import { Media } from '../utils/StyleUtils';
-import backgroundSpr from '../assets/background-spr.jpg';
-import backgroundSprLarge from '../assets/background-spr-large.jpg';
-import backgroundSprPlaceholder from '../assets/background-spr-placeholder.jpg';
-import imageSprBuilder from '../assets/image-spr-builder.png';
-import imageSprBuilderLarge from '../assets/image-spr-builder-large.png';
-import imageSprBuilderPlaceholder from '../assets/image-spr-builder-placeholder.png';
+import backgroundSpr from '../assets/spr-background.jpg';
+import backgroundSprLarge from '../assets/spr-background-large.jpg';
+import backgroundSprPlaceholder from '../assets/spr-background-placeholder.jpg';
+import imageSprBuilder from '../assets/spr-builder.png';
+import imageSprBuilderLarge from '../assets/spr-builder-large.png';
+import imageSprBuilderPlaceholder from '../assets/spr-builder-placeholder.png';
 
 const title = 'Designing the future of education';
 const description = 'I worked as the design lead on a major iteration of Smart Sparrow’s product. We took the platform in a bold new direction, focusing on becoming the best tool for learning designers.';
@@ -23,7 +23,7 @@ const roles = [
 const ProjectSPR = () => (
   <React.Fragment>
     <ProjectContainer>
-      <HeadTag tag="title">{title}</HeadTag>
+      <HeadTag tag="title">{`Projects | ${title}`}</HeadTag>
       <HeadTag
         tag="meta"
         name="description"
@@ -40,15 +40,17 @@ const ProjectSPR = () => (
         roles={roles}
       />
       <ProjectSection>
-        <ProjectImage status="entered">
-          <ProgressiveImage
-            srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
-            placeholder={imageSprBuilderPlaceholder}
-            sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
-            width="1280px"
-            height="800px"
-          />
-        </ProjectImage>
+        <ProjectSectionContent>
+          <ProjectImage status="entered">
+            <ProgressiveImage
+              srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
+              placeholder={imageSprBuilderPlaceholder}
+              sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
+              width="1280px"
+              height="800px"
+            />
+          </ProjectImage>
+        </ProjectSectionContent>
       </ProjectSection>
       {false &&
         <React.Fragment>

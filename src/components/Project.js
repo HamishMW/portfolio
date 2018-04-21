@@ -1,39 +1,51 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { Media, AnimFade } from '../utils/StyleUtils';
+import { Media, AnimFade, ColorTint } from '../utils/StyleUtils';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { LinkButton } from '../components/Button';
 
 export const ProjectHeader = ({ title, description, url, roles }) => (
   <ProjectHeaderContainer>
-    <ProjectDetails>
-      <ProjectTitle>{title}</ProjectTitle>
-      <ProjectDescription>{description}</ProjectDescription>
-      <LinkButton
-        secondary
-        style={{paddingLeft: '3px'}}
-        icon="chevronRight"
-        href={url}
-        target="_blank"
-        rel="noopener"
-      >
-        Visit website
-      </LinkButton>
-    </ProjectDetails>
-    <ProjectMeta>
-      {roles && roles.map((role, index) => (
-        <ProjectMetaItem key={`role_${index}`}>{role}</ProjectMetaItem>
-      ))}
-    </ProjectMeta>
+    <ProjectHeaderInner>
+      <ProjectDetails>
+        <ProjectTitle>{title}</ProjectTitle>
+        <ProjectDescription>{description}</ProjectDescription>
+        <LinkButton
+          secondary
+          style={{paddingLeft: '3px'}}
+          icon="chevronRight"
+          href={url}
+          target="_blank"
+          rel="noopener"
+        >
+          Visit website
+        </LinkButton>
+      </ProjectDetails>
+      <ProjectMeta>
+        {roles && roles.map((role, index) => (
+          <ProjectMetaItem key={`role_${index}`}>{role}</ProjectMetaItem>
+        ))}
+      </ProjectMeta>
+    </ProjectHeaderInner>
   </ProjectHeaderContainer>
 );
 
 export const ProjectContainer = styled.article`
   position: relative;
   width: 100vw;
-  padding-top: 120px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+`;
+
+export const ProjectSection = styled.section`
+  position: relative;
+  width: 100vw;
+  padding-top: 100px;
   padding-right: 120px;
-  padding-bottom: 40px;
+  padding-bottom: 100px;
   padding-left: 210px;
   display: flex;
   justify-content: center;
@@ -45,17 +57,18 @@ export const ProjectContainer = styled.article`
   }
 
   @media (max-width: ${Media.tablet}) {
-    padding-top: 100px;
+    padding-top: 60px;
     padding-right: 80px;
+    padding-bottom: 60px;
     padding-left: 160px;
     height: auto;
   }
 
   @media (max-width: ${Media.mobile}) {
-    padding-top: 130px;
-    padding-left: 25px;
+    padding-top: 40px;
     padding-right: 25px;
-    overflow-x: hidden;
+    padding-bottom: 40px;
+    padding-left: 25px;
   }
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
@@ -67,6 +80,22 @@ export const ProjectContainer = styled.article`
     padding-left: 100px;
     padding-right: 100px;
   }
+
+  ${props => props.light &&`
+    background: ${ColorTint(props.theme.colorBackground(1), 0.036)};
+    padding-top: 120px;
+    padding-bottom: 140px;
+
+    @media (max-width: ${Media.tablet}) {
+      padding-top: 80px;
+      padding-bottom: 100px;
+    }
+
+    @media (max-width: ${Media.mobile}) {
+      padding-top: 80px;
+      padding-bottom: 100px;
+    }
+  `}
 `;
 
 export const ProjectBackground = styled(ProgressiveImage).attrs({
@@ -80,7 +109,7 @@ export const ProjectBackground = styled(ProgressiveImage).attrs({
   right: 0;
   bottom: 0;
   left: 0;
-  height: 640px;
+  height: 800px;
   opacity: 0;
   animation: ${AnimFade} 2s ease forwards;
 
@@ -107,7 +136,21 @@ export const ProjectBackground = styled(ProgressiveImage).attrs({
   }
 `;
 
-const ProjectHeaderContainer = styled.header`
+const ProjectHeaderContainer = ProjectSection.withComponent('header').extend`
+  padding-top: 120px;
+  padding-bottom: 0;
+
+  @media (max-width: ${Media.tablet}) {
+    padding-top: 100px;
+  }
+
+  @media (max-width: ${Media.mobile}) {
+    padding-top: 130px;
+    padding-bottom: 20px;
+  }
+`;
+
+const ProjectHeaderInner = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -253,36 +296,21 @@ export const ProjectImage = styled.div`
   `}
 `;
 
-export const ProjectSection = styled.section`
-  margin-top: 100px;
+export const ProjectSectionContent = styled.div`
   max-width: 980px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 
   @media (min-width: ${Media.desktop}) {
     max-width: 1100px;
   }
-
-  @media (max-width: ${Media.mobile}) {
-    margin-top: 60px;
-  }
-
-  ${props => props.center &&`
-    max-width: 480px;
-  `}
 `;
 
 export const ProjectSectionHeading = styled.h2`
   font-size: 24px;
   font-weight: 500;
   margin: 0;
-
-  @media (max-width: ${Media.tablet}) {
-    font-size: 32px;
-  }
-
-  @media (max-width: ${Media.mobile}) {
-    font-size: 24px;
-  }
 `;
 
 export const ProjectSectionText = styled.p`

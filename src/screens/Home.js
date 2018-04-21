@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import HeadTag from 'react-head';
 import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
 import Footer from '../components/Footer';
-import projectSpr from '../assets/project-spr.png';
-import projectSprLarge from '../assets/project-spr-large.png';
-import projectSprPlaceholder from '../assets/project-spr-placeholder.png';
+import sprProject from '../assets/spr-project.png';
+import sprProjectLarge from '../assets/spr-project-large.png';
+import sprProjectPlaceholder from '../assets/spr-project-placeholder.png';
 import gamestackLogin from '../assets/gamestack-login.jpg';
 import gamestackLoginLarge from '../assets/gamestack-login-large.jpg';
 import gamestackLoginPlaceholder from '../assets/gamestack-login-placeholder.jpg';
 import gamestackList from '../assets/gamestack-list.jpg';
 import gamestackListLarge from '../assets/gamestack-list-large.jpg';
 import gamestackListPlaceholder from '../assets/gamestack-list-placeholder.jpg';
-import projectSlice from '../assets/project-slice.png';
-import projectSliceLarge from '../assets/project-slice-large.png';
-import projectSlicePlaceholder from '../assets/project-slice-placeholder.png';
+import sliceProject from '../assets/slice-project.png';
+import sliceProjectLarge from '../assets/slice-project-large.png';
+import sliceProjectPlaceholder from '../assets/slice-project-placeholder.png';
 
 const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
 
@@ -35,10 +34,17 @@ export default class Home extends Component {
     this.lastScrollY = 0;
   }
 
-
   componentDidMount() {
     const { location } = this.props;
     const threeCanvas = this.threeCanvas;
+
+    this.revealSections = [
+      this.intro,
+      this.projectOne,
+      this.projectTwo,
+      this.projectThree,
+      this.details,
+    ];
 
     import('../components/DisplacementSphere').then(DisplacementSphere => {
       this.setState({backgroundLoaded: true});
@@ -55,16 +61,15 @@ export default class Home extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
-    window.removeEventListener('hashchange', this.handleHashchange);
     this.sphere.remove();
     clearInterval(this.disciplineInterval);
   }
 
   componentWillReceiveProps(nextProps) {
-    const currentHash = this.props.location.hash;
-    const nextHash = nextProps.location.hash;
+    const { key: currentKey } = this.props.location;
+    const { key: nextKey, hash: nextHash } = nextProps.location;
 
-    if (currentHash !== nextHash) {
+    if (currentKey !== nextKey) {
       this.handleHashchange(nextHash, true);
     }
   }
@@ -76,26 +81,16 @@ export default class Home extends Component {
 
     requestAnimationFrame(() => {
       const { visibleSections } = this.state;
-      const revealSections = [
-        this.intro,
-        this.projectOne,
-        this.projectTwo,
-        this.projectThree,
-        this.details,
-      ];
 
-      if (this.lastScrollY >= 50) {
-        this.setState({hideScrollIndicator: true});
-      } else {
-        this.setState({hideScrollIndicator: false});
-      }
+      const revealableSections = this.revealSections.filter(section => {
+        if (visibleSections.includes(section)) return false;
+        return this.isInViewport(section, this.lastScrollY);
+      });
 
-      for (const section of revealSections) {
-        if (visibleSections.includes(section)) continue;
-        if (this.isInViewport(section, this.lastScrollY)) {
-          this.setState({visibleSections: [...visibleSections, section]});
-        }
-      };
+      this.setState({
+        visibleSections: [...visibleSections, ...revealableSections],
+        hideScrollIndicator: this.lastScrollY >= 50,
+      });
 
       this.scheduledAnimationFrame = false;
     });
@@ -104,9 +99,7 @@ export default class Home extends Component {
   handleHashchange = (hash, scroll) => {
     const hashSections = [this.intro, this.projectOne, this.details];
     const hashString = hash.replace('#', '');
-    const element = hashSections.filter((item) => {
-      return item.id === hashString;
-    })[0];
+    const element = hashSections.filter(item => item.id === hashString)[0];
 
     if (element) {
       element.scrollIntoView({
@@ -141,13 +134,12 @@ export default class Home extends Component {
       visibleSections, backgroundLoaded } = this.state;
 
     return (
-      <HomeContainer>
-        <HeadTag tag="title">Hamish Williams | Multidisciplinary Designer</HeadTag>
+      <React.Fragment>
+        <HeadTag tag="title">Hamish Williams | Designer</HeadTag>
         <HeadTag
           tag="meta"
           name="description"
-          content="Digital designer working on web &amp; mobile apps with a focus on
-            motion design and user experience."
+          content="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design."
         />
         <Intro
           id="intro"
@@ -167,9 +159,9 @@ export default class Home extends Component {
           description="I designed a web app that helps educators build better online courseware"
           buttonText="View Project"
           buttonTo="/"
-          imageSrc={[`${projectSpr} 980w, ${projectSprLarge} 1376w`]}
+          imageSrc={[`${sprProject} 980w, ${sprProjectLarge} 1376w`]}
           imageAlt={['Smart Sparrow lesson builder']}
-          imagePlaceholder={[projectSprPlaceholder]}
+          imagePlaceholder={[sprProjectPlaceholder]}
           imageType="laptop"
         />
         <ProjectItem
@@ -202,9 +194,9 @@ export default class Home extends Component {
           description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
           buttonText="View Website"
           buttonLink="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
-          imageSrc={[`${projectSlice} 980w, ${projectSliceLarge} 1376w`]}
+          imageSrc={[`${sliceProject} 980w, ${sliceProjectLarge} 1376w`]}
           imageAlt={['Annotating a biomedical image in the Slice app']}
-          imagePlaceholder={[projectSlicePlaceholder]}
+          imagePlaceholder={[sliceProjectPlaceholder]}
           imageType="laptop"
         />
         <Profile
@@ -213,12 +205,7 @@ export default class Home extends Component {
           id="details"
         />
         <Footer />
-      </HomeContainer>
+      </React.Fragment>
     );
   }
 }
-
-const HomeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
