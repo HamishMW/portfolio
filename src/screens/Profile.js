@@ -25,13 +25,13 @@ const ProfileText = ({ status }) => (
     </ProfileTitle>
     <ProfileDescription status={status}>
       I’m Hamish, currently I live in Sydney, working as the lead product designer
-      at <Anchor href={SparrowLink} target="_blank" rel="noopener">Smart Sparrow</Anchor>. My projects
+      at <Anchor href={SparrowLink} target="_blank" rel="noopener noreferrer">Smart Sparrow</Anchor>. My projects
       include UX design, UI animations, and icon illustration. Being comfortable with
       code allows me to rapidly prototype and validate experiences.
     </ProfileDescription>
     <ProfileDescription status={status}>
       In my spare time I like to practice Brazilian Jiu Jitsu, play video games,
-      and <Anchor href={ModLink} target="_blank" rel="noopener">make mods</Anchor>. I’m always down
+      and <Anchor href={ModLink} target="_blank" rel="noopener noreferrer">make mods</Anchor>. I’m always down
       for hearing about new projects, so feel free to drop me a line.
     </ProfileDescription>
   </React.Fragment>
@@ -39,12 +39,13 @@ const ProfileText = ({ status }) => (
 
 const Profile = ({
   id,
+  tabIndex,
   visible,
   sectionRef,
 }) => (
-  <ProfileSection id={id} innerRef={sectionRef}>
+  <ProfileSection id={id} innerRef={sectionRef} tabIndex={tabIndex}>
     <Transition in={visible} timeout={0} mountOnEnter>
-      {(status) => (
+      {status => (
         <ProfileContent>
           <ProfileColumn>
             <ProfileText status={status} />
@@ -92,6 +93,10 @@ const ProfileSection = styled.section`
   padding-left: 220px;
   display: flex;
   justify-content: center;
+
+  &:focus {
+    outline: none;
+  }
 
   @media (min-width: ${Media.desktop}) {
     padding-left: 120px;

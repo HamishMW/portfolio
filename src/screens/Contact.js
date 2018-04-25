@@ -58,7 +58,7 @@ export default class Contact extends PureComponent {
         <TransitionGroup component={React.Fragment}>
           {!complete &&
             <Transition appear timeout={1600} mountOnEnter unmountOnExit>
-              {(status) => (
+              {status => (
                 <ContactForm autoComplete="off" onSubmit={this.onSubmit} role="form">
                   <ContactTitle status={status} delay={50}>Say hello</ContactTitle>
                   <ContactDivider status={status} delay={100} />
@@ -103,7 +103,7 @@ export default class Contact extends PureComponent {
           }
           {complete &&
             <Transition appear timeout={0} mountOnEnter unmountOnExit>
-              {(status) => (
+              {status => (
                 <ContactComplete>
                   <ContactCompleteTitle
                     status={status}

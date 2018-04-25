@@ -2,7 +2,7 @@
 
 ![Site preview](/public/social-image.png)
 
-A design portfolio to showcase a few projects.
+A design portfolio to showcase a few projects. Feel free to clone and play around with it.
 
 ## Install & Run
 

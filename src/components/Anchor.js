@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Anchor = styled.a`
   color: ${props => props.secondary
-    ? props.theme.colorText(0.4)
+    ? props.theme.colorText(0.5)
     : props.theme.colorPrimary(1)};
   text-decoration: underline;
   text-decoration-color: ${props => props.secondary

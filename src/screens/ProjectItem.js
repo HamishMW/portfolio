@@ -11,6 +11,7 @@ import phonePlaceholder from '../assets/phone-placeholder.png';
 
 const ProjectItem = ({
   id,
+  tabIndex,
   visible,
   sectionRef,
   index,
@@ -24,10 +25,10 @@ const ProjectItem = ({
   buttonLink,
   buttonTo,
 }) => (
-  <ProjectItemSection index={index} innerRef={sectionRef} id={id}>
+  <ProjectItemSection index={index} innerRef={sectionRef} id={id} tabIndex={tabIndex}>
     <ProjectItemContent>
       <Transition mountOnEnter in={visible} timeout={0}>
-        {(status) => (
+        {status => (
           <React.Fragment>
             <ProjectItemDetails>
               <ProjectItemIndex status={status}>
@@ -40,7 +41,7 @@ const ProjectItem = ({
                   <LinkButton
                     href={buttonLink}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     iconRight="arrowRight"
                   >
                     {buttonText}
@@ -103,7 +104,6 @@ const ProjectItem = ({
   </ProjectItemSection>
 );
 
-
 const ProjectItemSection = styled.section`
   min-height: 100vh;
   height: 100vh;
@@ -120,6 +120,10 @@ const ProjectItemSection = styled.section`
 
   &:nth-child(2n + 1) {
     grid-template-columns: 55% 40%;
+  }
+
+  &:focus {
+    outline: none;
   }
 
   @media (min-width: ${Media.desktop}) {

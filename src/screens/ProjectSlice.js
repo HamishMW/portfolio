@@ -2,6 +2,7 @@ import React from 'react';
 import HeadTag from 'react-head';
 import styled from 'styled-components';
 import ProgressiveImage from '../components/ProgressiveImage';
+import ScrollToTop from '../utils/ScrollToTop';
 import Footer from '../components/Footer';
 import { ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
   ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader  } from '../components/Project';
@@ -36,8 +37,9 @@ const roles = [
   'Interface Design',
 ];
 
-const ProjectSlice = () => (
+const ProjectSlice = ({ status }) => (
   <React.Fragment>
+    <ScrollToTop status={status} />
     <ProjectContainer>
       <HeadTag tag="title">{`Projects | ${title}`}</HeadTag>
       <HeadTag

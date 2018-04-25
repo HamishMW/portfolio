@@ -16,7 +16,7 @@ export const ProjectHeader = ({ title, description, url, roles }) => (
           icon="chevronRight"
           href={url}
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
         >
           Visit website
         </LinkButton>

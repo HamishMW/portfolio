@@ -35,7 +35,6 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    const { location } = this.props;
     const threeCanvas = this.threeCanvas;
 
     this.revealSections = [
@@ -54,9 +53,21 @@ export default class Home extends Component {
 
     window.addEventListener('scroll', this.handleScroll);
     this.setState({visibleSections: [this.intro]});
-    this.handleScroll();
-    this.handleHashchange(location.hash, false);
     this.switchDiscipline();
+    this.initScroll();
+  }
+
+  initScroll = () => {
+    const { status, location } = this.props;
+    const { hash } = location;
+
+    if (status !== 'entered') {
+      setTimeout(this.initScroll, 200);
+    } else if (hash && status === 'entered') {
+      this.handleHashchange(hash, false);
+    } else if (status === 'entered') {
+      window.scrollTo(0, 0);
+    }
   }
 
   componentWillUnmount() {
@@ -69,7 +80,7 @@ export default class Home extends Component {
     const { key: currentKey } = this.props.location;
     const { key: nextKey, hash: nextHash } = nextProps.location;
 
-    if (currentKey !== nextKey) {
+    if (currentKey !== nextKey && this.props.status === 'entered') {
       this.handleHashchange(nextHash, true);
     }
   }
@@ -152,6 +163,7 @@ export default class Home extends Component {
         />
         <ProjectItem
           id="projects"
+          tabIndex={0}
           sectionRef={section => this.projectOne = section}
           visible={visibleSections.includes(this.projectOne)}
           index="01"
@@ -165,6 +177,7 @@ export default class Home extends Component {
           imageType="laptop"
         />
         <ProjectItem
+          tabIndex={0}
           sectionRef={section => this.projectTwo = section}
           visible={visibleSections.includes(this.projectTwo)}
           index="02"
@@ -187,19 +200,21 @@ export default class Home extends Component {
           imageType="phone"
         />
         <ProjectItem
+          tabIndex={0}
           sectionRef={section => this.projectThree = section}
           visible={visibleSections.includes(this.projectThree)}
           index="03"
           title="Biomedical image collaboration"
           description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
-          buttonText="View Website"
-          buttonLink="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
+          buttonText="View Project"
+          buttonTo="/projects/slice"
           imageSrc={[`${sliceProject} 980w, ${sliceProjectLarge} 1376w`]}
           imageAlt={['Annotating a biomedical image in the Slice app']}
           imagePlaceholder={[sliceProjectPlaceholder]}
           imageType="laptop"
         />
         <Profile
+          tabIndex={0}
           sectionRef={section => this.details = section}
           visible={visibleSections.includes(this.details)}
           id="details"

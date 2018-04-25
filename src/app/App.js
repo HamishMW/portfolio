@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import styled, { injectGlobal, ThemeProvider } from 'styled-components';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import BrowserRouter from 'react-router-dom/BrowserRouter';
+import { Transition, TransitionGroup } from 'react-transition-group';
+import Route from 'react-router-dom/Route';
+import Switch from 'react-router-dom/Switch';
 import HeadTag from 'react-head';
 import asyncComponent from '../components/AsyncComponent';
 import Header from '../components/Header';
@@ -15,14 +18,48 @@ const ProjectSPR = asyncComponent(props => import("../screens/ProjectSPR"));
 const ProjectSlice = asyncComponent(props => import("../screens/ProjectSlice"));
 const NotFound = asyncComponent(props => import("../screens/NotFound"));
 
+const consoleMessage = `
+__  __  __
+\u005C \u005C \u005C \u005C \u005C\u2215
+ \u005C \u005C\u2215\u005C \u005C
+  \u005C\u2215  \u005C\u2215
+
+Taking a peek huh? Hit me up at hello@hamishw.com if you have any questions
+
+`;
+
+const fontStyles = `
+  @font-face {
+    font-family: 'Gotham';
+    font-weight: 400;
+    src: url(${GothamBook}) format('woff2');
+    font-display: block;
+  }
+
+  @font-face {
+    font-family: 'Gotham';
+    font-weight: 500;
+    src: url(${GothamMedium}) format('woff2');
+    font-display: block;
+  }
+`;
+
 class App extends Component {
   state = {
     menuOpen: false,
   }
 
+  componentDidMount() {
+    console.info(consoleMessage);
+  }
+
   toggleMenu = () => {
     const { menuOpen } = this.state;
     this.setState({menuOpen: !menuOpen});
+  }
+
+  setBodyOverflow = state => {
+    document.body.style.overflow = state;
   }
 
   render() {
@@ -31,37 +68,32 @@ class App extends Component {
     return (
       <ThemeProvider theme={Theme}>
         <BrowserRouter>
-          <Route render={({location}) => (
+          <Route render={({ location }) => (
             <React.Fragment>
-              <HeadTag tag="style">
-                {`
-                  @font-face {
-                    font-family: 'Gotham';
-                    font-weight: 400;
-                    src: url(${GothamBook}) format('woff2');
-                    font-display: block;
-                  }
-
-                  @font-face {
-                    font-family: 'Gotham';
-                    font-weight: 500;
-                    src: url(${GothamMedium}) format('woff2');
-                    font-display: block;
-                  }
-                `}
-              </HeadTag>
+              <HeadTag tag="style">{fontStyles}</HeadTag>
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
-              <MainContent id="MainContent" role="main">
-                <Switch location={location}>
-                  <Route exact path="/" render={props => <Home {...props} />}/>
-                  <Route path="/contact" render={props => <Contact {...props} />}/>
-                  <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} />}/>
-                  <Route path="/projects/slice" render={props => <ProjectSlice {...props} />}/>
-                  <Route render={props => <NotFound {...props} />}/>
-                </Switch>
-              </MainContent>
+              <TransitionGroup component={React.Fragment} >
+                <Transition
+                  key={location.pathname}
+                  timeout={500}
+                  onEnter={this.setBodyOverflow('hidden')}
+                  onExited={this.setBodyOverflow('')}
+                >
+                  {status => (
+                    <MainContent status={status} id="MainContent" role="main">
+                      <Switch location={location}>
+                        <Route exact path="/" render={props => <Home {...props} status={status} />}/>
+                        <Route path="/contact" render={props => <Contact {...props} status={status} />}/>
+                        <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />}/>
+                        <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />}/>
+                        <Route render={props => <NotFound {...props} status={status} />}/>
+                      </Switch>
+                    </MainContent>
+                  )}
+                </Transition>
+              </TransitionGroup>
             </React.Fragment>
           )}/>
         </BrowserRouter>
@@ -72,7 +104,8 @@ class App extends Component {
 
 injectGlobal`
   html,
-  body {
+  body,
+  #root {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
@@ -81,7 +114,6 @@ injectGlobal`
     color: ${Theme.colorText(1)};
     border: 0;
     margin: 0;
-    overflow-x: hidden;
     width: 100vw;
   }
 
@@ -97,7 +129,26 @@ injectGlobal`
 `;
 
 const MainContent = styled.main`
+  width: 100%;
+  overflow-x: hidden;
   position: relative;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+
+  ${props => props.status === 'exiting' &&`
+    position: absolute;
+    opacity: 0;
+  `}
+
+  ${props => props.status === 'entering' &&`
+    position: absolute;
+    opacity: 0;
+  `}
+
+  ${props => props.status === 'entered' &&`
+    transition-duration: 0.5s;
+    opacity: 1;
+  `}
 `;
 
 const SkipToMain = styled.a`

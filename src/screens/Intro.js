@@ -43,7 +43,7 @@ const Intro = ({
                     mountOnEnter
                     unmountOnExit
                   >
-                    {(status) => (
+                    {status => (
                       <IntroTitleWord plus delay="0.5s" status={status}>
                         {item}
                       </IntroTitleWord>

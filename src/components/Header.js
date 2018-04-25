@@ -11,7 +11,7 @@ const HeaderIcons = ({ toggleMenu }) => (
   <HeaderNavIcons>
     <HeaderNavIconLink
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
       aria-label="Twitter"
       href="https://twitter.com/hamishMW"
     >
@@ -19,7 +19,7 @@ const HeaderIcons = ({ toggleMenu }) => (
     </HeaderNavIconLink>
     <HeaderNavIconLink
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
       aria-label="Dribbble"
       href="https://dribbble.com/hamishw"
     >
@@ -43,7 +43,7 @@ const Header = ({menuOpen, toggleMenu}) => (
       mountOnEnter
       unmountOnExit
     >
-      {(status) => (
+      {status => (
         <HeaderMobileNav status={status}>
           <HeaderMobileNavLink
             delay={250}

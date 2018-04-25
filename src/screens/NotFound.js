@@ -4,6 +4,7 @@ import { Transition } from 'react-transition-group';
 import HeadTag from 'react-head';
 import Notfound from '../assets/notfound.mp4';
 import { RouterButton } from '../components/Button';
+import DecoderText from '../components/DecoderText';
 import { Media } from '../utils/StyleUtils';
 
 const NotFound = () => (
@@ -12,12 +13,14 @@ const NotFound = () => (
     <HeadTag tag="meta" name="description" content="This page doesn't exist" />
 
     <Transition appear in={true} timeout={0}>
-      {(status) => (
+      {status => (
         <React.Fragment>
           <NotfoundDetails>
             <NotFoundText>
               <NotFoundTitle status={status}>404</NotFoundTitle>
-              <NotFoundSubHeading status={status}>Error: Redacted</NotFoundSubHeading>
+              <NotFoundSubHeading status={status}>
+                <DecoderText text="Error: Redacted" start offset={100} />
+              </NotFoundSubHeading>
               <NotFoundDescription status={status}>
                 This page could not be found. It either doesn't exist or was deleted.
                 Or perhaps you don't exist.
@@ -40,7 +43,7 @@ const NotFound = () => (
             <NotFoundCredit status={status}
               href="https://twitter.com/ruinergame"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
             >
               Animation from Ruiner
             </NotFoundCredit>
