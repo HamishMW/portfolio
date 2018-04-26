@@ -24,15 +24,10 @@ const ProfileText = ({ status }) => (
       />
     </ProfileTitle>
     <ProfileDescription status={status}>
-      I’m Hamish, currently I live in Sydney, working as the lead product designer
-      at <Anchor href={SparrowLink} target="_blank" rel="noopener noreferrer">Smart Sparrow</Anchor>. My projects
-      include UX design, UI animations, and icon illustration. Being comfortable with
-      code allows me to rapidly prototype and validate experiences.
+      I’m Hamish, currently I live in Sydney working as the lead product designer at <Anchor href={SparrowLink} target="_blank" rel="noopener noreferrer">Smart Sparrow</Anchor>. My projects include UX design, UI animations, and icon illustration. Being comfortable with code allows me to rapidly prototype and validate experiences.
     </ProfileDescription>
     <ProfileDescription status={status}>
-      In my spare time I like to practice Brazilian Jiu Jitsu, play video games,
-      and <Anchor href={ModLink} target="_blank" rel="noopener noreferrer">make mods</Anchor>. I’m always down
-      for hearing about new projects, so feel free to drop me a line.
+      In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and <Anchor href={ModLink} target="_blank" rel="noopener noreferrer">make mods</Anchor>. I’m always down for hearing about new projects, so feel free to drop me a line.
     </ProfileDescription>
   </React.Fragment>
 );

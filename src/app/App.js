@@ -105,8 +105,7 @@ class App extends Component {
 
 injectGlobal`
   html,
-  body,
-  #root {
+  body {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
@@ -116,6 +115,7 @@ injectGlobal`
     border: 0;
     margin: 0;
     width: 100vw;
+    overflow-x: hidden;
   }
 
   *,

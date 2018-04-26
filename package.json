@@ -24,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "react-snap && sw-precache --config=sw-precache-config.js",
+    "postbuild": "node scripts/prerender.js && sw-precache --config=sw-precache-config.js",
     "deploy": "firebase deploy --only hosting",
     "serve": "firebase serve --only hosting",
     "test": "react-scripts test --env=jsdom",

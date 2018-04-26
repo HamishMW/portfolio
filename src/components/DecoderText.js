@@ -46,6 +46,7 @@ export default class DecoderText extends PureComponent {
 
   componentWillUnmount() {
     clearTimeout(this.timeout);
+    this.stop();
   }
 
   start = () => {
@@ -64,6 +65,8 @@ export default class DecoderText extends PureComponent {
   	const deltaTime = elapsedTime - this.elapsedTime;
   	const needsUpdate = 1000 / this.fps <= deltaTime;
 
+    if (!this.running) return;
+
   	if (!needsUpdate) {
   		requestAnimationFrame(this.anim);
   		return;
@@ -71,8 +74,6 @@ export default class DecoderText extends PureComponent {
 
   	this.elapsedTime = elapsedTime;
     this.setState({position: (this.elapsedTime / this.timeOffset) | 0});
-
-  	if (!this.running) return;
 
   	if (position > this.content.length) {
   		this.running = false;

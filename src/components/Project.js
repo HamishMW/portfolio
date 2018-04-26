@@ -4,10 +4,13 @@ import { Media, AnimFade, ColorTint } from '../utils/StyleUtils';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { LinkButton } from '../components/Button';
 
+const initDelay = 300;
+const isReactSnap = window.location.port === '45678';
+
 export const ProjectHeader = ({ title, description, url, roles }) => (
   <ProjectHeaderContainer>
     <ProjectHeaderInner>
-      <ProjectDetails>
+      <ProjectDetails entered={!isReactSnap}>
         <ProjectTitle>{title}</ProjectTitle>
         <ProjectDescription>{description}</ProjectDescription>
         <LinkButton
@@ -21,7 +24,7 @@ export const ProjectHeader = ({ title, description, url, roles }) => (
           Visit website
         </LinkButton>
       </ProjectDetails>
-      <ProjectMeta>
+      <ProjectMeta entered={!isReactSnap}>
         {roles && roles.map((role, index) => (
           <ProjectMetaItem key={`role_${index}`}>{role}</ProjectMetaItem>
         ))}
@@ -111,7 +114,10 @@ export const ProjectBackground = styled(ProgressiveImage).attrs({
   left: 0;
   height: 800px;
   opacity: 0;
-  animation: ${AnimFade} 2s ease forwards;
+
+  ${props => props.entered &&`
+    animation: ${AnimFade} 2s ease ${initDelay}ms forwards;
+  `}
 
   img {
     object-fit: cover;
@@ -186,7 +192,10 @@ const AnimFadeSlide = keyframes`
 
 const ProjectDetails = styled.div`
   opacity: 0;
-  animation: ${AnimFadeSlide} 1.4s ${props => props.theme.curveFastoutSlowin} forwards;
+
+  ${props => props.entered &&`
+    animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay}ms forwards;
+  `}
 `;
 
 const ProjectTitle = styled.h1`
@@ -219,7 +228,10 @@ const ProjectMeta = styled.ul`
   padding: 0;
   margin-top: 10px;
   opacity: 0;
-  animation: ${AnimFadeSlide} 1.4s ${props => props.theme.curveFastoutSlowin} 0.2s forwards;
+
+  ${props => props.entered &&`
+    animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay + 200}ms forwards;
+  `}
 `;
 
 const ProjectMetaItem = styled.li`
@@ -285,7 +297,7 @@ export const ProjectImage = styled.div`
     width: 100%;
   }
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.entered &&`
     &:before {
       animation: ${AnimProjectImage} 1.4s ${props.theme.curveFastoutSlowin} 0.6s;
     }

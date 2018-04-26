@@ -13,6 +13,8 @@ import imageSprBuilder from '../assets/spr-builder.png';
 import imageSprBuilderLarge from '../assets/spr-builder-large.png';
 import imageSprBuilderPlaceholder from '../assets/spr-builder-placeholder.png';
 
+const isReactSnap = window.location.port === '45678';
+
 const title = 'Designing the future of education';
 const description = 'I worked as the design lead on a major iteration of Smart Sparrow’s product. We took the platform in a bold new direction, focusing on becoming the best tool for learning designers.';
 const roles = [
@@ -21,9 +23,9 @@ const roles = [
   'Front End Development',
 ];
 
-const ProjectSPR = () => (
+const ProjectSPR = ({ status }) => (
   <React.Fragment>
-    <ScrollToTop />
+    <ScrollToTop status={status} />
     <ProjectContainer>
       <HeadTag tag="title">{`Projects | ${title}`}</HeadTag>
       <HeadTag
@@ -34,6 +36,7 @@ const ProjectSPR = () => (
       <ProjectBackground
         srcSet={`${backgroundSpr} 1000w, ${backgroundSprLarge} 1920w`}
         placeholder={backgroundSprPlaceholder}
+        entered={!isReactSnap}
       />
       <ProjectHeader
         title={title}
@@ -43,7 +46,7 @@ const ProjectSPR = () => (
       />
       <ProjectSection>
         <ProjectSectionContent>
-          <ProjectImage status="entered">
+          <ProjectImage entered={!isReactSnap}>
             <ProgressiveImage
               srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
               placeholder={imageSprBuilderPlaceholder}
@@ -55,7 +58,6 @@ const ProjectSPR = () => (
         </ProjectSectionContent>
       </ProjectSection>
       {false &&
-        <React.Fragment>
         <ProjectSection center>
           <ProjectSectionHeading>The Challenge</ProjectSectionHeading>
           <ProjectSectionText>
@@ -64,23 +66,6 @@ const ProjectSPR = () => (
             design system that allowed us to quickly design and build prototypes for user testing.
           </ProjectSectionText>
         </ProjectSection>
-        <ProjectSection center>
-          <ProjectSectionHeading>A living design system</ProjectSectionHeading>
-          <ProjectSectionText>
-            The goal of the new product design was to make creating online learning better for
-            teams. As part of my role as lead product designer, I worked to create a consistent
-            design system that allowed us to quickly design and build prototypes for user testing.
-          </ProjectSectionText>
-        </ProjectSection>
-        <ProjectSection center>
-          <ProjectSectionHeading>Designing for teams</ProjectSectionHeading>
-          <ProjectSectionText>
-            The goal of the new product design was to make creating online learning better for
-            teams. As part of my role as lead product designer, I worked to create a consistent
-            design system that allowed us to quickly design and build prototypes for user testing.
-          </ProjectSectionText>
-        </ProjectSection>
-        </React.Fragment>
       }
     </ProjectContainer>
     <Footer />
