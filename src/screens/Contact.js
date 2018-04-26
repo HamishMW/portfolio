@@ -7,6 +7,8 @@ import Button, { RouterButton } from '../components/Button';
 import { Media, AnimFade } from '../utils/StyleUtils';
 import Firebase from '../utils/Firebase';
 
+const initDelay = 300;
+
 export default class Contact extends PureComponent {
   state = {
     emailValue: '',
@@ -174,7 +176,7 @@ const ContactTitle = styled.h1`
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
-  transition-delay: ${props => props.delay}ms;
+  transition-delay: ${props => props.delay + initDelay}ms;
   transform: translate3d(0, 90px, 0);
   opacity: 0;
 
@@ -201,7 +203,7 @@ const ContactDivider = styled.div`
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
-  transition-delay: ${props => props.delay}ms;
+  transition-delay: ${props => props.delay + initDelay}ms;
   transform: translate3d(0, 90px, 0);
   opacity: 0;
 
@@ -242,7 +244,7 @@ const ContactInput = styled(Input)`
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
-  transition-delay: ${props => props.delay}ms;
+  transition-delay: ${props => props.delay + initDelay}ms;
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
@@ -264,7 +266,7 @@ const ContactButton = styled(Button)`
   margin-top: 20px;
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
-  transition-delay: ${props => props.status === 'entered' ? '0ms' : `${props.delay}ms`};
+  transition-delay: ${props => props.status === 'entered' ? '0ms' : `${props.delay + initDelay}ms`};
   transition-duration: ${props => props.status === 'entered' ? '0.4s' : '0.8s'};
   transform: translate3d(0, 80px, 0);
   opacity: 0;
@@ -318,7 +320,7 @@ const ContactCompleteTitle = styled.h1`
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
-  transition-delay: ${props => props.delay}ms;
+  transition-delay: ${props => props.delay + initDelay}ms;
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
@@ -334,7 +336,7 @@ const ContactCompleteText = styled.p`
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
-  transition-delay: ${props => props.delay}ms;
+  transition-delay: ${props => props.delay + initDelay}ms;
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
@@ -348,7 +350,7 @@ const ContactCompleteButton = styled(RouterButton)`
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
-  transition-delay: ${props => props.delay}ms;
+  transition-delay: ${props => props.delay + initDelay}ms;
   transform: translate3d(0, 80px, 0);
   opacity: 0;
   padding-left: 3px;

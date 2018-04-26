@@ -4,6 +4,8 @@ import { TransitionGroup, Transition } from 'react-transition-group';
 import { Media, AnimFade } from '../utils/StyleUtils';
 import DecoderText from '../components/DecoderText';
 
+const isReactSnap = window.location.port === '45678';
+
 const Intro = ({
   id,
   sectionRef,
@@ -16,7 +18,7 @@ const Intro = ({
   <IntroContent innerRef={sectionRef} id={id}>
     <Transition
       appear
-      in={true}
+      in={!isReactSnap}
       timeout={3000}
     >
       {(appearStatus) => (
@@ -27,7 +29,7 @@ const Intro = ({
           />
           <IntroText>
             <IntroName>
-              <DecoderText text="Hamish Williams" start={true} offset={120} />
+              <DecoderText text="Hamish Williams" start={!isReactSnap} offset={120} />
             </IntroName>
             <IntroTitle>
               <IntroTitleRow>
@@ -35,7 +37,7 @@ const Intro = ({
                 <IntroTitleLine status={appearStatus} />
               </IntroTitleRow>
               <TransitionGroup component={IntroTitleRow}>
-                {disciplines.map((item, index) => (
+                {!isReactSnap && disciplines.map((item, index) => (
                   <Transition
                     appear
                     timeout={{enter: 3000, exit: 2000}}

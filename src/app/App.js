@@ -24,7 +24,7 @@ __  __  __
  \u005C \u005C\u2215\u005C \u005C
   \u005C\u2215  \u005C\u2215
 
-Taking a peek huh? Hit me up at hello@hamishw.com if you have any questions
+Taking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio-2018
 
 `;
 
@@ -51,6 +51,7 @@ class App extends Component {
 
   componentDidMount() {
     console.info(consoleMessage);
+    window.history.scrollRestoration = 'manual';
   }
 
   toggleMenu = () => {

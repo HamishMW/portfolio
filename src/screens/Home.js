@@ -62,7 +62,7 @@ export default class Home extends Component {
     const { hash } = location;
 
     if (status !== 'entered') {
-      setTimeout(this.initScroll, 200);
+      requestAnimationFrame(this.initScroll);
     } else if (hash && status === 'entered') {
       this.handleHashchange(hash, false);
     } else if (status === 'entered') {
