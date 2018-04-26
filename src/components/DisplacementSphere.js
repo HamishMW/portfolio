@@ -57,6 +57,7 @@ class DisplacementSphere {
     this.sphere.position.z = 0;
 
     this.sphere.modifier = rand;
+    this.animating = true;
 
     this.container.appendChild(this.renderer.domElement);
     window.addEventListener('resize', this.onWindowResize);
@@ -66,8 +67,25 @@ class DisplacementSphere {
   }
 
   remove = () => {
+    this.animating = false;
+    cancelAnimationFrame(this.animate);
     window.removeEventListener('resize', this.onWindowResize);
     window.removeEventListener('mousemove', this.onMouseMove);
+    this.scene.remove(this.sphere);
+    this.sphere.geometry.dispose();
+    this.sphere.material.dispose();
+    this.geometry.dispose();
+    this.material.dispose();
+    this.renderer.dispose();
+    this.renderer.forceContextLoss();
+    this.scene = null;
+    this.camera = null;
+    this.light = null;
+    this.sphere = null;
+    this.ambientLight = null;
+    this.uniforms = null;
+    this.renderer.context = null;
+    this.renderer.domElement = null;
   }
 
   onWindowResize = () => {
@@ -102,8 +120,10 @@ class DisplacementSphere {
   }
 
   animate = () => {
-    requestAnimationFrame(this.animate);
-    this.render();
+    if (this.animating) {
+      requestAnimationFrame(this.animate);
+      this.render();
+    }
   }
 
   render = () => {
