@@ -84,6 +84,7 @@ class App extends Component {
                 >
                   {status => (
                     <MainContent status={status} id="MainContent" role="main">
+                      <HeadTag tag="link" rel="canonical" href={`https://hamishw.com${location.pathname}`} />
                       <Switch location={location}>
                         <Route exact path="/" render={props => <Home {...props} status={status} />}/>
                         <Route path="/contact" render={props => <Contact {...props} status={status} />}/>
