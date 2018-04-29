@@ -168,7 +168,7 @@ export default class Home extends Component {
           visible={visibleSections.includes(this.projectOne)}
           index="01"
           title="Designing the future of education"
-          description="I designed a web app that helps educators build better online courseware"
+          description="Designing a platfrom to help educators build better online courseware"
           buttonText="View Project"
           buttonTo="/"
           imageSrc={[`${sprProject} 980w, ${sprProjectLarge} 1376w`]}

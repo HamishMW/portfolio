@@ -2,10 +2,11 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Transition } from 'react-transition-group';
 import HeadTag from 'react-head';
-import Notfound from '../assets/notfound.mp4';
 import { RouterButton } from '../components/Button';
 import DecoderText from '../components/DecoderText';
 import { Media } from '../utils/StyleUtils';
+import Notfound from '../assets/notfound.mp4';
+import NotfoundPoster from '../assets/notfound.jpg';
 
 const NotFound = () => (
   <NotFoundSection>
@@ -37,7 +38,14 @@ const NotFound = () => (
           </NotfoundDetails>
 
           <NotFoundVideoContainer status={status}>
-            <NotFoundVideo status={status} autoPlay muted loop playsInline>
+            <NotFoundVideo
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={NotfoundPoster}
+              status={status}
+            >
               <source src={Notfound} type="video/mp4" />
             </NotFoundVideo>
             <NotFoundCredit status={status}

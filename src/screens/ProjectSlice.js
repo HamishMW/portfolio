@@ -144,9 +144,9 @@ const ProjectSlice = ({ status }) => (
             />
           </ProjectSectionGridForeground>
           <ProjectSectionGridText>
-            <ProjectSectionHeading>Improving the experience</ProjectSectionHeading>
+            <ProjectSectionHeading>Meaningful details</ProjectSectionHeading>
             <ProjectSectionText>
-              A problem we heard about often form users was that it was difficult to find images they had previously seen or worked on. To solve this we added a new tab that lists all previously annotated slides. In addition, we added the ability to favorite slides, so if users find an interesting slide they want to annotate later, they can easily save it to their account.
+              Marking and annotating areas on high resolution beiomedical images is the core experience of the app, and it was easy to get lost or lose sense of scale when zooming in on details. Adding measurements for the perimeter and area of an annotation both helped to communicate the overall scale of the image and how large the annotated feature is in comparison.
             </ProjectSectionText>
           </ProjectSectionGridText>
         </ProjectSectionGrid>

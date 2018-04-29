@@ -31,7 +31,10 @@ const Intro = ({
             <IntroName>
               <DecoderText text="Hamish Williams" start={!isReactSnap} offset={120} />
             </IntroName>
-            <IntroTitle>
+            <IntroTitle aria-label={[
+              disciplines.slice(0, -1).join(', '),
+              disciplines.slice(-1)[0],
+            ].join(', and ')}>
               <IntroTitleRow>
                 <IntroTitleWord status={appearStatus} delay="0.2s">Designer</IntroTitleWord>
                 <IntroTitleLine status={appearStatus} />
@@ -135,7 +138,7 @@ const IntroText = styled.header`
   }
 `;
 
-const IntroName = styled.h2`
+const IntroName = styled.div`
   text-transform: uppercase;
   font-size: 24px;
   letter-spacing: 0.3em;

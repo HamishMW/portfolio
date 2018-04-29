@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import HeadTag from 'react-head';
 import Input from '../components/Input';
+import DecoderText from '../components/DecoderText';
 import Button, { RouterButton } from '../components/Button';
 import { Media, AnimFade } from '../utils/StyleUtils';
 import Firebase from '../utils/Firebase';
+import ScrollToTop from '../utils/ScrollToTop';
 
 const initDelay = 300;
 
@@ -45,10 +47,12 @@ export default class Contact extends PureComponent {
   }
 
   render() {
+    const { status } = this.props;
     const { emailValue, messageValue, sending, complete } = this.state;
 
     return (
       <ContactWrapper>
+        <ScrollToTop status={status} />
         <HeadTag tag="title">Contact me</HeadTag>
         <HeadTag
           tag="meta"
@@ -62,7 +66,13 @@ export default class Contact extends PureComponent {
             <Transition appear timeout={1600} mountOnEnter unmountOnExit>
               {status => (
                 <ContactForm autoComplete="off" onSubmit={this.onSubmit} role="form">
-                  <ContactTitle status={status} delay={50}>Say hello</ContactTitle>
+                  <ContactTitle status={status} delay={50}>
+                    <DecoderText
+                      text="Say hello"
+                      start={status === 'entering'}
+                      offset={140}
+                    />
+                  </ContactTitle>
                   <ContactDivider status={status} delay={100} />
                   <ContactInput
                     status={status}
@@ -109,18 +119,18 @@ export default class Contact extends PureComponent {
                 <ContactComplete>
                   <ContactCompleteTitle
                     status={status}
-                    delay="0"
+                    delay={0}
                   >
                     Message Sent
                   </ContactCompleteTitle>
-                  <ContactCompleteText status={status} delay="200">
+                  <ContactCompleteText status={status} delay={200}>
                     I'll get back to you within a couple days, sit tight
                   </ContactCompleteText>
                   <ContactCompleteButton
                     secondary
                     to="/"
                     status={status}
-                    delay="400"
+                    delay={400}
                     icon="chevronRight"
                   >
                     Back to homepage
@@ -159,12 +169,10 @@ const ContactWrapper = styled.section`
 const ContactForm = styled.form`
   max-width: 440px;
   width: 100%;
-  padding: 0 20px;
-  padding-top: 120px;
-  padding-bottom: 120px;
+  padding: 40px 20px;
 
   @media (max-width: ${Media.mobile}) {
-    padding-bottom: 300px;
+    padding: 120px 20px 40px;
   }
 `;
 
@@ -320,7 +328,7 @@ const ContactCompleteTitle = styled.h1`
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
-  transition-delay: ${props => props.delay + initDelay}ms;
+  transition-delay: ${props => props.delay}ms;
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
@@ -336,7 +344,7 @@ const ContactCompleteText = styled.p`
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
-  transition-delay: ${props => props.delay + initDelay}ms;
+  transition-delay: ${props => props.delay}ms;
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
@@ -350,7 +358,7 @@ const ContactCompleteButton = styled(RouterButton)`
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
-  transition-delay: ${props => props.delay + initDelay}ms;
+  transition-delay: ${props => props.delay}ms;
   transform: translate3d(0, 80px, 0);
   opacity: 0;
   padding-left: 3px;
