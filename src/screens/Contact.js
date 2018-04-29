@@ -173,6 +173,7 @@ const ContactForm = styled.form`
 
   @media (max-width: ${Media.mobile}) {
     padding: 120px 20px 40px;
+    align-self: flex-start;
   }
 `;
 
@@ -180,6 +181,7 @@ const ContactTitle = styled.h1`
   font-size: 32px;
   font-weight: 500;
   margin-bottom: 40px;
+  line-height: 1;
   margin-top: 0;
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
@@ -187,6 +189,7 @@ const ContactTitle = styled.h1`
   transition-delay: ${props => props.delay + initDelay}ms;
   transform: translate3d(0, 90px, 0);
   opacity: 0;
+  height: 32px;
 
   ${props => (props.status === 'entering' ||
     props.status === 'entered') &&`

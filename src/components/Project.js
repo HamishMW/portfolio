@@ -211,6 +211,10 @@ const ProjectTitle = styled.h1`
   @media (max-width: ${Media.mobile}) {
     font-size: 34px;
   }
+
+  @media (max-width: 320px) {
+    font-size: 28px;
+  }
 `;
 
 const ProjectDescription = styled.p`
