@@ -170,7 +170,7 @@ export default class Home extends Component {
           title="Designing the future of education"
           description="Designing a platfrom to help educators build better online courseware"
           buttonText="View Project"
-          buttonTo="/"
+          buttonTo="/projects/smart-sparrow"
           imageSrc={[`${sprProject} 980w, ${sprProjectLarge} 1376w`]}
           imageAlt={['Smart Sparrow lesson builder']}
           imagePlaceholder={[sprProjectPlaceholder]}

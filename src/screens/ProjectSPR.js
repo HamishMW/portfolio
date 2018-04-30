@@ -57,6 +57,9 @@ const ProjectSPR = ({ status }) => (
           </ProjectImage>
         </ProjectSectionContent>
       </ProjectSection>
+      <ProjectSection>
+        <ProjectSectionHeading>Full project coming soon...</ProjectSectionHeading>
+      </ProjectSection>
       {false &&
         <ProjectSection center>
           <ProjectSectionHeading>The Challenge</ProjectSectionHeading>
@@ -68,7 +71,7 @@ const ProjectSPR = ({ status }) => (
         </ProjectSection>
       }
     </ProjectContainer>
-    <Footer />
+    {false && <Footer />}
   </React.Fragment>
 );
 
