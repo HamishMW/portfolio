@@ -1,0 +1,10 @@
+{
+  "firebase": {
+    "apiKey": "yourkey123",
+    "authDomain": "domain.firebaseapp.com",
+    "databaseURL": "https://domain.firebaseio.com",
+    "projectId": "proj-id",
+    "storageBucket": "bucket",
+    "messagingSenderId": "123"
+  }
+}
