@@ -65,7 +65,7 @@ export default class Contact extends PureComponent {
           {!complete &&
             <Transition appear timeout={1600} mountOnEnter unmountOnExit>
               {status => (
-                <ContactForm autoComplete="off" onSubmit={this.onSubmit} role="form">
+                <ContactForm autoComplete="off" method="post" onSubmit={this.onSubmit} role="form">
                   <ContactTitle status={status} delay={50}>
                     <DecoderText
                       text="Say hello"

@@ -86,7 +86,6 @@ const ButtonContainer = styled.button`
       left: -5px;
       z-index: -1;
       opacity: 0;
-      transform: scale3d(0.8, 0.8, 1);
     }
 
     &:after {
@@ -117,7 +116,6 @@ const ButtonContainer = styled.button`
 
     &:focus:before {
       opacity: 1;
-      transform: scale3d(1, 1, 1);
     }
   `}
 
