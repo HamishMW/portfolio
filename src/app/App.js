@@ -4,7 +4,7 @@ import BrowserRouter from 'react-router-dom/BrowserRouter';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import Route from 'react-router-dom/Route';
 import Switch from 'react-router-dom/Switch';
-import HeadTag from 'react-head';
+import { Helmet } from "react-helmet";
 import asyncComponent from '../components/AsyncComponent';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
@@ -71,7 +71,9 @@ class App extends Component {
         <BrowserRouter>
           <Route render={({ location }) => (
             <React.Fragment>
-              <HeadTag tag="style">{fontStyles}</HeadTag>
+              <Helmet>
+                <style>{fontStyles}</style>
+              </Helmet>
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
@@ -84,7 +86,9 @@ class App extends Component {
                 >
                   {status => (
                     <MainContent status={status} id="MainContent" role="main">
-                      <HeadTag tag="link" rel="canonical" href={`https://hamishw.com${location.pathname}`} />
+                      <Helmet>
+                        <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
+                      </Helmet>
                       <Switch location={location}>
                         <Route exact path="/" render={props => <Home {...props} status={status} />}/>
                         <Route path="/contact" render={props => <Contact {...props} status={status} />}/>

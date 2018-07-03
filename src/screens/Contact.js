@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import HeadTag from 'react-head';
+import { Helmet } from 'react-helmet';
 import Input from '../components/Input';
 import DecoderText from '../components/DecoderText';
 import Button, { RouterButton } from '../components/Button';
@@ -54,13 +54,13 @@ export default class Contact extends PureComponent {
     return (
       <ContactWrapper>
         <ScrollToTop status={status} />
-        <HeadTag tag="title">Contact me</HeadTag>
-        <HeadTag
-          tag="meta"
-          name="description"
-          content="Send me a message if you're interested in discussing a project or if you just want to say hi"
-        />
-
+        <Helmet>
+          <title>Contact me</title>
+          <meta
+            name="description"
+            content="Send me a message if you're interested in discussing a project or if you just want to say hi"
+          />
+        </Helmet>
         <TransitionGroup component={React.Fragment}>
           {!complete &&
             <Transition appear timeout={1600} mountOnEnter unmountOnExit>

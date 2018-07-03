@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Transition } from 'react-transition-group';
-import HeadTag from 'react-head';
+import { Helmet } from 'react-helmet';
 import { RouterButton } from '../components/Button';
 import DecoderText from '../components/DecoderText';
 import { Media } from '../utils/StyleUtils';
@@ -10,8 +10,10 @@ import NotfoundPoster from '../assets/notfound.jpg';
 
 const NotFound = () => (
   <NotFoundSection>
-    <HeadTag tag="title">404 | Not Found</HeadTag>
-    <HeadTag tag="meta" name="description" content="This page doesn't exist" />
+    <Helmet>
+      <title tag="title">404 | Not Found</title>
+      <meta name="description" content="This page doesn't exist" />
+    </Helmet>
 
     <Transition appear in={true} timeout={0}>
       {status => (

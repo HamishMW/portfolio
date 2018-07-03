@@ -5,7 +5,7 @@
   "private": true,
   "devDependencies": {
     "react-scripts": "1.1.4",
-    "react-snap": "^1.12.2"
+    "react-snap": "^1.15.0"
   },
   "dependencies": {
     "@firebase/app": "^0.1.10",
@@ -15,7 +15,7 @@
     "ios-inner-height": "^1.0.3",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-head": "^2.0.0",
+    "react-helmet": "^5.2.0",
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.2.1",
     "styled-components": "^3.2.6",

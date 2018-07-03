@@ -1,5 +1,5 @@
 import React from 'react';
-import HeadTag from 'react-head';
+import { Helmet } from 'react-helmet';
 import ProgressiveImage from '../components/ProgressiveImage';
 import ScrollToTop from '../utils/ScrollToTop';
 import Footer from '../components/Footer';
@@ -26,13 +26,11 @@ const roles = [
 const ProjectSPR = ({ status }) => (
   <React.Fragment>
     <ScrollToTop status={status} />
+    <Helmet>
+      <title>{`Projects | ${title}`}</title>
+      <meta name="description" content={description} />
+    </Helmet>
     <ProjectContainer>
-      <HeadTag tag="title">{`Projects | ${title}`}</HeadTag>
-      <HeadTag
-        tag="meta"
-        name="description"
-        content={description}
-      />
       <ProjectBackground
         srcSet={`${backgroundSpr} 1000w, ${backgroundSprLarge} 1920w`}
         placeholder={backgroundSprPlaceholder}

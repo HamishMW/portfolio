@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import HeadTag from 'react-head';
+import { Helmet } from "react-helmet";
 import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
@@ -146,12 +146,13 @@ export default class Home extends Component {
 
     return (
       <React.Fragment>
-        <HeadTag tag="title">Hamish Williams | Designer</HeadTag>
-        <HeadTag
-          tag="meta"
-          name="description"
-          content="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design."
-        />
+        <Helmet>
+          <title>Hamish Williams | Designer</title>
+          <meta
+            name="description"
+            content="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design."
+          />
+        </Helmet>
         <Intro
           id="intro"
           sectionRef={section => this.intro = section}
