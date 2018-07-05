@@ -5,12 +5,12 @@ import ProgressiveImage from '../components/ProgressiveImage';
 import { LinkButton } from '../components/Button';
 
 const initDelay = 300;
-const isReactSnap = window.location.port === '45678';
+const prerender = window.location.port === '45678';
 
 export const ProjectHeader = ({ title, description, url, roles }) => (
   <ProjectHeaderContainer>
     <ProjectHeaderInner>
-      <ProjectDetails entered={!isReactSnap}>
+      <ProjectDetails entered={!prerender}>
         <ProjectTitle>{title}</ProjectTitle>
         <ProjectDescription>{description}</ProjectDescription>
         <LinkButton
@@ -24,7 +24,7 @@ export const ProjectHeader = ({ title, description, url, roles }) => (
           Visit website
         </LinkButton>
       </ProjectDetails>
-      <ProjectMeta entered={!isReactSnap}>
+      <ProjectMeta entered={!prerender}>
         {roles && roles.map((role, index) => (
           <ProjectMetaItem key={`role_${index}`}>{role}</ProjectMetaItem>
         ))}

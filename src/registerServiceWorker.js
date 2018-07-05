@@ -18,7 +18,7 @@ const isLocalhost = Boolean(
     )
 );
 
-const isReactSnap = Boolean(window.location.port === '45678');
+const prerender = Boolean(window.location.port === '45678');
 
 export default function register() {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
@@ -70,7 +70,7 @@ function registerValidSW(swUrl) {
       };
     })
     .catch(error => {
-      !isReactSnap && console.error('Error during service worker registration:', error);
+      !prerender && console.error('Error during service worker registration:', error);
     });
 }
 

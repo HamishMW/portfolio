@@ -13,7 +13,7 @@ import imageSprBuilder from '../assets/spr-builder.png';
 import imageSprBuilderLarge from '../assets/spr-builder-large.png';
 import imageSprBuilderPlaceholder from '../assets/spr-builder-placeholder.png';
 
-const isReactSnap = window.location.port === '45678';
+const prerender = window.location.port === '45678';
 
 const title = 'Designing the future of education';
 const description = 'I worked as the design lead on a major iteration of Smart Sparrow’s product. We took the platform in a bold new direction, focusing on becoming the best tool for learning designers.';
@@ -34,7 +34,7 @@ const ProjectSPR = ({ status }) => (
       <ProjectBackground
         srcSet={`${backgroundSpr} 1000w, ${backgroundSprLarge} 1920w`}
         placeholder={backgroundSprPlaceholder}
-        entered={!isReactSnap}
+        entered={!prerender}
       />
       <ProjectHeader
         title={title}
@@ -44,7 +44,7 @@ const ProjectSPR = ({ status }) => (
       />
       <ProjectSection>
         <ProjectSectionContent>
-          <ProjectImage entered={!isReactSnap}>
+          <ProjectImage entered={!prerender}>
             <ProgressiveImage
               srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
               placeholder={imageSprBuilderPlaceholder}

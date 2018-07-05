@@ -29,7 +29,7 @@ import sliceAnnotation from '../assets/slice-annotation.png';
 import sliceAnnotationLarge from '../assets/slice-annotation-large.png';
 import sliceAnnotationPlaceholder from '../assets/slice-annotation-placeholder.png';
 
-const isReactSnap = window.location.port === '45678';
+const prerender = window.location.port === '45678';
 
 const title = 'Biomedical image collaboration';
 const description = 'This project involved designing better way for biomedical educators and learners to annotate digital slides together.';
@@ -51,7 +51,7 @@ const ProjectSlice = ({ status }) => (
         srcSet={`${sliceBackground} 1000w, ${sliceBackgroundLarge} 1920w`}
         placeholder={sliceBackgroundPlaceholder}
         opacity={0.8}
-        entered={!isReactSnap}
+        entered={!prerender}
       />
       <ProjectHeader
         title={title}
@@ -61,7 +61,7 @@ const ProjectSlice = ({ status }) => (
       />
       <ProjectSection>
         <ProjectSectionContent>
-          <ProjectImage entered={!isReactSnap}>
+          <ProjectImage entered={!prerender}>
             <ProgressiveImage
               srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1440w`}
               placeholder={sliceAppPlaceholder}

@@ -9,7 +9,7 @@ import { Media, AnimFade } from '../utils/StyleUtils';
 import Firebase from '../utils/Firebase';
 import ScrollToTop from '../utils/ScrollToTop';
 
-const isReactSnap = window.location.port === '45678';
+const prerender = window.location.port === '45678';
 const initDelay = 300;
 
 export default class Contact extends PureComponent {
@@ -69,7 +69,7 @@ export default class Contact extends PureComponent {
                   <ContactTitle status={status} delay={50}>
                     <DecoderText
                       text="Say hello"
-                      start={status === 'entering' && !isReactSnap}
+                      start={status === 'entering' && !prerender}
                       offset={140}
                     />
                   </ContactTitle>
@@ -192,7 +192,7 @@ const ContactTitle = styled.h1`
   height: 32px;
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !isReactSnap &&`
+    props.status === 'entered') && !prerender &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -237,7 +237,7 @@ const ContactDivider = styled.div`
   }
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !isReactSnap &&`
+    props.status === 'entered') && !prerender &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -260,7 +260,7 @@ const ContactInput = styled(Input)`
   opacity: 0;
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !isReactSnap &&`
+    props.status === 'entered') && !prerender &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -297,7 +297,7 @@ const ContactButton = styled(Button)`
   `}
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !isReactSnap &&`
+    props.status === 'entered') && !prerender &&`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
