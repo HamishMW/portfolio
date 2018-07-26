@@ -15,7 +15,7 @@ export const ProjectHeader = ({ title, description, url, roles }) => (
         <ProjectDescription>{description}</ProjectDescription>
         <LinkButton
           secondary
-          style={{paddingLeft: '3px'}}
+          style={{ paddingLeft: '3px' }}
           icon="chevronRight"
           href={url}
           target="_blank"
@@ -84,7 +84,7 @@ export const ProjectSection = styled.section`
     padding-right: 100px;
   }
 
-  ${props => props.light &&`
+  ${props => props.light && `
     background: ${ColorTint(props.theme.colorBackground(1), 0.036)};
     padding-top: 120px;
     padding-bottom: 140px;
@@ -115,7 +115,7 @@ export const ProjectBackground = styled(ProgressiveImage).attrs({
   height: 800px;
   opacity: 0;
 
-  ${props => props.entered &&`
+  ${props => props.entered && `
     animation: ${AnimFade} 2s ease ${initDelay}ms forwards;
   `}
 
@@ -193,7 +193,7 @@ const AnimFadeSlide = keyframes`
 const ProjectDetails = styled.div`
   opacity: 0;
 
-  ${props => props.entered &&`
+  ${props => props.entered && `
     animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay}ms forwards;
   `}
 `;
@@ -233,7 +233,7 @@ const ProjectMeta = styled.ul`
   margin-top: 10px;
   opacity: 0;
 
-  ${props => props.entered &&`
+  ${props => props.entered && `
     animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay + 200}ms forwards;
   `}
 `;
@@ -301,7 +301,7 @@ export const ProjectImage = styled.div`
     width: 100%;
   }
 
-  ${props => props.entered &&`
+  ${props => props.entered && `
     &:before {
       animation: ${AnimProjectImage} 1.4s ${props.theme.curveFastoutSlowin} 0.6s;
     }

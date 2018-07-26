@@ -46,13 +46,13 @@ export default class Home extends Component {
     ];
 
     import('../components/DisplacementSphere').then(DisplacementSphere => {
-      this.setState({backgroundLoaded: true});
+      this.setState({ backgroundLoaded: true });
       this.sphere = new DisplacementSphere.default(threeCanvas);
       requestAnimationFrame(() => this.sphere.init());
     });
 
     window.addEventListener('scroll', this.handleScroll);
-    this.setState({visibleSections: [this.intro]});
+    this.setState({ visibleSections: [this.intro] });
     this.switchDiscipline();
     this.initScroll();
   }

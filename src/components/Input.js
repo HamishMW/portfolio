@@ -9,35 +9,37 @@ const Input = ({
   multiline,
   className,
   ...props,
-}) => (
-  <InputWrapper className={className}>
-    <React.Fragment>
-      {!multiline &&
-        <InputElement
-          id={id}
-          name={id}
-          aria-labelledby={`${id}-label`}
-          {...props}
-        />
-      }
-      {!!multiline &&
-        <InputTextArea
-          id={id}
-          name={id}
-          aria-labelledby={`${id}-label`}
-          {...props}
-        />
-      }
-      <InputLabel
-        id={`${id}-label`}
-        hasValue={hasValue}
-        htmlFor={id}
-      >
-        {label}
-      </InputLabel>
-    </React.Fragment>
-  </InputWrapper>
-);
+}) => {
+  return (
+    <InputWrapper className={className}>
+      <React.Fragment>
+        {!multiline &&
+          <InputElement
+            id={id}
+            name={id}
+            aria-labelledby={`${id}-label`}
+            {...props}
+          />
+        }
+        {!!multiline &&
+          <InputTextArea
+            id={id}
+            name={id}
+            aria-labelledby={`${id}-label`}
+            {...props}
+          />
+        }
+        <InputLabel
+          id={`${id}-label`}
+          hasValue={hasValue}
+          htmlFor={id}
+        >
+          {label}
+        </InputLabel>
+      </React.Fragment>
+    </InputWrapper>
+  );
+}
 
 const InputWrapper = styled.div`
   position: relative;
@@ -79,7 +81,7 @@ const InputElement = styled.input`
 
 const InputTextArea = InputElement.withComponent(TextArea);
 
-const InputLabelFocus = props =>`
+const InputLabelFocus = props => `
   color: ${props.theme.colorText(0.4)};
   transform: scale(0.8) translateY(-28px);
 `;
@@ -98,7 +100,7 @@ const InputLabel = styled.label`
     ${props => InputLabelFocus(props)}
   }
 
-  ${props => props.hasValue &&`
+  ${props => props.hasValue && `
     ${InputLabelFocus(props)}
   `}
 `;

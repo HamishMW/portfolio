@@ -25,7 +25,7 @@ class DisplacementSphere {
       THREE.UniformsLib['ambient'],
       THREE.UniformsLib['lights'],
       THREE.ShaderLib.phong.uniforms,
-      {time: { type: 'f', value: 0 }},
+      { time: { type: 'f', value: 0 } },
     ]);
 
     this.material = new THREE.ShaderMaterial({
@@ -114,7 +114,7 @@ class DisplacementSphere {
     const mouseX = event.clientX / window.innerWidth;
 
     new Tween(this.sphere.rotation)
-      .to({x: mouseY / 2, y: mouseX / 2}, 2000)
+      .to({ x: mouseY / 2, y: mouseX / 2 }, 2000)
       .easing(Easing.Quartic.Out)
       .start();
   }

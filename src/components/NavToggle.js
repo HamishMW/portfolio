@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Icon from '../utils/Icon';
 import { Media } from '../utils/StyleUtils';
 
-const NavToggle = ({onClick, menuOpen}) => (
+const NavToggle = ({ onClick, menuOpen }) => (
   <NavToggleButton aria-label="Menu" onClick={onClick}>
     <NavToggleInner>
       <NavToggleIcon open={menuOpen} icon="menu" size={32} color="white" />
@@ -55,19 +55,19 @@ const NavToggleIcon = styled(Icon)`
   opacity: 1;
   transform: rotate(0deg);
 
-  ${props => props.icon === 'close' &&`
+  ${props => props.icon === 'close' && `
     transition-delay: 0s;
     transform: rotate(-45deg);
     opacity: 0;
   `}
 
-  ${props => props.open && props.icon === 'close' &&`
+  ${props => props.open && props.icon === 'close' && `
     transition-delay: 0.1s;
     transform: rotate(0deg);
     opacity: 1;
   `}
 
-  ${props => props.open && props.icon === 'menu' &&`
+  ${props => props.open && props.icon === 'menu' && `
     transition-delay: 0s;
     transform: rotate(45deg);
     opacity: 0;

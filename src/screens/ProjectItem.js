@@ -24,85 +24,120 @@ const ProjectItem = ({
   buttonText,
   buttonLink,
   buttonTo,
-}) => (
-  <ProjectItemSection index={index} innerRef={sectionRef} id={id} tabIndex={tabIndex}>
-    <ProjectItemContent>
-      <Transition mountOnEnter in={visible} timeout={0}>
-        {status => (
-          <React.Fragment>
-            <ProjectItemDetails>
-              <ProjectItemIndex status={status}>
-                <ProjectItemIndexNumber status={status}>{index}</ProjectItemIndexNumber>
-              </ProjectItemIndex>
-              <ProjectItemTitle status={status}>{title}</ProjectItemTitle>
-              <ProjectItemDescription status={status}>{description}</ProjectItemDescription>
-              <ProjectItemButton status={status}>
-                {buttonLink ?
-                  <LinkButton
-                    href={buttonLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    iconRight="arrowRight"
-                  >
-                    {buttonText}
-                  </LinkButton>
-                  : <RouterButton to={buttonTo} iconRight="arrowRight">{buttonText}</RouterButton>
-                }
-              </ProjectItemButton>
-            </ProjectItemDetails>
-            <ProjectItemPreview>
-              {imageType === 'laptop' &&
-                <ProjectItemPreviewContentLaptop>
-                  <ProjectItemImageLaptop
-                    status={status}
-                    srcSet={imageSrc[0]}
-                    alt={imageAlt[0]}
-                    placeholder={imagePlaceholder[0]}
-                    sizes={`
+}) => {
+  return (
+    <ProjectItemSection index={index} innerRef={sectionRef} id={id} tabIndex={tabIndex}>
+      <ProjectItemContent>
+        <Transition mountOnEnter in={visible} timeout={0}>
+          {status => (
+            <React.Fragment>
+              <ProjectItemDetails>
+                <ProjectItemIndex status={status}>
+                  <ProjectItemIndexNumber status={status}>{index}</ProjectItemIndexNumber>
+                </ProjectItemIndex>
+                <ProjectItemTitle status={status}>{title}</ProjectItemTitle>
+                <ProjectItemDescription status={status}>{description}</ProjectItemDescription>
+                <ProjectItemButton status={status}>
+                  {buttonLink ?
+                    <LinkButton
+                      href={buttonLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      iconRight="arrowRight"
+                    >
+                      {buttonText}
+                    </LinkButton>
+                    : <RouterButton to={buttonTo} iconRight="arrowRight">{buttonText}</RouterButton>
+                  }
+                </ProjectItemButton>
+              </ProjectItemDetails>
+              <ProjectItemPreview>
+                {imageType === 'laptop' &&
+                  <ProjectItemPreviewContentLaptop>
+                    <ProjectItemImageLaptop
+                      status={status}
+                      srcSet={imageSrc[0]}
+                      alt={imageAlt[0]}
+                      placeholder={imagePlaceholder[0]}
+                      sizes={`
                       (max-width: ${Media.mobile}) 300px,
                       (max-width: ${Media.tablet}) 420px,
                       (max-width: ${Media.desktop}) 860px,
                       900px
                     `}
-                    width="980px"
-                    height="603px"
-                  />
-                <ProjectItemImageLaptopSvg status={status} icon="projects" />
-                </ProjectItemPreviewContentLaptop>
-              }
-              {imageType === 'phone' &&
-                <ProjectItemPreviewContentPhone>
-                  <ProjectItemPhoneImageSvg status={status} icon="projects" />
-                  {imageSrc && imageSrc.map((src, index) => (
-                    <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
-                      <ProjectItemPhoneFrame
-                        srcSet={`${phone} 414w, ${phoneLarge} 828w`}
-                        sizes={`(max-width: ${Media.tablet}) 248px, 414px`}
-                        alt=""
-                        role="presentation"
-                        placeholder={phonePlaceholder}
-                        width="414px"
-                        height="721px"
-                      />
-                      <ProjectItemPhoneImage
-                        srcSet={imageSrc[index]}
-                        alt={imageAlt[index]}
-                        placeholder={imagePlaceholder[index]}
-                        sizes={`(max-width: ${Media.tablet}) 152px, 254px`}
-                        width="254px"
-                        height="452px"
-                      />
-                    </ProjectItemPhone>
-                  ))}
-                </ProjectItemPreviewContentPhone>
-              }
-            </ProjectItemPreview>
-          </React.Fragment>
-        )}
-      </Transition>
-    </ProjectItemContent>
-  </ProjectItemSection>
-);
+                      width="980px"
+                      height="603px"
+                    />
+                    <ProjectItemImageLaptopSvg status={status} icon="projects" />
+                  </ProjectItemPreviewContentLaptop>
+                }
+                {imageType === 'phone' &&
+                  <ProjectItemPreviewContentPhone>
+                    <ProjectItemPhoneImageSvg status={status} icon="projects" />
+                    {imageSrc && imageSrc.map((src, index) => (
+                      <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
+                        <ProjectItemPhoneFrame
+                          srcSet={`${phone} 414w, ${phoneLarge} 828w`}
+                          sizes={`(max-width: ${Media.tablet}) 248px, 414px`}
+                          alt=""
+                          role="presentation"
+                          placeholder={phonePlaceholder}
+                          width="414px"
+                          height="721px"
+                        />
+                        <ProjectItemPhoneImage
+                          srcSet={imageSrc[index]}
+                          alt={imageAlt[index]}
+                          placeholder={imagePlaceholder[index]}
+                          sizes={`(max-width: ${Media.tablet}) 152px, 254px`}
+                          width="254px"
+                          height="452px"
+                        />
+                      </ProjectItemPhone>
+                    ))}
+                  </ProjectItemPreviewContentPhone>
+                }
+              </ProjectItemPreview>
+            </React.Fragment>
+          )}
+        </Transition>
+      </ProjectItemContent>
+    </ProjectItemSection>
+  );
+}
+
+const ProjectItemContent = styled.div`
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 43% 55%;
+  grid-column-gap: 2%;
+
+  @media (min-width: ${Media.desktop}) {
+    max-width: 1100px;
+  }
+
+  @media (max-width: ${Media.tablet}) {
+    grid-template-columns: 100%;
+    flex-direction: column-reverse;
+    height: auto;
+  }
+`;
+
+const ProjectItemDetails = styled.div`
+  flex: 0 0 410px;
+  max-width: 410px;
+
+  @media (max-width: ${Media.tablet}) {
+    flex: 0 0 auto;
+    max-width: 410px;
+    order: 2;
+    justify-self: center;
+  }
+`;
 
 const ProjectItemSection = styled.section`
   min-height: 100vh;
@@ -118,12 +153,20 @@ const ProjectItemSection = styled.section`
   align-items: center;
   justify-content: center;
 
+  &:focus {
+    outline: none;
+  }
+
   &:nth-child(2n + 1) {
     grid-template-columns: 55% 40%;
   }
 
-  &:focus {
-    outline: none;
+  &:nth-child(2n + 1) ${ProjectItemContent} {
+    grid-template-columns: 55% 40%;
+  }
+
+  &:nth-child(2n + 1) ${ProjectItemDetails} {
+    order: 2;
   }
 
   @media (min-width: ${Media.desktop}) {
@@ -138,6 +181,10 @@ const ProjectItemSection = styled.section`
     height: auto;
     margin-top: ${props => props.index === '01' ? '0' : '60px'};
     margin-bottom: 60px;
+
+    &:nth-child(2n + 1) ${ProjectItemContent} {
+      grid-template-columns: 100%;
+    }
   }
 
   @media (max-width: ${Media.mobile}) {
@@ -151,51 +198,6 @@ const ProjectItemSection = styled.section`
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     padding-right: ${props => props.theme.spacingOuter.mobile};
     padding-left: ${props => props.theme.spacingOuter.mobile};
-  }
-`;
-
-const ProjectItemContent = styled.div`
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  display: grid;
-  grid-template-columns: 43% 55%;
-  grid-column-gap: 2%;
-
-  ${ProjectItemSection}:nth-child(2n + 1) & {
-    grid-template-columns: 55% 40%;
-  }
-
-  @media (min-width: ${Media.desktop}) {
-    max-width: 1100px;
-  }
-
-  @media (max-width: ${Media.tablet}) {
-    grid-template-columns: 100%;
-    flex-direction: column-reverse;
-    height: auto;
-
-    ${ProjectItemSection}:nth-child(2n + 1) & {
-      grid-template-columns: 100%;
-    }
-  }
-`;
-
-const ProjectItemDetails = styled.div`
-  flex: 0 0 410px;
-  max-width: 410px;
-
-  ${ProjectItemSection}:nth-child(2n + 1) & {
-    order: 2;
-  }
-
-  @media (max-width: ${Media.tablet}) {
-    flex: 0 0 auto;
-    max-width: 410px;
-    order: 2;
-    justify-self: center;
   }
 `;
 
@@ -253,7 +255,7 @@ const ProjectItemIndex = styled.div`
     transform-origin: left;
   }
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     &:before {
       transform: scale3d(1, 1, 1);
     }
@@ -271,7 +273,7 @@ const ProjectItemIndexNumber = styled.span`
   transition-duration: 0.4s;
   transition-delay: 1.3s;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translateX(0);
     opacity: 1;
   `}
@@ -292,7 +294,7 @@ const ProjectItemTitle = styled.h2`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -314,7 +316,7 @@ const ProjectItemDescription = styled.p`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -332,7 +334,7 @@ const ProjectItemButton = styled.div`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -350,7 +352,7 @@ const ProjectItemImageLaptop = styled(ProgressiveImage)`
   position: relative;
   right: -140px;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -382,7 +384,7 @@ const ProjectItemImageLaptopSvg = styled(Svg)`
   opacity: 0;
   transition: opacity 0.4s ease 0.6s;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     opacity: 1;
   `}
 
@@ -411,7 +413,7 @@ const ProjectItemPhone = styled.div`
   max-width: 100%;
   flex: 1 0 100%;
 
-  ${props => props.first ?`
+  ${props => props.first ? `
     left: calc(50% - 140px);
     top: -120px;
     transform: translate3d(0, 80px, 0);
@@ -421,7 +423,7 @@ const ProjectItemPhone = styled.div`
       left: calc(50% - 48px);
       top: -60px;
     }
-  `:`
+  `: `
     left: calc(-50% + 20px);
     top: 120px;
     transform: translate3d(0, 80px, 0);
@@ -433,7 +435,7 @@ const ProjectItemPhone = styled.div`
     }
   `}
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -477,7 +479,7 @@ const ProjectItemPhoneImageSvg = styled(Svg)`
   transition: opacity 0.6s ease 0.6s;
   opacity: 0;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     opacity: 1;
   `}
 

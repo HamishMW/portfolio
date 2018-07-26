@@ -56,7 +56,7 @@ class App extends Component {
 
   toggleMenu = () => {
     const { menuOpen } = this.state;
-    this.setState({menuOpen: !menuOpen});
+    this.setState({ menuOpen: !menuOpen });
   }
 
   setBodyOverflow = state => {
@@ -90,18 +90,18 @@ class App extends Component {
                         <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
                       </Helmet>
                       <Switch location={location}>
-                        <Route exact path="/" render={props => <Home {...props} status={status} />}/>
-                        <Route path="/contact" render={props => <Contact {...props} status={status} />}/>
-                        <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />}/>
-                        <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />}/>
-                        <Route render={props => <NotFound {...props} status={status} />}/>
+                        <Route exact path="/" render={props => <Home {...props} status={status} />} />
+                        <Route path="/contact" render={props => <Contact {...props} status={status} />} />
+                        <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />} />
+                        <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />} />
+                        <Route render={props => <NotFound {...props} status={status} />} />
                       </Switch>
                     </MainContent>
                   )}
                 </Transition>
               </TransitionGroup>
             </React.Fragment>
-          )}/>
+          )} />
         </BrowserRouter>
       </ThemeProvider>
     );
@@ -141,17 +141,17 @@ const MainContent = styled.main`
   transition: opacity 0.3s ease;
   opacity: 0;
 
-  ${props => props.status === 'exiting' &&`
+  ${props => props.status === 'exiting' && `
     position: absolute;
     opacity: 0;
   `}
 
-  ${props => props.status === 'entering' &&`
+  ${props => props.status === 'entering' && `
     position: absolute;
     opacity: 0;
   `}
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transition-duration: 0.5s;
     opacity: 1;
   `}

@@ -342,23 +342,23 @@ const IntroTitleLine = styled.div`
 const AnimScrollIndicator = keyframes`
   0% {
     transform: translate3d(-1px, 0, 0);
+    opacity: 0;
   }
-  40% {
-    transform: translate3d(-1px, 8px, 0);
-  }
-  60% {
+  20% {
     transform: translate3d(-1px, 0, 0);
+    opacity: 1;
   }
   100% {
-    transform: translate3d(-1px, 0, 0);
+    transform: translate3d(-1px, 8px, 0);
+    opacity: 0;
   }
 `;
 
 const ScrollIndicator = styled.div`
   border: 2px solid ${props => props.theme.colorWhite(0.4)};
   border-radius: 20px;
-  width: 22px;
-  height: 32px;
+  width: 26px;
+  height: 38px;
   position: fixed;
   bottom: 64px;
   transition: all 0.4s ease;
@@ -375,15 +375,15 @@ const ScrollIndicator = styled.div`
 
   &:before {
     content: '';
-    height: 6px;
+    height: 7px;
     width: 2px;
     background: ${props => props.theme.colorWhite(0.4)};
     border-radius: 4px;
     position: absolute;
-    top: 4px;
+    top: 6px;
     left: 50%;
     transform: translateX(-1px);
-    animation: ${AnimScrollIndicator} 1.2s ease infinite;
+    animation: ${AnimScrollIndicator} 2s ease infinite;
   }
 
   @media ${Media.mobileLS} {

@@ -12,7 +12,7 @@
 // https://github.com/ashima/webgl-noise
 //
 
-export default`
+export default `
 vec3 mod289(vec3 x)
 {
   return x - floor(x * (1.0 / 289.0)) * 289.0;

@@ -14,7 +14,7 @@ export default class TextArea extends Component {
         {...props}
         ref={node => this.textarea = node}
         className={className}
-        style={{resize: allowResize ? null : 'none'}}
+        style={{ resize: allowResize ? null : 'none' }}
       />
     );
   }

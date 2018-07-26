@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Monogram = ({className, color, highlight}) => (
+const Monogram = ({ className, color, highlight }) => (
   <svg className={className} fill={color || "white"} width="45" height="29" viewBox="0 0 45 29">
     <title>Hamish Williams Designer</title>
     <defs>

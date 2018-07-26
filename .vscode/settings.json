@@ -1,0 +1,24 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "editor.formatOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact"
+  ],
+  "eslint.workingDirectories": [
+    "./app",
+    "./functions"
+  ],
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/node_modules": true,
+    "sketch": true
+  },
+  "search.exclude": {
+    "**/bower_components": true,
+    "**/node_modules": true,
+    "functions/*.js": true,
+    "index.*": true
+  }
+}

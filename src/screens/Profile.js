@@ -38,44 +38,44 @@ const Profile = ({
   visible,
   sectionRef,
 }) => (
-  <ProfileSection id={id} innerRef={sectionRef} tabIndex={tabIndex}>
-    <Transition in={visible} timeout={0} mountOnEnter>
-      {status => (
-        <ProfileContent>
-          <ProfileColumn>
-            <ProfileText status={status} />
-            <ProfileButton
-              secondary
-              status={status}
-              to="/contact"
-              style={{marginTop: 20}}
-              icon="send"
-            >
-              Send me a message
-            </ProfileButton>
-          </ProfileColumn>
-          <ProfileColumn>
-            <ProfileTag status={status}>
-              <ProfileTagText status={status}>About Me</ProfileTagText>
-            </ProfileTag>
-            <ProfileImageContainer status={status}>
-              <ProfileImage
+    <ProfileSection id={id} innerRef={sectionRef} tabIndex={tabIndex}>
+      <Transition in={visible} timeout={0} mountOnEnter>
+        {status => (
+          <ProfileContent>
+            <ProfileColumn>
+              <ProfileText status={status} />
+              <ProfileButton
+                secondary
                 status={status}
-                placeholder={ProfileImgPlaceholder}
-                srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
-                sizes={`(max-width: ${Media.mobile}) 100vw, 480px`}
-                alt="Me at the Torii on Miyajima, Japan"
-                width="480px"
-                height="562px"
-              />
-              <ProfileSvg icon="profile" status={status} />
-            </ProfileImageContainer>
-          </ProfileColumn>
-        </ProfileContent>
-      )}
-    </Transition>
-  </ProfileSection>
-);
+                to="/contact"
+                style={{ marginTop: 20 }}
+                icon="send"
+              >
+                Send me a message
+            </ProfileButton>
+            </ProfileColumn>
+            <ProfileColumn>
+              <ProfileTag status={status}>
+                <ProfileTagText status={status}>About Me</ProfileTagText>
+              </ProfileTag>
+              <ProfileImageContainer status={status}>
+                <ProfileImage
+                  status={status}
+                  placeholder={ProfileImgPlaceholder}
+                  srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
+                  sizes={`(max-width: ${Media.mobile}) 100vw, 480px`}
+                  alt="Me at the Torii on Miyajima, Japan"
+                  width="480px"
+                  height="562px"
+                />
+                <ProfileSvg icon="profile" status={status} />
+              </ProfileImageContainer>
+            </ProfileColumn>
+          </ProfileContent>
+        )}
+      </Transition>
+    </ProfileSection>
+  );
 
 const ProfileSection = styled.section`
   width: 100vw;
@@ -161,7 +161,7 @@ const ProfileDescription = styled.p`
   opacity: 0;
   transition: opacity 0.8s ease 0.2s;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     opacity: 1;
   `}
 
@@ -190,7 +190,7 @@ const ProfileTag = styled.div`
     transform-origin: left;
   }
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     &:before {
       transform: scale3d(1, 1, 1);
     }
@@ -209,7 +209,7 @@ const ProfileTagText = styled.div`
   opacity: 0;
   transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1.3s;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translateX(0);
     opacity: 1;
   `}
@@ -254,7 +254,7 @@ const ProfileImageContainer = styled.div`
     z-index: 16;
   }
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     &:before {
       animation: ${AnimProfileImage} 1.8s ${props.theme.curveFastoutSlowin} 0.6s;
     }
@@ -268,7 +268,7 @@ const ProfileImage = styled(ProgressiveImage)`
   opacity: 0;
   transition: opacity 0.4s ease 1.5s;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     opacity: 1;
   `}
 `;
@@ -283,7 +283,7 @@ const ProfileSvg = styled(Svg)`
   opacity: 0;
   transition: opacity 0.4s ease 0.6s;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     opacity: 1;
   `}
 
@@ -300,7 +300,7 @@ const ProfileButton = styled(RouterButton)`
   opacity: 0;
   transition: opacity 0.8s ease 0.4s;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     opacity: 1;
   `}
 `;

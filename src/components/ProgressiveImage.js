@@ -7,7 +7,7 @@ export default class ProgressiveImage extends PureComponent {
   };
 
   onLoad = () => {
-    this.setState({loaded: true});
+    this.setState({ loaded: true });
   }
 
   render() {

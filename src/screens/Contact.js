@@ -21,11 +21,11 @@ export default class Contact extends PureComponent {
   }
 
   updateEmail = event => {
-    this.setState({emailValue: event.target.value});
+    this.setState({ emailValue: event.target.value });
   }
 
   updateMessage = event => {
-    this.setState({messageValue: event.target.value});
+    this.setState({ messageValue: event.target.value });
   }
 
   onSubmit = event => {
@@ -33,15 +33,15 @@ export default class Contact extends PureComponent {
     event.preventDefault();
 
     if (!sending) {
-      this.setState({sending: true});
+      this.setState({ sending: true });
 
       Firebase.database().ref('messages').push({
         email: emailValue,
         message: messageValue,
       }).then(() => {
-        this.setState({complete: true, sending: false});
+        this.setState({ complete: true, sending: false });
       }).catch((error) => {
-        this.setState({sending: false});
+        this.setState({ sending: false });
         alert(error);
       });
     }
@@ -192,12 +192,12 @@ const ContactTitle = styled.h1`
   height: 32px;
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender &&`
+    props.status === 'entered') && !prerender && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 
-  ${props => props.status === 'exiting' &&`
+  ${props => props.status === 'exiting' && `
     transition-duration: 0.4s;
     transition-delay: 0s;
     transform: translate3d(0, -40px, 0);
@@ -237,12 +237,12 @@ const ContactDivider = styled.div`
   }
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender &&`
+    props.status === 'entered') && !prerender && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 
-  ${props => props.status === 'exiting' &&`
+  ${props => props.status === 'exiting' && `
     transition-duration: 0.4s;
     transition-delay: 0s;
     transform: translate3d(0, -40px, 0);
@@ -260,12 +260,12 @@ const ContactInput = styled(Input)`
   opacity: 0;
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender &&`
+    props.status === 'entered') && !prerender && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 
-  ${props => props.status === 'exiting' &&`
+  ${props => props.status === 'exiting' && `
     transition-duration: 0.4s;
     transition-delay: 0s;
     transform: translate3d(0, -40px, 0);
@@ -282,7 +282,7 @@ const ContactButton = styled(Button)`
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
-  ${props => props.sending &&`
+  ${props => props.sending && `
     svg {
       transition: transform ${props.curveFastoutSlowin}, opacity 0.3s ease 0.8s;
       transition-duration: 0.8s;
@@ -297,12 +297,12 @@ const ContactButton = styled(Button)`
   `}
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender &&`
+    props.status === 'entered') && !prerender && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 
-  ${props => props.status === 'exiting' &&`
+  ${props => props.status === 'exiting' && `
     transition-duration: 0.4s;
     transition-delay: 0s;
     transform: translate3d(0, -40px, 0);
@@ -335,7 +335,7 @@ const ContactCompleteTitle = styled.h1`
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -351,7 +351,7 @@ const ContactCompleteText = styled.p`
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -366,7 +366,7 @@ const ContactCompleteButton = styled(RouterButton)`
   opacity: 0;
   padding-left: 3px;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}

@@ -34,14 +34,14 @@ export default class DecoderText extends PureComponent {
     this.state = {
       position: 0,
       started: false,
-      output: [{type: 'code', value: ''}],
+      output: [{ type: 'code', value: '' }],
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { start } = nextProps;
     const { started } = this.state;
-    if (start && !started) this.timeout = setTimeout(() => {this.start()}, 300);
+    if (start && !started) this.timeout = setTimeout(() => { this.start() }, 300);
   }
 
   componentWillUnmount() {
@@ -53,7 +53,7 @@ export default class DecoderText extends PureComponent {
     this.startTime = Date.now();
     this.elapsedTime = 0;
     this.running = true;
-    this.setState({started: true});
+    this.setState({ started: true });
     this.anim();
   }
 
@@ -61,31 +61,31 @@ export default class DecoderText extends PureComponent {
 
   anim = () => {
     const { position } = this.state;
-  	const elapsedTime = Date.now() - this.startTime;
-  	const deltaTime = elapsedTime - this.elapsedTime;
-  	const needsUpdate = 1000 / this.fps <= deltaTime;
+    const elapsedTime = Date.now() - this.startTime;
+    const deltaTime = elapsedTime - this.elapsedTime;
+    const needsUpdate = 1000 / this.fps <= deltaTime;
 
     if (!this.running) return;
 
-  	if (!needsUpdate) {
-  		requestAnimationFrame(this.anim);
-  		return;
-  	}
+    if (!needsUpdate) {
+      requestAnimationFrame(this.anim);
+      return;
+    }
 
-  	this.elapsedTime = elapsedTime;
-    this.setState({position: (this.elapsedTime / this.timeOffset) | 0});
+    this.elapsedTime = elapsedTime;
+    this.setState({ position: (this.elapsedTime / this.timeOffset) | 0 });
 
-  	if (position > this.content.length) {
-  		this.running = false;
+    if (position > this.content.length) {
+      this.running = false;
       const finalArray = this.setValue(this.content);
-      this.setState({output: finalArray});
-  		return;
-  	}
+      this.setState({ output: finalArray });
+      return;
+    }
 
-  	requestAnimationFrame(this.anim);
+    requestAnimationFrame(this.anim);
 
-  	const textArray = this.shuffle(this.content, this.chars, position);
-    this.setState({output: textArray});
+    const textArray = this.shuffle(this.content, this.chars, position);
+    this.setState({ output: textArray });
   }
 
   setValue = value => {
@@ -98,7 +98,7 @@ export default class DecoderText extends PureComponent {
   shuffle = (content, chars, position) => {
     return content.map((value, index) => {
       if (index < position) {
-        return {type: 'actual', value};
+        return { type: 'actual', value };
       }
 
       return {
@@ -109,11 +109,11 @@ export default class DecoderText extends PureComponent {
   }
 
   getRandCharacter = chars => {
-  	const randNum = Math.floor(Math.random() * chars.length);
-  	const lowChoice =	- .5 + Math.random();
-  	const picketCharacter = chars[randNum];
-  	const chosen = lowChoice < 0 ? picketCharacter.toLowerCase() : picketCharacter;
-  	return chosen;
+    const randNum = Math.floor(Math.random() * chars.length);
+    const lowChoice = - .5 + Math.random();
+    const picketCharacter = chars[randNum];
+    const chosen = lowChoice < 0 ? picketCharacter.toLowerCase() : picketCharacter;
+    return chosen;
   }
 
   render() {

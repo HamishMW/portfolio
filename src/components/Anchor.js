@@ -14,8 +14,8 @@ const Anchor = styled.a`
   &:focus,
   &:active {
     text-decoration-color: ${props => props.secondary
-      ? props.theme.colorText(0.6)
-      : props.theme.colorPrimary(1)};
+    ? props.theme.colorText(0.6)
+    : props.theme.colorPrimary(1)};
   }
 `;
 

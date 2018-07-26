@@ -3,8 +3,10 @@ import { Helmet } from 'react-helmet';
 import ProgressiveImage from '../components/ProgressiveImage';
 import ScrollToTop from '../utils/ScrollToTop';
 import Footer from '../components/Footer';
-import { ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
-  ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader } from '../components/Project';
+import {
+  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
+  ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
+} from '../components/Project';
 import { Media } from '../utils/StyleUtils';
 import backgroundSpr from '../assets/spr-background.jpg';
 import backgroundSprLarge from '../assets/spr-background-large.jpg';

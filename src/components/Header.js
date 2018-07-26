@@ -35,11 +35,11 @@ const HeaderIcons = ({ toggleMenu }) => (
   </HeaderNavIcons>
 );
 
-const Header = ({menuOpen, toggleMenu}) => (
+const Header = ({ menuOpen, toggleMenu }) => (
   <HeaderWrapper role="banner">
     <Transition
       in={menuOpen}
-      timeout={{enter: 5, exit: 500}}
+      timeout={{ enter: 5, exit: 500 }}
       mountOnEnter
       unmountOnExit
     >
@@ -74,7 +74,7 @@ const Header = ({menuOpen, toggleMenu}) => (
       )}
     </Transition>
     <HeaderLogo to="/#intro" aria-label="Back to home">
-      <Monogram highlight={Theme.colorPrimary(1)}/>
+      <Monogram highlight={Theme.colorPrimary(1)} />
     </HeaderLogo>
     <HeaderNav role="navigation">
       <HeaderNavList>
@@ -255,7 +255,7 @@ const HeaderMobileNav = styled.nav`
   align-items: center;
   justify-content: center;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: translate3d(0, 0, 0);
   `}
 
@@ -265,7 +265,7 @@ const HeaderMobileNav = styled.nav`
 `;
 
 const HeaderMobileNavLink = styled(NavLink).attrs({
-	active: 'active',
+  active: 'active',
 })`
   width: 100%;
   font-size: 22px;
@@ -284,7 +284,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     top: auto;
   }
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     opacity: 1;
     transform: translate3d(0, 0, 0);
   `}

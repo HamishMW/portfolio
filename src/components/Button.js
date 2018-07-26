@@ -8,16 +8,10 @@ import { ColorTint } from '../utils/StyleUtils';
 
 const ButtonContent = ({ iconRight, icon, children, secondary, loading }) => (
   <React.Fragment>
-    {icon && <ButtonIcon loading={loading} left icon={icon} secondary={secondary}/>}
-    <ButtonText loading={loading} secondary={secondary}>{ children }</ButtonText>
-    {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary}/>}
-    {loading &&
-      <Loader
-        style={{position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}
-        size="24"
-        color={Theme.colorBackground(1)}
-      />
-    }
+    {icon && <ButtonIcon loading={loading} left icon={icon} secondary={secondary} />}
+    <ButtonText loading={loading} secondary={secondary}>{children}</ButtonText>
+    {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary} />}
+    {loading && <ButtonLoader size="24" color={Theme.colorBackground(1)} />}
   </React.Fragment>
 );
 
@@ -34,17 +28,17 @@ const Button = ({ ...props, className, style, secondary }) => (
 
 const LinkButton = ({ ...props, className, style, secondary,
   href, rel, target }) => (
-  <LinkButtonContainer
-    className={className}
-    style={style}
-    secondary={secondary}
-    href={href}
-    rel={rel}
-    target={target}
-  >
-    <ButtonContent {...props} />
-  </LinkButtonContainer>
-);
+    <LinkButtonContainer
+      className={className}
+      style={style}
+      secondary={secondary}
+      href={href}
+      rel={rel}
+      target={target}
+    >
+      <ButtonContent {...props} />
+    </LinkButtonContainer>
+  );
 
 const RouterButton = ({ ...props, className, style, secondary, to }) => (
   <RouterButtonContainer
@@ -56,6 +50,10 @@ const RouterButton = ({ ...props, className, style, secondary, to }) => (
     <ButtonContent {...props} />
   </RouterButtonContainer>
 );
+
+const ButtonLoader = styled(Loader)`
+  align-self: center;
+`;
 
 const ButtonContainer = styled.button`
   background: none;
@@ -73,7 +71,7 @@ const ButtonContainer = styled.button`
   font-family: inherit;
   position: relative;
 
-  ${props => !props.secondary &&`
+  ${props => !props.secondary && `
     &:before {
       content: '';
       transition: all 0.4s ${props.theme.curveFastoutSlowin};
@@ -102,7 +100,7 @@ const ButtonContainer = styled.button`
     }
   `}
 
-  ${props => !props.disabled && !props.secondary &&`
+  ${props => !props.disabled && !props.secondary && `
     &:hover,
     &:focus {
       outline: none;
@@ -124,7 +122,7 @@ const ButtonContainer = styled.button`
     transition-duration: 0.1s;
   }
 
-  ${props => props.secondary &&`
+  ${props => props.secondary && `
     background: none;
     color: ${props.theme.colorPrimary(1)};
     padding: 0 10px;
@@ -161,7 +159,7 @@ const ButtonContainer = styled.button`
     }
   `}
 
-  ${props => props.icon &&`
+  ${props => props.icon && `
     padding-right: 32px;
   `}
 `;
@@ -179,9 +177,9 @@ const ButtonText = styled.span`
     visibility: hidden;
   `}
 
-  ${props => props.secondary ?`
+  ${props => props.secondary ? `
     color: ${props.theme.colorPrimary(1)};
-  `:`
+  `: `
     color: ${props.theme.colorBackground(1)};
   `}
 `;
@@ -192,7 +190,7 @@ const ButtonIcon = styled(Icon)`
   transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
   fill: ${props => props.theme.colorBackground(1)};
 
-  ${props => props.secondary &&`
+  ${props => props.secondary && `
     fill: ${props.theme.colorPrimary(1)};
   `}
 
@@ -202,7 +200,7 @@ const ButtonIcon = styled(Icon)`
   ${LinkButtonContainer}:focus &,
   ${RouterButtonContainer}:hover &,
   ${RouterButtonContainer}:focus & {
-    ${props => props.icon === 'arrowRight' &&`
+    ${props => props.icon === 'arrowRight' && `
       transform: translate3d(3px, 0, 0);
     `}
   }
