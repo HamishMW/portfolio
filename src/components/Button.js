@@ -52,7 +52,9 @@ const RouterButton = ({ ...props, className, style, secondary, to }) => (
 );
 
 const ButtonLoader = styled(Loader)`
-  align-self: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const ButtonContainer = styled.button`

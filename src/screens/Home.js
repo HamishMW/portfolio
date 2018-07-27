@@ -76,11 +76,11 @@ export default class Home extends Component {
     clearInterval(this.disciplineInterval);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { key: currentKey } = this.props.location;
-    const { key: nextKey, hash: nextHash } = nextProps.location;
+  componentDidUpdate(prevProps) {
+    const { key: currentKey } = prevProps.location;
+    const { key: nextKey, hash: nextHash } = this.props.location;
 
-    if (currentKey !== nextKey && this.props.status === 'entered') {
+    if (currentKey !== nextKey && prevProps.status === 'entered') {
       this.handleHashchange(nextHash, true);
     }
   }

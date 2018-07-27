@@ -101,7 +101,7 @@ export default class Contact extends PureComponent {
                   <ContactButton
                     disabled={sending}
                     sending={sending}
-                    loading={sending}
+                    loading={true}
                     status={status}
                     delay={400}
                     icon="send"

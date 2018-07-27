@@ -14,56 +14,58 @@ const Intro = ({
   disciplineIndex,
   hideScrollIndicator,
   backgroundLoaded,
-}) => (
-  <IntroContent innerRef={sectionRef} id={id}>
-    <Transition
-      appear
-      in={!prerender}
-      timeout={3000}
-    >
-      {(appearStatus) => (
-        <React.Fragment>
-          <IntroBackground
-            innerRef={threeCanvas}
-            isLoaded={backgroundLoaded}
-          />
-          <IntroText>
-            <IntroName>
-              <DecoderText text="Hamish Williams" start={!prerender} offset={120} />
-            </IntroName>
-            <IntroTitle aria-label={[
-              disciplines.slice(0, -1).join(', '),
-              disciplines.slice(-1)[0],
-            ].join(', and ')}>
-              <IntroTitleRow>
-                <IntroTitleWord status={appearStatus} delay="0.2s">Designer</IntroTitleWord>
-                <IntroTitleLine status={appearStatus} />
-              </IntroTitleRow>
-              <TransitionGroup component={IntroTitleRow}>
-                {!prerender && disciplines.map((item, index) => (
-                  <Transition
-                    appear
-                    timeout={{enter: 3000, exit: 2000}}
-                    key={`${item}_${index}`}
-                    mountOnEnter
-                    unmountOnExit
-                  >
-                    {status => (
-                      <IntroTitleWord plus delay="0.5s" status={status}>
-                        {item}
-                      </IntroTitleWord>
-                    )}
-                  </Transition>
-                )).filter((item, index) => index === disciplineIndex)}
-              </TransitionGroup>
-            </IntroTitle>
-          </IntroText>
-          <ScrollIndicator isHidden={hideScrollIndicator} status={appearStatus} />
-        </React.Fragment>
-      )}
-    </Transition>
-  </IntroContent>
-);
+}) => {
+  return (
+    <IntroContent innerRef={sectionRef} id={id}>
+      <Transition
+        appear
+        in={!prerender}
+        timeout={3000}
+      >
+        {(appearStatus) => (
+          <React.Fragment>
+            <IntroBackground
+              innerRef={threeCanvas}
+              isLoaded={backgroundLoaded}
+            />
+            <IntroText>
+              <IntroName>
+                <DecoderText text="Hamish Williams" start={!prerender} offset={120} />
+              </IntroName>
+              <IntroTitle aria-label={[
+                disciplines.slice(0, -1).join(', '),
+                disciplines.slice(-1)[0],
+              ].join(', and ')}>
+                <IntroTitleRow>
+                  <IntroTitleWord status={appearStatus} delay="0.2s">Designer</IntroTitleWord>
+                  <IntroTitleLine status={appearStatus} />
+                </IntroTitleRow>
+                <TransitionGroup component={IntroTitleRow}>
+                  {!prerender && disciplines.map((item, index) => (
+                    <Transition
+                      appear
+                      timeout={{ enter: 3000, exit: 2000 }}
+                      key={`${item}_${index}`}
+                      mountOnEnter
+                      unmountOnExit
+                    >
+                      {status => (
+                        <IntroTitleWord plus delay="0.5s" status={status}>
+                          {item}
+                        </IntroTitleWord>
+                      )}
+                    </Transition>
+                  )).filter((item, index) => index === disciplineIndex)}
+                </TransitionGroup>
+              </IntroTitle>
+            </IntroText>
+            <ScrollIndicator isHidden={hideScrollIndicator} status={appearStatus} />
+          </React.Fragment>
+        )}
+      </Transition>
+    </IntroContent>
+  );
+}
 
 const IntroContent = styled.section`
   height: 100vh;
@@ -106,7 +108,7 @@ const IntroBackground = styled.div`
     animation-fill-mode: forwards;
     opacity: 0;
 
-    ${props => props.isLoaded &&`
+    ${props => props.isLoaded && `
       animation-name: ${AnimBackgroundFade};
     `}
   }
@@ -243,15 +245,15 @@ const IntroTitleWord = styled.div`
   color: ${props => props.theme.colorText(0)};
   transition: opacity 0.5s ease 0.4s;
 
-  ${props => props.status === 'entering' &&`
+  ${props => props.status === 'entering' && `
     animation-name: ${AnimTextReveal(props)};
   `}
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     color: ${props.theme.colorText(1)};
   `}
 
-  ${props => props.status === 'exiting' &&`
+  ${props => props.status === 'exiting' && `
     color: ${props.theme.colorText(1)};
     opacity: 0;
     position: absolute;
@@ -276,18 +278,18 @@ const IntroTitleWord = styled.div`
     left: 0;
     z-index: 1;
 
-    ${props => props.status === 'entering' &&`
+    ${props => props.status === 'entering' && `
       animation-name: ${AnimTextRevealMask};
     `}
 
-    ${props => props.status === 'entered' &&`
+    ${props => props.status === 'entered' && `
       opacity: 1;
       transform: scaleX(0);
       transform-origin: right;
     `}
   }
 
-  ${props => props.delay &&`
+  ${props => props.delay && `
     animation-delay: ${props.delay};
 
     &:after {
@@ -295,7 +297,7 @@ const IntroTitleWord = styled.div`
     }
   `}
 
-  ${props => props.plus &&`
+  ${props => props.plus && `
     &:before {
       content: '+';
       margin-right: 10px;
@@ -329,11 +331,11 @@ const IntroTitleLine = styled.div`
   transform-origin: left;
   opacity: 0;
 
-  ${props => props.status === 'entering' &&`
+  ${props => props.status === 'entering' && `
     animation-name: ${AnimLineIntro};
   `}
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     transform: scaleX(1);
     opacity: 1;
   `}
@@ -364,11 +366,11 @@ const ScrollIndicator = styled.div`
   transition: all 0.4s ease;
   opacity: 0;
 
-  ${props => props.status === 'entered' &&`
+  ${props => props.status === 'entered' && `
     opacity: 1;
   `}
 
-  ${props => props.isHidden &&`
+  ${props => props.isHidden && `
     opacity: 0;
     transform: translateY(20px);
   `}

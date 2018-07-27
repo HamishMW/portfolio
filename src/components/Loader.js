@@ -31,7 +31,7 @@ const AnimGrow = keyframes`
 
 const LoaderSpan = styled.span`
   display: block;
-  width: 5px;
+  width: 4px;
   margin-left: 2px;
   height: 100%;
   background-color: ${props => props.color};
