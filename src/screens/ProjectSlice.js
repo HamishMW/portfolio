@@ -34,7 +34,7 @@ import sliceAnnotationPlaceholder from '../assets/slice-annotation-placeholder.p
 const prerender = window.location.port === '45678';
 
 const title = 'Biomedical image collaboration';
-const description = 'This project involved designing better way for biomedical educators and learners to annotate digital slides together.';
+const description = 'This project involved designing a better way for biomedical educators and learners to annotate digital slides together.';
 const roles = [
   'User Research',
   'UX Design',

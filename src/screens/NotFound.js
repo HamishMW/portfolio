@@ -165,6 +165,7 @@ const NotFoundCredit = styled.a`
   transform: translate3d(0, 0, 0);
   text-decoration: none;
   transition-property: all;
+  transition-delay: 0.4s;
   transition-duration: 0.4s;
   opacity: 0;
 

@@ -38,15 +38,24 @@ export default class DecoderText extends PureComponent {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { start } = nextProps;
+  componentDidMount() {
+    const { start } = this.props;
+    if (start) this.startTimeout();
+  }
+
+  componentDidUpdate() {
+    const { start } = this.props;
     const { started } = this.state;
-    if (start && !started) this.timeout = setTimeout(() => { this.start() }, 300);
+    if (start && !started) this.startTimeout();
   }
 
   componentWillUnmount() {
     clearTimeout(this.timeout);
     this.stop();
+  }
+
+  startTimeout = () => {
+    this.timeout = setTimeout(() => { this.start() }, 300);
   }
 
   start = () => {
