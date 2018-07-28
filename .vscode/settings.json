@@ -6,19 +6,22 @@
     "javascriptreact"
   ],
   "eslint.workingDirectories": [
-    "./app",
+    "./src",
+    "./scripts",
     "./functions"
   ],
   "files.exclude": {
     "**/.DS_Store": true,
     "**/.git": true,
     "**/node_modules": true,
-    "sketch": true
+    "**/design": true,
+    "**/*.sketch": true,
+    "**/*.studio": true
   },
   "search.exclude": {
     "**/bower_components": true,
     "**/node_modules": true,
-    "functions/*.js": true,
+    "**/build/*.js": true,
     "index.*": true
   }
 }
