@@ -10,9 +10,24 @@ export default class ProgressiveImage extends PureComponent {
     this.setState({ loaded: true });
   }
 
+  getSrcSet = (visible, srcSet) => {
+    const lazyLoad = typeof visible !== 'undefined';
+
+    if (lazyLoad && !visible) {
+      return null;
+    }
+
+    if (lazyLoad && visible) {
+      return srcSet;
+    }
+
+    return srcSet;
+  }
+
   render() {
-    const { placeholder, className, style, width, height, ...props } = this.props;
+    const { placeholder, className, style, width, height, srcSet, visible, ...props } = this.props;
     const { loaded } = this.state;
+    const actualSrcSet = this.getSrcSet(visible, srcSet);
 
     return (
       <ImageContainer className={className} style={style}>
@@ -22,6 +37,7 @@ export default class ProgressiveImage extends PureComponent {
           loaded={loaded}
           width={width}
           height={height}
+          srcSet={actualSrcSet}
           {...props}
         />
         <ImagePlaceholder

@@ -39,7 +39,7 @@ const Profile = ({
   sectionRef,
 }) => (
     <ProfileSection id={id} innerRef={sectionRef} tabIndex={tabIndex}>
-      <Transition in={visible} timeout={0} mountOnEnter>
+      <Transition in={visible} timeout={0}>
         {status => (
           <ProfileContent>
             <ProfileColumn>
@@ -61,6 +61,7 @@ const Profile = ({
               <ProfileImageContainer status={status}>
                 <ProfileImage
                   status={status}
+                  visible={visible}
                   placeholder={ProfileImgPlaceholder}
                   srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
                   sizes={`(max-width: ${Media.mobile}) 100vw, 480px`}

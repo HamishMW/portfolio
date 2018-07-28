@@ -28,7 +28,7 @@ const ProjectItem = ({
   return (
     <ProjectItemSection index={index} innerRef={sectionRef} id={id} tabIndex={tabIndex}>
       <ProjectItemContent>
-        <Transition mountOnEnter in={visible} timeout={0}>
+        <Transition in={visible} timeout={0}>
           {status => (
             <React.Fragment>
               <ProjectItemDetails>
@@ -56,6 +56,7 @@ const ProjectItem = ({
                   <ProjectItemPreviewContentLaptop>
                     <ProjectItemImageLaptop
                       status={status}
+                      visible={visible}
                       srcSet={imageSrc[0]}
                       alt={imageAlt[0]}
                       placeholder={imagePlaceholder[0]}
@@ -77,6 +78,7 @@ const ProjectItem = ({
                     {imageSrc && imageSrc.map((src, index) => (
                       <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
                         <ProjectItemPhoneFrame
+                          visible={visible}
                           srcSet={`${phone} 414w, ${phoneLarge} 828w`}
                           sizes={`(max-width: ${Media.tablet}) 248px, 414px`}
                           alt=""
@@ -86,6 +88,7 @@ const ProjectItem = ({
                           height="721px"
                         />
                         <ProjectItemPhoneImage
+                          visible={visible}
                           srcSet={imageSrc[index]}
                           alt={imageAlt[index]}
                           placeholder={imagePlaceholder[index]}
