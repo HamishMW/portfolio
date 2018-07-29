@@ -6,7 +6,7 @@ A design portfolio to showcase a few projects. Feel free to clone and play aroun
 
 ## Install & run
 
-Make sure you have yarn installed, then run:
+Make sure you have npm and yarn installed. Install dependencies with:
 
 ```bash
 yarn
@@ -29,11 +29,8 @@ API keys not included, in case you dudes are trying to be sneaky beaky. If you w
 {
   "firebase": {
     "apiKey": "yourkey123",
-    "authDomain": "domain.firebaseapp.com",
     "databaseURL": "https://domain.firebaseio.com",
     "projectId": "proj-id",
-    "storageBucket": "bucket",
-    "messagingSenderId": "123"
   }
 }
 ```
