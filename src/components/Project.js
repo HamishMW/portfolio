@@ -7,6 +7,49 @@ import { LinkButton } from '../components/Button';
 const initDelay = 300;
 const prerender = window.location.port === '45678';
 
+export class ProjectBackground extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      offset: 0,
+    }
+
+    this.scheduledAnimationFrame = false;
+    this.lastScrollY = 0;
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    this.lastScrollY = window.scrollY;
+    if (this.scheduledAnimationFrame) return;
+    this.scheduledAnimationFrame = true;
+
+    requestAnimationFrame(() => {
+      this.setState({ offset: this.lastScrollY * 0.4 });
+      this.scheduledAnimationFrame = false;
+    });
+  }
+
+  render() {
+    const { offset } = this.state;
+
+    return (
+      <ProjectBackgroundImage
+        offset={offset}
+        {...this.props}
+      />
+    );
+  }
+}
+
 export const ProjectHeader = ({ title, description, url, roles }) => (
   <ProjectHeaderContainer>
     <ProjectHeaderInner>
@@ -101,10 +144,13 @@ export const ProjectSection = styled.section`
   `}
 `;
 
-export const ProjectBackground = styled(ProgressiveImage).attrs({
+export const ProjectBackgroundImage = styled(ProgressiveImage).attrs({
   alt: '',
   role: 'presentation',
   opacity: props => props.opacity ? props.opacity : 0.7,
+  style: ({ offset }) => ({
+    transform: `translate3d(0, ${offset}px, 0)`,
+  }),
 })`
   z-index: 0;
   position: absolute;
@@ -324,15 +370,24 @@ export const ProjectSectionContent = styled.div`
 `;
 
 export const ProjectSectionHeading = styled.h2`
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 500;
   margin: 0;
+
+  @media (max-width: ${Media.mobile}) {
+    font-size: 24px;
+  }
 `;
 
 export const ProjectSectionText = styled.p`
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.4;
   margin: 0;
-  margin-top: 22px;
+  margin-top: 28px;
   color: ${props => props.theme.colorText(0.7)};
+
+  @media (max-width: ${Media.mobile}) {
+    font-size: 18px;
+    margin-top: 22px;
+  }
 `;

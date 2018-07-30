@@ -215,7 +215,11 @@ const ProjectSectionGridForeground = styled.div`
 `;
 
 const ProjectSectionGridText = styled.div`
-  padding-top: 60px;
+  padding-top: 80px;
+
+  @media (max-width: ${Media.desktop}) {
+    padding-top: 40px;
+  }
 
   @media (max-width: ${Media.tablet}) {
     padding-top: 0;
