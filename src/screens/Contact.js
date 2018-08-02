@@ -206,7 +206,7 @@ const ContactTitle = styled.h1`
 `;
 
 const ContactDivider = styled.div`
-  margin-bottom: 80px;
+  margin-bottom: 70px;
   width: 100%;
   height: 1px;
   background: ${props => props.theme.colorPrimary(1)};
@@ -251,7 +251,7 @@ const ContactDivider = styled.div`
 `;
 
 const ContactInput = styled(Input)`
-  padding-bottom: 40px;
+  margin-bottom: 40px;
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
