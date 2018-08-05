@@ -26,7 +26,7 @@
     "react-router-dom": "^4.3.1",
     "react-transition-group": "^2.4.0",
     "styled-components": "^3.4.1",
-    "three": "^0.91.0"
+    "three": "^0.95.0"
   },
   "scripts": {
     "start": "react-scripts start",
