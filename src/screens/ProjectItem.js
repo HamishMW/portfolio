@@ -123,6 +123,10 @@ const ProjectItemContent = styled.div`
     max-width: 1100px;
   }
 
+  @media (max-width: 1245px) {
+    grid-template-columns: 50% 50%;
+  }
+
   @media (max-width: ${Media.tablet}) {
     grid-template-columns: 100%;
     flex-direction: column-reverse;
@@ -133,6 +137,8 @@ const ProjectItemContent = styled.div`
 const ProjectItemDetails = styled.div`
   flex: 0 0 410px;
   max-width: 410px;
+  z-index: 1;
+  position: relative;
 
   @media (max-width: ${Media.tablet}) {
     flex: 0 0 auto;
@@ -302,6 +308,10 @@ const ProjectItemTitle = styled.h2`
     opacity: 1;
   `}
 
+  @media (max-width: 1245px) {
+    font-size: 36px;
+  }
+
   @media (max-width: ${Media.mobile}) {
     font-size: 28px;
   }
@@ -363,6 +373,11 @@ const ProjectItemImageLaptop = styled(ProgressiveImage)`
   @media(min-width: 1440px) {
     width: 880px;
     height: 542px;
+  }
+
+  @media(max-width: 1245px) {
+    width: 761px;
+    height: 491px;
   }
 
   @media (max-width: ${Media.tablet}) {

@@ -133,6 +133,10 @@ const ProfileContent = styled.div`
   }
 
   @media (max-width: ${Media.tablet}) {
+    max-width: 600px;
+  }
+
+  @media (max-width: ${Media.tablet}) {
     grid-template-columns: 100%;
   }
 `;
