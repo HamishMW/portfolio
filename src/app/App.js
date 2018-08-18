@@ -73,6 +73,7 @@ class App extends Component {
             <React.Fragment>
               <Helmet>
                 <style>{fontStyles}</style>
+                <link rel="preload" href={GothamMedium} as="font" type="font/woff2" />
               </Helmet>
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
