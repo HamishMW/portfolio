@@ -188,7 +188,7 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs({
   }
 `;
 
-const ProjectHeaderContainer = ProjectSection.withComponent('header').extend`
+const ProjectHeaderContainer = styled(ProjectSection.withComponent('header'))`
   padding-top: 120px;
   padding-bottom: 0;
 

@@ -162,7 +162,7 @@ const ProjectTextRow = styled.div`
   margin-bottom: 80px;
 `;
 
-const ProjectSectionColumns = ProjectSectionContent.extend`
+const ProjectSectionColumns = styled(ProjectSectionContent)`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 70px;
@@ -174,7 +174,7 @@ const ProjectSectionColumns = ProjectSectionContent.extend`
   }
 `;
 
-const ProjectSectionGrid = ProjectSectionContent.extend`
+const ProjectSectionGrid = styled(ProjectSectionContent)`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 70px;

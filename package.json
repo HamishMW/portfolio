@@ -11,8 +11,8 @@
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
-    "react-scripts": "1.1.4",
-    "react-snap": "^1.17.0"
+    "react-scripts": "1.1.5",
+    "react-snap": "^1.19.0"
   },
   "dependencies": {
     "@firebase/app": "^0.3.3",
@@ -20,12 +20,12 @@
     "autosize": "^4.0.2",
     "es6-tween": "^5.3.0",
     "ios-inner-height": "^1.1.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^4.3.1",
     "react-transition-group": "^2.4.0",
-    "styled-components": "^3.4.2",
+    "styled-components": "^3.4.5",
     "three": "^0.95.0"
   },
   "scripts": {

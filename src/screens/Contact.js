@@ -65,7 +65,7 @@ export default class Contact extends PureComponent {
           {!complete &&
             <Transition appear timeout={1600} mountOnEnter unmountOnExit>
               {status => (
-                <ContactForm autoComplete="off" method="post" onSubmit={this.onSubmit} role="form">
+                <ContactForm method="post" onSubmit={this.onSubmit} role="form">
                   <ContactTitle status={status} delay={50}>
                     <DecoderText
                       text="Say hello"
@@ -78,6 +78,7 @@ export default class Contact extends PureComponent {
                     status={status}
                     delay={200}
                     onChange={this.updateEmail}
+                    autoComplete="email"
                     label="Your Email"
                     id="email"
                     type="email"
@@ -90,6 +91,7 @@ export default class Contact extends PureComponent {
                     status={status}
                     delay={300}
                     onChange={this.updateMessage}
+                    autoComplete="off"
                     label="Message"
                     id="message"
                     hasValue={!!messageValue}
