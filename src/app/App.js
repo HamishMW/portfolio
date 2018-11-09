@@ -72,6 +72,8 @@ class App extends Component {
           <Route render={({ location }) => (
             <React.Fragment>
               <Helmet>
+                <link rel="preload" href={`${GothamBook}`} as="font" />
+                <link rel="preload" href={`${GothamMedium}`} as="font" />
                 <style>{fontStyles}</style>
               </Helmet>
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
