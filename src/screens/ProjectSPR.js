@@ -41,7 +41,7 @@ const ProjectSPR = ({ status }) => (
       <ProjectHeader
         title={title}
         description={description}
-        url="https://www.smartsparrow.com"
+        url="https://www.smartsparrow.com/aero/"
         roles={roles}
       />
       <ProjectSection>
