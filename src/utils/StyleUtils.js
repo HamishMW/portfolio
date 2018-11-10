@@ -1,4 +1,4 @@
-import { css, keyframes } from 'styled-components';
+import { keyframes } from 'styled-components';
 
 export const AnimFade = keyframes`
   0% {opacity: 0}
