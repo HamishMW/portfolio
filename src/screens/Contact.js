@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet';
 import Input from '../components/Input';
@@ -294,7 +294,7 @@ const ContactButton = styled(Button)`
 
     div {
       opacity: 0;
-      animation: ${AnimFade} 0.5s ease 0.6s forwards;
+      animation: ${css`${AnimFade} 0.5s ease 0.6s forwards`};
     }
   `}
 

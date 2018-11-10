@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Media, AnimFade, ColorTint } from '../utils/StyleUtils';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { LinkButton } from '../components/Button';
@@ -161,7 +161,7 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs({
   height: 800px;
   opacity: 0;
 
-  ${props => props.entered && `
+  ${props => props.entered && css`
     animation: ${AnimFade} 2s ease ${initDelay}ms forwards;
   `}
 
@@ -239,7 +239,7 @@ const AnimFadeSlide = keyframes`
 const ProjectDetails = styled.div`
   opacity: 0;
 
-  ${props => props.entered && `
+  ${props => props.entered && css`
     animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay}ms forwards;
   `}
 `;
@@ -279,7 +279,7 @@ const ProjectMeta = styled.ul`
   margin-top: 10px;
   opacity: 0;
 
-  ${props => props.entered && `
+  ${props => props.entered && css`
     animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay + 200}ms forwards;
   `}
 `;
@@ -347,7 +347,7 @@ export const ProjectImage = styled.div`
     width: 100%;
   }
 
-  ${props => props.entered && `
+  ${props => props.entered && css`
     &:before {
       animation: ${AnimProjectImage} 1.4s ${props.theme.curveFastoutSlowin} 0.6s;
     }

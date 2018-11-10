@@ -15,17 +15,17 @@
     "react-snap": "^1.19.0"
   },
   "dependencies": {
-    "@firebase/app": "^0.3.3",
-    "@firebase/database": "^0.3.4",
+    "@firebase/app": "^0.3.4",
+    "@firebase/database": "^0.3.6",
     "autosize": "^4.0.2",
-    "es6-tween": "^5.3.0",
+    "es6-tween": "^5.3.1",
     "ios-inner-height": "^1.1.0",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^4.3.1",
-    "react-transition-group": "^2.4.0",
-    "styled-components": "^3.4.5",
+    "react-transition-group": "^2.5.0",
+    "styled-components": "^4.0.3",
     "three": "^0.95.0"
   },
   "scripts": {

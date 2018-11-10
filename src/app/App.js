@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { injectGlobal, ThemeProvider } from 'styled-components';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import Route from 'react-router-dom/Route';
@@ -72,10 +72,11 @@ class App extends Component {
           <Route render={({ location }) => (
             <React.Fragment>
               <Helmet>
-                <link rel="preload" href={`${GothamBook}`} as="font" />
-                <link rel="preload" href={`${GothamMedium}`} as="font" />
+                <link rel="preload" href={`${GothamBook}`} as="font" crossorigin="crossorigin" />
+                <link rel="preload" href={`${GothamMedium}`} as="font" crossorigin="crossorigin" />
                 <style>{fontStyles}</style>
               </Helmet>
+              <GlobalStyles />
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
@@ -110,7 +111,7 @@ class App extends Component {
   }
 }
 
-injectGlobal`
+const GlobalStyles = createGlobalStyle`
   html,
   body {
     box-sizing: border-box;

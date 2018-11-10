@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Media, AnimFade } from '../utils/StyleUtils';
 import DecoderText from '../components/DecoderText';
@@ -16,7 +16,7 @@ const Intro = ({
   backgroundLoaded,
 }) => {
   return (
-    <IntroContent innerRef={sectionRef} id={id}>
+    <IntroContent ref={sectionRef} id={id}>
       <Transition
         appear
         in={!prerender}
@@ -25,7 +25,7 @@ const Intro = ({
         {(appearStatus) => (
           <React.Fragment>
             <IntroBackground
-              innerRef={threeCanvas}
+              ref={threeCanvas}
               isLoaded={backgroundLoaded}
             />
             <IntroText>
@@ -60,6 +60,7 @@ const Intro = ({
               </IntroTitle>
             </IntroText>
             <ScrollIndicator isHidden={hideScrollIndicator} status={appearStatus} />
+
           </React.Fragment>
         )}
       </Transition>
@@ -108,7 +109,7 @@ const IntroBackground = styled.div`
     animation-fill-mode: forwards;
     opacity: 0;
 
-    ${props => props.isLoaded && `
+    ${props => props.isLoaded && css`
       animation-name: ${AnimBackgroundFade};
     `}
   }
@@ -150,7 +151,7 @@ const IntroName = styled.div`
   font-weight: 500;
   line-height: 1;
   opacity: 0;
-  animation: ${AnimFade} 0.4s ease 0.6s forwards;
+  animation: ${css`${AnimFade} 0.4s ease 0.6s forwards`};
 
   @media (min-width: ${Media.desktop}) {
     font-size: 28px;
@@ -245,7 +246,7 @@ const IntroTitleWord = styled.div`
   color: ${props => props.theme.colorText(0)};
   transition: opacity 0.5s ease 0.4s;
 
-  ${props => props.status === 'entering' && `
+  ${props => props.status === 'entering' && css`
     animation-name: ${AnimTextReveal(props)};
   `}
 
@@ -278,7 +279,7 @@ const IntroTitleWord = styled.div`
     left: 0;
     z-index: 1;
 
-    ${props => props.status === 'entering' && `
+    ${props => props.status === 'entering' && css`
       animation-name: ${AnimTextRevealMask};
     `}
 
@@ -331,7 +332,7 @@ const IntroTitleLine = styled.div`
   transform-origin: left;
   opacity: 0;
 
-  ${props => props.status === 'entering' && `
+  ${props => props.status === 'entering' && css`
     animation-name: ${AnimLineIntro};
   `}
 
@@ -385,7 +386,7 @@ const ScrollIndicator = styled.div`
     top: 6px;
     left: 50%;
     transform: translateX(-1px);
-    animation: ${AnimScrollIndicator} 2s ease infinite;
+    animation: ${css`${AnimScrollIndicator} 2s ease infinite`};
   }
 
   @media ${Media.mobileLS} {

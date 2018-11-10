@@ -26,7 +26,7 @@ const ProjectItem = ({
   buttonTo,
 }) => {
   return (
-    <ProjectItemSection index={index} innerRef={sectionRef} id={id} tabIndex={tabIndex}>
+    <ProjectItemSection index={index} ref={sectionRef} id={id} tabIndex={tabIndex}>
       <ProjectItemContent>
         <Transition in={visible} timeout={0}>
           {status => (
@@ -60,14 +60,7 @@ const ProjectItem = ({
                       srcSet={imageSrc[0]}
                       alt={imageAlt[0]}
                       placeholder={imagePlaceholder[0]}
-                      sizes={`
-                      (max-width: ${Media.mobile}) 300px,
-                      (max-width: ${Media.tablet}) 420px,
-                      (max-width: ${Media.desktop}) 860px,
-                      900px
-                    `}
-                      width="980px"
-                      height="603px"
+                      sizes={`(max-width: ${Media.mobile}) 300px,(max-width: ${Media.tablet}) 420px,(max-width: ${Media.desktop}) 860px, 900px`}
                     />
                     <ProjectItemImageLaptopSvg status={status} icon="projects" />
                   </ProjectItemPreviewContentLaptop>
@@ -84,8 +77,6 @@ const ProjectItem = ({
                           alt=""
                           role="presentation"
                           placeholder={phonePlaceholder}
-                          width="414px"
-                          height="721px"
                         />
                         <ProjectItemPhoneImage
                           visible={visible}
@@ -93,8 +84,6 @@ const ProjectItem = ({
                           alt={imageAlt[index]}
                           placeholder={imagePlaceholder[index]}
                           sizes={`(max-width: ${Media.tablet}) 152px, 254px`}
-                          width="254px"
-                          height="452px"
                         />
                       </ProjectItemPhone>
                     ))}

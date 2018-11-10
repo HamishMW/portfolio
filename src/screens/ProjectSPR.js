@@ -51,8 +51,6 @@ const ProjectSPR = ({ status }) => (
               srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
               placeholder={imageSprBuilderPlaceholder}
               sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
-              width="1280px"
-              height="800px"
             />
           </ProjectImage>
         </ProjectSectionContent>

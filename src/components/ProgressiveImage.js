@@ -25,7 +25,7 @@ export default class ProgressiveImage extends PureComponent {
   }
 
   render() {
-    const { placeholder, className, style, width, height, srcSet, visible, ...props } = this.props;
+    const { placeholder, className, style, srcSet, visible, ...props } = this.props;
     const { loaded } = this.state;
     const actualSrcSet = this.getSrcSet(visible, srcSet);
 
@@ -35,16 +35,12 @@ export default class ProgressiveImage extends PureComponent {
           onLoad={this.onLoad}
           decoding="async"
           loaded={loaded}
-          width={width}
-          height={height}
           srcSet={actualSrcSet}
           {...props}
         />
         <ImagePlaceholder
           loaded={loaded}
           src={placeholder}
-          width={width}
-          height={height}
           alt=""
           role="presentation"
         />

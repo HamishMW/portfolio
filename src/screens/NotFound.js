@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet';
 import { RouterButton } from '../components/Button';
@@ -118,7 +118,7 @@ const NotFoundVideoContainer = styled.div`
   &:after {
     content: '';
     background: ${props => props.theme.colorPrimary(1)};
-    animation: ${AnimVideo} 1.8s ${props => props.theme.curveFastoutSlowin};
+    animation: ${css`${AnimVideo} 1.8s ${props => props.theme.curveFastoutSlowin}`};
     position: absolute;
     top: 0;
     right: 0;
@@ -129,7 +129,7 @@ const NotFoundVideoContainer = styled.div`
     z-index: 16;
   }
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     &:before {
       animation: ${AnimVideo} 1.8s ${props.theme.curveFastoutSlowin};
     }

@@ -69,8 +69,6 @@ const ProjectSlice = ({ status }) => (
               placeholder={sliceAppPlaceholder}
               alt="The Slice web appication showing a selected user annotation."
               sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
-              width="1280px"
-              height="800px"
             />
           </ProjectImage>
         </ProjectSectionContent>
@@ -92,16 +90,12 @@ const ProjectSlice = ({ status }) => (
               placeholder={sliceSidebarLayersPlaceholder}
               alt="The layers sidebar design, now with user profiles."
               sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
-              width="700px"
-              height="1500px"
             />
             <SidebarImage
               srcSet={`${sliceSidebarAnnotations} 300w, ${sliceSidebarAnnotationsLarge} 700w`}
               placeholder={sliceSidebarAnnotationsPlaceholder}
               alt="Multiple user annotations on a shared layer."
               sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
-              width="700px"
-              height="1500px"
             />
           </SidebarImages>
         </ProjectSectionColumns>
@@ -119,8 +113,6 @@ const ProjectSlice = ({ status }) => (
             placeholder={sliceSlidesPlaceholder}
             alt="The new My Slides tab in slice, showing annotated and favorited slides."
             sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
-            width="1280px"
-            height="800px"
           />
         </ProjectSectionContent>
       </ProjectSection>

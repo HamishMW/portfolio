@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Transition } from 'react-transition-group';
 import Anchor from '../components/Anchor';
 import { RouterButton } from '../components/Button';
@@ -38,7 +38,7 @@ const Profile = ({
   visible,
   sectionRef,
 }) => (
-    <ProfileSection id={id} innerRef={sectionRef} tabIndex={tabIndex}>
+    <ProfileSection id={id} ref={sectionRef} tabIndex={tabIndex}>
       <Transition in={visible} timeout={0}>
         {status => (
           <ProfileContent>
@@ -66,8 +66,6 @@ const Profile = ({
                   srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
                   sizes={`(max-width: ${Media.mobile}) 100vw, 480px`}
                   alt="Me at the Torii on Miyajima, Japan"
-                  width="480px"
-                  height="562px"
                 />
                 <ProfileSvg icon="profile" status={status} />
               </ProfileImageContainer>
@@ -259,7 +257,7 @@ const ProfileImageContainer = styled.div`
     z-index: 16;
   }
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     &:before {
       animation: ${AnimProfileImage} 1.8s ${props.theme.curveFastoutSlowin} 0.6s;
     }

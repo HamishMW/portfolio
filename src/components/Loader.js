@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const Loader = ({ size, color, style, className }) => (
   <LoaderContainer size={size} style={style} className={className}>
@@ -37,20 +37,20 @@ const LoaderSpan = styled.span`
   background-color: ${props => props.color};
 
   &:nth-child(1) {
-    animation: ${AnimGrow} 1s ease-in-out infinite;
+    animation: ${css`${AnimGrow} 1s ease-in-out infinite`};
     margin-left: 0;
   }
 
   &:nth-child(2) {
-    animation: ${AnimGrow} 1s ease-in-out 0.15s infinite;
+    animation: ${css`${AnimGrow} 1s ease-in-out 0.15s infinite`};
   }
 
   &:nth-child(3) {
-    animation: ${AnimGrow} 1s ease-in-out 0.30s infinite;
+    animation: ${css`${AnimGrow} 1s ease-in-out 0.30s infinite`};
   }
 
   &:nth-child(4) {
-    animation: ${AnimGrow} 1s ease-in-out 0.45s infinite;
+    animation: ${css`${AnimGrow} 1s ease-in-out 0.45s infinite`};
   }
 `;
 

@@ -146,7 +146,7 @@ export default class DispalcementSlider extends React.Component {
   render() {
     const { images } = this.props;
     return (
-      <Container innerRef={this.container} onClick={this.nextImage}>
+      <Container ref={this.container} onClick={this.nextImage}>
         {images.map(image => (
           <img src={image} alt="A thing" />
         ))}
