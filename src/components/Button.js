@@ -15,7 +15,7 @@ const ButtonContent = ({ iconRight, icon, children, secondary, loading }) => (
   </React.Fragment>
 );
 
-const Button = ({ ...props, className, style, secondary }) => (
+const Button = ({ className, style, secondary, ...props }) => (
   <ButtonContainer
     className={className}
     style={style}
@@ -26,8 +26,7 @@ const Button = ({ ...props, className, style, secondary }) => (
   </ButtonContainer>
 );
 
-const LinkButton = ({ ...props, className, style, secondary,
-  href, rel, target }) => (
+const LinkButton = ({ className, style, secondary, href, rel, target, ...props }) => (
     <LinkButtonContainer
       className={className}
       style={style}
@@ -40,7 +39,7 @@ const LinkButton = ({ ...props, className, style, secondary,
     </LinkButtonContainer>
   );
 
-const RouterButton = ({ ...props, className, style, secondary, to }) => (
+const RouterButton = ({ className, style, secondary, to, ...props }) => (
   <RouterButtonContainer
     className={className}
     style={style}
