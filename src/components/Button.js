@@ -32,7 +32,7 @@ const LinkButton = ({ className, style, href, rel, target, ...props }) => (
     href={href}
     rel={rel}
     target={target}
-    {...props}
+    secondary={props.secondary}
   >
     <ButtonContent {...props} />
   </LinkButtonContainer>
