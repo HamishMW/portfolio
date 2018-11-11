@@ -4,14 +4,7 @@
   "homepage": "https://hamishw.com",
   "private": true,
   "devDependencies": {
-    "babel-eslint": "^7.2.3",
-    "eslint": "^4.1.1",
-    "eslint-config-react-app": "^2.1.0",
-    "eslint-plugin-flowtype": "^2.34.1",
-    "eslint-plugin-import": "^2.6.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.1.0",
-    "react-scripts": "1.1.5",
+    "react-scripts": "2.1.1",
     "react-snap": "^1.19.0"
   },
   "dependencies": {
@@ -41,5 +34,11 @@
   "reactSnap": {
     "skipThirdPartyRequests": true,
     "headless": false
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
