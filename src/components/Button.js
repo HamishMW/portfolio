@@ -15,36 +15,34 @@ const ButtonContent = ({ iconRight, icon, children, secondary, loading }) => (
   </React.Fragment>
 );
 
-const Button = ({ className, style, secondary, ...props }) => (
+const Button = ({ className, style, ...props }) => (
   <ButtonContainer
     className={className}
     style={style}
-    secondary={secondary}
     {...props}
   >
     <ButtonContent {...props} />
   </ButtonContainer>
 );
 
-const LinkButton = ({ className, style, secondary, href, rel, target, ...props }) => (
-    <LinkButtonContainer
-      className={className}
-      style={style}
-      secondary={secondary}
-      href={href}
-      rel={rel}
-      target={target}
-    >
-      <ButtonContent {...props} />
-    </LinkButtonContainer>
-  );
+const LinkButton = ({ className, style, href, rel, target, ...props }) => (
+  <LinkButtonContainer
+    className={className}
+    style={style}
+    href={href}
+    rel={rel}
+    target={target}
+  >
+    <ButtonContent {...props} />
+  </LinkButtonContainer>
+);
 
-const RouterButton = ({ className, style, secondary, to, ...props }) => (
+const RouterButton = ({ className, style, to, ...props }) => (
   <RouterButtonContainer
     className={className}
     style={style}
     to={to}
-    secondary={secondary ? 1 : 0}
+    secondary={props.secondary ? 1 : 0}
   >
     <ButtonContent {...props} />
   </RouterButtonContainer>
