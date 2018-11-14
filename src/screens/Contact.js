@@ -116,12 +116,12 @@ export default class Contact extends PureComponent {
             </Transition>
           }
           {complete &&
-            <Transition appear timeout={0} mountOnEnter unmountOnExit>
+            <Transition appear timeout={10} mountOnEnter unmountOnExit>
               {status => (
                 <ContactComplete>
                   <ContactCompleteTitle
                     status={status}
-                    delay={0}
+                    delay={10}
                   >
                     Message Sent
                   </ContactCompleteTitle>
