@@ -9,7 +9,7 @@ import { Media, AnimFade } from '../utils/StyleUtils';
 import Firebase from '../utils/Firebase';
 import ScrollToTop from '../utils/ScrollToTop';
 
-const prerender = window.location.port === '45678';
+const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
 
 export default class Contact extends PureComponent {

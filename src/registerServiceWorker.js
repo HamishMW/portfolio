@@ -18,7 +18,7 @@ const isLocalhost = Boolean(
   )
 );
 
-const prerender = Boolean(window.location.port === '45678');
+const prerender = Boolean(navigator.userAgent === 'ReactSnap');
 
 export default function register() {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {

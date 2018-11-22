@@ -15,7 +15,7 @@ import imageSprBuilder from '../assets/spr-builder.png';
 import imageSprBuilderLarge from '../assets/spr-builder-large.png';
 import imageSprBuilderPlaceholder from '../assets/spr-builder-placeholder.png';
 
-const prerender = window.location.port === '45678';
+const prerender = navigator.userAgent === 'ReactSnap';
 
 const title = 'Designing the future of education';
 const description = 'I worked as the design lead on a major iteration of Smart Sparrow’s product. We took the platform in a bold new direction, focusing on becoming the best tool for learning designers.';

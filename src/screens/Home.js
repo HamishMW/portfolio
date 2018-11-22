@@ -185,7 +185,7 @@ export default class Home extends Component {
           title="Video game progress tracking"
           description="Design and development for a video game tracking app built in React Native"
           buttonText="View Website"
-          buttonLink="https://www.gamestackapp.com"
+          buttonLink="https://gamestackapp.com"
           imageSrc={[
             `${gamestackLogin} 254w, ${gamestackLoginLarge} 508w`,
             `${gamestackList} 254w, ${gamestackListLarge} 508w`,

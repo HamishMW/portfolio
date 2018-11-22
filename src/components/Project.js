@@ -5,7 +5,7 @@ import ProgressiveImage from '../components/ProgressiveImage';
 import { LinkButton } from '../components/Button';
 
 const initDelay = 300;
-const prerender = window.location.port === '45678';
+const prerender = navigator.userAgent === 'ReactSnap';
 
 export class ProjectBackground extends React.Component {
   constructor(props) {
@@ -176,7 +176,7 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs({
     position: absolute;
     top: 0;
     right: 0;
-    bottom;
+    bottom: 0;
     left: 0;
     z-index: 1;
     width: 100%;

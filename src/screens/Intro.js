@@ -4,7 +4,7 @@ import { TransitionGroup, Transition } from 'react-transition-group';
 import { Media, AnimFade } from '../utils/StyleUtils';
 import DecoderText from '../components/DecoderText';
 
-const prerender = window.location.port === '45678';
+const prerender = navigator.userAgent === 'ReactSnap';
 
 const Intro = ({
   id,

@@ -31,7 +31,7 @@ import sliceAnnotation from '../assets/slice-annotation.png';
 import sliceAnnotationLarge from '../assets/slice-annotation-large.png';
 import sliceAnnotationPlaceholder from '../assets/slice-annotation-placeholder.png';
 
-const prerender = window.location.port === '45678';
+const prerender = navigator.userAgent === 'ReactSnap';
 
 const title = 'Biomedical image collaboration';
 const description = 'This project involved designing a better way for biomedical educators and learners to annotate digital slides together.';
