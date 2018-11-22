@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
+import 'intersection-observer';
 import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
@@ -25,13 +26,10 @@ export default class Home extends Component {
 
     this.state = {
       disciplineIndex: 0,
-      hideScrollIndicator: false,
       backgroundLoaded: false,
       visibleSections: [],
+      hideScrollIndicator: false,
     }
-
-    this.scheduledAnimationFrame = false;
-    this.lastScrollY = 0;
   }
 
   componentDidMount() {
@@ -51,18 +49,17 @@ export default class Home extends Component {
       requestAnimationFrame(() => this.sphere.init());
     });
 
-    window.addEventListener('scroll', this.handleScroll);
-    this.setState({ visibleSections: [this.intro] });
+    this.initializeObservers();
     this.switchDiscipline();
-    this.initScroll();
+    this.initScrollPosition();
   }
 
-  initScroll = () => {
+  initScrollPosition = () => {
     const { status, location } = this.props;
     const { hash } = location;
 
     if (status !== 'entered') {
-      requestAnimationFrame(this.initScroll);
+      requestAnimationFrame(this.initScrollPosition);
     } else if (hash && status === 'entered') {
       this.handleHashchange(hash, false);
     } else if (status === 'entered') {
@@ -71,7 +68,6 @@ export default class Home extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
     this.sphere.remove();
     clearInterval(this.disciplineInterval);
   }
@@ -85,26 +81,34 @@ export default class Home extends Component {
     }
   }
 
-  handleScroll = () => {
-    this.lastScrollY = window.scrollY;
-    if (this.scheduledAnimationFrame) return;
-    this.scheduledAnimationFrame = true;
+  initializeObservers = () => {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const { visibleSections } = this.state;
 
-    requestAnimationFrame(() => {
-      const { visibleSections } = this.state;
-
-      const revealableSections = this.revealSections.filter(section => {
-        if (visibleSections.includes(section)) return false;
-        return this.isInViewport(section, this.lastScrollY);
+        if (entry.isIntersecting) {
+          const section = entry.target;
+          this.setState({ visibleSections: [...visibleSections, section] });
+          sectionObserver.unobserve(section);
+        }
       });
+    }, { rootMargin: "0px 0px -10% 0px" });
 
-      this.setState({
-        visibleSections: [...visibleSections, ...revealableSections],
-        hideScrollIndicator: this.lastScrollY >= 50,
+    const indicatorObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          this.setState({ hideScrollIndicator: false })
+        } else {
+          this.setState({ hideScrollIndicator: true })
+        }
       });
+    }, { rootMargin: "-100% 0px 0px 0px" });
 
-      this.scheduledAnimationFrame = false;
+    this.revealSections.forEach((section) => {
+      sectionObserver.observe(section);
     });
+
+    indicatorObserver.observe(this.intro);
   }
 
   handleHashchange = (hash, scroll) => {
@@ -121,14 +125,6 @@ export default class Home extends Component {
     }
   }
 
-  isInViewport = (elem, scrollY) => {
-    const rect = elem.getBoundingClientRect();
-    const offsetY = window.pageYOffset;
-    const revealOffset = window.innerHeight - 100;
-    const top = rect.top + offsetY;
-    return top - revealOffset <= scrollY;
-  }
-
   switchDiscipline = () => {
     this.disciplineInterval = setInterval(() => {
       const { disciplineIndex } = this.state;
@@ -141,8 +137,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const { disciplineIndex, hideScrollIndicator,
-      visibleSections, backgroundLoaded } = this.state;
+    const { disciplineIndex, visibleSections, backgroundLoaded, hideScrollIndicator } = this.state;
 
     return (
       <React.Fragment>
