@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const Anchor = styled.a`
   color: ${props => props.secondary

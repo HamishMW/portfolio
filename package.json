@@ -34,7 +34,11 @@
   "reactSnap": {
     "skipThirdPartyRequests": true,
     "headless": false,
-    "navigateFallback": "200.html"
+    "crawl": true,
+    "include": [
+      "/projects/smart-sparrow",
+      "/projects/slice"
+    ]
   },
   "browserslist": [
     ">0.2%",

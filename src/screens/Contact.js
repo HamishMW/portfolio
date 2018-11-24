@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet';
 import Input from '../components/Input';

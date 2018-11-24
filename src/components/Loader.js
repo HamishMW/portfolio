@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components/macro';
 
 const Loader = ({ size, color, style, className }) => (
   <LoaderContainer size={size} style={style} className={className}>
