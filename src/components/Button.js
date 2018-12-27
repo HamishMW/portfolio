@@ -1,19 +1,18 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { withTheme } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Icon from '../utils/Icon';
-import Theme from '../utils/Theme';
 import { ColorTint } from '../utils/StyleUtils';
 
-const ButtonContent = ({ iconRight, icon, children, secondary, loading }) => (
+const ButtonContent = withTheme(({ iconRight, icon, children, secondary, loading, theme }) => (
   <React.Fragment>
     {icon && <ButtonIcon loading={loading} left icon={icon} secondary={secondary} />}
     <ButtonText loading={loading} secondary={secondary}>{children}</ButtonText>
     {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary} />}
-    {loading && <ButtonLoader size="24" color={Theme.colorBackground(1)} />}
+    {loading && <ButtonLoader size="24" color={theme.colorBackground(1)} />}
   </React.Fragment>
-);
+));
 
 const Button = ({ className, style, ...props }) => (
   <ButtonContainer

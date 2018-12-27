@@ -50,7 +50,7 @@ export class ProjectBackground extends React.Component {
   }
 }
 
-export const ProjectHeader = ({ title, description, url, roles }) => (
+export const ProjectHeader = ({ title, description, linkLabel, url, roles }) => (
   <ProjectHeaderContainer>
     <ProjectHeaderInner>
       <ProjectDetails entered={!prerender}>
@@ -64,7 +64,7 @@ export const ProjectHeader = ({ title, description, url, roles }) => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          Visit website
+          {linkLabel ? linkLabel : 'Visit website'}
         </LinkButton>
       </ProjectDetails>
       <ProjectMeta entered={!prerender}>

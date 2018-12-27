@@ -16,6 +16,7 @@ const Home = asyncComponent(props => import("../screens/Home"));
 const Contact = asyncComponent(props => import("../screens/Contact"));
 const ProjectSPR = asyncComponent(props => import("../screens/ProjectSPR"));
 const ProjectSlice = asyncComponent(props => import("../screens/ProjectSlice"));
+const ProjectVolkiharKnight = asyncComponent(props => import("../screens/ProjectVolkiharKnight"));
 const NotFound = asyncComponent(props => import("../screens/NotFound"));
 
 const consoleMessage = `
@@ -47,11 +48,16 @@ const fontStyles = `
 class App extends Component {
   state = {
     menuOpen: false,
+    theme: Theme,
   }
 
   componentDidMount() {
     console.info(consoleMessage);
     window.history.scrollRestoration = 'manual';
+  }
+
+  setTheme = (overrides) => {
+    this.setState({ theme: { ...Theme, ...overrides } });
   }
 
   toggleMenu = () => {
@@ -64,10 +70,10 @@ class App extends Component {
   }
 
   render() {
-    const { menuOpen } = this.state;
+    const { menuOpen, theme } = this.state;
 
     return (
-      <ThemeProvider theme={Theme}>
+      <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Route render={({ location }) => (
             <React.Fragment>
@@ -97,6 +103,7 @@ class App extends Component {
                         <Route path="/contact" render={props => <Contact {...props} status={status} />} />
                         <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />} />
                         <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />} />
+                        <Route path="/projects/volkihar-knight" render={props => <ProjectVolkiharKnight {...props} status={status} setTheme={this.setTheme} />} />
                         <Route render={props => <NotFound {...props} status={status} />} />
                       </Switch>
                     </MainContent>
@@ -117,9 +124,9 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
-    font-family: ${Theme.fontStack};
-    background: ${Theme.colorBackground(1)};
-    color: ${Theme.colorText(1)};
+    font-family: ${props => props.theme.fontStack};
+    background: ${props => props.theme.colorBackground(1)};
+    color: ${props => props.theme.colorText(1)};
     border: 0;
     margin: 0;
     width: 100vw;
@@ -133,7 +140,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ::selection {
-    background: ${Theme.colorPrimary(1)};
+    background: ${props => props.theme.colorPrimary(1)};
   }
 `;
 

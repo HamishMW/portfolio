@@ -1,10 +1,9 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { withTheme } from 'styled-components/macro';
 import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
 import Icon from '../utils/Icon';
-import Theme from '../utils/Theme';
 import { Media } from '../utils/StyleUtils';
 
 const HeaderIcons = ({ toggleMenu }) => (
@@ -35,7 +34,7 @@ const HeaderIcons = ({ toggleMenu }) => (
   </HeaderNavIcons>
 );
 
-const Header = ({ menuOpen, toggleMenu }) => (
+const Header = withTheme(({ menuOpen, toggleMenu, theme }) => (
   <HeaderWrapper role="banner">
     <Transition
       in={menuOpen}
@@ -74,7 +73,7 @@ const Header = ({ menuOpen, toggleMenu }) => (
       )}
     </Transition>
     <HeaderLogo to="/#intro" aria-label="Back to home">
-      <Monogram highlight={Theme.colorPrimary(1)} />
+      <Monogram highlight={theme.colorPrimary(1)} />
     </HeaderLogo>
     <HeaderNav role="navigation">
       <HeaderNavList>
@@ -84,7 +83,7 @@ const Header = ({ menuOpen, toggleMenu }) => (
       <HeaderIcons />
     </HeaderNav>
   </HeaderWrapper>
-);
+));
 
 const HeaderWrapper = styled.header`
   display: flex;
