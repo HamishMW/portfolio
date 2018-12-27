@@ -1,6 +1,6 @@
 import React from 'react';
 import * as THREE from 'three';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Easing, Tween, autoPlay } from 'es6-tween';
 
 const vertex = `

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
 import { Media } from '../utils/StyleUtils';
 import { RouterButton, LinkButton } from '../components/Button';
