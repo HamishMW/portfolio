@@ -126,21 +126,14 @@ export default class DecoderText extends PureComponent {
   }
 
   render() {
-    const { text, className, style } = this.props;
+    const { className, style } = this.props;
     const { output } = this.state;
 
     return (
-      <DecoderSpan aria-label={text} className={className} style={style}>
+      <DecoderSpan className={className} style={style}>
         {output.map((item, index) => {
           if (item.type === 'actual') {
-            return (
-              <span
-                key={`${item.value}_${index}`}
-                aria-hidden="true"
-              >
-                {item.value}
-              </span>
-            )
+            return (<span key={`${item.value}_${index}`}>{item.value}</span>)
           }
 
           return (
@@ -161,6 +154,7 @@ const DecoderSpan = styled.span`
   &:after {
     content: '_';
     opacity: 0;
+    visibility: hidden;
   }
 `;
 

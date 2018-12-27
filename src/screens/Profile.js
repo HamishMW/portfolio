@@ -16,7 +16,7 @@ const ModLink = 'https://www.nexusmods.com/skyrimspecialedition/mods/4806/';
 
 const ProfileText = ({ status }) => (
   <React.Fragment>
-    <ProfileTitle>
+    <ProfileTitle aria-label="Hi there">
       <DecoderText
         text="Hi there"
         start={status === 'entering'}

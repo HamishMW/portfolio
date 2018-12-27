@@ -4,7 +4,7 @@ import { TransitionGroup, Transition } from 'react-transition-group';
 import { Media, AnimFade } from '../utils/StyleUtils';
 import DecoderText from '../components/DecoderText';
 
-const prerender =  navigator.userAgent === 'ReactSnap';
+const prerender = navigator.userAgent === 'ReactSnap';
 
 const Intro = ({
   id,
@@ -25,17 +25,18 @@ const Intro = ({
         {(appearStatus) => (
           <React.Fragment>
             <IntroBackground
+              aria-hidden="true"
               ref={threeCanvas}
               isLoaded={backgroundLoaded}
             />
             <IntroText>
-              <IntroName>
+              <IntroName aria-label="Hamish Williams">
                 <DecoderText text="Hamish Williams" start={!prerender} offset={120} />
               </IntroName>
-              <IntroTitle aria-label={[
+              <IntroTitle aria-label={`Designer + ${[
                 disciplines.slice(0, -1).join(', '),
                 disciplines.slice(-1)[0],
-              ].join(', and ')}>
+              ].join(', and ')}`}>
                 <IntroTitleRow>
                   <IntroTitleWord status={appearStatus} delay="0.2s">Designer</IntroTitleWord>
                   <IntroTitleLine status={appearStatus} />
@@ -141,7 +142,7 @@ const IntroText = styled.header`
   }
 `;
 
-const IntroName = styled.div`
+const IntroName = styled.h1`
   text-transform: uppercase;
   font-size: 24px;
   letter-spacing: 0.3em;
@@ -177,7 +178,7 @@ const IntroName = styled.div`
   }
 `;
 
-const IntroTitle = styled.h1`
+const IntroTitle = styled.h2`
   display: flex;
   flex-direction: column;
   font-size: 100px;
@@ -198,7 +199,7 @@ const IntroTitle = styled.h1`
   }
 `;
 
-const IntroTitleRow = styled.div`
+const IntroTitleRow = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -235,7 +236,7 @@ const AnimTextRevealMask = keyframes`
   }
 `;
 
-const IntroTitleWord = styled.div`
+const IntroTitleWord = styled.span`
   position: relative;
   display: flex;
   align-items: center;
@@ -318,7 +319,7 @@ const AnimLineIntro = keyframes`
   }
 `;
 
-const IntroTitleLine = styled.div`
+const IntroTitleLine = styled.span`
   content: '';
   height: 2px;
   background: rgba(255, 255, 255, 0.3);
