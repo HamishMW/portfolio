@@ -196,6 +196,7 @@ const NotFoundText = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 480px;
+  width: 100%;
 `;
 
 const NotFoundTitle = styled.h1`
@@ -234,6 +235,9 @@ const NotFoundSubHeading = styled.h2`
   transition-delay: 0.2s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  flex: 0 0 auto;
 
   @media (max-width: ${Media.mobile}) {
     font-size: 18px;

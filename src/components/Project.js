@@ -144,14 +144,14 @@ export const ProjectSection = styled.section`
   `}
 `;
 
-export const ProjectBackgroundImage = styled(ProgressiveImage).attrs({
+export const ProjectBackgroundImage = styled(ProgressiveImage).attrs(props => ({
   alt: '',
   role: 'presentation',
-  opacity: props => props.opacity ? props.opacity : 0.7,
-  style: ({ offset }) => ({
-    transform: `translate3d(0, ${offset}px, 0)`,
-  }),
-})`
+  opacity: props.opacity ? props.opacity : 0.7,
+  style: {
+    transform: `translate3d(0, ${props.offset}px, 0)`,
+  },
+}))`
   z-index: 0;
   position: absolute;
   top: 0;

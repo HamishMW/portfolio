@@ -1,4 +1,7 @@
-import * as THREE from 'three';
+import {
+  Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
+  UniformsUtils, UniformsLib, ShaderLib, SphereBufferGeometry, Mesh, Color, ShaderMaterial
+} from 'three';
 import { Easing, Tween, autoPlay } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
 import VertShader from '../shaders/SphereVertShader';
@@ -13,37 +16,37 @@ class DisplacementSphere {
   constructor(container, props) {
     this.container = container;
     this.props = props;
-    this.mouse = new THREE.Vector2(0.8, 0.5);
+    this.mouse = new Vector2(0.8, 0.5);
 
-    this.renderer = new THREE.WebGLRenderer();
-    this.camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 5000);
-    this.scene = new THREE.Scene();
-    this.light = new THREE.DirectionalLight(0xffffff, 0.6);
-    this.ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+    this.renderer = new WebGLRenderer();
+    this.camera = new PerspectiveCamera(55, width / height, 0.1, 5000);
+    this.scene = new Scene();
+    this.light = new DirectionalLight(0xffffff, 0.6);
+    this.ambientLight = new AmbientLight(0xffffff, 0.1);
 
-    this.uniforms = THREE.UniformsUtils.merge([
-      THREE.UniformsLib['ambient'],
-      THREE.UniformsLib['lights'],
-      THREE.ShaderLib.phong.uniforms,
+    this.uniforms = UniformsUtils.merge([
+      UniformsLib['ambient'],
+      UniformsLib['lights'],
+      ShaderLib.phong.uniforms,
       { time: { type: 'f', value: 0 } },
     ]);
 
-    this.material = new THREE.ShaderMaterial({
+    this.material = new ShaderMaterial({
       uniforms: this.uniforms,
       vertexShader: VertShader,
       fragmentShader: FragmentShader,
       lights: true,
     });
 
-    this.geometry = new THREE.SphereBufferGeometry(32, 128, 128);
-    this.sphere = new THREE.Mesh(this.geometry, this.material);
+    this.geometry = new SphereBufferGeometry(32, 128, 128);
+    this.sphere = new Mesh(this.geometry, this.material);
 
     autoPlay(true);
   }
 
   init = () => {
     const rand = Math.random();
-    this.scene.background = new THREE.Color(0x111111);
+    this.scene.background = new Color(0x111111);
     this.renderer.setSize(width, height);
     this.camera.position.z = 52;
 

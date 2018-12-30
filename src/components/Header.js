@@ -263,9 +263,9 @@ const HeaderMobileNav = styled.nav`
   }
 `;
 
-const HeaderMobileNavLink = styled(NavLink).attrs({
+const HeaderMobileNavLink = styled(NavLink).attrs(props => ({
   active: 'active',
-})`
+}))`
   width: 100%;
   font-size: 22px;
   text-align: center;

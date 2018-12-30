@@ -1,12 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import styled from 'styled-components/macro';
 import ProgressiveImage from '../components/ProgressiveImage';
 import ScrollToTop from '../utils/ScrollToTop';
 import Footer from '../components/Footer';
 import {
-  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
-  ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
+  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader
 } from '../components/Project';
 import { Media } from '../utils/StyleUtils';
 import sliceBackground from '../assets/slice-background.jpg';
@@ -60,7 +58,7 @@ class ProjectSlice extends React.Component {
             roles={roles}
           />
           <ProjectSection>
-            <ProjectSectionContent>
+            {/* <ProjectSectionContent>
               <ProjectImage entered={!prerender}>
                 <ProgressiveImage
                   srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1440w`}
@@ -69,7 +67,7 @@ class ProjectSlice extends React.Component {
                   sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
                 />
               </ProjectImage>
-            </ProjectSectionContent>
+            </ProjectSectionContent> */}
           </ProjectSection>
         </ProjectContainer>
         <Footer />

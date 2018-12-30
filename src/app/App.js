@@ -34,7 +34,7 @@ const fontStyles = `
     font-family: 'Gotham';
     font-weight: 400;
     src: url(${GothamBook}) format('woff2');
-    font-display: swap;
+    font-display: block;
   }
 
   @font-face {
