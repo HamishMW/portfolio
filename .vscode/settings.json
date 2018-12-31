@@ -17,6 +17,7 @@
     "**/*.sketch": true,
     "**/*.studio": true
   },
+  "html.format.enable": false,
   "search.exclude": {
     "**/bower_components": true,
     "**/node_modules": true,
