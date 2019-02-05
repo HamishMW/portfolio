@@ -88,10 +88,10 @@ export default function ProjectVolkihar(props) {
             <VolkiharTextSection>
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>
-                As a player I noticed there weren't any heavy armor options for the Volkihar faction. This kinda sucks when you've specialised in heavy armor and decide to join the faction and discover they all wear light armor.
+                As a player I noticed there weren’t any heavy armor options for the Volkihar faction. This kinda sucks when you’ve specialised in heavy armor and decide to join the faction and discover they all wear light armor.
               </ProjectSectionText>
               <ProjectSectionText>
-                My solution was to create a mod that combines meshes from the Volkihar faction armor with heavy plate armor. The mod builds upon textures and meshes from the base game, so it unifies with Skyrim's overall aesthetic. I combined and modified the meshes in 3DS Max. To establish a cohesive design across the set, I edited existing textures, and designed custom textures in Photoshop.
+                My solution was to create a mod that combines meshes from the Volkihar faction armor with heavy plate armor. The mod builds upon textures and meshes from the base game, so it unifies with Skyrim’s overall aesthetic. I combined and modified the meshes in 3DS Max. To establish a cohesive design across the set, I edited existing textures, and designed custom textures in Photoshop.
               </ProjectSectionText>
             </VolkiharTextSection>
           </ProjectSectionColumns>
