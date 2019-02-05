@@ -81,7 +81,7 @@ const ProjectSlice = ({ status }) => (
               Teachers needed a better way to create collaborative group activities by annotating slides on Slice. Before starting this project, a layer could only be annotated by a single user, making it difficult for learners to work together.
             </ProjectSectionText>
             <ProjectSectionText>
-              Our solution was to allow users to be invited to a layer, where they can see others' annotations and make their own.
+              Our solution was to allow users to be invited to a layer, where they can see others’ annotations and make their own.
             </ProjectSectionText>
           </SidebarImagesText>
           <SidebarImages>
