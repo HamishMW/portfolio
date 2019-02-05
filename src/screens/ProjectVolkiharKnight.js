@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 import ProgressiveImage from '../components/ProgressiveImage';
 import ScrollToTop from '../utils/ScrollToTop';
 import Footer from '../components/Footer';
 import {
-  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader
+  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader,
+  ProjectSectionHeading, ProjectSectionText,
 } from '../components/Project';
 import { Media } from '../utils/StyleUtils';
-import sliceBackground from '../assets/slice-background.jpg';
-import sliceBackgroundLarge from '../assets/slice-background-large.jpg';
-import sliceBackgroundPlaceholder from '../assets/slice-background-placeholder.jpg';
-import sliceApp from '../assets/slice-app.jpg';
-import sliceAppLarge from '../assets/slice-app-large.jpg';
-import sliceAppPlaceholder from '../assets/slice-app-placeholder.jpg';
+import volkiharBackground from '../assets/volkihar-background.jpg';
+import volkiharBackgroundLarge from '../assets/volkihar-background-large.jpg';
+import volkiharBackgroundPlaceholder from '../assets/volkihar-background-placeholder.jpg';
+import volkiharBanner from '../assets/volkihar-banner.jpg';
+import volkiharBannerLarge from '../assets/volkihar-banner-large.jpg';
+import volkiharBannerPlaceholder from '../assets/volkihar-banner-placeholder.jpg';
+import volkiharArmor from '../assets/volkihar-armor.png';
+import volkiharArmorLarge from '../assets/volkihar-armor-large.png';
+import volkiharArmorPlaceholder from '../assets/volkihar-armor-placeholder.png';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -24,56 +29,95 @@ const roles = [
   'Graphic Design',
 ];
 
-class ProjectSlice extends React.Component {
-  componentDidMount() {
-    this.props.setTheme({ colorPrimary: alpha => `rgba(240, 211, 150, ${alpha})` });
-  }
+export default function ProjectVolkihar(props) {
+  const { status, setTheme } = props;
 
-  componentWillUnmount() {
-    this.props.setTheme();
-  }
+  console.log('rend')
 
-  render() {
-    const { status } = this.props;
+  useEffect(() => {
+    if (status === 'entered' || status === 'exiting') {
+      setTheme({ colorPrimary: alpha => `rgba(240, 211, 150, ${alpha})` });
+    }
 
-    return (
-      <React.Fragment>
-        <ScrollToTop status={status} />
-        <Helmet>
-          <title>{`Projects | ${title}`}</title>
-          <meta name="description" content={description} />
-        </Helmet>
-        <ProjectContainer>
-          <ProjectBackground
-            srcSet={`${sliceBackground} 1000w, ${sliceBackgroundLarge} 1920w`}
-            placeholder={sliceBackgroundPlaceholder}
-            opacity={0.8}
-            entered={!prerender}
-          />
-          <ProjectHeader
-            title={title}
-            description={description}
-            linkLabel="Get the mod"
-            url="https://www.nexusmods.com/skyrimspecialedition/mods/4806/"
-            roles={roles}
-          />
-          <ProjectSection>
-            {/* <ProjectSectionContent>
-              <ProjectImage entered={!prerender}>
-                <ProgressiveImage
-                  srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1440w`}
-                  placeholder={sliceAppPlaceholder}
-                  alt="The Slice web appication showing a selected user annotation."
-                  sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
-                />
-              </ProjectImage>
-            </ProjectSectionContent> */}
-          </ProjectSection>
-        </ProjectContainer>
-        <Footer />
-      </React.Fragment>
-    )
-  }
+    return function cleanUp() {
+      setTheme();
+    }
+  }, [status]);
+
+  return (
+    <React.Fragment>
+      <ScrollToTop status={status} />
+      <Helmet
+        title={`Projects | ${title}`}
+        meta={[{ name: 'description', content: description, }]}
+      />
+      <ProjectContainer>
+        <ProjectBackground
+          srcSet={`${volkiharBackground} 1000w, ${volkiharBackgroundLarge} 1920w`}
+          placeholder={volkiharBackgroundPlaceholder}
+          opacity={0.5}
+          entered={!prerender}
+        />
+        <ProjectHeader
+          title={title}
+          description={description}
+          linkLabel="Get the mod"
+          url="https://www.nexusmods.com/skyrimspecialedition/mods/4806/"
+          roles={roles}
+        />
+        <ProjectSection>
+          <ProjectSectionContent>
+            <ProjectImage entered={!prerender}>
+              <ProgressiveImage
+                srcSet={`${volkiharBanner} 800w, ${volkiharBannerLarge} 1440w`}
+                placeholder={volkiharBannerPlaceholder}
+                alt="The Slice web appication showing a selected user annotation."
+                sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
+              />
+            </ProjectImage>
+          </ProjectSectionContent>
+        </ProjectSection>
+        <ProjectSection>
+          <ProjectSectionColumns>
+            <ProgressiveImage
+              srcSet={`${volkiharArmor} 800w, ${volkiharArmorLarge} 1440w`}
+              placeholder={volkiharArmorPlaceholder}
+              alt="The Slice web appication showing a selected user annotation."
+              sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
+            />
+            <VolkiharTextSection>
+              <ProjectSectionHeading>Armor design</ProjectSectionHeading>
+              <ProjectSectionText>
+                As a player I noticed there weren't any heavy armor options for the Volkihar faction. This kinda sucks when you've specialised in heavy armor and decide to join the faction and discover they all wear light armor.
+              </ProjectSectionText>
+              <ProjectSectionText>
+                My solution was to create a mod that combines meshes from the Volkihar faction armor with heavy plate armor. The mod builds upon textures and meshes from the base game, so it unifies with Skyrim's overall aesthetic. I combined and modified the meshes in 3DS Max. To establish a cohesive design across the set, I edited existing textures, and designed custom textures in Photoshop.
+              </ProjectSectionText>
+            </VolkiharTextSection>
+          </ProjectSectionColumns>
+        </ProjectSection>
+        <ProjectSection>
+        </ProjectSection>
+      </ProjectContainer>
+      <Footer />
+    </React.Fragment>
+  )
 };
 
-export default ProjectSlice;
+const ProjectSectionColumns = styled(ProjectSectionContent)`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 70px;
+  margin: 20px 0 60px;
+
+  @media (max-width: ${Media.tablet}) {
+    grid-template-columns: 1fr;
+    margin: 0 0 60px;
+  }
+`;
+
+const VolkiharTextSection = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;

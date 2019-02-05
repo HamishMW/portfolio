@@ -44,10 +44,10 @@ const roles = [
 const ProjectSlice = ({ status }) => (
   <React.Fragment>
     <ScrollToTop status={status} />
-    <Helmet>
-      <title>{`Projects | ${title}`}</title>
-      <meta name="description" content={description} />
-    </Helmet>
+    <Helmet
+      title={`Projects | ${title}`}
+      meta={[{ name: 'description', content: description, }]}
+    />
     <ProjectContainer>
       <ProjectBackground
         srcSet={`${sliceBackground} 1000w, ${sliceBackgroundLarge} 1920w`}

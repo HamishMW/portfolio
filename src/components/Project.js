@@ -189,11 +189,12 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs(props => ({
 `;
 
 const ProjectHeaderContainer = styled(ProjectSection.withComponent('header'))`
-  padding-top: 120px;
-  padding-bottom: 0;
+  padding-top: 140px;
+  padding-bottom: 40px;
 
   @media (max-width: ${Media.tablet}) {
     padding-top: 100px;
+    padding-bottom: 0;
   }
 
   @media (max-width: ${Media.mobile}) {

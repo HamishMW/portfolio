@@ -28,10 +28,10 @@ const roles = [
 const ProjectSPR = ({ status }) => (
   <React.Fragment>
     <ScrollToTop status={status} />
-    <Helmet>
-      <title>{`Projects | ${title}`}</title>
-      <meta name="description" content={description} />
-    </Helmet>
+    <Helmet
+      title={`Projects | ${title}`}
+      meta={[{ name: 'description', content: description, }]}
+    />
     <ProjectContainer>
       <ProjectBackground
         srcSet={`${backgroundSpr} 1000w, ${backgroundSprLarge} 1920w`}

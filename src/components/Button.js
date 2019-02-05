@@ -184,8 +184,8 @@ const ButtonText = styled.span`
 `;
 
 const ButtonIcon = styled(Icon)`
-  margin-left: ${props => props.left ? '0' : '10px'};
-  margin-right: ${props => props.left ? '10px' : '0'};
+  margin-left: ${props => props.left ? '0' : '6px'};
+  margin-right: ${props => props.left ? '6px' : '0'};
   transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
   fill: ${props => props.theme.colorBackground(1)};
 
