@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components/macro';
+import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components/macro';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import Route from 'react-router-dom/Route';
@@ -151,17 +151,17 @@ const MainContent = styled.main`
   transition: opacity 0.3s ease;
   opacity: 0;
 
-  ${props => props.status === 'exiting' && `
+  ${props => props.status === 'exiting' && css`
     position: absolute;
     opacity: 0;
   `}
 
-  ${props => props.status === 'entering' && `
+  ${props => props.status === 'entering' && css`
     position: absolute;
     opacity: 0;
   `}
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transition-duration: 0.5s;
     opacity: 1;
   `}

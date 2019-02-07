@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
 import { Media } from '../utils/StyleUtils';
 import { RouterButton, LinkButton } from '../components/Button';
@@ -253,7 +253,7 @@ const ProjectItemIndex = styled.div`
     transform-origin: left;
   }
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     &:before {
       transform: scale3d(1, 1, 1);
     }
@@ -271,7 +271,7 @@ const ProjectItemIndexNumber = styled.span`
   transition-duration: 0.4s;
   transition-delay: 1.3s;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translateX(0);
     opacity: 1;
   `}
@@ -292,7 +292,7 @@ const ProjectItemTitle = styled.h2`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -318,7 +318,7 @@ const ProjectItemDescription = styled.p`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -336,7 +336,7 @@ const ProjectItemButton = styled.div`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -354,7 +354,7 @@ const ProjectItemImageLaptop = styled(ProgressiveImage)`
   position: relative;
   right: -140px;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -391,7 +391,7 @@ const ProjectItemImageLaptopSvg = styled(Svg)`
   opacity: 0;
   transition: opacity 0.4s ease 0.6s;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     opacity: 1;
   `}
 
@@ -442,7 +442,7 @@ const ProjectItemPhone = styled.div`
     }
   `}
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -486,7 +486,7 @@ const ProjectItemPhoneImageSvg = styled(Svg)`
   transition: opacity 0.6s ease 0.6s;
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     opacity: 1;
   `}
 

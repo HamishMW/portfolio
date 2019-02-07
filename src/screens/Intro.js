@@ -251,11 +251,11 @@ const IntroTitleWord = styled.span`
     animation-name: ${AnimTextReveal(props)};
   `}
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     color: ${props.theme.colorText(1)};
   `}
 
-  ${props => props.status === 'exiting' && `
+  ${props => props.status === 'exiting' && css`
     color: ${props.theme.colorText(1)};
     opacity: 0;
     position: absolute;
@@ -284,14 +284,14 @@ const IntroTitleWord = styled.span`
       animation-name: ${AnimTextRevealMask};
     `}
 
-    ${props => props.status === 'entered' && `
+    ${props => props.status === 'entered' && css`
       opacity: 1;
       transform: scaleX(0);
       transform-origin: right;
     `}
   }
 
-  ${props => props.delay && `
+  ${props => props.delay && css`
     animation-delay: ${props.delay};
 
     &:after {
@@ -299,7 +299,7 @@ const IntroTitleWord = styled.span`
     }
   `}
 
-  ${props => props.plus && `
+  ${props => props.plus && css`
     &:before {
       content: '+';
       margin-right: 10px;
@@ -337,7 +337,7 @@ const IntroTitleLine = styled.span`
     animation-name: ${AnimLineIntro};
   `}
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: scaleX(1);
     opacity: 1;
   `}
@@ -368,11 +368,11 @@ const ScrollIndicator = styled.div`
   transition: all 0.4s ease;
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     opacity: 1;
   `}
 
-  ${props => props.isHidden && `
+  ${props => props.isHidden && css`
     opacity: 0;
     transform: translateY(20px);
   `}

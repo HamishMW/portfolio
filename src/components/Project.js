@@ -127,7 +127,7 @@ export const ProjectSection = styled.section`
     padding-right: 100px;
   }
 
-  ${props => props.light && `
+  ${props => props.light && css`
     background: ${ColorTint(props.theme.colorBackground(1), 0.036)};
     padding-top: 120px;
     padding-bottom: 140px;

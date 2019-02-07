@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { withTheme } from 'styled-components/macro';
+import styled, { withTheme, css } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Icon from '../utils/Icon';
@@ -70,7 +70,7 @@ const ButtonContainer = styled.button`
   font-family: inherit;
   position: relative;
 
-  ${props => !props.secondary && `
+  ${props => !props.secondary && css`
     &:before {
       content: '';
       transition: all 0.4s ${props.theme.curveFastoutSlowin};
@@ -99,7 +99,7 @@ const ButtonContainer = styled.button`
     }
   `}
 
-  ${props => !props.disabled && !props.secondary && `
+  ${props => !props.disabled && !props.secondary && css`
     &:hover,
     &:focus {
       outline: none;
@@ -121,7 +121,7 @@ const ButtonContainer = styled.button`
     transition-duration: 0.1s;
   }
 
-  ${props => props.secondary && `
+  ${props => props.secondary && css`
     background: none;
     color: ${props.theme.colorPrimary(1)};
     padding: 0 10px;
@@ -158,7 +158,7 @@ const ButtonContainer = styled.button`
     }
   `}
 
-  ${props => props.icon && `
+  ${props => props.icon && css`
     padding-right: 32px;
   `}
 `;
@@ -172,7 +172,7 @@ const ButtonText = styled.span`
   position: relative;
   line-height: 1.2;
 
-  ${props => props.loading && `
+  ${props => props.loading && css`
     visibility: hidden;
   `}
 
@@ -189,7 +189,7 @@ const ButtonIcon = styled(Icon)`
   transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
   fill: ${props => props.theme.colorBackground(1)};
 
-  ${props => props.secondary && `
+  ${props => props.secondary && css`
     fill: ${props.theme.colorPrimary(1)};
   `}
 
@@ -199,12 +199,12 @@ const ButtonIcon = styled(Icon)`
   ${LinkButtonContainer}:focus &,
   ${RouterButtonContainer}:hover &,
   ${RouterButtonContainer}:focus & {
-    ${props => props.icon === 'arrowRight' && `
+    ${props => props.icon === 'arrowRight' && css`
       transform: translate3d(3px, 0, 0);
     `}
   }
 
-  ${props => props.loading && `
+  ${props => props.loading && css`
     visibility: hidden;
   `}
 `;

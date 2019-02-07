@@ -145,7 +145,7 @@ const NotFoundVideo = styled.video`
   transition-delay: 1s;
   transition-duration: 0.4s;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     opacity: 1;
   `}
 
@@ -169,7 +169,7 @@ const NotFoundCredit = styled.a`
   transition-duration: 0.4s;
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     opacity: 1;
   `}
 
@@ -215,7 +215,7 @@ const NotFoundTitle = styled.h1`
     font-size: 64px;
   }
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -243,7 +243,7 @@ const NotFoundSubHeading = styled.h2`
     font-size: 18px;
   }
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -263,7 +263,7 @@ const NotFoundDescription = styled.p`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -279,7 +279,7 @@ const NotFoundButton = styled(RouterButton)`
   align-self: flex-start;
   padding-left: 3px;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}

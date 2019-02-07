@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { withTheme } from 'styled-components/macro';
+import styled, { withTheme, css } from 'styled-components/macro';
 import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
@@ -254,7 +254,7 @@ const HeaderMobileNav = styled.nav`
   align-items: center;
   justify-content: center;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
   `}
 
@@ -283,7 +283,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs(props => ({
     top: auto;
   }
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     opacity: 1;
     transform: translate3d(0, 0, 0);
   `}

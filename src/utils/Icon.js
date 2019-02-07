@@ -42,6 +42,16 @@ const Icon = ({ className, color, icon, size = 24 }) => {
         <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
       </svg>
     ),
+    slideRight: () => (
+      <svg className={className} fill={color} width="18" height="42" viewBox="0 0 18 42">
+        <path d="M-.03 1.375L1.53.125l16.5 20.625-16.5 20.625-1.562-1.25 15.5-19.375z" />
+      </svg>
+    ),
+    slideLeft: () => (
+      <svg className={className} fill={color} width="18" height="42" viewBox="0 0 18 42">
+        <path d="M18.03 1.375L16.47.125-.031 20.75l16.5 20.625 1.562-1.25L2.53 20.75z" />
+      </svg>
+    ),
   }
 
   return Icons[icon]();

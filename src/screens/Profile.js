@@ -164,7 +164,7 @@ const ProfileDescription = styled.p`
   opacity: 0;
   transition: opacity 0.8s ease 0.2s;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     opacity: 1;
   `}
 
@@ -193,7 +193,7 @@ const ProfileTag = styled.div`
     transform-origin: left;
   }
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     &:before {
       transform: scale3d(1, 1, 1);
     }
@@ -212,7 +212,7 @@ const ProfileTagText = styled.div`
   opacity: 0;
   transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1.3s;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translateX(0);
     opacity: 1;
   `}
@@ -271,7 +271,7 @@ const ProfileImage = styled(ProgressiveImage)`
   opacity: 0;
   transition: opacity 0.4s ease 1.5s;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     opacity: 1;
   `}
 `;
@@ -286,7 +286,7 @@ const ProfileSvg = styled(Svg)`
   opacity: 0;
   transition: opacity 0.4s ease 0.6s;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     opacity: 1;
   `}
 
@@ -303,7 +303,7 @@ const ProfileButton = styled(RouterButton)`
   opacity: 0;
   transition: opacity 0.8s ease 0.4s;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     opacity: 1;
   `}
 `;

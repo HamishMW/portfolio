@@ -194,12 +194,12 @@ const ContactTitle = styled.h1`
   height: 32px;
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender && `
+    props.status === 'entered') && !prerender && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 
-  ${props => props.status === 'exiting' && `
+  ${props => props.status === 'exiting' && css`
     transition-duration: 0.4s;
     transition-delay: 0s;
     transform: translate3d(0, -40px, 0);
@@ -239,12 +239,12 @@ const ContactDivider = styled.div`
   }
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender && `
+    props.status === 'entered') && !prerender && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 
-  ${props => props.status === 'exiting' && `
+  ${props => props.status === 'exiting' && css`
     transition-duration: 0.4s;
     transition-delay: 0s;
     transform: translate3d(0, -40px, 0);
@@ -262,12 +262,12 @@ const ContactInput = styled(Input)`
   opacity: 0;
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender && `
+    props.status === 'entered') && !prerender && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 
-  ${props => props.status === 'exiting' && `
+  ${props => props.status === 'exiting' && css`
     transition-duration: 0.4s;
     transition-delay: 0s;
     transform: translate3d(0, -40px, 0);
@@ -284,7 +284,7 @@ const ContactButton = styled(Button)`
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
-  ${props => props.sending && `
+  ${props => props.sending && css`
     svg {
       transition: transform ${props.curveFastoutSlowin}, opacity 0.3s ease 0.8s;
       transition-duration: 0.8s;
@@ -304,12 +304,12 @@ const ContactButton = styled(Button)`
   `}
 
   ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender && `
+    props.status === 'entered') && !prerender && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 
-  ${props => props.status === 'exiting' && `
+  ${props => props.status === 'exiting' && css`
     transition-duration: 0.4s;
     transition-delay: 0s;
     transform: translate3d(0, -40px, 0);
@@ -342,7 +342,7 @@ const ContactCompleteTitle = styled.h1`
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -358,7 +358,7 @@ const ContactCompleteText = styled.p`
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -373,7 +373,7 @@ const ContactCompleteButton = styled(RouterButton)`
   opacity: 0;
   padding-left: 3px;
 
-  ${props => props.status === 'entered' && `
+  ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}

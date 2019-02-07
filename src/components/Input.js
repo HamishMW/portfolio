@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import TextArea from '../components/TextArea';
 
 const Input = ({
@@ -116,7 +116,7 @@ const InputLabel = styled.label`
     ${props => InputLabelFocus(props)}
   }
 
-  ${props => props.hasValue && `
+  ${props => props.hasValue && css`
     ${InputLabelFocus(props)}
   `}
 `;
