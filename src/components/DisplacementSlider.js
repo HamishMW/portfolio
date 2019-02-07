@@ -90,6 +90,9 @@ export default class DispalcementSlider extends React.Component {
     this.animate();
     this.renderer.domElement.style.width = '100%';
     this.renderer.domElement.style.height = 'auto';
+    this.renderer.domElement.setAttribute('aria-hidden', true);
+    this.animating = true;
+    this.goToIndex(0, 1);
   }
 
   loadImages = (images) => {
@@ -129,8 +132,11 @@ export default class DispalcementSlider extends React.Component {
   }
 
   animate = () => {
-    requestAnimationFrame(this.animate);
-    this.renderer.render(this.scene, this.camera);
+    if (this.animating) {
+      console.count('frame')
+      requestAnimationFrame(this.animate);
+      this.renderer.render(this.scene, this.camera);
+    }
   }
 
   nextImage = () => {
@@ -168,6 +174,7 @@ export default class DispalcementSlider extends React.Component {
   }
 
   goToIndex = (index, direction = 1) => {
+    this.animate();
     this.setState({ imageIndex: index });
     this.material.uniforms.nextImage.value = this.sliderImages[index];
     this.material.uniforms.nextImage.needsUpdate = true;
@@ -262,7 +269,7 @@ const SliderCanvasWrapper = styled.div`
 const SliderImage = styled.img`
   position: absolute;
   pointer-events: none;
-  visibility: hidden;
+  opacity: 0.001;
   width: 100%;
   display: block;
 `;
