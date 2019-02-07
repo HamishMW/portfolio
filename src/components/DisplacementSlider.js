@@ -235,6 +235,8 @@ export default class DispalcementSlider extends React.Component {
               key={image.src}
               onClick={() => this.onNavClick(index)}
               active={index === imageIndex}
+              aria-label={`Slide ${index + 1}`}
+              aria-pressed={index === imageIndex}
             />
           ))}
         </SliderNav>
