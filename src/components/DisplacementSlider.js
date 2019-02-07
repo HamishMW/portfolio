@@ -97,8 +97,6 @@ export default class DispalcementSlider extends React.Component {
   componentWillUnmount() {
     this.animating = false;
     cancelAnimationFrame(this.animate);
-    window.removeEventListener('resize', this.onWindowResize);
-    window.removeEventListener('mousemove', this.onMouseMove);
     this.scene.remove(this.imagePlane);
     this.imagePlane.geometry.dispose();
     this.imagePlane.material.dispose();
@@ -134,7 +132,7 @@ export default class DispalcementSlider extends React.Component {
       vertexShader: vertex,
       fragmentShader: fragment,
       transparent: false,
-      opacity: 1.0
+      opacity: 1.0,
     });
 
     this.geometry = new PlaneBufferGeometry(
@@ -225,6 +223,7 @@ export default class DispalcementSlider extends React.Component {
   render() {
     const { imageIndex } = this.state;
     const { images } = this.props;
+    const currentImage = images[imageIndex];
 
     return (
       <Swipe
@@ -233,9 +232,7 @@ export default class DispalcementSlider extends React.Component {
         onSwipeLeft={this.nextImage}
       >
         <SliderContainer>
-          {images.map((image, index) => (
-            index === imageIndex && <SliderImage key={image.src} src={image.src} alt={image.alt} />
-          ))}
+          <SliderImage src={currentImage.src} alt={currentImage.alt} />
           <SliderCanvasWrapper ref={this.container} />
           <SliderButton
             left
