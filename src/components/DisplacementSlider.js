@@ -87,12 +87,29 @@ export default class DispalcementSlider extends React.Component {
     this.camera.position.z = 1;
     this.sliderImages = this.loadImages(images);
     this.addObjects(this.sliderImages);
-    this.animate();
     this.renderer.domElement.style.width = '100%';
     this.renderer.domElement.style.height = 'auto';
     this.renderer.domElement.setAttribute('aria-hidden', true);
     this.animating = true;
     this.goToIndex(0, 1);
+  }
+
+  componentWillUnmount() {
+    this.animating = false;
+    cancelAnimationFrame(this.animate);
+    window.removeEventListener('resize', this.onWindowResize);
+    window.removeEventListener('mousemove', this.onMouseMove);
+    this.scene.remove(this.imagePlane);
+    this.imagePlane.geometry.dispose();
+    this.imagePlane.material.dispose();
+    this.geometry.dispose();
+    this.material.dispose();
+    this.renderer.dispose();
+    this.renderer.forceContextLoss();
+    this.scene = null;
+    this.camera = null;
+    this.renderer.context = null;
+    this.renderer.domElement = null;
   }
 
   loadImages = (images) => {
@@ -120,20 +137,19 @@ export default class DispalcementSlider extends React.Component {
       opacity: 1.0
     });
 
-    const geometry = new PlaneBufferGeometry(
+    this.geometry = new PlaneBufferGeometry(
       this.container.current.offsetWidth,
       this.container.current.offsetHeight,
       1
     );
 
-    const object = new Mesh(geometry, this.material);
-    object.position.set(0, 0, 0);
-    this.scene.add(object);
+    this.imagePlane = new Mesh(this.geometry, this.material);
+    this.imagePlane.position.set(0, 0, 0);
+    this.scene.add(this.imagePlane);
   }
 
   animate = () => {
     if (this.animating) {
-      console.count('frame')
       requestAnimationFrame(this.animate);
       this.renderer.render(this.scene, this.camera);
     }
