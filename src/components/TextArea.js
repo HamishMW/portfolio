@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
+import React, { useRef, useEffect } from 'react';
 import autosize from 'autosize';
 
-export default class TextArea extends Component {
-  componentDidMount() {
-    autosize(this.textarea);
-  }
+export default function TextArea(props) {
+  const { className, allowResize, value, ...restProps } = props;
+  const textArea = useRef();
 
-  render() {
-    const { className, allowResize, ...props } = this.props;
+  useEffect(() => {
+    autosize(textArea.current);
+  }, []);
 
-    return (
-      <textarea
-        {...props}
-        ref={node => this.textarea = node}
-        className={className}
-        style={{ resize: allowResize ? null : 'none' }}
-      />
-    );
-  }
+  return (
+    <textarea
+      {...restProps}
+      ref={textArea}
+      className={className}
+      value={value}
+      style={{ resize: allowResize ? null : 'none' }}
+    />
+  );
 }

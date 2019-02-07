@@ -1,16 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 
-export default class ProgressiveImage extends PureComponent {
-  state = {
-    loaded: false,
-  };
+export default function ProgressiveImage(props) {
+  const { placeholder, className, style, srcSet, visible, ...restProps } = props;
+  const [loaded, setLoaded] = useState();
 
-  onLoad = () => {
-    this.setState({ loaded: true });
+  const onLoad = () => {
+    setLoaded(true);
   }
 
-  getSrcSet = (visible, srcSet) => {
+  const getSrcSet = (visible, srcSet) => {
     const lazyLoad = typeof visible !== 'undefined';
 
     if (lazyLoad && !visible) {
@@ -24,29 +23,25 @@ export default class ProgressiveImage extends PureComponent {
     return srcSet;
   }
 
-  render() {
-    const { placeholder, className, style, srcSet, visible, ...props } = this.props;
-    const { loaded } = this.state;
-    const actualSrcSet = this.getSrcSet(visible, srcSet);
+  const actualSrcSet = getSrcSet(visible, srcSet);
 
-    return (
-      <ImageContainer className={className} style={style}>
-        <ImageActual
-          onLoad={this.onLoad}
-          decoding="async"
-          loaded={loaded}
-          srcSet={actualSrcSet}
-          {...props}
-        />
-        <ImagePlaceholder
-          loaded={loaded}
-          src={placeholder}
-          alt=""
-          role="presentation"
-        />
-      </ImageContainer>
-    )
-  }
+  return (
+    <ImageContainer className={className} style={style}>
+      <ImageActual
+        onLoad={onLoad}
+        decoding="async"
+        loaded={loaded}
+        srcSet={actualSrcSet}
+        {...restProps}
+      />
+      <ImagePlaceholder
+        loaded={loaded}
+        src={placeholder}
+        alt=""
+        role="presentation"
+      />
+    </ImageContainer>
+  )
 }
 
 const ImageContainer = styled.div`

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Media, AnimFade, ColorTint } from '../utils/StyleUtils';
 import ProgressiveImage from '../components/ProgressiveImage';
@@ -7,47 +7,36 @@ import { LinkButton } from '../components/Button';
 const initDelay = 300;
 const prerender = navigator.userAgent === 'ReactSnap';
 
-export class ProjectBackground extends React.Component {
-  constructor(props) {
-    super(props);
+export function ProjectBackground(props) {
+  const [offset, setOffset] = useState();
+  let scheduledAnimationFrame = false;
+  let lastScrollY = false;
 
-    this.state = {
-      offset: 0,
-    }
-
-    this.scheduledAnimationFrame = false;
-    this.lastScrollY = 0;
-  }
-
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll = () => {
-    this.lastScrollY = window.scrollY;
-    if (this.scheduledAnimationFrame) return;
-    this.scheduledAnimationFrame = true;
+  const handleScroll = () => {
+    lastScrollY = window.scrollY;
+    if (scheduledAnimationFrame) return;
+    scheduledAnimationFrame = true;
 
     requestAnimationFrame(() => {
-      this.setState({ offset: this.lastScrollY * 0.4 });
-      this.scheduledAnimationFrame = false;
+      setOffset(lastScrollY * 0.4);
+      scheduledAnimationFrame = false;
     });
   }
 
-  render() {
-    const { offset } = this.state;
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
 
-    return (
-      <ProjectBackgroundImage
-        offset={offset}
-        {...this.props}
-      />
-    );
-  }
+    return function cleanUp() {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+
+  return (
+    <ProjectBackgroundImage
+      offset={offset}
+      {...props}
+    />
+  );
 }
 
 export const ProjectHeader = ({ title, description, linkLabel, url, roles }) => (

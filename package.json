@@ -14,8 +14,8 @@
     "es6-tween": "^5.3.1",
     "intersection-observer": "^0.5.1",
     "ios-inner-height": "^1.1.0",
-    "react": "^16.8.0-alpha.1",
-    "react-dom": "^16.8.0-alpha.1",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-easy-swipe": "^0.0.17",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^4.3.1",
@@ -39,7 +39,8 @@
     "crawl": true,
     "include": [
       "/projects/smart-sparrow",
-      "/projects/slice"
+      "/projects/slice",
+      "/projects/volkihar-knight"
     ]
   },
   "browserslist": [
