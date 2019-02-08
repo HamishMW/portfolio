@@ -50,6 +50,7 @@ export default class DecoderText extends PureComponent {
   }
 
   componentWillUnmount() {
+    cancelAnimationFrame(this.anim);
     clearTimeout(this.timeout);
     this.stop();
   }

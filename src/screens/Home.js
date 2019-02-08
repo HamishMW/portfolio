@@ -22,6 +22,7 @@ const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
 
 export default function Home(props) {
   const { status, location } = props;
+  const { hash } = location;
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   const [visibleSections, setVisibleSections] = useState([]);
@@ -45,7 +46,6 @@ export default function Home(props) {
 
     initializeObservers();
     switchDiscipline();
-    initScrollPosition();
 
     return function cleanUp() {
       if (sphere) sphere.remove();
@@ -54,16 +54,17 @@ export default function Home(props) {
   }, []);
 
   useEffect(() => {
-    const { hash } = location;
-    handleHashchange(hash, true);
+    if (status === 'entered') {
+      handleHashchange(hash, true);
+    }
   }, [location.key]);
 
-  const initScrollPosition = () => {
-    const { hash } = location;
+  useEffect(() => {
+    initScrollPosition();
+  }, [status]);
 
-    if (status !== 'entered') {
-      requestAnimationFrame(initScrollPosition);
-    } else if (hash && status === 'entered') {
+  const initScrollPosition = () => {
+    if (hash && status === 'entered') {
       handleHashchange(hash, false);
     } else if (status === 'entered') {
       window.scrollTo(0, 0);
@@ -123,7 +124,10 @@ export default function Home(props) {
     <React.Fragment>
       <Helmet
         title="Hamish Williams | Designer"
-        meta={[{ name: 'description', content: "Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design.", }]}
+        meta={[{
+          name: 'description',
+          content: "Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design.",
+        }]}
       />
       <Intro
         id="intro"
