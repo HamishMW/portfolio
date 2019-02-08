@@ -4,6 +4,7 @@
   "homepage": "https://hamishw.com",
   "private": true,
   "devDependencies": {
+    "eslint-plugin-react-hooks": "^1.0.1",
     "react-scripts": "2.1.2",
     "react-snap": "1.23.0"
   },

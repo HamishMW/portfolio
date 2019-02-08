@@ -9,22 +9,12 @@ import phone from '../assets/phone.png';
 import phoneLarge from '../assets/phone-large.png';
 import phonePlaceholder from '../assets/phone-placeholder.png';
 
-const ProjectItem = ({
-  id,
-  tabIndex,
-  visible,
-  sectionRef,
-  index,
-  title,
-  description,
-  imageSrc,
-  imageAlt,
-  imageType,
-  imagePlaceholder,
-  buttonText,
-  buttonLink,
-  buttonTo,
-}) => {
+const ProjectItem = React.memo(function ProjectItem(props) {
+  const {
+    id, tabIndex, visible, sectionRef, index, title, description, imageSrc,
+    imageAlt, imageType, imagePlaceholder, buttonText, buttonLink, buttonTo,
+  } = props;
+
   return (
     <ProjectItemSection index={index} ref={sectionRef} id={id} tabIndex={tabIndex}>
       <ProjectItemContent>
@@ -96,7 +86,7 @@ const ProjectItem = ({
       </ProjectItemContent>
     </ProjectItemSection>
   );
-}
+});
 
 const ProjectItemContent = styled.div`
   width: 100%;

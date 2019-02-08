@@ -6,15 +6,12 @@ import DecoderText from '../components/DecoderText';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
-const Intro = ({
-  id,
-  sectionRef,
-  threeCanvas,
-  disciplines,
-  disciplineIndex,
-  hideScrollIndicator,
-  backgroundLoaded,
-}) => {
+const Intro = React.memo(function Intro(props) {
+  const {
+    id, sectionRef, threeCanvas, disciplines, disciplineIndex,
+    scrollIndicatorHidden, backgroundLoaded,
+  } = props;
+
   return (
     <IntroContent ref={sectionRef} id={id}>
       <Transition
@@ -60,14 +57,14 @@ const Intro = ({
                 </TransitionGroup>
               </IntroTitle>
             </IntroText>
-            <ScrollIndicator isHidden={hideScrollIndicator} status={appearStatus} />
+            <ScrollIndicator isHidden={scrollIndicatorHidden} status={appearStatus} />
 
           </React.Fragment>
         )}
       </Transition>
     </IntroContent>
   );
-}
+});
 
 const IntroContent = styled.section`
   height: 100vh;

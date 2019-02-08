@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from "react-helmet";
 import 'intersection-observer';
 import Intro from '../screens/Intro';
@@ -20,75 +20,62 @@ import sliceProjectPlaceholder from '../assets/slice-project-placeholder.png';
 
 const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
+export default function Home(props) {
+  const { status, location } = props;
+  const [disciplineIndex, setDisciplineIndex] = useState(0);
+  const [backgroundLoaded, setBackgroundLoaded] = useState(false);
+  const [visibleSections, setVisibleSections] = useState([]);
+  const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
+  const threeCanvas = useRef();
+  const intro = useRef();
+  const projectOne = useRef();
+  const projectTwo = useRef();
+  const projectThree = useRef();
+  const details = useRef();
+  const revealSections = [intro, projectOne, projectTwo, projectThree, details];
+  let disciplineInterval;
+  let sphere;
 
-    this.state = {
-      disciplineIndex: 0,
-      backgroundLoaded: false,
-      visibleSections: [],
-      hideScrollIndicator: false,
-    }
-  }
-
-  componentDidMount() {
-    const threeCanvas = this.threeCanvas;
-
-    this.revealSections = [
-      this.intro,
-      this.projectOne,
-      this.projectTwo,
-      this.projectThree,
-      this.details,
-    ];
-
+  useEffect(() => {
     import('../components/DisplacementSphere').then(DisplacementSphere => {
-      this.setState({ backgroundLoaded: true });
-      this.sphere = new DisplacementSphere.default(threeCanvas);
-      requestAnimationFrame(() => this.sphere.init());
+      setBackgroundLoaded(true);
+      sphere = new DisplacementSphere.default(threeCanvas.current);
+      requestAnimationFrame(() => sphere.init());
     });
 
-    this.initializeObservers();
-    this.switchDiscipline();
-    this.initScrollPosition();
-  }
+    initializeObservers();
+    switchDiscipline();
+    initScrollPosition();
 
-  initScrollPosition = () => {
-    const { status, location } = this.props;
+    return function cleanUp() {
+      if (sphere) sphere.remove();
+      clearInterval(disciplineInterval);
+    }
+  }, []);
+
+  useEffect(() => {
+    const { hash } = location;
+    handleHashchange(hash, true);
+  }, [location.key]);
+
+  const initScrollPosition = () => {
     const { hash } = location;
 
     if (status !== 'entered') {
-      requestAnimationFrame(this.initScrollPosition);
+      requestAnimationFrame(initScrollPosition);
     } else if (hash && status === 'entered') {
-      this.handleHashchange(hash, false);
+      handleHashchange(hash, false);
     } else if (status === 'entered') {
       window.scrollTo(0, 0);
     }
   }
 
-  componentWillUnmount() {
-    this.sphere.remove();
-    clearInterval(this.disciplineInterval);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { key: currentKey } = prevProps.location;
-    const { key: nextKey, hash: nextHash } = this.props.location;
-
-    if (currentKey !== nextKey && prevProps.status === 'entered') {
-      this.handleHashchange(nextHash, true);
-    }
-  }
-
-  initializeObservers = () => {
+  const initializeObservers = () => {
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        const { visibleSections } = this.state;
-
         if (entry.isIntersecting) {
           const section = entry.target;
-          this.setState({ visibleSections: [...visibleSections, section] });
+          setVisibleSections((prevSections) => [...prevSections, section]);
           sectionObserver.unobserve(section);
         }
       });
@@ -97,27 +84,27 @@ export default class Home extends Component {
     const indicatorObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          this.setState({ hideScrollIndicator: false })
+          setScrollIndicatorHidden(false);
         } else {
-          this.setState({ hideScrollIndicator: true })
+          setScrollIndicatorHidden(true);
         }
       });
     }, { rootMargin: "-100% 0px 0px 0px" });
 
-    this.revealSections.forEach((section) => {
-      sectionObserver.observe(section);
+    revealSections.forEach((section) => {
+      sectionObserver.observe(section.current);
     });
 
-    indicatorObserver.observe(this.intro);
+    indicatorObserver.observe(intro.current);
   }
 
-  handleHashchange = (hash, scroll) => {
-    const hashSections = [this.intro, this.projectOne, this.details];
+  const handleHashchange = (hash, scroll) => {
+    const hashSections = [intro, projectOne, details];
     const hashString = hash.replace('#', '');
-    const element = hashSections.filter(item => item.id === hashString)[0];
+    const element = hashSections.filter(item => item.current.id === hashString)[0];
 
     if (element) {
-      element.scrollIntoView({
+      element.current.scrollIntoView({
         behavior: scroll ? 'smooth' : 'instant',
         block: 'start',
         inline: 'nearest',
@@ -125,98 +112,87 @@ export default class Home extends Component {
     }
   }
 
-  switchDiscipline = () => {
-    this.disciplineInterval = setInterval(() => {
-      const { disciplineIndex } = this.state;
+  const switchDiscipline = () => {
+    disciplineInterval = setInterval(() => {
       const index = disciplineIndex >= disciplines.length - 1 ? 0 : disciplineIndex + 1;
-
-      this.setState({
-        disciplineIndex: index,
-      });
+      setDisciplineIndex(index);
     }, 5000);
   }
 
-  render() {
-    const { disciplineIndex, visibleSections, backgroundLoaded, hideScrollIndicator } = this.state;
-
-    return (
-      <React.Fragment>
-        <Helmet>
-          <title>Hamish Williams | Designer</title>
-          <meta
-            name="description"
-            content="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design."
-          />
-        </Helmet>
-        <Intro
-          id="intro"
-          sectionRef={section => this.intro = section}
-          threeCanvas={canvas => this.threeCanvas = canvas}
-          disciplines={disciplines}
-          disciplineIndex={disciplineIndex}
-          hideScrollIndicator={hideScrollIndicator}
-          backgroundLoaded={backgroundLoaded}
-        />
-        <ProjectItem
-          id="projects"
-          tabIndex={0}
-          sectionRef={section => this.projectOne = section}
-          visible={visibleSections.includes(this.projectOne)}
-          index="01"
-          title="Designing the future of education"
-          description="Designing a platfrom to help educators build better online courseware"
-          buttonText="View Project"
-          buttonTo="/projects/smart-sparrow"
-          imageSrc={[`${sprProject} 980w, ${sprProjectLarge} 1376w`]}
-          imageAlt={['Smart Sparrow lesson builder']}
-          imagePlaceholder={[sprProjectPlaceholder]}
-          imageType="laptop"
-        />
-        <ProjectItem
-          tabIndex={0}
-          sectionRef={section => this.projectTwo = section}
-          visible={visibleSections.includes(this.projectTwo)}
-          index="02"
-          title="Video game progress tracking"
-          description="Design and development for a video game tracking app built in React Native"
-          buttonText="View Website"
-          buttonLink="https://gamestackapp.com"
-          imageSrc={[
-            `${gamestackLogin} 254w, ${gamestackLoginLarge} 508w`,
-            `${gamestackList} 254w, ${gamestackListLarge} 508w`,
-          ]}
-          imageAlt={[
-            'App login screen',
-            'List of games being tracked',
-          ]}
-          imagePlaceholder={[
-            gamestackLoginPlaceholder,
-            gamestackListPlaceholder,
-          ]}
-          imageType="phone"
-        />
-        <ProjectItem
-          tabIndex={0}
-          sectionRef={section => this.projectThree = section}
-          visible={visibleSections.includes(this.projectThree)}
-          index="03"
-          title="Biomedical image collaboration"
-          description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
-          buttonText="View Project"
-          buttonTo="/projects/slice"
-          imageSrc={[`${sliceProject} 980w, ${sliceProjectLarge} 1376w`]}
-          imageAlt={['Annotating a biomedical image in the Slice app']}
-          imagePlaceholder={[sliceProjectPlaceholder]}
-          imageType="laptop"
-        />
-        <Profile
-          tabIndex={0}
-          sectionRef={section => this.details = section}
-          visible={visibleSections.includes(this.details)}
-          id="details"
-        />
-        <Footer />
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <Helmet
+        title="Hamish Williams | Designer"
+        meta={[{ name: 'description', content: "Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design.", }]}
+      />
+      <Intro
+        id="intro"
+        sectionRef={intro}
+        threeCanvas={threeCanvas}
+        disciplines={disciplines}
+        disciplineIndex={disciplineIndex}
+        scrollIndicatorHidden={scrollIndicatorHidden}
+        backgroundLoaded={backgroundLoaded}
+      />
+      <ProjectItem
+        id="projects"
+        tabIndex={0}
+        sectionRef={projectOne}
+        visible={visibleSections.includes(projectOne.current)}
+        index="01"
+        title="Designing the future of education"
+        description="Designing a platfrom to help educators build better online courseware"
+        buttonText="View Project"
+        buttonTo="/projects/smart-sparrow"
+        imageSrc={[`${sprProject} 980w, ${sprProjectLarge} 1376w`]}
+        imageAlt={['Smart Sparrow lesson builder']}
+        imagePlaceholder={[sprProjectPlaceholder]}
+        imageType="laptop"
+      />
+      <ProjectItem
+        tabIndex={0}
+        sectionRef={projectTwo}
+        visible={visibleSections.includes(projectTwo.current)}
+        index="02"
+        title="Video game progress tracking"
+        description="Design and development for a video game tracking app built in React Native"
+        buttonText="View Website"
+        buttonLink="https://gamestackapp.com"
+        imageSrc={[
+          `${gamestackLogin} 254w, ${gamestackLoginLarge} 508w`,
+          `${gamestackList} 254w, ${gamestackListLarge} 508w`,
+        ]}
+        imageAlt={[
+          'App login screen',
+          'List of games being tracked',
+        ]}
+        imagePlaceholder={[
+          gamestackLoginPlaceholder,
+          gamestackListPlaceholder,
+        ]}
+        imageType="phone"
+      />
+      <ProjectItem
+        tabIndex={0}
+        sectionRef={projectThree}
+        visible={visibleSections.includes(projectThree.current)}
+        index="03"
+        title="Biomedical image collaboration"
+        description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
+        buttonText="View Project"
+        buttonTo="/projects/slice"
+        imageSrc={[`${sliceProject} 980w, ${sliceProjectLarge} 1376w`]}
+        imageAlt={['Annotating a biomedical image in the Slice app']}
+        imagePlaceholder={[sliceProjectPlaceholder]}
+        imageType="laptop"
+      />
+      <Profile
+        tabIndex={0}
+        sectionRef={details}
+        visible={visibleSections.includes(details.current)}
+        id="details"
+      />
+      <Footer />
+    </React.Fragment>
+  );
+};

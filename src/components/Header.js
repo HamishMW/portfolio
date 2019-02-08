@@ -34,56 +34,60 @@ const HeaderIcons = ({ toggleMenu }) => (
   </HeaderNavIcons>
 );
 
-const Header = withTheme(({ menuOpen, toggleMenu, theme }) => (
-  <HeaderWrapper role="banner">
-    <Transition
-      in={menuOpen}
-      timeout={{ enter: 5, exit: 500 }}
-      mountOnEnter
-      unmountOnExit
-    >
-      {status => (
-        <HeaderMobileNav status={status}>
-          <HeaderMobileNavLink
-            delay={250}
-            status={status}
-            onClick={toggleMenu}
-            to="/#intro"
-          >
-            Intro
+const Header = React.memo(withTheme(function Header(props) {
+  const { menuOpen, toggleMenu, theme } = props;
+
+  return (
+    <HeaderWrapper role="banner">
+      <Transition
+        in={menuOpen}
+        timeout={{ enter: 5, exit: 500 }}
+        mountOnEnter
+        unmountOnExit
+      >
+        {status => (
+          <HeaderMobileNav status={status}>
+            <HeaderMobileNavLink
+              delay={250}
+              status={status}
+              onClick={toggleMenu}
+              to="/#intro"
+            >
+              Intro
           </HeaderMobileNavLink>
-          <HeaderMobileNavLink
-            delay={300}
-            status={status}
-            onClick={toggleMenu}
-            to="/#projects"
-          >
-            Projects
+            <HeaderMobileNavLink
+              delay={300}
+              status={status}
+              onClick={toggleMenu}
+              to="/#projects"
+            >
+              Projects
           </HeaderMobileNavLink>
-          <HeaderMobileNavLink
-            delay={350}
-            status={status}
-            onClick={toggleMenu}
-            to="/#details"
-          >
-            Details
+            <HeaderMobileNavLink
+              delay={350}
+              status={status}
+              onClick={toggleMenu}
+              to="/#details"
+            >
+              Details
           </HeaderMobileNavLink>
-          <HeaderIcons toggleMenu={toggleMenu} />
-        </HeaderMobileNav>
-      )}
-    </Transition>
-    <HeaderLogo to="/#intro" aria-label="Back to home">
-      <Monogram highlight={theme.colorPrimary(1)} />
-    </HeaderLogo>
-    <HeaderNav role="navigation">
-      <HeaderNavList>
-        <HeaderNavLink to="/#projects">Projects</HeaderNavLink>
-        <HeaderNavLink to="/#details">Details</HeaderNavLink>
-      </HeaderNavList>
-      <HeaderIcons />
-    </HeaderNav>
-  </HeaderWrapper>
-));
+            <HeaderIcons toggleMenu={toggleMenu} />
+          </HeaderMobileNav>
+        )}
+      </Transition>
+      <HeaderLogo to="/#intro" aria-label="Back to home">
+        <Monogram highlight={theme.colorPrimary(1)} />
+      </HeaderLogo>
+      <HeaderNav role="navigation">
+        <HeaderNavList>
+          <HeaderNavLink to="/#projects">Projects</HeaderNavLink>
+          <HeaderNavLink to="/#details">Details</HeaderNavLink>
+        </HeaderNavList>
+        <HeaderIcons />
+      </HeaderNav>
+    </HeaderWrapper>
+  );
+}));
 
 const HeaderWrapper = styled.header`
   display: flex;

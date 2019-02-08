@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet';
@@ -12,140 +12,136 @@ import ScrollToTop from '../utils/ScrollToTop';
 const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
 
-export default class Contact extends PureComponent {
-  state = {
-    emailValue: '',
-    messageValue: '',
-    sending: false,
-    complete: false,
+export default React.memo(function Contact(props) {
+  const { status } = props;
+  const [emailValue, setEmailValue] = useState('');
+  const [messageValue, setMessageValue] = useState('');
+  const [sending, setSending] = useState(false);
+  const [complete, setComplete] = useState(false);
+
+  const updateEmail = event => {
+    setEmailValue(event.target.value);
   }
 
-  updateEmail = event => {
-    this.setState({ emailValue: event.target.value });
+  const updateMessage = event => {
+    setMessageValue(event.target.value);
   }
 
-  updateMessage = event => {
-    this.setState({ messageValue: event.target.value });
-  }
-
-  onSubmit = event => {
-    const { emailValue, messageValue, sending } = this.state;
+  const onSubmit = async event => {
     event.preventDefault();
+    if (sending) return;
 
-    if (!sending) {
-      this.setState({ sending: true });
+    try {
+      setSending(true);
 
-      Firebase.database().ref('messages').push({
+      await Firebase.database().ref('messages').push({
         email: emailValue,
         message: messageValue,
-      }).then(() => {
-        this.setState({ complete: true, sending: false });
-      }).catch((error) => {
-        this.setState({ sending: false });
-        alert(error);
       });
+
+      setComplete(true);
+      setSending(false);
+    } catch (error) {
+      setSending(false);
+      alert(error);
     }
   }
 
-  render() {
-    const { status } = this.props;
-    const { emailValue, messageValue, sending, complete } = this.state;
+  return (
+    <ContactWrapper>
+      <ScrollToTop status={status} />
+      <Helmet>
+        <title>Contact me</title>
+        <meta
+          name="description"
+          content="Send me a message if you're interested in discussing a project or if you just want to say hi"
+        />
+      </Helmet>
+      <TransitionGroup component={React.Fragment}>
+        {!complete &&
+          <Transition appear timeout={1600} mountOnEnter unmountOnExit>
+            {status => (
+              <ContactForm method="post" onSubmit={onSubmit} role="form">
+                <ContactTitle status={status} delay={50}>
+                  <DecoderText
+                    text="Say hello"
+                    start={status === 'entering' && !prerender}
+                    offset={140}
+                  />
+                </ContactTitle>
+                <ContactDivider status={status} delay={100} />
+                <ContactInput
+                  status={status}
+                  delay={200}
+                  onChange={updateEmail}
+                  autoComplete="email"
+                  label="Your Email"
+                  id="email"
+                  type="email"
+                  hasValue={!!emailValue}
+                  value={emailValue}
+                  maxLength={320}
+                  required
+                />
+                <ContactInput
+                  status={status}
+                  delay={300}
+                  onChange={updateMessage}
+                  autoComplete="off"
+                  label="Message"
+                  id="message"
+                  hasValue={!!messageValue}
+                  value={messageValue}
+                  maxLength={2000}
+                  required
+                  multiline
+                />
+                <ContactButton
+                  disabled={sending}
+                  sending={sending}
+                  loading={sending}
+                  status={status}
+                  delay={400}
+                  icon="send"
+                  type="submit"
+                >
+                  Send Message
+                </ContactButton>
+              </ContactForm>
+            )}
+          </Transition>
+        }
+        {complete &&
+          <Transition appear timeout={10} mountOnEnter unmountOnExit>
+            {status => (
+              <ContactComplete>
+                <ContactCompleteTitle
+                  status={status}
+                  delay={10}
+                >
+                  Message Sent
+                </ContactCompleteTitle>
+                <ContactCompleteText status={status} delay={200}>
+                  I'll get back to you within a couple days, sit tight
+                </ContactCompleteText>
+                <ContactCompleteButton
+                  secondary
+                  to="/"
+                  status={status}
+                  delay={400}
+                  icon="chevronRight"
+                >
+                  Back to homepage
+                </ContactCompleteButton>
+              </ContactComplete>
+            )}
+          </Transition>
+        }
+      </TransitionGroup>
+    </ContactWrapper>
+  );
+});
 
-    return (
-      <ContactWrapper>
-        <ScrollToTop status={status} />
-        <Helmet>
-          <title>Contact me</title>
-          <meta
-            name="description"
-            content="Send me a message if you're interested in discussing a project or if you just want to say hi"
-          />
-        </Helmet>
-        <TransitionGroup component={React.Fragment}>
-          {!complete &&
-            <Transition appear timeout={1600} mountOnEnter unmountOnExit>
-              {status => (
-                <ContactForm method="post" onSubmit={this.onSubmit} role="form">
-                  <ContactTitle status={status} delay={50}>
-                    <DecoderText
-                      text="Say hello"
-                      start={status === 'entering' && !prerender}
-                      offset={140}
-                    />
-                  </ContactTitle>
-                  <ContactDivider status={status} delay={100} />
-                  <ContactInput
-                    status={status}
-                    delay={200}
-                    onChange={this.updateEmail}
-                    autoComplete="email"
-                    label="Your Email"
-                    id="email"
-                    type="email"
-                    hasValue={!!emailValue}
-                    value={emailValue}
-                    maxLength={320}
-                    required
-                  />
-                  <ContactInput
-                    status={status}
-                    delay={300}
-                    onChange={this.updateMessage}
-                    autoComplete="off"
-                    label="Message"
-                    id="message"
-                    hasValue={!!messageValue}
-                    value={messageValue}
-                    maxLength={2000}
-                    required
-                    multiline
-                  />
-                  <ContactButton
-                    disabled={sending}
-                    sending={sending}
-                    loading={sending}
-                    status={status}
-                    delay={400}
-                    icon="send"
-                    type="submit"
-                  >
-                    Send Message
-                  </ContactButton>
-                </ContactForm>
-              )}
-            </Transition>
-          }
-          {complete &&
-            <Transition appear timeout={10} mountOnEnter unmountOnExit>
-              {status => (
-                <ContactComplete>
-                  <ContactCompleteTitle
-                    status={status}
-                    delay={10}
-                  >
-                    Message Sent
-                  </ContactCompleteTitle>
-                  <ContactCompleteText status={status} delay={200}>
-                    I'll get back to you within a couple days, sit tight
-                  </ContactCompleteText>
-                  <ContactCompleteButton
-                    secondary
-                    to="/"
-                    status={status}
-                    delay={400}
-                    icon="chevronRight"
-                  >
-                    Back to homepage
-                  </ContactCompleteButton>
-                </ContactComplete>
-              )}
-            </Transition>
-          }
-        </TransitionGroup>
-      </ContactWrapper>
-    );
-  }
-}
 
 const ContactWrapper = styled.section`
   display: flex;

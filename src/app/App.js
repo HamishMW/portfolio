@@ -16,7 +16,7 @@ const Home = asyncComponent(props => import("../screens/Home"));
 const Contact = asyncComponent(props => import("../screens/Contact"));
 const ProjectSPR = asyncComponent(props => import("../screens/ProjectSPR"));
 const ProjectSlice = asyncComponent(props => import("../screens/ProjectSlice"));
-const ProjectVolkiharKnight = asyncComponent(props => import("../screens/ProjectVolkiharKnight"));
+const ProjectVolkihar = asyncComponent(props => import("../screens/ProjectVolkihar"));
 const NotFound = asyncComponent(props => import("../screens/NotFound"));
 
 const consoleMessage = `
@@ -103,7 +103,7 @@ class App extends Component {
                         <Route path="/contact" render={props => <Contact {...props} status={status} />} />
                         <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />} />
                         <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />} />
-                        <Route path="/projects/volkihar-knight" render={props => <ProjectVolkiharKnight {...props} status={status} setTheme={this.setTheme} />} />
+                        <Route path="/projects/volkihar-knight" render={props => <ProjectVolkihar {...props} status={status} setTheme={this.setTheme} />} />
                         <Route render={props => <NotFound {...props} status={status} />} />
                       </Switch>
                     </MainContent>
