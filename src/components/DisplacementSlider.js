@@ -191,6 +191,8 @@ export default function DispalcementSlider(props) {
   }
 
   const nextImage = () => {
+    if (!loaded) return;
+
     if (animating.current) {
       cancelAnimationFrame(scheduledAnimationFrame.current);
       scheduledAnimationFrame.current = requestAnimationFrame(nextImage);
@@ -206,6 +208,8 @@ export default function DispalcementSlider(props) {
   }
 
   const prevImage = () => {
+    if (!loaded) return;
+
     if (animating.current) {
       cancelAnimationFrame(scheduledAnimationFrame.current);
       scheduledAnimationFrame.current = requestAnimationFrame(prevImage);
@@ -241,6 +245,8 @@ export default function DispalcementSlider(props) {
   }
 
   const onNavClick = (index) => {
+    if (!loaded) return;
+
     if (animating.current) {
       cancelAnimationFrame(scheduledAnimationFrame.current);
       scheduledAnimationFrame.current = requestAnimationFrame(() => onNavClick(index));
