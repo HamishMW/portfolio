@@ -18,6 +18,9 @@ import volkiharBannerLarge from '../assets/volkihar-banner-large.jpg';
 import volkiharBannerPlaceholder from '../assets/volkihar-banner-placeholder.jpg';
 import volkiharArmor from '../assets/volkihar-armor.png';
 import volkiharArmorLarge from '../assets/volkihar-armor-large.png';
+import volkiharBook from '../assets/volkihar-book.png';
+import volkiharBookLarge from '../assets/volkihar-book-large.png';
+import volkiharBookPlaceholder from '../assets/volkihar-book-placeholder.png';
 import volkiharArmorPlaceholder from '../assets/volkihar-armor-placeholder.png';
 import volkiharSlide1 from '../assets/volkihar-slide-1.jpg';
 import volkiharSlide1Large from '../assets/volkihar-slide-1-large.jpg';
@@ -84,6 +87,16 @@ export default function ProjectVolkihar(props) {
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
+          <ProjectSectionContent>
+            <ProgressiveImage
+              srcSet={`${volkiharBook} 480w, ${volkiharBookLarge} 960w`}
+              placeholder={volkiharBookPlaceholder}
+              alt="A book containing a sketch depicting the logo and armor"
+              sizes={`(max-width: ${Media.mobile}) 90vw, (max-width: ${Media.tablet}) 80vw, 70vw`}
+            />
+          </ProjectSectionContent>
+        </ProjectSection>
+        <ProjectSection>
           <ProjectSectionColumns>
             <ProgressiveImage
               srcSet={`${volkiharArmor} 400w, ${volkiharArmorLarge} 800w`}
@@ -103,7 +116,7 @@ export default function ProjectVolkihar(props) {
           </ProjectSectionColumns>
         </ProjectSection>
         <ProjectSection>
-          <ProjectSectionColumn>
+          <ProjectSectionSlider>
             <DisplacementSlider
               placeholder={volkiharSlidePlaceholder}
               images={[
@@ -126,7 +139,7 @@ export default function ProjectVolkihar(props) {
               width={1920}
               height={1080}
             />
-          </ProjectSectionColumn>
+          </ProjectSectionSlider>
         </ProjectSection>
       </ProjectContainer>
       <Footer />
@@ -134,26 +147,21 @@ export default function ProjectVolkihar(props) {
   );
 }
 
-const ProjectSectionColumn = styled(ProjectSectionContent)`
+const ProjectSectionSlider = styled(ProjectSectionContent)`
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 70px;
-  margin: 20px 0 60px;
-
-  @media (max-width: ${Media.tablet}) {
-    margin: 0 0 60px;
-  }
+  margin: 0;
 `;
 
 const ProjectSectionColumns = styled(ProjectSectionContent)`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 70px;
-  margin: 20px 0 60px;
+  margin: 0;
 
   @media (max-width: ${Media.tablet}) {
     grid-template-columns: 1fr;
-    margin: 0 0 60px;
   }
 `;
 

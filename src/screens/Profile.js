@@ -16,7 +16,7 @@ const ModLink = 'https://www.nexusmods.com/skyrimspecialedition/mods/4806/';
 
 const ProfileText = ({ status }) => (
   <React.Fragment>
-    <ProfileTitle aria-label="Hi there">
+    <ProfileTitle aria-label="Hi there" status={status}>
       <DecoderText
         text="Hi there"
         start={status === 'entering'}
@@ -32,12 +32,10 @@ const ProfileText = ({ status }) => (
   </React.Fragment>
 );
 
-const Profile = ({
-  id,
-  tabIndex,
-  visible,
-  sectionRef,
-}) => (
+const Profile = React.memo((props) => {
+  const { id, tabIndex, visible, sectionRef} = props;
+
+  return (
     <ProfileSection id={id} ref={sectionRef} tabIndex={tabIndex}>
       <Transition in={visible} timeout={0}>
         {status => (
@@ -75,6 +73,7 @@ const Profile = ({
       </Transition>
     </ProfileSection>
   );
+});
 
 const ProfileSection = styled.section`
   width: 100vw;
@@ -154,6 +153,12 @@ const ProfileTitle = styled.h2`
   font-weight: 500;
   margin-bottom: 40px;
   white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.4s;
+
+  ${props => props.status === 'entered' && css`
+    opacity: 1;
+  `}
 `;
 
 const ProfileDescription = styled.p`
@@ -162,7 +167,7 @@ const ProfileDescription = styled.p`
   margin: 0;
   margin-bottom: 30px;
   opacity: 0;
-  transition: opacity 0.8s ease 0.2s;
+  transition: opacity 0.8s ease 0.6s;
 
   ${props => props.status === 'entered' && css`
     opacity: 1;

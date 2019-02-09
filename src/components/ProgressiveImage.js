@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
+import 'intersection-observer';
 
 const ProgressiveImage = React.memo((props) => {
   const { placeholder, className, style, srcSet, ...restProps } = props;

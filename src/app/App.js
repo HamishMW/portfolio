@@ -1,4 +1,4 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components/macro';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import { Transition, TransitionGroup } from 'react-transition-group';
@@ -44,80 +44,73 @@ const fontStyles = `
   }
 `;
 
-class App extends Component {
-  state = {
-    menuOpen: false,
-    theme: Theme,
-  }
+function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState(Theme);
 
-  componentDidMount() {
+  useEffect(() => {
     console.info(consoleMessage);
     window.history.scrollRestoration = 'manual';
+  }, []);
+
+  const setTheme = (overrides) => {
+    setCurrentTheme({ ...Theme, ...overrides });
   }
 
-  setTheme = (overrides) => {
-    this.setState({ theme: { ...Theme, ...overrides } });
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   }
 
-  toggleMenu = () => {
-    const { menuOpen } = this.state;
-    this.setState({ menuOpen: !menuOpen });
-  }
-
-  setBodyOverflow = state => {
+  const setBodyOverflow = state => {
     document.body.style.overflow = state;
   }
 
-  render() {
-    const { menuOpen, theme } = this.state;
-
-    return (
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Route render={({ location }) => (
-            <React.Fragment>
-              <Helmet>
-                <link rel="preload" href={`${GothamBook}`} as="font" crossorigin="crossorigin" />
-                <link rel="preload" href={`${GothamMedium}`} as="font" crossorigin="crossorigin" />
-                <style>{fontStyles}</style>
-              </Helmet>
-              <GlobalStyles />
-              <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
-              <Header toggleMenu={this.toggleMenu} menuOpen={menuOpen} />
-              <NavToggle onClick={this.toggleMenu} menuOpen={menuOpen} />
-              <TransitionGroup component={React.Fragment} >
-                <Transition
-                  key={location.pathname}
-                  timeout={500}
-                  onEnter={this.setBodyOverflow('hidden')}
-                  onExited={this.setBodyOverflow('')}
-                >
-                  {status => (
-                    <MainContent status={status} id="MainContent" role="main">
-                      <Helmet>
-                        <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
-                      </Helmet>
-                      <Suspense fallback={<React.Fragment />}>
-                        <Switch location={location}>
-                          <Route exact path="/" render={props => <Home {...props} status={status} />} />
-                          <Route path="/contact" render={props => <Contact {...props} status={status} />} />
-                          <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />} />
-                          <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />} />
-                          <Route path="/projects/volkihar-knight" render={props => <ProjectVolkihar {...props} status={status} setTheme={this.setTheme} />} />
-                          <Route render={props => <NotFound {...props} status={status} />} />
-                        </Switch>
-                      </Suspense>
-                    </MainContent>
-                  )}
-                </Transition>
-              </TransitionGroup>
-            </React.Fragment>
-          )} />
-        </BrowserRouter>
-      </ThemeProvider>
-    );
-  }
-}
+  return (
+    <ThemeProvider theme={currentTheme}>
+      <BrowserRouter>
+        <Route render={({ location }) => (
+          <React.Fragment>
+            <Helmet>
+              <link rel="preload" href={`${GothamBook}`} as="font" crossorigin="crossorigin" />
+              <link rel="preload" href={`${GothamMedium}`} as="font" crossorigin="crossorigin" />
+              <style>{fontStyles}</style>
+            </Helmet>
+            <GlobalStyles />
+            <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
+            <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
+            <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
+            <TransitionGroup component={React.Fragment} >
+              <Transition
+                key={location.pathname}
+                timeout={500}
+                onEnter={setBodyOverflow('hidden')}
+                onExited={setBodyOverflow('')}
+              >
+                {status => (
+                  <MainContent status={status} id="MainContent" role="main">
+                    <Helmet>
+                      <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
+                    </Helmet>
+                    <Suspense fallback={<React.Fragment />}>
+                      <Switch location={location}>
+                        <Route exact path="/" render={props => <Home {...props} status={status} />} />
+                        <Route path="/contact" render={props => <Contact {...props} status={status} />} />
+                        <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />} />
+                        <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />} />
+                        <Route path="/projects/volkihar-knight" render={props => <ProjectVolkihar {...props} status={status} setTheme={setTheme} />} />
+                        <Route render={props => <NotFound {...props} status={status} />} />
+                      </Switch>
+                    </Suspense>
+                  </MainContent>
+                )}
+              </Transition>
+            </TransitionGroup>
+          </React.Fragment>
+        )} />
+      </BrowserRouter>
+    </ThemeProvider>
+  );
+};
 
 const GlobalStyles = createGlobalStyle`
   html,

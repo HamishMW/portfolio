@@ -1,111 +1,103 @@
-import React, { PureComponent } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 
-export default class DecoderText extends PureComponent {
-  constructor(props) {
-    super(props);
+const chars = [
+  'ア', 'イ', 'ウ', 'エ', 'オ',
+  'カ', 'キ', 'ク', 'ケ', 'コ',
+  'サ', 'シ', 'ス', 'セ', 'ソ',
+  'タ', 'チ', 'ツ', 'テ', 'ト',
+  'ナ', 'ニ', 'ヌ', 'ネ', 'ノ',
+  'ハ', 'ヒ', 'フ', 'ヘ', 'ホ',
+  'マ', 'ミ', 'ム', 'メ', 'モ',
+  'ヤ', 'ユ', 'ヨ', 'ー',
+  'ラ', 'リ', 'ル', 'レ', 'ロ',
+  'ワ', 'ヰ', 'ヱ', 'ヲ', 'ン',
+  'ガ', 'ギ', 'グ', 'ゲ', 'ゴ',
+  'ザ', 'ジ', 'ズ', 'ゼ', 'ゾ',
+  'ダ', 'ヂ', 'ヅ', 'デ', 'ド',
+  'バ', 'ビ', 'ブ', 'ベ', 'ボ',
+  'パ', 'ピ', 'プ', 'ペ', 'ポ',
+];
 
-    const { text, offset = 100 } = this.props;
+const DecoderText = React.memo((props) => {
+  const { text, start, offset = 100, className, style } = props;
+  const [position, setPosition] = useState(0);
+  const [started, setStarted] = useState(false);
+  const [output, setOutput] = useState([{ type: 'code', value: '' }]);
+  const content = useRef(text.split(''));
+  const startTime = useRef(0);
+  const elapsedTime = useRef(0);
+  const running = useRef(false);
+  const fps = useRef(24);
+  const timeout = useRef();
 
-    this.content = text.split('');
-    this.startTime = 0;
-    this.elapsedTime = 0;
-    this.running = false;
-    this.timeOffset = offset;
-    this.fps = 24;
-    this.chars = [
-      'ア', 'イ', 'ウ', 'エ', 'オ',
-      'カ', 'キ', 'ク', 'ケ', 'コ',
-      'サ', 'シ', 'ス', 'セ', 'ソ',
-      'タ', 'チ', 'ツ', 'テ', 'ト',
-      'ナ', 'ニ', 'ヌ', 'ネ', 'ノ',
-      'ハ', 'ヒ', 'フ', 'ヘ', 'ホ',
-      'マ', 'ミ', 'ム', 'メ', 'モ',
-      'ヤ', 'ユ', 'ヨ', 'ー',
-      'ラ', 'リ', 'ル', 'レ', 'ロ',
-      'ワ', 'ヰ', 'ヱ', 'ヲ', 'ン',
-      'ガ', 'ギ', 'グ', 'ゲ', 'ゴ',
-      'ザ', 'ジ', 'ズ', 'ゼ', 'ゾ',
-      'ダ', 'ヂ', 'ヅ', 'デ', 'ド',
-      'バ', 'ビ', 'ブ', 'ベ', 'ボ',
-      'パ', 'ピ', 'プ', 'ペ', 'ポ',
-    ];
+  useEffect(() => {
+    if (start) startTimeout();
 
-    this.state = {
-      position: 0,
-      started: false,
-      output: [{ type: 'code', value: '' }],
+    return function cleanUp() {
+      cancelAnimationFrame(animate);
+      clearTimeout(timeout.current);
+      stop();
     }
+  }, []);
+
+  useEffect(() => {
+    if (start && !started) startTimeout();
+  }, [start]);
+
+  useEffect(() => {
+    if (position > content.current.length) {
+      running.current = false;
+      const finalArray = setValue(content.current);
+      setOutput(finalArray);
+      return;
+    }
+
+    requestAnimationFrame(animate);
+
+    const textArray = shuffle(content.current, chars, position);
+    setOutput(textArray);
+  }, [position]);
+
+  const startTimeout = () => {
+    timeout.current = setTimeout(startAnim, 300);
   }
 
-  componentDidMount() {
-    const { start } = this.props;
-    if (start) this.startTimeout();
+  const startAnim = () => {
+    startTime.current = Date.now();
+    elapsedTime.current = 0;
+    running.current = true;
+    setStarted(true);
+    animate();
   }
 
-  componentDidUpdate() {
-    const { start } = this.props;
-    const { started } = this.state;
-    if (start && !started) this.startTimeout();
-  }
+  const stop = () => running.current = false;
 
-  componentWillUnmount() {
-    cancelAnimationFrame(this.anim);
-    clearTimeout(this.timeout);
-    this.stop();
-  }
+  const animate = () => {
+    const elapsed = Date.now() - startTime.current;
+    const deltaTime = elapsed - elapsedTime.current;
+    const needsUpdate = 1000 / fps.current <= deltaTime;
 
-  startTimeout = () => {
-    this.timeout = setTimeout(() => { this.start() }, 300);
-  }
-
-  start = () => {
-    this.startTime = Date.now();
-    this.elapsedTime = 0;
-    this.running = true;
-    this.setState({ started: true });
-    this.anim();
-  }
-
-  stop = () => this.running = false;
-
-  anim = () => {
-    const { position } = this.state;
-    const elapsedTime = Date.now() - this.startTime;
-    const deltaTime = elapsedTime - this.elapsedTime;
-    const needsUpdate = 1000 / this.fps <= deltaTime;
-
-    if (!this.running) return;
+    if (!running.current) return;
 
     if (!needsUpdate) {
-      requestAnimationFrame(this.anim);
+      requestAnimationFrame(animate);
       return;
     }
 
-    this.elapsedTime = elapsedTime;
-    this.setState({ position: (this.elapsedTime / this.timeOffset) | 0 });
-
-    if (position > this.content.length) {
-      this.running = false;
-      const finalArray = this.setValue(this.content);
-      this.setState({ output: finalArray });
-      return;
-    }
-
-    requestAnimationFrame(this.anim);
-
-    const textArray = this.shuffle(this.content, this.chars, position);
-    this.setState({ output: textArray });
+    elapsedTime.current = elapsed;
+    setPosition(elapsedTime.current / offset);
   }
 
-  setValue = value => {
-    return value.map(value => ({
+  const setValue = value => {
+    const val = value.map(value => ({
       type: 'actual',
       value,
     }));
+    return val
   }
 
-  shuffle = (content, chars, position) => {
+  const shuffle = (content, chars, position) => {
     return content.map((value, index) => {
       if (index < position) {
         return { type: 'actual', value };
@@ -113,12 +105,12 @@ export default class DecoderText extends PureComponent {
 
       return {
         type: 'code',
-        value: this.getRandCharacter(chars),
+        value: getRandCharacter(chars),
       }
     });
   }
 
-  getRandCharacter = chars => {
+  const getRandCharacter = chars => {
     const randNum = Math.floor(Math.random() * chars.length);
     const lowChoice = - .5 + Math.random();
     const picketCharacter = chars[randNum];
@@ -126,30 +118,24 @@ export default class DecoderText extends PureComponent {
     return chosen;
   }
 
-  render() {
-    const { className, style } = this.props;
-    const { output } = this.state;
-
-    return (
-      <DecoderSpan className={className} style={style}>
-        {output.map((item, index) => {
-          if (item.type === 'actual') {
-            return (<span key={`${item.value}_${index}`}>{item.value}</span>)
-          }
-
-          return (
-            <DecoderCode
-              key={`${item.value}_${index}`}
-              aria-hidden="true"
-            >
-              {item.value}
-            </DecoderCode>
-          )
-        })}
-      </DecoderSpan>
-    );
-  }
-}
+  return (
+    <DecoderSpan className={className} style={style}>
+      {output.map((item, index) => {
+        if (item.type === 'actual') {
+          return (<span key={`${item.value}_${index}`}>{item.value}</span>)
+        }
+        return (
+          <DecoderCode
+            key={`${item.value}_${index}`}
+            aria-hidden="true"
+          >
+            {item.value}
+          </DecoderCode>
+        )
+      })}
+    </DecoderSpan>
+  );
+});
 
 const DecoderSpan = styled.span`
   &:after {
@@ -165,3 +151,5 @@ const DecoderCode = styled.span`
   font-family: 'Hiragino Sans', sans-serif;
   line-height: 0;
 `;
+
+export default DecoderText;

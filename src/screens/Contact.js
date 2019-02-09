@@ -48,7 +48,7 @@ export default React.memo((props) => {
   }
 
   return (
-    <ContactWrapper>
+    <ContactWrapper status={status}>
       <ScrollToTop status={status} />
       <Helmet>
         <title>Contact me</title>
@@ -144,6 +144,7 @@ export default React.memo((props) => {
 
 
 const ContactWrapper = styled.section`
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -162,6 +163,10 @@ const ContactWrapper = styled.section`
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     padding-left: 0;
   }
+
+  ${props => (props.status === 'entered' || props.status === 'exiting') && css`
+    position: relative;
+  `}
 `;
 
 const ContactForm = styled.form`

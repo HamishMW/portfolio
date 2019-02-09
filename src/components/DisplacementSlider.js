@@ -4,6 +4,7 @@ import {
   LinearFilter, TextureLoader, PlaneBufferGeometry, LoadingManager
 } from 'three';
 import styled from 'styled-components/macro';
+import 'intersection-observer';
 import { Easing, Tween, autoPlay } from 'es6-tween';
 import Swipe from 'react-easy-swipe';
 import Icon from '../utils/Icon';
@@ -86,15 +87,24 @@ export default function DispalcementSlider(props) {
     return function cleanUp() {
       animating.current = false;
       cancelAnimationFrame(animate);
-      scene.current.remove(imagePlane.current);
-      imagePlane.current.geometry.dispose();
-      imagePlane.current.material.dispose();
-      geometry.current.dispose();
-      material.current.dispose();
       renderer.current.dispose();
       renderer.current.forceContextLoss();
       renderer.current.context = null;
       renderer.current.domElement = null;
+
+      if (imagePlane.current && scene.current) {
+        scene.current.remove(imagePlane.current);
+        imagePlane.current.geometry.dispose();
+        imagePlane.current.material.dispose();
+      }
+
+      if (geometry.current) {
+        geometry.current.dispose();
+      }
+
+      if (material.current) {
+        material.current.dispose();
+      }
     }
   }, []);
 
@@ -233,11 +243,16 @@ export default function DispalcementSlider(props) {
     goToIndex(index, direction);
   }
 
+  const onSwipeMove = () => {
+    return true;
+  }
+
   return (
     <Swipe
       allowMouseEvents
       onSwipeRight={prevImage}
       onSwipeLeft={nextImage}
+      onSwipeMove={onSwipeMove}
     >
       <SliderContainer>
         <SliderImage src={currentImage.src} alt={currentImage.alt} />

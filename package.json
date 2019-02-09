@@ -5,12 +5,12 @@
   "private": true,
   "devDependencies": {
     "eslint-plugin-react-hooks": "^1.0.1",
-    "react-scripts": "2.1.2",
+    "react-scripts": "2.1.3",
     "react-snap": "1.23.0"
   },
   "dependencies": {
-    "@firebase/app": "^0.3.5",
-    "@firebase/database": "^0.3.8",
+    "@firebase/app": "^0.3.8",
+    "@firebase/database": "^0.3.11",
     "autosize": "^4.0.2",
     "es6-tween": "^5.3.1",
     "intersection-observer": "^0.5.1",
@@ -22,7 +22,7 @@
     "react-router-dom": "^4.3.1",
     "react-transition-group": "^2.5.3",
     "styled-components": "^4.1.3",
-    "three": "^0.95.0"
+    "three": "^0.101.1"
   },
   "scripts": {
     "start": "react-scripts start",
