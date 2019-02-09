@@ -10,13 +10,13 @@ import NavToggle from '../components/NavToggle';
 import Theme from '../utils/Theme';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
-
+import NotFound from '../screens/NotFound';
 const Home = lazy(() => import('../screens/Home'));
 const Contact = lazy(() => import('../screens/Contact'));
 const ProjectSPR = lazy(() => import('../screens/ProjectSPR'));
 const ProjectSlice = lazy(() => import('../screens/ProjectSlice'));
 const ProjectVolkihar = lazy(() => import('../screens/ProjectVolkihar'));
-const NotFound = lazy(() => import('../screens/NotFound'));
+// const NotFound = lazy(() => import('../screens/NotFound'));
 
 const prerender = navigator.userAgent === 'ReactSnap';
 

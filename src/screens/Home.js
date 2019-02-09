@@ -18,7 +18,7 @@ import sliceProject from '../assets/slice-project.png';
 import sliceProjectLarge from '../assets/slice-project-large.png';
 import sliceProjectPlaceholder from '../assets/slice-project-placeholder.png';
 
-const disciplines = ['Developer', 'Animator', 'Illustrator', 'Modder'];
+const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
 export default function Home(props) {
   const { status, location } = props;
@@ -31,16 +31,15 @@ export default function Home(props) {
   const projectTwo = useRef();
   const projectThree = useRef();
   const details = useRef();
-  const disciplineInterval = useRef();
+  const disciplineTimeout = useRef();
   const sectionObserver = useRef();
   const indicatorObserver = useRef();
 
   useEffect(() => {
     initializeObservers();
-    switchDiscipline();
 
     return function cleanUp() {
-      clearInterval(disciplineInterval.current);
+      clearTimeout(disciplineTimeout.current);
       if (sectionObserver.current) sectionObserver.current.disconnect();
       if (indicatorObserver.current) indicatorObserver.current.disconnect();
     }
@@ -55,6 +54,13 @@ export default function Home(props) {
   useEffect(() => {
     initScrollPosition();
   }, [status]);
+
+  useEffect(() => {
+    disciplineTimeout.current = setTimeout(() => {
+      const index = disciplineIndex >= disciplines.length - 1 ? 0 : disciplineIndex + 1;
+      setDisciplineIndex(index);
+    }, 5000);
+  }, [disciplineIndex]);
 
   const initScrollPosition = () => {
     if (hash && status === 'entered') {
@@ -106,13 +112,6 @@ export default function Home(props) {
         inline: 'nearest',
       });
     }
-  }
-
-  const switchDiscipline = () => {
-    disciplineInterval.current = setInterval(() => {
-      const index = disciplineIndex >= disciplines.length - 1 ? 0 : disciplineIndex + 1;
-      setDisciplineIndex(index);
-    }, 5000);
   }
 
   return (

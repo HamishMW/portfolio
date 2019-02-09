@@ -8,12 +8,13 @@ const DisplacementSphere = lazy(() => import('../components/DisplacementSphere')
 const prerender = navigator.userAgent === 'ReactSnap';
 
 const Intro = React.memo((props) => {
-  const { id, sectionRef, disciplines, disciplineIndex, scrollIndicatorHidden} = props;
+  const { id, sectionRef, disciplines, disciplineIndex, scrollIndicatorHidden } = props;
+  const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and ');
 
   return (
     <IntroContent ref={sectionRef} id={id}>
       <Transition
-        appear
+        appear={!prerender}
         in={!prerender}
         timeout={3000}
       >
@@ -23,25 +24,22 @@ const Intro = React.memo((props) => {
               <DisplacementSphere />
             </Suspense>
             <IntroText>
-              <IntroName aria-label="Hamish Williams">
+              <IntroName aria-label="Hamish Williams" status={appearStatus}>
                 <DecoderText text="Hamish Williams" start={!prerender} offset={120} />
               </IntroName>
-              <IntroTitle aria-label={`Designer + ${[
-                disciplines.slice(0, -1).join(', '),
-                disciplines.slice(-1)[0],
-              ].join(', and ')}`}>
-                <IntroTitleRow>
+              <IntroTitle aria-label={`Designer + ${introLabel}`}>
+                <IntroTitleRow prerender={prerender}>
                   <IntroTitleWord status={appearStatus} delay="0.2s">Designer</IntroTitleWord>
                   <IntroTitleLine status={appearStatus} />
                 </IntroTitleRow>
-                <TransitionGroup component={IntroTitleRow}>
-                  {!prerender && disciplines.map((item, index) => (
+                <TransitionGroup component={IntroTitleRow} prerender={prerender}>
+                  {disciplines.map((item, index) => (
                     <Transition
                       appear
-                      timeout={{ enter: 3000, exit: 2000 }}
-                      key={`${item}_${index}`}
                       mountOnEnter
                       unmountOnExit
+                      timeout={{ enter: 3000, exit: 2000 }}
+                      key={`${item}_${index}`}
                     >
                       {status => (
                         <IntroTitleWord plus delay="0.5s" status={status}>
@@ -119,7 +117,14 @@ const IntroName = styled.h1`
   font-weight: 500;
   line-height: 1;
   opacity: 0;
-  animation: ${css`${AnimFade} 0.4s ease 0.6s forwards`};
+
+  ${props => props.status === 'entering' && css`
+    animation: ${css`${AnimFade} 0.6s ease 0.2s forwards`};
+  `}
+
+  ${props => props.status === 'entered' && css`
+    opacity: 1;
+  `}
 
   @media (min-width: ${Media.desktop}) {
     font-size: 28px;
@@ -171,6 +176,10 @@ const IntroTitleRow = styled.span`
   flex-direction: row;
   align-items: center;
   position: relative;
+
+  ${props => props.prerender && css`
+    opacity: 0;
+  `}
 `;
 
 const AnimTextReveal = props => keyframes`

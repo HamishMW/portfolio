@@ -1,16 +1,16 @@
-import { Component } from 'react';
+import { useEffect, useRef } from 'react';
 
-export default class ScrollToTop extends Component {
-  componentDidUpdate(prevProps) {
-    const { status: prevStatus } = prevProps;
-    const { status: nextStatus } = this.props;
+export default function ScrollToTop(props) {
+  const { status } = props;
+  const prevStatus = useRef();
 
-    if (prevStatus === 'entering' && nextStatus === 'entered') {
+  useEffect(() => {
+    if (prevStatus.current === 'entering' && status === 'entered') {
       window.scrollTo(0, 0);
-    }
-  }
+    };
 
-  render() {
-    return null;
-  }
+    prevStatus.current = status;
+  }, [status]);
+
+  return null;
 }
