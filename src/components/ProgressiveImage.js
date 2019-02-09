@@ -22,6 +22,10 @@ const ProgressiveImage = React.memo((props) => {
     });
 
     observer.observe(containerRef.current);
+
+    return function cleanUp() {
+      observer.disconnect();
+    }
   }, []);
 
   const onLoad = () => {

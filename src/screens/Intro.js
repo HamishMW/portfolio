@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Media, AnimFade } from '../utils/StyleUtils';
 import DecoderText from '../components/DecoderText';
 
+const DisplacementSphere = lazy(() => import('../components/DisplacementSphere'));
 const prerender = navigator.userAgent === 'ReactSnap';
 
 const Intro = React.memo((props) => {
-  const {
-    id, sectionRef, threeCanvas, disciplines, disciplineIndex,
-    scrollIndicatorHidden, backgroundLoaded,
-  } = props;
+  const { id, sectionRef, disciplines, disciplineIndex, scrollIndicatorHidden} = props;
 
   return (
     <IntroContent ref={sectionRef} id={id}>
@@ -21,11 +19,9 @@ const Intro = React.memo((props) => {
       >
         {(appearStatus) => (
           <React.Fragment>
-            <IntroBackground
-              aria-hidden="true"
-              ref={threeCanvas}
-              isLoaded={backgroundLoaded}
-            />
+            <Suspense fallback={<React.Fragment />}>
+              <DisplacementSphere />
+            </Suspense>
             <IntroText>
               <IntroName aria-label="Hamish Williams">
                 <DecoderText text="Hamish Williams" start={!prerender} offset={120} />
@@ -84,32 +80,6 @@ const IntroContent = styled.section`
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
     padding-left: 0;
-  }
-`;
-
-const AnimBackgroundFade = keyframes`
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-`;
-
-const IntroBackground = styled.div`
-  position: fixed;
-  width: 100vw;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  canvas {
-    position: absolute;
-    animation-duration: 3s;
-    animation-timing-function: ${props => props.theme.curveFastoutSlowin};
-    animation-fill-mode: forwards;
-    opacity: 0;
-
-    ${props => props.isLoaded && css`
-      animation-name: ${AnimBackgroundFade};
-    `}
   }
 `;
 

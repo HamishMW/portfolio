@@ -24,31 +24,25 @@ export default function Home(props) {
   const { status, location } = props;
   const { hash } = location;
   const [disciplineIndex, setDisciplineIndex] = useState(0);
-  const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
-  const threeCanvas = useRef();
   const intro = useRef();
   const projectOne = useRef();
   const projectTwo = useRef();
   const projectThree = useRef();
   const details = useRef();
   const disciplineInterval = useRef();
-  const sphere = useRef();
+  const sectionObserver = useRef();
+  const indicatorObserver = useRef();
 
   useEffect(() => {
-    import('../components/DisplacementSphere').then(DisplacementSphere => {
-      setBackgroundLoaded(true);
-      sphere.current = new DisplacementSphere.default(threeCanvas.current);
-      requestAnimationFrame(() => sphere.current.init());
-    });
-
     initializeObservers();
     switchDiscipline();
 
     return function cleanUp() {
-      if (sphere.current) sphere.current.remove();
       clearInterval(disciplineInterval.current);
+      if (sectionObserver.current) sectionObserver.current.disconnect();
+      if (indicatorObserver.current) indicatorObserver.current.disconnect();
     }
   }, []);
 
@@ -73,17 +67,17 @@ export default function Home(props) {
   const initializeObservers = () => {
     const revealSections = [intro, projectOne, projectTwo, projectThree, details];
 
-    const sectionObserver = new IntersectionObserver((entries) => {
+    sectionObserver.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const section = entry.target;
           setVisibleSections((prevSections) => [...prevSections, section]);
-          sectionObserver.unobserve(section);
+          sectionObserver.current.unobserve(section);
         }
       });
     }, { rootMargin: "0px 0px -10% 0px" });
 
-    const indicatorObserver = new IntersectionObserver((entries) => {
+    indicatorObserver.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setScrollIndicatorHidden(false);
@@ -94,10 +88,10 @@ export default function Home(props) {
     }, { rootMargin: "-100% 0px 0px 0px" });
 
     revealSections.forEach((section) => {
-      sectionObserver.observe(section.current);
+      sectionObserver.current.observe(section.current);
     });
 
-    indicatorObserver.observe(intro.current);
+    indicatorObserver.current.observe(intro.current);
   }
 
   const handleHashchange = (hash, scroll) => {
@@ -133,11 +127,9 @@ export default function Home(props) {
       <Intro
         id="intro"
         sectionRef={intro}
-        threeCanvas={threeCanvas}
         disciplines={disciplines}
         disciplineIndex={disciplineIndex}
         scrollIndicatorHidden={scrollIndicatorHidden}
-        backgroundLoaded={backgroundLoaded}
       />
       <ProjectItem
         id="projects"

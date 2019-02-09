@@ -67,6 +67,7 @@ export default function DispalcementSlider(props) {
   const camera = useRef();
   const renderer = useRef();
   const animating = useRef(false);
+  const observer = useRef();
   const scheduledAnimationFrame = useRef();
   const currentImage = images[imageIndex];
 
@@ -107,20 +108,24 @@ export default function DispalcementSlider(props) {
       if (material.current) {
         material.current.dispose();
       }
+
+      if (observer.current) {
+        observer.current.disconnect();
+      }
     }
   }, []);
 
   const initializeObserver = () => {
-    const observer = new IntersectionObserver(entries => {
+    observer.current = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           loadImages();
-          observer.unobserve(entry.target);
+          observer.current.unobserve(entry.target);
         }
       });
     });
 
-    observer.observe(container.current);
+    observer.current.observe(container.current);
   }
 
   const loadImages = async () => {
