@@ -10,6 +10,8 @@ import Swipe from 'react-easy-swipe';
 import Icon from '../utils/Icon';
 import { Media } from '../utils/StyleUtils';
 
+const prerender = navigator.userAgent === 'ReactSnap';
+
 const vertex = `
   varying vec2 vUv;
   void main() {
@@ -257,7 +259,7 @@ export default function DispalcementSlider(props) {
       <SliderContainer>
         <SliderImage src={currentImage.src} alt={currentImage.alt} />
         <SliderCanvasWrapper ref={container} />
-        <SliderPlaceholder src={placeholder} alt="" loaded={loaded} />
+        <SliderPlaceholder src={placeholder} alt="" loaded={!prerender && loaded} />
         <SliderButton
           left
           aria-label="Previous slide"

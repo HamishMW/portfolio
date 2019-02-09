@@ -18,6 +18,8 @@ const ProjectSlice = lazy(() => import('../screens/ProjectSlice'));
 const ProjectVolkihar = lazy(() => import('../screens/ProjectVolkihar'));
 const NotFound = lazy(() => import('../screens/NotFound'));
 
+const prerender = navigator.userAgent === 'ReactSnap';
+
 const consoleMessage = `
 __  __  __
 \u005C \u005C \u005C \u005C \u005C\u2215
@@ -49,7 +51,7 @@ function App() {
   const [currentTheme, setCurrentTheme] = useState(Theme);
 
   useEffect(() => {
-    console.info(consoleMessage);
+    if (!prerender) console.info(consoleMessage);
     window.history.scrollRestoration = 'manual';
   }, []);
 

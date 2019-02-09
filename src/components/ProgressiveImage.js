@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 import 'intersection-observer';
 
+const prerender = navigator.userAgent === 'ReactSnap';
+
 const ProgressiveImage = React.memo((props) => {
   const { placeholder, className, style, srcSet, ...restProps } = props;
   const [loaded, setLoaded] = useState(false);
@@ -32,7 +34,7 @@ const ProgressiveImage = React.memo((props) => {
         onLoad={onLoad}
         decoding="async"
         loaded={loaded}
-        srcSet={intersect ? srcSet : null}
+        srcSet={!prerender && intersect ? srcSet : null}
         {...restProps}
       />
       <ImagePlaceholder
