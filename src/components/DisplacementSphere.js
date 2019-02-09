@@ -65,6 +65,7 @@ class DisplacementSphere {
     this.container.appendChild(this.renderer.domElement);
     window.addEventListener('resize', this.onWindowResize);
     window.addEventListener('mousemove', this.onMouseMove);
+    window.addEventListener('touchmove', this.onTouchMove);
     this.onWindowResize();
     this.animate();
   }
@@ -74,6 +75,7 @@ class DisplacementSphere {
     cancelAnimationFrame(this.animate);
     window.removeEventListener('resize', this.onWindowResize);
     window.removeEventListener('mousemove', this.onMouseMove);
+    window.removeEventListener('touchmove', this.onTouchMove);
     this.scene.remove(this.sphere);
     this.sphere.geometry.dispose();
     this.sphere.material.dispose();
@@ -113,11 +115,22 @@ class DisplacementSphere {
   }
 
   onMouseMove = (event) => {
+    event.preventDefault();
     const mouseY = event.clientY / window.innerHeight;
     const mouseX = event.clientX / window.innerWidth;
 
     new Tween(this.sphere.rotation)
       .to({ x: mouseY / 2, y: mouseX / 2 }, 2000)
+      .easing(Easing.Quartic.Out)
+      .start();
+  }
+
+  onTouchMove = (event) => {
+    const touchY = event.touches[0].screenY / window.innerHeight;
+    const touchX = event.touches[0].screenX / window.innerWidth;
+
+    new Tween(this.sphere.rotation)
+      .to({ x: touchY / 2, y: touchX / 2 }, 2000)
       .easing(Easing.Quartic.Out)
       .start();
   }
