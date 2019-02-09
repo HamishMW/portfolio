@@ -4,7 +4,6 @@ import TextArea from '../components/TextArea';
 
 const Input = React.memo((props) => {
   const { id, label, hasValue, multiline, className, ...restProps } = props;
-  console.log(multiline, props)
 
   return (
     <InputWrapper className={className}>

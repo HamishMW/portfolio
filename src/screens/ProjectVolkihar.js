@@ -20,8 +20,12 @@ import volkiharArmor from '../assets/volkihar-armor.png';
 import volkiharArmorLarge from '../assets/volkihar-armor-large.png';
 import volkiharArmorPlaceholder from '../assets/volkihar-armor-placeholder.png';
 import volkiharSlide1 from '../assets/volkihar-slide-1.jpg';
+import volkiharSlide1Large from '../assets/volkihar-slide-1-large.jpg';
 import volkiharSlide2 from '../assets/volkihar-slide-2.jpg';
+import volkiharSlide2Large from '../assets/volkihar-slide-2-large.jpg';
 import volkiharSlide3 from '../assets/volkihar-slide-3.jpg';
+import volkiharSlide3Large from '../assets/volkihar-slide-3-large.jpg';
+import volkiharSlidePlaceholder from '../assets/volkihar-slide-placeholder.jpg';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -101,17 +105,21 @@ export default function ProjectVolkihar(props) {
         <ProjectSection>
           <ProjectSectionColumn>
             <DisplacementSlider
+              placeholder={volkiharSlidePlaceholder}
               images={[
                 {
                   src: volkiharSlide1,
+                  srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
                   alt: 'A female character wearing the black coloured armor set.'
                 },
                 {
                   src: volkiharSlide2,
+                  srcset: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
                   alt: 'A close up of the custom gauntlets design.',
                 },
                 {
                   src: volkiharSlide3,
+                  srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
                   alt: 'A female character weilding a sword and wearing the red coloured armor.',
                 },
               ]}

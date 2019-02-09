@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   WebGLRenderer, OrthographicCamera, Scene, Mesh, Color, ShaderMaterial,
-  LinearFilter, TextureLoader, PlaneBufferGeometry
+  LinearFilter, TextureLoader, PlaneBufferGeometry, LoadingManager
 } from 'three';
 import styled from 'styled-components/macro';
 import { Easing, Tween, autoPlay } from 'es6-tween';
@@ -52,8 +52,9 @@ const fragment = `
 `;
 
 export default function DispalcementSlider(props) {
-  const { width, height, images } = props;
+  const { width, height, images, placeholder } = props;
   const [imageIndex, setImageIndex] = useState(0);
+  const [loaded, setLoaded] = useState(false);
   const container = useRef();
   const imagePlane = useRef();
   const geometry = useRef();
@@ -64,6 +65,7 @@ export default function DispalcementSlider(props) {
   const renderer = useRef();
   const animating = useRef(false);
   const scheduledAnimationFrame = useRef();
+  const currentImage = images[imageIndex];
 
   useEffect(() => {
     const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
@@ -73,17 +75,13 @@ export default function DispalcementSlider(props) {
     renderer.current.setPixelRatio(window.devicePixelRatio);
     renderer.current.setClearColor(0x111111, 1.0);
     renderer.current.setSize(width, height);
-    container.current.appendChild(renderer.current.domElement);
-    scene.current.background = new Color(0x111111);
-    camera.current.position.z = 1;
-    sliderImages.current = loadImages();
-    addObjects(sliderImages.current);
     renderer.current.domElement.style.width = '100%';
     renderer.current.domElement.style.height = 'auto';
     renderer.current.domElement.setAttribute('aria-hidden', true);
-    animating.current = true;
-    autoPlay(true);
-    goToIndex(0, 0);
+    scene.current.background = new Color(0x111111);
+    camera.current.position.z = 1;
+    container.current.appendChild(renderer.current.domElement);
+    initializeObserver();
 
     return function cleanUp() {
       animating.current = false;
@@ -100,24 +98,52 @@ export default function DispalcementSlider(props) {
     }
   }, []);
 
-  const loadImages = () => {
-    const loader = new TextureLoader();
+  const initializeObserver = () => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadImages();
+          observer.unobserve(entry.target);
+        }
+      });
+    });
 
-    return images.map(item => {
-      const image = loader.load(item.src);
+    observer.observe(container.current);
+  }
+
+  const loadImages = async () => {
+    const manager = new LoadingManager();
+
+    manager.onLoad = function () {
+      setLoaded(true);
+    };
+
+    const loader = new TextureLoader(manager);
+
+    const results = images.map(async item => {
+      const tempImage = new Image();
+      tempImage.src = item.src;
+      tempImage.srcset = item.srcset;
+      await tempImage.decode();
+      const source = tempImage.currentSrc;
+      const image = loader.load(source);
       image.magFilter = image.minFilter = LinearFilter;
       image.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
       return image;
     });
+
+    const imageResults = await Promise.all(results);
+    sliderImages.current = imageResults;
+    addObjects(imageResults);
   }
 
-  const addObjects = () => {
+  const addObjects = (textures) => {
     material.current = new ShaderMaterial({
       uniforms: {
         dispFactor: { type: 'f', value: 0 },
         direction: { type: 'f', value: 1 },
-        currentImage: { type: 't', value: sliderImages.current[0] },
-        nextImage: { type: 't', value: sliderImages.current[1] },
+        currentImage: { type: 't', value: textures[0] },
+        nextImage: { type: 't', value: textures[1] },
       },
       vertexShader: vertex,
       fragmentShader: fragment,
@@ -125,15 +151,17 @@ export default function DispalcementSlider(props) {
       opacity: 1,
     });
 
-    geometry.current = new PlaneBufferGeometry(
-      container.current.offsetWidth,
-      container.current.offsetHeight,
-      1
-    );
-
+    geometry.current = new PlaneBufferGeometry(width, height, 1);
     imagePlane.current = new Mesh(geometry.current, material.current);
     imagePlane.current.position.set(0, 0, 0);
     scene.current.add(imagePlane.current);
+    initialRender();
+  }
+
+  const initialRender = () => {
+    animating.current = true;
+    autoPlay(true);
+    goToIndex(0, 0);
   }
 
   const animate = () => {
@@ -205,8 +233,6 @@ export default function DispalcementSlider(props) {
     goToIndex(index, direction);
   }
 
-  const currentImage = images[imageIndex];
-
   return (
     <Swipe
       allowMouseEvents
@@ -216,6 +242,7 @@ export default function DispalcementSlider(props) {
       <SliderContainer>
         <SliderImage src={currentImage.src} alt={currentImage.alt} />
         <SliderCanvasWrapper ref={container} />
+        <SliderPlaceholder src={placeholder} alt="" loaded={loaded} />
         <SliderButton
           left
           aria-label="Previous slide"
@@ -250,14 +277,15 @@ const SliderContainer = styled.div`
   position: relative;
   object-fit: cover;
   cursor: grab;
-
-  canvas {
-    position: relative;
-  }
 `;
 
 const SliderCanvasWrapper = styled.div`
   position: relative;
+
+  canvas {
+    position: relative;
+    display: block;
+  }
 `;
 
 const SliderImage = styled.img`
@@ -266,6 +294,18 @@ const SliderImage = styled.img`
   opacity: 0.001;
   width: 100%;
   display: block;
+`;
+
+const SliderPlaceholder = styled.img`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transition: opacity 1s ease;
+  opacity: ${props => props.loaded ? 0 : 1};
+  pointer-events: none;
 `;
 
 const SliderButton = styled.button`

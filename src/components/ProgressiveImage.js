@@ -8,18 +8,18 @@ const ProgressiveImage = React.memo((props) => {
   const containerRef = useRef();
 
   useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const image = entry.target;
+          setIntersect(true);
+          observer.unobserve(image);
+        }
+      });
+    });
+
     observer.observe(containerRef.current);
   }, []);
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const image = entry.target;
-        setIntersect(true);
-        observer.unobserve(image);
-      }
-    });
-  });
 
   const onLoad = () => {
     setLoaded(true);
