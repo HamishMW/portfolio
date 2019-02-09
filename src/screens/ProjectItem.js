@@ -9,7 +9,7 @@ import phone from '../assets/phone.png';
 import phoneLarge from '../assets/phone-large.png';
 import phonePlaceholder from '../assets/phone-placeholder.png';
 
-const ProjectItem = React.memo(function ProjectItem(props) {
+const ProjectItem = React.memo((props) => {
   const {
     id, tabIndex, visible, sectionRef, index, title, description, imageSrc,
     imageAlt, imageType, imagePlaceholder, buttonText, buttonLink, buttonTo,
@@ -46,7 +46,6 @@ const ProjectItem = React.memo(function ProjectItem(props) {
                   <ProjectItemPreviewContentLaptop>
                     <ProjectItemImageLaptop
                       status={status}
-                      visible={visible}
                       srcSet={imageSrc[0]}
                       alt={imageAlt[0]}
                       placeholder={imagePlaceholder[0]}
@@ -61,7 +60,6 @@ const ProjectItem = React.memo(function ProjectItem(props) {
                     {imageSrc && imageSrc.map((src, index) => (
                       <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
                         <ProjectItemPhoneFrame
-                          visible={visible}
                           srcSet={`${phone} 414w, ${phoneLarge} 828w`}
                           sizes={`(max-width: ${Media.tablet}) 248px, 414px`}
                           alt=""
@@ -69,7 +67,6 @@ const ProjectItem = React.memo(function ProjectItem(props) {
                           placeholder={phonePlaceholder}
                         />
                         <ProjectItemPhoneImage
-                          visible={visible}
                           srcSet={imageSrc[index]}
                           alt={imageAlt[index]}
                           placeholder={imagePlaceholder[index]}

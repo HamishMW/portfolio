@@ -12,7 +12,7 @@ import ScrollToTop from '../utils/ScrollToTop';
 const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
 
-export default React.memo(function Contact(props) {
+export default React.memo((props) => {
   const { status } = props;
   const [emailValue, setEmailValue] = useState('');
   const [messageValue, setMessageValue] = useState('');
@@ -296,6 +296,12 @@ const ContactButton = styled(Button)`
   ${props => props.sending && css`
    div {
       animation: ${AnimFade} 0.5s ease 0.6s forwards;
+    }
+  `}
+
+  ${props => props.status === 'entering' && css`
+    &:hover {
+      transform: translate3d(0, 0, 0);
     }
   `}
 

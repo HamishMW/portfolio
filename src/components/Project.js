@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Media, AnimFade, ColorTint } from '../utils/StyleUtils';
 import ProgressiveImage from '../components/ProgressiveImage';
@@ -9,17 +9,17 @@ const prerender = navigator.userAgent === 'ReactSnap';
 
 export function ProjectBackground(props) {
   const [offset, setOffset] = useState();
-  let scheduledAnimationFrame = false;
-  let lastScrollY = false;
+  const scheduledAnimationFrame = useRef(false);
+  const lastScrollY = useRef(0);
 
   const handleScroll = () => {
-    lastScrollY = window.scrollY;
-    if (scheduledAnimationFrame) return;
-    scheduledAnimationFrame = true;
+    lastScrollY.current = window.scrollY;
+    if (scheduledAnimationFrame.current) return;
+    scheduledAnimationFrame.current = true;
 
     requestAnimationFrame(() => {
-      setOffset(lastScrollY * 0.4);
-      scheduledAnimationFrame = false;
+      setOffset(lastScrollY.current * 0.4);
+      scheduledAnimationFrame.current = false;
     });
   }
 

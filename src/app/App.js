@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components/macro';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import Route from 'react-router-dom/Route';
 import Switch from 'react-router-dom/Switch';
 import { Helmet } from "react-helmet";
-import asyncComponent from '../components/AsyncComponent';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import Theme from '../utils/Theme';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
 
-const Home = asyncComponent(props => import("../screens/Home"));
-const Contact = asyncComponent(props => import("../screens/Contact"));
-const ProjectSPR = asyncComponent(props => import("../screens/ProjectSPR"));
-const ProjectSlice = asyncComponent(props => import("../screens/ProjectSlice"));
-const ProjectVolkihar = asyncComponent(props => import("../screens/ProjectVolkihar"));
-const NotFound = asyncComponent(props => import("../screens/NotFound"));
+const Home = lazy(() => import('../screens/Home'));
+const Contact = lazy(() => import('../screens/Contact'));
+const ProjectSPR = lazy(() => import('../screens/ProjectSPR'));
+const ProjectSlice = lazy(() => import('../screens/ProjectSlice'));
+const ProjectVolkihar = lazy(() => import('../screens/ProjectVolkihar'));
+const NotFound = lazy(() => import('../screens/NotFound'));
 
 const consoleMessage = `
 __  __  __
@@ -98,14 +97,16 @@ class App extends Component {
                       <Helmet>
                         <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
                       </Helmet>
-                      <Switch location={location}>
-                        <Route exact path="/" render={props => <Home {...props} status={status} />} />
-                        <Route path="/contact" render={props => <Contact {...props} status={status} />} />
-                        <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />} />
-                        <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />} />
-                        <Route path="/projects/volkihar-knight" render={props => <ProjectVolkihar {...props} status={status} setTheme={this.setTheme} />} />
-                        <Route render={props => <NotFound {...props} status={status} />} />
-                      </Switch>
+                      <Suspense fallback={<React.Fragment />}>
+                        <Switch location={location}>
+                          <Route exact path="/" render={props => <Home {...props} status={status} />} />
+                          <Route path="/contact" render={props => <Contact {...props} status={status} />} />
+                          <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />} />
+                          <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />} />
+                          <Route path="/projects/volkihar-knight" render={props => <ProjectVolkihar {...props} status={status} setTheme={this.setTheme} />} />
+                          <Route render={props => <NotFound {...props} status={status} />} />
+                        </Switch>
+                      </Suspense>
                     </MainContent>
                   )}
                 </Transition>

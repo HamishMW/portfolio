@@ -6,7 +6,7 @@ import DecoderText from '../components/DecoderText';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
-const Intro = React.memo(function Intro(props) {
+const Intro = React.memo((props) => {
   const {
     id, sectionRef, threeCanvas, disciplines, disciplineIndex,
     scrollIndicatorHidden, backgroundLoaded,

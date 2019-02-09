@@ -1,37 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 
-export default function ProgressiveImage(props) {
-  const { placeholder, className, style, srcSet, visible, ...restProps } = props;
-  const [loaded, setLoaded] = useState();
+const ProgressiveImage = React.memo((props) => {
+  const { placeholder, className, style, srcSet, ...restProps } = props;
+  const [loaded, setLoaded] = useState(false);
+  const [intersect, setIntersect] = useState(false);
+  const containerRef = useRef();
+
+  useEffect(() => {
+    observer.observe(containerRef.current);
+  }, []);
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const image = entry.target;
+        setIntersect(true);
+        observer.unobserve(image);
+      }
+    });
+  });
 
   const onLoad = () => {
     setLoaded(true);
   }
 
-  const getSrcSet = (visible, srcSet) => {
-    const lazyLoad = typeof visible !== 'undefined';
-
-    if (lazyLoad && !visible) {
-      return null;
-    }
-
-    if (lazyLoad && visible) {
-      return srcSet;
-    }
-
-    return srcSet;
-  }
-
-  const actualSrcSet = getSrcSet(visible, srcSet);
-
   return (
-    <ImageContainer className={className} style={style}>
+    <ImageContainer className={className} style={style} ref={containerRef}>
       <ImageActual
         onLoad={onLoad}
         decoding="async"
         loaded={loaded}
-        srcSet={actualSrcSet}
+        srcSet={intersect ? srcSet : null}
         {...restProps}
       />
       <ImagePlaceholder
@@ -42,7 +42,7 @@ export default function ProgressiveImage(props) {
       />
     </ImageContainer>
   )
-}
+});
 
 const ImageContainer = styled.div`
   position: relative;
@@ -71,3 +71,5 @@ const ImageActual = styled.img`
   display: block;
   opacity: ${props => props.loaded ? 1 : 0};
 `;
+
+export default ProgressiveImage;

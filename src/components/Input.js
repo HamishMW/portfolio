@@ -2,14 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import TextArea from '../components/TextArea';
 
-const Input = ({
-  id,
-  label,
-  hasValue,
-  multiline,
-  className,
-  ...props,
-}) => {
+const Input = React.memo((props) => {
+  const { id, label, hasValue, multiline, className, ...restProps } = props;
+  console.log(multiline, props)
+
   return (
     <InputWrapper className={className}>
       {!multiline &&
@@ -17,7 +13,7 @@ const Input = ({
           id={id}
           name={id}
           aria-labelledby={`${id}-label`}
-          {...props}
+          {...restProps}
         />
       }
       {!!multiline &&
@@ -25,7 +21,7 @@ const Input = ({
           id={id}
           name={id}
           aria-labelledby={`${id}-label`}
-          {...props}
+          {...restProps}
         />
       }
       <InputUnderline />
@@ -38,7 +34,7 @@ const Input = ({
       </InputLabel>
     </InputWrapper>
   );
-}
+});
 
 const InputWrapper = styled.div`
   position: relative;

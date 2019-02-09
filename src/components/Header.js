@@ -34,7 +34,7 @@ const HeaderIcons = ({ toggleMenu }) => (
   </HeaderNavIcons>
 );
 
-const Header = React.memo(withTheme(function Header(props) {
+const Header = React.memo(withTheme((props) => {
   const { menuOpen, toggleMenu, theme } = props;
 
   return (

@@ -33,23 +33,22 @@ export default function Home(props) {
   const projectTwo = useRef();
   const projectThree = useRef();
   const details = useRef();
-  const revealSections = [intro, projectOne, projectTwo, projectThree, details];
-  let disciplineInterval;
-  let sphere;
+  const disciplineInterval = useRef();
+  const sphere = useRef();
 
   useEffect(() => {
     import('../components/DisplacementSphere').then(DisplacementSphere => {
       setBackgroundLoaded(true);
-      sphere = new DisplacementSphere.default(threeCanvas.current);
-      requestAnimationFrame(() => sphere.init());
+      sphere.current = new DisplacementSphere.default(threeCanvas.current);
+      requestAnimationFrame(() => sphere.current.init());
     });
 
     initializeObservers();
     switchDiscipline();
 
     return function cleanUp() {
-      if (sphere) sphere.remove();
-      clearInterval(disciplineInterval);
+      if (sphere.current) sphere.current.remove();
+      clearInterval(disciplineInterval.current);
     }
   }, []);
 
@@ -72,6 +71,8 @@ export default function Home(props) {
   }
 
   const initializeObservers = () => {
+    const revealSections = [intro, projectOne, projectTwo, projectThree, details];
+
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -114,7 +115,7 @@ export default function Home(props) {
   }
 
   const switchDiscipline = () => {
-    disciplineInterval = setInterval(() => {
+    disciplineInterval.current = setInterval(() => {
       const index = disciplineIndex >= disciplines.length - 1 ? 0 : disciplineIndex + 1;
       setDisciplineIndex(index);
     }, 5000);

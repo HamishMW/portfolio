@@ -5,48 +5,62 @@ import Loader from '../components/Loader';
 import Icon from '../utils/Icon';
 import { ColorTint } from '../utils/StyleUtils';
 
-const ButtonContent = withTheme(({ iconRight, icon, children, secondary, loading, theme }) => (
-  <React.Fragment>
-    {icon && <ButtonIcon loading={loading} left icon={icon} secondary={secondary} />}
-    <ButtonText loading={loading} secondary={secondary}>{children}</ButtonText>
-    {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary} />}
-    {loading && <ButtonLoader size="24" color={theme.colorBackground(1)} />}
-  </React.Fragment>
-));
+const ButtonContent = withTheme((props) => {
+  const { iconRight, icon, children, secondary, loading, theme } = props;
 
-const Button = ({ className, style, ...props }) => (
-  <ButtonContainer
-    className={className}
-    style={style}
-    {...props}
-  >
-    <ButtonContent {...props} />
-  </ButtonContainer>
-);
+  return (
+    <React.Fragment>
+      {icon && <ButtonIcon loading={loading} left icon={icon} secondary={secondary} />}
+      <ButtonText loading={loading} secondary={secondary}>{children}</ButtonText>
+      {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary} />}
+      {loading && <ButtonLoader size="24" color={theme.colorBackground(1)} />}
+    </React.Fragment>
+  );
+});
 
-const LinkButton = ({ className, style, href, rel, target, ...props }) => (
-  <LinkButtonContainer
-    className={className}
-    style={style}
-    href={href}
-    rel={rel}
-    target={target}
-    secondary={props.secondary}
-  >
-    <ButtonContent {...props} />
-  </LinkButtonContainer>
-);
+const Button = React.memo((props) => {
+  const { className, style, ...restProps } = props;
+  return (
+    <ButtonContainer
+      className={className}
+      style={style}
+      {...restProps}
+    >
+      <ButtonContent {...restProps} />
+    </ButtonContainer>
+  );
+});
 
-const RouterButton = ({ className, style, to, ...props }) => (
-  <RouterButtonContainer
-    className={className}
-    style={style}
-    to={to}
-    secondary={props.secondary ? 1 : 0}
-  >
-    <ButtonContent {...props} />
-  </RouterButtonContainer>
-);
+const LinkButton = React.memo((props) => {
+  const { className, style, href, rel, target, secondary } = props;
+  return (
+    <LinkButtonContainer
+      className={className}
+      style={style}
+      href={href}
+      rel={rel}
+      target={target}
+      secondary={secondary}
+    >
+      <ButtonContent {...props} />
+    </LinkButtonContainer>
+  );
+});
+
+const RouterButton = React.memo((props) => {
+  const { className, style, to, secondary } = props;
+
+  return (
+    <RouterButtonContainer
+      className={className}
+      style={style}
+      to={to}
+      secondary={secondary ? 1 : 0}
+    >
+      <ButtonContent {...props} />
+    </RouterButtonContainer>
+  );
+});
 
 const ButtonLoader = styled(Loader)`
   position: absolute;
