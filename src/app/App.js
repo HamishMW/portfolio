@@ -85,8 +85,8 @@ function App() {
               <Transition
                 key={location.pathname}
                 timeout={500}
-                onEnter={setBodyOverflow('hidden')}
-                onExited={setBodyOverflow('')}
+                onEnter={() => setBodyOverflow('hidden')}
+                onExited={() => setBodyOverflow('')}
               >
                 {status => (
                   <MainContent status={status} id="MainContent" role="main">

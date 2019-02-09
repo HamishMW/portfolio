@@ -133,15 +133,22 @@ export default function DispalcementSlider(props) {
     const loader = new TextureLoader(manager);
 
     const results = images.map(async item => {
-      const tempImage = new Image();
-      tempImage.src = item.src;
-      tempImage.srcset = item.srcset;
-      await tempImage.decode();
-      const source = tempImage.currentSrc;
-      const image = loader.load(source);
-      image.magFilter = image.minFilter = LinearFilter;
-      image.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
-      return image;
+      return new Promise((resolve, reject) => {
+        const tempImage = new Image();
+        tempImage.src = item.src;
+        tempImage.srcset = item.srcset;
+
+        const onLoad = () => {
+          tempImage.removeEventListener('load', onLoad);
+          const source = tempImage.currentSrc;
+          const image = loader.load(source);
+          image.magFilter = image.minFilter = LinearFilter;
+          image.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
+          resolve(image);
+        }
+
+        tempImage.addEventListener('load', onLoad);
+      });
     });
 
     const imageResults = await Promise.all(results);
@@ -257,7 +264,7 @@ export default function DispalcementSlider(props) {
       onSwipeMove={onSwipeMove}
     >
       <SliderContainer>
-        <SliderImage src={currentImage.src} alt={currentImage.alt} />
+        <SliderImage src={currentImage.src} srcSet={currentImage.srcset} alt={currentImage.alt} />
         <SliderCanvasWrapper ref={container} />
         <SliderPlaceholder src={placeholder} alt="" loaded={!prerender && loaded} />
         <SliderButton
