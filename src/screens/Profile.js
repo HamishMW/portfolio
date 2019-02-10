@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 import Anchor from '../components/Anchor';
 import { RouterButton } from '../components/Button';
 import DecoderText from '../components/DecoderText';
@@ -10,9 +11,6 @@ import ProfileImg from '../assets/profile.jpg';
 import ProfileImgLarge from '../assets/profile-large.jpg';
 import ProfileImgPlaceholder from '../assets/profile-placeholder.jpg';
 import { Media } from '../utils/StyleUtils';
-
-const SparrowLink = 'https://www.smartsparrow.com';
-const ModLink = 'https://www.nexusmods.com/skyrimspecialedition/mods/4806/';
 
 const ProfileText = ({ status }) => (
   <React.Fragment>
@@ -24,16 +22,16 @@ const ProfileText = ({ status }) => (
       />
     </ProfileTitle>
     <ProfileDescription status={status}>
-      I’m Hamish, currently I live in Sydney working as the lead product designer at <Anchor href={SparrowLink} target="_blank" rel="noopener noreferrer">Smart Sparrow</Anchor>. My projects include UX design, UI animations, and icon illustration. Being comfortable with code allows me to rapidly prototype and validate experiences.
+      I’m Hamish, currently I live in Sydney working as the lead product designer at <Anchor href="https://www.smartsparrow.com" target="_blank" rel="noopener noreferrer">Smart Sparrow</Anchor>. My projects include UX design, UI animations, and icon illustration. Being comfortable with code allows me to rapidly prototype and validate experiences.
     </ProfileDescription>
     <ProfileDescription status={status}>
-      In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and <Anchor href={ModLink} target="_blank" rel="noopener noreferrer">make mods</Anchor>. I’m always down for hearing about new projects, so feel free to drop me a line.
+      In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and <Anchor as={Link} to="/projects/volkihar-knight">make mods</Anchor>. I’m always down for hearing about new projects, so feel free to drop me a line.
     </ProfileDescription>
   </React.Fragment>
 );
 
 const Profile = React.memo((props) => {
-  const { id, tabIndex, visible, sectionRef} = props;
+  const { id, tabIndex, visible, sectionRef } = props;
 
   return (
     <ProfileSection id={id} ref={sectionRef} tabIndex={tabIndex}>
@@ -306,7 +304,7 @@ const ProfileSvg = styled(Svg)`
 
 const ProfileButton = styled(RouterButton)`
   opacity: 0;
-  transition: opacity 0.8s ease 0.4s;
+  transition: opacity 0.8s ease 0.6s;
 
   ${props => props.status === 'entered' && css`
     opacity: 1;

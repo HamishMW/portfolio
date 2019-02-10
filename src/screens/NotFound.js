@@ -10,10 +10,10 @@ import NotfoundPoster from '../assets/notfound.jpg';
 
 const NotFound = () => (
   <NotFoundSection>
-    <Helmet
-      title="404 | Not Found"
-      meta={[{ name: 'description', content: 'This page doesn’t exist' }]}
-    />
+    <Helmet>
+      <title tag="title">404 | Not Found</title>
+      <meta name="description" content="This page doesn't exist" />
+    </Helmet>
     <Transition appear in={true} timeout={0}>
       {status => (
         <React.Fragment>

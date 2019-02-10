@@ -10,13 +10,13 @@ import NavToggle from '../components/NavToggle';
 import Theme from '../utils/Theme';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
-import NotFound from '../screens/NotFound';
+
 const Home = lazy(() => import('../screens/Home'));
 const Contact = lazy(() => import('../screens/Contact'));
 const ProjectSPR = lazy(() => import('../screens/ProjectSPR'));
 const ProjectSlice = lazy(() => import('../screens/ProjectSlice'));
 const ProjectVolkihar = lazy(() => import('../screens/ProjectVolkihar'));
-// const NotFound = lazy(() => import('../screens/NotFound'));
+const NotFound = lazy(() => import('../screens/NotFound'));
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -63,10 +63,6 @@ function App() {
     setMenuOpen(!menuOpen);
   }
 
-  const setBodyOverflow = state => {
-    document.body.style.overflow = state;
-  }
-
   return (
     <ThemeProvider theme={currentTheme}>
       <BrowserRouter>
@@ -82,12 +78,7 @@ function App() {
             <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
             <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
             <TransitionGroup component={React.Fragment} >
-              <Transition
-                key={location.pathname}
-                timeout={500}
-                onEnter={() => setBodyOverflow('hidden')}
-                onExited={() => setBodyOverflow('')}
-              >
+              <Transition key={location.pathname} timeout={500}>
                 {status => (
                   <MainContent status={status} id="MainContent" role="main">
                     <Helmet>
@@ -100,7 +91,7 @@ function App() {
                         <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />} />
                         <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />} />
                         <Route path="/projects/volkihar-knight" render={props => <ProjectVolkihar {...props} status={status} setTheme={setTheme} />} />
-                        <Route render={props => <NotFound {...props} status={status} />} />
+                        <Route component={props => <NotFound {...props} status={status} />} />
                       </Switch>
                     </Suspense>
                   </MainContent>
