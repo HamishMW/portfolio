@@ -263,20 +263,17 @@ export default function DispalcementSlider(props) {
     goToIndex(index, direction);
   }
 
-  const onSwipeMove = () => {
-    return true;
-  }
-
   return (
-    <Swipe
-      allowMouseEvents
-      onSwipeRight={prevImage}
-      onSwipeLeft={nextImage}
-      onSwipeMove={onSwipeMove}
-    >
+    <SliderContainer>
       <SliderContainer>
         <SliderImage src={currentImage.src} srcSet={currentImage.srcset} alt={currentImage.alt} />
-        <SliderCanvasWrapper ref={container} />
+        <Swipe
+          allowMouseEvents
+          onSwipeRight={prevImage}
+          onSwipeLeft={nextImage}
+        >
+          <SliderCanvasWrapper ref={container} />
+        </Swipe>
         <SliderPlaceholder src={placeholder} alt="" loaded={!prerender && loaded} />
         <SliderButton
           left
@@ -304,18 +301,17 @@ export default function DispalcementSlider(props) {
           />
         ))}
       </SliderNav>
-    </Swipe>
+    </SliderContainer>
   )
 };
 
 const SliderContainer = styled.div`
   position: relative;
-  object-fit: cover;
-  cursor: grab;
 `;
 
 const SliderCanvasWrapper = styled.div`
   position: relative;
+  cursor: grab;
 
   canvas {
     position: relative;
