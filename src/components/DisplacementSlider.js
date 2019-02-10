@@ -95,11 +95,13 @@ export default function DispalcementSlider(props) {
       renderer.current.context = null;
       renderer.current.domElement = null;
 
-      if (imagePlane.current && scene.current) {
+      if (imagePlane.current) {
         scene.current.remove(imagePlane.current);
         imagePlane.current.geometry.dispose();
         imagePlane.current.material.dispose();
       }
+
+      scene.current.dispose();
 
       if (geometry.current) {
         geometry.current.dispose();
@@ -150,7 +152,7 @@ export default function DispalcementSlider(props) {
           image.magFilter = image.minFilter = LinearFilter;
           image.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
           resolve(image);
-        }
+        };
 
         tempImage.addEventListener('load', onLoad);
       });

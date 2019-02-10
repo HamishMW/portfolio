@@ -67,7 +67,7 @@ function DisplacementSphere() {
       material.current.dispose();
       renderer.current.dispose();
       renderer.current.forceContextLoss();
-      scene.current = null;
+      scene.current.dispose();
       camera.current = null;
       light.current = null;
       sphere.current = null;
