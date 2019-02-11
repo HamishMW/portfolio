@@ -175,4 +175,4 @@ const SphereContainer = styled.div`
   }
 `;
 
-export default DisplacementSphere;
+export default React.memo(DisplacementSphere);

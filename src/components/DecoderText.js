@@ -19,7 +19,7 @@ const chars = [
   'パ', 'ピ', 'プ', 'ペ', 'ポ',
 ];
 
-const DecoderText = React.memo((props) => {
+function DecoderText(props) {
   const { text, start, offset = 100, className, style } = props;
   const [position, setPosition] = useState(0);
   const [started, setStarted] = useState(false);
@@ -135,7 +135,7 @@ const DecoderText = React.memo((props) => {
       })}
     </DecoderSpan>
   );
-});
+};
 
 const DecoderSpan = styled.span`
   &:after {
@@ -152,4 +152,4 @@ const DecoderCode = styled.span`
   line-height: 0;
 `;
 
-export default DecoderText;
+export default React.memo(DecoderText);

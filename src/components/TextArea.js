@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import autosize from 'autosize';
 
-const TextArea = React.memo((props) => {
+function TextArea(props) {
   const { className, allowResize, value, ...restProps } = props;
   const textArea = useRef();
 
@@ -18,6 +18,6 @@ const TextArea = React.memo((props) => {
       style={{ resize: allowResize ? null : 'none' }}
     />
   );
-});
+};
 
-export default TextArea;
+export default React.memo(TextArea);

@@ -12,7 +12,7 @@ import ScrollToTop from '../utils/ScrollToTop';
 const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
 
-export default React.memo((props) => {
+function Contact(props) {
   const { status } = props;
   const [emailValue, setEmailValue] = useState('');
   const [messageValue, setMessageValue] = useState('');
@@ -140,8 +140,7 @@ export default React.memo((props) => {
       </TransitionGroup>
     </ContactWrapper>
   );
-});
-
+};
 
 const ContactWrapper = styled.section`
   position: absolute;
@@ -385,3 +384,5 @@ const ContactCompleteButton = styled(RouterButton)`
     opacity: 1;
   `}
 `;
+
+export default React.memo(Contact);

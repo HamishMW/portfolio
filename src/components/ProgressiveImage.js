@@ -4,7 +4,7 @@ import 'intersection-observer';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
-const ProgressiveImage = React.memo((props) => {
+function ProgressiveImage(props) {
   const { placeholder, className, style, srcSet, ...restProps } = props;
   const [loaded, setLoaded] = useState(false);
   const [intersect, setIntersect] = useState(false);
@@ -49,7 +49,7 @@ const ProgressiveImage = React.memo((props) => {
       />
     </ImageContainer>
   )
-});
+};
 
 const ImageContainer = styled.div`
   position: relative;
@@ -79,4 +79,4 @@ const ImageActual = styled.img`
   opacity: ${props => props.loaded ? 1 : 0};
 `;
 
-export default ProgressiveImage;
+export default React.memo(ProgressiveImage);

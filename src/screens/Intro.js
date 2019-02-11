@@ -7,7 +7,7 @@ import DecoderText from '../components/DecoderText';
 const DisplacementSphere = lazy(() => import('../components/DisplacementSphere'));
 const prerender = navigator.userAgent === 'ReactSnap';
 
-const Intro = React.memo((props) => {
+function Intro(props) {
   const { id, sectionRef, disciplines, disciplineIndex, scrollIndicatorHidden } = props;
   const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and ');
 
@@ -58,7 +58,7 @@ const Intro = React.memo((props) => {
       </Transition>
     </IntroContent>
   );
-});
+};
 
 const IntroContent = styled.section`
   height: 100vh;
@@ -375,4 +375,4 @@ const ScrollIndicator = styled.div`
   }
 `;
 
-export default Intro;
+export default React.memo(Intro);

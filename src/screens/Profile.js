@@ -30,7 +30,7 @@ const ProfileText = ({ status }) => (
   </React.Fragment>
 );
 
-const Profile = React.memo((props) => {
+function Profile(props) {
   const { id, tabIndex, visible, sectionRef } = props;
 
   return (
@@ -71,7 +71,7 @@ const Profile = React.memo((props) => {
       </Transition>
     </ProfileSection>
   );
-});
+};
 
 const ProfileSection = styled.section`
   width: 100vw;
@@ -311,4 +311,4 @@ const ProfileButton = styled(RouterButton)`
   `}
 `;
 
-export default Profile;
+export default React.memo(Profile);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Helmet } from "react-helmet";
 import 'intersection-observer';
 import Intro from '../screens/Intro';
@@ -132,7 +132,6 @@ export default function Home(props) {
       />
       <ProjectItem
         id="projects"
-        tabIndex={0}
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index="01"
@@ -140,13 +139,12 @@ export default function Home(props) {
         description="Designing a platfrom to help educators build better online courseware"
         buttonText="View Project"
         buttonTo="/projects/smart-sparrow"
-        imageSrc={[`${sprProject} 980w, ${sprProjectLarge} 1376w`]}
-        imageAlt={['Smart Sparrow lesson builder']}
-        imagePlaceholder={[sprProjectPlaceholder]}
+        imageSrc={useMemo(() => [`${sprProject} 980w, ${sprProjectLarge} 1376w`], [])}
+        imageAlt={useMemo(() => ['Smart Sparrow lesson builder'], [])}
+        imagePlaceholder={useMemo(() => [sprProjectPlaceholder], [])}
         imageType="laptop"
       />
       <ProjectItem
-        tabIndex={0}
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index="02"
@@ -154,22 +152,21 @@ export default function Home(props) {
         description="Design and development for a video game tracking app built in React Native"
         buttonText="View Website"
         buttonLink="https://gamestackapp.com"
-        imageSrc={[
+        imageSrc={useMemo(() => [
           `${gamestackLogin} 254w, ${gamestackLoginLarge} 508w`,
           `${gamestackList} 254w, ${gamestackListLarge} 508w`,
-        ]}
-        imageAlt={[
+        ], [])}
+        imageAlt={useMemo(() => [
           'App login screen',
           'List of games being tracked',
-        ]}
-        imagePlaceholder={[
+        ], [])}
+        imagePlaceholder={useMemo(() => [
           gamestackLoginPlaceholder,
           gamestackListPlaceholder,
-        ]}
+        ], [])}
         imageType="phone"
       />
       <ProjectItem
-        tabIndex={0}
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index="03"
@@ -177,13 +174,12 @@ export default function Home(props) {
         description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
         buttonText="View Project"
         buttonTo="/projects/slice"
-        imageSrc={[`${sliceProject} 980w, ${sliceProjectLarge} 1376w`]}
-        imageAlt={['Annotating a biomedical image in the Slice app']}
-        imagePlaceholder={[sliceProjectPlaceholder]}
+        imageSrc={useMemo(() => [`${sliceProject} 980w, ${sliceProjectLarge} 1376w`], [])}
+        imageAlt={useMemo(() => ['Annotating a biomedical image in the Slice app'], [])}
+        imagePlaceholder={useMemo(() => [sliceProjectPlaceholder], [])}
         imageType="laptop"
       />
       <Profile
-        tabIndex={0}
         sectionRef={details}
         visible={visibleSections.includes(details.current)}
         id="details"

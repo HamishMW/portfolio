@@ -34,7 +34,7 @@ const HeaderIcons = ({ toggleMenu }) => (
   </HeaderNavIcons>
 );
 
-const Header = React.memo(withTheme((props) => {
+function Header(props) {
   const { menuOpen, toggleMenu, theme } = props;
 
   return (
@@ -87,7 +87,7 @@ const Header = React.memo(withTheme((props) => {
       </HeaderNav>
     </HeaderWrapper>
   );
-}));
+};
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -313,4 +313,4 @@ const HeaderMobileNavLink = styled(NavLink).attrs(props => ({
   }
 `;
 
-export default Header;
+export default React.memo(withTheme(Header));

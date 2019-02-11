@@ -9,14 +9,14 @@ import phone from '../assets/phone.png';
 import phoneLarge from '../assets/phone-large.png';
 import phonePlaceholder from '../assets/phone-placeholder.png';
 
-const ProjectItem = React.memo((props) => {
+function ProjectItem(props) {
   const {
-    id, tabIndex, visible, sectionRef, index, title, description, imageSrc,
+    id, visible, sectionRef, index, title, description, imageSrc,
     imageAlt, imageType, imagePlaceholder, buttonText, buttonLink, buttonTo,
   } = props;
 
   return (
-    <ProjectItemSection index={index} ref={sectionRef} id={id} tabIndex={tabIndex}>
+    <ProjectItemSection index={index} ref={sectionRef} id={id}>
       <ProjectItemContent>
         <Transition in={visible} timeout={0}>
           {status => (
@@ -83,7 +83,7 @@ const ProjectItem = React.memo((props) => {
       </ProjectItemContent>
     </ProjectItemSection>
   );
-});
+};
 
 const ProjectItemContent = styled.div`
   width: 100%;
@@ -488,4 +488,4 @@ const ProjectItemPhoneImageSvg = styled(Svg)`
   }
 `;
 
-export default ProjectItem;
+export default React.memo(ProjectItem);

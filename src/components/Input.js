@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import TextArea from '../components/TextArea';
 
-const Input = React.memo((props) => {
+function Input(props) {
   const { id, label, hasValue, multiline, className, ...restProps } = props;
 
   return (
@@ -33,7 +33,7 @@ const Input = React.memo((props) => {
       </InputLabel>
     </InputWrapper>
   );
-});
+};
 
 const InputWrapper = styled.div`
   position: relative;
@@ -116,4 +116,4 @@ const InputLabel = styled.label`
   `}
 `;
 
-export default Input;
+export default React.memo(Input);
