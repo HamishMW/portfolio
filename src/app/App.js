@@ -57,11 +57,11 @@ function App() {
 
   const setTheme = (overrides) => {
     setCurrentTheme({ ...Theme, ...overrides });
-  }
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-  }
+  };
 
   return (
     <ThemeProvider theme={currentTheme}>

@@ -50,7 +50,7 @@ export default function ProjectVolkihar(props) {
 
     return function cleanUp() {
       setTheme();
-    }
+    };
   }, [status]);
 
   return (

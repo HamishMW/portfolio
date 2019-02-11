@@ -21,14 +21,14 @@ export function ProjectBackground(props) {
       setOffset(lastScrollY.current * 0.4);
       scheduledAnimationFrame.current = false;
     });
-  }
+  };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
 
     return function cleanUp() {
       window.removeEventListener('scroll', handleScroll);
-    }
+    };
   }, []);
 
   return (

@@ -21,11 +21,11 @@ function Contact(props) {
 
   const updateEmail = event => {
     setEmailValue(event.target.value);
-  }
+  };
 
   const updateMessage = event => {
     setMessageValue(event.target.value);
-  }
+  };
 
   const onSubmit = async event => {
     event.preventDefault();
@@ -45,7 +45,7 @@ function Contact(props) {
       setSending(false);
       alert(error);
     }
-  }
+  };
 
   return (
     <ContactWrapper status={status}>
@@ -140,7 +140,7 @@ function Contact(props) {
       </TransitionGroup>
     </ContactWrapper>
   );
-};
+}
 
 const ContactWrapper = styled.section`
   position: absolute;

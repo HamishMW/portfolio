@@ -25,12 +25,12 @@ function ProgressiveImage(props) {
 
     return function cleanUp() {
       observer.disconnect();
-    }
+    };
   }, []);
 
   const onLoad = () => {
     setLoaded(true);
-  }
+  };
 
   return (
     <ImageContainer className={className} style={style} ref={containerRef}>
@@ -48,7 +48,7 @@ function ProgressiveImage(props) {
         role="presentation"
       />
     </ImageContainer>
-  )
+  );
 };
 
 const ImageContainer = styled.div`

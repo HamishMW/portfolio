@@ -114,7 +114,7 @@ export default function DispalcementSlider(props) {
       if (observer.current) {
         observer.current.disconnect();
       }
-    }
+    };
   }, []);
 
   const initializeObserver = () => {
@@ -128,7 +128,7 @@ export default function DispalcementSlider(props) {
     });
 
     observer.current.observe(container.current);
-  }
+  };
 
   const loadImages = async () => {
     const manager = new LoadingManager();
@@ -161,7 +161,7 @@ export default function DispalcementSlider(props) {
     const imageResults = await Promise.all(results);
     sliderImages.current = imageResults;
     addObjects(imageResults);
-  }
+  };
 
   const addObjects = (textures) => {
     material.current = new ShaderMaterial({
@@ -182,20 +182,20 @@ export default function DispalcementSlider(props) {
     imagePlane.current.position.set(0, 0, 0);
     scene.current.add(imagePlane.current);
     initialRender();
-  }
+  };
 
   const initialRender = () => {
     animating.current = true;
     autoPlay(true);
     goToIndex(0, 0);
-  }
+  };
 
   const animate = () => {
     if (animating.current) {
       requestAnimationFrame(animate);
       renderer.current.render(scene.current, camera.current);
     }
-  }
+  };
 
   const nextImage = () => {
     if (!loaded) return;
@@ -209,10 +209,10 @@ export default function DispalcementSlider(props) {
     animating.current = true;
     const nextIndex = imageIndex < sliderImages.current.length - 1
       ? imageIndex + 1
-      : 0
+      : 0;
 
     goToIndex(nextIndex, 1);
-  }
+  };
 
   const prevImage = () => {
     if (!loaded) return;
@@ -226,10 +226,10 @@ export default function DispalcementSlider(props) {
     animating.current = true;
     const prevIndex = imageIndex > 0
       ? imageIndex - 1
-      : sliderImages.current.length - 1
+      : sliderImages.current.length - 1;
 
     goToIndex(prevIndex, -1);
-  }
+  };
 
   const goToIndex = (index, direction = 1) => {
     animate();
@@ -249,7 +249,7 @@ export default function DispalcementSlider(props) {
         animating.current = false;
       })
       .start();
-  }
+  };
 
   const onNavClick = (index) => {
     if (!loaded) return;
@@ -263,7 +263,7 @@ export default function DispalcementSlider(props) {
     animating.current = true;
     const direction = index > imageIndex ? 1 : -1;
     goToIndex(index, direction);
-  }
+  };
 
   return (
     <SliderContainer>
@@ -304,7 +304,7 @@ export default function DispalcementSlider(props) {
         ))}
       </SliderNav>
     </SliderContainer>
-  )
+  );
 };
 
 const SliderContainer = styled.div`

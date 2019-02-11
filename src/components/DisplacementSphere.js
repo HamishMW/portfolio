@@ -75,8 +75,8 @@ function DisplacementSphere() {
       uniforms.current = null;
       renderer.current.context = null;
       renderer.current.domElement = null;
-    }
-  }, [])
+    };
+  }, []);
 
   const init = () => {
     const rand = Math.random();
@@ -101,7 +101,7 @@ function DisplacementSphere() {
     window.addEventListener('mousemove', onMouseMove);
     onWindowResize();
     animate();
-  }
+  };
 
   const onWindowResize = () => {
     const windowWidth = window.innerWidth;
@@ -122,7 +122,7 @@ function DisplacementSphere() {
       sphere.current.position.x = 25;
       sphere.current.position.y = 10;
     }
-  }
+  };
 
   const onMouseMove = (event) => {
     const mouseY = event.clientY / window.innerHeight;
@@ -132,20 +132,20 @@ function DisplacementSphere() {
       .to({ x: mouseY / 2, y: mouseX / 2 }, 2000)
       .easing(Easing.Quartic.Out)
       .start();
-  }
+  };
 
   const animate = () => {
     if (animating.current) {
       requestAnimationFrame(animate);
       render();
     }
-  }
+  };
 
   const render = () => {
     uniforms.current.time.value = .00005 * (Date.now() - start.current);
     sphere.current.rotation.z += 0.001;
     renderer.current.render(scene.current, camera.current);
-  }
+  };
 
   return (
     <SphereContainer ref={container} aria-hidden="true" />

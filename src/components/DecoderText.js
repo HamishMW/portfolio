@@ -38,7 +38,7 @@ function DecoderText(props) {
       cancelAnimationFrame(animate);
       clearTimeout(timeout.current);
       stop();
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ function DecoderText(props) {
 
   const startTimeout = () => {
     timeout.current = setTimeout(startAnim, 300);
-  }
+  };
 
   const startAnim = () => {
     startTime.current = Date.now();
@@ -69,7 +69,7 @@ function DecoderText(props) {
     running.current = true;
     setStarted(true);
     animate();
-  }
+  };
 
   const stop = () => running.current = false;
 
@@ -87,15 +87,15 @@ function DecoderText(props) {
 
     elapsedTime.current = elapsed;
     setPosition(elapsedTime.current / offset);
-  }
+  };
 
   const setValue = value => {
     const val = value.map(value => ({
       type: 'actual',
       value,
     }));
-    return val
-  }
+    return val;
+  };
 
   const shuffle = (content, chars, position) => {
     return content.map((value, index) => {
@@ -106,9 +106,9 @@ function DecoderText(props) {
       return {
         type: 'code',
         value: getRandCharacter(chars),
-      }
+      };
     });
-  }
+  };
 
   const getRandCharacter = chars => {
     const randNum = Math.floor(Math.random() * chars.length);
@@ -116,13 +116,13 @@ function DecoderText(props) {
     const picketCharacter = chars[randNum];
     const chosen = lowChoice < 0 ? picketCharacter.toLowerCase() : picketCharacter;
     return chosen;
-  }
+  };
 
   return (
     <DecoderSpan className={className} style={style}>
       {output.map((item, index) => {
         if (item.type === 'actual') {
-          return (<span key={`${item.value}_${index}`}>{item.value}</span>)
+          return (<span key={`${item.value}_${index}`}>{item.value}</span>);
         }
         return (
           <DecoderCode
@@ -131,7 +131,7 @@ function DecoderText(props) {
           >
             {item.value}
           </DecoderCode>
-        )
+        );
       })}
     </DecoderSpan>
   );
