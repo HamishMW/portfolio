@@ -198,37 +198,40 @@ export default function DispalcementSlider(props) {
   };
 
   const nextImage = () => {
-    if (!loaded) return;
-
-    if (animating.current) {
-      cancelAnimationFrame(scheduledAnimationFrame.current);
-      scheduledAnimationFrame.current = requestAnimationFrame(nextImage);
-      return;
-    }
-
-    animating.current = true;
-    const nextIndex = imageIndex < sliderImages.current.length - 1
-      ? imageIndex + 1
-      : 0;
-
-    goToIndex(nextIndex, 1);
+    navigate(1);
   };
 
   const prevImage = () => {
+    navigate(-1);
+  };
+
+  const onNavClick = (index) => {
+    const direction = index > imageIndex ? 1 : -1;
+    navigate(direction, index);
+  };
+
+  const navigate = (direction, index) => {
     if (!loaded) return;
 
     if (animating.current) {
       cancelAnimationFrame(scheduledAnimationFrame.current);
-      scheduledAnimationFrame.current = requestAnimationFrame(prevImage);
+      scheduledAnimationFrame.current = requestAnimationFrame(() => navigate(direction, index));
       return;
     }
 
-    animating.current = true;
-    const prevIndex = imageIndex > 0
-      ? imageIndex - 1
-      : sliderImages.current.length - 1;
+    const determineIndex = () => {
+      if (index) return index;
+      const length = sliderImages.current.length;
+      const prevIndex = (imageIndex - 1 + length) % length;
+      const nextIndex = (imageIndex + 1) % length;
+      const finalIndex = direction > 0 ? nextIndex : prevIndex;
+      return finalIndex;
+    };
 
-    goToIndex(prevIndex, -1);
+    animating.current = true;
+
+    const finalIndex = determineIndex();
+    goToIndex(finalIndex, direction);
   };
 
   const goToIndex = (index, direction = 1) => {
@@ -249,20 +252,6 @@ export default function DispalcementSlider(props) {
         animating.current = false;
       })
       .start();
-  };
-
-  const onNavClick = (index) => {
-    if (!loaded) return;
-
-    if (animating.current) {
-      cancelAnimationFrame(scheduledAnimationFrame.current);
-      scheduledAnimationFrame.current = requestAnimationFrame(() => onNavClick(index));
-      return;
-    }
-
-    animating.current = true;
-    const direction = index > imageIndex ? 1 : -1;
-    goToIndex(index, direction);
   };
 
   return (
