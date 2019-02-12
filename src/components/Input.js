@@ -26,7 +26,7 @@ function Input(props) {
       <InputUnderline />
       <InputLabel
         id={`${id}-label`}
-        hasValue={hasValue}
+        hasValue={!!props.value}
         htmlFor={id}
       >
         {label}

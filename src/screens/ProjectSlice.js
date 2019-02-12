@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components/macro';
 import ProgressiveImage from '../components/ProgressiveImage';
-import ScrollToTop from '../utils/ScrollToTop';
+import { useScrollToTop } from '../utils/Hooks';
 import Footer from '../components/Footer';
 import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
@@ -41,112 +41,115 @@ const roles = [
   'Interface Design',
 ];
 
-const ProjectSlice = ({ status }) => (
-  <React.Fragment>
-    <ScrollToTop status={status} />
-    <Helmet
-      title={`Projects | ${title}`}
-      meta={[{ name: 'description', content: description, }]}
-    />
-    <ProjectContainer>
-      <ProjectBackground
-        srcSet={`${sliceBackground} 1000w, ${sliceBackgroundLarge} 1920w`}
-        placeholder={sliceBackgroundPlaceholder}
-        opacity={0.8}
-        entered={!prerender}
+function ProjectSlice({ status }) {
+  useScrollToTop(status);
+
+  return (
+    <React.Fragment>
+      <Helmet
+        title={`Projects | ${title}`}
+        meta={[{ name: 'description', content: description, }]}
       />
-      <ProjectHeader
-        title={title}
-        description={description}
-        url="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
-        roles={roles}
-      />
-      <ProjectSection>
-        <ProjectSectionContent>
-          <ProjectImage entered={!prerender}>
+      <ProjectContainer>
+        <ProjectBackground
+          srcSet={`${sliceBackground} 1000w, ${sliceBackgroundLarge} 1920w`}
+          placeholder={sliceBackgroundPlaceholder}
+          opacity={0.8}
+          entered={!prerender}
+        />
+        <ProjectHeader
+          title={title}
+          description={description}
+          url="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
+          roles={roles}
+        />
+        <ProjectSection>
+          <ProjectSectionContent>
+            <ProjectImage entered={!prerender}>
+              <ProgressiveImage
+                srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1440w`}
+                placeholder={sliceAppPlaceholder}
+                alt="The Slice web appication showing a selected user annotation."
+                sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
+              />
+            </ProjectImage>
+          </ProjectSectionContent>
+        </ProjectSection>
+        <ProjectSection>
+          <ProjectSectionColumns>
+            <SidebarImagesText>
+              <ProjectSectionHeading>Bringing it together</ProjectSectionHeading>
+              <ProjectSectionText>
+                Teachers needed a better way to create collaborative group activities by annotating slides on Slice. Before starting this project, a layer could only be annotated by a single user, making it difficult for learners to work together.
+              </ProjectSectionText>
+              <ProjectSectionText>
+                Our solution was to allow users to be invited to a layer, where they can see others’ annotations and make their own.
+              </ProjectSectionText>
+            </SidebarImagesText>
+            <SidebarImages>
+              <SidebarImage
+                srcSet={`${sliceSidebarLayers} 300w, ${sliceSidebarLayersLarge} 700w`}
+                placeholder={sliceSidebarLayersPlaceholder}
+                alt="The layers sidebar design, now with user profiles."
+                sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
+              />
+              <SidebarImage
+                srcSet={`${sliceSidebarAnnotations} 300w, ${sliceSidebarAnnotationsLarge} 700w`}
+                placeholder={sliceSidebarAnnotationsPlaceholder}
+                alt="Multiple user annotations on a shared layer."
+                sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
+              />
+            </SidebarImages>
+          </ProjectSectionColumns>
+        </ProjectSection>
+        <ProjectSection light>
+          <ProjectSectionContent>
+            <ProjectTextRow>
+              <ProjectSectionHeading>Improving the experience</ProjectSectionHeading>
+              <ProjectSectionText>
+                A problem we heard about often form users was that it was difficult to find images they had previously seen or worked on. To solve this we added a new tab that lists all previously annotated slides. In addition, we added the ability to favorite slides, so if users find an interesting slide they want to annotate later, they can easily save it to their account.
+              </ProjectSectionText>
+            </ProjectTextRow>
             <ProgressiveImage
-              srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1440w`}
-              placeholder={sliceAppPlaceholder}
-              alt="The Slice web appication showing a selected user annotation."
+              srcSet={`${sliceSlides} 800w, ${sliceSlidesLarge} 1440w`}
+              placeholder={sliceSlidesPlaceholder}
+              alt="The new My Slides tab in slice, showing annotated and favorited slides."
               sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
             />
-          </ProjectImage>
-        </ProjectSectionContent>
-      </ProjectSection>
-      <ProjectSection>
-        <ProjectSectionColumns>
-          <SidebarImagesText>
-            <ProjectSectionHeading>Bringing it together</ProjectSectionHeading>
-            <ProjectSectionText>
-              Teachers needed a better way to create collaborative group activities by annotating slides on Slice. Before starting this project, a layer could only be annotated by a single user, making it difficult for learners to work together.
-            </ProjectSectionText>
-            <ProjectSectionText>
-              Our solution was to allow users to be invited to a layer, where they can see others’ annotations and make their own.
-            </ProjectSectionText>
-          </SidebarImagesText>
-          <SidebarImages>
-            <SidebarImage
-              srcSet={`${sliceSidebarLayers} 300w, ${sliceSidebarLayersLarge} 700w`}
-              placeholder={sliceSidebarLayersPlaceholder}
-              alt="The layers sidebar design, now with user profiles."
-              sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
-            />
-            <SidebarImage
-              srcSet={`${sliceSidebarAnnotations} 300w, ${sliceSidebarAnnotationsLarge} 700w`}
-              placeholder={sliceSidebarAnnotationsPlaceholder}
-              alt="Multiple user annotations on a shared layer."
-              sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
-            />
-          </SidebarImages>
-        </ProjectSectionColumns>
-      </ProjectSection>
-      <ProjectSection light>
-        <ProjectSectionContent>
-          <ProjectTextRow>
-            <ProjectSectionHeading>Improving the experience</ProjectSectionHeading>
-            <ProjectSectionText>
-              A problem we heard about often form users was that it was difficult to find images they had previously seen or worked on. To solve this we added a new tab that lists all previously annotated slides. In addition, we added the ability to favorite slides, so if users find an interesting slide they want to annotate later, they can easily save it to their account.
-            </ProjectSectionText>
-          </ProjectTextRow>
-          <ProgressiveImage
-            srcSet={`${sliceSlides} 800w, ${sliceSlidesLarge} 1440w`}
-            placeholder={sliceSlidesPlaceholder}
-            alt="The new My Slides tab in slice, showing annotated and favorited slides."
-            sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
-          />
-        </ProjectSectionContent>
-      </ProjectSection>
-      <ProjectSection>
-        <ProjectSectionGrid>
-          <ProjectSectionGridBackground>
-            <ProgressiveImage
-              srcSet={`${sliceBackgroundBar} 400w, ${sliceBackgroundBarLarge} 898w`}
-              placeholder={sliceBackgroundBarPlaceholder}
-              alt=""
-              role="presentation"
-              sizes={`(max-width: ${Media.mobile}) 312px, (max-width: ${Media.tablet}) 408px, 514px`}
-            />
-          </ProjectSectionGridBackground>
-          <ProjectSectionGridForeground>
-            <ProgressiveImage
-              srcSet={`${sliceAnnotation} 440w, ${sliceAnnotationLarge} 880w`}
-              placeholder={sliceAnnotationPlaceholder}
-              alt="An annotation preview popover with statistics for shape perimeter and area."
-              sizes={`(max-width: ${Media.mobile}) 584px, (max-width: ${Media.tablet}) 747px, 556px`}
-            />
-          </ProjectSectionGridForeground>
-          <ProjectSectionGridText>
-            <ProjectSectionHeading>Meaningful details</ProjectSectionHeading>
-            <ProjectSectionText>
-              Marking and annotating areas on high resolution beiomedical images is the core experience of the app, and it was easy to get lost or lose sense of scale when zooming in on details. Adding measurements for the perimeter and area of an annotation both helped to communicate the overall scale of the image and how large the annotated feature is in comparison.
-            </ProjectSectionText>
-          </ProjectSectionGridText>
-        </ProjectSectionGrid>
-      </ProjectSection>
-    </ProjectContainer>
-    <Footer />
-  </React.Fragment>
-);
+          </ProjectSectionContent>
+        </ProjectSection>
+        <ProjectSection>
+          <ProjectSectionGrid>
+            <ProjectSectionGridBackground>
+              <ProgressiveImage
+                srcSet={`${sliceBackgroundBar} 400w, ${sliceBackgroundBarLarge} 898w`}
+                placeholder={sliceBackgroundBarPlaceholder}
+                alt=""
+                role="presentation"
+                sizes={`(max-width: ${Media.mobile}) 312px, (max-width: ${Media.tablet}) 408px, 514px`}
+              />
+            </ProjectSectionGridBackground>
+            <ProjectSectionGridForeground>
+              <ProgressiveImage
+                srcSet={`${sliceAnnotation} 440w, ${sliceAnnotationLarge} 880w`}
+                placeholder={sliceAnnotationPlaceholder}
+                alt="An annotation preview popover with statistics for shape perimeter and area."
+                sizes={`(max-width: ${Media.mobile}) 584px, (max-width: ${Media.tablet}) 747px, 556px`}
+              />
+            </ProjectSectionGridForeground>
+            <ProjectSectionGridText>
+              <ProjectSectionHeading>Meaningful details</ProjectSectionHeading>
+              <ProjectSectionText>
+                Marking and annotating areas on high resolution beiomedical images is the core experience of the app, and it was easy to get lost or lose sense of scale when zooming in on details. Adding measurements for the perimeter and area of an annotation both helped to communicate the overall scale of the image and how large the annotated feature is in comparison.
+              </ProjectSectionText>
+            </ProjectSectionGridText>
+          </ProjectSectionGrid>
+        </ProjectSection>
+      </ProjectContainer>
+      <Footer />
+    </React.Fragment>
+  );
+}
 
 const ProjectTextRow = styled.div`
   max-width: 660px;

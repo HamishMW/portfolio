@@ -42,7 +42,7 @@ export default function Home(props) {
       clearTimeout(disciplineTimeout.current);
       if (sectionObserver.current) sectionObserver.current.disconnect();
       if (indicatorObserver.current) indicatorObserver.current.disconnect();
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function Home(props) {
     } else if (status === 'entered') {
       window.scrollTo(0, 0);
     }
-  }
+  };
 
   const initializeObservers = () => {
     const revealSections = [intro, projectOne, projectTwo, projectThree, details];
@@ -98,7 +98,7 @@ export default function Home(props) {
     });
 
     indicatorObserver.current.observe(intro.current);
-  }
+  };
 
   const handleHashchange = (hash, scroll) => {
     const hashSections = [intro, projectOne, details];
@@ -112,7 +112,7 @@ export default function Home(props) {
         inline: 'nearest',
       });
     }
-  }
+  };
 
   return (
     <React.Fragment>

@@ -7,25 +7,18 @@ import DecoderText from '../components/DecoderText';
 import Button, { RouterButton } from '../components/Button';
 import { Media, AnimFade } from '../utils/StyleUtils';
 import Firebase from '../utils/Firebase';
-import ScrollToTop from '../utils/ScrollToTop';
+import { useScrollToTop, useFormInput } from '../utils/Hooks';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
 
 function Contact(props) {
   const { status } = props;
-  const [emailValue, setEmailValue] = useState('');
-  const [messageValue, setMessageValue] = useState('');
+  const email = useFormInput('');
+  const message = useFormInput('');
   const [sending, setSending] = useState(false);
   const [complete, setComplete] = useState(false);
-
-  const updateEmail = event => {
-    setEmailValue(event.target.value);
-  };
-
-  const updateMessage = event => {
-    setMessageValue(event.target.value);
-  };
+  useScrollToTop(status);
 
   const onSubmit = async event => {
     event.preventDefault();
@@ -35,8 +28,8 @@ function Contact(props) {
       setSending(true);
 
       await Firebase.database().ref('messages').push({
-        email: emailValue,
-        message: messageValue,
+        email: email.value,
+        message: message.value,
       });
 
       setComplete(true);
@@ -49,14 +42,12 @@ function Contact(props) {
 
   return (
     <ContactWrapper status={status}>
-      <ScrollToTop status={status} />
-      <Helmet>
-        <title>Contact me</title>
-        <meta
-          name="description"
-          content="Send me a message if you're interested in discussing a project or if you just want to say hi"
-        />
-      </Helmet>
+      <Helmet
+        title="Contact me"
+        meta={[{
+          name: 'description', content: 'Send me a message if you’re interested in discussing a project or if you just want to say hi',
+        }]}
+      />
       <TransitionGroup component={React.Fragment}>
         {!complete &&
           <Transition appear timeout={1600} mountOnEnter unmountOnExit>
@@ -71,27 +62,23 @@ function Contact(props) {
                 </ContactTitle>
                 <ContactDivider status={status} delay={100} />
                 <ContactInput
+                  {...email}
                   status={status}
                   delay={200}
-                  onChange={updateEmail}
                   autoComplete="email"
                   label="Your Email"
                   id="email"
                   type="email"
-                  hasValue={!!emailValue}
-                  value={emailValue}
                   maxLength={320}
                   required
                 />
                 <ContactInput
+                  {...message}
                   status={status}
                   delay={300}
-                  onChange={updateMessage}
                   autoComplete="off"
                   label="Message"
                   id="message"
-                  hasValue={!!messageValue}
-                  value={messageValue}
                   maxLength={2000}
                   required
                   multiline

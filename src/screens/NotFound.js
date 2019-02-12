@@ -8,60 +8,62 @@ import { Media } from '../utils/StyleUtils';
 import Notfound from '../assets/notfound.mp4';
 import NotfoundPoster from '../assets/notfound.jpg';
 
-const NotFound = () => (
-  <NotFoundSection>
-    <Helmet>
-      <title tag="title">404 | Not Found</title>
-      <meta name="description" content="This page doesn't exist" />
-    </Helmet>
-    <Transition appear in={true} timeout={0}>
-      {status => (
-        <React.Fragment>
-          <NotfoundDetails>
-            <NotFoundText>
-              <NotFoundTitle status={status}>404</NotFoundTitle>
-              <NotFoundSubHeading status={status}>
-                <DecoderText text="Error: Redacted" start offset={100} />
-              </NotFoundSubHeading>
-              <NotFoundDescription status={status}>
-                This page could not be found. It either doesn't exist or was deleted.
-                Or perhaps you don't exist.
-              </NotFoundDescription>
-              <NotFoundButton
-                secondary
-                status={status}
-                to="/"
-                icon="chevronRight"
-              >
-                Back to homepage
-              </NotFoundButton>
-            </NotFoundText>
-          </NotfoundDetails>
+function NotFound() {
+  return (
+    <NotFoundSection>
+      <Helmet>
+        <title tag="title">404 | Not Found</title>
+        <meta name="description" content="This page doesn't exist" />
+      </Helmet>
+      <Transition appear in={true} timeout={0}>
+        {status => (
+          <React.Fragment>
+            <NotfoundDetails>
+              <NotFoundText>
+                <NotFoundTitle status={status}>404</NotFoundTitle>
+                <NotFoundSubHeading status={status}>
+                  <DecoderText text="Error: Redacted" start={status !== 'exited'} offset={100} />
+                </NotFoundSubHeading>
+                <NotFoundDescription status={status}>
+                  This page could not be found. It either doesn't exist or was deleted.
+                  Or perhaps you don't exist.
+                </NotFoundDescription>
+                <NotFoundButton
+                  secondary
+                  status={status}
+                  to="/"
+                  icon="chevronRight"
+                >
+                  Back to homepage
+                </NotFoundButton>
+              </NotFoundText>
+            </NotfoundDetails>
 
-          <NotFoundVideoContainer status={status}>
-            <NotFoundVideo
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={NotfoundPoster}
-              status={status}
-            >
-              <source src={Notfound} type="video/mp4" />
-            </NotFoundVideo>
-            <NotFoundCredit status={status}
-              href="https://twitter.com/ruinergame"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Animation from Ruiner
-            </NotFoundCredit>
-          </NotFoundVideoContainer>
-        </React.Fragment>
-      )}
-    </Transition>
-  </NotFoundSection>
-);
+            <NotFoundVideoContainer status={status}>
+              <NotFoundVideo
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={NotfoundPoster}
+                status={status}
+              >
+                <source src={Notfound} type="video/mp4" />
+              </NotFoundVideo>
+              <NotFoundCredit status={status}
+                href="https://twitter.com/ruinergame"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Animation from Ruiner
+              </NotFoundCredit>
+            </NotFoundVideoContainer>
+          </React.Fragment>
+        )}
+      </Transition>
+    </NotFoundSection>
+  );
+}
 
 const NotFoundSection = styled.section`
   display: grid;
@@ -85,6 +87,7 @@ const NotFoundSection = styled.section`
 
 const AnimVideo = keyframes`
   0% {
+    opacity: 0;
     transform: scale3d(0, 1, 1);
     transform-origin: left;
   }
@@ -117,7 +120,7 @@ const NotFoundVideoContainer = styled.div`
   &:after {
     content: '';
     background: ${props => props.theme.colorPrimary(1)};
-    animation: ${css`${AnimVideo} 1.8s ${props => props.theme.curveFastoutSlowin}`};
+    animation: ${props => props.status === 'entered' && css`${AnimVideo} 1.8s ${props.theme.curveFastoutSlowin}`};
     position: absolute;
     top: 0;
     right: 0;
@@ -127,12 +130,7 @@ const NotFoundVideoContainer = styled.div`
     transform-origin: left;
     z-index: 16;
   }
-
-  ${props => props.status === 'entered' && css`
-    &:before {
-      animation: ${AnimVideo} 1.8s ${props.theme.curveFastoutSlowin};
-    }
-  `}`;
+`;
 
 const NotFoundVideo = styled.video`
   object-fit: cover;

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 import ProgressiveImage from '../components/ProgressiveImage';
-import ScrollToTop from '../utils/ScrollToTop';
+import { useScrollToTop } from '../utils/Hooks';
 import Footer from '../components/Footer';
 import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader,
@@ -40,8 +40,9 @@ const roles = [
   'Graphic Design',
 ];
 
-export default function ProjectVolkihar(props) {
+function ProjectVolkihar(props) {
   const { status, setTheme } = props;
+  useScrollToTop(status);
 
   useEffect(() => {
     if (status === 'entered' || status === 'exiting') {
@@ -55,7 +56,6 @@ export default function ProjectVolkihar(props) {
 
   return (
     <React.Fragment>
-      <ScrollToTop status={status} />
       <Helmet
         title={`Projects | ${title}`}
         meta={[{ name: 'description', content: description, }]}
@@ -170,3 +170,5 @@ const VolkiharTextSection = styled.div`
   justify-content: center;
   flex-direction: column;
 `;
+
+export default ProjectVolkihar;
