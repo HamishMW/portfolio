@@ -5,7 +5,7 @@ const Spacing = {
     tablet: '40px',
     mobile: '20px',
   },
-}
+};
 
 export default {
   ...Spacing,
@@ -17,4 +17,4 @@ export default {
   colorPrimary: alpha => `rgba(0, 229, 255, ${alpha})`,
   curveFastoutSlowin: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
   clipPath: size => `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
-}
+};

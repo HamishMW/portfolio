@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { Helmet } from 'react-helmet';
+import Helmet from 'react-helmet-async';
+import { AppContext } from '../app/App';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { useScrollToTop } from '../utils/Hooks';
 import Footer from '../components/Footer';
@@ -41,7 +42,7 @@ const roles = [
 ];
 
 function ProjectVolkihar(props) {
-  const { status, setTheme } = props;
+  const { status, setTheme } = useContext(AppContext);
   useScrollToTop(status);
 
   useEffect(() => {

@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Helmet } from "react-helmet";
+import React, { useState, useEffect, useRef, useMemo, useContext } from 'react';
+import Helmet from 'react-helmet-async';
 import 'intersection-observer';
+import { AppContext } from '../app/App';
 import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
@@ -17,11 +18,11 @@ import gamestackListPlaceholder from '../assets/gamestack-list-placeholder.jpg';
 import sliceProject from '../assets/slice-project.png';
 import sliceProjectLarge from '../assets/slice-project-large.png';
 import sliceProjectPlaceholder from '../assets/slice-project-placeholder.png';
-
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
 export default function Home(props) {
-  const { status, location } = props;
+  const { status } = useContext(AppContext);
+  const { location } = props;
   const { hash } = location;
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const [visibleSections, setVisibleSections] = useState([]);
@@ -39,7 +40,6 @@ export default function Home(props) {
     initializeObservers();
 
     return function cleanUp() {
-      clearTimeout(disciplineTimeout.current);
       if (sectionObserver.current) sectionObserver.current.disconnect();
       if (indicatorObserver.current) indicatorObserver.current.disconnect();
     };
@@ -49,7 +49,7 @@ export default function Home(props) {
     if (status === 'entered') {
       handleHashchange(hash, true);
     }
-  }, [location.key]);
+  }, [location]);
 
   useEffect(() => {
     initScrollPosition();
@@ -60,6 +60,10 @@ export default function Home(props) {
       const index = disciplineIndex >= disciplines.length - 1 ? 0 : disciplineIndex + 1;
       setDisciplineIndex(index);
     }, 5000);
+
+    return function cleanUp() {
+      clearTimeout(disciplineTimeout.current);
+    };
   }, [disciplineIndex]);
 
   const initScrollPosition = () => {

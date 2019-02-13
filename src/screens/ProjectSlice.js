@@ -1,5 +1,5 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
+import React, { useContext } from 'react';
+import Helmet from 'react-helmet-async';
 import styled from 'styled-components/macro';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { useScrollToTop } from '../utils/Hooks';
@@ -30,6 +30,7 @@ import sliceBackgroundBarPlaceholder from '../assets/slice-background-bar-placeh
 import sliceAnnotation from '../assets/slice-annotation.png';
 import sliceAnnotationLarge from '../assets/slice-annotation-large.png';
 import sliceAnnotationPlaceholder from '../assets/slice-annotation-placeholder.png';
+import { AppContext } from '../app/App';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -41,7 +42,8 @@ const roles = [
   'Interface Design',
 ];
 
-function ProjectSlice({ status }) {
+function ProjectSlice(props) {
+  const { status } = useContext(AppContext);
   useScrollToTop(status);
 
   return (

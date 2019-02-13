@@ -1,10 +1,8 @@
-import React, { lazy, Suspense, useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect, createContext } from 'react';
 import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components/macro';
-import BrowserRouter from 'react-router-dom/BrowserRouter';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Transition, TransitionGroup } from 'react-transition-group';
-import Route from 'react-router-dom/Route';
-import Switch from 'react-router-dom/Switch';
-import { Helmet } from "react-helmet";
+import Helmet, { HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import Theme from '../utils/Theme';
@@ -19,6 +17,7 @@ const ProjectVolkihar = lazy(() => import('../screens/ProjectVolkihar'));
 const NotFound = lazy(() => import('../screens/NotFound'));
 
 const prerender = navigator.userAgent === 'ReactSnap';
+export const AppContext = createContext();
 
 const consoleMessage = `
 __  __  __
@@ -64,44 +63,48 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={currentTheme}>
-      <BrowserRouter>
-        <Route render={({ location }) => (
-          <React.Fragment>
-            <Helmet>
-              <link rel="preload" href={`${GothamBook}`} as="font" crossorigin="crossorigin" />
-              <link rel="preload" href={`${GothamMedium}`} as="font" crossorigin="crossorigin" />
-              <style>{fontStyles}</style>
-            </Helmet>
-            <GlobalStyles />
-            <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
-            <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
-            <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
-            <TransitionGroup component={React.Fragment} >
-              <Transition key={location.pathname} timeout={10000}>
-                {status => (
-                  <MainContent status={status} id="MainContent" role="main">
-                    <Helmet>
-                      <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
-                    </Helmet>
-                    <Suspense fallback={<React.Fragment />}>
-                      <Switch location={location}>
-                        <Route exact path="/" render={props => <Home {...props} status={status} />} />
-                        <Route path="/contact" render={props => <Contact {...props} status={status} />} />
-                        <Route path="/projects/smart-sparrow" render={props => <ProjectSPR {...props} status={status} />} />
-                        <Route path="/projects/slice" render={props => <ProjectSlice {...props} status={status} />} />
-                        <Route path="/projects/volkihar-knight" render={props => <ProjectVolkihar {...props} status={status} setTheme={setTheme} />} />
-                        <Route component={props => <NotFound {...props} status={status} />} />
-                      </Switch>
-                    </Suspense>
-                  </MainContent>
-                )}
-              </Transition>
-            </TransitionGroup>
-          </React.Fragment>
-        )} />
-      </BrowserRouter>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider theme={currentTheme}>
+        <BrowserRouter>
+          <Route render={({ location }) => (
+            <React.Fragment>
+              <Helmet>
+                <link rel="preload" href={`${GothamBook}`} as="font" crossorigin="crossorigin" />
+                <link rel="preload" href={`${GothamMedium}`} as="font" crossorigin="crossorigin" />
+                <style>{fontStyles}</style>
+              </Helmet>
+              <GlobalStyles />
+              <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
+              <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
+              <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
+              <TransitionGroup component={React.Fragment} >
+                <Transition key={location.pathname} timeout={500}>
+                  {status => (
+                    <AppContext.Provider value={{ status, setTheme }}>
+                      <MainContent status={status} id="MainContent" role="main">
+                        <Helmet>
+                          <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
+                        </Helmet>
+                        <Suspense fallback={<React.Fragment />}>
+                          <Switch location={location}>
+                            <Route exact path="/" component={Home} />
+                            <Route path="/contact" component={Contact} />
+                            <Route path="/projects/smart-sparrow" component={ProjectSPR} />
+                            <Route path="/projects/slice" component={ProjectSlice} />
+                            <Route path="/projects/volkihar-knight" component={ProjectVolkihar} />
+                            <Route component={NotFound} />
+                          </Switch>
+                        </Suspense>
+                      </MainContent>
+                    </AppContext.Provider>
+                  )}
+                </Transition>
+              </TransitionGroup>
+            </React.Fragment>
+          )} />
+        </BrowserRouter>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 };
 
