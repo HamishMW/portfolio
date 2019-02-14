@@ -52,9 +52,9 @@ const Icon = ({ className, color, icon, size = 24 }) => {
         <path d="M18.03 1.375L16.47.125-.031 20.75l16.5 20.625 1.562-1.25L2.53 20.75z" />
       </svg>
     ),
-  }
+  };
 
   return Icons[icon]();
-}
+};
 
 export default Icon;

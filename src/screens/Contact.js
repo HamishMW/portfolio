@@ -274,8 +274,7 @@ const ContactButton = styled(Button)`
 
   ${props => props.sending && css`
     svg {
-      transition: transform ${props.curveFastoutSlowin}, opacity 0.3s ease 0.8s;
-      transition-duration: 0.8s;
+      transition: transform ${props.curveFastoutSlowin} 0.8s, opacity 0.3s ease 0.3s;
       transform: translate3d(150px, 0, 0);
       opacity: 0;
     }

@@ -221,7 +221,7 @@ const ButtonIcon = styled(Icon)`
   }
 
   ${props => props.loading && css`
-    visibility: hidden;
+    opacity: 0;
   `}
 `;
 

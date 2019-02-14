@@ -9,11 +9,11 @@ export const Media = {
   numDesktop: 1440,
   numTablet: 1024,
   numMobile: 696,
-  get desktop() { return `${this.numDesktop}px` },
-  get tablet() { return `${this.numTablet}px` },
-  get mobile() { return `${this.numMobile}px` },
-  get mobileLS() { return `(max-width: 820px) and (max-height: 420px)` },
-}
+  get desktop() { return `${this.numDesktop}px`; },
+  get tablet() { return `${this.numTablet}px`; },
+  get mobile() { return `${this.numMobile}px`; },
+  get mobileLS() { return `(max-width: 820px) and (max-height: 420px)`; },
+};
 
 export const ColorTint = (color, percent) => {
   const values = color.split(',');
@@ -24,4 +24,4 @@ export const ColorTint = (color, percent) => {
   const B = parseInt(values[2], 10);
   const A = parseInt(values[3], 10);
   return `rgba(${(Math.round((t - R) * p) + R)}, ${(Math.round((t - G) * p) + G)}, ${(Math.round((t - B) * p) + B)}, ${A})`;
-}
+};
