@@ -52,7 +52,7 @@ function Intro(props) {
                 </TransitionGroup>
               </IntroTitle>
             </IntroText>
-            <MemoizedScrollIndicator isHidden={scrollIndicatorHidden} status={status} />)
+            <MemoizedScrollIndicator isHidden={scrollIndicatorHidden} status={status} />
           </React.Fragment>
         )}
       </Transition>
