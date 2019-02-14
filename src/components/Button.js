@@ -36,7 +36,8 @@ const LinkButton = React.memo((props) => {
   const { className, style, href, rel, target, secondary } = props;
 
   return (
-    <LinkButtonContainer
+    <ButtonContainer
+      as="a"
       className={className}
       style={style}
       href={href}
@@ -45,7 +46,7 @@ const LinkButton = React.memo((props) => {
       secondary={secondary}
     >
       <ButtonContent {...props} />
-    </LinkButtonContainer>
+    </ButtonContainer>
   );
 });
 
@@ -53,14 +54,15 @@ const RouterButton = React.memo((props) => {
   const { className, style, to, secondary } = props;
 
   return (
-    <RouterButtonContainer
+    <ButtonContainer
+      as={Link}
       className={className}
       style={style}
       to={to}
       secondary={secondary ? 1 : 0}
     >
       <ButtonContent {...props} />
-    </RouterButtonContainer>
+    </ButtonContainer>
   );
 });
 
@@ -179,9 +181,6 @@ const ButtonContainer = styled.button`
   `}
 `;
 
-const LinkButtonContainer = ButtonContainer.withComponent('a');
-const RouterButtonContainer = ButtonContainer.withComponent(Link);
-
 const ButtonText = styled.span`
   font-size: 18px;
   font-weight: 500;
@@ -210,11 +209,7 @@ const ButtonIcon = styled(Icon)`
   `}
 
   ${ButtonContainer}:hover &,
-  ${ButtonContainer}:focus &,
-  ${LinkButtonContainer}:hover &,
-  ${LinkButtonContainer}:focus &,
-  ${RouterButtonContainer}:hover &,
-  ${RouterButtonContainer}:focus & {
+  ${ButtonContainer}:focus & {
     ${props => props.icon === 'arrowRight' && css`
       transform: translate3d(3px, 0, 0);
     `}

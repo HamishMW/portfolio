@@ -7,22 +7,13 @@ function Input(props) {
 
   return (
     <InputWrapper className={className}>
-      {!multiline &&
-        <InputElement
-          id={id}
-          name={id}
-          aria-labelledby={`${id}-label`}
-          {...restProps}
-        />
-      }
-      {!!multiline &&
-        <InputTextArea
-          id={id}
-          name={id}
-          aria-labelledby={`${id}-label`}
-          {...restProps}
-        />
-      }
+      <InputElement
+        as={multiline ? TextArea : null}
+        id={id}
+        name={id}
+        aria-labelledby={`${id}-label`}
+        {...restProps}
+      />
       <InputUnderline />
       <InputLabel
         id={`${id}-label`}
@@ -74,8 +65,6 @@ const InputElement = styled.input`
   }
 `;
 
-const InputTextArea = InputElement.withComponent(TextArea);
-
 const InputUnderline = styled.div`
   background: ${props => props.theme.colorPrimary(1)};
   transform: scale3d(0, 1, 1);
@@ -86,8 +75,7 @@ const InputUnderline = styled.div`
   transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
   transform-origin: left;
 
-  ${InputElement}:focus ~ &,
-  ${InputTextArea}:focus ~ & {
+  ${InputElement}:focus ~ & {
     transform: scale3d(1, 1, 1);
   }
 `;
@@ -106,8 +94,7 @@ const InputLabel = styled.label`
   transform-origin: top left;
   transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
 
-  ${InputElement}:focus ~ &,
-  ${InputTextArea}:focus ~ & {
+  ${InputElement}:focus ~ & {
     ${props => InputLabelFocus(props)}
   }
 

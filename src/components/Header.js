@@ -24,13 +24,14 @@ const HeaderIcons = ({ toggleMenu }) => (
     >
       <HeaderNavIcon icon="dribbble" />
     </HeaderNavIconLink>
-    <HeaderNavIconLinkRouter
+    <HeaderNavIconLink
+      as={Link}
       aria-label="Contact"
       to="/contact"
       onClick={!!toggleMenu ? () => toggleMenu() : null}
     >
       <HeaderNavIcon icon="email" />
-    </HeaderNavIconLinkRouter>
+    </HeaderNavIconLink>
   </HeaderNavIcons>
 );
 
@@ -228,18 +229,13 @@ const HeaderNavIconLink = styled.a`
   padding: 10px;
 `;
 
-const HeaderNavIconLinkRouter = HeaderNavIconLink.withComponent(Link);
-
 const HeaderNavIcon = styled(Icon)`
   fill: ${props => props.theme.colorText(0.6)};
   transition: all 0.4s ease;
 
   ${HeaderNavIconLink}:hover &,
-  ${HeaderNavIconLinkRouter}:hover &,
   ${HeaderNavIconLink}:focus &,
-  ${HeaderNavIconLinkRouter}:focus &,
-  ${HeaderNavIconLink}:active &,
-  ${HeaderNavIconLinkRouter}:active & {
+  ${HeaderNavIconLink}:active & {
     fill: ${props => props.theme.colorPrimary(1)};
   }
 `;

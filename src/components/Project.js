@@ -12,6 +12,14 @@ export function ProjectBackground(props) {
   const scheduledAnimationFrame = useRef(false);
   const lastScrollY = useRef(0);
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return function cleanUp() {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   const handleScroll = () => {
     lastScrollY.current = window.scrollY;
     if (scheduledAnimationFrame.current) return;
@@ -23,47 +31,40 @@ export function ProjectBackground(props) {
     });
   };
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-
-    return function cleanUp() {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
-    <ProjectBackgroundImage
-      offset={offset}
-      {...props}
-    />
+    <ProjectBackgroundImage offset={offset} {...props} />
   );
 }
 
-export const ProjectHeader = ({ title, description, linkLabel, url, roles }) => (
-  <ProjectHeaderContainer>
-    <ProjectHeaderInner>
-      <ProjectDetails entered={!prerender}>
-        <ProjectTitle>{title}</ProjectTitle>
-        <ProjectDescription>{description}</ProjectDescription>
-        <LinkButton
-          secondary
-          style={{ paddingLeft: '3px' }}
-          icon="chevronRight"
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {linkLabel ? linkLabel : 'Visit website'}
-        </LinkButton>
-      </ProjectDetails>
-      <ProjectMeta entered={!prerender}>
-        {roles && roles.map((role, index) => (
-          <ProjectMetaItem key={`role_${index}`}>{role}</ProjectMetaItem>
-        ))}
-      </ProjectMeta>
-    </ProjectHeaderInner>
-  </ProjectHeaderContainer>
-);
+export function ProjectHeader(props) {
+  const { title, description, linkLabel, url, roles } = props;
+
+  return (
+    <ProjectHeaderContainer>
+      <ProjectHeaderInner>
+        <ProjectDetails entered={!prerender}>
+          <ProjectTitle>{title}</ProjectTitle>
+          <ProjectDescription>{description}</ProjectDescription>
+          <LinkButton
+            secondary
+            style={{ paddingLeft: '3px' }}
+            icon="chevronRight"
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {linkLabel ? linkLabel : 'Visit website'}
+          </LinkButton>
+        </ProjectDetails>
+        <ProjectMeta entered={!prerender}>
+          {roles && roles.map((role, index) => (
+            <ProjectMetaItem key={`role_${index}`}>{role}</ProjectMetaItem>
+          ))}
+        </ProjectMeta>
+      </ProjectHeaderInner>
+    </ProjectHeaderContainer>
+  );
+}
 
 export const ProjectContainer = styled.article`
   position: relative;
@@ -177,7 +178,7 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs(props => ({
   }
 `;
 
-const ProjectHeaderContainer = styled(ProjectSection.withComponent('header'))`
+const ProjectHeaderContainer = styled(ProjectSection)`
   padding-top: 140px;
   padding-bottom: 40px;
 
