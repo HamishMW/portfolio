@@ -20,6 +20,7 @@ const ButtonContent = withTheme((props) => {
 
 const Button = React.memo((props) => {
   const { className, style, ...restProps } = props;
+
   return (
     <ButtonContainer
       className={className}
@@ -33,6 +34,7 @@ const Button = React.memo((props) => {
 
 const LinkButton = React.memo((props) => {
   const { className, style, href, rel, target, secondary } = props;
+
   return (
     <LinkButtonContainer
       className={className}

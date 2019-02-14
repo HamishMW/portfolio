@@ -17,7 +17,7 @@ const ProfileText = ({ status }) => (
     <ProfileTitle aria-label="Hi there" status={status}>
       <DecoderText
         text="Hi there"
-        start={status === 'entering'}
+        start={status !== 'exited'}
         offset={140}
       />
     </ProfileTitle>

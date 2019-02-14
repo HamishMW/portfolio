@@ -33,17 +33,36 @@ export default function Home(props) {
   const projectThree = useRef();
   const details = useRef();
   const disciplineTimeout = useRef();
-  const sectionObserver = useRef();
-  const indicatorObserver = useRef();
 
   useEffect(() => {
-    initializeObservers();
+    const revealSections = [intro, projectOne, projectTwo, projectThree, details];
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const section = entry.target;
+          sectionObserver.unobserve(section);
+          if (visibleSections.includes(section)) return;
+          setVisibleSections((prevSections) => [...prevSections, section]);
+        }
+      });
+    }, { rootMargin: "0px 0px -10% 0px" });
+
+    const indicatorObserver = new IntersectionObserver(([entry]) => {
+      setScrollIndicatorHidden(!entry.isIntersecting);
+    }, { rootMargin: "-100% 0px 0px 0px" });
+
+    revealSections.forEach((section) => {
+      sectionObserver.observe(section.current);
+    });
+
+    indicatorObserver.observe(intro.current);
 
     return function cleanUp() {
-      if (sectionObserver.current) sectionObserver.current.disconnect();
-      if (indicatorObserver.current) indicatorObserver.current.disconnect();
+      sectionObserver.disconnect();
+      indicatorObserver.disconnect();
     };
-  }, []);
+  }, [visibleSections]);
 
   useEffect(() => {
     if (status === 'entered') {
@@ -52,12 +71,16 @@ export default function Home(props) {
   }, [location]);
 
   useEffect(() => {
-    initScrollPosition();
+    if (hash && status === 'entered') {
+      handleHashchange(hash, false);
+    } else if (status === 'entered') {
+      window.scrollTo(0, 0);
+    }
   }, [status]);
 
   useEffect(() => {
     disciplineTimeout.current = setTimeout(() => {
-      const index = disciplineIndex >= disciplines.length - 1 ? 0 : disciplineIndex + 1;
+      const index = (disciplineIndex + 1) % disciplines.length;
       setDisciplineIndex(index);
     }, 5000);
 
@@ -66,45 +89,7 @@ export default function Home(props) {
     };
   }, [disciplineIndex]);
 
-  const initScrollPosition = () => {
-    if (hash && status === 'entered') {
-      handleHashchange(hash, false);
-    } else if (status === 'entered') {
-      window.scrollTo(0, 0);
-    }
-  };
-
-  const initializeObservers = () => {
-    const revealSections = [intro, projectOne, projectTwo, projectThree, details];
-
-    sectionObserver.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const section = entry.target;
-          setVisibleSections((prevSections) => [...prevSections, section]);
-          sectionObserver.current.unobserve(section);
-        }
-      });
-    }, { rootMargin: "0px 0px -10% 0px" });
-
-    indicatorObserver.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setScrollIndicatorHidden(false);
-        } else {
-          setScrollIndicatorHidden(true);
-        }
-      });
-    }, { rootMargin: "-100% 0px 0px 0px" });
-
-    revealSections.forEach((section) => {
-      sectionObserver.current.observe(section.current);
-    });
-
-    indicatorObserver.current.observe(intro.current);
-  };
-
-  const handleHashchange = (hash, scroll) => {
+  const handleHashchange = useMemo(() => (hash, scroll) => {
     const hashSections = [intro, projectOne, details];
     const hashString = hash.replace('#', '');
     const element = hashSections.filter(item => item.current.id === hashString)[0];
@@ -116,7 +101,7 @@ export default function Home(props) {
         inline: 'nearest',
       });
     }
-  };
+  }, []);
 
   return (
     <React.Fragment>

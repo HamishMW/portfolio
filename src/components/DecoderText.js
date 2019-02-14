@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components/macro';
 
 const chars = [
@@ -20,7 +20,7 @@ const chars = [
 ];
 
 function DecoderText(props) {
-  const { text, start, offset = 100, className, style } = props;
+  const { text, start, offset = 100, className, style, fps = 24 } = props;
   const [position, setPosition] = useState(0);
   const [started, setStarted] = useState(false);
   const [output, setOutput] = useState([{ type: 'code', value: '' }]);
@@ -28,21 +28,16 @@ function DecoderText(props) {
   const startTime = useRef(0);
   const elapsedTime = useRef(0);
   const running = useRef(false);
-  const fps = useRef(24);
   const timeout = useRef();
 
   useEffect(() => {
-    if (start) startTimeout();
+    if (start && !started) startTimeout();
 
     return function cleanUp() {
       cancelAnimationFrame(animate);
       clearTimeout(timeout.current);
       stop();
     };
-  }, []);
-
-  useEffect(() => {
-    if (start && !started) startTimeout();
   }, [start]);
 
   useEffect(() => {
@@ -59,24 +54,26 @@ function DecoderText(props) {
     setOutput(textArray);
   }, [position]);
 
-  const startTimeout = () => {
+  const startTimeout = useMemo(() => () => {
     timeout.current = setTimeout(startAnim, 300);
-  };
+  }, []);
 
-  const startAnim = () => {
+  const startAnim = useMemo(() => () => {
     startTime.current = Date.now();
     elapsedTime.current = 0;
     running.current = true;
     setStarted(true);
     animate();
-  };
+  }, []);
 
-  const stop = () => running.current = false;
+  const stop = useMemo(() => () => {
+    running.current = false;
+  }, []);
 
-  const animate = () => {
+  const animate = useMemo(() => () => {
     const elapsed = Date.now() - startTime.current;
     const deltaTime = elapsed - elapsedTime.current;
-    const needsUpdate = 1000 / fps.current <= deltaTime;
+    const needsUpdate = 1000 / fps <= deltaTime;
 
     if (!running.current) return;
 
@@ -87,17 +84,17 @@ function DecoderText(props) {
 
     elapsedTime.current = elapsed;
     setPosition(elapsedTime.current / offset);
-  };
+  }, [startTime, elapsedTime, running]);
 
-  const setValue = value => {
+  const setValue = useMemo(() => value => {
     const val = value.map(value => ({
       type: 'actual',
       value,
     }));
     return val;
-  };
+  }, []);
 
-  const shuffle = (content, chars, position) => {
+  const shuffle = useMemo(() => (content, chars, position) => {
     return content.map((value, index) => {
       if (index < position) {
         return { type: 'actual', value };
@@ -108,15 +105,15 @@ function DecoderText(props) {
         value: getRandCharacter(chars),
       };
     });
-  };
+  }, []);
 
-  const getRandCharacter = chars => {
+  const getRandCharacter = useMemo(() => chars => {
     const randNum = Math.floor(Math.random() * chars.length);
     const lowChoice = - .5 + Math.random();
     const picketCharacter = chars[randNum];
     const chosen = lowChoice < 0 ? picketCharacter.toLowerCase() : picketCharacter;
     return chosen;
-  };
+  }, []);
 
   return (
     <DecoderSpan className={className} style={style}>

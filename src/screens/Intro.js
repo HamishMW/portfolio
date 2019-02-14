@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useMemo } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Media, AnimFade } from '../utils/StyleUtils';
@@ -9,7 +9,8 @@ const prerender = navigator.userAgent === 'ReactSnap';
 
 function Intro(props) {
   const { id, sectionRef, disciplines, disciplineIndex, scrollIndicatorHidden } = props;
-  const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and ');
+  const introLabel = useMemo(() => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '), []);
+  const currentDisciplines = useMemo(() => disciplines.filter((item, index) => index === disciplineIndex), [disciplineIndex]);
 
   return (
     <IntroContent ref={sectionRef} id={id}>
@@ -18,22 +19,22 @@ function Intro(props) {
         in={!prerender}
         timeout={3000}
       >
-        {(appearStatus) => (
+        {(status) => (
           <React.Fragment>
             <Suspense fallback={<React.Fragment />}>
               <DisplacementSphere />
             </Suspense>
             <IntroText>
-              <IntroName aria-label="Hamish Williams" status={appearStatus}>
+              <IntroName aria-label="Hamish Williams" status={status}>
                 <DecoderText text="Hamish Williams" start={!prerender} offset={120} />
               </IntroName>
               <IntroTitle aria-label={`Designer + ${introLabel}`}>
                 <IntroTitleRow prerender={prerender}>
-                  <IntroTitleWord status={appearStatus} delay="0.2s">Designer</IntroTitleWord>
-                  <IntroTitleLine status={appearStatus} />
+                  <IntroTitleWord status={status} delay="0.2s">Designer</IntroTitleWord>
+                  <IntroTitleLine status={status} />
                 </IntroTitleRow>
                 <TransitionGroup component={IntroTitleRow} prerender={prerender}>
-                  {disciplines.map((item, index) => (
+                  {currentDisciplines.map((item, index) => (
                     <Transition
                       appear
                       mountOnEnter
@@ -47,12 +48,11 @@ function Intro(props) {
                         </IntroTitleWord>
                       )}
                     </Transition>
-                  )).filter((item, index) => index === disciplineIndex)}
+                  ))}
                 </TransitionGroup>
               </IntroTitle>
             </IntroText>
-            <ScrollIndicator isHidden={scrollIndicatorHidden} status={appearStatus} />
-
+            <MemoizedScrollIndicator isHidden={scrollIndicatorHidden} status={status} />)
           </React.Fragment>
         )}
       </Transition>
@@ -374,5 +374,7 @@ const ScrollIndicator = styled.div`
     display: none;
   }
 `;
+
+const MemoizedScrollIndicator = React.memo(ScrollIndicator);
 
 export default React.memo(Intro);
