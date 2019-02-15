@@ -69,10 +69,10 @@ function ProjectSlice(props) {
           <ProjectSectionContent>
             <ProjectImage entered={!prerender}>
               <ProgressiveImage
-                srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1440w`}
+                srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1920w`}
                 placeholder={sliceAppPlaceholder}
                 alt="The Slice web appication showing a selected user annotation."
-                sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
+                sizes={`(max-width: ${Media.mobile}) 100vw, (max-width: ${Media.tablet}) 90vw, 80vw`}
               />
             </ProjectImage>
           </ProjectSectionContent>

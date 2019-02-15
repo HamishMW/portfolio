@@ -720,7 +720,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-transform-typescript" "^7.1.0"
 
-"@babel/runtime@7.3.1":
+"@babel/runtime@7.3.1", "@babel/runtime@^7.3.1":
   version "7.3.1"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.1.tgz#574b03e8e8a9898eaf4a872a92ea20b7846f6f2a"
   integrity sha512-7jGW8ppV0ant637pIqAcFfQDDH1orEPGJb8aXfUozuCU3QqX7rX4DA8iwrbPrR1hcH0FTTHz47yQnk+bl5xHQA==
@@ -7560,6 +7560,13 @@ react-snap@1.23.0:
     serve-static "1.13.2"
     sourcemapped-stacktrace-node "2.1.8"
 
+react-spring@^8.0.7:
+  version "8.0.7"
+  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-8.0.7.tgz#55b1d298be16b308388cb865ee707a1194112fe0"
+  integrity sha512-QHEjWLvEuRCGFRlR29o03CMc+uN1QMPt8Gxxp37szpnkJUq+HDIWNXNCacQ+kJxqzcu65JoeWV6D5q3/y5VK6Q==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+
 react-transition-group@^2.5.3:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.5.3.tgz#26de363cab19e5c88ae5dbae105c706cf953bb92"
@@ -7568,6 +7575,11 @@ react-transition-group@^2.5.3:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
+
+react-with-gesture@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/react-with-gesture/-/react-with-gesture-4.0.4.tgz#47e5f602f647c0cc66b1d1f167581a95b28d5ba3"
+  integrity sha512-tiSmwijVPXy8z8Kc+ffsUmv6mwxOZ4Ucky90cNtLzuC+VRMEJzvw6peVY8LqweikDXk2OjVYR2gTPdVXo6SMEw==
 
 react@^16.8.1:
   version "16.8.1"
