@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useMemo } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components/macro';
 import {
   Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
   UniformsUtils, UniformsLib, ShaderLib, SphereBufferGeometry, Mesh, Color, ShaderMaterial

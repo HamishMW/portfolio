@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Helmet from 'react-helmet-async';
 import { AppContext } from '../app/App';
 import ProgressiveImage from '../components/ProgressiveImage';

@@ -78,7 +78,7 @@ function App() {
               <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
               <TransitionGroup component={React.Fragment} >
-                <Transition key={location.pathname} timeout={500}>
+                <Transition key={location.pathname} timeout={300}>
                   {status => (
                     <AppContext.Provider value={{ status, setTheme }}>
                       <MainContent status={status} id="MainContent" role="main">
