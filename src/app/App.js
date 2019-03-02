@@ -5,7 +5,7 @@ import { Transition, TransitionGroup } from 'react-transition-group';
 import Helmet, { HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
-import Theme from '../utils/Theme';
+import { dark, light } from '../utils/Theme';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
 
@@ -14,19 +14,15 @@ const Contact = lazy(() => import('../screens/Contact'));
 const ProjectSPR = lazy(() => import('../screens/ProjectSPR'));
 const ProjectSlice = lazy(() => import('../screens/ProjectSlice'));
 const ProjectVolkihar = lazy(() => import('../screens/ProjectVolkihar'));
-const NotFound = lazy(() => import('../screens/NotFound'));
+const NotFound = lazy(() => import('../screens/404'));
 
 const prerender = navigator.userAgent === 'ReactSnap';
 export const AppContext = createContext();
 
 const consoleMessage = `
 __  __  __
-\u005C \u005C \u005C \u005C \u005C\u2215
- \u005C \u005C\u2215\u005C \u005C
-  \u005C\u2215  \u005C\u2215
-
-Taking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio-2018
-
+\u005C \u005C \u005C \u005C \u005C\u2215\n \u005C \u005C\u2215\u005C \u005C\n  \u005C\u2215  \u005C\u2215
+\n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio-2018\n\n
 `;
 
 const fontStyles = `
@@ -47,7 +43,7 @@ const fontStyles = `
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(Theme);
+  const [currentTheme, setCurrentTheme] = useState(light);
 
   useEffect(() => {
     if (!prerender) console.info(consoleMessage);
@@ -55,7 +51,13 @@ function App() {
   }, []);
 
   const setTheme = (overrides) => {
-    setCurrentTheme({ ...Theme, ...overrides });
+    const defaultTheme = currentTheme.id === 'dark' ? dark : light;
+    setCurrentTheme({ ...defaultTheme, ...overrides });
+  };
+
+  const toggleTheme = () => {
+    const newTheme = currentTheme.id === 'dark' ? light : dark;
+    setCurrentTheme(newTheme);
   };
 
   const toggleMenu = () => {
@@ -74,13 +76,14 @@ function App() {
                 <style>{fontStyles}</style>
               </Helmet>
               <GlobalStyles />
+              <button style={{ position: 'absolute', zIndex: 99 }} onClick={toggleTheme}>Theme</button>
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
               <TransitionGroup component={React.Fragment} >
                 <Transition key={location.pathname} timeout={300}>
                   {status => (
-                    <AppContext.Provider value={{ status, setTheme }}>
+                    <AppContext.Provider value={{ status, setTheme, toggleTheme }}>
                       <MainContent status={status} id="MainContent" role="main">
                         <Helmet>
                           <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />

@@ -3,6 +3,7 @@ import Helmet from 'react-helmet-async';
 import 'intersection-observer';
 import { AppContext } from '../app/App';
 import Intro from '../screens/Intro';
+import { useInterval } from '../utils/Hooks';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
 import Footer from '../components/Footer';
@@ -32,7 +33,6 @@ export default function Home(props) {
   const projectTwo = useRef();
   const projectThree = useRef();
   const details = useRef();
-  const disciplineTimeout = useRef();
 
   useEffect(() => {
     const revealSections = [intro, projectOne, projectTwo, projectThree, details];
@@ -78,16 +78,10 @@ export default function Home(props) {
     }
   }, [status]);
 
-  useEffect(() => {
-    disciplineTimeout.current = setTimeout(() => {
-      const index = (disciplineIndex + 1) % disciplines.length;
-      setDisciplineIndex(index);
-    }, 5000);
-
-    return function cleanUp() {
-      clearTimeout(disciplineTimeout.current);
-    };
-  }, [disciplineIndex]);
+  useInterval(() => {
+    const index = (disciplineIndex + 1) % disciplines.length;
+    setDisciplineIndex(index);
+  }, 5000);
 
   const handleHashchange = useMemo(() => (hash, scroll) => {
     const hashSections = [intro, projectOne, details];

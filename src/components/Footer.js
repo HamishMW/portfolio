@@ -13,7 +13,7 @@ const Footer = () => (
 const FooterContainer = styled.footer`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
   width: 100vw;
   padding: 70px 30px;

@@ -298,7 +298,7 @@ const AnimLineIntro = keyframes`
 const IntroTitleLine = styled.span`
   content: '';
   height: 2px;
-  background: rgba(255, 255, 255, 0.3);
+  background: ${props => props.theme.colorText(0.3)};
   width: 120%;
   display: flex;
   margin-left: 20px;

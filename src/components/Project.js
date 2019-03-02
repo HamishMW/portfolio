@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { Media, AnimFade, ColorTint } from '../utils/StyleUtils';
+import { Media, AnimFade } from '../utils/StyleUtils';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { LinkButton } from '../components/Button';
 
@@ -118,7 +118,7 @@ export const ProjectSection = styled.section`
   }
 
   ${props => props.light && css`
-    background: ${ColorTint(props.theme.colorBackground(1), 0.036)};
+    background: ${props.theme.colorBackgroundLight(1)};
     padding-top: 120px;
     padding-bottom: 140px;
 

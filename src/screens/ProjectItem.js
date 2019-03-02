@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, withTheme } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
 import { Media } from '../utils/StyleUtils';
 import { RouterButton, LinkButton } from '../components/Button';
@@ -11,7 +11,7 @@ import phonePlaceholder from '../assets/phone-placeholder.png';
 
 function ProjectItem(props) {
   const {
-    id, visible, sectionRef, index, title, description, imageSrc,
+    id, visible, sectionRef, index, title, description, imageSrc, theme,
     imageAlt, imageType, imagePlaceholder, buttonText, buttonLink, buttonTo,
   } = props;
 
@@ -51,12 +51,12 @@ function ProjectItem(props) {
                       placeholder={imagePlaceholder[0]}
                       sizes={`(max-width: ${Media.mobile}) 300px,(max-width: ${Media.tablet}) 420px,(max-width: ${Media.desktop}) 860px, 900px`}
                     />
-                    <ProjectItemImageLaptopSvg status={status} icon="projects" />
+                    <ProjectItemImageLaptopSvg status={status} icon="projects" color={theme.colorWhite(1)} />
                   </ProjectItemPreviewContentLaptop>
                 }
                 {imageType === 'phone' &&
                   <ProjectItemPreviewContentPhone>
-                    <ProjectItemPhoneImageSvg status={status} icon="projects" />
+                    <ProjectItemPhoneImageSvg status={status} icon="projects" color={theme.colorWhite(1)} />
                     {imageSrc && imageSrc.map((src, index) => (
                       <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
                         <ProjectItemPhoneFrame
@@ -488,4 +488,4 @@ const ProjectItemPhoneImageSvg = styled(Svg)`
   }
 `;
 
-export default React.memo(ProjectItem);
+export default React.memo(withTheme(ProjectItem));

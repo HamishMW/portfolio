@@ -23,7 +23,7 @@ vec4 mod289(vec4 x)
 }
 vec4 permute(vec4 x)
 {
-  return mod289(((x*34.0)+1.0)*x);
+  return mod289(((x * 34.0) + 1.0) * x);
 }
 vec4 taylorInvSqrt(vec4 r)
 {
@@ -162,9 +162,9 @@ float pnoise(vec3 P, vec3 rep)
 float turbulence(vec3 p) {
   float w = 100.0;
   float t = -.5;
-  for (float f = 1.0 ; f <= 10.0 ; f++ ){
-      float power = pow( 2.0, f );
-      t += abs( pnoise( vec3( power * p ), vec3( 10.0, 10.0, 10.0 ) ) / power );
+  for (float f = 1.0 ; f <= 10.0 ; f++) {
+    float power = pow(2.0, f);
+    t += abs(pnoise(vec3(power * p), vec3(10.0, 10.0, 10.0)) / power);
   }
   return t;
 }
@@ -202,7 +202,7 @@ void main() {
   #include <skinnormal_vertex>
   #include <defaultnormal_vertex>
   #ifndef FLAT_SHADED // Normal computed with derivatives when FLAT_SHADED
-    vNormal = normalize( transformedNormal );
+    vNormal = normalize(transformedNormal);
   #endif
   #include <begin_vertex>
   #include <displacementmap_vertex>

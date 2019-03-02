@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useMemo } from 'react';
-import styled, { keyframes } from 'styled-components/macro';
+import styled, { keyframes, withTheme } from 'styled-components/macro';
 import {
   Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
   UniformsUtils, UniformsLib, ShaderLib, SphereBufferGeometry, Mesh, Color, ShaderMaterial
@@ -10,7 +10,8 @@ import VertShader from '../shaders/SphereVertShader';
 import FragmentShader from '../shaders/SphereFragmentShader';
 import { Media } from '../utils/StyleUtils';
 
-function DisplacementSphere() {
+function DisplacementSphere(props) {
+  const { theme } = props;
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
   const start = useRef(Date.now());
@@ -33,8 +34,8 @@ function DisplacementSphere() {
     renderer.current = new WebGLRenderer();
     camera.current = new PerspectiveCamera(55, width.current / height.current, 0.1, 5000);
     scene.current = new Scene();
-    light.current = new DirectionalLight(0xffffff, 0.6);
-    ambientLight.current = new AmbientLight(0xffffff, 0.1);
+    light.current = new DirectionalLight(theme.colorWhite(1), 0.6);
+    ambientLight.current = new AmbientLight(theme.colorWhite(1), theme.sphereAmbientLight);
 
     uniforms.current = UniformsUtils.merge([
       UniformsLib['ambient'],
@@ -52,7 +53,7 @@ function DisplacementSphere() {
 
     geometry.current = new SphereBufferGeometry(32, 128, 128);
     sphere.current = new Mesh(geometry.current, material.current);
-    scene.current.background = new Color(0x111111);
+    scene.current.background = new Color(theme.colorBackground(1));
     renderer.current.setSize(width.current, height.current);
     camera.current.position.z = 52;
     light.current.position.z = 200;
@@ -68,7 +69,6 @@ function DisplacementSphere() {
     window.addEventListener('resize', onWindowResize);
     window.addEventListener('mousemove', onMouseMove);
     onWindowResize();
-    animate();
     autoPlay(true);
 
     return function cleanUp() {
@@ -91,7 +91,12 @@ function DisplacementSphere() {
       uniforms.current = null;
       renderer.current.context = null;
       renderer.current.domElement = null;
+      container.current.innerHTML = '';
     };
+  }, [theme.id]);
+
+  useEffect(() => {
+    animate();
   }, []);
 
   const onWindowResize = useMemo(() => () => {
@@ -130,7 +135,7 @@ function DisplacementSphere() {
       requestAnimationFrame(animate);
       render();
     }
-  }, []);
+  }, [animating]);
 
   const render = useMemo(() => () => {
     uniforms.current.time.value = .00005 * (Date.now() - start.current);
@@ -166,4 +171,4 @@ const SphereContainer = styled.div`
   }
 `;
 
-export default React.memo(DisplacementSphere);
+export default React.memo(withTheme(DisplacementSphere));
