@@ -43,7 +43,7 @@ const fontStyles = `
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(light);
+  const [currentTheme, setCurrentTheme] = useState(dark);
 
   useEffect(() => {
     if (!prerender) console.info(consoleMessage);
@@ -76,7 +76,6 @@ function App() {
                 <style>{fontStyles}</style>
               </Helmet>
               <GlobalStyles />
-              <button style={{ position: 'absolute', zIndex: 99 }} onClick={toggleTheme}>Theme</button>
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
