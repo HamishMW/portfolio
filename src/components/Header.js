@@ -25,12 +25,12 @@ const HeaderIcons = ({ toggleMenu }) => (
       <HeaderNavIcon icon="dribbble" />
     </HeaderNavIconLink>
     <HeaderNavIconLink
-      as={Link}
-      aria-label="Contact"
-      to="/contact"
-      onClick={!!toggleMenu ? () => toggleMenu() : null}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Github"
+      href="https://github.com/HamishMW"
     >
-      <HeaderNavIcon icon="email" />
+      <HeaderNavIcon icon="github" />
     </HeaderNavIconLink>
   </HeaderNavIcons>
 );
@@ -55,7 +55,7 @@ function Header(props) {
               to="/#intro"
             >
               Intro
-          </HeaderMobileNavLink>
+            </HeaderMobileNavLink>
             <HeaderMobileNavLink
               delay={300}
               status={status}
@@ -63,7 +63,7 @@ function Header(props) {
               to="/#projects"
             >
               Projects
-          </HeaderMobileNavLink>
+            </HeaderMobileNavLink>
             <HeaderMobileNavLink
               delay={350}
               status={status}
@@ -71,7 +71,14 @@ function Header(props) {
               to="/#details"
             >
               Details
-          </HeaderMobileNavLink>
+            </HeaderMobileNavLink>
+            <HeaderMobileNavLink
+              delay={400}
+              status={status}
+              to="/contact"
+            >
+              Contact
+            </HeaderMobileNavLink>
             <HeaderIcons toggleMenu={toggleMenu} />
           </HeaderMobileNav>
         )}
@@ -83,6 +90,7 @@ function Header(props) {
         <HeaderNavList>
           <HeaderNavLink to="/#projects">Projects</HeaderNavLink>
           <HeaderNavLink to="/#details">Details</HeaderNavLink>
+          <HeaderNavLink to="/contact">Contact</HeaderNavLink>
         </HeaderNavList>
         <HeaderIcons />
       </HeaderNav>
