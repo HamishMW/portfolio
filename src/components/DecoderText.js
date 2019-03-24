@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components/macro';
 
 const chars = [
@@ -54,11 +54,11 @@ function DecoderText(props) {
     setOutput(textArray);
   }, [position]);
 
-  const startTimeout = useMemo(() => () => {
+  const startTimeout = useCallback(() => {
     timeout.current = setTimeout(startAnim, 300);
   }, []);
 
-  const startAnim = useMemo(() => () => {
+  const startAnim = useCallback(() => {
     startTime.current = Date.now();
     elapsedTime.current = 0;
     running.current = true;
@@ -66,11 +66,11 @@ function DecoderText(props) {
     animate();
   }, []);
 
-  const stop = useMemo(() => () => {
+  const stop = useCallback(() => {
     running.current = false;
   }, []);
 
-  const animate = useMemo(() => () => {
+  const animate = useCallback(() => {
     const elapsed = Date.now() - startTime.current;
     const deltaTime = elapsed - elapsedTime.current;
     const needsUpdate = 1000 / fps <= deltaTime;
@@ -86,7 +86,7 @@ function DecoderText(props) {
     setPosition(elapsedTime.current / offset);
   }, [startTime, elapsedTime, running]);
 
-  const setValue = useMemo(() => value => {
+  const setValue = useCallback(value => {
     const val = value.map(value => ({
       type: 'actual',
       value,
@@ -94,7 +94,7 @@ function DecoderText(props) {
     return val;
   }, []);
 
-  const shuffle = useMemo(() => (content, chars, position) => {
+  const shuffle = useCallback((content, chars, position) => {
     return content.map((value, index) => {
       if (index < position) {
         return { type: 'actual', value };
@@ -107,7 +107,7 @@ function DecoderText(props) {
     });
   }, []);
 
-  const getRandCharacter = useMemo(() => chars => {
+  const getRandCharacter = useCallback(chars => {
     const randNum = Math.floor(Math.random() * chars.length);
     const lowChoice = - .5 + Math.random();
     const picketCharacter = chars[randNum];

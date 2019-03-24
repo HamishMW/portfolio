@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useMemo } from 'react';
 import styled, { withTheme } from 'styled-components/macro';
-import Helmet from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 import { AppContext } from '../app/App';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { useScrollToTop } from '../utils/Hooks';
@@ -56,7 +56,7 @@ function ProjectVolkihar(props) {
         setTheme();
       }
     };
-  }, [status, theme.id]);
+  }, [setTheme, status, theme.id]);
 
   return (
     <React.Fragment>
@@ -123,7 +123,7 @@ function ProjectVolkihar(props) {
           <ProjectSectionSlider>
             <DisplacementSlider
               placeholder={volkiharSlidePlaceholder}
-              images={[
+              images={useMemo(() => [
                 {
                   src: volkiharSlide1,
                   srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
@@ -139,9 +139,9 @@ function ProjectVolkihar(props) {
                   srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
                   alt: 'A female character weilding a sword and wearing the red coloured armor.',
                 },
-              ]}
-              width={1920}
-              height={1080}
+              ], [])}
+              width={useMemo(() => 1920, [])}
+              height={useMemo(() => 1080, [])}
             />
           </ProjectSectionSlider>
         </ProjectSection>

@@ -9,8 +9,8 @@ const prerender = navigator.userAgent === 'ReactSnap';
 
 function Intro(props) {
   const { id, sectionRef, disciplines, disciplineIndex, scrollIndicatorHidden } = props;
-  const introLabel = useMemo(() => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '), []);
-  const currentDisciplines = useMemo(() => disciplines.filter((item, index) => index === disciplineIndex), [disciplineIndex]);
+  const introLabel = useMemo(() => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '), [disciplines]);
+  const currentDisciplines = useMemo(() => disciplines.filter((item, index) => index === disciplineIndex), [disciplineIndex, disciplines]);
 
   return (
     <IntroContent ref={sectionRef} id={id}>

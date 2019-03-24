@@ -5,34 +5,32 @@ import Loader from '../components/Loader';
 import Icon from '../utils/Icon';
 import { ColorTint } from '../utils/StyleUtils';
 
-const ButtonContent = withTheme((props) => {
+const ButtonContent = withTheme(props => {
   const { iconRight, icon, children, secondary, loading, theme } = props;
 
   return (
     <React.Fragment>
       {icon && <ButtonIcon loading={loading} left icon={icon} secondary={secondary} />}
-      <ButtonText loading={loading} secondary={secondary}>{children}</ButtonText>
+      <ButtonText loading={loading} secondary={secondary}>
+        {children}
+      </ButtonText>
       {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary} />}
       {loading && <ButtonLoader size="24" color={theme.colorBackground(1)} />}
     </React.Fragment>
   );
 });
 
-const Button = React.memo((props) => {
+const Button = React.memo(props => {
   const { className, style, ...restProps } = props;
 
   return (
-    <ButtonContainer
-      className={className}
-      style={style}
-      {...restProps}
-    >
+    <ButtonContainer className={className} style={style} {...restProps}>
       <ButtonContent {...restProps} />
     </ButtonContainer>
   );
 });
 
-const LinkButton = React.memo((props) => {
+const LinkButton = React.memo(props => {
   const { className, style, href, rel, target, secondary } = props;
 
   return (
@@ -50,17 +48,11 @@ const LinkButton = React.memo((props) => {
   );
 });
 
-const RouterButton = React.memo((props) => {
+const RouterButton = React.memo(props => {
   const { className, style, to, secondary } = props;
 
   return (
-    <ButtonContainer
-      as={Link}
-      className={className}
-      style={style}
-      to={to}
-      secondary={secondary ? 1 : 0}
-    >
+    <ButtonContainer as={Link} className={className} style={style} to={to} secondary={secondary ? 1 : 0}>
       <ButtonContent {...props} />
     </ButtonContainer>
   );
@@ -191,16 +183,15 @@ const ButtonText = styled.span`
     visibility: hidden;
   `}
 
-  ${props => props.secondary ? `
-    color: ${props.theme.colorPrimary(1)};
-  `: `
-    color: ${props.theme.colorBackground(1)};
+  ${props => props.secondary
+    ? `color: ${props.theme.colorPrimary(1)};`
+    : `color: ${props.theme.colorBackground(1)};
   `}
 `;
 
 const ButtonIcon = styled(Icon)`
-  margin-left: ${props => props.left ? '0' : '6px'};
-  margin-right: ${props => props.left ? '6px' : '0'};
+  margin-left: ${props => (props.left ? '0' : '6px')};
+  margin-right: ${props => (props.left ? '6px' : '0')};
   transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
   fill: ${props => props.theme.colorBackground(1)};
 

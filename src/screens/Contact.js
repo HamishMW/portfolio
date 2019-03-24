@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import Helmet from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 import { AppContext } from '../app/App';
 import Input from '../components/Input';
 import DecoderText from '../components/DecoderText';

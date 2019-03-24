@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   WebGLRenderer, OrthographicCamera, Scene, Mesh, Color, ShaderMaterial,
   LinearFilter, TextureLoader, PlaneBufferGeometry, LoadingManager
@@ -67,70 +67,102 @@ export default function DispalcementSlider(props) {
   const camera = useRef();
   const renderer = useRef();
   const animating = useRef(false);
-  const observer = useRef();
   const scheduledAnimationFrame = useRef();
   const currentImage = images[imageIndex];
 
-  useEffect(() => {
-    const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
-    renderer.current = new WebGLRenderer({ antialias: false });
-    camera.current = new OrthographicCamera(...cameraOptions);
-    scene.current = new Scene();
-    renderer.current.setPixelRatio(window.devicePixelRatio);
-    renderer.current.setClearColor(0x111111, 1.0);
-    renderer.current.setSize(width, height);
-    renderer.current.domElement.style.width = '100%';
-    renderer.current.domElement.style.height = 'auto';
-    renderer.current.domElement.setAttribute('aria-hidden', true);
-    scene.current.background = new Color(0x111111);
-    camera.current.position.z = 1;
-    container.current.appendChild(renderer.current.domElement);
-    initializeObserver();
-
-    return function cleanUp() {
-      animating.current = false;
-      cancelAnimationFrame(animate);
-      renderer.current.dispose();
-      renderer.current.forceContextLoss();
-      renderer.current.context = null;
-      renderer.current.domElement = null;
-
-      if (imagePlane.current) {
-        scene.current.remove(imagePlane.current);
-        imagePlane.current.geometry.dispose();
-        imagePlane.current.material.dispose();
-      }
-
-      scene.current.dispose();
-
-      if (geometry.current) {
-        geometry.current.dispose();
-      }
-
-      if (material.current) {
-        material.current.dispose();
-      }
-
-      if (observer.current) {
-        observer.current.disconnect();
-      }
-    };
-  }, []);
-
-  const initializeObserver = () => {
-    observer.current = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          loadImages();
-          observer.current.unobserve(entry.target);
-        }
-      });
-    });
-
-    observer.current.observe(container.current);
+  const nextImage = () => {
+    navigate(1);
   };
 
-  const loadImages = async () => {
+  const prevImage = () => {
+    navigate(-1);
+  };
+
+  const onNavClick = (index) => {
+    if (index === imageIndex) return;
+    const direction = index > imageIndex ? 1 : -1;
+    navigate(direction, index);
+  };
+
+  const navigate = (direction, index = null) => {
+    if (!loaded) return;
+
+    if (animating.current) {
+      cancelAnimationFrame(scheduledAnimationFrame.current);
+      scheduledAnimationFrame.current = requestAnimationFrame(() => navigate(direction, index));
+      return;
+    }
+
+    const determineIndex = () => {
+      if (index !== null) return index;
+      const length = sliderImages.current.length;
+      const prevIndex = (imageIndex - 1 + length) % length;
+      const nextIndex = (imageIndex + 1) % length;
+      const finalIndex = direction > 0 ? nextIndex : prevIndex;
+      return finalIndex;
+    };
+
+    animating.current = true;
+
+    const finalIndex = determineIndex();
+    goToIndex(finalIndex, direction);
+  };
+
+  const animate = useCallback(() => {
+    if (animating.current) {
+      requestAnimationFrame(animate);
+      renderer.current.render(scene.current, camera.current);
+    }
+  }, []);
+
+  const goToIndex = useCallback((index, direction = 1) => {
+    animate();
+    setImageIndex(index);
+    const uniforms = material.current.uniforms;
+    uniforms.nextImage.value = sliderImages.current[index];
+    uniforms.nextImage.needsUpdate = true;
+    uniforms.direction.value = direction;
+
+    new Tween(uniforms.dispFactor)
+      .to({ value: 1 }, 1200)
+      .easing(Easing.Exponential.InOut)
+      .on('complete', () => {
+        uniforms.currentImage.value = sliderImages.current[index];
+        uniforms.currentImage.needsUpdate = true;
+        uniforms.dispFactor.value = 0.0;
+        animating.current = false;
+      })
+      .start();
+  }, [animate]);
+
+  const initialRender = useCallback(() => {
+    animating.current = true;
+    autoPlay(true);
+    goToIndex(0, 0);
+  }, [goToIndex]);
+
+  const addObjects = useCallback(textures => {
+    material.current = new ShaderMaterial({
+      uniforms: {
+        dispFactor: { type: 'f', value: 0 },
+        direction: { type: 'f', value: 1 },
+        currentImage: { type: 't', value: textures[0] },
+        nextImage: { type: 't', value: textures[1] },
+      },
+      vertexShader: vertex,
+      fragmentShader: fragment,
+      transparent: false,
+      opacity: 1,
+    });
+
+    geometry.current = new PlaneBufferGeometry(width, height, 1);
+    imagePlane.current = new Mesh(geometry.current, material.current);
+    imagePlane.current.position.set(0, 0, 0);
+    scene.current.add(imagePlane.current);
+    initialRender();
+  }, [height, initialRender, width]);
+
+  const loadImages = useCallback(async () => {
     const manager = new LoadingManager();
 
     manager.onLoad = function () {
@@ -161,98 +193,62 @@ export default function DispalcementSlider(props) {
     const imageResults = await Promise.all(results);
     sliderImages.current = imageResults;
     addObjects(imageResults);
-  };
+  }, [addObjects, images]);
 
-  const addObjects = (textures) => {
-    material.current = new ShaderMaterial({
-      uniforms: {
-        dispFactor: { type: 'f', value: 0 },
-        direction: { type: 'f', value: 1 },
-        currentImage: { type: 't', value: textures[0] },
-        nextImage: { type: 't', value: textures[1] },
-      },
-      vertexShader: vertex,
-      fragmentShader: fragment,
-      transparent: false,
-      opacity: 1,
+  useEffect(() => {
+    const containerElement = container.current;
+    const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
+    renderer.current = new WebGLRenderer({ antialias: false });
+    camera.current = new OrthographicCamera(...cameraOptions);
+    scene.current = new Scene();
+    renderer.current.setPixelRatio(window.devicePixelRatio);
+    renderer.current.setClearColor(0x111111, 1.0);
+    renderer.current.setSize(width, height);
+    renderer.current.domElement.style.width = '100%';
+    renderer.current.domElement.style.height = 'auto';
+    renderer.current.domElement.setAttribute('aria-hidden', true);
+    scene.current.background = new Color(0x111111);
+    camera.current.position.z = 1;
+    containerElement.appendChild(renderer.current.domElement);
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadImages();
+          observer.unobserve(entry.target);
+        }
+      });
     });
 
-    geometry.current = new PlaneBufferGeometry(width, height, 1);
-    imagePlane.current = new Mesh(geometry.current, material.current);
-    imagePlane.current.position.set(0, 0, 0);
-    scene.current.add(imagePlane.current);
-    initialRender();
-  };
+    observer.observe(containerElement);
 
-  const initialRender = () => {
-    animating.current = true;
-    autoPlay(true);
-    goToIndex(0, 0);
-  };
+    return function cleanUp() {
+      animating.current = false;
+      cancelAnimationFrame(animate);
+      renderer.current.dispose();
+      renderer.current.forceContextLoss();
+      renderer.current.context = null;
+      renderer.current.domElement = null;
+      observer.disconnect();
+      containerElement.innerHTML = '';
 
-  const animate = () => {
-    if (animating.current) {
-      requestAnimationFrame(animate);
-      renderer.current.render(scene.current, camera.current);
-    }
-  };
+      if (imagePlane.current) {
+        scene.current.remove(imagePlane.current);
+        imagePlane.current.geometry.dispose();
+        imagePlane.current.material.dispose();
+      }
 
-  const nextImage = () => {
-    navigate(1);
-  };
+      scene.current.dispose();
 
-  const prevImage = () => {
-    navigate(-1);
-  };
+      if (geometry.current) {
+        geometry.current.dispose();
+      }
 
-  const onNavClick = (index) => {
-    const direction = index > imageIndex ? 1 : -1;
-    navigate(direction, index);
-  };
-
-  const navigate = (direction, index) => {
-    if (!loaded) return;
-
-    if (animating.current) {
-      cancelAnimationFrame(scheduledAnimationFrame.current);
-      scheduledAnimationFrame.current = requestAnimationFrame(() => navigate(direction, index));
-      return;
-    }
-
-    const determineIndex = () => {
-      if (index) return index;
-      const length = sliderImages.current.length;
-      const prevIndex = (imageIndex - 1 + length) % length;
-      const nextIndex = (imageIndex + 1) % length;
-      const finalIndex = direction > 0 ? nextIndex : prevIndex;
-      return finalIndex;
+      if (material.current) {
+        material.current.dispose();
+      }
     };
-
-    animating.current = true;
-
-    const finalIndex = determineIndex();
-    goToIndex(finalIndex, direction);
-  };
-
-  const goToIndex = (index, direction = 1) => {
-    animate();
-    setImageIndex(index);
-    const uniforms = material.current.uniforms;
-    uniforms.nextImage.value = sliderImages.current[index];
-    uniforms.nextImage.needsUpdate = true;
-    uniforms.direction.value = direction;
-
-    new Tween(uniforms.dispFactor)
-      .to({ value: 1 }, 1200)
-      .easing(Easing.Exponential.InOut)
-      .on('complete', () => {
-        uniforms.currentImage.value = sliderImages.current[index];
-        uniforms.currentImage.needsUpdate = true;
-        uniforms.dispFactor.value = 0.0;
-        animating.current = false;
-      })
-      .start();
-  };
+  }, [animate, height, loadImages, width]);
 
   return (
     <SliderContainer>
@@ -287,7 +283,7 @@ export default function DispalcementSlider(props) {
             key={image.src}
             onClick={() => onNavClick(index)}
             active={index === imageIndex}
-            aria-label={`Slide ${index + 1}`}
+            aria-label={`Jump to slide ${index + 1}`}
             aria-pressed={index === imageIndex}
           />
         ))}

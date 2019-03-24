@@ -1,8 +1,8 @@
-import React, { lazy, Suspense, useState, useEffect, createContext } from 'react';
+import React, { lazy, Suspense, useState, useEffect, createContext, useCallback } from 'react';
 import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components/macro';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Transition, TransitionGroup } from 'react-transition-group';
-import Helmet, { HelmetProvider } from 'react-helmet-async';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import { dark, light } from '../utils/Theme';
@@ -50,19 +50,19 @@ function App() {
     window.history.scrollRestoration = 'manual';
   }, []);
 
-  const setTheme = (overrides) => {
+  const setTheme = useCallback(overrides => {
     const defaultTheme = currentTheme.id === 'dark' ? dark : light;
     setCurrentTheme({ ...defaultTheme, ...overrides });
-  };
+  }, [currentTheme.id]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const newTheme = currentTheme.id === 'dark' ? light : dark;
     setCurrentTheme(newTheme);
-  };
+  }, [currentTheme.id]);
 
-  const toggleMenu = () => {
+  const toggleMenu = useCallback(() => {
     setMenuOpen(!menuOpen);
-  };
+  }, [menuOpen]);
 
   return (
     <HelmetProvider>
@@ -79,7 +79,7 @@ function App() {
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
-              <TransitionGroup component={React.Fragment} >
+              <TransitionGroup component={React.Fragment}>
                 <Transition key={location.pathname} timeout={300}>
                   {status => (
                     <AppContext.Provider value={{ status, setTheme, toggleTheme }}>
@@ -108,7 +108,7 @@ function App() {
       </ThemeProvider>
     </HelmetProvider>
   );
-};
+}
 
 const GlobalStyles = createGlobalStyle`
   html,
@@ -144,7 +144,7 @@ const MainContent = styled.main`
   opacity: 0;
 
   ${props => props.status === 'exiting' && css`
-    position: absolute;
+      position: absolute;
     opacity: 0;
   `}
 
@@ -161,7 +161,7 @@ const MainContent = styled.main`
 
 const SkipToMain = styled.a`
   position: fixed;
-  clip: rect(1px,1px,1px,1px);
+  clip: rect(1px, 1px, 1px, 1px);
   top: 16px;
   left: 50%;
   width: 1px;

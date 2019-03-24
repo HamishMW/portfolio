@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useMemo, useContext } from 'react';
-import Helmet from 'react-helmet-async';
+import React, { useState, useEffect, useRef, useMemo, useCallback, useContext } from 'react';
+import { Helmet } from 'react-helmet-async';
 import 'intersection-observer';
 import { AppContext } from '../app/App';
 import Intro from '../screens/Intro';
@@ -83,7 +83,7 @@ export default function Home(props) {
     setDisciplineIndex(index);
   }, 5000);
 
-  const handleHashchange = useMemo(() => (hash, scroll) => {
+  const handleHashchange = useCallback((hash, scroll) => {
     const hashSections = [intro, projectOne, details];
     const hashString = hash.replace('#', '');
     const element = hashSections.filter(item => item.current.id === hashString)[0];

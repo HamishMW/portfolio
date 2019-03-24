@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components/macro';
 import 'intersection-observer';
 
@@ -12,15 +12,24 @@ function ProgressiveImage(props) {
   const containerRef = useRef();
   const placeholderRef = useRef();
 
+  const onLoad = useCallback(() => {
+    setLoaded(true);
+  }, []);
+
+  const purgePlaceholder = useCallback(() => {
+    setShowPlaceholder(false);
+  }, []);
+
   useEffect(() => {
-    placeholderRef.current.addEventListener('transitionend', purgePlaceholder);
+    const placeholderElement = placeholderRef.current;
+    placeholderElement.addEventListener('transitionend', purgePlaceholder);
 
     return function cleanUp() {
-      if (placeholderRef.current) {
-        placeholderRef.current.removeEventListener('transitionend', purgePlaceholder);
+      if (placeholderElement) {
+        placeholderElement.removeEventListener('transitionend', purgePlaceholder);
       }
     };
-  }, []);
+  }, [purgePlaceholder]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
@@ -39,14 +48,6 @@ function ProgressiveImage(props) {
       observer.disconnect();
     };
   }, []);
-
-  const onLoad = () => {
-    setLoaded(true);
-  };
-
-  const purgePlaceholder = () => {
-    setShowPlaceholder(false);
-  };
 
   return (
     <ImageContainer className={className} style={style} ref={containerRef}>

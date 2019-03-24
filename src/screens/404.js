@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
-import Helmet from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 import { RouterButton } from '../components/Button';
 import DecoderText from '../components/DecoderText';
 import { Media } from '../utils/StyleUtils';
