@@ -6,8 +6,10 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import { dark, light } from '../utils/Theme';
+import { useWindowSize } from '../utils/Hooks';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
+import { media } from '../utils/StyleUtils';
 
 const Home = lazy(() => import('../screens/Home'));
 const Contact = lazy(() => import('../screens/Contact'));
@@ -45,6 +47,7 @@ const fontStyles = `
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(dark);
+  const windowSize = useWindowSize();
 
   useEffect(() => {
     if (!prerender) console.info(consoleMessage);
@@ -80,9 +83,11 @@ function App() {
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
-              <Suspense fallback={React.Fragment}>
-                <ThemeToggle themeId={currentTheme.id} toggleTheme={toggleTheme} />
-              </Suspense>
+              {windowSize.width > media.numMobile &&
+                <Suspense fallback={React.Fragment}>
+                  <ThemeToggle themeId={currentTheme.id} toggleTheme={toggleTheme} />
+                </Suspense>
+              }
               <TransitionGroup component={React.Fragment}>
                 <Transition key={location.pathname} timeout={300}>
                   {status => (
