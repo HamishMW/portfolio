@@ -25,6 +25,7 @@ export default function Home(props) {
   const { status } = useContext(AppContext);
   const { location } = props;
   const { hash } = location;
+  const initHash = useRef(hash);
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
@@ -64,25 +65,6 @@ export default function Home(props) {
     };
   }, [visibleSections]);
 
-  useEffect(() => {
-    if (status === 'entered') {
-      handleHashchange(hash, true);
-    }
-  }, [location]);
-
-  useEffect(() => {
-    if (hash && status === 'entered') {
-      handleHashchange(hash, false);
-    } else if (status === 'entered') {
-      window.scrollTo(0, 0);
-    }
-  }, [status]);
-
-  useInterval(() => {
-    const index = (disciplineIndex + 1) % disciplines.length;
-    setDisciplineIndex(index);
-  }, 5000);
-
   const handleHashchange = useCallback((hash, scroll) => {
     const hashSections = [intro, projectOne, details];
     const hashString = hash.replace('#', '');
@@ -96,6 +78,25 @@ export default function Home(props) {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (status === 'entered') {
+      handleHashchange(hash, true);
+    }
+  }, [handleHashchange, hash, status]);
+
+  useEffect(() => {
+    if (initHash.current && status === 'entered') {
+      handleHashchange(initHash.current, false);
+    } else if (status === 'entered') {
+      window.scrollTo(0, 0);
+    }
+  }, [handleHashchange, status]);
+
+  useInterval(() => {
+    const index = (disciplineIndex + 1) % disciplines.length;
+    setDisciplineIndex(index);
+  }, 5000);
 
   return (
     <React.Fragment>

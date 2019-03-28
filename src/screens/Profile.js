@@ -10,7 +10,7 @@ import Svg from '../utils/Svg';
 import ProfileImg from '../assets/profile.jpg';
 import ProfileImgLarge from '../assets/profile-large.jpg';
 import ProfileImgPlaceholder from '../assets/profile-placeholder.jpg';
-import { Media } from '../utils/StyleUtils';
+import { media } from '../utils/StyleUtils';
 
 const ProfileText = ({ status }) => (
   <React.Fragment>
@@ -60,7 +60,7 @@ function Profile(props) {
                   visible={visible}
                   placeholder={ProfileImgPlaceholder}
                   srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
-                  sizes={`(max-width: ${Media.mobile}) 100vw, 480px`}
+                  sizes={`(max-width: ${media.mobile}) 100vw, 480px`}
                   alt="Me at the Torii on Miyajima, Japan"
                 />
                 <ProfileSvg icon="profile" status={status} />
@@ -89,11 +89,11 @@ const ProfileSection = styled.section`
     outline: none;
   }
 
-  @media (min-width: ${Media.desktop}) {
+  @media (min-width: ${media.desktop}) {
     padding-left: 120px;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     padding-left: 160px;
     padding-right: 80px;
     height: auto;
@@ -101,17 +101,17 @@ const ProfileSection = styled.section`
     margin-bottom: 20px;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     padding-left: 25px;
     padding-right: 25px;
     overflow-x: hidden;
   }
 
-  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     padding: 0 ${props => props.theme.spacingOuter.mobile};
   }
 
-  @media ${Media.mobileLS} {
+  @media ${media.mobileLS} {
     padding: 0 100px;
   }
 `;
@@ -123,15 +123,15 @@ const ProfileContent = styled.div`
   max-width: 1000px;
   width: 100%;
 
-  @media (min-width: ${Media.desktop}) {
+  @media (min-width: ${media.desktop}) {
     max-width: 1100px;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     max-width: 600px;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     grid-template-columns: 100%;
   }
 `;
@@ -153,6 +153,7 @@ const ProfileTitle = styled.h2`
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.8s ease 0.4s;
+  color: ${props => props.theme.colorTitle()};
 
   ${props => props.status === 'entered' && css`
     opacity: 1;
@@ -171,7 +172,7 @@ const ProfileDescription = styled.p`
     opacity: 1;
   `}
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     font-size: 18px;
   }
 `;
@@ -188,10 +189,10 @@ const ProfileTag = styled.div`
     display: block;
     height: 2px;
     top: -1px;
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${props => props.theme.colorPrimary()};
     width: 96px;
     margin-right: 15px;
-    transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1s;
+    transition: transform 0.4s ${props => props.theme.curveFastoutSlowin} 1s;
     transform: scale3d(0, 1, 1);
     transform-origin: left;
   }
@@ -202,7 +203,7 @@ const ProfileTag = styled.div`
     }
   `}
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     margin-top: 30px;
   }
 `;
@@ -210,10 +211,13 @@ const ProfileTag = styled.div`
 const ProfileTagText = styled.div`
   font-size: 16px;
   font-weight: 500;
-  color: ${props => props.theme.colorPrimary(1)};
+  color: ${props => props.theme.colorPrimary()};
   transform: translateX(-10px);
   opacity: 0;
-  transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1.3s;
+  transition-property: opacity, transform;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-duration: 0.4s;
+  transition-delay: 1.3s;
 
   ${props => props.status === 'entered' && css`
     transform: translateX(0);
@@ -249,7 +253,7 @@ const ProfileImageContainer = styled.div`
 
   &:before {
     content: '';
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${props => props.theme.colorPrimary()};
     position: absolute;
     top: 0;
     right: 0;
@@ -286,18 +290,19 @@ const ProfileSvg = styled(Svg)`
   transform: translate3d(50%, -80px, 0);
   height: 620px;
   z-index: 32;
-  opacity: 0;
+  opacity: ${props => props.status === 'entered' ? 1 : 0};
   transition: opacity 0.4s ease 0.6s;
+  fill: ${props => props.theme.colorTitle()};
 
-  ${props => props.status === 'entered' && css`
-    opacity: 1;
+  ${props => props.theme.id === 'light' && css`
+    mix-blend-mode: soft-light;
   `}
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     height: 460px;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     height: 400px;
   }
 `;

@@ -15,6 +15,7 @@ const ProjectSPR = lazy(() => import('../screens/ProjectSPR'));
 const ProjectSlice = lazy(() => import('../screens/ProjectSlice'));
 const ProjectVolkihar = lazy(() => import('../screens/ProjectVolkihar'));
 const NotFound = lazy(() => import('../screens/404'));
+const ThemeToggle = lazy(() => import('../components/ThemeToggle'));
 
 const prerender = navigator.userAgent === 'ReactSnap';
 export const AppContext = createContext();
@@ -79,6 +80,9 @@ function App() {
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
               <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
               <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
+              <Suspense fallback={React.Fragment}>
+                <ThemeToggle themeId={currentTheme.id} toggleTheme={toggleTheme} />
+              </Suspense>
               <TransitionGroup component={React.Fragment}>
                 <Transition key={location.pathname} timeout={300}>
                   {status => (
@@ -117,12 +121,13 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
     font-family: ${props => props.theme.fontStack};
-    background: ${props => props.theme.colorBackground(1)};
-    color: ${props => props.theme.colorText(1)};
+    background: ${props => props.theme.colorBackground()};
+    color: ${props => props.theme.colorText()};
     border: 0;
     margin: 0;
     width: 100vw;
     overflow-x: hidden;
+    font-weight: ${props => props.theme.id === 'light' ? 500 : 300};
   }
 
   *,
@@ -132,7 +137,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ::selection {
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${props => props.theme.colorPrimary()};
   }
 `;
 
@@ -167,11 +172,11 @@ const SkipToMain = styled.a`
   width: 1px;
   height: 1px;
   overflow: hidden;
-  color: ${props => props.theme.colorBackground(1)};
+  color: ${props => props.theme.colorBackground()};
   z-index: 99;
   transform: translate3d(-50%, -40px, 0);
   transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
-  background: ${props => props.theme.colorPrimary(1)};
+  background: ${props => props.theme.colorPrimary()};
   padding: 8px 16px;
   text-decoration: none;
   font-weight: 500;

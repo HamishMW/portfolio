@@ -6,7 +6,7 @@ import { AppContext } from '../app/App';
 import Input from '../components/Input';
 import DecoderText from '../components/DecoderText';
 import Button, { RouterButton } from '../components/Button';
-import { Media, AnimFade } from '../utils/StyleUtils';
+import { media, AnimFade } from '../utils/StyleUtils';
 import Firebase from '../utils/Firebase';
 import { useScrollToTop, useFormInput } from '../utils/Hooks';
 
@@ -139,15 +139,15 @@ const ContactWrapper = styled.section`
   width: 100%;
   padding-left: 80px;
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     padding-left: 60px;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     padding-left: 0;
   }
 
-  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     padding-left: 0;
   }
 
@@ -161,7 +161,7 @@ const ContactForm = styled.form`
   width: 100%;
   padding: 40px 20px;
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     padding: 120px 20px 40px;
     align-self: flex-start;
   }
@@ -173,6 +173,7 @@ const ContactTitle = styled.h1`
   margin-bottom: 40px;
   line-height: 1;
   margin-top: 0;
+  color: ${props => props.theme.colorTitle()};
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
@@ -199,7 +200,7 @@ const ContactDivider = styled.div`
   margin-bottom: 70px;
   width: 100%;
   height: 1px;
-  background: ${props => props.theme.colorPrimary(1)};
+  background: ${props => props.theme.colorPrimary()};
   position: relative;
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
@@ -212,7 +213,7 @@ const ContactDivider = styled.div`
     content: '';
     height: 10px;
     width: 90px;
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${props => props.theme.colorPrimary()};
     position: absolute;
     bottom: 0;
     transform: translateY(100%);
@@ -328,6 +329,7 @@ const ContactCompleteTitle = styled.h1`
   font-size: 32px;
   margin: 0;
   text-align: center;
+  color: ${props => props.theme.colorTitle()};
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;

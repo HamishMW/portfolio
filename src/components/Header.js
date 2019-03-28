@@ -4,9 +4,9 @@ import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
 import Icon from '../utils/Icon';
-import { Media } from '../utils/StyleUtils';
+import { media } from '../utils/StyleUtils';
 
-const HeaderIcons = ({ toggleMenu }) => (
+const HeaderIcons = () => (
   <HeaderNavIcons>
     <HeaderNavIconLink
       target="_blank"
@@ -75,16 +75,17 @@ function Header(props) {
             <HeaderMobileNavLink
               delay={400}
               status={status}
+              onClick={toggleMenu}
               to="/contact"
             >
               Contact
             </HeaderMobileNavLink>
-            <HeaderIcons toggleMenu={toggleMenu} />
+            <HeaderIcons />
           </HeaderMobileNav>
         )}
       </Transition>
       <HeaderLogo to="/#intro" aria-label="Back to home">
-        <Monogram highlight={theme.colorPrimary(1)} />
+        <Monogram highlight={theme.colorPrimary()} />
       </HeaderLogo>
       <HeaderNav role="navigation">
         <HeaderNavList>
@@ -111,13 +112,13 @@ const HeaderWrapper = styled.header`
   left: ${props => props.theme.spacingOuter.desktop};
   bottom: ${props => props.theme.spacingOuter.desktop};
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     top: ${props => props.theme.spacingOuter.tablet};
     left: ${props => props.theme.spacingOuter.tablet};
     bottom: ${props => props.theme.spacingOuter.tablet};
   }
 
-  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     top: ${props => props.theme.spacingOuter.mobile};
     left: ${props => props.theme.spacingOuter.mobile};
     bottom: auto;
@@ -160,7 +161,7 @@ const HeaderNav = styled.nav`
   position: relative;
   top: -10px;
 
-  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     display: none;
   }
 `;
@@ -184,7 +185,7 @@ const HeaderNavLink = styled(NavLink)`
   &:active,
   &:focus,
   &.active {
-    color: ${props => props.theme.colorText(1)};
+    color: ${props => props.theme.colorText()};
   }
 
   &:after {
@@ -194,7 +195,7 @@ const HeaderNavLink = styled(NavLink)`
     right: 10px;
     left: 10px;
     height: 4px;
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${props => props.theme.colorPrimary()};
     transform: scaleX(0) translateY(-2px);
     transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
     transform-origin: right;
@@ -215,7 +216,7 @@ const HeaderNavIcons = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     flex-direction: row;
     position: absolute;
     bottom: 30px;
@@ -223,7 +224,7 @@ const HeaderNavIcons = styled.div`
     transform: translateX(-50%);
   }
 
-  @media ${Media.mobileLS} {
+  @media ${media.mobileLS} {
     left: 20px;
     transform: none;
     flex-direction: column;
@@ -244,7 +245,7 @@ const HeaderNavIcon = styled(Icon)`
   ${HeaderNavIconLink}:hover &,
   ${HeaderNavIconLink}:focus &,
   ${HeaderNavIconLink}:active & {
-    fill: ${props => props.theme.colorPrimary(1)};
+    fill: ${props => props.theme.colorPrimary()};
   }
 `;
 
@@ -266,19 +267,19 @@ const HeaderMobileNav = styled.nav`
     transform: translate3d(0, 0, 0);
   `}
 
-  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     display: flex;
   }
 `;
 
-const HeaderMobileNavLink = styled(NavLink).attrs(props => ({
+const HeaderMobileNavLink = styled(NavLink).attrs({
   active: 'active',
-}))`
+})`
   width: 100%;
   font-size: 22px;
   text-align: center;
   text-decoration: none;
-  color: ${props => props.theme.colorText(1)};
+  color: ${props => props.theme.colorText()};
   padding: 20px;
   transform: translate3d(0, -30px, 0);
   opacity: 0;
@@ -287,7 +288,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs(props => ({
   position: relative;
   top: -15px;
 
-  @media ${Media.mobileLS} {
+  @media ${media.mobileLS} {
     top: auto;
   }
 
@@ -303,7 +304,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs(props => ({
     right: 60px;
     left: 60px;
     height: 4px;
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${props => props.theme.colorPrimary()};
     transform: scaleX(0) translateY(-1px);
     transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
     transform-origin: right;

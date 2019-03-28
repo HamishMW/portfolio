@@ -8,7 +8,7 @@ import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
   ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
 } from '../components/Project';
-import { Media } from '../utils/StyleUtils';
+import { media } from '../utils/StyleUtils';
 import sliceBackground from '../assets/slice-background.jpg';
 import sliceBackgroundLarge from '../assets/slice-background-large.jpg';
 import sliceBackgroundPlaceholder from '../assets/slice-background-placeholder.jpg';
@@ -72,7 +72,7 @@ function ProjectSlice(props) {
                 srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1920w`}
                 placeholder={sliceAppPlaceholder}
                 alt="The Slice web appication showing a selected user annotation."
-                sizes={`(max-width: ${Media.mobile}) 100vw, (max-width: ${Media.tablet}) 90vw, 80vw`}
+                sizes={`(max-width: ${media.mobile}) 100vw, (max-width: ${media.tablet}) 90vw, 80vw`}
               />
             </ProjectImage>
           </ProjectSectionContent>
@@ -93,13 +93,13 @@ function ProjectSlice(props) {
                 srcSet={`${sliceSidebarLayers} 300w, ${sliceSidebarLayersLarge} 700w`}
                 placeholder={sliceSidebarLayersPlaceholder}
                 alt="The layers sidebar design, now with user profiles."
-                sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
+                sizes={`(max-width: ${media.mobile}) 200px, 343px`}
               />
               <SidebarImage
                 srcSet={`${sliceSidebarAnnotations} 300w, ${sliceSidebarAnnotationsLarge} 700w`}
                 placeholder={sliceSidebarAnnotationsPlaceholder}
                 alt="Multiple user annotations on a shared layer."
-                sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
+                sizes={`(max-width: ${media.mobile}) 200px, 343px`}
               />
             </SidebarImages>
           </ProjectSectionColumns>
@@ -116,7 +116,7 @@ function ProjectSlice(props) {
               srcSet={`${sliceSlides} 800w, ${sliceSlidesLarge} 1440w`}
               placeholder={sliceSlidesPlaceholder}
               alt="The new My Slides tab in slice, showing annotated and favorited slides."
-              sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
+              sizes={`(max-width: ${media.mobile}) 500px, (max-width: ${media.tablet}) 800px, 1000px`}
             />
           </ProjectSectionContent>
         </ProjectSection>
@@ -128,7 +128,7 @@ function ProjectSlice(props) {
                 placeholder={sliceBackgroundBarPlaceholder}
                 alt=""
                 role="presentation"
-                sizes={`(max-width: ${Media.mobile}) 312px, (max-width: ${Media.tablet}) 408px, 514px`}
+                sizes={`(max-width: ${media.mobile}) 312px, (max-width: ${media.tablet}) 408px, 514px`}
               />
             </ProjectSectionGridBackground>
             <ProjectSectionGridForeground>
@@ -136,7 +136,7 @@ function ProjectSlice(props) {
                 srcSet={`${sliceAnnotation} 440w, ${sliceAnnotationLarge} 880w`}
                 placeholder={sliceAnnotationPlaceholder}
                 alt="An annotation preview popover with statistics for shape perimeter and area."
-                sizes={`(max-width: ${Media.mobile}) 584px, (max-width: ${Media.tablet}) 747px, 556px`}
+                sizes={`(max-width: ${media.mobile}) 584px, (max-width: ${media.tablet}) 747px, 556px`}
               />
             </ProjectSectionGridForeground>
             <ProjectSectionGridText>
@@ -165,7 +165,7 @@ const ProjectSectionColumns = styled(ProjectSectionContent)`
   grid-gap: 70px;
   margin: 20px 0 60px;
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     grid-template-columns: 1fr;
     margin: 0 0 60px;
   }
@@ -177,7 +177,7 @@ const ProjectSectionGrid = styled(ProjectSectionContent)`
   grid-gap: 70px;
   margin: 40px 0;
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     grid-template-columns: 1fr;
   }
 `;
@@ -186,11 +186,11 @@ const ProjectSectionGridBackground = styled.div`
   grid-column: 1;
   grid-row: 1;
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     padding: 0 120px;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     padding: 0 60px;
   }
 `;
@@ -214,11 +214,11 @@ const ProjectSectionGridForeground = styled.div`
 const ProjectSectionGridText = styled.div`
   padding-top: 80px;
 
-  @media (max-width: ${Media.desktop}) {
+  @media (max-width: ${media.desktop}) {
     padding-top: 40px;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     padding-top: 0;
   }
 `;
@@ -228,12 +228,12 @@ const SidebarImages = styled.div`
   grid-template-columns: repeat(6, [col] 1fr);
   align-items: center;
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     padding: 0 80px;
     margin-top: 60px;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     padding: 0 20px;
     margin-top: 40px;
   }
@@ -246,7 +246,7 @@ const SidebarImagesText = styled.div`
   justify-content: center;
   padding-right: 10px;
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     padding-right: 0;
   }
 `;

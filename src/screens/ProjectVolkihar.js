@@ -9,7 +9,7 @@ import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader,
   ProjectSectionHeading, ProjectSectionText,
 } from '../components/Project';
-import { Media } from '../utils/StyleUtils';
+import { media } from '../utils/StyleUtils';
 import DisplacementSlider from '../components/DisplacementSlider';
 import volkiharBackground from '../assets/volkihar-background.jpg';
 import volkiharBackgroundLarge from '../assets/volkihar-background-large.jpg';
@@ -48,7 +48,7 @@ function ProjectVolkihar(props) {
 
   useEffect(() => {
     if ((status === 'entered' || status === 'exiting') && theme.id === 'dark') {
-      setTheme({ colorPrimary: alpha => `rgba(240, 211, 150, ${alpha})` });
+      setTheme({ colorPrimary: (alpha = 1) => `rgba(240, 211, 150, ${alpha})` });
     }
 
     return function cleanUp() {
@@ -85,7 +85,7 @@ function ProjectVolkihar(props) {
                 srcSet={`${volkiharBanner} 800w, ${volkiharBannerLarge} 1100w`}
                 placeholder={volkiharBannerPlaceholder}
                 alt="A dark elf wearing the Volkihar Knight armor with the logo overlaid on the image."
-                sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
+                sizes={`(max-width: ${media.mobile}) 500px, (max-width: ${media.tablet}) 800px, 1000px`}
               />
             </ProjectImage>
           </ProjectSectionContent>
@@ -96,7 +96,7 @@ function ProjectVolkihar(props) {
               srcSet={`${volkiharBook} 480w, ${volkiharBookLarge} 960w`}
               placeholder={volkiharBookPlaceholder}
               alt="A book containing a sketch depicting the logo and armor"
-              sizes={`(max-width: ${Media.mobile}) 90vw, (max-width: ${Media.tablet}) 80vw, 70vw`}
+              sizes={`(max-width: ${media.mobile}) 90vw, (max-width: ${media.tablet}) 80vw, 70vw`}
             />
           </ProjectSectionContent>
         </ProjectSection>
@@ -106,7 +106,7 @@ function ProjectVolkihar(props) {
               srcSet={`${volkiharArmor} 400w, ${volkiharArmorLarge} 800w`}
               placeholder={volkiharArmorPlaceholder}
               alt="A 3D render of the full suit of armor."
-              sizes={`(max-width: ${Media.mobile}) 100vw, (max-width: ${Media.tablet}) 100vw, 50vw`}
+              sizes={`(max-width: ${media.mobile}) 100vw, (max-width: ${media.tablet}) 100vw, 50vw`}
             />
             <VolkiharTextSection>
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
@@ -164,7 +164,7 @@ const ProjectSectionColumns = styled(ProjectSectionContent)`
   grid-gap: 70px;
   margin: 0;
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     grid-template-columns: 1fr;
   }
 `;

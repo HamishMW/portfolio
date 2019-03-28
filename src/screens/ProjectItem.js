@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css, withTheme } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
-import { Media } from '../utils/StyleUtils';
+import { media } from '../utils/StyleUtils';
 import { RouterButton, LinkButton } from '../components/Button';
 import ProgressiveImage from '../components/ProgressiveImage';
 import Svg from '../utils/Svg';
@@ -49,19 +49,19 @@ function ProjectItem(props) {
                       srcSet={imageSrc[0]}
                       alt={imageAlt[0]}
                       placeholder={imagePlaceholder[0]}
-                      sizes={`(max-width: ${Media.mobile}) 300px,(max-width: ${Media.tablet}) 420px,(max-width: ${Media.desktop}) 860px, 900px`}
+                      sizes={`(max-width: ${media.mobile}) 300px,(max-width: ${media.tablet}) 420px,(max-width: ${media.desktop}) 860px, 900px`}
                     />
-                    <ProjectItemImageLaptopSvg status={status} icon="projects" color={theme.colorWhite(1)} />
+                    <ProjectItemImageLaptopSvg status={status} icon="projects" color={theme.colorWhite()} />
                   </ProjectItemPreviewContentLaptop>
                 }
                 {imageType === 'phone' &&
                   <ProjectItemPreviewContentPhone>
-                    <ProjectItemPhoneImageSvg status={status} icon="projects" color={theme.colorWhite(1)} />
+                    <ProjectItemPhoneImageSvg status={status} icon="projects" color={theme.colorWhite()} />
                     {imageSrc && imageSrc.map((src, index) => (
                       <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
                         <ProjectItemPhoneFrame
                           srcSet={`${phone} 414w, ${phoneLarge} 828w`}
-                          sizes={`(max-width: ${Media.tablet}) 248px, 414px`}
+                          sizes={`(max-width: ${media.tablet}) 248px, 414px`}
                           alt=""
                           role="presentation"
                           placeholder={phonePlaceholder}
@@ -70,7 +70,7 @@ function ProjectItem(props) {
                           srcSet={imageSrc[index]}
                           alt={imageAlt[index]}
                           placeholder={imagePlaceholder[index]}
-                          sizes={`(max-width: ${Media.tablet}) 152px, 254px`}
+                          sizes={`(max-width: ${media.tablet}) 152px, 254px`}
                         />
                       </ProjectItemPhone>
                     ))}
@@ -95,7 +95,7 @@ const ProjectItemContent = styled.div`
   grid-template-columns: 43% 55%;
   grid-column-gap: 2%;
 
-  @media (min-width: ${Media.desktop}) {
+  @media (min-width: ${media.desktop}) {
     max-width: 1100px;
   }
 
@@ -103,7 +103,7 @@ const ProjectItemContent = styled.div`
     grid-template-columns: 50% 50%;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     grid-template-columns: 100%;
     flex-direction: column-reverse;
     height: auto;
@@ -116,7 +116,7 @@ const ProjectItemDetails = styled.div`
   z-index: 1;
   position: relative;
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     flex: 0 0 auto;
     max-width: 410px;
     order: 2;
@@ -154,13 +154,13 @@ const ProjectItemSection = styled.section`
     order: 2;
   }
 
-  @media (min-width: ${Media.desktop}) {
+  @media (min-width: ${media.desktop}) {
     padding-left: 120px;
     margin-bottom: 0;
     margin-top: 0;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     padding-left: 160px;
     padding-right: 80px;
     height: auto;
@@ -172,7 +172,7 @@ const ProjectItemSection = styled.section`
     }
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     padding-left: 25px;
     padding-right: 25px;
     padding-bottom: 100px;
@@ -180,7 +180,7 @@ const ProjectItemSection = styled.section`
     overflow-x: hidden;
   }
 
-  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     padding-right: ${props => props.theme.spacingOuter.mobile};
     padding-left: ${props => props.theme.spacingOuter.mobile};
   }
@@ -210,7 +210,7 @@ const ProjectItemPreviewContentPhone = styled.div`
 const ProjectItemPreviewContentLaptop = styled.div`
   position: relative;
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -229,7 +229,7 @@ const ProjectItemIndex = styled.div`
     display: block;
     height: 2px;
     top: -1px;
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${props => props.theme.colorPrimary()};
     width: 96px;
     margin-right: 15px;
     transition-property: transform, opacity;
@@ -250,7 +250,7 @@ const ProjectItemIndex = styled.div`
 const ProjectItemIndexNumber = styled.span`
   font-size: 16px;
   font-weight: 500;
-  color: ${props => props.theme.colorPrimary(1)};
+  color: ${props => props.theme.colorPrimary()};
   transform: translateX(-10px);
   opacity: 0;
   transition-property: transform, opacity;
@@ -271,13 +271,14 @@ const ProjectItemTitle = styled.h2`
   margin: 0;
   margin-bottom: 16px;
   padding: 0;
-  color: ${props => props.theme.colorText(1)};
+  color: ${props => props.theme.colorText()};
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
   transition-delay: 0.4s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
+  color: ${props => props.theme.colorTitle()};
 
   ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);
@@ -288,7 +289,7 @@ const ProjectItemTitle = styled.h2`
     font-size: 36px;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     font-size: 28px;
   }
 `;
@@ -310,7 +311,7 @@ const ProjectItemDescription = styled.p`
     opacity: 1;
   `}
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     font-size: 16px;
   }
 `;
@@ -356,39 +357,43 @@ const ProjectItemImageLaptop = styled(ProgressiveImage)`
     height: 491px;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     width: 420px;
     height: 258px;
     margin-bottom: 120px;
     right: 0;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     width: 336px;
     height: 206px;
     margin-bottom: 60px;
   }
 `;
 
-const ProjectItemImageLaptopSvg = styled(Svg)`
+const ProjectItemSvg = styled(Svg)`
+  opacity: ${props => props.status === 'entered' ? 1 : 0};
+  transition: opacity 0.4s ease 0.6s;
+  fill: ${props => props.theme.colorTitle()};
+
+  ${props => props.theme.id === 'light' && css`
+    mix-blend-mode: soft-light;
+  `}
+`;
+
+const ProjectItemImageLaptopSvg = styled(ProjectItemSvg)`
   position: absolute;
   bottom: -40px;
   right: -200px;
   width: 600px;
-  opacity: 0;
-  transition: opacity 0.4s ease 0.6s;
 
-  ${props => props.status === 'entered' && css`
-    opacity: 1;
-  `}
-
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     width: 400px;
     right: 0;
     bottom: 64px;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     width: 260px;
     bottom: 10px;
   }
@@ -413,7 +418,7 @@ const ProjectItemPhone = styled.div`
     transform: translate3d(0, 80px, 0);
     transition-delay: 0s;
 
-    @media (max-width: ${Media.tablet}) {
+    @media (max-width: ${media.tablet}) {
       left: calc(50% - 48px);
       top: -60px;
     }
@@ -423,7 +428,7 @@ const ProjectItemPhone = styled.div`
     transform: translate3d(0, 80px, 0);
     transition-delay: 0.2s;
 
-    @media (max-width: ${Media.tablet}) {
+    @media (max-width: ${media.tablet}) {
       left: calc(-50% + 40px);
       top: 60px;
     }
@@ -440,7 +445,7 @@ const ProjectItemPhoneFrame = styled(ProgressiveImage)`
   width: 414px;
   height: 721px;
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     width: 248px;
     height: 431px;
   }
@@ -458,7 +463,7 @@ const ProjectItemPhoneImage = styled(ProgressiveImage)`
     height: 100%;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     box-shadow: 0 0 0 1px #1C1C1C;
     width: 152px;
     height: 270px;
@@ -466,23 +471,17 @@ const ProjectItemPhoneImage = styled(ProgressiveImage)`
   }
 `;
 
-const ProjectItemPhoneImageSvg = styled(Svg)`
+const ProjectItemPhoneImageSvg = styled(ProjectItemSvg)`
   position: absolute;
   transform: translateY(260px);
   width: 600px;
-  transition: opacity 0.6s ease 0.6s;
-  opacity: 0;
 
-  ${props => props.status === 'entered' && css`
-    opacity: 1;
-  `}
-
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     width: 400px;
     transform: translateY(180px);
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     width: 320px;
     transform: translateY(160px);
   }

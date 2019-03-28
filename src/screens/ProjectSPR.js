@@ -8,7 +8,7 @@ import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
   ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
 } from '../components/Project';
-import { Media } from '../utils/StyleUtils';
+import { media } from '../utils/StyleUtils';
 import backgroundSpr from '../assets/spr-background.jpg';
 import backgroundSprLarge from '../assets/spr-background-large.jpg';
 import backgroundSprPlaceholder from '../assets/spr-background-placeholder.jpg';
@@ -54,7 +54,7 @@ function ProjectSPR(props) {
               <ProgressiveImage
                 srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
                 placeholder={imageSprBuilderPlaceholder}
-                sizes={`(max-width: ${Media.mobile}) 500px, (max-width: ${Media.tablet}) 800px, 1000px`}
+                sizes={`(max-width: ${media.mobile}) 500px, (max-width: ${media.tablet}) 800px, 1000px`}
               />
             </ProjectImage>
           </ProjectSectionContent>

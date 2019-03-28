@@ -34,7 +34,7 @@ const InputWrapper = styled.div`
 
 const InputElement = styled.input`
   background: transparent;
-  color: ${props => props.theme.colorText(1)};
+  color: ${props => props.theme.colorText()};
   box-shadow: inset 0 -2px 0 0 ${props => props.theme.colorText(0.2)};
   transition: box-shadow 0.4s ease;
   height: 34px;
@@ -61,12 +61,12 @@ const InputElement = styled.input`
   }
 
   &::-webkit-contacts-auto-fill-button:hover {
-    background-color: ${props => props.theme.colorPrimary(1)};
+    background-color: ${props => props.theme.colorPrimary()};
   }
 `;
 
 const InputUnderline = styled.div`
-  background: ${props => props.theme.colorPrimary(1)};
+  background: ${props => props.theme.colorPrimary()};
   transform: scale3d(0, 1, 1);
   width: 100%;
   height: 2px;

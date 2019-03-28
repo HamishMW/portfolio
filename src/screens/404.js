@@ -4,7 +4,7 @@ import { Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
 import { RouterButton } from '../components/Button';
 import DecoderText from '../components/DecoderText';
-import { Media } from '../utils/StyleUtils';
+import { media } from '../utils/StyleUtils';
 import Notfound from '../assets/notfound.mp4';
 import NotfoundPoster from '../assets/notfound.jpg';
 
@@ -71,11 +71,11 @@ const NotFoundSection = styled.section`
   height: 100vh;
   padding-left: 140px;
 
-  @media(max-width: ${Media.tablet}) {
+  @media(max-width: ${media.tablet}) {
     padding-left: 80px;
   }
 
-  @media(max-width: ${Media.mobile}) {
+  @media(max-width: ${media.mobile}) {
     grid-template-columns: 100%;
     padding-left: 0;
     padding-top: 80px;
@@ -110,16 +110,16 @@ const NotFoundVideoContainer = styled.div`
   height: 100%;
   overflow: hidden;
   position: relative;
-  border: 30px solid ${props => props.theme.colorBackground(1)};
+  border: 30px solid ${props => props.theme.colorBackground()};
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     order: 1;
     min-height: 240px;
   }
 
   &:after {
     content: '';
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${props => props.theme.colorPrimary()};
     animation: ${props => props.status === 'entered' && css`${AnimVideo} 1.8s ${props.theme.curveFastoutSlowin}`};
     position: absolute;
     top: 0;
@@ -146,7 +146,7 @@ const NotFoundVideo = styled.video`
     opacity: 1;
   `}
 
-  @media(max-width: ${Media.mobile}) {
+  @media(max-width: ${media.mobile}) {
     left: 0;
   }
 `;
@@ -172,7 +172,7 @@ const NotFoundCredit = styled.a`
 
   &:hover,
   &:focus {
-    color: ${props => props.theme.colorText(1)};
+    color: ${props => props.theme.colorText()};
   }
 `;
 
@@ -183,7 +183,7 @@ const NotfoundDetails = styled.div`
   padding: 0 40px;
   height: 100%;
 
-  @media(max-width: ${Media.mobile}) {
+  @media(max-width: ${media.mobile}) {
     padding: 0 30px;
     order: 2;
   }
@@ -207,8 +207,9 @@ const NotFoundTitle = styled.h1`
   transition-delay: 0.1s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
+  color: ${props => props.theme.colorTitle()};
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     font-size: 64px;
   }
 
@@ -236,7 +237,7 @@ const NotFoundSubHeading = styled.h2`
   white-space: nowrap;
   flex: 0 0 auto;
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     font-size: 18px;
   }
 

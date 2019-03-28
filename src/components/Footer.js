@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import Anchor from '../components/Anchor';
-import { Media } from '../utils/StyleUtils';
+import { media } from '../utils/StyleUtils';
 
 const Footer = () => (
   <FooterContainer role="contentinfo">
@@ -22,7 +22,7 @@ const FooterContainer = styled.footer`
   font-size: 16px;
   color: ${props => props.theme.colorText(0.6)};
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     padding: 60px 20px;
   }
 

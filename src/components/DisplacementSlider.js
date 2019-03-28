@@ -8,7 +8,7 @@ import 'intersection-observer';
 import { Easing, Tween, autoPlay } from 'es6-tween';
 import Swipe from 'react-easy-swipe';
 import Icon from '../utils/Icon';
-import { Media } from '../utils/StyleUtils';
+import { media } from '../utils/StyleUtils';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -71,7 +71,7 @@ export default function DispalcementSlider(props) {
   const currentImage = images[imageIndex];
 
   const nextImage = () => {
-    navigate(1);
+    navigate();
   };
 
   const prevImage = () => {
@@ -342,7 +342,7 @@ const SliderButton = styled.button`
   z-index: 32;
   cursor: pointer;
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     display: none;
   }
 
@@ -357,7 +357,7 @@ const SliderButton = styled.button`
   }
 
   svg {
-    fill: ${props => props.theme.colorWhite(1)};
+    fill: ${props => props.theme.colorWhite()};
     display: block;
   }
 `;
@@ -382,7 +382,7 @@ const SliderNavButton = styled.button`
 
   &:focus::after {
     box-shadow: 0 0 0 4px ${props => props.theme.colorWhite(0.2)};
-    background: ${props => props.active ? props.theme.colorWhite(1) : props.theme.colorWhite(0.6)};
+    background: ${props => props.active ? props.theme.colorWhite() : props.theme.colorWhite(0.6)};
   }
 
   &::after {
@@ -391,7 +391,7 @@ const SliderNavButton = styled.button`
     height: 10px;
     border-radius: 50%;
     display: block;
-    background: ${props => props.active ? props.theme.colorWhite(1) : props.theme.colorWhite(0.2)};
+    background: ${props => props.active ? props.theme.colorWhite() : props.theme.colorWhite(0.2)};
     transition-property: background, box-shadow;
     transition-duration: 0.5s;
     transition-timing-function: ${props => props.theme.curveFastoutSlowin};

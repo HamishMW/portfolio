@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useMemo } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import { Media, AnimFade } from '../utils/StyleUtils';
+import { media, AnimFade } from '../utils/StyleUtils';
 import DecoderText from '../components/DecoderText';
 
 const DisplacementSphere = lazy(() => import('../components/DisplacementSphere'));
@@ -19,9 +19,9 @@ function Intro(props) {
         in={!prerender}
         timeout={3000}
       >
-        {(status) => (
+        {status => (
           <React.Fragment>
-            <Suspense fallback={<React.Fragment />}>
+            <Suspense fallback={React.Fragment}>
               <DisplacementSphere />
             </Suspense>
             <IntroText>
@@ -37,8 +37,6 @@ function Intro(props) {
                   {currentDisciplines.map((item, index) => (
                     <Transition
                       appear
-                      mountOnEnter
-                      unmountOnExit
                       timeout={{ enter: 3000, exit: 2000 }}
                       key={`${item}_${index}`}
                     >
@@ -68,15 +66,15 @@ const IntroContent = styled.section`
   flex-direction: column;
   padding-left: 120px;
 
-  @media (min-width: ${Media.desktop}) {
+  @media (min-width: ${media.desktop}) {
     padding-right: 80px;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     padding-left: 60px;
   }
 
-  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     padding-left: 0;
   }
 `;
@@ -88,21 +86,21 @@ const IntroText = styled.header`
   top: -20px;
   padding: 0 ${props => props.theme.spacingOuter.desktop};
 
-  @media (min-width: ${Media.desktop}) {
+  @media (min-width: ${media.desktop}) {
     padding: 0;
     max-width: 920px;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     padding: 0 100px;
   }
 
-  @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     padding: 0 ${props => props.theme.spacingOuter.mobile};
     top: 0;
   }
 
-  @media ${Media.mobileLS} {
+  @media ${media.mobileLS} {
     padding: 0 100px;
   }
 `;
@@ -126,17 +124,17 @@ const IntroName = styled.h1`
     opacity: 1;
   `}
 
-  @media (min-width: ${Media.desktop}) {
+  @media (min-width: ${media.desktop}) {
     font-size: 28px;
     margin-bottom: 40px;
   }
 
-  @media (max-width: ${Media.tablet}) {
+  @media (max-width: ${media.tablet}) {
     font-size: 18px;
     margin-bottom: 40px;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     margin-bottom: 25px;
     margin-top: -30px;
     letter-spacing: 0.2em;
@@ -144,7 +142,7 @@ const IntroName = styled.h1`
     overflow: hidden;
   }
 
-  @media ${Media.mobileLS} {
+  @media ${media.mobileLS} {
     margin-bottom: 20px;
     margin-top: 30px;
   }
@@ -156,9 +154,9 @@ const IntroTitle = styled.h2`
   font-size: 100px;
   margin: 0;
   letter-spacing: -0.005em;
-  font-weight: 500;
+  font-weight: ${props => props.theme.id === 'light' ? 600 : 500};
 
-  @media (min-width: ${Media.desktop}) {
+  @media (min-width: ${media.desktop}) {
     font-size: 120px;
   }
 
@@ -183,10 +181,10 @@ const IntroTitleRow = styled.span`
 `;
 
 const AnimTextReveal = props => keyframes`
-  0% { color: ${props.theme.colorText(0)}; }
-  50% { color: ${props.theme.colorText(0)}; }
-  60% { color: ${props.theme.colorText(1)}; }
-  100% { color: ${props.theme.colorText(1)}; }
+  0% { color: ${props.theme.colorTitle(0)}; }
+  50% { color: ${props.theme.colorTitle(0)}; }
+  60% { color: ${props.theme.colorTitle()}; }
+  100% { color: ${props.theme.colorTitle()}; }
 `;
 
 const AnimTextRevealMask = keyframes`
@@ -220,7 +218,7 @@ const IntroTitleWord = styled.span`
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
   animation-timing-function: ${props => props.theme.curveFastoutSlowin};
-  color: ${props => props.theme.colorText(0)};
+  color: ${props => props.theme.colorTitle(0)};
   transition: opacity 0.5s ease 0.4s;
 
   ${props => props.status === 'entering' && css`
@@ -228,11 +226,11 @@ const IntroTitleWord = styled.span`
   `}
 
   ${props => props.status === 'entered' && css`
-    color: ${props.theme.colorText(1)};
+    color: ${props.theme.colorTitle()};
   `}
 
   ${props => props.status === 'exiting' && css`
-    color: ${props.theme.colorText(1)};
+    color: ${props.theme.colorTitle()};
     opacity: 0;
     position: absolute;
     top: 0;
@@ -243,7 +241,7 @@ const IntroTitleWord = styled.span`
     content: '';
     width: 100%;
     height: 100%;
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${props => props.theme.colorPrimary()};
     opacity: 0;
     animation-duration: 1.5s;
     animation-fill-mode: forwards;
@@ -335,29 +333,21 @@ const AnimScrollIndicator = keyframes`
 `;
 
 const ScrollIndicator = styled.div`
-  border: 2px solid ${props => props.theme.colorWhite(0.4)};
+  border: 2px solid ${props => props.theme.colorText(0.4)};
   border-radius: 20px;
   width: 26px;
   height: 38px;
   position: fixed;
   bottom: 64px;
   transition: all 0.4s ease;
-  opacity: 0;
-
-  ${props => props.status === 'entered' && css`
-    opacity: 1;
-  `}
-
-  ${props => props.isHidden && css`
-    opacity: 0;
-    transform: translateY(20px);
-  `}
+  opacity: ${props => props.status === 'entered' && !props.isHidden ? 1 : 0};
+  transform: translate3d(0, ${props => props.isHidden ? '20px' : 0}, 0);
 
   &:before {
     content: '';
     height: 7px;
     width: 2px;
-    background: ${props => props.theme.colorWhite(0.4)};
+    background: ${props => props.theme.colorText(0.4)};
     border-radius: 4px;
     position: absolute;
     top: 6px;
@@ -366,11 +356,11 @@ const ScrollIndicator = styled.div`
     animation: ${css`${AnimScrollIndicator} 2s ease infinite`};
   }
 
-  @media ${Media.mobileLS} {
+  @media ${media.mobileLS} {
     display: none;
   }
 
-  @media (max-width: ${Media.mobile}) {
+  @media (max-width: ${media.mobile}) {
     display: none;
   }
 `;
