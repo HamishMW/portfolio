@@ -1,6 +1,9 @@
 const spacing = {
   spacingGutter: '20px',
   spacingOuter: {
+    numDesktop: 60,
+    numTablet: 40,
+    numMobile: 20,
     desktop: '60px',
     tablet: '40px',
     mobile: '20px',

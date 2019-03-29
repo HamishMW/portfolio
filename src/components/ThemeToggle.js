@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
 import nightModeAnimation from '../data/NightModeIconData.json';
+import { media } from '../utils/StyleUtils';
 
 export default function ThemeToggle({ themeId, toggleTheme, isMobile }) {
   const initThemeId = useRef(themeId);
@@ -40,13 +41,24 @@ const ThemeToggleButton = styled.button`
   background: none;
   position: fixed;
   cursor: pointer;
-  top: 30px;
-  right: 30px;
   z-index: 2048;
   width: 48px;
   height: 48px;
   clip-path: ${props => props.theme.clipPath(8)};
   transition: background 0.3s ease;
+
+  top: ${props => props.theme.spacingOuter.numDesktop - 8}px;
+  right: ${props => props.theme.spacingOuter.numDesktop - 8}px;
+
+  @media (max-width: ${media.tablet}) {
+    top: ${props => props.theme.spacingOuter.numTablet - 8}px;
+    right: ${props => props.theme.spacingOuter.numTablet - 8}px;
+  }
+
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+    top: ${props => props.theme.spacingOuter.numMobile - 8}px;
+    right: ${props => props.theme.spacingOuter.numMobile - 8}px;
+  }
 
   ${props => props.isMobile && css`
     top: unset;

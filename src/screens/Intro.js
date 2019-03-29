@@ -357,7 +357,9 @@ const ScrollIndicator = styled.div`
   height: 38px;
   position: fixed;
   bottom: 64px;
-  transition: opacity 0.6s ease;
+  transition-property: opacity, transform;
+  transition-duration: 0.6s;
+  transition-timing-function: ease;
   opacity: ${props => props.status === 'entered' && !props.isHidden ? 1 : 0};
   transform: translate3d(0, ${props => props.isHidden ? '20px' : 0}, 0);
 

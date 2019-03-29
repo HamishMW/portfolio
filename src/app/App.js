@@ -134,7 +134,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ::selection {
-    background: ${props => props.theme.colorPrimary()};
+    background: ${dark.colorPrimary()};
   }
 `;
 
