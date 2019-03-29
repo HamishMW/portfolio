@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import 'intersection-observer';
 import { AppContext } from '../app/App';
 import Intro from '../screens/Intro';
-import { useInterval } from '../utils/Hooks';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
 import Footer from '../components/Footer';
@@ -26,7 +25,6 @@ export default function Home(props) {
   const { location } = props;
   const { hash } = location;
   const initHash = useRef(hash);
-  const [disciplineIndex, setDisciplineIndex] = useState(0);
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
   const intro = useRef();
@@ -93,11 +91,6 @@ export default function Home(props) {
     }
   }, [handleHashchange, status]);
 
-  useInterval(() => {
-    const index = (disciplineIndex + 1) % disciplines.length;
-    setDisciplineIndex(index);
-  }, 5000);
-
   return (
     <React.Fragment>
       <Helmet
@@ -111,7 +104,6 @@ export default function Home(props) {
         id="intro"
         sectionRef={intro}
         disciplines={disciplines}
-        disciplineIndex={disciplineIndex}
         scrollIndicatorHidden={scrollIndicatorHidden}
       />
       <ProjectItem

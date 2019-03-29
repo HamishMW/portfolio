@@ -6,10 +6,8 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import { dark, light } from '../utils/Theme';
-import { useWindowSize } from '../utils/Hooks';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
-import { media } from '../utils/StyleUtils';
 
 const Home = lazy(() => import('../screens/Home'));
 const Contact = lazy(() => import('../screens/Contact'));
@@ -17,7 +15,6 @@ const ProjectSPR = lazy(() => import('../screens/ProjectSPR'));
 const ProjectSlice = lazy(() => import('../screens/ProjectSlice'));
 const ProjectVolkihar = lazy(() => import('../screens/ProjectVolkihar'));
 const NotFound = lazy(() => import('../screens/404'));
-const ThemeToggle = lazy(() => import('../components/ThemeToggle'));
 
 const prerender = navigator.userAgent === 'ReactSnap';
 export const AppContext = createContext();
@@ -47,7 +44,6 @@ const fontStyles = `
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(dark);
-  const windowSize = useWindowSize();
 
   useEffect(() => {
     if (!prerender) console.info(consoleMessage);
@@ -81,22 +77,17 @@ function App() {
               </Helmet>
               <GlobalStyles />
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
-              <Header toggleMenu={toggleMenu} menuOpen={menuOpen} />
+              <Header toggleMenu={toggleMenu} menuOpen={menuOpen} toggleTheme={toggleTheme} currentTheme={currentTheme} />
               <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
-              {windowSize.width > media.numMobile &&
-                <Suspense fallback={React.Fragment}>
-                  <ThemeToggle themeId={currentTheme.id} toggleTheme={toggleTheme} />
-                </Suspense>
-              }
               <TransitionGroup component={React.Fragment}>
                 <Transition key={location.pathname} timeout={300}>
                   {status => (
-                    <AppContext.Provider value={{ status, setTheme, toggleTheme }}>
+                    <AppContext.Provider value={{ status, setTheme, toggleTheme, currentTheme }}>
                       <MainContent status={status} id="MainContent" role="main">
                         <Helmet>
                           <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
                         </Helmet>
-                        <Suspense fallback={<React.Fragment />}>
+                        <Suspense fallback={React.Fragment}>
                           <Switch location={location}>
                             <Route exact path="/" component={Home} />
                             <Route path="/contact" component={Contact} />
@@ -133,6 +124,7 @@ const GlobalStyles = createGlobalStyle`
     width: 100vw;
     overflow-x: hidden;
     font-weight: ${props => props.theme.id === 'light' ? 500 : 300};
+    transition: background 0.4s ease;
   }
 
   *,

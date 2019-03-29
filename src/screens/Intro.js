@@ -1,20 +1,38 @@
-import React, { Suspense, lazy, useMemo } from 'react';
+import React, { Suspense, lazy, useMemo, useContext, useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { media, AnimFade } from '../utils/StyleUtils';
 import DecoderText from '../components/DecoderText';
+import { AppContext } from '../app/App';
+import { useInterval, usePrevious } from '../utils/Hooks';
 
 const DisplacementSphere = lazy(() => import('../components/DisplacementSphere'));
 const prerender = navigator.userAgent === 'ReactSnap';
 
 function Intro(props) {
-  const { id, sectionRef, disciplines, disciplineIndex, scrollIndicatorHidden } = props;
+  const { currentTheme } = useContext(AppContext);
+  const { id, sectionRef, disciplines, scrollIndicatorHidden } = props;
+  const [disciplineIndex, setDisciplineIndex] = useState(0);
+  const prevTheme = usePrevious(currentTheme);
+
   const introLabel = useMemo(() => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '), [disciplines]);
   const currentDisciplines = useMemo(() => disciplines.filter((item, index) => index === disciplineIndex), [disciplineIndex, disciplines]);
+
+  useInterval(() => {
+    const index = (disciplineIndex + 1) % disciplines.length;
+    setDisciplineIndex(index);
+  }, prevTheme && prevTheme.id !== currentTheme.id ? null : 5000);
+
+  useEffect(() => {
+    if (prevTheme && prevTheme.id !== currentTheme.id) {
+      setDisciplineIndex(0);
+    }
+  }, [currentTheme.id, prevTheme]);
 
   return (
     <IntroContent ref={sectionRef} id={id}>
       <Transition
+        key={currentTheme.id}
         appear={!prerender}
         in={!prerender}
         timeout={3000}
@@ -339,7 +357,7 @@ const ScrollIndicator = styled.div`
   height: 38px;
   position: fixed;
   bottom: 64px;
-  transition: all 0.4s ease;
+  transition: opacity 0.6s ease;
   opacity: ${props => props.status === 'entered' && !props.isHidden ? 1 : 0};
   transform: translate3d(0, ${props => props.isHidden ? '20px' : 0}, 0);
 

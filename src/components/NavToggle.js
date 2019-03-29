@@ -4,7 +4,7 @@ import Icon from '../utils/Icon';
 import { media } from '../utils/StyleUtils';
 
 const NavToggle = ({ onClick, menuOpen }) => (
-  <NavToggleButton aria-label="Menu" onClick={onClick}>
+  <NavToggleButton aria-label="Menu" aria-expanded={menuOpen} onClick={onClick}>
     <NavToggleInner>
       <NavToggleIcon open={menuOpen} icon="menu" size={32} color="white" />
       <NavToggleIcon open={menuOpen} icon="close" size={32} color="white" />

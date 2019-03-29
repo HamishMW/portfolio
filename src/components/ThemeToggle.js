@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
 import nightModeAnimation from '../data/NightModeIconData.json';
 
-export default function ThemeToggle({ themeId, toggleTheme }) {
+export default function ThemeToggle({ themeId, toggleTheme, isMobile }) {
   const initThemeId = useRef(themeId);
   const lottieContainerRef = useRef();
   const lottieAnimRef = useRef();
@@ -27,7 +27,7 @@ export default function ThemeToggle({ themeId, toggleTheme }) {
   }, [themeId]);
 
   return (
-    <ThemeToggleButton aria-label="Toggle theme" onClick={toggleTheme}>
+    <ThemeToggleButton aria-label="Toggle theme" onClick={toggleTheme} isMobile={isMobile}>
       <div ref={lottieContainerRef} />
     </ThemeToggleButton>
   );
@@ -47,6 +47,12 @@ const ThemeToggleButton = styled.button`
   height: 48px;
   clip-path: ${props => props.theme.clipPath(8)};
   transition: background 0.3s ease;
+
+  ${props => props.isMobile && css`
+    top: unset;
+    right: 30px;
+    bottom: 30px;
+  `}
 
   &:hover,
   &:focus,
