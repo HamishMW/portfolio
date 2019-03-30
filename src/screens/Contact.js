@@ -54,7 +54,7 @@ function Contact(props) {
           <Transition appear timeout={1600} mountOnEnter unmountOnExit>
             {status => (
               <ContactForm method="post" onSubmit={onSubmit} role="form">
-                <ContactTitle status={status} delay={50}>
+                <ContactTitle status={status} delay={50} aria-label="Say hello">
                   <DecoderText
                     text="Say hello"
                     start={status === 'entering' && !prerender}

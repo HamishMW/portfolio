@@ -96,7 +96,7 @@ function DecoderText(props) {
     <DecoderSpan {...rest}>
       {output.map((item, index) => item.type === 'actual'
         ? <span key={`${item.value}-${index}`}>{item.value}</span>
-        : <DecoderCode key={`${item.value}-${index}`} aria-hidden="true">{item.value}</DecoderCode>
+        : <DecoderCode key={`${item.value}-${index}`} aria-hidden>{item.value}</DecoderCode>
       )}
     </DecoderSpan>
   );

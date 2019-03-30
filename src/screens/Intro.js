@@ -21,7 +21,7 @@ function Intro(props) {
   useInterval(() => {
     const index = (disciplineIndex + 1) % disciplines.length;
     setDisciplineIndex(index);
-  }, prevTheme && prevTheme.id !== currentTheme.id ? null : 5000);
+  }, 5000, currentTheme.id);
 
   useEffect(() => {
     if (prevTheme && prevTheme.id !== currentTheme.id) {
@@ -259,7 +259,7 @@ const IntroTitleWord = styled.span`
     content: '';
     width: 100%;
     height: 100%;
-    background: ${props => props.theme.colorPrimary()};
+    background: ${props => props.theme.colorAccent()};
     opacity: 0;
     animation-duration: 1.5s;
     animation-fill-mode: forwards;

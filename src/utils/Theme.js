@@ -27,6 +27,7 @@ const dark = {
   colorTitle: (alpha = 1) => base.colorWhite(alpha),
   colorText: (alpha = 1) => base.colorWhite(alpha),
   colorPrimary: (alpha = 1) => `rgba(0, 229, 255, ${alpha})`,
+  colorAccent: (alpha = 1) => `rgba(0, 229, 255, ${alpha})`,
   sphereAmbientLight: 0.1,
 };
 
@@ -39,6 +40,7 @@ const light = {
   colorTitle: (alpha = 1) => base.colorBlack(alpha),
   colorText: (alpha = 0.8) => base.colorBlack(alpha),
   colorPrimary: (alpha = 1) => `rgba(0, 0, 0, ${alpha})`,
+  colorAccent: (alpha = 1) => `rgba(0, 229, 255, ${alpha})`,
   sphereAmbientLight: 0.8,
 };
 

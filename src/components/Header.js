@@ -201,7 +201,7 @@ const HeaderNavLink = styled(NavLink)`
     right: 10px;
     left: 10px;
     height: 4px;
-    background: ${props => props.theme.colorPrimary()};
+    background: ${props => props.theme.colorAccent()};
     transform: scaleX(0) translateY(-2px);
     transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
     transform-origin: right;
@@ -253,7 +253,7 @@ const HeaderNavIcon = styled(Icon)`
   ${HeaderNavIconLink}:hover &,
   ${HeaderNavIconLink}:focus &,
   ${HeaderNavIconLink}:active & {
-    fill: ${props => props.theme.colorPrimary()};
+    fill: ${props => props.theme.colorAccent()};
   }
 `;
 
@@ -318,7 +318,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     right: 60px;
     left: 60px;
     height: 4px;
-    background: ${props => props.theme.colorPrimary()};
+    background: ${props => props.theme.colorAccent()};
     transform: scaleX(0) translateY(-1px);
     transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
     transform-origin: right;

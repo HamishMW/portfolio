@@ -74,7 +74,7 @@ function App() {
       <ThemeProvider theme={currentTheme}>
         <BrowserRouter>
           <Route render={({ location }) => (
-            <React.Fragment>
+            <AppWrapper tabIndex={-1} role="group">
               <Helmet>
                 <link rel="preload" href={`${GothamBook}`} as="font" crossorigin="crossorigin" />
                 <link rel="preload" href={`${GothamMedium}`} as="font" crossorigin="crossorigin" />
@@ -107,7 +107,7 @@ function App() {
                   )}
                 </Transition>
               </TransitionGroup>
-            </React.Fragment>
+            </AppWrapper>
           )} />
         </BrowserRouter>
       </ThemeProvider>
@@ -139,8 +139,12 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ::selection {
-    background: ${theme.dark.colorPrimary()};
+    background: ${props => props.theme.colorAccent()};
   }
+`;
+
+const AppWrapper = styled.div`
+  width: 100%;
 `;
 
 const MainContent = styled.main`
@@ -167,30 +171,29 @@ const MainContent = styled.main`
 `;
 
 const SkipToMain = styled.a`
-  position: fixed;
-  clip: rect(1px, 1px, 1px, 1px);
-  top: 16px;
-  left: 50%;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  position: absolute;
   width: 1px;
   height: 1px;
   overflow: hidden;
   color: ${props => props.theme.colorBackground()};
-  z-index: 99;
-  transform: translate3d(-50%, -40px, 0);
-  transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
-  background: ${props => props.theme.colorPrimary()};
-  padding: 8px 16px;
-  text-decoration: none;
-  font-weight: 500;
-  line-height: 1;
-  clip-path: ${props => props.theme.clipPath(8)};
+  z-index: 99;  
 
   &:focus {
+    background: ${props => props.theme.colorPrimary()};
+    padding: 8px 16px;
+    position: fixed;
+    top: 16px;
+    left: 16px;
     clip: auto;
     width: auto;
     height: auto;
-    outline: none;
-    transform: translate3d(-50%, 0, 0);
+    text-decoration: none;
+    font-weight: 500;
+    line-height: 1;
+    clip-path: ${props => props.theme.clipPath(8)};
   }
 `;
 
