@@ -74,7 +74,7 @@ function App() {
       <ThemeProvider theme={currentTheme}>
         <BrowserRouter>
           <Route render={({ location }) => (
-            <AppWrapper tabIndex={-1} role="group">
+            <React.Fragment>
               <Helmet>
                 <link rel="preload" href={`${GothamBook}`} as="font" crossorigin="crossorigin" />
                 <link rel="preload" href={`${GothamMedium}`} as="font" crossorigin="crossorigin" />
@@ -107,7 +107,7 @@ function App() {
                   )}
                 </Transition>
               </TransitionGroup>
-            </AppWrapper>
+            </React.Fragment>
           )} />
         </BrowserRouter>
       </ThemeProvider>
@@ -143,10 +143,6 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const AppWrapper = styled.div`
-  width: 100%;
-`;
-
 const MainContent = styled.main`
   width: 100%;
   overflow-x: hidden;
@@ -179,7 +175,7 @@ const SkipToMain = styled.a`
   height: 1px;
   overflow: hidden;
   color: ${props => props.theme.colorBackground()};
-  z-index: 99;  
+  z-index: 99;
 
   &:focus {
     background: ${props => props.theme.colorPrimary()};
