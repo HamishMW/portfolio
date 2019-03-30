@@ -25,8 +25,8 @@ function NotFound() {
                   <DecoderText text="Error: Redacted" start={status !== 'exited'} offset={100} />
                 </NotFoundSubHeading>
                 <NotFoundDescription status={status}>
-                  This page could not be found. It either doesn't exist or was deleted.
-                  Or perhaps you don't exist.
+                  This page could not be found. It either doesn’t exist or was deleted.
+                  Or perhaps you don’t exist.
                 </NotFoundDescription>
                 <NotFoundButton
                   secondary
