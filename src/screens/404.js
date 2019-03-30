@@ -21,7 +21,7 @@ function NotFound() {
             <NotfoundDetails>
               <NotFoundText>
                 <NotFoundTitle status={status}>404</NotFoundTitle>
-                <NotFoundSubHeading status={status}>
+                <NotFoundSubHeading status={status} aria-hidden>
                   <DecoderText text="Error: Redacted" start={status !== 'exited'} offset={100} />
                 </NotFoundSubHeading>
                 <NotFoundDescription status={status}>
@@ -120,7 +120,7 @@ const NotFoundVideoContainer = styled.div`
 
   &:after {
     content: '';
-    background: ${props => props.theme.colorPrimary()};
+    background: ${props => props.theme.colorAccent()};
     animation: ${props => props.status === 'entered' && css`${AnimVideo} 1.8s ${props.theme.curveFastoutSlowin}`};
     position: absolute;
     top: 0;

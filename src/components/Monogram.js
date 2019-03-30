@@ -2,7 +2,7 @@ import React from 'react';
 import { withTheme } from 'styled-components/macro';
 
 function Monogram({ className, color, theme, ...props }) {
-  const highlight = theme.colorPrimary();
+  const highlight = theme.colorAccent();
   const colorText = theme.colorText();
 
   return (

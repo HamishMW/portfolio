@@ -25,7 +25,7 @@ export function useFormInput(initialValue) {
   };
 }
 
-export function useInterval(callback, delay) {
+export function useInterval(callback, delay, reset) {
   const savedCallback = useRef();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export function useInterval(callback, delay) {
       let id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
-  }, [delay]);
+  }, [delay, reset]);
 }
 
 export function useWindowSize() {

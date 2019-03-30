@@ -324,7 +324,7 @@ export const ProjectImage = styled.div`
 
   &:before {
     content: '';
-    background: ${props => props.theme.colorPrimary()};
+    background: ${props => props.theme.colorAccent()};
     position: absolute;
     top: 0;
     right: 0;

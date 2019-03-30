@@ -51,7 +51,7 @@ function Profile(props) {
             </ProfileButton>
             </ProfileColumn>
             <ProfileColumn>
-              <ProfileTag status={status}>
+              <ProfileTag status={status} aria-hidden>
                 <ProfileTagText status={status}>About Me</ProfileTagText>
               </ProfileTag>
               <ProfileImageContainer status={status}>
@@ -247,7 +247,7 @@ const ProfileImageContainer = styled.div`
 
   &:before {
     content: '';
-    background: ${props => props.theme.colorPrimary()};
+    background: ${props => props.theme.colorAccent()};
     position: absolute;
     top: 0;
     right: 0;
@@ -289,7 +289,7 @@ const ProfileSvg = styled(Svg)`
   fill: ${props => props.theme.colorTitle()};
 
   ${props => props.theme.id === 'light' && css`
-    mix-blend-mode: soft-light;
+    opacity: ${props => props.status === 'entered' ? 0.4 : 0};
   `}
 
   @media (max-width: ${media.tablet}) {

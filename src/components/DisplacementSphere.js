@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback, useContext } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import styled, { keyframes } from 'styled-components/macro';
 import {
   Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
@@ -13,7 +13,7 @@ import { AppContext } from '../app/App';
 
 function DisplacementSphere(props) {
   const { currentTheme } = useContext(AppContext);
-  const themeRef = useRef(currentTheme);
+  const initialThemeRef = useRef(currentTheme);
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
   const start = useRef(Date.now());
@@ -29,32 +29,6 @@ function DisplacementSphere(props) {
   const geometry = useRef();
   const sphere = useRef();
 
-  const onWindowResize = useCallback(() => {
-    const windowWidth = window.innerWidth;
-    const fullHeight = innerHeight();
-    container.current.style.height = fullHeight;
-    renderer.current.setSize(windowWidth, fullHeight);
-    camera.current.aspect = windowWidth / fullHeight;
-    camera.current.updateProjectionMatrix();
-
-    if (windowWidth <= media.numMobile) {
-      sphere.current.position.x = 16;
-      sphere.current.position.y = 8;
-    } else if (windowWidth <= media.numTablet) {
-      sphere.current.position.x = 20;
-      sphere.current.position.y = 12;
-    } else {
-      sphere.current.position.x = 25;
-      sphere.current.position.y = 10;
-    }
-  }, []);
-
-  useEffect(() => {
-    if (currentTheme.id !== themeRef.current.id) {
-      themeRef.current = currentTheme;
-    }
-  }, [currentTheme]);
-
   useEffect(() => {
     const rand = Math.random();
     const containerElement = container.current;
@@ -62,8 +36,8 @@ function DisplacementSphere(props) {
     renderer.current = new WebGLRenderer();
     camera.current = new PerspectiveCamera(55, width.current / height.current, 0.1, 5000);
     scene.current = new Scene();
-    light.current = new DirectionalLight(themeRef.current.colorWhite(), 0.6);
-    ambientLight.current = new AmbientLight(themeRef.current.colorWhite(), themeRef.current.id === 'light' ? 0.8 : 0.1);
+    light.current = new DirectionalLight(initialThemeRef.current.colorWhite(), 0.6);
+    ambientLight.current = new AmbientLight(initialThemeRef.current.colorWhite(), initialThemeRef.current.id === 'light' ? 0.8 : 0.1);
 
     uniforms.current = UniformsUtils.merge([
       UniformsLib['ambient'],
@@ -81,7 +55,7 @@ function DisplacementSphere(props) {
 
     geometry.current = new SphereBufferGeometry(32, 128, 128);
     sphere.current = new Mesh(geometry.current, material.current);
-    scene.current.background = new Color(themeRef.current.colorBackground());
+    scene.current.background = new Color(initialThemeRef.current.colorBackground());
     renderer.current.setSize(width.current, height.current);
     camera.current.position.z = 52;
     light.current.position.z = 200;
@@ -93,9 +67,6 @@ function DisplacementSphere(props) {
     sphere.current.position.z = 0;
     sphere.current.modifier = rand;
     containerElement.appendChild(renderer.current.domElement);
-    onWindowResize();
-
-    console.log('init');
 
     return function cleanUp() {
       scene.current.remove(sphere.current);
@@ -115,28 +86,60 @@ function DisplacementSphere(props) {
       renderer.current.domElement = null;
       containerElement.innerHTML = '';
     };
-  }, [onWindowResize, currentTheme.id]);
-
-  const onMouseMove = useCallback(event => {
-    const mouseY = event.clientY / window.innerHeight;
-    const mouseX = event.clientX / window.innerWidth;
-
-    new Tween(sphere.current.rotation)
-      .to({ x: mouseY / 2, y: mouseX / 2 }, 2000)
-      .easing(Easing.Quartic.Out)
-      .start();
   }, []);
 
   useEffect(() => {
+    light.current = new DirectionalLight(currentTheme.colorWhite(), 0.6);
+    ambientLight.current = new AmbientLight(currentTheme.colorWhite(), currentTheme.id === 'light' ? 0.8 : 0.1);
+    scene.current.background = new Color(currentTheme.colorBackground());
+  }, [currentTheme]);
+
+  useEffect(() => {
+    const onWindowResize = () => {
+      const windowWidth = window.innerWidth;
+      const fullHeight = innerHeight();
+      container.current.style.height = fullHeight;
+      renderer.current.setSize(windowWidth, fullHeight);
+      camera.current.aspect = windowWidth / fullHeight;
+      camera.current.updateProjectionMatrix();
+
+      if (windowWidth <= media.numMobile) {
+        sphere.current.position.x = 16;
+        sphere.current.position.y = 8;
+      } else if (windowWidth <= media.numTablet) {
+        sphere.current.position.x = 20;
+        sphere.current.position.y = 12;
+      } else {
+        sphere.current.position.x = 25;
+        sphere.current.position.y = 10;
+      }
+    };
+
     window.addEventListener('resize', onWindowResize);
-    window.addEventListener('mousemove', onMouseMove);
     onWindowResize();
 
     return function cleanup() {
       window.removeEventListener('resize', onWindowResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const onMouseMove = event => {
+      const mouseY = event.clientY / window.innerHeight;
+      const mouseX = event.clientX / window.innerWidth;
+
+      new Tween(sphere.current.rotation)
+        .to({ x: mouseY / 2, y: mouseX / 2 }, 2000)
+        .easing(Easing.Quartic.Out)
+        .start();
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+
+    return function cleanup() {
       window.removeEventListener('mousemove', onMouseMove);
     };
-  }, [onMouseMove, onWindowResize]);
+  }, []);
 
   useEffect(() => {
     let animation;
@@ -147,7 +150,6 @@ function DisplacementSphere(props) {
       uniforms.current.time.value = .00005 * (Date.now() - start.current);
       sphere.current.rotation.z += 0.001;
       renderer.current.render(scene.current, camera.current);
-      console.count('frame');
     };
 
     animate();
@@ -158,7 +160,7 @@ function DisplacementSphere(props) {
   }, []);
 
   return (
-    <SphereContainer ref={container} aria-hidden="true" />
+    <SphereContainer ref={container} aria-hidden />
   );
 }
 

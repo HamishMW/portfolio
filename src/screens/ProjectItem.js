@@ -22,7 +22,7 @@ function ProjectItem(props) {
           {status => (
             <React.Fragment>
               <ProjectItemDetails>
-                <ProjectItemIndex status={status}>
+                <ProjectItemIndex status={status} aria-hidden>
                   <ProjectItemIndexNumber status={status}>{index}</ProjectItemIndexNumber>
                 </ProjectItemIndex>
                 <ProjectItemTitle status={status}>{title}</ProjectItemTitle>
@@ -377,7 +377,7 @@ const ProjectItemSvg = styled(Svg)`
   fill: ${props => props.theme.colorTitle()};
 
   ${props => props.theme.id === 'light' && css`
-    mix-blend-mode: soft-light;
+    opacity: ${props => props.status === 'entered' ? 0.4 : 0};
   `}
 `;
 
@@ -412,7 +412,7 @@ const ProjectItemPhone = styled.div`
   max-width: 100%;
   flex: 1 0 100%;
 
-  ${props => props.first ? `
+  ${props => props.first ? css`
     left: calc(50% - 140px);
     top: -120px;
     transform: translate3d(0, 80px, 0);
@@ -422,7 +422,7 @@ const ProjectItemPhone = styled.div`
       left: calc(50% - 48px);
       top: -60px;
     }
-  `: `
+  `: css`
     left: calc(-50% + 20px);
     top: 120px;
     transform: translate3d(0, 80px, 0);

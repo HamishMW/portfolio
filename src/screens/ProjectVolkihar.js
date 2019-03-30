@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useMemo } from 'react';
+import React, { useEffect, useContext, useMemo, useRef } from 'react';
 import styled from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import { AppContext } from '../app/App';
@@ -41,13 +41,23 @@ const roles = [
   'Graphic Design',
 ];
 
-function ProjectVolkihar(props) {
+function ProjectVolkihar() {
   const { status, updateTheme, currentTheme } = useContext(AppContext);
+  const currentThemeRef = useRef(currentTheme);
   useScrollToTop(status);
 
   useEffect(() => {
-    if ((status === 'entered' || status === 'exiting') && currentTheme.id === 'dark') {
-      updateTheme({ colorPrimary: (alpha = 1) => `rgba(240, 211, 150, ${alpha})` });
+    currentThemeRef.current = currentTheme;
+  }, [currentTheme]);
+
+  useEffect(() => {
+    if ((status === 'entered' || status === 'exiting')) {
+      updateTheme({
+        colorPrimary: currentTheme.id === 'dark'
+          ? (alpha = 1) => `rgba(240, 211, 150, ${alpha})`
+          : currentThemeRef.current.colorPrimary,
+        colorAccent: (alpha = 1) => `rgba(240, 211, 150, ${alpha})`,
+      });
     }
 
     return function cleanUp() {
