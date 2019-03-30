@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 
 const chars = [
@@ -19,117 +19,85 @@ const chars = [
   'パ', 'ピ', 'プ', 'ペ', 'ポ',
 ];
 
+function shuffle(content, chars, position) {
+  return content.map((value, index) => {
+    if (index < position) {
+      return { type: 'actual', value };
+    }
+
+    const randNum = Math.floor(Math.random() * chars.length);
+    return { type: 'code', value: chars[randNum] };
+  });
+};
+
 function DecoderText(props) {
-  const { text, start, offset = 100, className, style, fps = 24 } = props;
+  const { text, start, offset = 100, className, style, fps = 24, ...rest } = props;
   const [position, setPosition] = useState(0);
   const [started, setStarted] = useState(false);
   const [output, setOutput] = useState([{ type: 'code', value: '' }]);
   const content = useRef(text.split(''));
   const startTime = useRef(0);
   const elapsedTime = useRef(0);
-  const running = useRef(false);
-  const timeout = useRef();
 
   useEffect(() => {
-    if (start && !started) startTimeout();
+    let timeout;
+
+    const init = () => {
+      startTime.current = Date.now();
+      elapsedTime.current = 0;
+      setStarted(true);
+    };
+
+    if (start && !started) timeout = setTimeout(init, 300);
 
     return function cleanUp() {
-      cancelAnimationFrame(animate);
-      clearTimeout(timeout.current);
-      stop();
+      clearTimeout(timeout);
     };
-  }, [start]);
+  }, [start, started]);
 
   useEffect(() => {
+    if (!started) return;
+    let animation;
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime.current;
+      const deltaTime = elapsed - elapsedTime.current;
+      const needsUpdate = 1000 / fps <= deltaTime;
+
+      if (!needsUpdate) {
+        animation = requestAnimationFrame(animate);
+        return;
+      }
+
+      elapsedTime.current = elapsed;
+      setPosition(elapsedTime.current / offset);
+    };
+
     if (position > content.current.length) {
-      running.current = false;
-      const finalArray = setValue(content.current);
+      const finalArray = content.current.map(value => ({
+        type: 'actual',
+        value,
+      }));
       setOutput(finalArray);
       return;
     }
 
-    requestAnimationFrame(animate);
+    animation = requestAnimationFrame(animate);
 
     const textArray = shuffle(content.current, chars, position);
     setOutput(textArray);
-  }, [position]);
 
-  const startTimeout = useCallback(() => {
-    timeout.current = setTimeout(startAnim, 300);
-  }, []);
-
-  const startAnim = useCallback(() => {
-    startTime.current = Date.now();
-    elapsedTime.current = 0;
-    running.current = true;
-    setStarted(true);
-    animate();
-  }, []);
-
-  const stop = useCallback(() => {
-    running.current = false;
-  }, []);
-
-  const animate = useCallback(() => {
-    const elapsed = Date.now() - startTime.current;
-    const deltaTime = elapsed - elapsedTime.current;
-    const needsUpdate = 1000 / fps <= deltaTime;
-
-    if (!running.current) return;
-
-    if (!needsUpdate) {
-      requestAnimationFrame(animate);
-      return;
-    }
-
-    elapsedTime.current = elapsed;
-    setPosition(elapsedTime.current / offset);
-  }, [startTime, elapsedTime, running]);
-
-  const setValue = useCallback(value => {
-    const val = value.map(value => ({
-      type: 'actual',
-      value,
-    }));
-    return val;
-  }, []);
-
-  const shuffle = useCallback((content, chars, position) => {
-    return content.map((value, index) => {
-      if (index < position) {
-        return { type: 'actual', value };
-      }
-
-      return {
-        type: 'code',
-        value: getRandCharacter(chars),
-      };
-    });
-  }, []);
-
-  const getRandCharacter = useCallback(chars => {
-    const randNum = Math.floor(Math.random() * chars.length);
-    const lowChoice = - .5 + Math.random();
-    const picketCharacter = chars[randNum];
-    const chosen = lowChoice < 0 ? picketCharacter.toLowerCase() : picketCharacter;
-    return chosen;
-  }, []);
+    return function cleanup() {
+      cancelAnimationFrame(animation);
+    };
+  }, [fps, offset, position, started]);
 
   return (
-    <DecoderSpan className={className} style={style}>
-      {output.map((item, index) => {
-        if (item.type === 'actual') {
-          return (<span key={`${item.value}_${index}`}>{item.value}</span>);
-        }
-        return (
-          <DecoderCode
-            key={`${item.value}_${index}`}
-            aria-hidden="true"
-          >
-            {item.value}
-          </DecoderCode>
-        );
-      })}
+    <DecoderSpan className={className} style={style} {...rest}>
+      {output.map((item, index) => item.type === 'actual'
+        ? <span key={`${item.value}-${index}`}>{item.value}</span>
+        : <DecoderCode key={`${item.value}-${index}`} aria-hidden="true">{item.value}</DecoderCode>
+      )}
     </DecoderSpan>
   );
 };
@@ -145,7 +113,7 @@ const DecoderSpan = styled.span`
 const DecoderCode = styled.span`
   opacity: 0.8;
   font-weight: 400;
-  font-family: 'Hiragino Sans', sans-serif;
+  font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Hiragino Sans', Osaka, 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
   line-height: 0;
 `;
 

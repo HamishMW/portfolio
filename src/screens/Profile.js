@@ -193,15 +193,9 @@ const ProfileTag = styled.div`
     width: 96px;
     margin-right: 15px;
     transition: transform 0.4s ${props => props.theme.curveFastoutSlowin} 1s;
-    transform: scale3d(0, 1, 1);
+    transform: scale3d(${props => props.status === 'entered' ? 1 : 0}, 1, 1);
     transform-origin: left;
   }
-
-  ${props => props.status === 'entered' && css`
-    &:before {
-      transform: scale3d(1, 1, 1);
-    }
-  `}
 
   @media (max-width: ${media.tablet}) {
     margin-top: 30px;

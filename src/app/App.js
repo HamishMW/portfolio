@@ -5,7 +5,8 @@ import { Transition, TransitionGroup } from 'react-transition-group';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
-import { dark, light } from '../utils/Theme';
+import { theme } from '../utils/Theme';
+import { useLocalStorage } from '../utils/Hooks';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
 
@@ -43,7 +44,8 @@ const fontStyles = `
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(dark);
+  const [storedTheme, setStoredTheme] = useLocalStorage('theme', 'dark');
+  const [currentTheme, setCurrentTheme] = useState(theme[storedTheme]);
 
   useEffect(() => {
     if (!prerender) console.info(consoleMessage);
@@ -51,14 +53,15 @@ function App() {
   }, []);
 
   const setTheme = useCallback(overrides => {
-    const defaultTheme = currentTheme.id === 'dark' ? dark : light;
+    const defaultTheme = theme[currentTheme.id];
     setCurrentTheme({ ...defaultTheme, ...overrides });
   }, [currentTheme.id]);
 
   const toggleTheme = useCallback(() => {
-    const newTheme = currentTheme.id === 'dark' ? light : dark;
-    setCurrentTheme(newTheme);
-  }, [currentTheme.id]);
+    const newTheme = currentTheme.id === 'dark' ? 'light' : 'dark';
+    setStoredTheme(newTheme);
+    setCurrentTheme(theme[newTheme]);
+  }, [currentTheme.id, setStoredTheme]);
 
   const toggleMenu = useCallback(() => {
     setMenuOpen(!menuOpen);
@@ -134,7 +137,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ::selection {
-    background: ${dark.colorPrimary()};
+    background: ${theme.dark.colorPrimary()};
   }
 `;
 

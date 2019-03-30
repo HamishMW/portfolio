@@ -18,7 +18,7 @@ const base = {
   colorWhite: (alpha = 1) => `rgba(255, 255, 255, ${alpha})`,
 };
 
-export const dark = {
+const dark = {
   id: 'dark',
   ...spacing,
   ...base,
@@ -30,7 +30,7 @@ export const dark = {
   sphereAmbientLight: 0.1,
 };
 
-export const light = {
+const light = {
   id: 'light',
   ...spacing,
   ...base,
@@ -40,4 +40,9 @@ export const light = {
   colorText: (alpha = 0.8) => base.colorBlack(alpha),
   colorPrimary: (alpha = 1) => `rgba(0, 0, 0, ${alpha})`,
   sphereAmbientLight: 0.8,
+};
+
+export const theme = {
+  dark,
+  light,
 };

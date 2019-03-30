@@ -150,6 +150,7 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs(props => ({
   left: 0;
   height: 800px;
   opacity: 0;
+  overflow: hidden;
 
   ${props => props.entered && css`
     animation: ${AnimFade} 2s ease ${initDelay}ms forwards;

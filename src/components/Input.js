@@ -1,27 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components/macro';
 import TextArea from '../components/TextArea';
 
 function Input(props) {
   const { id, label, hasValue, multiline, className, ...restProps } = props;
+  const [focused, setFocused] = useState(false);
 
   return (
     <InputWrapper className={className}>
+      <InputLabel
+        id={`${id}-label`}
+        hasValue={!!props.value}
+        htmlFor={id}
+        focused={focused}
+      >
+        {label}
+      </InputLabel>
       <InputElement
         as={multiline ? TextArea : null}
         id={id}
         name={id}
         aria-labelledby={`${id}-label`}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         {...restProps}
       />
-      <InputUnderline />
-      <InputLabel
-        id={`${id}-label`}
-        hasValue={!!props.value}
-        htmlFor={id}
-      >
-        {label}
-      </InputLabel>
+      <InputUnderline focused={focused} />
     </InputWrapper>
   );
 };
@@ -67,22 +71,13 @@ const InputElement = styled.input`
 
 const InputUnderline = styled.div`
   background: ${props => props.theme.colorPrimary()};
-  transform: scale3d(0, 1, 1);
+  transform: scale3d(${props => props.focused ? 1 : 0}, 1, 1);
   width: 100%;
   height: 2px;
   position: absolute;
   bottom: 0;
   transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
   transform-origin: left;
-
-  ${InputElement}:focus ~ & {
-    transform: scale3d(1, 1, 1);
-  }
-`;
-
-const InputLabelFocus = props => `
-  color: ${props.theme.colorText(0.4)};
-  transform: scale(0.8) translateY(-28px);
 `;
 
 const InputLabel = styled.label`
@@ -94,12 +89,9 @@ const InputLabel = styled.label`
   transform-origin: top left;
   transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
 
-  ${InputElement}:focus ~ & {
-    ${props => InputLabelFocus(props)}
-  }
-
-  ${props => props.hasValue && css`
-    ${InputLabelFocus(props)}
+  ${props => (props.hasValue || props.focused) && css`
+    color: ${props.theme.colorText(0.4)};
+    transform: scale(0.8) translateY(-28px);
   `}
 `;
 

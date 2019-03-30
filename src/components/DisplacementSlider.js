@@ -71,7 +71,7 @@ export default function DispalcementSlider(props) {
   const currentImage = images[imageIndex];
 
   const nextImage = () => {
-    navigate();
+    navigate(1);
   };
 
   const prevImage = () => {
@@ -135,12 +135,6 @@ export default function DispalcementSlider(props) {
       .start();
   }, [animate]);
 
-  const initialRender = useCallback(() => {
-    animating.current = true;
-    autoPlay(true);
-    goToIndex(0, 0);
-  }, [goToIndex]);
-
   const addObjects = useCallback(textures => {
     material.current = new ShaderMaterial({
       uniforms: {
@@ -159,8 +153,10 @@ export default function DispalcementSlider(props) {
     imagePlane.current = new Mesh(geometry.current, material.current);
     imagePlane.current.position.set(0, 0, 0);
     scene.current.add(imagePlane.current);
-    initialRender();
-  }, [height, initialRender, width]);
+    animating.current = true;
+    autoPlay(true);
+    goToIndex(0, 0);
+  }, [goToIndex, height, width]);
 
   const loadImages = useCallback(async () => {
     const manager = new LoadingManager();
@@ -381,8 +377,8 @@ const SliderNavButton = styled.button`
   }
 
   &:focus::after {
-    box-shadow: 0 0 0 4px ${props => props.theme.colorWhite(0.2)};
-    background: ${props => props.active ? props.theme.colorWhite() : props.theme.colorWhite(0.6)};
+    box-shadow: 0 0 0 4px ${props => props.theme.colorText(0.2)};
+    background: ${props => props.active ? props.theme.colorText() : props.theme.colorText(0.6)};
   }
 
   &::after {
@@ -391,7 +387,7 @@ const SliderNavButton = styled.button`
     height: 10px;
     border-radius: 50%;
     display: block;
-    background: ${props => props.active ? props.theme.colorWhite() : props.theme.colorWhite(0.2)};
+    background: ${props => props.active ? props.theme.colorText() : props.theme.colorText(0.2)};
     transition-property: background, box-shadow;
     transition-duration: 0.5s;
     transition-timing-function: ${props => props.theme.curveFastoutSlowin};

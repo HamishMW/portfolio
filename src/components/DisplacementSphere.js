@@ -29,18 +29,13 @@ function DisplacementSphere(props) {
   const sphere = useRef();
   const animating = useRef(false);
 
-  const updatePosition = useCallback(() => {
+  const onWindowResize = useCallback(() => {
     const windowWidth = window.innerWidth;
     const fullHeight = innerHeight();
     container.current.style.height = fullHeight;
     renderer.current.setSize(windowWidth, fullHeight);
     camera.current.aspect = windowWidth / fullHeight;
     camera.current.updateProjectionMatrix();
-  }, []);
-
-  const onWindowResize = useCallback(() => {
-    const windowWidth = window.innerWidth;
-    updatePosition();
 
     if (windowWidth <= media.numMobile) {
       sphere.current.position.x = 16;
@@ -52,7 +47,7 @@ function DisplacementSphere(props) {
       sphere.current.position.x = 25;
       sphere.current.position.y = 10;
     }
-  }, [updatePosition]);
+  }, []);
 
   useEffect(() => {
     if (theme.id !== themeRef.current.id) {

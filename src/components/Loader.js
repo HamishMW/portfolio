@@ -36,7 +36,7 @@ const LoaderSpan = styled.span`
   height: 100%;
   background-color: ${props => props.color};
 
-  &:nth-child() {
+  &:nth-child(1) {
     animation: ${css`${AnimGrow} 1s ease-in-out infinite`};
     margin-left: 0;
   }
