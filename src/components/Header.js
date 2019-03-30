@@ -42,7 +42,7 @@ function Header(props) {
         mountOnEnter
         unmountOnExit
         in={menuOpen}
-        timeout={{ enter: 0, exit: 500 }}
+        timeout={{ enter: 5, exit: 500 }}
       >
         {status => (
           <HeaderMobileNav status={status}>

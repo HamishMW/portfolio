@@ -36,7 +36,7 @@ export default function Home(props) {
   useEffect(() => {
     const revealSections = [intro, projectOne, projectTwo, projectThree, details];
 
-    const sectionObserver = new IntersectionObserver((entries) => {
+    const sectionObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const section = entry.target;
@@ -51,7 +51,7 @@ export default function Home(props) {
       setScrollIndicatorHidden(!entry.isIntersecting);
     }, { rootMargin: "-100% 0px 0px 0px" });
 
-    revealSections.forEach((section) => {
+    revealSections.forEach(section => {
       sectionObserver.observe(section.current);
     });
 
@@ -67,12 +67,13 @@ export default function Home(props) {
     const hashSections = [intro, projectOne, details];
     const hashString = hash.replace('#', '');
     const element = hashSections.filter(item => item.current.id === hashString)[0];
+    const offSet = element === details ? 90 : 0;
 
     if (element) {
-      element.current.scrollIntoView({
+      window.scroll({
+        top: element.current.offsetTop - offSet,
+        left: 0,
         behavior: scroll ? 'smooth' : 'instant',
-        block: 'start',
-        inline: 'nearest',
       });
     }
   }, []);
