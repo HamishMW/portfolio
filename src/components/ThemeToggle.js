@@ -4,7 +4,7 @@ import lottie from 'lottie-web/build/player/lottie_light.min';
 import nightModeAnimation from '../data/NightModeIconData.json';
 import { media } from '../utils/StyleUtils';
 
-export default function ThemeToggle({ themeId, toggleTheme, isMobile }) {
+export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest }) {
   const initThemeId = useRef(themeId);
   const lottieContainerRef = useRef();
   const lottieAnimRef = useRef();
@@ -28,7 +28,7 @@ export default function ThemeToggle({ themeId, toggleTheme, isMobile }) {
   }, [themeId]);
 
   return (
-    <ThemeToggleButton aria-label="Toggle theme" onClick={toggleTheme} isMobile={isMobile}>
+    <ThemeToggleButton aria-label="Toggle theme" onClick={toggleTheme} isMobile={isMobile} {...rest}>
       <div ref={lottieContainerRef} />
     </ThemeToggleButton>
   );
@@ -51,18 +51,11 @@ const ThemeToggleButton = styled.button`
   right: ${props => props.theme.spacingOuter.numDesktop - 8}px;
 
   @media (max-width: ${media.tablet}) {
-    top: ${props => props.theme.spacingOuter.numTablet - 8}px;
-    right: ${props => props.theme.spacingOuter.numTablet - 8}px;
-  }
-
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
-    top: ${props => props.theme.spacingOuter.numMobile - 8}px;
-    right: ${props => props.theme.spacingOuter.numMobile - 8}px;
+    top: ${props => props.isMobile ? 'unset' : `${props.theme.spacingOuter.numTablet - 8}px`};
+    right: ${props => props.isMobile ? '30px' : `${props.theme.spacingOuter.numTablet - 8}px`};
   }
 
   ${props => props.isMobile && css`
-    top: unset;
-    right: 30px;
     bottom: 30px;
   `}
 

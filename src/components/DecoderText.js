@@ -31,7 +31,7 @@ function shuffle(content, chars, position) {
 };
 
 function DecoderText(props) {
-  const { text, start, offset = 100, className, style, fps = 24, ...rest } = props;
+  const { text, start, offset = 100, delay = 300, fps = 24, ...rest } = props;
   const [position, setPosition] = useState(0);
   const [started, setStarted] = useState(false);
   const [output, setOutput] = useState([{ type: 'code', value: '' }]);
@@ -48,12 +48,12 @@ function DecoderText(props) {
       setStarted(true);
     };
 
-    if (start && !started) timeout = setTimeout(init, 300);
+    if (start && !started) timeout = setTimeout(init, delay);
 
     return function cleanUp() {
       clearTimeout(timeout);
     };
-  }, [start, started]);
+  }, [delay, start, started]);
 
   useEffect(() => {
     if (!started) return;
@@ -93,7 +93,7 @@ function DecoderText(props) {
   }, [fps, offset, position, started]);
 
   return (
-    <DecoderSpan className={className} style={style} {...rest}>
+    <DecoderSpan {...rest}>
       {output.map((item, index) => item.type === 'actual'
         ? <span key={`${item.value}-${index}`}>{item.value}</span>
         : <DecoderCode key={`${item.value}-${index}`} aria-hidden="true">{item.value}</DecoderCode>

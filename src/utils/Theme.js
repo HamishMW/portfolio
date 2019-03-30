@@ -42,7 +42,4 @@ const light = {
   sphereAmbientLight: 0.8,
 };
 
-export const theme = {
-  dark,
-  light,
-};
+export const theme = { dark, light };

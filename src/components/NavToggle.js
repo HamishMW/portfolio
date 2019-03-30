@@ -24,7 +24,7 @@ const NavToggleButton = styled.button`
   display: none;
   width: 48px;
   height: 48px;
-  transition: all 0.4s ease;
+  transition: background 0.4s ease;
   z-index: 1024;
   clip-path: ${props => props.theme.clipPath(8)};
 
@@ -50,7 +50,9 @@ const NavToggleInner = styled.div`
 
 const NavToggleIcon = styled(Icon)`
   position: absolute;
-  transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
+  transition-property: opacity, transform, fill;
+  transition-duration: 0.4s;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-delay: 0.1s;
   opacity: 1;
   transform: rotate(0deg);

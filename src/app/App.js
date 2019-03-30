@@ -45,22 +45,24 @@ const fontStyles = `
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [storedTheme, setStoredTheme] = useLocalStorage('theme', 'dark');
-  const [currentTheme, setCurrentTheme] = useState(theme[storedTheme]);
+  const [currentTheme, setCurrentTheme] = useState(theme.dark);
 
   useEffect(() => {
     if (!prerender) console.info(consoleMessage);
     window.history.scrollRestoration = 'manual';
   }, []);
 
-  const setTheme = useCallback(overrides => {
-    const defaultTheme = theme[currentTheme.id];
-    setCurrentTheme({ ...defaultTheme, ...overrides });
+  const updateTheme = useCallback(overrides => {
+    setCurrentTheme({ ...theme[currentTheme.id], ...overrides });
   }, [currentTheme.id]);
+
+  useEffect(() => {
+    setCurrentTheme(theme[storedTheme]);
+  }, [storedTheme]);
 
   const toggleTheme = useCallback(() => {
     const newTheme = currentTheme.id === 'dark' ? 'light' : 'dark';
     setStoredTheme(newTheme);
-    setCurrentTheme(theme[newTheme]);
   }, [currentTheme.id, setStoredTheme]);
 
   const toggleMenu = useCallback(() => {
@@ -85,7 +87,7 @@ function App() {
               <TransitionGroup component={React.Fragment}>
                 <Transition key={location.pathname} timeout={300}>
                   {status => (
-                    <AppContext.Provider value={{ status, setTheme, toggleTheme, currentTheme }}>
+                    <AppContext.Provider value={{ status, updateTheme, toggleTheme, currentTheme }}>
                       <MainContent status={status} id="MainContent" role="main">
                         <Helmet>
                           <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />

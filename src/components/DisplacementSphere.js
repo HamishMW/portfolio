@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useCallback } from 'react';
-import styled, { keyframes, withTheme } from 'styled-components/macro';
+import React, { useEffect, useRef, useCallback, useContext } from 'react';
+import styled, { keyframes } from 'styled-components/macro';
 import {
   Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
   UniformsUtils, UniformsLib, ShaderLib, SphereBufferGeometry, Mesh, Color, ShaderMaterial
@@ -9,10 +9,11 @@ import innerHeight from 'ios-inner-height';
 import VertShader from '../shaders/SphereVertShader';
 import FragmentShader from '../shaders/SphereFragmentShader';
 import { media } from '../utils/StyleUtils';
+import { AppContext } from '../app/App';
 
 function DisplacementSphere(props) {
-  const { theme } = props;
-  const themeRef = useRef(theme);
+  const { currentTheme } = useContext(AppContext);
+  const themeRef = useRef(currentTheme);
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
   const start = useRef(Date.now());
@@ -50,10 +51,10 @@ function DisplacementSphere(props) {
   }, []);
 
   useEffect(() => {
-    if (theme.id !== themeRef.current.id) {
-      themeRef.current = theme;
+    if (currentTheme.id !== themeRef.current.id) {
+      themeRef.current = currentTheme;
     }
-  }, [theme]);
+  }, [currentTheme]);
 
   useEffect(() => {
     const rand = Math.random();
@@ -63,7 +64,7 @@ function DisplacementSphere(props) {
     camera.current = new PerspectiveCamera(55, width.current / height.current, 0.1, 5000);
     scene.current = new Scene();
     light.current = new DirectionalLight(themeRef.current.colorWhite(), 0.6);
-    ambientLight.current = new AmbientLight(themeRef.current.colorWhite(), themeRef.current.sphereAmbientLight);
+    ambientLight.current = new AmbientLight(themeRef.current.colorWhite(), themeRef.current.id === 'light' ? 0.8 : 0.1);
 
     uniforms.current = UniformsUtils.merge([
       UniformsLib['ambient'],
@@ -114,9 +115,9 @@ function DisplacementSphere(props) {
       renderer.current.domElement = null;
       containerElement.innerHTML = '';
     };
-  }, [onWindowResize, theme.id]);
+  }, [onWindowResize, currentTheme.id]);
 
-  const onMouseMove = useCallback((event) => {
+  const onMouseMove = useCallback(event => {
     const mouseY = event.clientY / window.innerHeight;
     const mouseX = event.clientX / window.innerWidth;
 
@@ -185,4 +186,4 @@ const SphereContainer = styled.div`
   }
 `;
 
-export default React.memo(withTheme(DisplacementSphere));
+export default React.memo(DisplacementSphere);

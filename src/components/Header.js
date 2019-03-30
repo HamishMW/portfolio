@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import styled, { withTheme, css } from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
@@ -12,24 +12,18 @@ const ThemeToggle = lazy(() => import('../components/ThemeToggle'));
 const HeaderIcons = () => (
   <HeaderNavIcons>
     <HeaderNavIconLink
-      target="_blank"
-      rel="noopener noreferrer"
       aria-label="Twitter"
       href="https://twitter.com/hamishMW"
     >
       <HeaderNavIcon icon="twitter" />
     </HeaderNavIconLink>
     <HeaderNavIconLink
-      target="_blank"
-      rel="noopener noreferrer"
       aria-label="Dribbble"
       href="https://dribbble.com/hamishw"
     >
       <HeaderNavIcon icon="dribbble" />
     </HeaderNavIconLink>
     <HeaderNavIconLink
-      target="_blank"
-      rel="noopener noreferrer"
       aria-label="Github"
       href="https://github.com/HamishMW"
     >
@@ -39,16 +33,16 @@ const HeaderIcons = () => (
 );
 
 function Header(props) {
-  const { menuOpen, toggleMenu, theme, currentTheme, toggleTheme } = props;
+  const { menuOpen, toggleMenu, currentTheme, toggleTheme } = props;
   const windowSize = useWindowSize();
 
   return (
     <HeaderWrapper role="banner">
       <Transition
-        in={menuOpen}
-        timeout={{ enter: 5, exit: 500 }}
         mountOnEnter
         unmountOnExit
+        in={menuOpen}
+        timeout={{ enter: 0, exit: 500 }}
       >
         {status => (
           <HeaderMobileNav status={status}>
@@ -92,7 +86,7 @@ function Header(props) {
         )}
       </Transition>
       <HeaderLogo to="/#intro" aria-label="Back to home">
-        <Monogram highlight={theme.colorPrimary()} />
+        <Monogram />
       </HeaderLogo>
       <HeaderNav role="navigation">
         <HeaderNavList>
@@ -244,14 +238,17 @@ const HeaderNavIcons = styled.div`
   }
 `;
 
-const HeaderNavIconLink = styled.a`
+const HeaderNavIconLink = styled.a.attrs({
+  target: '_blank',
+  rel: 'noopener noreferrer',
+})`
   display: flex;
   padding: 10px;
 `;
 
 const HeaderNavIcon = styled(Icon)`
   fill: ${props => props.theme.colorText(0.6)};
-  transition: all 0.4s ease;
+  transition: fill 0.4s ease;
 
   ${HeaderNavIconLink}:hover &,
   ${HeaderNavIconLink}:focus &,
@@ -268,7 +265,9 @@ const HeaderMobileNav = styled.nav`
   left: 0;
   background: ${props => props.theme.colorBackground(0.9)};
   transform: translate3d(0, -100%, 0);
-  transition: transform 0.5s ${props => props.theme.curveFastoutSlowin};
+  transition-property: transform, background;
+  transition-duration: 0.5s;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   display: none;
   flex-direction: column;
   align-items: center;
@@ -333,4 +332,4 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   }
 `;
 
-export default React.memo(withTheme(Header));
+export default React.memo(Header);

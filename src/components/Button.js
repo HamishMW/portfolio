@@ -1,12 +1,14 @@
-import React from 'react';
-import styled, { withTheme, css } from 'styled-components/macro';
+import React, { useContext } from 'react';
+import styled, { css } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Icon from '../utils/Icon';
 import { tint } from '../utils/StyleUtils';
+import { AppContext } from '../app/App';
 
-const ButtonContent = withTheme(props => {
-  const { iconRight, icon, children, secondary, loading, theme } = props;
+const ButtonContent = React.memo(props => {
+  const { currentTheme } = useContext(AppContext);
+  const { iconRight, icon, children, secondary, loading } = props;
 
   return (
     <React.Fragment>
@@ -15,7 +17,7 @@ const ButtonContent = withTheme(props => {
         {children}
       </ButtonText>
       {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary} />}
-      {loading && <ButtonLoader size="24" color={theme.colorBackground()} />}
+      {loading && <ButtonLoader size="24" color={currentTheme.colorBackground()} />}
     </React.Fragment>
   );
 });

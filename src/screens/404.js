@@ -111,6 +111,7 @@ const NotFoundVideoContainer = styled.div`
   overflow: hidden;
   position: relative;
   border: 30px solid ${props => props.theme.colorBackground()};
+  transition: border 0.4s ease;
 
   @media (max-width: ${media.mobile}) {
     order: 1;
@@ -152,8 +153,8 @@ const NotFoundVideo = styled.video`
 `;
 
 const NotFoundCredit = styled.a`
-  color: ${props => props.theme.colorText(0.4)};
-  background: ${props => props.theme.colorBackground(0.6)};
+  color: ${props => props.theme.colorWhite(0.4)};
+  background: ${props => props.theme.colorBlack(0.6)};
   padding: 4px 8px;
   font-size: 14px;
   position: absolute;
@@ -172,7 +173,7 @@ const NotFoundCredit = styled.a`
 
   &:hover,
   &:focus {
-    color: ${props => props.theme.colorText()};
+    color: ${props => props.theme.colorWhite()};
   }
 `;
 

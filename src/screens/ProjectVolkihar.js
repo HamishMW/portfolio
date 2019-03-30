@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useMemo } from 'react';
-import styled, { withTheme } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import { AppContext } from '../app/App';
 import ProgressiveImage from '../components/ProgressiveImage';
@@ -42,21 +42,20 @@ const roles = [
 ];
 
 function ProjectVolkihar(props) {
-  const { theme } = props;
-  const { status, setTheme } = useContext(AppContext);
+  const { status, updateTheme, currentTheme } = useContext(AppContext);
   useScrollToTop(status);
 
   useEffect(() => {
-    if ((status === 'entered' || status === 'exiting') && theme.id === 'dark') {
-      setTheme({ colorPrimary: (alpha = 1) => `rgba(240, 211, 150, ${alpha})` });
+    if ((status === 'entered' || status === 'exiting') && currentTheme.id === 'dark') {
+      updateTheme({ colorPrimary: (alpha = 1) => `rgba(240, 211, 150, ${alpha})` });
     }
 
     return function cleanUp() {
       if (status !== 'entered') {
-        setTheme();
+        updateTheme();
       }
     };
-  }, [setTheme, status, theme.id]);
+  }, [updateTheme, status, currentTheme.id]);
 
   return (
     <React.Fragment>
@@ -175,4 +174,4 @@ const VolkiharTextSection = styled.div`
   flex-direction: column;
 `;
 
-export default withTheme(ProjectVolkihar);
+export default ProjectVolkihar;
