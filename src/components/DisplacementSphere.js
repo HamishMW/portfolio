@@ -28,7 +28,6 @@ function DisplacementSphere(props) {
   const material = useRef();
   const geometry = useRef();
   const sphere = useRef();
-  const animating = useRef(false);
 
   const onWindowResize = useCallback(() => {
     const windowWidth = window.innerWidth;
@@ -93,9 +92,10 @@ function DisplacementSphere(props) {
     scene.current.add(sphere.current);
     sphere.current.position.z = 0;
     sphere.current.modifier = rand;
-    animating.current = true;
     containerElement.appendChild(renderer.current.domElement);
     onWindowResize();
+
+    console.log('init');
 
     return function cleanUp() {
       scene.current.remove(sphere.current);
@@ -127,36 +127,35 @@ function DisplacementSphere(props) {
       .start();
   }, []);
 
-  const render = useCallback(() => {
-    uniforms.current.time.value = .00005 * (Date.now() - start.current);
-    sphere.current.rotation.z += 0.001;
-    renderer.current.render(scene.current, camera.current);
-  }, []);
-
-  const animate = useCallback(() => {
-    if (animating.current) {
-      requestAnimationFrame(animate);
-      render();
-    }
-  }, [render]);
-
   useEffect(() => {
     window.addEventListener('resize', onWindowResize);
     window.addEventListener('mousemove', onMouseMove);
     onWindowResize();
-    autoPlay(true);
 
     return function cleanup() {
-      animating.current = false;
-      cancelAnimationFrame(animate);
       window.removeEventListener('resize', onWindowResize);
       window.removeEventListener('mousemove', onMouseMove);
     };
-  }, [animate, onMouseMove, onWindowResize]);
+  }, [onMouseMove, onWindowResize]);
 
   useEffect(() => {
+    let animation;
+    autoPlay(true);
+
+    const animate = () => {
+      animation = requestAnimationFrame(animate);
+      uniforms.current.time.value = .00005 * (Date.now() - start.current);
+      sphere.current.rotation.z += 0.001;
+      renderer.current.render(scene.current, camera.current);
+      console.count('frame');
+    };
+
     animate();
-  }, [animate]);
+
+    return function cleanup() {
+      cancelAnimationFrame(animation);
+    };
+  }, []);
 
   return (
     <SphereContainer ref={container} aria-hidden="true" />
