@@ -288,10 +288,6 @@ const ProfileSvg = styled(Svg)`
   transition: opacity 0.4s ease 0.6s;
   fill: ${props => props.theme.colorTitle()};
 
-  ${props => props.theme.id === 'light' && css`
-    opacity: ${props => props.status === 'entered' ? 0.4 : 0};
-  `}
-
   @media (max-width: ${media.tablet}) {
     height: 460px;
   }

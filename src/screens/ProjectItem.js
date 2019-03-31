@@ -298,6 +298,7 @@ const ProjectItemDescription = styled.p`
   font-size: 18px;
   line-height: 1.4;
   color: ${props => props.theme.colorText(0.8)};
+  font-weight: ${props => props.theme.id === 'light' ? 500 : 300};
   margin-bottom: 38px;
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
@@ -347,6 +348,10 @@ const ProjectItemImageLaptop = styled(ProgressiveImage)`
     opacity: 1;
   `}
 
+  ${props => props.theme.id === 'light' && css`
+    z-index: 1;
+  `}
+
   @media(min-width: 1440px) {
     width: 880px;
     height: 542px;
@@ -383,19 +388,19 @@ const ProjectItemSvg = styled(Svg)`
 
 const ProjectItemImageLaptopSvg = styled(ProjectItemSvg)`
   position: absolute;
-  bottom: -40px;
+  bottom: ${props => props.theme.id === 'light' ? -60 : -40 }px;
   right: -200px;
   width: 600px;
 
   @media (max-width: ${media.tablet}) {
     width: 400px;
     right: 0;
-    bottom: 64px;
+    bottom: ${props => props.theme.id === 'light' ? 50 : 64 }px;
   }
 
   @media (max-width: ${media.mobile}) {
     width: 260px;
-    bottom: 10px;
+    bottom: ${props => props.theme.id === 'light' ? -10 : 10 }px;
   }
 `;
 

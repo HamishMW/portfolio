@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback, useContext } 
 import { Helmet } from 'react-helmet-async';
 import 'intersection-observer';
 import { AppContext } from '../app/App';
+import { media } from '../utils/StyleUtils';
 import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
@@ -42,7 +43,7 @@ export default function Home(props) {
           const section = entry.target;
           sectionObserver.unobserve(section);
           if (visibleSections.includes(section)) return;
-          setVisibleSections((prevSections) => [...prevSections, section]);
+          setVisibleSections(prevSections => [...prevSections, section]);
         }
       });
     }, { rootMargin: "0px 0px -10% 0px" });
@@ -67,7 +68,8 @@ export default function Home(props) {
     const hashSections = [intro, projectOne, details];
     const hashString = hash.replace('#', '');
     const element = hashSections.filter(item => item.current.id === hashString)[0];
-    const offSet = element === details ? 90 : 0;
+    const offsetValue = window.innerWidth < media.mobile ? 90 : 30;
+    const offSet = element === details ? offsetValue : 0;
 
     if (element) {
       window.scroll({

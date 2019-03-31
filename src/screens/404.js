@@ -72,16 +72,16 @@ const NotFoundSection = styled.section`
   padding-left: 140px;
 
   @media(max-width: ${media.tablet}) {
+    padding-top: 80px;
+    padding-bottom: 80px;
     padding-left: 80px;
+    grid-template-columns: 100%;
+    min-height: 100vh;
+    height: auto;
   }
 
   @media(max-width: ${media.mobile}) {
-    grid-template-columns: 100%;
     padding-left: 0;
-    padding-top: 80px;
-    min-height: 100vh;
-    height: auto;
-    padding-bottom: 80px;
   }
 `;
 
@@ -110,8 +110,7 @@ const NotFoundVideoContainer = styled.div`
   height: 100%;
   overflow: hidden;
   position: relative;
-  border: 30px solid ${props => props.theme.colorBackground()};
-  transition: border 0.4s ease;
+  border: 30px solid transparent;
 
   @media (max-width: ${media.mobile}) {
     order: 1;

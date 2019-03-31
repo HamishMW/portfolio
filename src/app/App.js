@@ -52,13 +52,13 @@ function App() {
     window.history.scrollRestoration = 'manual';
   }, []);
 
-  const updateTheme = useCallback(overrides => {
-    setCurrentTheme({ ...theme[currentTheme.id], ...overrides });
-  }, [currentTheme.id]);
-
   useEffect(() => {
     setCurrentTheme(theme[storedTheme]);
   }, [storedTheme]);
+
+  const updateTheme = useCallback(overrides => {
+    setCurrentTheme({ ...theme[currentTheme.id], ...overrides });
+  }, [currentTheme.id]);
 
   const toggleTheme = useCallback(() => {
     const newTheme = currentTheme.id === 'dark' ? 'light' : 'dark';
@@ -128,7 +128,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     width: 100vw;
     overflow-x: hidden;
-    font-weight: ${props => props.theme.id === 'light' ? 500 : 300};
+    font-weight: 300;
     transition: background 0.4s ease;
   }
 

@@ -11,7 +11,7 @@ import FragmentShader from '../shaders/SphereFragmentShader';
 import { media } from '../utils/StyleUtils';
 import { AppContext } from '../app/App';
 
-function DisplacementSphere(props) {
+function DisplacementSphere() {
   const { currentTheme } = useContext(AppContext);
   const initialThemeRef = useRef(currentTheme);
   const width = useRef(window.innerWidth);
@@ -124,6 +124,8 @@ function DisplacementSphere(props) {
   }, []);
 
   useEffect(() => {
+    autoPlay(true);
+
     const onMouseMove = event => {
       const mouseY = event.clientY / window.innerHeight;
       const mouseX = event.clientX / window.innerWidth;
@@ -143,7 +145,6 @@ function DisplacementSphere(props) {
 
   useEffect(() => {
     let animation;
-    autoPlay(true);
 
     const animate = () => {
       animation = requestAnimationFrame(animate);

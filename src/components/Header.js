@@ -42,7 +42,7 @@ function Header(props) {
         mountOnEnter
         unmountOnExit
         in={menuOpen}
-        timeout={{ enter: 5, exit: 500 }}
+        timeout={{ enter: 0, exit: 500 }}
       >
         {status => (
           <HeaderMobileNav status={status}>
@@ -85,7 +85,7 @@ function Header(props) {
           </HeaderMobileNav>
         )}
       </Transition>
-      <HeaderLogo to="/#intro" aria-label="Back to home">
+      <HeaderLogo to="/#intro" aria-label="Home">
         <Monogram />
       </HeaderLogo>
       <HeaderNav role="navigation">

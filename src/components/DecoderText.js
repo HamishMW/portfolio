@@ -42,13 +42,13 @@ function DecoderText(props) {
   useEffect(() => {
     let timeout;
 
-    const init = () => {
-      startTime.current = Date.now();
-      elapsedTime.current = 0;
-      setStarted(true);
-    };
-
-    if (start && !started) timeout = setTimeout(init, delay);
+    if (start && !started) {
+      timeout = setTimeout(() => {
+        startTime.current = Date.now();
+        elapsedTime.current = 0;
+        setStarted(true);
+      }, delay);
+    }
 
     return function cleanUp() {
       clearTimeout(timeout);
@@ -56,36 +56,25 @@ function DecoderText(props) {
   }, [delay, start, started]);
 
   useEffect(() => {
-    if (!started) return;
     let animation;
 
     const animate = () => {
+      if (!started) return;
       const elapsed = Date.now() - startTime.current;
       const deltaTime = elapsed - elapsedTime.current;
       const needsUpdate = 1000 / fps <= deltaTime;
+      animation = requestAnimationFrame(animate);
 
-      if (!needsUpdate) {
-        animation = requestAnimationFrame(animate);
-        return;
+      if (needsUpdate) {
+        elapsedTime.current = elapsed;
+        setPosition(elapsedTime.current / offset);
       }
-
-      elapsedTime.current = elapsed;
-      setPosition(elapsedTime.current / offset);
     };
 
-    if (position > content.current.length) {
-      const finalArray = content.current.map(value => ({
-        type: 'actual',
-        value,
-      }));
-      setOutput(finalArray);
-      return;
+    if (position < content.current.length) {
+      animation = requestAnimationFrame(animate);
+      setOutput(shuffle(content.current, chars, position));
     }
-
-    animation = requestAnimationFrame(animate);
-
-    const textArray = shuffle(content.current, chars, position);
-    setOutput(textArray);
 
     return function cleanup() {
       cancelAnimationFrame(animation);
