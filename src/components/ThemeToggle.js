@@ -56,6 +56,7 @@ const ThemeToggleButton = styled.button`
   }
 
   ${props => props.isMobile && css`
+    top: unset;
     bottom: 30px;
   `}
 

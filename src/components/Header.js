@@ -96,7 +96,7 @@ function Header(props) {
         </HeaderNavList>
         <HeaderIcons />
       </HeaderNav>
-      {windowSize.width > media.numMobile &&
+      {windowSize.width > media.numMobile && windowSize.height > 696 &&
         <Suspense fallback={React.Fragment}>
           <ThemeToggle themeId={currentTheme.id} toggleTheme={toggleTheme} />
         </Suspense>
