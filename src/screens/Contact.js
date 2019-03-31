@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
@@ -7,13 +7,14 @@ import Input from '../components/Input';
 import DecoderText from '../components/DecoderText';
 import Button, { RouterButton } from '../components/Button';
 import { media, AnimFade } from '../utils/StyleUtils';
+import Svg from '../utils/Svg';
 import Firebase from '../utils/Firebase';
 import { useScrollToTop, useFormInput } from '../utils/Hooks';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
 
-function Contact(props) {
+function Contact() {
   const { status } = useContext(AppContext);
   const email = useFormInput('');
   const message = useFormInput('');
@@ -21,7 +22,7 @@ function Contact(props) {
   const [complete, setComplete] = useState(false);
   useScrollToTop(status);
 
-  const onSubmit = async event => {
+  const onSubmit = useCallback(async event => {
     event.preventDefault();
     if (sending) return;
 
@@ -39,7 +40,7 @@ function Contact(props) {
       setSending(false);
       alert(error);
     }
-  };
+  }, [email.value, message.value, sending]);
 
   return (
     <ContactWrapper status={status}>
@@ -126,6 +127,10 @@ function Contact(props) {
           </Transition>
         }
       </TransitionGroup>
+      {/* <ContactMeta>
+        <Svg icon="code" />
+        <Svg icon="message" />
+      </ContactMeta> */}
     </ContactWrapper>
   );
 }
@@ -372,6 +377,21 @@ const ContactCompleteButton = styled(RouterButton)`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
+`;
+
+const ContactMeta = styled.div`
+  position: fixed;
+  right: 60px;
+  bottom: 60px;
+  transform: rotate(-90deg) translate3d(100%, 0, 0);
+  transform-origin: bottom right;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  svg {
+    margin-right: 20px;
+  }
 `;
 
 export default React.memo(Contact);
