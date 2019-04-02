@@ -14,7 +14,7 @@ import { media } from '../utils/StyleUtils';
 
 const ProfileText = ({ status }) => (
   <React.Fragment>
-    <ProfileTitle aria-label="Hi there" status={status}>
+    <ProfileTitle status={status}>
       <DecoderText
         text="Hi there"
         start={status !== 'exited'}

@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components/macro';
 import Icon from '../utils/Icon';
 import { media } from '../utils/StyleUtils';
 
-const NavToggle = ({ onClick, menuOpen }) => (
-  <NavToggleButton aria-label="Menu" aria-expanded={menuOpen} onClick={onClick}>
+const NavToggle = ({ onClick, menuOpen, ...rest }) => (
+  <NavToggleButton aria-label="Menu" aria-expanded={menuOpen} onClick={onClick} {...rest}>
     <NavToggleInner>
       <NavToggleIcon open={menuOpen} icon="menu" size={32} color="white" />
       <NavToggleIcon open={menuOpen} icon="close" size={32} color="white" />
@@ -20,7 +20,6 @@ const NavToggleButton = styled.button`
   position: fixed;
   top: ${props => props.theme.spacingOuter.mobile};
   right: ${props => props.theme.spacingOuter.mobile};
-  margin: 0;
   display: none;
   width: 48px;
   height: 48px;

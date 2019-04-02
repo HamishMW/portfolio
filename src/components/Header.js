@@ -250,9 +250,9 @@ const HeaderNavIcon = styled(Icon)`
   fill: ${props => props.theme.colorText(0.6)};
   transition: fill 0.4s ease;
 
-  ${HeaderNavIconLink}:hover &,
-  ${HeaderNavIconLink}:focus &,
-  ${HeaderNavIconLink}:active & {
+  ${/* sc-selector */HeaderNavIconLink}:hover &,
+  ${/* sc-selector */HeaderNavIconLink}:focus &,
+  ${/* sc-selector */HeaderNavIconLink}:active & {
     fill: ${props => props.theme.colorAccent()};
   }
 `;

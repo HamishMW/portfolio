@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import TextArea from '../components/TextArea';
 
+const genId = prefix => `${prefix}-${Math.random().toString(32).substring(2, 8)}`;
+
 function Input(props) {
   const { id, label, hasValue, multiline, className, ...restProps } = props;
+  const inputId = useRef(id || genId('input'));
   const [focused, setFocused] = useState(false);
 
   return (
     <InputWrapper className={className}>
       <InputLabel
-        id={`${id}-label`}
+        id={`${inputId.current}-label`}
         hasValue={!!props.value}
-        htmlFor={id}
+        htmlFor={inputId.current}
         focused={focused}
       >
         {label}
       </InputLabel>
       <InputElement
         as={multiline ? TextArea : null}
-        id={id}
-        name={id}
-        aria-labelledby={`${id}-label`}
+        id={inputId.current}
+        aria-labelledby={`${inputId.current}-label`}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         {...restProps}
@@ -46,22 +48,21 @@ const InputElement = styled.input`
   font-size: 16px;
   font-family: inherit;
   margin: 0;
-  padding: 0;
   border: 0;
   padding: 16px 0;
   z-index: 16;
   appearance: none;
-  -webkit-border-radius: 0;
+  border-radius: 0;
   min-height: 54px;
   line-height: 1.4;
-
-  &:focus {
-    outline: none;
-  }
 
   &::-webkit-contacts-auto-fill-button {
     background-color: ${props => props.theme.colorText(0.4)};
     transition: background-color 0.3s ease;
+  }
+
+  &:focus {
+    outline: none;
   }
 
   &::-webkit-contacts-auto-fill-button:hover {

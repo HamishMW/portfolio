@@ -201,8 +201,8 @@ const ButtonIcon = styled(Icon)`
     fill: ${props.theme.colorPrimary()};
   `}
 
-  ${ButtonContainer}:hover &,
-  ${ButtonContainer}:focus & {
+  ${/* sc-selector */ButtonContainer}:hover &,
+  ${/* sc-selector */ButtonContainer}:focus & {
     ${props => props.icon === 'arrowRight' && css`
       transform: translate3d(3px, 0, 0);
     `}

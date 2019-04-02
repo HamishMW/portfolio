@@ -88,7 +88,6 @@ function ProjectItem(props) {
 const ProjectItemContent = styled.div`
   width: 100%;
   max-width: 1000px;
-  display: flex;
   align-items: center;
   justify-content: center;
   display: grid;
@@ -271,14 +270,13 @@ const ProjectItemTitle = styled.h2`
   margin: 0;
   margin-bottom: 16px;
   padding: 0;
-  color: ${props => props.theme.colorText()};
+  color: ${props => props.theme.colorTitle()};
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
   transition-delay: 0.4s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
-  color: ${props => props.theme.colorTitle()};
 
   ${props => props.status === 'entered' && css`
     transform: translate3d(0, 0, 0);

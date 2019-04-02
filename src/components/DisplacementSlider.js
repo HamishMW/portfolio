@@ -374,11 +374,6 @@ const SliderNavButton = styled.button`
     outline: none;
   }
 
-  &:focus::after {
-    box-shadow: 0 0 0 4px ${props => props.theme.colorText(0.2)};
-    background: ${props => props.active ? props.theme.colorText() : props.theme.colorText(0.6)};
-  }
-
   &::after {
     content: '';
     width: 10px;
@@ -389,5 +384,10 @@ const SliderNavButton = styled.button`
     transition-property: background, box-shadow;
     transition-duration: 0.5s;
     transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  }
+
+  &:focus::after {
+    box-shadow: 0 0 0 4px ${props => props.theme.colorText(0.2)};
+    background: ${props => props.active ? props.theme.colorText() : props.theme.colorText(0.6)};
   }
 `;

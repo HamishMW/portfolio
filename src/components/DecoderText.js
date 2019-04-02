@@ -25,8 +25,8 @@ function shuffle(content, chars, position) {
       return { type: 'actual', value };
     }
 
-    const randNum = Math.floor(Math.random() * chars.length);
-    return { type: 'code', value: chars[randNum] };
+    const rand = Math.floor(Math.random() * chars.length);
+    return { type: 'code', value: chars[rand] };
   });
 };
 
@@ -63,12 +63,13 @@ function DecoderText(props) {
       const elapsed = Date.now() - startTime.current;
       const deltaTime = elapsed - elapsedTime.current;
       const needsUpdate = 1000 / fps <= deltaTime;
-      animation = requestAnimationFrame(animate);
 
       if (needsUpdate) {
         elapsedTime.current = elapsed;
         setPosition(elapsedTime.current / offset);
       }
+
+      animation = requestAnimationFrame(animate);
     };
 
     if (position < content.current.length) {
@@ -83,9 +84,10 @@ function DecoderText(props) {
 
   return (
     <DecoderSpan {...rest}>
+      <DecoderLabel>{text}</DecoderLabel>
       {output.map((item, index) => item.type === 'actual'
-        ? <span key={`${item.value}-${index}`}>{item.value}</span>
-        : <DecoderCode key={`${item.value}-${index}`} aria-hidden>{item.value}</DecoderCode>
+        ? <span aria-hidden key={`${item.value}-${index}`}>{item.value}</span>
+        : <DecoderCode aria-hidden key={`${item.value}-${index}`}>{item.value}</DecoderCode>
       )}
     </DecoderSpan>
   );
@@ -97,6 +99,17 @@ const DecoderSpan = styled.span`
     opacity: 0;
     visibility: hidden;
   }
+`;
+
+const DecoderLabel = styled.span`
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  position: absolute;
 `;
 
 const DecoderCode = styled.span`

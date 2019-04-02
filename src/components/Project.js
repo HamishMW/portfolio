@@ -57,8 +57,8 @@ export function ProjectHeader(props) {
           </LinkButton>
         </ProjectDetails>
         <ProjectMeta entered={!prerender}>
-          {roles && roles.map((role, index) => (
-            <ProjectMetaItem key={`role_${index}`}>{role}</ProjectMetaItem>
+          {roles && roles.map(role => (
+            <ProjectMetaItem key={role}>{role}</ProjectMetaItem>
           ))}
         </ProjectMeta>
       </ProjectHeaderInner>

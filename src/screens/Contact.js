@@ -15,7 +15,7 @@ const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
 
 function Contact() {
-  const { status } = useContext(AppContext);
+  const { status, currentTheme } = useContext(AppContext);
   const email = useFormInput('');
   const message = useFormInput('');
   const [sending, setSending] = useState(false);
@@ -55,7 +55,7 @@ function Contact() {
           <Transition appear timeout={1600} mountOnEnter unmountOnExit>
             {status => (
               <ContactForm method="post" onSubmit={onSubmit} role="form">
-                <ContactTitle status={status} delay={50} aria-label="Say hello">
+                <ContactTitle status={status} delay={50}>
                   <DecoderText
                     text="Say hello"
                     start={status === 'entering' && !prerender}
@@ -69,7 +69,6 @@ function Contact() {
                   delay={200}
                   autoComplete="email"
                   label="Your Email"
-                  id="email"
                   type="email"
                   maxLength={320}
                   required
@@ -80,7 +79,6 @@ function Contact() {
                   delay={300}
                   autoComplete="off"
                   label="Message"
-                  id="message"
                   maxLength={2000}
                   required
                   multiline
@@ -127,10 +125,9 @@ function Contact() {
           </Transition>
         }
       </TransitionGroup>
-      {/* <ContactMeta>
-        <Svg icon="code" />
-        <Svg icon="message" />
-      </ContactMeta> */}
+      <ContactMeta>
+        <Svg color={currentTheme.colorText()} icon="message" />
+      </ContactMeta>
     </ContactWrapper>
   );
 }
@@ -381,16 +378,23 @@ const ContactCompleteButton = styled(RouterButton)`
 
 const ContactMeta = styled.div`
   position: fixed;
-  right: 60px;
-  bottom: 60px;
+  right: ${props => props.theme.spacingOuter.desktop};
+  bottom: ${props => props.theme.spacingOuter.desktop};
   transform: rotate(-90deg) translate3d(100%, 0, 0);
   transform-origin: bottom right;
   display: flex;
   align-items: center;
   flex-direction: row;
+  opacity: 0;
+  animation: ${css`${AnimFade}`} 0.8s ease 1s forwards;
 
-  svg {
-    margin-right: 20px;
+  @media (max-width: ${media.tablet}) {
+    right: ${props => props.theme.spacingOuter.tablet};
+    bottom: ${props => props.theme.spacingOuter.tablet};
+  }
+
+  @media (max-width: ${media.mobile}) {
+    display: none;
   }
 `;
 

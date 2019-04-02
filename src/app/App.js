@@ -6,7 +6,8 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
 import { theme } from '../utils/Theme';
-import { useLocalStorage } from '../utils/Hooks';
+import { media } from '../utils/StyleUtils';
+import { useLocalStorage, useWindowSize } from '../utils/Hooks';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
 
@@ -46,6 +47,8 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [storedTheme, setStoredTheme] = useLocalStorage('theme', 'dark');
   const [currentTheme, setCurrentTheme] = useState(theme.dark);
+  const windowSize = useWindowSize();
+  const showMenuButton = windowSize.width <= media.numMobile || windowSize.height <= 696;
 
   useEffect(() => {
     if (!prerender) console.info(consoleMessage);
@@ -82,8 +85,13 @@ function App() {
               </Helmet>
               <GlobalStyles />
               <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
-              <Header toggleMenu={toggleMenu} menuOpen={menuOpen} toggleTheme={toggleTheme} currentTheme={currentTheme} />
-              <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
+              <Header
+                toggleMenu={toggleMenu}
+                menuOpen={menuOpen}
+                toggleTheme={toggleTheme}
+                currentTheme={currentTheme}
+              />
+              {showMenuButton && <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />}
               <TransitionGroup component={React.Fragment}>
                 <Transition key={location.pathname} timeout={300}>
                   {status => (
@@ -92,7 +100,7 @@ function App() {
                         <Helmet>
                           <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
                         </Helmet>
-                        <Suspense fallback={React.Fragment}>
+                        <Suspense fallback={<React.Fragment />}>
                           <Switch location={location}>
                             <Route exact path="/" component={Home} />
                             <Route path="/contact" component={Contact} />
@@ -142,6 +150,24 @@ const GlobalStyles = createGlobalStyle`
     background: ${props => props.theme.colorAccent()};
   }
 `;
+
+// TODO: Add this once concurrent mode drops and maxDuration can be used on <Suspense>
+// const AppLoader = styled(Loader)`
+//   position: fixed;
+//   bottom: ${props => props.theme.spacingOuter.desktop};
+//   right: ${props => props.theme.spacingOuter.desktop};
+//   z-index: 1024;
+
+//   @media (max-width: ${media.tablet}) {
+//     bottom: ${props => props.theme.spacingOuter.tablet};
+//     right: ${props => props.theme.spacingOuter.tablet};
+//   }
+
+//   @media (max-width: ${media.mobile}) {
+//     bottom: ${props => props.theme.spacingOuter.mobile};
+//     right: ${props => props.theme.spacingOuter.mobile};
+//   }
+// `;
 
 const MainContent = styled.main`
   width: 100%;

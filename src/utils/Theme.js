@@ -1,12 +1,20 @@
-const spacing = {
-  spacingGutter: '20px',
+const numSpacing = {
+  spacingGutter: 20,
   spacingOuter: {
     numDesktop: 60,
     numTablet: 40,
     numMobile: 20,
-    desktop: '60px',
-    tablet: '40px',
-    mobile: '20px',
+  }
+};
+
+const spacing = {
+  ...numSpacing,
+  spacingGutter: `${numSpacing.spacingGutter}px`,
+  spacingOuter: {
+    ...numSpacing.spacingOuter,
+    desktop: `${numSpacing.spacingOuter.numDesktop}px`,
+    tablet: `${numSpacing.spacingOuter.numTablet}px`,
+    mobile: `${numSpacing.spacingOuter.numMobile}px`,
   },
 };
 

@@ -113,14 +113,17 @@ const NotFoundVideoContainer = styled.div`
   border: 30px solid transparent;
 
   @media (max-width: ${media.mobile}) {
-    order: 1;
     min-height: 240px;
+    grid-row: 1;
   }
 
   &:after {
     content: '';
     background: ${props => props.theme.colorAccent()};
-    animation: ${props => props.status === 'entered' && css`${AnimVideo} 1.8s ${props.theme.curveFastoutSlowin}`};
+    animation-name: ${props => props.status === 'entered' && css`${AnimVideo}`};
+    animation-duration: 1.8s;
+    animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+
     position: absolute;
     top: 0;
     right: 0;
@@ -185,7 +188,7 @@ const NotfoundDetails = styled.div`
 
   @media(max-width: ${media.mobile}) {
     padding: 0 30px;
-    order: 2;
+    grid-row: 2;
   }
 `;
 

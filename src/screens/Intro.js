@@ -43,11 +43,12 @@ function Intro(props) {
               <DisplacementSphere />
             </Suspense>
             <IntroText>
-              <IntroName aria-label="Hamish Williams" status={status}>
+              <IntroName status={status}>
                 <DecoderText text="Hamish Williams" start={!prerender} offset={120} />
               </IntroName>
-              <IntroTitle aria-label={`Designer + ${introLabel}`}>
-                <IntroTitleRow prerender={prerender}>
+              <IntroTitle>
+                <IntroTitleLabel>{`Designer + ${introLabel}`}</IntroTitleLabel>
+                <IntroTitleRow aria-hidden prerender={prerender}>
                   <IntroTitleWord status={status} delay="0.2s">Designer</IntroTitleWord>
                   <IntroTitleLine status={status} />
                 </IntroTitleRow>
@@ -59,7 +60,7 @@ function Intro(props) {
                       key={`${item}_${index}`}
                     >
                       {status => (
-                        <IntroTitleWord plus delay="0.5s" status={status}>
+                        <IntroTitleWord plus aria-hidden delay="0.5s" status={status}>
                           {item}
                         </IntroTitleWord>
                       )}
@@ -185,6 +186,17 @@ const IntroTitle = styled.h2`
   @media (max-width: 600px) {
     font-size: 42px;
   }
+`;
+
+const IntroTitleLabel = styled.span`
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  position: absolute;
 `;
 
 const IntroTitleRow = styled.span`

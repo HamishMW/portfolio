@@ -5,14 +5,18 @@ export const AnimFade = keyframes`
   100% {opacity: 1}
 `;
 
-export const media = {
+const numMedia = {
   numDesktop: 1440,
   numTablet: 1024,
   numMobile: 696,
-  get desktop() { return `${this.numDesktop}px`; },
-  get tablet() { return `${this.numTablet}px`; },
-  get mobile() { return `${this.numMobile}px`; },
-  get mobileLS() { return `(max-width: 820px) and (max-height: 420px)`; },
+};
+
+export const media = {
+  ...numMedia,
+  desktop: `${numMedia.numDesktop}px`,
+  tablet: `${numMedia.numTablet}px`,
+  mobile: `${numMedia.numMobile}px`,
+  mobileLS: `(max-width: 820px) and (max-height: 420px)`,
 };
 
 function stringToRgba(colorString) {
