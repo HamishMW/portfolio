@@ -79,7 +79,7 @@ function Header(props) {
               Contact
             </HeaderMobileNavLink>
             <HeaderIcons />
-            <Suspense fallback={React.Fragment}>
+            <Suspense fallback={<React.Fragment />}>
               <ThemeToggle isMobile themeId={currentTheme.id} toggleTheme={toggleTheme} />
             </Suspense>
           </HeaderMobileNav>
@@ -97,7 +97,7 @@ function Header(props) {
         <HeaderIcons />
       </HeaderNav>
       {windowSize.width > media.numMobile && windowSize.height > 696 &&
-        <Suspense fallback={React.Fragment}>
+        <Suspense fallback={<React.Fragment />}>
           <ThemeToggle themeId={currentTheme.id} toggleTheme={toggleTheme} />
         </Suspense>
       }

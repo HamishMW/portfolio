@@ -39,7 +39,7 @@ function Intro(props) {
       >
         {status => (
           <React.Fragment>
-            <Suspense fallback={React.Fragment}>
+            <Suspense fallback={<React.Fragment />}>
               <DisplacementSphere />
             </Suspense>
             <IntroText>
