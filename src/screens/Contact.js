@@ -52,7 +52,7 @@ function Contact() {
       />
       <TransitionGroup component={React.Fragment}>
         {!complete &&
-          <Transition appear timeout={1600} mountOnEnter unmountOnExit>
+          <Transition appear mountOnEnter unmountOnExit timeout={1600}>
             {status => (
               <ContactForm method="post" onSubmit={onSubmit} role="form">
                 <ContactTitle status={status} delay={50}>
@@ -319,7 +319,7 @@ const ContactComplete = styled.div`
   align-items: center;
   justify-content: center;
   padding: 30px;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
