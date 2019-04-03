@@ -51,7 +51,6 @@ export function ProjectHeader(props) {
             icon="chevronRight"
             href={url}
             target="_blank"
-            rel="noopener noreferrer"
           >
             {linkLabel ? linkLabel : 'Visit website'}
           </LinkButton>
@@ -296,25 +295,6 @@ const ProjectMetaItem = styled.li`
   }
 `;
 
-const AnimProjectImage = keyframes`
-  0% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: left;
-  }
-  49% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: left;
-  }
-  50% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: right;
-  }
-  100% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: right;
-  }
-`;
-
 export const ProjectImage = styled.div`
   position: relative;
   display: flex;
@@ -322,33 +302,9 @@ export const ProjectImage = styled.div`
   transform: translate3d(0, 0, 0);
   max-width: 100%;
 
-  &:before {
-    content: '';
-    background: ${props => props.theme.colorAccent()};
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transform: scale3d(0, 1, 1);
-    transform-origin: left;
-    z-index: 16;
-  }
-
   div {
-    opacity: 0;
     width: 100%;
   }
-
-  ${props => props.entered && css`
-    &:before {
-      animation: ${AnimProjectImage} 1.4s ${props.theme.curveFastoutSlowin} 0.6s;
-    }
-
-    div {
-      animation: ${AnimFade} 0.8s ease 1.4s forwards;
-    }
-  `}
 `;
 
 export const ProjectSectionContent = styled.div`

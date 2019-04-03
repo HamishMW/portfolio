@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 import Anchor from '../components/Anchor';
@@ -22,7 +22,7 @@ const ProfileText = ({ status }) => (
       />
     </ProfileTitle>
     <ProfileDescription status={status}>
-      I’m Hamish, currently I live in Sydney working as the lead product designer at <Anchor href="https://www.smartsparrow.com" target="_blank" rel="noopener noreferrer">Smart Sparrow</Anchor>. My projects include UX design, UI animations, and icon illustration. Being comfortable with code allows me to rapidly prototype and validate experiences.
+      I’m Hamish, currently I live in Sydney working as the lead product designer at <Anchor href="https://www.smartsparrow.com" target="_blank">Smart Sparrow</Anchor>. My projects include UX design, UI animations, and icon illustration. Being comfortable with code allows me to rapidly prototype and validate experiences.
     </ProfileDescription>
     <ProfileDescription status={status}>
       In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and <Anchor as={Link} to="/projects/volkihar-knight">make mods</Anchor>. I’m always down for hearing about new projects, so feel free to drop me a line.
@@ -44,7 +44,6 @@ function Profile(props) {
                 secondary
                 status={status}
                 to="/contact"
-                style={{ marginTop: 20 }}
                 icon="send"
               >
                 Send me a message
@@ -54,17 +53,15 @@ function Profile(props) {
               <ProfileTag status={status} aria-hidden>
                 <ProfileTagText status={status}>About Me</ProfileTagText>
               </ProfileTag>
-              <ProfileImageContainer status={status}>
-                <ProfileImage
-                  status={status}
-                  visible={visible}
-                  placeholder={ProfileImgPlaceholder}
-                  srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
-                  sizes={`(max-width: ${media.mobile}) 100vw, 480px`}
-                  alt="Me at the Torii on Miyajima, Japan"
-                />
-                <ProfileSvg icon="profile" status={status} />
-              </ProfileImageContainer>
+              <ProfileImage
+                reveal
+                visible={visible}
+                placeholder={ProfileImgPlaceholder}
+                srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
+                sizes={`(max-width: ${media.mobile}) 100vw, 480px`}
+                alt="Me at the Torii on Miyajima, Japan"
+              />
+              <ProfileSvg icon="profile" status={status} />
             </ProfileColumn>
           </ProfileContent>
         )}
@@ -219,62 +216,10 @@ const ProfileTagText = styled.div`
   `}
 `;
 
-const AnimProfileImage = keyframes`
-  0% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: left;
-  }
-  49% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: left;
-  }
-  50% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: right;
-  }
-  100% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: right;
-  }
-`;
-
-const ProfileImageContainer = styled.div`
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  transform: translate3d(0, 0, 0);
-  max-width: 100%;
-
-  &:before {
-    content: '';
-    background: ${props => props.theme.colorAccent()};
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transform: scale3d(0, 1, 1);
-    transform-origin: left;
-    z-index: 16;
-  }
-
-  ${props => props.status === 'entered' && css`
-    &:before {
-      animation: ${AnimProfileImage} 1.8s ${props.theme.curveFastoutSlowin} 0.6s;
-    }
-  `}
-`;
-
 const ProfileImage = styled(ProgressiveImage)`
   max-width: 100%;
   width: 960px;
   height: auto;
-  opacity: 0;
-  transition: opacity 0.4s ease 1.5s;
-
-  ${props => props.status === 'entered' && css`
-    opacity: 1;
-  `}
 `;
 
 const ProfileSvg = styled(Svg)`

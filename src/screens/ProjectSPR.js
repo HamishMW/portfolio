@@ -50,8 +50,9 @@ function ProjectSPR(props) {
         />
         <ProjectSection>
           <ProjectSectionContent>
-            <ProjectImage entered={!prerender}>
+            <ProjectImage>
               <ProgressiveImage
+                reveal
                 srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
                 placeholder={imageSprBuilderPlaceholder}
                 sizes={`(max-width: ${media.mobile}) 500px, (max-width: ${media.tablet}) 800px, 1000px`}

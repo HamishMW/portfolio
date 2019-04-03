@@ -67,14 +67,14 @@ function DecoderText(props) {
       if (needsUpdate) {
         elapsedTime.current = elapsed;
         setPosition(elapsedTime.current / offset);
+      } else {
+        animation = requestAnimationFrame(animate);
       }
-
-      animation = requestAnimationFrame(animate);
     };
 
     if (position < content.current.length) {
-      animation = requestAnimationFrame(animate);
       setOutput(shuffle(content.current, chars, position));
+      animation = requestAnimationFrame(animate);
     }
 
     return function cleanup() {

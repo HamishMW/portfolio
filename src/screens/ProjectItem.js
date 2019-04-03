@@ -11,12 +11,12 @@ import phonePlaceholder from '../assets/phone-placeholder.png';
 
 function ProjectItem(props) {
   const {
-    id, visible, sectionRef, index, title, description, imageSrc, imageAlt,
-    imageType, imagePlaceholder, buttonText, buttonLink, buttonTo,
+    id, visible, sectionRef, index, title, description, imageSrc, imageAlt, imageType,
+    imagePlaceholder, buttonText, buttonLink, buttonTo, alternate, ...rest
   } = props;
 
   return (
-    <ProjectItemSection index={index} ref={sectionRef} id={id}>
+    <ProjectItemSection index={index} ref={sectionRef} id={id} alternate={alternate} {...rest}>
       <ProjectItemContent>
         <Transition in={visible} timeout={0}>
           {status => (
@@ -32,7 +32,6 @@ function ProjectItem(props) {
                     <LinkButton
                       href={buttonLink}
                       target="_blank"
-                      rel="noopener noreferrer"
                       iconRight="arrowRight"
                     >
                       {buttonText}
@@ -118,7 +117,8 @@ const ProjectItemDetails = styled.div`
   @media (max-width: ${media.tablet}) {
     flex: 0 0 auto;
     max-width: 410px;
-    order: 2;
+    grid-row: 2;
+    grid-column: 1;
     justify-self: center;
   }
 `;
@@ -141,18 +141,6 @@ const ProjectItemSection = styled.section`
     outline: none;
   }
 
-  &:nth-child(2n + 1) {
-    grid-template-columns: 55% 40%;
-  }
-
-  &:nth-child(2n + 1) ${ProjectItemContent} {
-    grid-template-columns: 55% 40%;
-  }
-
-  &:nth-child(2n + 1) ${ProjectItemDetails} {
-    order: 2;
-  }
-
   @media (min-width: ${media.desktop}) {
     padding-left: 120px;
     margin-bottom: 0;
@@ -165,10 +153,6 @@ const ProjectItemSection = styled.section`
     height: auto;
     margin-top: ${props => props.index === '01' ? '0' : '60px'};
     margin-bottom: 60px;
-
-    &:nth-child(2n + 1) ${ProjectItemContent} {
-      grid-template-columns: 100%;
-    }
   }
 
   @media (max-width: ${media.mobile}) {
@@ -183,6 +167,26 @@ const ProjectItemSection = styled.section`
     padding-right: ${props => props.theme.spacingOuter.mobile};
     padding-left: ${props => props.theme.spacingOuter.mobile};
   }
+
+  ${props => props.alternate && css`
+    ${ProjectItemContent} {
+      grid-template-columns: 55% 40%;
+
+      @media (max-width: ${media.tablet}) {
+        grid-template-columns: 100%;
+      }
+    }
+
+    ${ProjectItemDetails} {
+      grid-column: 2;
+      grid-row: 1;
+
+      @media (max-width: ${media.tablet}) {
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+  `}
 `;
 
 const ProjectItemPreview = styled.div`

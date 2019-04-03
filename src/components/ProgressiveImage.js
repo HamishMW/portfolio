@@ -1,35 +1,19 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import styled from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components/macro';
 import 'intersection-observer';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
 function ProgressiveImage(props) {
-  const { placeholder, className, style, srcSet, ...restProps } = props;
+  const { placeholder, className, style, srcSet, reveal, ...rest } = props;
   const [loaded, setLoaded] = useState(false);
   const [intersect, setIntersect] = useState(false);
-  const [showPlaceholder, setShowPlaceholder] = useState(true);
   const containerRef = useRef();
-  const placeholderRef = useRef();
+
 
   const onLoad = useCallback(() => {
     setLoaded(true);
   }, []);
-
-  const purgePlaceholder = useCallback(() => {
-    setShowPlaceholder(false);
-  }, []);
-
-  useEffect(() => {
-    const placeholderElement = placeholderRef.current;
-    placeholderElement.addEventListener('transitionend', purgePlaceholder);
-
-    return function cleanUp() {
-      if (placeholderElement) {
-        placeholderElement.removeEventListener('transitionend', purgePlaceholder);
-      }
-    };
-  }, [purgePlaceholder]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
@@ -50,13 +34,67 @@ function ProgressiveImage(props) {
   }, []);
 
   return (
-    <ImageContainer className={className} style={style} ref={containerRef}>
+    <ImageContainer
+      className={className}
+      style={style}
+      ref={containerRef}
+      reveal={reveal}
+      intersect={intersect}
+      loaded={loaded}
+    >
+      {reveal &&
+        <ImageFade intersect={intersect}>
+          <ImageElements
+            onLoad={onLoad}
+            loaded={loaded}
+            intersect={intersect}
+            srcSet={srcSet}
+            placeholder={placeholder}
+            {...rest}
+          />
+        </ImageFade>
+      }
+      {!reveal &&
+        <ImageElements
+          onLoad={onLoad}
+          loaded={loaded}
+          intersect={intersect}
+          srcSet={srcSet}
+          placeholder={placeholder}
+          {...rest}
+        />
+      }
+    </ImageContainer>
+  );
+};
+
+function ImageElements({ onLoad, loaded, intersect, srcSet, placeholder, ...rest }) {
+  const [showPlaceholder, setShowPlaceholder] = useState(true);
+  const placeholderRef = useRef();
+
+  const purgePlaceholder = useCallback(() => {
+    setShowPlaceholder(false);
+  }, []);
+
+  useEffect(() => {
+    const placeholderElement = placeholderRef.current;
+    placeholderElement.addEventListener('transitionend', purgePlaceholder);
+
+    return function cleanUp() {
+      if (placeholderElement) {
+        placeholderElement.removeEventListener('transitionend', purgePlaceholder);
+      }
+    };
+  }, [purgePlaceholder]);
+
+  return (
+    <React.Fragment>
       <ImageActual
         onLoad={onLoad}
         decoding="async"
         loaded={loaded}
         srcSet={!prerender && intersect ? srcSet : null}
-        {...restProps}
+        {...rest}
       />
       {showPlaceholder &&
         <ImagePlaceholder
@@ -67,13 +105,59 @@ function ProgressiveImage(props) {
           role="presentation"
         />
       }
-    </ImageContainer>
+    </React.Fragment>
   );
-};
+}
+
+const AnimImageReveal = keyframes`
+  0% {
+    transform: scale3d(0, 1, 1);
+    transform-origin: left;
+  }
+  49% {
+    transform: scale3d(1, 1, 1);
+    transform-origin: left;
+  }
+  50% {
+    transform: scale3d(1, 1, 1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scale3d(0, 1, 1);
+    transform-origin: right;
+  }
+`;
 
 const ImageContainer = styled.div`
   position: relative;
   transform: translate3d(0, 0, 0);
+  display: grid;
+  grid-template-columns: 100%;
+
+  ${props => props.reveal && css`
+    &:before {
+      content: '';
+      background: ${props => props.theme.colorAccent()};
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transform: scale3d(0, 1, 1);
+      transform-origin: left;
+      z-index: 16;
+      animation: ${props.intersect && !prerender && css`
+        ${AnimImageReveal} 1.8s ${props.theme.curveFastoutSlowin} 0.2s
+      `};
+    }
+  `}
+`;
+
+const ImageFade = styled.div`
+  opacity: ${props => props.intersect ? 1 : 0};
+  transition: opacity 0.4s ease 1s;
+  transform: translate3d(0, 0, 0);
+  position: relative;
   display: grid;
   grid-template-columns: 100%;
 `;

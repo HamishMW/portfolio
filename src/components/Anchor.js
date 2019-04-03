@@ -1,6 +1,8 @@
 import styled from 'styled-components/macro';
 
-const Anchor = styled.a`
+const Anchor = styled.a.attrs(({ target, rel }) => ({
+  rel: rel || target === '_blank' ? 'noreferrer noopener' : null,
+}))`
   color: ${props => props.secondary ? props.theme.colorText(0.5) : props.theme.colorPrimary()};
   text-decoration: underline;
   text-decoration-color: ${props => props.secondary ? props.theme.colorText(0.2) : props.theme.colorPrimary(0.4)};

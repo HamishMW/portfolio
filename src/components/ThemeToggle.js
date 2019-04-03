@@ -18,7 +18,7 @@ export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest })
       animationData: nightModeAnimation,
     });
 
-    const duration = lottieAnimRef.current.getDuration(true) - 1;
+    const duration = lottieAnimRef.current.totalFrames - 1;
     lottieAnimRef.current.goToAndStop(initThemeId.current === 'dark' ? duration : 0, true);
   }, []);
 

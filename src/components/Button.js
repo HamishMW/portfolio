@@ -41,7 +41,7 @@ const LinkButton = React.memo(props => {
       className={className}
       style={style}
       href={href}
-      rel={rel}
+      rel={rel || target === '_blank' ? 'noopener noreferrer' : null}
       target={target}
       secondary={secondary}
     >

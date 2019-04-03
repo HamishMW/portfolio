@@ -129,7 +129,7 @@ const IntroName = styled.h1`
   font-size: 24px;
   letter-spacing: 0.3em;
   color: ${props => props.theme.colorText(0.8)};
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   margin-top: 0;
   font-weight: 500;
   line-height: 1;

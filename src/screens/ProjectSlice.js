@@ -67,8 +67,9 @@ function ProjectSlice(props) {
         />
         <ProjectSection>
           <ProjectSectionContent>
-            <ProjectImage entered={!prerender}>
+            <ProjectImage>
               <ProgressiveImage
+                reveal
                 srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1920w`}
                 placeholder={sliceAppPlaceholder}
                 alt="The Slice web appication showing a selected user annotation."

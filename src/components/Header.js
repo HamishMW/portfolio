@@ -135,6 +135,7 @@ const HeaderLogo = styled(Link)`
   display: flex;
   position: relative;
   padding: 10px;
+  z-index: 16;
 
   g rect {
     opacity: 0;
@@ -221,6 +222,8 @@ const HeaderNavIcons = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 16;
 
   @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     flex-direction: row;
@@ -303,6 +306,10 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   }
 
   @media (max-width: 400px) {
+    font-size: 18px;
+  }
+
+  @media (max-height: 360px) {
     font-size: 18px;
   }
 

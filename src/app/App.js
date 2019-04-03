@@ -177,7 +177,7 @@ const MainContent = styled.main`
   opacity: 0;
 
   ${props => props.status === 'exiting' && css`
-      position: absolute;
+    position: absolute;
     opacity: 0;
   `}
 

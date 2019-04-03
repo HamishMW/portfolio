@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useMemo, useRef } from 'react';
+import React, { useEffect, useContext, useMemo, useRef, lazy, Suspense } from 'react';
 import styled from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import { AppContext } from '../app/App';
@@ -10,7 +10,6 @@ import {
   ProjectSectionHeading, ProjectSectionText,
 } from '../components/Project';
 import { media } from '../utils/StyleUtils';
-import DisplacementSlider from '../components/DisplacementSlider';
 import volkiharBackground from '../assets/volkihar-background.jpg';
 import volkiharBackgroundLarge from '../assets/volkihar-background-large.jpg';
 import volkiharBackgroundPlaceholder from '../assets/volkihar-background-placeholder.jpg';
@@ -30,6 +29,8 @@ import volkiharSlide2Large from '../assets/volkihar-slide-2-large.jpg';
 import volkiharSlide3 from '../assets/volkihar-slide-3.jpg';
 import volkiharSlide3Large from '../assets/volkihar-slide-3-large.jpg';
 import volkiharSlidePlaceholder from '../assets/volkihar-slide-placeholder.jpg';
+
+const DisplacementSlider = lazy(() => import('../components/DisplacementSlider'));
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -89,8 +90,9 @@ function ProjectVolkihar() {
         />
         <ProjectSection>
           <ProjectSectionContent>
-            <ProjectImage entered={!prerender}>
+            <ProjectImage>
               <ProgressiveImage
+                reveal
                 srcSet={`${volkiharBanner} 800w, ${volkiharBannerLarge} 1100w`}
                 placeholder={volkiharBannerPlaceholder}
                 alt="A dark elf wearing the Volkihar Knight armor with the logo overlaid on the image."
@@ -130,28 +132,30 @@ function ProjectVolkihar() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionSlider>
-            <DisplacementSlider
-              placeholder={volkiharSlidePlaceholder}
-              images={useMemo(() => [
-                {
-                  src: volkiharSlide1,
-                  srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
-                  alt: 'A female character wearing the black coloured armor set.'
-                },
-                {
-                  src: volkiharSlide2,
-                  srcset: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
-                  alt: 'A close up of the custom gauntlets design.',
-                },
-                {
-                  src: volkiharSlide3,
-                  srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
-                  alt: 'A female character weilding a sword and wearing the red coloured armor.',
-                },
-              ], [])}
-              width={useMemo(() => 1920, [])}
-              height={useMemo(() => 1080, [])}
-            />
+            <Suspense fallback={<React.Fragment />}>
+              <DisplacementSlider
+                placeholder={volkiharSlidePlaceholder}
+                images={useMemo(() => [
+                  {
+                    src: volkiharSlide1,
+                    srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
+                    alt: 'A female character wearing the black coloured armor set.'
+                  },
+                  {
+                    src: volkiharSlide2,
+                    srcset: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
+                    alt: 'A close up of the custom gauntlets design.',
+                  },
+                  {
+                    src: volkiharSlide3,
+                    srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
+                    alt: 'A female character weilding a sword and wearing the red coloured armor.',
+                  },
+                ], [])}
+                width={useMemo(() => 1920, [])}
+                height={useMemo(() => 1080, [])}
+              />
+            </Suspense>
           </ProjectSectionSlider>
         </ProjectSection>
       </ProjectContainer>
