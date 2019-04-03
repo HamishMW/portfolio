@@ -5,7 +5,7 @@ import 'intersection-observer';
 const prerender = navigator.userAgent === 'ReactSnap';
 
 function ProgressiveImage(props) {
-  const { placeholder, className, style, srcSet, reveal, ...rest } = props;
+  const { className, style, reveal, delay, ...rest } = props;
   const [loaded, setLoaded] = useState(false);
   const [intersect, setIntersect] = useState(false);
   const containerRef = useRef();
@@ -41,15 +41,15 @@ function ProgressiveImage(props) {
       reveal={reveal}
       intersect={intersect}
       loaded={loaded}
+      delay={delay}
     >
       {reveal &&
-        <ImageFade intersect={intersect}>
+        <ImageFade intersect={intersect} delay={delay}>
           <ImageElements
+            delay={delay}
             onLoad={onLoad}
             loaded={loaded}
             intersect={intersect}
-            srcSet={srcSet}
-            placeholder={placeholder}
             {...rest}
           />
         </ImageFade>
@@ -59,8 +59,6 @@ function ProgressiveImage(props) {
           onLoad={onLoad}
           loaded={loaded}
           intersect={intersect}
-          srcSet={srcSet}
-          placeholder={placeholder}
           {...rest}
         />
       }
@@ -68,7 +66,8 @@ function ProgressiveImage(props) {
   );
 };
 
-function ImageElements({ onLoad, loaded, intersect, srcSet, placeholder, ...rest }) {
+function ImageElements(props) {
+  const { onLoad, loaded, intersect, srcSet, placeholder, delay = 0, ...rest } = props;
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const placeholderRef = useRef();
 
@@ -90,6 +89,7 @@ function ImageElements({ onLoad, loaded, intersect, srcSet, placeholder, ...rest
   return (
     <React.Fragment>
       <ImageActual
+        delay={delay}
         onLoad={onLoad}
         decoding="async"
         loaded={loaded}
@@ -98,6 +98,7 @@ function ImageElements({ onLoad, loaded, intersect, srcSet, placeholder, ...rest
       />
       {showPlaceholder &&
         <ImagePlaceholder
+          delay={delay}
           ref={placeholderRef}
           loaded={loaded}
           src={placeholder}
@@ -147,7 +148,7 @@ const ImageContainer = styled.div`
       transform-origin: left;
       z-index: 16;
       animation: ${props.intersect && !prerender && css`
-        ${AnimImageReveal} 1.8s ${props.theme.curveFastoutSlowin} 0.2s
+        ${AnimImageReveal} 1.8s ${props.theme.curveFastoutSlowin} ${props.delay + 200}ms
       `};
     }
   `}
@@ -155,7 +156,7 @@ const ImageContainer = styled.div`
 
 const ImageFade = styled.div`
   opacity: ${props => props.intersect ? 1 : 0};
-  transition: opacity 0.4s ease 1s;
+  transition: opacity 0.4s ease ${props => props.delay + 1000}ms;
   transform: translate3d(0, 0, 0);
   position: relative;
   display: grid;

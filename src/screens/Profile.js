@@ -55,6 +55,7 @@ function Profile(props) {
               </ProfileTag>
               <ProfileImage
                 reveal
+                delay={500}
                 visible={visible}
                 placeholder={ProfileImgPlaceholder}
                 srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
