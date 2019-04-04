@@ -34,7 +34,7 @@ function Profile(props) {
   const { id, visible, sectionRef } = props;
 
   return (
-    <ProfileSection id={id} ref={sectionRef} tabIndex={-1} aria-labelledby="profileTitle">
+    <ProfileSection id={id} ref={sectionRef} aria-labelledby="profileTitle">
       <Transition in={visible} timeout={0}>
         {status => (
           <ProfileContent>

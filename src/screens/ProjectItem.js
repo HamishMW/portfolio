@@ -22,7 +22,6 @@ function ProjectItem(props) {
       ref={sectionRef}
       id={id}
       alternate={alternate}
-      tabIndex={-1}
       {...rest}
     >
       <ProjectItemContent>
