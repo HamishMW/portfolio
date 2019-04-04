@@ -1,7 +1,7 @@
 {
   "styledComponents": {
     "pure": true,
-    "fileName": true,
-    "displayName": true
+    "fileName": false,
+    "displayName": false
   }
 }

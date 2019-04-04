@@ -79,8 +79,8 @@ function App() {
           <Route render={({ location }) => (
             <React.Fragment>
               <Helmet>
-                <link rel="preload" href={`${GothamBook}`} as="font" crossorigin="crossorigin" />
-                <link rel="preload" href={`${GothamMedium}`} as="font" crossorigin="crossorigin" />
+                <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
+                <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
                 <style>{fontStyles}</style>
               </Helmet>
               <GlobalStyles />

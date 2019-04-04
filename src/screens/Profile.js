@@ -14,7 +14,7 @@ import { media } from '../utils/StyleUtils';
 
 const ProfileText = ({ status }) => (
   <React.Fragment>
-    <ProfileTitle status={status}>
+    <ProfileTitle status={status} id="profileTitle">
       <DecoderText
         text="Hi there"
         start={status !== 'exited'}
@@ -34,7 +34,7 @@ function Profile(props) {
   const { id, visible, sectionRef } = props;
 
   return (
-    <ProfileSection id={id} ref={sectionRef} tabIndex={-1}>
+    <ProfileSection id={id} ref={sectionRef} tabIndex={-1} aria-labelledby="profileTitle">
       <Transition in={visible} timeout={0}>
         {status => (
           <ProfileContent>

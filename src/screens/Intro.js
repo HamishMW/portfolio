@@ -30,7 +30,7 @@ function Intro(props) {
   }, [currentTheme.id, prevTheme]);
 
   return (
-    <IntroContent ref={sectionRef} id={id} tabIndex={-1}>
+    <IntroContent ref={sectionRef} id={id} tabIndex={-1} role="region">
       <Transition
         key={currentTheme.id}
         appear={!prerender}

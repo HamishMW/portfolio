@@ -68,21 +68,7 @@ export default function Home(props) {
     const hashString = hash.replace('#', '');
     const element = hashSections.filter(item => item.current.id === hashString)[0];
 
-    const handleScrollFocus = () => {
-      setTimeout(() => {
-        document.removeEventListener('scroll', handleScrollFocus);
-      }, 5000);
-
-      if (window.scrollY === element.current.offsetTop) {
-        requestAnimationFrame(() => {
-          element.current.focus();
-          document.removeEventListener('scroll', handleScrollFocus);
-        });
-      }
-    };
-
     if (element) {
-      document.addEventListener('scroll', handleScrollFocus);
       window.scroll({
         top: element.current.offsetTop,
         left: 0,

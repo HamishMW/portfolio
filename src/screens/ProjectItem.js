@@ -16,7 +16,15 @@ function ProjectItem(props) {
   } = props;
 
   return (
-    <ProjectItemSection index={index} ref={sectionRef} id={id} alternate={alternate} tabIndex={-1} {...rest}>
+    <ProjectItemSection
+      aria-labelledby={`${id}-title`}
+      index={index}
+      ref={sectionRef}
+      id={id}
+      alternate={alternate}
+      tabIndex={-1}
+      {...rest}
+    >
       <ProjectItemContent>
         <Transition in={visible} timeout={0}>
           {status => (
@@ -25,7 +33,7 @@ function ProjectItem(props) {
                 <ProjectItemIndex status={status} aria-hidden>
                   <ProjectItemIndexNumber status={status}>{index}</ProjectItemIndexNumber>
                 </ProjectItemIndex>
-                <ProjectItemTitle status={status}>{title}</ProjectItemTitle>
+                <ProjectItemTitle id={`${id}-title`} status={status}>{title}</ProjectItemTitle>
                 <ProjectItemDescription status={status}>{description}</ProjectItemDescription>
                 <ProjectItemButton status={status}>
                   {buttonLink ?
