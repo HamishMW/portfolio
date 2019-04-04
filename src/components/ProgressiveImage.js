@@ -5,7 +5,7 @@ import 'intersection-observer';
 const prerender = navigator.userAgent === 'ReactSnap';
 
 function ProgressiveImage(props) {
-  const { className, style, reveal, delay, ...rest } = props;
+  const { className, style, reveal, delay = 0, ...rest } = props;
   const [loaded, setLoaded] = useState(false);
   const [intersect, setIntersect] = useState(false);
   const containerRef = useRef();
@@ -67,7 +67,7 @@ function ProgressiveImage(props) {
 };
 
 function ImageElements(props) {
-  const { onLoad, loaded, intersect, srcSet, placeholder, delay = 0, ...rest } = props;
+  const { onLoad, loaded, intersect, srcSet, placeholder, delay, ...rest } = props;
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const placeholderRef = useRef();
 

@@ -214,7 +214,7 @@ export default function DispalcementSlider(props) {
         >
           <SliderCanvasWrapper ref={container} />
         </Swipe>
-        <SliderPlaceholder src={placeholder} alt="" loaded={!prerender && loaded} />
+        <SliderPlaceholder aria-hidden src={placeholder} alt="" loaded={!prerender && loaded} />
         <SliderButton
           left
           aria-label="Previous slide"

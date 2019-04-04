@@ -31,10 +31,10 @@ const ProfileText = ({ status }) => (
 );
 
 function Profile(props) {
-  const { id, tabIndex, visible, sectionRef } = props;
+  const { id, visible, sectionRef } = props;
 
   return (
-    <ProfileSection id={id} ref={sectionRef} tabIndex={tabIndex}>
+    <ProfileSection id={id} ref={sectionRef} tabIndex={-1}>
       <Transition in={visible} timeout={0}>
         {status => (
           <ProfileContent>
@@ -76,7 +76,7 @@ const ProfileSection = styled.section`
   min-height: 100vh;
   margin-top: 60px;
   margin-bottom: 40px;
-  padding-top: 40px;
+  padding-top: 60px;
   padding-right: 80px;
   padding-bottom: 40px;
   padding-left: 220px;
@@ -92,25 +92,30 @@ const ProfileSection = styled.section`
   }
 
   @media (max-width: ${media.tablet}) {
-    padding-left: 160px;
+    padding-top: 50px;
     padding-right: 80px;
+    padding-left: 160px;
     height: auto;
-    margin-top: 80px;
+    margin-top: 40px;
     margin-bottom: 20px;
   }
 
   @media (max-width: ${media.mobile}) {
+    margin-top: 0;
+    padding-top: 90px;
     padding-left: 25px;
     padding-right: 25px;
     overflow-x: hidden;
   }
 
   @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
-    padding: 0 ${props => props.theme.spacingOuter.mobile};
+    padding-right: ${props => props.theme.spacingOuter.mobile};
+    padding-left: ${props => props.theme.spacingOuter.mobile};
   }
 
   @media ${media.mobileLS} {
-    padding: 0 100px;
+    padding-right: 100px;
+    padding-left: 100px;
   }
 `;
 
@@ -149,13 +154,17 @@ const ProfileTitle = styled.h2`
   font-weight: 500;
   margin-bottom: 40px;
   white-space: nowrap;
-  opacity: 0;
+  opacity: ${props => props.status === 'entered' ? 1 : 0};
   transition: opacity 0.8s ease 0.4s;
   color: ${props => props.theme.colorTitle()};
 
-  ${props => props.status === 'entered' && css`
-    opacity: 1;
-  `}
+  @media (max-width: 1245px) {
+    font-size: 36px;
+  }
+
+  @media (max-width: ${media.mobile}) {
+    font-size: 28px;
+  }
 `;
 
 const ProfileDescription = styled.p`

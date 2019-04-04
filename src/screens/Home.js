@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useMemo, useCallback, useContext } 
 import { Helmet } from 'react-helmet-async';
 import 'intersection-observer';
 import { AppContext } from '../app/App';
-import { media } from '../utils/StyleUtils';
 import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
@@ -68,12 +67,24 @@ export default function Home(props) {
     const hashSections = [intro, projectOne, details];
     const hashString = hash.replace('#', '');
     const element = hashSections.filter(item => item.current.id === hashString)[0];
-    const offsetValue = window.innerWidth < media.mobile ? 90 : 30;
-    const offSet = element === details ? offsetValue : 0;
+
+    const handleScrollFocus = () => {
+      setTimeout(() => {
+        document.removeEventListener('scroll', handleScrollFocus);
+      }, 5000);
+
+      if (window.scrollY === element.current.offsetTop) {
+        requestAnimationFrame(() => {
+          element.current.focus();
+          document.removeEventListener('scroll', handleScrollFocus);
+        });
+      }
+    };
 
     if (element) {
+      document.addEventListener('scroll', handleScrollFocus);
       window.scroll({
-        top: element.current.offsetTop - offSet,
+        top: element.current.offsetTop,
         left: 0,
         behavior: scroll ? 'smooth' : 'instant',
       });

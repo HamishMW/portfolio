@@ -96,7 +96,7 @@ function App() {
                 <Transition key={location.pathname} timeout={300}>
                   {status => (
                     <AppContext.Provider value={{ status, updateTheme, toggleTheme, currentTheme }}>
-                      <MainContent status={status} id="MainContent" role="main">
+                      <MainContent status={status} id="MainContent" role="main" tabIndex={-1}>
                         <Helmet>
                           <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
                         </Helmet>
@@ -143,7 +143,7 @@ const GlobalStyles = createGlobalStyle`
   *,
   *:before,
   *:after {
-    box-sizing: border-box;
+    box-sizing: inherit;
   }
 
   ::selection {
@@ -151,30 +151,16 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-// TODO: Add this once concurrent mode drops and maxDuration can be used on <Suspense>
-// const AppLoader = styled(Loader)`
-//   position: fixed;
-//   bottom: ${props => props.theme.spacingOuter.desktop};
-//   right: ${props => props.theme.spacingOuter.desktop};
-//   z-index: 1024;
-
-//   @media (max-width: ${media.tablet}) {
-//     bottom: ${props => props.theme.spacingOuter.tablet};
-//     right: ${props => props.theme.spacingOuter.tablet};
-//   }
-
-//   @media (max-width: ${media.mobile}) {
-//     bottom: ${props => props.theme.spacingOuter.mobile};
-//     right: ${props => props.theme.spacingOuter.mobile};
-//   }
-// `;
-
 const MainContent = styled.main`
   width: 100%;
   overflow-x: hidden;
   position: relative;
   transition: opacity 0.3s ease;
   opacity: 0;
+
+  &:focus {
+    outline: none;
+  }
 
   ${props => props.status === 'exiting' && css`
     position: absolute;

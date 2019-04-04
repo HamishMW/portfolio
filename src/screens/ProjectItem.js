@@ -16,7 +16,7 @@ function ProjectItem(props) {
   } = props;
 
   return (
-    <ProjectItemSection index={index} ref={sectionRef} id={id} alternate={alternate} {...rest}>
+    <ProjectItemSection index={index} ref={sectionRef} id={id} alternate={alternate} tabIndex={-1} {...rest}>
       <ProjectItemContent>
         <Transition in={visible} timeout={0}>
           {status => (
@@ -390,19 +390,19 @@ const ProjectItemSvg = styled(Svg)`
 
 const ProjectItemImageLaptopSvg = styled(ProjectItemSvg)`
   position: absolute;
-  bottom: ${props => props.theme.id === 'light' ? -60 : -40 }px;
+  bottom: ${props => props.theme.id === 'light' ? -60 : -40}px;
   right: -200px;
   width: 600px;
 
   @media (max-width: ${media.tablet}) {
     width: 400px;
     right: 0;
-    bottom: ${props => props.theme.id === 'light' ? 50 : 64 }px;
+    bottom: ${props => props.theme.id === 'light' ? 50 : 64}px;
   }
 
   @media (max-width: ${media.mobile}) {
     width: 260px;
-    bottom: ${props => props.theme.id === 'light' ? -10 : 10 }px;
+    bottom: ${props => props.theme.id === 'light' ? -10 : 10}px;
   }
 `;
 
