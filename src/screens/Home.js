@@ -121,6 +121,7 @@ export default function Home(props) {
         imageType="laptop"
       />
       <ProjectItem
+        id="projects-1"
         alternate
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
@@ -144,6 +145,7 @@ export default function Home(props) {
         imageType="phone"
       />
       <ProjectItem
+        id="projects-2"
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index="03"

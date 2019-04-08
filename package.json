@@ -42,12 +42,7 @@
   "reactSnap": {
     "skipThirdPartyRequests": true,
     "headless": false,
-    "crawl": true,
-    "include": [
-      "/projects/smart-sparrow",
-      "/projects/slice",
-      "/projects/volkihar-knight"
-    ]
+    "crawl": true
   },
   "browserslist": [
     ">0.2%",

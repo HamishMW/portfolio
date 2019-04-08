@@ -1,5 +1,5 @@
 const numSpacing = {
-  spacingGutter: 20,
+  numSpacingGutter: 20,
   spacingOuter: {
     numDesktop: 60,
     numTablet: 40,
@@ -9,7 +9,7 @@ const numSpacing = {
 
 const spacing = {
   ...numSpacing,
-  spacingGutter: `${numSpacing.spacingGutter}px`,
+  spacingGutter: `${numSpacing.numSpacingGutter}px`,
   spacingOuter: {
     ...numSpacing.spacingOuter,
     desktop: `${numSpacing.spacingOuter.numDesktop}px`,
@@ -21,7 +21,7 @@ const spacing = {
 const base = {
   curveFastoutSlowin: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
   clipPath: size => `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
-  fontStack: 'Gotham, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+  fontStack: `Gotham, system-ui, -apple-system, BlinkMacSystemFont, 'San Francisco', Roboto, 'Segoe UI', Oxygen, Ubuntu, Cantarell, Helvetica Neue, sans-serif`,
   colorBlack: (alpha = 1) => `rgba(0, 0, 0, ${alpha})`,
   colorWhite: (alpha = 1) => `rgba(255, 255, 255, ${alpha})`,
 };
