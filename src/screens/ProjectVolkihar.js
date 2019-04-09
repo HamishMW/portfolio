@@ -55,9 +55,9 @@ function ProjectVolkihar() {
     if ((status === 'entered' || status === 'exiting')) {
       updateTheme({
         colorPrimary: currentTheme.id === 'dark'
-          ? (alpha = 1) => `rgba(240, 211, 150, ${alpha})`
+          ? 'rgba(240, 211, 150, 1)'
           : currentThemeRef.current.colorPrimary,
-        colorAccent: (alpha = 1) => `rgba(240, 211, 150, ${alpha})`,
+        colorAccent: 'rgba(240, 211, 150, 1)',
       });
     }
 

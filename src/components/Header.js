@@ -188,8 +188,6 @@ const HeaderNavLink = styled(NavLink)`
   transition: color 0.3s ease 0.1s;
   line-height: 1;
 
-  ${props => console.log(rgba(props.theme.colorText, 0.8))}
-
   &:hover,
   &:active,
   &:focus,

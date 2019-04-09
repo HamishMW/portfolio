@@ -155,8 +155,8 @@ const NotFoundVideo = styled.video`
 `;
 
 const NotFoundCredit = styled.a`
-  color: ${props => props.theme.colorWhite(0.4)};
-  background: ${props => props.theme.colorBlack(0.6)};
+  color: ${props => rgba(props.theme.colorWhite, 0.4)};
+  background: ${props => rgba(props.theme.colorBlack, 0.6)};
   padding: 4px 8px;
   font-size: 14px;
   position: absolute;

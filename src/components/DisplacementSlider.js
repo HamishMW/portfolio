@@ -301,12 +301,12 @@ const SliderButton = styled.button`
 
   &:hover,
   &:focus {
-    background: ${props => props.theme.colorWhite(0.1)};
+    background: ${props => rgba(props.theme.colorWhite, 0.1)};
   }
 
   &:focus {
     outline: none;
-    box-shadow: inset 0 0 0 3px ${props => props.theme.colorWhite(0.2)};
+    box-shadow: inset 0 0 0 3px ${props => rgba(props.theme.colorWhite, 0.2)};
   }
 
   svg {
