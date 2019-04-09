@@ -10,7 +10,6 @@ function ProgressiveImage(props) {
   const [intersect, setIntersect] = useState(false);
   const containerRef = useRef();
 
-
   const onLoad = useCallback(() => {
     setLoaded(true);
   }, []);

@@ -269,7 +269,7 @@ const HeaderMobileNav = styled.nav`
   bottom: 0;
   left: 0;
   background: ${props => rgba(props.theme.colorBackground, 0.9)};
-  transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, ${props => props.status === 'entered' ? 0 : '-100%'}, 0);
   transition-property: transform, background;
   transition-duration: 0.5s;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
@@ -277,10 +277,7 @@ const HeaderMobileNav = styled.nav`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  ${props => props.status === 'entered' && css`
-    transform: translate3d(0, 0, 0);
-  `}
+  backdrop-filter: blur(10px);
 
   @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
     display: flex;
