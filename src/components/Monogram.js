@@ -2,8 +2,8 @@ import React from 'react';
 import { withTheme } from 'styled-components/macro';
 
 function Monogram({ className, color, theme, ...props }) {
-  const highlight = theme.colorAccent();
-  const colorText = theme.colorText();
+  const highlight = theme.colorAccent;
+  const colorText = theme.colorText;
 
   return (
     <svg className={className} fill={color || colorText} {...props} width="45" height="29" viewBox="0 0 45 29">

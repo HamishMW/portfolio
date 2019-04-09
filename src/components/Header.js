@@ -4,7 +4,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
 import Icon from '../utils/Icon';
-import { media } from '../utils/StyleUtils';
+import { media, rgba } from '../utils/StyleUtils';
 import { useWindowSize } from '../utils/Hooks';
 
 const ThemeToggle = lazy(() => import('../components/ThemeToggle'));
@@ -181,18 +181,20 @@ const HeaderNavList = styled.div`
 
 const HeaderNavLink = styled(NavLink)`
   padding: 20px;
-  color: ${props => props.theme.colorText(0.8)};
+  color: ${props => rgba(props.theme.colorText, 0.8)};
   text-decoration: none;
   font-weight: 500;
   position: relative;
   transition: color 0.3s ease 0.1s;
   line-height: 1;
 
+  ${props => console.log(rgba(props.theme.colorText, 0.8))}
+
   &:hover,
   &:active,
   &:focus,
   &.active {
-    color: ${props => props.theme.colorText()};
+    color: ${props => props.theme.colorText};
   }
 
   &:after {
@@ -202,7 +204,7 @@ const HeaderNavLink = styled(NavLink)`
     right: 10px;
     left: 10px;
     height: 4px;
-    background: ${props => props.theme.colorAccent()};
+    background: ${props => props.theme.colorAccent};
     transform: scaleX(0) translateY(-2px);
     transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
     transform-origin: right;
@@ -250,13 +252,13 @@ const HeaderNavIconLink = styled.a.attrs({
 `;
 
 const HeaderNavIcon = styled(Icon)`
-  fill: ${props => props.theme.colorText(0.6)};
+  fill: ${props => rgba(props.theme.colorText, 0.6)};
   transition: fill 0.4s ease;
 
   ${/* sc-selector */HeaderNavIconLink}:hover &,
   ${/* sc-selector */HeaderNavIconLink}:focus &,
   ${/* sc-selector */HeaderNavIconLink}:active & {
-    fill: ${props => props.theme.colorAccent()};
+    fill: ${props => props.theme.colorAccent};
   }
 `;
 
@@ -266,7 +268,7 @@ const HeaderMobileNav = styled.nav`
   right: 0;
   bottom: 0;
   left: 0;
-  background: ${props => props.theme.colorBackground(0.9)};
+  background: ${props => rgba(props.theme.colorBackground, 0.9)};
   transform: translate3d(0, -100%, 0);
   transition-property: transform, background;
   transition-duration: 0.5s;
@@ -292,7 +294,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   font-size: 22px;
   text-align: center;
   text-decoration: none;
-  color: ${props => props.theme.colorText()};
+  color: ${props => props.theme.colorText};
   padding: 20px;
   transform: translate3d(0, -30px, 0);
   opacity: 0;
@@ -325,7 +327,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     right: 60px;
     left: 60px;
     height: 4px;
-    background: ${props => props.theme.colorAccent()};
+    background: ${props => props.theme.colorAccent};
     transform: scaleX(0) translateY(-1px);
     transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
     transform-origin: right;

@@ -20,7 +20,7 @@ export const media = {
 };
 
 function stringToRgba(colorString) {
-  return colorString.replace(' ', '').replace('rgba(', '').replace(')', '').split(',');
+  return colorString.split(' ').join('').replace('rgb(', '').replace('rgba(', '').replace(')', '').split(',');
 }
 
 export function tint(colorString, percent) {

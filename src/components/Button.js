@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Icon from '../utils/Icon';
-import { tint } from '../utils/StyleUtils';
+import { tint, rgba } from '../utils/StyleUtils';
 import { AppContext } from '../app/App';
 
 const ButtonContent = React.memo(props => {
@@ -17,7 +17,7 @@ const ButtonContent = React.memo(props => {
         {children}
       </ButtonText>
       {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary} />}
-      {loading && <ButtonLoader size="24" color={currentTheme.colorBackground()} />}
+      {loading && <ButtonLoader size="24" color={currentTheme.colorBackground} />}
     </React.Fragment>
   );
 });
@@ -77,7 +77,7 @@ const ButtonContainer = styled.button`
   display: flex;
   display: inline-flex;
   align-items: center;
-  color: ${props => props.theme.colorBackground()};
+  color: ${props => props.theme.colorBackground};
   text-decoration: none;
   font-family: inherit;
   position: relative;
@@ -86,7 +86,7 @@ const ButtonContainer = styled.button`
     &:before {
       content: '';
       transition: all 0.4s ${props.theme.curveFastoutSlowin};
-      background: ${props.theme.colorPrimary(0.4)};
+      background: ${rgba(props.theme.colorPrimary, 0.4)};
       clip-path: ${props.theme.clipPath(10)};
       position: absolute;
       top: -5px;
@@ -100,7 +100,7 @@ const ButtonContainer = styled.button`
     &:after {
       content: '';
       transition: all 0.4s ${props.theme.curveFastoutSlowin};
-      background: ${props.theme.colorPrimary()};
+      background: ${props.theme.colorPrimary};
       clip-path: ${props.theme.clipPath(8)};
       position: absolute;
       top: 0;
@@ -120,7 +120,7 @@ const ButtonContainer = styled.button`
 
     &:hover:after,
     &:focus:after {
-      background: ${tint(props.theme.colorPrimary(), 0.2)};
+      background: ${tint(props.theme.colorPrimary, 0.2)};
     }
 
     &:focus:before {
@@ -135,7 +135,7 @@ const ButtonContainer = styled.button`
 
   ${props => props.secondary && css`
     background: none;
-    color: ${props.theme.colorPrimary()};
+    color: ${props.theme.colorPrimary};
     padding: 0 10px;
     position: relative;
     left: -10px;
@@ -148,7 +148,7 @@ const ButtonContainer = styled.button`
       right: 0;
       bottom: 0;
       left: 0;
-      background: ${props.theme.colorPrimary(0.2)};
+      background: ${rgba(props.theme.colorPrimary, 0.2)};
       transform: scale3d(0, 1, 1) translateY(-50%);
       transform-origin: right;
       transition: transform 0.4s ${props.theme.curveFastoutSlowin};
@@ -186,8 +186,8 @@ const ButtonText = styled.span`
   `}
 
   ${props => props.secondary
-    ? `color: ${props.theme.colorPrimary()};`
-    : `color: ${props.theme.colorBackground()};
+    ? `color: ${props.theme.colorPrimary};`
+    : `color: ${props.theme.colorBackground};
   `}
 `;
 
@@ -195,10 +195,10 @@ const ButtonIcon = styled(Icon)`
   margin-left: ${props => (props.left ? '0' : '6px')};
   margin-right: ${props => (props.left ? '6px' : '0')};
   transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
-  fill: ${props => props.theme.colorBackground()};
+  fill: ${props => props.theme.colorBackground};
 
   ${props => props.secondary && css`
-    fill: ${props.theme.colorPrimary()};
+    fill: ${props.theme.colorPrimary};
   `}
 
   ${/* sc-selector */ButtonContainer}:hover &,

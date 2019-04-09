@@ -130,8 +130,8 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
     font-family: ${props => props.theme.fontStack};
-    background: ${props => props.theme.colorBackground()};
-    color: ${props => props.theme.colorText()};
+    background: ${props => props.theme.colorBackground};
+    color: ${props => props.theme.colorText};
     border: 0;
     margin: 0;
     width: 100vw;
@@ -147,7 +147,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ::selection {
-    background: ${props => props.theme.colorAccent()};
+    background: ${props => props.theme.colorAccent};
   }
 `;
 
@@ -186,11 +186,11 @@ const SkipToMain = styled.a`
   width: 1px;
   height: 1px;
   overflow: hidden;
-  color: ${props => props.theme.colorBackground()};
+  color: ${props => props.theme.colorBackground};
   z-index: 99;
 
   &:focus {
-    background: ${props => props.theme.colorPrimary()};
+    background: ${props => props.theme.colorPrimary};
     padding: 8px 16px;
     position: fixed;
     top: 16px;

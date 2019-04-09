@@ -138,7 +138,7 @@ const ImageContainer = styled.div`
   ${props => props.reveal && css`
     &:before {
       content: '';
-      background: ${props => props.theme.colorAccent()};
+      background: ${props => props.theme.colorAccent};
       position: absolute;
       top: 0;
       right: 0;

@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useMemo, useContext, useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import { media, AnimFade } from '../utils/StyleUtils';
+import { media, AnimFade, rgba } from '../utils/StyleUtils';
 import DecoderText from '../components/DecoderText';
 import { AppContext } from '../app/App';
 import { useInterval, usePrevious } from '../utils/Hooks';
@@ -128,7 +128,7 @@ const IntroName = styled.h1`
   text-transform: uppercase;
   font-size: 24px;
   letter-spacing: 0.3em;
-  color: ${props => props.theme.colorText(0.8)};
+  color: ${props => rgba(props.theme.colorText, 0.8)};
   margin-bottom: 40px;
   margin-top: 0;
   font-weight: 500;
@@ -211,10 +211,10 @@ const IntroTitleRow = styled.span`
 `;
 
 const AnimTextReveal = props => keyframes`
-  0% { color: ${props.theme.colorTitle(0)}; }
-  50% { color: ${props.theme.colorTitle(0)}; }
-  60% { color: ${props.theme.colorTitle()}; }
-  100% { color: ${props.theme.colorTitle()}; }
+  0% { color: ${rgba(props.theme.colorTitle, 0)}; }
+  50% { color: ${rgba(props.theme.colorTitle, 0)}; }
+  60% { color: ${props.theme.colorTitle}; }
+  100% { color: ${props.theme.colorTitle}; }
 `;
 
 const AnimTextRevealMask = keyframes`
@@ -248,7 +248,7 @@ const IntroTitleWord = styled.span`
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
   animation-timing-function: ${props => props.theme.curveFastoutSlowin};
-  color: ${props => props.theme.colorTitle(0)};
+  color: ${props => rgba(props.theme.colorTitle, 0)};
   transition: opacity 0.5s ease 0.4s;
 
   ${props => props.status === 'entering' && css`
@@ -256,11 +256,11 @@ const IntroTitleWord = styled.span`
   `}
 
   ${props => props.status === 'entered' && css`
-    color: ${props.theme.colorTitle()};
+    color: ${props.theme.colorTitle};
   `}
 
   ${props => props.status === 'exiting' && css`
-    color: ${props.theme.colorTitle()};
+    color: ${props.theme.colorTitle};
     opacity: 0;
     position: absolute;
     top: 0;
@@ -271,7 +271,7 @@ const IntroTitleWord = styled.span`
     content: '';
     width: 100%;
     height: 100%;
-    background: ${props => props.theme.colorAccent()};
+    background: ${props => props.theme.colorAccent};
     opacity: 0;
     animation-duration: 1.5s;
     animation-fill-mode: forwards;
@@ -326,7 +326,7 @@ const AnimLineIntro = keyframes`
 const IntroTitleLine = styled.span`
   content: '';
   height: 2px;
-  background: ${props => props.theme.colorText(0.3)};
+  background: ${props => rgba(props.theme.colorText, 0.3)};
   width: 120%;
   display: flex;
   margin-left: 20px;
@@ -363,7 +363,7 @@ const AnimScrollIndicator = keyframes`
 `;
 
 const ScrollIndicator = styled.div`
-  border: 2px solid ${props => props.theme.colorText(0.4)};
+  border: 2px solid ${props => rgba(props.theme.colorText, 0.4)};
   border-radius: 20px;
   width: 26px;
   height: 38px;
@@ -379,7 +379,7 @@ const ScrollIndicator = styled.div`
     content: '';
     height: 7px;
     width: 2px;
-    background: ${props => props.theme.colorText(0.4)};
+    background: ${props => rgba(props.theme.colorText, 0.4)};
     border-radius: 4px;
     position: absolute;
     top: 6px;

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import TextArea from '../components/TextArea';
+import { rgba } from '../utils/StyleUtils';
 
 const genId = prefix => `${prefix}-${Math.random().toString(32).substring(2, 8)}`;
 
@@ -40,8 +41,8 @@ const InputWrapper = styled.div`
 
 const InputElement = styled.input`
   background: transparent;
-  color: ${props => props.theme.colorText()};
-  box-shadow: inset 0 -2px 0 0 ${props => props.theme.colorText(0.2)};
+  color: ${props => props.theme.colorText};
+  box-shadow: inset 0 -2px 0 0 ${props => rgba(props.theme.colorText, 0.2)};
   transition: box-shadow 0.4s ease;
   height: 34px;
   width: 100%;
@@ -57,7 +58,7 @@ const InputElement = styled.input`
   line-height: 1.4;
 
   &::-webkit-contacts-auto-fill-button {
-    background-color: ${props => props.theme.colorText(0.4)};
+    background-color: ${props => rgba(props.theme.colorText, 0.4)};
     transition: background-color 0.3s ease;
   }
 
@@ -66,12 +67,12 @@ const InputElement = styled.input`
   }
 
   &::-webkit-contacts-auto-fill-button:hover {
-    background-color: ${props => props.theme.colorPrimary()};
+    background-color: ${props => props.theme.colorPrimary};
   }
 `;
 
 const InputUnderline = styled.div`
-  background: ${props => props.theme.colorPrimary()};
+  background: ${props => props.theme.colorPrimary};
   transform: scale3d(${props => props.focused ? 1 : 0}, 1, 1);
   width: 100%;
   height: 2px;
@@ -82,7 +83,7 @@ const InputUnderline = styled.div`
 `;
 
 const InputLabel = styled.label`
-  color: ${props => props.theme.colorText(0.8)};
+  color: ${props => rgba(props.theme.colorText, 0.8)};
   position: absolute;
   top: 18px;
   left: 0;
@@ -91,7 +92,7 @@ const InputLabel = styled.label`
   transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
 
   ${props => (props.hasValue || props.focused) && css`
-    color: ${props.theme.colorText(0.4)};
+    color: ${rgba(props.theme.colorText, 0.4)};
     transform: scale(0.8) translateY(-28px);
   `}
 `;

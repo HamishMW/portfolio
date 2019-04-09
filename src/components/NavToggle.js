@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import Icon from '../utils/Icon';
-import { media } from '../utils/StyleUtils';
+import { media, rgba } from '../utils/StyleUtils';
 
 const NavToggle = ({ onClick, menuOpen, ...rest }) => (
   <NavToggleButton aria-label="Menu" aria-expanded={menuOpen} onClick={onClick} {...rest}>
@@ -30,7 +30,7 @@ const NavToggleButton = styled.button`
   &:hover,
   &:focus,
   &:active {
-    background: ${props => props.theme.colorText(0.1)};
+    background: ${props => rgba(props.theme.colorText, 0.1)};
     outline: none;
   }
 
@@ -55,7 +55,7 @@ const NavToggleIcon = styled(Icon)`
   transition-delay: 0.1s;
   opacity: 1;
   transform: rotate(0deg);
-  fill: ${props => props.theme.colorText()};
+  fill: ${props => props.theme.colorText};
 
   ${props => props.icon === 'close' && css`
     transition-delay: 0s;

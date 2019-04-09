@@ -8,7 +8,7 @@ import 'intersection-observer';
 import { Easing, Tween, autoPlay } from 'es6-tween';
 import Swipe from 'react-easy-swipe';
 import Icon from '../utils/Icon';
-import { media } from '../utils/StyleUtils';
+import { media, rgba } from '../utils/StyleUtils';
 import { vertex, fragment } from '../shaders/SliderShader';
 
 const prerender = navigator.userAgent === 'ReactSnap';
@@ -310,7 +310,7 @@ const SliderButton = styled.button`
   }
 
   svg {
-    fill: ${props => props.theme.colorWhite()};
+    fill: ${props => props.theme.colorWhite};
     display: block;
   }
 `;
@@ -339,14 +339,20 @@ const SliderNavButton = styled.button`
     height: 10px;
     border-radius: 50%;
     display: block;
-    background: ${props => props.active ? props.theme.colorText() : props.theme.colorText(0.2)};
+    background: ${props => props.active
+    ? props.theme.colorText
+    : rgba(props.theme.colorText, 0.2)
+  };
     transition-property: background, box-shadow;
     transition-duration: 0.5s;
     transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   }
 
   &:focus::after {
-    box-shadow: 0 0 0 4px ${props => props.theme.colorText(0.2)};
-    background: ${props => props.active ? props.theme.colorText() : props.theme.colorText(0.6)};
+    box-shadow: 0 0 0 4px ${props => rgba(props.theme.colorText, 0.2)};
+    background: ${props => props.active
+    ? props.theme.colorText
+    : rgba(props.theme.colorText, 0.6)
+  };
   }
 `;

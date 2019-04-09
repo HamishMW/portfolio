@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
-import { media } from '../utils/StyleUtils';
+import { media, rgba } from '../utils/StyleUtils';
 import { RouterButton, LinkButton } from '../components/Button';
 import ProgressiveImage from '../components/ProgressiveImage';
 import Svg from '../utils/Svg';
@@ -239,7 +239,7 @@ const ProjectItemIndex = styled.div`
     display: block;
     height: 2px;
     top: -1px;
-    background: ${props => props.theme.colorPrimary()};
+    background: ${props => props.theme.colorPrimary};
     width: 96px;
     margin-right: 15px;
     transition-property: transform, opacity;
@@ -260,7 +260,7 @@ const ProjectItemIndex = styled.div`
 const ProjectItemIndexNumber = styled.span`
   font-size: 16px;
   font-weight: 500;
-  color: ${props => props.theme.colorPrimary()};
+  color: ${props => props.theme.colorPrimary};
   transform: translateX(-10px);
   opacity: 0;
   transition-property: transform, opacity;
@@ -281,7 +281,7 @@ const ProjectItemTitle = styled.h2`
   margin: 0;
   margin-bottom: 16px;
   padding: 0;
-  color: ${props => props.theme.colorTitle()};
+  color: ${props => props.theme.colorTitle};
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
@@ -306,7 +306,7 @@ const ProjectItemTitle = styled.h2`
 const ProjectItemDescription = styled.p`
   font-size: 18px;
   line-height: 1.4;
-  color: ${props => props.theme.colorText(0.8)};
+  color: ${props => rgba(props.theme.colorText, 0.8)};
   font-weight: ${props => props.theme.id === 'light' ? 500 : 300};
   margin-bottom: 38px;
   transition-property: transform, opacity;
@@ -388,7 +388,7 @@ const ProjectItemImageLaptop = styled(ProgressiveImage)`
 const ProjectItemSvg = styled(Svg)`
   opacity: ${props => props.status === 'entered' ? 1 : 0};
   transition: opacity 0.4s ease 0.6s;
-  fill: ${props => props.theme.colorTitle()};
+  fill: ${props => props.theme.colorTitle};
 
   ${props => props.theme.id === 'light' && css`
     opacity: ${props => props.status === 'entered' ? 0.4 : 0};

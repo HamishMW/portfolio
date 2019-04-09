@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { media, AnimFade } from '../utils/StyleUtils';
+import { media, AnimFade, rgba } from '../utils/StyleUtils';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { LinkButton } from '../components/Button';
 
@@ -117,7 +117,7 @@ export const ProjectSection = styled.section`
   }
 
   ${props => props.light && css`
-    background: ${props.theme.colorBackgroundLight()};
+    background: ${props.theme.colorBackgroundLight};
     padding-top: 120px;
     padding-bottom: 140px;
 
@@ -172,8 +172,8 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs(props => ({
     width: 100%;
     height: 100%;
     background: linear-gradient(180deg,
-      ${props => props.theme.colorBackground(props.opacity)} 0%,
-      ${props => props.theme.colorBackground()} 100%
+      ${props => rgba(props.theme.colorBackground, props.opacity)} 0%,
+      ${props => props.theme.colorBackground} 100%
     );
   }
 `;
@@ -240,7 +240,7 @@ const ProjectTitle = styled.h1`
   font-size: 54px;
   font-weight: 500;
   line-height: 1.1;
-  color: ${props => props.theme.colorTitle()};
+  color: ${props => props.theme.colorTitle};
 
   @media (max-width: ${media.tablet}) {
     font-size: 48px;
@@ -280,10 +280,10 @@ const ProjectMetaItem = styled.li`
   padding: 30px 0;
   font-size: 16px;
   font-weight: ${props => props.theme.id === 'light' ? 500 : 400};
-  border-top: 1px solid ${props => props.theme.colorText(0.2)};
+  border-top: 1px solid ${props => rgba(props.theme.colorText, 0.2)};
 
   &:last-child {
-    border-bottom: 1px solid ${props => props.theme.colorText(0.2)};
+    border-bottom: 1px solid ${props => rgba(props.theme.colorText, 0.2)};
   }
 
   @media (max-width: ${media.tablet}) {
@@ -322,7 +322,7 @@ export const ProjectSectionHeading = styled.h2`
   font-size: 32px;
   font-weight: 500;
   margin: 0;
-  color: ${props => props.theme.colorTitle()};
+  color: ${props => props.theme.colorTitle};
 
   @media (max-width: ${media.mobile}) {
     font-size: 24px;
@@ -334,7 +334,7 @@ export const ProjectSectionText = styled.p`
   line-height: 1.4;
   margin: 0;
   margin-top: 28px;
-  color: ${props => props.theme.colorText(0.7)};
+  color: ${props => rgba(props.theme.colorText, 0.7)};
 
   @media (max-width: ${media.mobile}) {
     font-size: 18px;

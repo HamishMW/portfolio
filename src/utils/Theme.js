@@ -1,3 +1,5 @@
+import { rgba } from './StyleUtils';
+
 const numSpacing = {
   numSpacingGutter: 20,
   spacingOuter: {
@@ -22,20 +24,20 @@ const base = {
   curveFastoutSlowin: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
   clipPath: size => `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
   fontStack: `Gotham, system-ui, -apple-system, BlinkMacSystemFont, 'San Francisco', Roboto, 'Segoe UI', Oxygen, Ubuntu, Cantarell, Helvetica Neue, sans-serif`,
-  colorBlack: (alpha = 1) => `rgba(0, 0, 0, ${alpha})`,
-  colorWhite: (alpha = 1) => `rgba(255, 255, 255, ${alpha})`,
+  colorBlack: 'rgba(0, 0, 0, 1)',
+  colorWhite: 'rgba(255, 255, 255, 1)',
 };
 
 const dark = {
   id: 'dark',
   ...spacing,
   ...base,
-  colorBackground: (alpha = 1) => `rgba(17, 17, 17, ${alpha})`,
-  colorBackgroundLight: (alpha = 1) => `rgba(26, 26, 26, ${alpha})`,
-  colorTitle: (alpha = 1) => base.colorWhite(alpha),
-  colorText: (alpha = 1) => base.colorWhite(alpha),
-  colorPrimary: (alpha = 1) => `rgba(0, 229, 255, ${alpha})`,
-  colorAccent: (alpha = 1) => `rgba(0, 229, 255, ${alpha})`,
+  colorBackground: 'rgba(17, 17, 17, 1)',
+  colorBackgroundLight: 'rgba(26, 26, 26, 1)',
+  colorTitle: base.colorWhite,
+  colorText: base.colorWhite,
+  colorPrimary: 'rgba(0, 229, 255, 1)',
+  colorAccent: 'rgba(0, 229, 255, 1)',
   sphereAmbientLight: 0.1,
 };
 
@@ -43,12 +45,12 @@ const light = {
   id: 'light',
   ...spacing,
   ...base,
-  colorBackground: (alpha = 1) => `rgba(242, 242, 242, ${alpha})`,
-  colorBackgroundLight: (alpha = 1) => `rgba(255, 255, 255, ${alpha})`,
-  colorTitle: (alpha = 1) => base.colorBlack(alpha),
-  colorText: (alpha = 0.8) => base.colorBlack(alpha),
-  colorPrimary: (alpha = 1) => `rgba(0, 0, 0, ${alpha})`,
-  colorAccent: (alpha = 1) => `rgba(0, 229, 255, ${alpha})`,
+  colorBackground: 'rgba(242, 242, 242, 1)',
+  colorBackgroundLight: 'rgba(255, 255, 255, 1)',
+  colorTitle: base.colorBlack,
+  colorText: rgba(base.colorBlack, 0.8),
+  colorPrimary: 'rgba(0, 0, 0, 1)',
+  colorAccent: 'rgba(0, 229, 255, 1)',
   sphereAmbientLight: 0.8,
 };
 

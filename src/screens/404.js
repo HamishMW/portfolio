@@ -4,7 +4,7 @@ import { Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
 import { RouterButton } from '../components/Button';
 import DecoderText from '../components/DecoderText';
-import { media } from '../utils/StyleUtils';
+import { media, rgba } from '../utils/StyleUtils';
 import Notfound from '../assets/notfound.mp4';
 import NotfoundPoster from '../assets/notfound.jpg';
 
@@ -119,7 +119,7 @@ const NotFoundVideoContainer = styled.div`
 
   &:after {
     content: '';
-    background: ${props => props.theme.colorAccent()};
+    background: ${props => props.theme.colorAccent};
     animation-name: ${props => props.status === 'entered' && css`${AnimVideo}`};
     animation-duration: 1.8s;
     animation-timing-function: ${props => props.theme.curveFastoutSlowin};
@@ -175,7 +175,7 @@ const NotFoundCredit = styled.a`
 
   &:hover,
   &:focus {
-    color: ${props => props.theme.colorWhite()};
+    color: ${props => props.theme.colorWhite};
   }
 `;
 
@@ -210,7 +210,7 @@ const NotFoundTitle = styled.h1`
   transition-delay: 0.1s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
-  color: ${props => props.theme.colorTitle()};
+  color: ${props => props.theme.colorTitle};
 
   @media (max-width: ${media.mobile}) {
     font-size: 64px;
@@ -229,7 +229,7 @@ const NotFoundSubHeading = styled.h2`
   margin-bottom: 24px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: ${props => props.theme.colorText(0.4)};
+  color: ${props => rgba(props.theme.colorText, 0.4)};
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
@@ -251,7 +251,7 @@ const NotFoundSubHeading = styled.h2`
 `;
 
 const NotFoundDescription = styled.p`
-  color: ${props => props.theme.colorText(0.9)};
+  color: ${props => rgba(props.theme.colorText, 0.9)};
   margin: 0;
   margin-bottom: 20px;
   padding: 0;

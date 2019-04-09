@@ -126,7 +126,7 @@ function Contact() {
         }
       </TransitionGroup>
       <ContactMeta>
-        <Svg color={currentTheme.colorText()} icon="message" />
+        <Svg color={currentTheme.colorText} icon="message" />
       </ContactMeta>
     </ContactWrapper>
   );
@@ -175,7 +175,7 @@ const ContactTitle = styled.h1`
   margin-bottom: 40px;
   line-height: 1;
   margin-top: 0;
-  color: ${props => props.theme.colorTitle()};
+  color: ${props => props.theme.colorTitle};
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
@@ -202,7 +202,7 @@ const ContactDivider = styled.div`
   margin-bottom: 70px;
   width: 100%;
   height: 1px;
-  background: ${props => props.theme.colorPrimary()};
+  background: ${props => props.theme.colorPrimary};
   position: relative;
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
@@ -215,7 +215,7 @@ const ContactDivider = styled.div`
     content: '';
     height: 10px;
     width: 90px;
-    background: ${props => props.theme.colorPrimary()};
+    background: ${props => props.theme.colorPrimary};
     position: absolute;
     bottom: 0;
     transform: translateY(100%);
@@ -331,7 +331,7 @@ const ContactCompleteTitle = styled.h1`
   font-size: 32px;
   margin: 0;
   text-align: center;
-  color: ${props => props.theme.colorTitle()};
+  color: ${props => props.theme.colorTitle};
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
 import nightModeAnimation from '../data/NightModeIconData.json';
-import { media } from '../utils/StyleUtils';
+import { media, rgba } from '../utils/StyleUtils';
 
 export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest }) {
   const initThemeId = useRef(themeId);
@@ -63,7 +63,7 @@ const ThemeToggleButton = styled.button`
   &:hover,
   &:focus,
   &:active {
-    background: ${props => props.theme.colorText(0.1)};
+    background: ${props => rgba(props.theme.colorText, 0.1)};
     outline: none;
   }
 
@@ -74,11 +74,11 @@ const ThemeToggleButton = styled.button`
   }
 
   svg g > path {
-    stroke: ${props => props.theme.colorText()};
+    stroke: ${props => props.theme.colorText};
   }
 
   svg g[mask] path {
-    fill: ${props => props.theme.colorText()};
+    fill: ${props => props.theme.colorText};
     stroke: none;
   }
 `;

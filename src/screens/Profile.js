@@ -156,7 +156,7 @@ const ProfileTitle = styled.h2`
   white-space: nowrap;
   opacity: ${props => props.status === 'entered' ? 1 : 0};
   transition: opacity 0.8s ease 0.4s;
-  color: ${props => props.theme.colorTitle()};
+  color: ${props => props.theme.colorTitle};
 
   @media (max-width: 1245px) {
     font-size: 36px;
@@ -196,7 +196,7 @@ const ProfileTag = styled.div`
     display: block;
     height: 2px;
     top: -1px;
-    background: ${props => props.theme.colorPrimary()};
+    background: ${props => props.theme.colorPrimary};
     width: 96px;
     margin-right: 15px;
     transition: transform 0.4s ${props => props.theme.curveFastoutSlowin} 1s;
@@ -212,7 +212,7 @@ const ProfileTag = styled.div`
 const ProfileTagText = styled.div`
   font-size: 16px;
   font-weight: 500;
-  color: ${props => props.theme.colorPrimary()};
+  color: ${props => props.theme.colorPrimary};
   transform: translateX(-10px);
   opacity: 0;
   transition-property: opacity, transform;
@@ -241,7 +241,7 @@ const ProfileSvg = styled(Svg)`
   z-index: 32;
   opacity: ${props => props.status === 'entered' ? 1 : 0};
   transition: opacity 0.4s ease 0.6s;
-  fill: ${props => props.theme.colorTitle()};
+  fill: ${props => props.theme.colorTitle};
 
   @media (max-width: ${media.tablet}) {
     height: 460px;
