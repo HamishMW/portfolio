@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { AppContext } from '../app/App';
 import Input from '../components/Input';
 import DecoderText from '../components/DecoderText';
-import Button, { RouterButton } from '../components/Button';
+import { Button, RouterButton } from '../components/Button';
 import { media, AnimFade } from '../utils/StyleUtils';
 import Svg from '../utils/Svg';
 import Firebase from '../utils/Firebase';
@@ -244,6 +244,7 @@ const ContactDivider = styled.div`
 `;
 
 const ContactInput = styled(Input)`
+  margin-top: 16px;
   margin-bottom: 40px;
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};

@@ -27,7 +27,7 @@ __  __  __
 \n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio-2018\n\n
 `;
 
-const fontStyles = `
+export const fontStyles = `
   @font-face {
     font-family: 'Gotham';
     font-weight: 400;
@@ -123,7 +123,7 @@ function App() {
   );
 }
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   html,
   body {
     box-sizing: border-box;

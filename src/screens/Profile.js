@@ -47,7 +47,7 @@ function Profile(props) {
                 icon="send"
               >
                 Send me a message
-            </ProfileButton>
+              </ProfileButton>
             </ProfileColumn>
             <ProfileColumn>
               <ProfileTag status={status} aria-hidden>

@@ -22,7 +22,7 @@ const ButtonContent = React.memo(props => {
   );
 });
 
-const Button = React.memo(props => {
+export const Button = React.memo(props => {
   const { className, style, ...restProps } = props;
 
   return (
@@ -32,7 +32,7 @@ const Button = React.memo(props => {
   );
 });
 
-const LinkButton = React.memo(props => {
+export const LinkButton = React.memo(props => {
   const { className, style, href, rel, target, secondary } = props;
 
   return (
@@ -50,7 +50,7 @@ const LinkButton = React.memo(props => {
   );
 });
 
-const RouterButton = React.memo(props => {
+export const RouterButton = React.memo(props => {
   const { className, style, to, secondary } = props;
 
   return (
@@ -136,7 +136,8 @@ const ButtonContainer = styled.button`
   ${props => props.secondary && css`
     background: none;
     color: ${props.theme.colorPrimary};
-    padding: 0 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     position: relative;
     left: -10px;
 
@@ -170,7 +171,7 @@ const ButtonContainer = styled.button`
     }
   `}
 
-  ${props => props.icon && css`
+  ${props => props.icon && !props.secondary && css`
     padding-right: 32px;
   `}
 `;
@@ -212,6 +213,3 @@ const ButtonIcon = styled(Icon)`
     opacity: 0;
   `}
 `;
-
-export default Button;
-export { LinkButton, RouterButton };

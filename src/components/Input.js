@@ -36,7 +36,6 @@ function Input(props) {
 const InputWrapper = styled.div`
   position: relative;
   display: flex;
-  margin-top: 16px;
 `;
 
 const InputElement = styled.input`
