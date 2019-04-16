@@ -86,7 +86,7 @@ function Header(props) {
         )}
       </Transition>
       <HeaderLogo to="/#intro" aria-label="Home">
-        <Monogram />
+        <Monogram highlight={currentTheme.colorAccent} />
       </HeaderLogo>
       <HeaderNav role="navigation">
         <HeaderNavList>

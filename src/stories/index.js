@@ -5,6 +5,8 @@ import { withKnobs } from '@storybook/addon-knobs';
 import styled from 'styled-components/macro';
 import { Button } from '../components/Button';
 import Input from '../components/Input';
+import Anchor from '../components/Anchor';
+import Monogram from '../components/Monogram';
 import DisplacementSphere from '../components/DisplacementSphere';
 import { useFormInput } from '../utils/Hooks';
 
@@ -70,6 +72,20 @@ const ExampleInput = props => {
     </div>
   );
 };
+
+storiesOf('Link', module)
+  .add('anchor', () =>
+    <StoryContainer padding={30}>
+      <Anchor href="#">I'm an anchor link</Anchor>
+    </StoryContainer>
+  );
+
+storiesOf('Monogram', module)
+  .add('anchor', () =>
+    <StoryContainer padding={30}>
+      <Monogram />
+    </StoryContainer>
+  );
 
 storiesOf('Text input', module)
   .add('text', () =>

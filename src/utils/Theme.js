@@ -22,7 +22,7 @@ const spacing = {
 
 const base = {
   curveFastoutSlowin: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
-  clipPath: size => `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
+  clipPath: (size = 8) => `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
   fontStack: `Gotham, system-ui, -apple-system, BlinkMacSystemFont, 'San Francisco', Roboto, 'Segoe UI', Oxygen, Ubuntu, Cantarell, Helvetica Neue, sans-serif`,
   colorBlack: 'rgba(0, 0, 0, 1)',
   colorWhite: 'rgba(255, 255, 255, 1)',

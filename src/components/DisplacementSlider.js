@@ -283,15 +283,12 @@ const SliderButton = styled.button`
   border: 0;
   margin: 0;
   background: none;
-  padding: 16px 32px;
+  padding: 14px 26px;
   position: absolute;
   top: 50%;
-  right: ${props => props.right ? 0 : 'unset'};
-  left: ${props => props.left ? 0 : 'unset'};
+  right: ${props => props.right ? '10px' : 'unset'};
+  left: ${props => props.left ? '10px' : 'unset'};
   transform: translate3d(0, -50%, 0);
-  transition-property: background, box-shadow;
-  transition-duration: 0.4s;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   z-index: 32;
   cursor: pointer;
 
@@ -299,14 +296,56 @@ const SliderButton = styled.button`
     display: none;
   }
 
-  &:hover,
   &:focus {
+    outline: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    clip-path: ${props => props.theme.clipPath(12)};
+    transition-property: background, box-shadow;
+    transition-duration: 0.4s;
+    transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  }
+
+  &:hover::before,
+  &:focus::before {
     background: ${props => rgba(props.theme.colorWhite, 0.1)};
   }
 
-  &:focus {
-    outline: none;
-    box-shadow: inset 0 0 0 3px ${props => rgba(props.theme.colorWhite, 0.2)};
+  &::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    bottom: -3px;
+    left: -3px;
+    clip-path: polygon(
+      0% 0%,
+      0% 100%,
+      3px 100%,
+      3px 3px,
+      calc(100% - 3px) 3px,
+      calc(100% - 3px) calc(100% - 16px),
+      calc(100% - 16px) calc(100% - 3px),
+      3px calc(100% - 3px),
+      3px 100%,
+      calc(100% - 15px) 100%,
+      100% calc(100% - 15px),
+      100% 0%
+    );
+    transition-property: background, box-shadow;
+    transition-duration: 0.4s;
+    transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  }
+
+  &:focus::after {
+    background: ${props => rgba(props.theme.colorWhite, 0.4)};
   }
 
   svg {
@@ -340,9 +379,8 @@ const SliderNavButton = styled.button`
     border-radius: 50%;
     display: block;
     background: ${props => props.active
-    ? props.theme.colorText
-    : rgba(props.theme.colorText, 0.2)
-  };
+      ? props.theme.colorText
+      : rgba(props.theme.colorText, 0.2)};
     transition-property: background, box-shadow;
     transition-duration: 0.5s;
     transition-timing-function: ${props => props.theme.curveFastoutSlowin};

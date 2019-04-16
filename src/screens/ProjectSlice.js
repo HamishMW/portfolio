@@ -5,7 +5,7 @@ import ProgressiveImage from '../components/ProgressiveImage';
 import { useScrollToTop } from '../utils/Hooks';
 import Footer from '../components/Footer';
 import {
-  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
+  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectTextRow,
   ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
 } from '../components/Project';
 import { media } from '../utils/StyleUtils';
@@ -153,12 +153,6 @@ function ProjectSlice(props) {
     </React.Fragment>
   );
 }
-
-const ProjectTextRow = styled.div`
-  max-width: 660px;
-  align-self: center;
-  margin-bottom: 80px;
-`;
 
 const ProjectSectionColumns = styled(ProjectSectionContent)`
   display: grid;

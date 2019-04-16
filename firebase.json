@@ -5,6 +5,10 @@
       {
         "source": "**",
         "destination": "/index.html"
+      },
+      {
+        "source": "**/storybook",
+        "destination": "/storybook/index.html"
       }
     ],
     "headers": [

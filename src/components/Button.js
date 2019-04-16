@@ -81,6 +81,7 @@ const ButtonContainer = styled.button`
   text-decoration: none;
   font-family: inherit;
   position: relative;
+  z-index: 1;
 
   ${props => !props.secondary && css`
     &:before {

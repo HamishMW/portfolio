@@ -336,8 +336,24 @@ export const ProjectSectionText = styled.p`
   margin-top: 28px;
   color: ${props => rgba(props.theme.colorText, 0.7)};
 
+  & + a {
+    margin-top: 14px;
+  }
+
   @media (max-width: ${media.mobile}) {
     font-size: 18px;
     margin-top: 22px;
+  }
+`;
+
+export const ProjectTextRow = styled.div`
+  max-width: 660px;
+  align-self: center;
+  margin-bottom: 80px;
+  text-align: ${props => props.center ? 'center' : 'left'};
+  position: relative;
+
+  @media (max-width: ${media.mobile}) {
+    text-align: left;
   }
 `;

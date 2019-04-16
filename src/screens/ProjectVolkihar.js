@@ -4,10 +4,11 @@ import { Helmet } from 'react-helmet-async';
 import { AppContext } from '../app/App';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { useScrollToTop } from '../utils/Hooks';
+import { LinkButton } from '../components/Button';
 import Footer from '../components/Footer';
 import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader,
-  ProjectSectionHeading, ProjectSectionText,
+  ProjectSectionHeading, ProjectSectionText, ProjectTextRow,
 } from '../components/Project';
 import { media } from '../utils/StyleUtils';
 import volkiharBackground from '../assets/volkihar-background.jpg';
@@ -29,6 +30,7 @@ import volkiharSlide2Large from '../assets/volkihar-slide-2-large.jpg';
 import volkiharSlide3 from '../assets/volkihar-slide-3.jpg';
 import volkiharSlide3Large from '../assets/volkihar-slide-3-large.jpg';
 import volkiharSlidePlaceholder from '../assets/volkihar-slide-placeholder.jpg';
+import { ReactComponent as VolkiharKnightLogo } from '../assets/volkihar-logo.svg';
 
 const DisplacementSlider = lazy(() => import('../components/DisplacementSlider'));
 
@@ -131,6 +133,19 @@ function ProjectVolkihar() {
           </ProjectSectionColumns>
         </ProjectSection>
         <ProjectSection>
+          <ProjectSectionContent>
+            <VolkiharLogoContainer>
+              <VolkiharKnightLogo />
+            </VolkiharLogoContainer>
+            <ProjectTextRow center>
+              <ProjectSectionHeading>Identity design</ProjectSectionHeading>
+              <ProjectSectionText>
+                The monogram uses custom designed typography to get the right balance of weight and angularity. I combined this with Trajan for the text, which is also used for Skyrim's game title wordmark.
+              </ProjectSectionText>
+            </ProjectTextRow>
+          </ProjectSectionContent>
+        </ProjectSection>
+        <ProjectSection>
           <ProjectSectionSlider>
             <Suspense fallback={<React.Fragment />}>
               <DisplacementSlider
@@ -157,6 +172,24 @@ function ProjectVolkihar() {
               />
             </Suspense>
           </ProjectSectionSlider>
+        </ProjectSection>
+        <ProjectSection>
+          <ProjectSectionContent>
+            <ProjectTextRow center>
+              <ProjectSectionHeading>Featured in Enderal</ProjectSectionHeading>
+              <ProjectSectionText>
+                I was super stoked to have my work featured in the major standalone mod Enderal, which won best fan creation at the game awards in 2016. Within the game my armor design can be found being used for the Wandering Mage armor set.
+              </ProjectSectionText>
+              <LinkButton
+                secondary
+                icon="chevronRight"
+                target="_blank"
+                href="https://store.steampowered.com/app/933480/Enderal_Forgotten_Stories/"
+              >
+                View on Steam
+              </LinkButton>
+            </ProjectTextRow>
+          </ProjectSectionContent>
         </ProjectSection>
       </ProjectContainer>
       <Footer />
@@ -186,6 +219,25 @@ const VolkiharTextSection = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+`;
+
+const VolkiharLogoContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #111111;
+  padding: ${props => props.theme.id === 'light' ? '60px' : 0} 80px;
+  margin-bottom: 80px;
+  width: 100%;
+
+  @media (max-width: ${media.mobile}) {
+    padding: ${props => props.theme.id === 'light' ? '30px' : 0} 40px;
+    margin-bottom: 40px;
+  }
+
+  svg {
+    max-width: 400px;
+  }
 `;
 
 export default ProjectVolkihar;
