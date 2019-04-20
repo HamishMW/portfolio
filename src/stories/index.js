@@ -8,6 +8,7 @@ import Input from '../components/Input';
 import Anchor from '../components/Anchor';
 import Monogram from '../components/Monogram';
 import DisplacementSphere from '../components/DisplacementSphere';
+import DecoderText from '../components/DecoderText';
 import { useFormInput } from '../utils/Hooks';
 
 const StoryContainer = styled.div`
@@ -81,7 +82,7 @@ storiesOf('Link', module)
   );
 
 storiesOf('Monogram', module)
-  .add('anchor', () =>
+  .add('monogram', () =>
     <StoryContainer padding={30}>
       <Monogram />
     </StoryContainer>
@@ -93,4 +94,13 @@ storiesOf('Text input', module)
   )
   .add('multiline', () =>
     <ExampleInput multiline label="Type a message" type="text" />
+  );
+
+storiesOf('Decoder text', module)
+  .add('text', () =>
+    <StoryContainer padding={30}>
+      <h2 style={{ fontWeight: 500, margin: 0 }}>
+        <DecoderText start text="Slick cyberpunk text" />
+      </h2>
+    </StoryContainer>
   );

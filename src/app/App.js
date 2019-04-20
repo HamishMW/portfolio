@@ -137,7 +137,6 @@ export const GlobalStyles = createGlobalStyle`
     width: 100vw;
     overflow-x: hidden;
     font-weight: 300;
-    transition: background 0.4s ease;
   }
 
   *,
@@ -155,8 +154,9 @@ const MainContent = styled.main`
   width: 100%;
   overflow-x: hidden;
   position: relative;
-  transition: opacity 0.3s ease;
   opacity: 0;
+  background: ${props => props.theme.colorBackground};
+  transition: background 0.4s ease, opacity 0.3s ease;
 
   &:focus {
     outline: none;
