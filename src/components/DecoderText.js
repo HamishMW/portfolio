@@ -67,15 +67,16 @@ function DecoderText(props) {
       if (needsUpdate) {
         elapsedTime.current = elapsed;
         setPosition(elapsedTime.current / offset);
+
+        if (position <= content.current.length) {
+          setOutput(shuffle(content.current, chars, position));
+        }
       } else {
         animation = requestAnimationFrame(animate);
       }
     };
 
-    if (position < content.current.length) {
-      setOutput(shuffle(content.current, chars, position));
-      animation = requestAnimationFrame(animate);
-    }
+    animation = requestAnimationFrame(animate);
 
     return function cleanup() {
       cancelAnimationFrame(animation);
@@ -83,23 +84,15 @@ function DecoderText(props) {
   }, [fps, offset, position, started]);
 
   return (
-    <DecoderSpan {...rest}>
+    <span {...rest}>
       <DecoderLabel>{text}</DecoderLabel>
       {output.map((item, index) => item.type === 'actual'
         ? <span aria-hidden key={`${item.value}-${index}`}>{item.value}</span>
         : <DecoderCode aria-hidden key={`${item.value}-${index}`}>{item.value}</DecoderCode>
       )}
-    </DecoderSpan>
+    </span>
   );
 };
-
-const DecoderSpan = styled.span`
-  &:after {
-    content: '_';
-    opacity: 0;
-    visibility: hidden;
-  }
-`;
 
 const DecoderLabel = styled.span`
   border: 0;
