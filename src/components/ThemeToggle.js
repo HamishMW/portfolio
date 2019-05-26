@@ -3,11 +3,13 @@ import styled, { css } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
 import nightModeAnimation from '../data/NightModeIconData.json';
 import { media, rgba } from '../utils/StyleUtils';
+import { usePrefersReducedMotion } from '../utils/Hooks';
 
 export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest }) {
   const initThemeId = useRef(themeId);
   const lottieContainerRef = useRef();
   const lottieAnimRef = useRef();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     lottieAnimRef.current = lottie.loadAnimation({
@@ -24,8 +26,14 @@ export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest })
 
   useEffect(() => {
     lottieAnimRef.current.setDirection(themeId === 'dark' ? 1 : -1);
-    lottieAnimRef.current.play();
-  }, [themeId]);
+
+    if (prefersReducedMotion) {
+      const duration = lottieAnimRef.current.totalFrames - 1;
+      lottieAnimRef.current.goToAndStop(themeId === 'dark' ? duration : 0, true);
+    } else {
+      lottieAnimRef.current.play();
+    }
+  }, [themeId, prefersReducedMotion]);
 
   return (
     <ThemeToggleButton aria-label="Toggle theme" onClick={toggleTheme} isMobile={isMobile} {...rest}>

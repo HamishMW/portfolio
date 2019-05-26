@@ -105,3 +105,26 @@ export function useLocalStorage(key, initialValue) {
 
   return [storedValue, setValue];
 }
+
+export function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const handleMediaChange = () => {
+      if (mediaQuery.matches) {
+        setPrefersReducedMotion(true);
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleMediaChange);
+    handleMediaChange();
+
+    return function cleanup() {
+      mediaQuery.removeEventListener('change', handleMediaChange);
+    };
+  }, []);
+
+  return prefersReducedMotion;
+}

@@ -10,6 +10,7 @@ import Swipe from 'react-easy-swipe';
 import Icon from '../utils/Icon';
 import { media, rgba } from '../utils/StyleUtils';
 import { vertex, fragment } from '../shaders/SliderShader';
+import { usePrefersReducedMotion } from '../utils/Hooks';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -37,26 +38,33 @@ export default function DispalcementSlider(props) {
   const animating = useRef(false);
   const scheduledAnimationFrame = useRef();
   const currentImage = images[imageIndex];
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const goToIndex = useCallback((index, direction = 1) => {
     animating.current = true;
     setImageIndex(index);
     const uniforms = material.current.uniforms;
     uniforms.nextImage.value = sliderImages.current[index];
-    uniforms.nextImage.needsUpdate = true;
     uniforms.direction.value = direction;
 
-    new Tween(uniforms.dispFactor)
-      .to({ value: 1 }, 1200)
-      .easing(Easing.Exponential.InOut)
-      .on('complete', () => {
-        uniforms.currentImage.value = sliderImages.current[index];
-        uniforms.currentImage.needsUpdate = true;
-        uniforms.dispFactor.value = 0.0;
+    if (!prefersReducedMotion) {
+      new Tween(uniforms.dispFactor)
+        .to({ value: 1 }, 1200)
+        .easing(Easing.Exponential.InOut)
+        .on('complete', () => {
+          uniforms.currentImage.value = sliderImages.current[index];
+          uniforms.dispFactor.value = 0.0;
+          animating.current = false;
+        })
+        .start();
+    } else {
+      uniforms.currentImage.value = sliderImages.current[index];
+      uniforms.dispFactor.value = 0.0;
+      setTimeout(() => {
         animating.current = false;
-      })
-      .start();
-  }, []);
+      }, 100);
+    }
+  }, [prefersReducedMotion]);
 
   const navigate = useCallback((direction, index = null) => {
     if (!loaded) return;
@@ -379,8 +387,8 @@ const SliderNavButton = styled.button`
     border-radius: 50%;
     display: block;
     background: ${props => props.active
-      ? props.theme.colorText
-      : rgba(props.theme.colorText, 0.2)};
+    ? props.theme.colorText
+    : rgba(props.theme.colorText, 0.2)};
     transition-property: background, box-shadow;
     transition-duration: 0.5s;
     transition-timing-function: ${props => props.theme.curveFastoutSlowin};

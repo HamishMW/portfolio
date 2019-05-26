@@ -143,6 +143,13 @@ export const GlobalStyles = createGlobalStyle`
   *:before,
   *:after {
     box-sizing: inherit;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation-duration: 0s !important;
+      transition-duration: 0s !important;
+      animation-delay: 0s !important;
+      transition-delay: 0s !important;
+    }
   }
 
   ::selection {

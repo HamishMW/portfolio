@@ -10,6 +10,7 @@ import VertShader from '../shaders/SphereVertShader';
 import FragmentShader from '../shaders/SphereFragmentShader';
 import { media } from '../utils/StyleUtils';
 import { AppContext } from '../app/App';
+import { usePrefersReducedMotion } from '../utils/Hooks';
 
 function DisplacementSphere() {
   const { currentTheme } = useContext(AppContext);
@@ -28,6 +29,7 @@ function DisplacementSphere() {
   const material = useRef();
   const geometry = useRef();
   const sphere = useRef();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const rand = Math.random();
@@ -124,8 +126,6 @@ function DisplacementSphere() {
   }, []);
 
   useEffect(() => {
-    autoPlay(true);
-
     const onMouseMove = event => {
       const mouseY = event.clientY / window.innerHeight;
       const mouseX = event.clientX / window.innerWidth;
@@ -136,12 +136,15 @@ function DisplacementSphere() {
         .start();
     };
 
-    window.addEventListener('mousemove', onMouseMove);
+    if (!prefersReducedMotion) {
+      autoPlay(true);
+      window.addEventListener('mousemove', onMouseMove);
+    }
 
     return function cleanup() {
       window.removeEventListener('mousemove', onMouseMove);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     let animation;
@@ -153,12 +156,14 @@ function DisplacementSphere() {
       renderer.current.render(scene.current, camera.current);
     };
 
-    animate();
+    if (!prefersReducedMotion) {
+      animate();
+    }
 
     return function cleanup() {
       cancelAnimationFrame(animation);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <SphereContainer ref={container} aria-hidden />

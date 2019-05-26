@@ -6,6 +6,7 @@ import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
 import Footer from '../components/Footer';
+import { usePrefersReducedMotion } from '../utils/Hooks';
 import sprProject from '../assets/spr-project.png';
 import sprProjectLarge from '../assets/spr-project-large.png';
 import sprProjectPlaceholder from '../assets/spr-project-placeholder.png';
@@ -32,6 +33,7 @@ export default function Home(props) {
   const projectTwo = useRef();
   const projectThree = useRef();
   const details = useRef();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const revealSections = [intro, projectOne, projectTwo, projectThree, details];
@@ -72,10 +74,10 @@ export default function Home(props) {
       window.scroll({
         top: element.current.offsetTop,
         left: 0,
-        behavior: scroll ? 'smooth' : 'instant',
+        behavior: scroll && !prefersReducedMotion ? 'smooth' : 'instant',
       });
     }
-  }, []);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     if (status === 'entered') {
