@@ -107,7 +107,8 @@ export function useLocalStorage(key, initialValue) {
 }
 
 export function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(mediaQuery.matches);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -119,7 +120,6 @@ export function usePrefersReducedMotion() {
     };
 
     mediaQuery.addEventListener('change', handleMediaChange);
-    handleMediaChange();
 
     return function cleanup() {
       mediaQuery.removeEventListener('change', handleMediaChange);
