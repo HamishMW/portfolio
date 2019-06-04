@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import 'intersection-observer';
 import { AppContext } from '../app/App';
@@ -25,7 +25,7 @@ export default function Home(props) {
   const { status } = useContext(AppContext);
   const { location } = props;
   const { hash } = location;
-  const initHash = useRef(hash);
+  const initHash = useRef(true);
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
   const intro = useRef();
@@ -65,33 +65,33 @@ export default function Home(props) {
     };
   }, [visibleSections]);
 
-  const handleHashchange = useCallback((hash, scroll) => {
-    const hashSections = [intro, projectOne, details];
-    const hashString = hash.replace('#', '');
-    const element = hashSections.filter(item => item.current.id === hashString)[0];
-
-    if (element) {
-      window.scroll({
-        top: element.current.offsetTop,
-        left: 0,
-        behavior: scroll && !prefersReducedMotion ? 'smooth' : 'instant',
-      });
-    }
-  }, [prefersReducedMotion]);
-
   useEffect(() => {
-    if (status === 'entered') {
+    const hasEntered = status === 'entered';
+
+    const handleHashchange = (hash, scroll) => {
+      const hashSections = [intro, projectOne, details];
+      const hashString = hash.replace('#', '');
+      const element = hashSections.filter(item => item.current.id === hashString)[0];
+
+      if (element) {
+        window.scroll({
+          top: element.current.offsetTop,
+          left: 0,
+          behavior: scroll && !prefersReducedMotion ? 'smooth' : 'instant',
+        });
+      }
+    };
+
+    if (hash && initHash.current && hasEntered) {
+      handleHashchange(hash, false);
+      initHash.current = false;
+    } else if (!hash && initHash.current && hasEntered) {
+      window.scrollTo(0, 0);
+      initHash.current = false;
+    } else if (hasEntered) {
       handleHashchange(hash, true);
     }
-  }, [handleHashchange, hash, status]);
-
-  useEffect(() => {
-    if (initHash.current && status === 'entered') {
-      handleHashchange(initHash.current, false);
-    } else if (status === 'entered') {
-      window.scrollTo(0, 0);
-    }
-  }, [handleHashchange, status]);
+  }, [hash, prefersReducedMotion, status]);
 
   return (
     <React.Fragment>
