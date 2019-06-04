@@ -4864,10 +4864,10 @@ es6-shim@^0.35.3:
   resolved "https://registry.yarnpkg.com/es6-shim/-/es6-shim-0.35.5.tgz#46f59dc0a84a1c5029e8ff1166ca0a902077a9ab"
   integrity sha512-E9kK/bjtCQRpN1K28Xh4BlmP8egvZBGJJ+9GtnzOwt7mdqtrjHFuVGr7QJfdjBIKqrlU5duPf3pCBoDrkjVYFg==
 
-es6-tween@^5.3.2:
-  version "5.5.2"
-  resolved "https://registry.yarnpkg.com/es6-tween/-/es6-tween-5.5.2.tgz#8656a1bd3c588e14dbb92d5c89298930144dc1c9"
-  integrity sha512-3vgDEHPa7xtq+jFaTglMBFSCx5TCVw3C5s9ISWAcGcedTBxW+c1m2W+U+IMiBAfxNwtX8+p/pazXufmQuDsN8Q==
+es6-tween@^5.5.10:
+  version "5.5.10"
+  resolved "https://registry.yarnpkg.com/es6-tween/-/es6-tween-5.5.10.tgz#1267d602279fe0fcb98f796f05e745945b04c1ed"
+  integrity sha512-nzhoX7JX+U936ksm7aok9CYsl5Y4rGOzt/6hFTOUmoVjO8bjQAsh+Adqqnl6EKoRCI02Jr0/0OVuwHOotEYzwg==
 
 escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"
@@ -12235,10 +12235,10 @@ text-table@0.2.0, text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-three@^0.102.0:
-  version "0.102.1"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.102.1.tgz#fc08b6b11860cf59e8cd45b7e90e34d1d1a8cbd6"
-  integrity sha512-btHBdww/Es4vdBkB2GjTE9mpj0vy8tgtxkX7ne7uxySXV8zoGxWJv1N88BydxnCqvAfmD4ZUTqPeESO7oDgeOQ==
+three@^0.105.2:
+  version "0.105.2"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.105.2.tgz#d135f1549bdcf5a9acd904ba3dbf9198a0268984"
+  integrity sha512-L3Al37k4g3hVbgFFS251UVtIc25chhyN0/RvXzR0C+uIBToV6EKDG+MZzEXm9L2miGUVMK27W46/VkP6WUZXMg==
 
 throat@^4.0.0:
   version "4.1.0"

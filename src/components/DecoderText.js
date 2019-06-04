@@ -20,6 +20,18 @@ const chars = [
   'パ', 'ピ', 'プ', 'ペ', 'ポ',
 ];
 
+const japaneseFonts = [
+  'ヒラギノ角ゴ Pro W3',
+  'Hiragino Kaku Gothic Pro',
+  'Hiragino Sans',
+  'Osaka',
+  'メイリオ',
+  'Meiryo',
+  'ＭＳ Ｐゴシック',
+  'MS PGothic',
+  'sans-serif',
+];
+
 function shuffle(content, chars, position) {
   return content.map((value, index) => {
     if (index < position) {
@@ -93,15 +105,22 @@ function DecoderText(props) {
   }, [fps, offset, position, started]);
 
   return (
-    <span {...rest}>
+    <DecoderWrapper {...rest}>
       <DecoderLabel>{text}</DecoderLabel>
       {output.map((item, index) => item.type === 'actual'
         ? <span aria-hidden key={`${item.value}-${index}`}>{item.value}</span>
         : <DecoderCode aria-hidden key={`${item.value}-${index}`}>{item.value}</DecoderCode>
       )}
-    </span>
+    </DecoderWrapper>
   );
 };
+
+const DecoderWrapper = styled.span`
+  &::after {
+    content: '_';
+    visibility: hidden;
+  }
+`;
 
 const DecoderLabel = styled.span`
   border: 0;
@@ -117,7 +136,7 @@ const DecoderLabel = styled.span`
 const DecoderCode = styled.span`
   opacity: 0.8;
   font-weight: 400;
-  font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Hiragino Sans', Osaka, 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  font-family: ${japaneseFonts.join(', ')};
   line-height: 0;
 `;
 

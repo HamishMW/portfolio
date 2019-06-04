@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
+let id = 0;
+const genId = () => ++id;
+
+export const useId = () => {
+  const [id, setId] = useState(null);
+  useEffect(() => setId(genId()), []);
+  return id;
+};
+
 export function useScrollToTop(status) {
   const prevStatus = useRef();
 

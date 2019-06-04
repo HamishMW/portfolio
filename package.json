@@ -19,7 +19,7 @@
     "@firebase/app": "^0.4.3",
     "@firebase/database": "^0.4.3",
     "autosize": "^4.0.2",
-    "es6-tween": "^5.3.2",
+    "es6-tween": "^5.5.10",
     "intersection-observer": "^0.7.0",
     "ios-inner-height": "^1.1.0",
     "lottie-web": "^5.5.4",
@@ -30,7 +30,7 @@
     "react-router-dom": "5.0.0",
     "react-transition-group": "^4.1.0",
     "styled-components": "^4.2.1",
-    "three": "^0.102.0"
+    "three": "^0.105.2"
   },
   "scripts": {
     "start": "react-scripts start",

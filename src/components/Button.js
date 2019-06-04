@@ -23,11 +23,11 @@ const ButtonContent = React.memo(props => {
 });
 
 export const Button = React.memo(props => {
-  const { className, style, ...restProps } = props;
+  const { className, style, ...rest } = props;
 
   return (
-    <ButtonContainer className={className} style={style} {...restProps}>
-      <ButtonContent {...restProps} />
+    <ButtonContainer className={className} style={style} {...rest}>
+      <ButtonContent {...rest} />
     </ButtonContainer>
   );
 });
@@ -54,7 +54,13 @@ export const RouterButton = React.memo(props => {
   const { className, style, to, secondary } = props;
 
   return (
-    <ButtonContainer as={Link} className={className} style={style} to={to} secondary={secondary ? 1 : 0}>
+    <ButtonContainer
+      as={Link}
+      className={className}
+      style={style}
+      to={to}
+      secondary={secondary ? 1 : 0}
+    >
       <ButtonContent {...props} />
     </ButtonContainer>
   );

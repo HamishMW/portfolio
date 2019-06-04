@@ -1,29 +1,29 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components/macro';
 import TextArea from '../components/TextArea';
 import { rgba } from '../utils/styleUtils';
-
-const genId = prefix => `${prefix}-${Math.random().toString(32).substring(2, 8)}`;
+import { useId } from '../utils/hooks';
 
 function Input(props) {
   const { id, label, hasValue, multiline, className, ...restProps } = props;
-  const inputId = useRef(id || genId('input'));
   const [focused, setFocused] = useState(false);
+  const generatedId = useId();
+  const inputId = id || `input-${generatedId}`;
 
   return (
     <InputWrapper className={className}>
       <InputLabel
-        id={`${inputId.current}-label`}
+        id={`${inputId}-label`}
         hasValue={!!props.value}
-        htmlFor={inputId.current}
+        htmlFor={inputId}
         focused={focused}
       >
         {label}
       </InputLabel>
       <InputElement
-        as={multiline ? TextArea : null}
-        id={inputId.current}
-        aria-labelledby={`${inputId.current}-label`}
+        as={multiline ? TextArea : undefined}
+        id={inputId}
+        aria-labelledby={`${inputId}-label`}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         {...restProps}
