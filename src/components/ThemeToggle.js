@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
-import nightModeAnimation from '../data/NightModeIconData.json';
+import themeIconData from '../data/themeIconData.json';
 import { media, rgba } from '../utils/styleUtils';
 import { usePrefersReducedMotion } from '../utils/hooks';
 
@@ -17,7 +17,7 @@ export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest })
       renderer: 'svg',
       loop: false,
       autoplay: true,
-      animationData: nightModeAnimation,
+      animationData: themeIconData,
     });
 
     const duration = lottieAnimRef.current.totalFrames - 1;
@@ -54,7 +54,6 @@ const ThemeToggleButton = styled.button`
   height: 48px;
   clip-path: ${props => props.theme.clipPath(8)};
   transition: background 0.3s ease;
-
   top: ${props => props.theme.spacingOuter.numDesktop - 8}px;
   right: ${props => props.theme.spacingOuter.numDesktop - 8}px;
 
