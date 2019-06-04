@@ -7,10 +7,10 @@ import styled from 'styled-components/macro';
 import 'intersection-observer';
 import { Easing, Tween, autoPlay } from 'es6-tween';
 import Swipe from 'react-easy-swipe';
-import Icon from '../utils/Icon';
-import { media, rgba } from '../utils/StyleUtils';
-import { vertex, fragment } from '../shaders/SliderShader';
-import { usePrefersReducedMotion } from '../utils/Hooks';
+import Icon from './Icon';
+import { media, rgba } from '../utils/styleUtils';
+import { vertex, fragment } from '../shaders/sliderShader';
+import { usePrefersReducedMotion } from '../utils/hooks';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import Icon from '../utils/Icon';
-import { media, rgba } from '../utils/StyleUtils';
+import Icon from './Icon';
+import { media, rgba } from '../utils/styleUtils';
 
 const NavToggle = ({ onClick, menuOpen, ...rest }) => (
   <NavToggleButton aria-label="Menu" aria-expanded={menuOpen} onClick={onClick} {...rest}>

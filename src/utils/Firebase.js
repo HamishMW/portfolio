@@ -7,6 +7,5 @@ import '@firebase/database';
 import config from '../config';
 
 const firebaseConfig = config.firebase;
-const Firebase = firebase.initializeApp(firebaseConfig);
 
-export default Firebase;
+export default firebase.initializeApp(firebaseConfig);

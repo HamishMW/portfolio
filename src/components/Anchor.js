@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { rgba } from '../utils/StyleUtils';
+import { rgba } from '../utils/styleUtils';
 
 const Anchor = styled.a.attrs(({ target, rel }) => ({
   rel: rel || target === '_blank' ? 'noreferrer noopener' : null,

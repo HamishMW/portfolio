@@ -1,4 +1,4 @@
-import { rgba } from './StyleUtils';
+import { rgba } from './styleUtils';
 
 const numSpacing = {
   numSpacingGutter: 20,

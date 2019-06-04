@@ -2,7 +2,7 @@ import { configure, addParameters, addDecorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import { theme } from '../src/utils/Theme';
+import { theme } from '../src/utils/theme';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import GothamBook from '../src/fonts/gotham-book.woff2';
 import GothamMedium from '../src/fonts/gotham-medium.woff2';

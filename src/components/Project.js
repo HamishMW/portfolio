@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { media, AnimFade, rgba } from '../utils/StyleUtils';
+import { media, AnimFade, rgba } from '../utils/styleUtils';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { LinkButton } from '../components/Button';
+import { usePrefersReducedMotion } from '../utils/hooks';
 
 const initDelay = 300;
 const prerender = navigator.userAgent === 'ReactSnap';
@@ -10,26 +11,27 @@ const prerender = navigator.userAgent === 'ReactSnap';
 export function ProjectBackground(props) {
   const [offset, setOffset] = useState();
   const scheduledAnimationFrame = useRef(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
   const lastScrollY = useRef(0);
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (prefersReducedMotion || scheduledAnimationFrame.current) return;
+      lastScrollY.current = window.scrollY;
+      scheduledAnimationFrame.current = true;
+
+      requestAnimationFrame(() => {
+        setOffset(lastScrollY.current * 0.4);
+        scheduledAnimationFrame.current = false;
+      });
+    };
+
     window.addEventListener('scroll', handleScroll);
 
     return function cleanUp() {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
-
-  const handleScroll = () => {
-    lastScrollY.current = window.scrollY;
-    if (scheduledAnimationFrame.current) return;
-    scheduledAnimationFrame.current = true;
-
-    requestAnimationFrame(() => {
-      setOffset(lastScrollY.current * 0.4);
-      scheduledAnimationFrame.current = false;
-    });
-  };
+  }, [prefersReducedMotion]);
 
   return (
     <ProjectBackgroundImage offset={offset} {...props} />

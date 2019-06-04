@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import TextArea from '../components/TextArea';
-import { rgba } from '../utils/StyleUtils';
+import { rgba } from '../utils/styleUtils';
 
 const genId = prefix => `${prefix}-${Math.random().toString(32).substring(2, 8)}`;
 

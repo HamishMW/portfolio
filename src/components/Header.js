@@ -3,9 +3,9 @@ import styled, { css } from 'styled-components/macro';
 import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
-import Icon from '../utils/Icon';
-import { media, rgba } from '../utils/StyleUtils';
-import { useWindowSize } from '../utils/Hooks';
+import Icon from './Icon';
+import { media, rgba } from '../utils/styleUtils';
+import { useWindowSize } from '../utils/hooks';
 
 const ThemeToggle = lazy(() => import('../components/ThemeToggle'));
 

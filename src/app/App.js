@@ -1,13 +1,13 @@
 import React, { lazy, Suspense, useState, useEffect, createContext, useCallback } from 'react';
 import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components/macro';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Transition, TransitionGroup } from 'react-transition-group';
+import { Transition, TransitionGroup, config } from 'react-transition-group';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import NavToggle from '../components/NavToggle';
-import { theme } from '../utils/Theme';
-import { media } from '../utils/StyleUtils';
-import { useLocalStorage, useWindowSize } from '../utils/Hooks';
+import { theme } from '../utils/theme';
+import { media } from '../utils/styleUtils';
+import { useLocalStorage, useWindowSize, usePrefersReducedMotion } from '../utils/hooks';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
 
@@ -49,6 +49,15 @@ function App() {
   const [currentTheme, setCurrentTheme] = useState(theme.dark);
   const windowSize = useWindowSize();
   const showMenuButton = windowSize.width <= media.numMobile || windowSize.height <= 696;
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      config.disabled = true;
+    } else {
+      config.disabled = false;
+    }
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     if (!prerender) console.info(consoleMessage);
@@ -143,17 +152,21 @@ export const GlobalStyles = createGlobalStyle`
   *:before,
   *:after {
     box-sizing: inherit;
-
-    @media (prefers-reduced-motion: reduce) {
-      animation-duration: 0s !important;
-      transition-duration: 0s !important;
-      animation-delay: 0s !important;
-      transition-delay: 0s !important;
-    }
   }
 
   ::selection {
     background: ${props => props.theme.colorAccent};
+  }
+
+  #root *,
+  #root *:before,
+  #root *:after {
+    @media (prefers-reduced-motion: reduce) {
+      animation-duration: 0s;
+      transition-duration: 0s;
+      animation-delay: 0s;
+      transition-delay: 0s;
+    }
   }
 `;
 

@@ -9,7 +9,7 @@ import Anchor from '../components/Anchor';
 import Monogram from '../components/Monogram';
 import DisplacementSphere from '../components/DisplacementSphere';
 import DecoderText from '../components/DecoderText';
-import { useFormInput } from '../utils/Hooks';
+import { useFormInput } from '../utils/hooks';
 
 const StoryContainer = styled.div`
   position: absolute;

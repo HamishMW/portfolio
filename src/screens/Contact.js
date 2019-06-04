@@ -6,10 +6,10 @@ import { AppContext } from '../app/App';
 import Input from '../components/Input';
 import DecoderText from '../components/DecoderText';
 import { Button, RouterButton } from '../components/Button';
-import { media, AnimFade } from '../utils/StyleUtils';
-import Svg from '../utils/Svg';
-import Firebase from '../utils/Firebase';
-import { useScrollToTop, useFormInput } from '../utils/Hooks';
+import { media, AnimFade } from '../utils/styleUtils';
+import Svg from '../components/Svg';
+import Firebase from '../utils/firebase';
+import { useScrollToTop, useFormInput } from '../utils/hooks';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
@@ -58,7 +58,7 @@ function Contact() {
                 <ContactTitle status={status} delay={50}>
                   <DecoderText
                     text="Say hello"
-                    start={status === 'entering' && !prerender}
+                    start={status !== 'exited' && !prerender}
                     offset={140}
                   />
                 </ContactTitle>

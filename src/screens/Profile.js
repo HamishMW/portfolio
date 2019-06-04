@@ -6,11 +6,11 @@ import Anchor from '../components/Anchor';
 import { RouterButton } from '../components/Button';
 import DecoderText from '../components/DecoderText';
 import ProgressiveImage from '../components/ProgressiveImage';
-import Svg from '../utils/Svg';
+import Svg from '../components/Svg';
 import ProfileImg from '../assets/profile.jpg';
 import ProfileImgLarge from '../assets/profile-large.jpg';
 import ProfileImgPlaceholder from '../assets/profile-placeholder.jpg';
-import { media } from '../utils/StyleUtils';
+import { media } from '../utils/styleUtils';
 
 const ProfileText = ({ status }) => (
   <React.Fragment>

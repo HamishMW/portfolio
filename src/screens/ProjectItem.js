@@ -1,10 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
-import { media, rgba } from '../utils/StyleUtils';
+import { media, rgba } from '../utils/styleUtils';
 import { RouterButton, LinkButton } from '../components/Button';
 import ProgressiveImage from '../components/ProgressiveImage';
-import Svg from '../utils/Svg';
+import Svg from '../components/Svg';
 import phone from '../assets/phone.png';
 import phoneLarge from '../assets/phone-large.png';
 import phonePlaceholder from '../assets/phone-placeholder.png';

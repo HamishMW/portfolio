@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
-import Icon from '../utils/Icon';
-import { tint, rgba } from '../utils/StyleUtils';
+import Icon from './Icon';
+import { tint, rgba } from '../utils/styleUtils';
 import { AppContext } from '../app/App';
 
 const ButtonContent = React.memo(props => {

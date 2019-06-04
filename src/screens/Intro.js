@@ -1,10 +1,10 @@
 import React, { Suspense, lazy, useMemo, useContext, useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import { media, AnimFade, rgba } from '../utils/StyleUtils';
+import { media, AnimFade, rgba } from '../utils/styleUtils';
 import DecoderText from '../components/DecoderText';
 import { AppContext } from '../app/App';
-import { useInterval, usePrevious } from '../utils/Hooks';
+import { useInterval, usePrevious } from '../utils/hooks';
 
 const DisplacementSphere = lazy(() => import('../components/DisplacementSphere'));
 const prerender = navigator.userAgent === 'ReactSnap';

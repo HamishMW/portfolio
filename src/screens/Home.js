@@ -6,7 +6,7 @@ import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';
 import Profile from '../screens/Profile';
 import Footer from '../components/Footer';
-import { usePrefersReducedMotion } from '../utils/Hooks';
+import { usePrefersReducedMotion } from '../utils/hooks';
 import sprProject from '../assets/spr-project.png';
 import sprProjectLarge from '../assets/spr-project-large.png';
 import sprProjectPlaceholder from '../assets/spr-project-placeholder.png';

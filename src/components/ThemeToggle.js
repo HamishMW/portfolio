@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
 import nightModeAnimation from '../data/NightModeIconData.json';
-import { media, rgba } from '../utils/StyleUtils';
-import { usePrefersReducedMotion } from '../utils/Hooks';
+import { media, rgba } from '../utils/styleUtils';
+import { usePrefersReducedMotion } from '../utils/hooks';
 
 export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest }) {
   const initThemeId = useRef(themeId);

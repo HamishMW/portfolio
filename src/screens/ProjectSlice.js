@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components/macro';
 import ProgressiveImage from '../components/ProgressiveImage';
-import { useScrollToTop } from '../utils/Hooks';
+import { useScrollToTop } from '../utils/hooks';
 import Footer from '../components/Footer';
 import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectTextRow,
   ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
 } from '../components/Project';
-import { media } from '../utils/StyleUtils';
+import { media } from '../utils/styleUtils';
 import sliceBackground from '../assets/slice-background.jpg';
 import sliceBackgroundLarge from '../assets/slice-background-large.jpg';
 import sliceBackgroundPlaceholder from '../assets/slice-background-placeholder.jpg';

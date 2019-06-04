@@ -3,14 +3,14 @@ import styled from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import { AppContext } from '../app/App';
 import ProgressiveImage from '../components/ProgressiveImage';
-import { useScrollToTop } from '../utils/Hooks';
+import { useScrollToTop } from '../utils/hooks';
 import { LinkButton } from '../components/Button';
 import Footer from '../components/Footer';
 import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader,
   ProjectSectionHeading, ProjectSectionText, ProjectTextRow,
 } from '../components/Project';
-import { media } from '../utils/StyleUtils';
+import { media } from '../utils/styleUtils';
 import volkiharBackground from '../assets/volkihar-background.jpg';
 import volkiharBackgroundLarge from '../assets/volkihar-background-large.jpg';
 import volkiharBackgroundPlaceholder from '../assets/volkihar-background-placeholder.jpg';
@@ -182,6 +182,7 @@ function ProjectVolkihar() {
               </ProjectSectionText>
               <LinkButton
                 secondary
+                style={{ paddingLeft: '3px' }}
                 icon="chevronRight"
                 target="_blank"
                 href="https://store.steampowered.com/app/933480/Enderal_Forgotten_Stories/"
