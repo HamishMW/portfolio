@@ -67,18 +67,24 @@ export default function Home(props) {
 
   useEffect(() => {
     const hasEntered = status === 'entered';
+    const supportsNativeSmoothScroll = 'scrollBehavior' in document.documentElement.style;
 
     const handleHashchange = (hash, scroll) => {
       const hashSections = [intro, projectOne, details];
       const hashString = hash.replace('#', '');
       const element = hashSections.filter(item => item.current.id === hashString)[0];
+      if (!element) return;
+      const behavior = scroll && !prefersReducedMotion ? 'smooth' : 'instant';
+      const top = element.current.offsetTop;
 
-      if (element) {
+      if (supportsNativeSmoothScroll) {
         window.scroll({
-          top: element.current.offsetTop,
+          top,
           left: 0,
-          behavior: scroll && !prefersReducedMotion ? 'smooth' : 'instant',
+          behavior,
         });
+      } else {
+        window.scrollTo(0, top);
       }
     };
 
