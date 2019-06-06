@@ -4,11 +4,14 @@
 <head>
   <meta charset="utf-8">
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-38720984-1"></script>
   <script>
     if (navigator.doNotTrack == 1) {
       window['ga-disable-UA-38720984-1'] = true;
     } else {
+      var script = document.createElement('script');
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=UA-38720984-1';
+      script.async = true;
+      document.head.appendChild(script);
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
