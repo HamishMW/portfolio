@@ -143,7 +143,7 @@ function ProjectSlice(props) {
             <ProjectSectionGridText>
               <ProjectSectionHeading>Meaningful details</ProjectSectionHeading>
               <ProjectSectionText>
-                Marking and annotating areas on high resolution beiomedical images is the core experience of the app, and it was easy to get lost or lose sense of scale when zooming in on details. Adding measurements for the perimeter and area of an annotation both helped to communicate the overall scale of the image and how large the annotated feature is in comparison.
+                Marking and annotating areas on high resolution biomedical images is the core experience of the app, and it was easy to get lost or lose sense of scale when zooming in on details. Adding measurements for the perimeter and area of an annotation both helped to communicate the overall scale of the image and how large the annotated feature is in comparison.
               </ProjectSectionText>
             </ProjectSectionGridText>
           </ProjectSectionGrid>
