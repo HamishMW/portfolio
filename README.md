@@ -23,20 +23,3 @@ To view the components and style guide:
 ```bash
 yarn storybook
 ```
-
-## Not included
-
-API keys not included, in case you dudes are trying to be sneaky beaky. If you want to try the Firebase contact form, edit `/src/config.json` to contain your Firebase project's config like so:
-
-```json
-
-// In src/config.json
-
-{
-  "firebase": {
-    "apiKey": "yourkey123",
-    "databaseURL": "https://domain.firebaseio.com",
-    "projectId": "proj-id",
-  }
-}
-```
