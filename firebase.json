@@ -9,6 +9,10 @@
       {
         "source": "**/storybook",
         "destination": "/storybook/index.html"
+      },
+      {
+        "source": "/functions/**",
+        "function": "app"
       }
     ],
     "headers": [

@@ -8,7 +8,6 @@ import DecoderText from '../components/DecoderText';
 import { Button, RouterButton } from '../components/Button';
 import { media, AnimFade } from '../utils/styleUtils';
 import Svg from '../components/Svg';
-import Firebase from '../utils/firebase';
 import { useScrollToTop, useFormInput } from '../utils/hooks';
 
 const prerender = navigator.userAgent === 'ReactSnap';
@@ -29,16 +28,27 @@ function Contact() {
     try {
       setSending(true);
 
-      await Firebase.database().ref('messages').push({
-        email: email.value,
-        message: message.value,
+      const response = await fetch('https://us-central1-hamishw-e3b37.cloudfunctions.net/app/sendMessage', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.value,
+          message: message.value,
+        }),
       });
+
+      if (response.status !== 200) {
+        throw new Error(`Fetch failed, status: ${response.status}`);
+      }
 
       setComplete(true);
       setSending(false);
     } catch (error) {
       setSending(false);
-      alert(error);
+      alert(error.message);
     }
   }, [email.value, message.value, sending]);
 
@@ -47,7 +57,8 @@ function Contact() {
       <Helmet
         title="Contact me"
         meta={[{
-          name: 'description', content: 'Send me a message if you’re interested in discussing a project or if you just want to say hi',
+          name: 'description',
+          content: 'Send me a message if you’re interested in discussing a project or if you just want to say hi',
         }]}
       />
       <TransitionGroup component={React.Fragment}>

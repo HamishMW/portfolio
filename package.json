@@ -4,10 +4,10 @@
   "homepage": "https://hamishw.com",
   "private": true,
   "devDependencies": {
-    "@storybook/addon-actions": "^5.0.11",
-    "@storybook/addon-knobs": "^5.0.11",
-    "@storybook/addon-links": "^5.0.11",
-    "@storybook/react": "^5.0.11",
+    "@storybook/addon-actions": "^5.1.3",
+    "@storybook/addon-knobs": "^5.1.3",
+    "@storybook/addon-links": "^5.1.3",
+    "@storybook/react": "^5.1.3",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "react-scripts": "3.0.1",
@@ -19,8 +19,6 @@
     "stylelint-processor-styled-components": "^1.8.0"
   },
   "dependencies": {
-    "@firebase/app": "^0.4.3",
-    "@firebase/database": "^0.4.3",
     "autosize": "^4.0.2",
     "es6-tween": "^5.5.10",
     "intersection-observer": "^0.7.0",
@@ -30,9 +28,9 @@
     "react-dom": "^16.8.6",
     "react-easy-swipe": "^0.0.17",
     "react-helmet-async": "^1.0.2",
-    "react-router-dom": "5.0.0",
+    "react-router-dom": "5.0.1",
     "react-transition-group": "^4.1.0",
-    "styled-components": "^4.2.1",
+    "styled-components": "^4.3.1",
     "three": "^0.105.2"
   },
   "scripts": {

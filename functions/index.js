@@ -2,7 +2,11 @@
 
 const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
+const admin = require('firebase-admin');
+const express = require('express');
+const cors = require('cors');
 
+const app = express();
 const gmailEmail = functions.config().gmail.email;
 const gmailPassword = functions.config().gmail.password;
 const mailTransport = nodemailer.createTransport({
@@ -11,6 +15,20 @@ const mailTransport = nodemailer.createTransport({
     user: gmailEmail,
     pass: gmailPassword,
   },
+});
+
+admin.initializeApp();
+app.use(cors({ origin: 'https://hamishw.com' }));
+app.use(express.json());
+
+app.post('/sendMessage', async (req, res) => {
+  try {
+    const { email, message } = req.body;
+    await admin.database().ref('/messages').push({ email, message });
+    res.status(200).end();
+  } catch (error) {
+    res.status(500).json({ error: 'Message rejected' });
+  }
 });
 
 exports.sendMail = functions.database.ref('/messages/{messageID}').onCreate(snapshot => {
@@ -34,3 +52,5 @@ function sendMail(email, message) {
 
   return mailTransport.sendMail(mailOptions);
 }
+
+exports.app = functions.https.onRequest(app);
