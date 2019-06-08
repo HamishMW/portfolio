@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { media, AnimFade, rgba } from '../utils/styleUtils';
+import { media, AnimFade, rgba, sectionPadding } from '../utils/styleUtils';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { LinkButton } from '../components/Button';
 import { usePrefersReducedMotion } from '../utils/hooks';
@@ -88,34 +88,17 @@ export const ProjectSection = styled.section`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
-  @media (min-width: ${media.desktop}) {
-    padding-left: 120px;
-  }
+  ${sectionPadding}
 
   @media (max-width: ${media.tablet}) {
     padding-top: 60px;
-    padding-right: 80px;
     padding-bottom: 60px;
-    padding-left: 160px;
     height: auto;
   }
 
   @media (max-width: ${media.mobile}) {
     padding-top: 40px;
-    padding-right: 25px;
     padding-bottom: 40px;
-    padding-left: 25px;
-  }
-
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
-    padding-left: ${props => props.theme.spacingOuter.mobile};
-    padding-right: ${props => props.theme.spacingOuter.mobile};
-  }
-
-  @media ${media.mobileLS} {
-    padding-left: 100px;
-    padding-right: 100px;
   }
 
   ${props => props.light && css`
@@ -200,10 +183,10 @@ const ProjectHeaderInner = styled.div`
   display: grid;
   grid-template-columns: 1fr 300px;
   grid-gap: 100px;
-  max-width: 980px;
+  max-width: ${props => props.theme.maxWidthLaptop}px;
 
   @media (min-width: ${media.desktop}) {
-    max-width: 1100px;
+    max-width: ${props => props.theme.maxWidthDesktop}px;
     grid-template-columns: 1fr 400px;
   }
 
@@ -310,13 +293,13 @@ export const ProjectImage = styled.div`
 `;
 
 export const ProjectSectionContent = styled.div`
-  max-width: 980px;
+  max-width: ${props => props.theme.maxWidthLaptop}px;
   width: 100%;
   display: flex;
   flex-direction: column;
 
   @media (min-width: ${media.desktop}) {
-    max-width: 1100px;
+    max-width: ${props => props.theme.maxWidthDesktop}px;
   }
 `;
 

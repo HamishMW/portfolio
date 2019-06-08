@@ -41,6 +41,8 @@ const base = {
   fontStack: fonstStack.join(', '),
   colorBlack: 'rgba(0, 0, 0, 1)',
   colorWhite: 'rgba(255, 255, 255, 1)',
+  maxWidthDesktop: 1100,
+  maxWidthLaptop: 1000,
 };
 
 const dark = {

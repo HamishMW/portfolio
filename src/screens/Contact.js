@@ -28,7 +28,7 @@ function Contact() {
     try {
       setSending(true);
 
-      const response = await fetch('https://us-central1-hamishw-e3b37.cloudfunctions.net/app/sendMessage', {
+      const response = await fetch('/app/sendMessage', {
         method: 'POST',
         mode: 'cors',
         headers: {

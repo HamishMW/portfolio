@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
-import { media, rgba } from '../utils/styleUtils';
+import { media, rgba, sectionPadding } from '../utils/styleUtils';
 import { RouterButton, LinkButton } from '../components/Button';
 import ProgressiveImage from '../components/ProgressiveImage';
 import Svg from '../components/Svg';
@@ -93,7 +93,7 @@ function ProjectItem(props) {
 
 const ProjectItemContent = styled.div`
   width: 100%;
-  max-width: 1000px;
+  max-width: ${props => props.theme.maxWidthLaptop}px;
   align-items: center;
   justify-content: center;
   display: grid;
@@ -101,7 +101,7 @@ const ProjectItemContent = styled.div`
   grid-column-gap: 2%;
 
   @media (min-width: ${media.desktop}) {
-    max-width: 1100px;
+    max-width: ${props => props.theme.maxWidthDesktop}px;
   }
 
   @media (max-width: 1245px) {
@@ -143,36 +143,27 @@ const ProjectItemSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${sectionPadding}
 
   &:focus {
     outline: none;
   }
 
   @media (min-width: ${media.desktop}) {
-    padding-left: 120px;
     margin-bottom: 0;
     margin-top: 0;
   }
 
   @media (max-width: ${media.tablet}) {
-    padding-left: 160px;
-    padding-right: 80px;
     height: auto;
     margin-top: ${props => props.index === '01' ? '0' : '60px'};
     margin-bottom: 60px;
   }
 
   @media (max-width: ${media.mobile}) {
-    padding-left: 25px;
-    padding-right: 25px;
     padding-bottom: 100px;
     margin-bottom: 0;
     overflow-x: hidden;
-  }
-
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
-    padding-right: ${props => props.theme.spacingOuter.mobile};
-    padding-left: ${props => props.theme.spacingOuter.mobile};
   }
 
   ${props => props.alternate && css`

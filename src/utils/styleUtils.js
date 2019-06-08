@@ -1,10 +1,12 @@
-import { keyframes } from 'styled-components/macro';
+import { keyframes, css } from 'styled-components/macro';
 
+// Animation utils
 export const AnimFade = keyframes`
   0% {opacity: 0}
   100% {opacity: 1}
 `;
 
+// Media queries
 const numMedia = {
   numDesktop: 1440,
   numTablet: 1024,
@@ -19,6 +21,37 @@ export const media = {
   mobileLS: `(max-width: 820px) and (max-height: 420px)`,
 };
 
+// Style helpers
+export const sectionPadding = css`
+  padding-right: 120px;
+  padding-left: 200px;
+
+  @media (min-width: ${media.desktop}) {
+    padding-left: 120px;
+  }
+
+  @media (max-width: ${media.tablet}) {
+    padding-top: 60px;
+    padding-left: 160px;
+  }
+
+  @media (max-width: ${media.mobile}) {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+    padding-left: ${props => props.theme.spacingOuter.mobile};
+    padding-right: ${props => props.theme.spacingOuter.mobile};
+  }
+
+  @media ${media.mobileLS} {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+`;
+
+// Color utils
 function stringToRgba(colorString) {
   return colorString.split(' ').join('').replace('rgb(', '').replace('rgba(', '').replace(')', '').split(',');
 }

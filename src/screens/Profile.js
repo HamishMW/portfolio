@@ -10,7 +10,7 @@ import Svg from '../components/Svg';
 import ProfileImg from '../assets/profile.jpg';
 import ProfileImgLarge from '../assets/profile-large.jpg';
 import ProfileImgPlaceholder from '../assets/profile-placeholder.jpg';
-import { media } from '../utils/styleUtils';
+import { media, sectionPadding } from '../utils/styleUtils';
 
 const ProfileText = ({ status }) => (
   <React.Fragment>
@@ -60,7 +60,7 @@ function Profile(props) {
                 placeholder={ProfileImgPlaceholder}
                 srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
                 sizes={`(max-width: ${media.mobile}) 100vw, 480px`}
-                alt="Me at the Torii on Miyajima, Japan"
+                alt="Me at the Torii (gate) on Miyajima, an island off the coast of Hiroshima in Japan"
               />
               <ProfileSvg icon="profile" status={status} />
             </ProfileColumn>
@@ -82,6 +82,7 @@ const ProfileSection = styled.section`
   padding-left: 220px;
   display: flex;
   justify-content: center;
+  ${sectionPadding}
 
   &:focus {
     outline: none;
@@ -123,11 +124,11 @@ const ProfileContent = styled.div`
   display: grid;
   grid-template-columns: 44% 48%;
   grid-column-gap: 8%;
-  max-width: 1000px;
+  max-width: ${props => props.theme.maxWidthLaptop}px;
   width: 100%;
 
   @media (min-width: ${media.desktop}) {
-    max-width: 1100px;
+    max-width: ${props => props.theme.maxWidthDesktop}px;
   }
 
   @media (max-width: ${media.tablet}) {
