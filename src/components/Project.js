@@ -81,9 +81,7 @@ export const ProjectSection = styled.section`
   position: relative;
   width: 100vw;
   padding-top: 100px;
-  padding-right: 120px;
   padding-bottom: 100px;
-  padding-left: 210px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -334,7 +332,7 @@ export const ProjectSectionText = styled.p`
 export const ProjectTextRow = styled.div`
   max-width: 660px;
   align-self: center;
-  margin-bottom: 80px;
+  margin-bottom: ${props => props.noMargin ? 0 : 80}px;
   text-align: ${props => props.center ? 'center' : 'left'};
   position: relative;
 

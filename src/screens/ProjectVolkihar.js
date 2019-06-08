@@ -10,7 +10,7 @@ import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader,
   ProjectSectionHeading, ProjectSectionText, ProjectTextRow,
 } from '../components/Project';
-import { media } from '../utils/styleUtils';
+import { media, rgba } from '../utils/styleUtils';
 import volkiharBackground from '../assets/volkihar-background.jpg';
 import volkiharBackgroundLarge from '../assets/volkihar-background-large.jpg';
 import volkiharBackgroundPlaceholder from '../assets/volkihar-background-placeholder.jpg';
@@ -19,10 +19,13 @@ import volkiharBannerLarge from '../assets/volkihar-banner-large.jpg';
 import volkiharBannerPlaceholder from '../assets/volkihar-banner-placeholder.jpg';
 import volkiharArmor from '../assets/volkihar-armor.png';
 import volkiharArmorLarge from '../assets/volkihar-armor-large.png';
+import volkiharArmorPlaceholder from '../assets/volkihar-armor-placeholder.png';
 import volkiharBook from '../assets/volkihar-book.png';
 import volkiharBookLarge from '../assets/volkihar-book-large.png';
 import volkiharBookPlaceholder from '../assets/volkihar-book-placeholder.png';
-import volkiharArmorPlaceholder from '../assets/volkihar-armor-placeholder.png';
+import volkiharEnderal from '../assets/volkihar-enderal.jpg';
+import volkiharEnderalLarge from '../assets/volkihar-enderal-large.jpg';
+import volkiharEnderalPlaceholder from '../assets/volkihar-enderal-placeholder.jpg';
 import volkiharSlide1 from '../assets/volkihar-slide-1.jpg';
 import volkiharSlide1Large from '../assets/volkihar-slide-1-large.jpg';
 import volkiharSlide2 from '../assets/volkihar-slide-2.jpg';
@@ -137,7 +140,7 @@ function ProjectVolkihar() {
             <VolkiharLogoContainer>
               <VolkiharKnightLogo />
             </VolkiharLogoContainer>
-            <ProjectTextRow center>
+            <ProjectTextRow center noMargin>
               <ProjectSectionHeading>Identity design</ProjectSectionHeading>
               <ProjectSectionText>
                 The monogram uses custom designed typography to get the right balance of weight and angularity. I combined this with Trajan for the text, which is also used for Skyrim's game title wordmark.
@@ -173,25 +176,33 @@ function ProjectVolkihar() {
             </Suspense>
           </ProjectSectionSlider>
         </ProjectSection>
-        <ProjectSection>
-          <ProjectSectionContent>
-            <ProjectTextRow center>
-              <ProjectSectionHeading>Featured in Enderal</ProjectSectionHeading>
-              <ProjectSectionText>
-                I was super stoked to have my work featured in the major standalone mod Enderal, which won best fan creation at the game awards in 2016. Within the game my armor design can be found being used for the Wandering Mage armor set.
-              </ProjectSectionText>
-              <LinkButton
-                secondary
-                style={{ paddingLeft: '3px' }}
-                icon="chevronRight"
-                target="_blank"
-                href="https://store.steampowered.com/app/933480/Enderal_Forgotten_Stories/"
-              >
-                View on Steam
-              </LinkButton>
-            </ProjectTextRow>
-          </ProjectSectionContent>
-        </ProjectSection>
+        <ProjectBackgroundSection>
+          <ProjectSectionBackgroundImage
+            srcSet={`${volkiharEnderal} 800w, ${volkiharEnderalLarge} 1100w`}
+            placeholder={volkiharEnderalPlaceholder}
+            alt="A dark elf wearing the Volkihar Knight armor with the logo overlaid on the image."
+            sizes={`(max-width: ${media.mobile}) 500px, (max-width: ${media.tablet}) 800px, 1000px`}
+          />
+          <ProjectSection as="div">
+            <ProjectSectionContent>
+              <ProjectTextRow center noMargin>
+                <ProjectSectionHeading>Featured in Enderal</ProjectSectionHeading>
+                <ProjectSectionText>
+                  I was super stoked to have my work featured in the major standalone mod Enderal, which won best fan creation at the game awards in 2016. Within the game my armor design can be found being used for the Wandering Mage armor set.
+                </ProjectSectionText>
+                <LinkButton
+                  secondary
+                  style={{ paddingLeft: '3px' }}
+                  icon="chevronRight"
+                  target="_blank"
+                  href="https://store.steampowered.com/app/933480/Enderal_Forgotten_Stories/"
+                >
+                  View on Steam
+                </LinkButton>
+              </ProjectTextRow>
+            </ProjectSectionContent>
+          </ProjectSection>
+        </ProjectBackgroundSection>
       </ProjectContainer>
       <Footer />
     </React.Fragment>
@@ -238,6 +249,54 @@ const VolkiharLogoContainer = styled.div`
 
   svg {
     max-width: 400px;
+  }
+`;
+
+const ProjectBackgroundSection = styled.section`
+  display: grid;
+  grid-template-columns: 100%;
+
+  ${ProjectSection} {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  ${ProjectSectionContent} {
+    padding: 200px 0;
+
+    @media (max-width: ${media.tablet}) {
+      padding: 100px 0
+    }
+
+    @media (max-width: ${media.mobile}) {
+      padding: 80px 0
+    }
+  }
+`;
+
+const ProjectSectionBackgroundImage = styled(ProgressiveImage)`
+  grid-column: 1;
+  grid-row: 1;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &::after {
+    content: '';
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 1;
+    background:
+      linear-gradient(
+        ${props => rgba(props.theme.colorBackground, 1)} 0%,
+        ${props => rgba(props.theme.colorBackground, 0.9)} 20%,
+        ${props => rgba(props.theme.colorBackground, 0)} 100%),
+      linear-gradient(
+        ${props => rgba(props.theme.colorBackground, 0)} 0%,
+        ${props => rgba(props.theme.colorBackground, 0.9)} 80%,
+        ${props => rgba(props.theme.colorBackground, 1)} 100%);
   }
 `;
 

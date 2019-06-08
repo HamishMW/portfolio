@@ -91,24 +91,13 @@ const IntroText = styled.header`
   width: 100%;
   position: relative;
   top: -20px;
-  padding: 0 ${props => props.theme.spacingOuter.desktop};
 
   @media (min-width: ${media.desktop}) {
-    padding: 0;
     max-width: 920px;
   }
 
-  @media (max-width: ${media.tablet}) {
-    padding: 0 100px;
-  }
-
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
-    padding: 0 ${props => props.theme.spacingOuter.mobile};
-    top: 0;
-  }
-
   @media ${media.mobileLS} {
-    padding: 0 100px;
+    top: -10vh;
   }
 `;
 

@@ -165,6 +165,7 @@ const ProfileTitle = styled.h2`
 
   @media (max-width: ${media.mobile}) {
     font-size: 28px;
+    margin-bottom: 30px;
   }
 `;
 
