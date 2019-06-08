@@ -52,6 +52,7 @@ storiesOf('Button', module)
       <Button primary icon="send" onClick={action('clicked')}>Icon left</Button>
       <Button primary iconRight="arrowRight" onClick={action('clicked')}>Icon right</Button>
       <Button secondary icon="arrowRight" onClick={action('clicked')}>Secondary icon</Button>
+      <Button secondary iconRight="arrowRight" onClick={action('clicked')}>Secondary icon right</Button>
     </StoryContainer>
   )
   .add('with loader', () =>
@@ -76,8 +77,9 @@ const ExampleInput = props => {
 
 storiesOf('Link', module)
   .add('anchor', () =>
-    <StoryContainer padding={30}>
+    <StoryContainer padding={30} gutter={30} style={{ fontSize: 18 }}>
       <Anchor href="#">I'm an anchor link</Anchor>
+      <Anchor secondary href="#">Secondary link</Anchor>
     </StoryContainer>
   );
 
