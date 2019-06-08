@@ -10,6 +10,7 @@ import { media, AnimFade } from '../utils/styleUtils';
 import Svg from '../components/Svg';
 import { useScrollToTop, useFormInput } from '../utils/hooks';
 
+const sendMessageUrl = 'https://us-central1-hamishw-e3b37.cloudfunctions.net/app/sendMessage';
 const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
 
@@ -28,7 +29,7 @@ function Contact() {
     try {
       setSending(true);
 
-      const response = await fetch('/app/sendMessage', {
+      const response = await fetch(sendMessageUrl, {
         method: 'POST',
         mode: 'cors',
         headers: {

@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 const admin = require('firebase-admin');
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 
 const app = express();
 const gmailEmail = functions.config().gmail.email;
@@ -18,8 +19,9 @@ const mailTransport = nodemailer.createTransport({
 });
 
 admin.initializeApp();
+app.use(helmet());
 app.use(cors({ origin: 'https://hamishw.com' }));
-app.use(express.json());
+app.use(express.json({ limit: '20kb' }));
 
 app.post('/sendMessage', async (req, res) => {
   try {
@@ -29,17 +31,6 @@ app.post('/sendMessage', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Message rejected' });
   }
-});
-
-exports.sendMail = functions.database.ref('/messages/{messageID}').onCreate(snapshot => {
-  const { email, message } = snapshot.val();
-
-  // Automatically remove test messages
-  if (email === 'test@test.test') {
-    snapshot.ref.set(null);
-  }
-
-  return sendMail(email, message);
 });
 
 function sendMail(email, message) {
@@ -52,5 +43,16 @@ function sendMail(email, message) {
 
   return mailTransport.sendMail(mailOptions);
 }
+
+exports.sendMail = functions.database.ref('/messages/{messageID}').onCreate(snapshot => {
+  const { email, message } = snapshot.val();
+
+  // Automatically remove test messages
+  if (email === 'test@test.test') {
+    snapshot.ref.set(null);
+  }
+
+  return sendMail(email, message);
+});
 
 exports.app = functions.https.onRequest(app);
