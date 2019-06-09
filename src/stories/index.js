@@ -78,15 +78,15 @@ const ExampleInput = props => {
 storiesOf('Link', module)
   .add('anchor', () =>
     <StoryContainer padding={30} gutter={30} style={{ fontSize: 18 }}>
-      <Anchor href="#">I'm an anchor link</Anchor>
-      <Anchor secondary href="#">Secondary link</Anchor>
+      <Anchor href="#" onClick={(e) => e.preventDefault()}>I'm an anchor link</Anchor>
+      <Anchor secondary href="#" onClick={(e) => e.preventDefault()}>Secondary link</Anchor>
     </StoryContainer>
   );
 
 storiesOf('Monogram', module)
-  .add('monogram', () =>
+  .add('monogram', (props) =>
     <StoryContainer padding={30}>
-      <Monogram />
+      <Monogram highlight />
     </StoryContainer>
   );
 

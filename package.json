@@ -13,6 +13,8 @@
     "react-scripts": "3.0.1",
     "react-snap": "1.23.0",
     "react-test-renderer": "^16.8.6",
+    "rimraf": "^2.6.3",
+    "storybook-addon-styled-component-theme": "^1.2.3",
     "stylelint": "^10.0.1",
     "stylelint-config-recommended": "^2.2.0",
     "stylelint-config-styled-components": "^0.1.1",
@@ -35,7 +37,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && yarn build-storybook",
     "postbuild": "react-snap",
     "deploy": "firebase deploy --only hosting",
     "deploy-functions": "firebase deploy --only functions",
@@ -43,7 +45,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public -o build/storybook"
+    "build-storybook": "build-storybook -s public -o build/storybook && rimraf build/storybook/static/media/!(*.woff2)"
   },
   "reactSnap": {
     "skipThirdPartyRequests": true,

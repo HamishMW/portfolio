@@ -170,11 +170,27 @@ const ButtonContainer = styled.button`
       background: transparent;
     }
 
-    &:hover:after,
-    &:focus:after,
-    &:active:after {
+    &:hover::after,
+    &:focus::after,
+    &:active::after {
       transform: scale3d(1, 1, 1) translateY(-50%);
       transform-origin: left;
+    }
+
+    &::before {
+      content: '';
+      transition: box-shadow 0.4s ${props.theme.curveFastoutSlowin};
+      transform: translateY(-50%);
+      height: 30px;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &:focus::before {
+      box-shadow: 0 0 0 4px ${props => rgba(props.theme.colorPrimary, 0.4)};
     }
   `}
 

@@ -1,13 +1,9 @@
 import styled from 'styled-components/macro';
 import { rgba } from '../utils/styleUtils';
 
-const getColor = (props) => props.secondary
-  ? rgba(props.theme.colorText, 0.2)
-  : rgba(props.theme.colorPrimary, 0.4);
-
-const getHoverColor = (props) => props.secondary
-  ? rgba(props.theme.colorText, 1)
-  : rgba(props.theme.colorPrimary, 1);
+const lineColor = (opacity, props) => props.secondary
+  ? rgba(props.theme.colorText, opacity)
+  : rgba(props.theme.colorPrimary, opacity);
 
 const Anchor = styled.a.attrs(({ target, rel }) => ({
   rel: rel || target === '_blank' ? 'noreferrer noopener' : null,
@@ -19,16 +15,16 @@ const Anchor = styled.a.attrs(({ target, rel }) => ({
     : props.theme.colorPrimary};
 
   background:
-    linear-gradient(${getHoverColor}, ${getHoverColor}) no-repeat 100% 100% / 0 2px,
-    linear-gradient(${getColor}, ${getColor}) no-repeat 0 100% / 100% 2px;
+    linear-gradient(${props => lineColor(1, props)}, ${props => lineColor(1, props)}) no-repeat 100% 100% / 0 2px,
+    linear-gradient(${props => lineColor(0.2, props)}, ${props => lineColor(0.2, props)}) no-repeat 0 100% / 100% 2px;
   transition: background-size 0.4s ${props => props.theme.curveFastoutSlowin};
   padding-bottom: 2px;
 
   &:hover,
   &:focus {
     background:
-      linear-gradient(${getHoverColor}, ${getHoverColor}) no-repeat 0 100% / 100% 2px,
-      linear-gradient(${getColor}, ${getColor}) no-repeat 0 100% / 100% 2px;
+      linear-gradient(${props => lineColor(1, props)}, ${props => lineColor(1, props)}) no-repeat 0 100% / 100% 2px,
+      linear-gradient(${props => lineColor(0.2, props)}, ${props => lineColor(0.2, props)}) no-repeat 0 100% / 100% 2px;
   }
 `;
 

@@ -9,26 +9,46 @@ import { useWindowSize } from '../utils/hooks';
 
 const ThemeToggle = lazy(() => import('../components/ThemeToggle'));
 
+const navLinks = [
+  {
+    label: 'Projects',
+    url: '/#projects',
+  },
+  {
+    label: 'Details',
+    url: '/#details',
+  },
+  {
+    label: 'Contact',
+    url: '/contact',
+  },
+];
+
+const socialLinks = [
+  {
+    label: 'Twitter',
+    url: 'https://twitter.com/hamishMW',
+    icon: 'twitter',
+  },
+  {
+    label: 'Dribbble',
+    url: 'https://dribbble.com/hamishw',
+    icon: 'dribbble',
+  },
+  {
+    label: 'Github',
+    url: 'https://github.com/HamishMW',
+    icon: 'github',
+  },
+];
+
 const HeaderIcons = () => (
   <HeaderNavIcons>
-    <HeaderNavIconLink
-      aria-label="Twitter"
-      href="https://twitter.com/hamishMW"
-    >
-      <HeaderNavIcon icon="twitter" />
-    </HeaderNavIconLink>
-    <HeaderNavIconLink
-      aria-label="Dribbble"
-      href="https://dribbble.com/hamishw"
-    >
-      <HeaderNavIcon icon="dribbble" />
-    </HeaderNavIconLink>
-    <HeaderNavIconLink
-      aria-label="Github"
-      href="https://github.com/HamishMW"
-    >
-      <HeaderNavIcon icon="github" />
-    </HeaderNavIconLink>
+    {socialLinks.map(({ label, url, icon }) => (
+      <HeaderNavIconLink aria-label={label} href={url}>
+        <HeaderNavIcon icon={icon} />
+      </HeaderNavIconLink>
+    ))}
   </HeaderNavIcons>
 );
 
@@ -46,38 +66,16 @@ function Header(props) {
       >
         {status => (
           <HeaderMobileNav status={status}>
-            <HeaderMobileNavLink
-              delay={250}
-              status={status}
-              onClick={toggleMenu}
-              to="/#intro"
-            >
-              Intro
-            </HeaderMobileNavLink>
-            <HeaderMobileNavLink
-              delay={300}
-              status={status}
-              onClick={toggleMenu}
-              to="/#projects"
-            >
-              Projects
-            </HeaderMobileNavLink>
-            <HeaderMobileNavLink
-              delay={350}
-              status={status}
-              onClick={toggleMenu}
-              to="/#details"
-            >
-              Details
-            </HeaderMobileNavLink>
-            <HeaderMobileNavLink
-              delay={400}
-              status={status}
-              onClick={toggleMenu}
-              to="/contact"
-            >
-              Contact
-            </HeaderMobileNavLink>
+            {navLinks.map(({label, url}, index) => (
+              <HeaderMobileNavLink
+                delay={300 + index * 50}
+                status={status}
+                onClick={toggleMenu}
+                to={url}
+              >
+                {label}
+              </HeaderMobileNavLink>
+            ))}
             <HeaderIcons />
             <Suspense fallback={<React.Fragment />}>
               <ThemeToggle isMobile themeId={currentTheme.id} toggleTheme={toggleTheme} />
@@ -86,13 +84,13 @@ function Header(props) {
         )}
       </Transition>
       <HeaderLogo to="/#intro" aria-label="Home">
-        <Monogram highlight={currentTheme.colorAccent} />
+        <Monogram highlight />
       </HeaderLogo>
       <HeaderNav role="navigation">
         <HeaderNavList>
-          <HeaderNavLink to="/#projects">Projects</HeaderNavLink>
-          <HeaderNavLink to="/#details">Details</HeaderNavLink>
-          <HeaderNavLink to="/contact">Contact</HeaderNavLink>
+          {navLinks.map(({label, url}) => (
+            <HeaderNavLink to={url}>{label}</HeaderNavLink>
+          ))}
         </HeaderNavList>
         <HeaderIcons />
       </HeaderNav>
@@ -136,26 +134,6 @@ const HeaderLogo = styled(Link)`
   position: relative;
   padding: 10px;
   z-index: 16;
-
-  g rect {
-    opacity: 0;
-    transform: scale3d(1, 0, 1);
-    transform-origin: top;
-    transition:
-      transform 0.4s ${props => props.theme.curveFastoutSlowin},
-      opacity 0.1s ease 0.4s;
-  }
-
-  &:hover g rect,
-  &:focus g rect,
-  &:active g rect {
-    opacity: 1;
-    transform: scale3d(1, 1, 1);
-    transform-origin: bottom;
-    transition:
-      transform 0.4s ${props => props.theme.curveFastoutSlowin},
-      opacity 0.1s ease;
-  }
 `;
 
 const HeaderNav = styled.nav`

@@ -1,6 +1,7 @@
 import { configure, addParameters, addDecorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import React from 'react';
+import { withKnobs, select } from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/utils/theme';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -10,28 +11,46 @@ import { fontStyles, GlobalStyles, AppContext } from '../src/app/App';
 
 addParameters({
   options: {
-    theme: themes.dark,
+    theme: {
+      ...themes.dark,
+      brandImage: 'https://hamishw.com/favicon.png',
+      brandTitle: 'Hamish Williams Components',
+      brandUrl: 'https://hamishw.com',
+    },
   },
 });
 
-addDecorator((story) => (
-  <HelmetProvider>
-    <ThemeProvider theme={theme.dark}>
-      <AppContext.Provider value={{ currentTheme: theme.dark }}>
-        <Helmet>
-          <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
-          <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
-          <style>{fontStyles}</style>
-        </Helmet>
-        <GlobalStyles />
-        {story()}
-      </AppContext.Provider>
-    </ThemeProvider>
-  </HelmetProvider>
-))
+const themeKeys = {
+  'Dark': 'dark',
+  'Light': 'light',
+};
+
+addDecorator((story) => {
+  const content = story();
+  const themeKey = select('Theme', themeKeys, 'dark');
+  const currentTheme = theme[themeKey];
+
+  return (
+    <HelmetProvider>
+      <ThemeProvider theme={currentTheme}>
+        <AppContext.Provider value={{ currentTheme }}>
+          <Helmet>
+            <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
+            <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
+            <style>{fontStyles}</style>
+          </Helmet>
+          <GlobalStyles />
+          <div id="storyRoot" key={themeKey}>{content}</div>
+        </AppContext.Provider>
+      </ThemeProvider>
+    </HelmetProvider>
+  )
+});
+
+addDecorator(withKnobs);
 
 function loadStories() {
   require('../src/stories');
-}
+};
 
 configure(loadStories, module);

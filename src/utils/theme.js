@@ -55,7 +55,6 @@ const dark = {
   colorText: base.colorWhite,
   colorPrimary: 'rgba(0, 229, 255, 1)',
   colorAccent: 'rgba(0, 229, 255, 1)',
-  sphereAmbientLight: 0.1,
 };
 
 const light = {
@@ -68,7 +67,6 @@ const light = {
   colorText: rgba(base.colorBlack, 0.8),
   colorPrimary: 'rgba(0, 0, 0, 1)',
   colorAccent: 'rgba(0, 229, 255, 1)',
-  sphereAmbientLight: 0.8,
 };
 
 export const theme = { dark, light };
