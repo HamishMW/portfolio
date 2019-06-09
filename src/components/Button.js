@@ -6,7 +6,7 @@ import Icon from './Icon';
 import { tint, rgba } from '../utils/styleUtils';
 import { AppContext } from '../app/App';
 
-const ButtonContent = React.memo(props => {
+const ButtonContent = props => {
   const { currentTheme } = useContext(AppContext);
   const { iconRight, icon, children, secondary, loading } = props;
 
@@ -20,9 +20,9 @@ const ButtonContent = React.memo(props => {
       {loading && <ButtonLoader size="24" color={currentTheme.colorBackground} />}
     </React.Fragment>
   );
-});
+};
 
-export const Button = React.memo(props => {
+export const Button = props => {
   const { className, style, ...rest } = props;
 
   return (
@@ -30,9 +30,9 @@ export const Button = React.memo(props => {
       <ButtonContent {...rest} />
     </ButtonContainer>
   );
-});
+};
 
-export const LinkButton = React.memo(props => {
+export const LinkButton = props => {
   const { className, style, href, rel, target, secondary } = props;
 
   return (
@@ -48,9 +48,9 @@ export const LinkButton = React.memo(props => {
       <ButtonContent {...props} />
     </ButtonContainer>
   );
-});
+};
 
-export const RouterButton = React.memo(props => {
+export const RouterButton = props => {
   const { className, style, to, secondary } = props;
 
   return (
@@ -64,7 +64,7 @@ export const RouterButton = React.memo(props => {
       <ButtonContent {...props} />
     </ButtonContainer>
   );
-});
+};
 
 const ButtonLoader = styled(Loader)`
   position: absolute;

@@ -45,7 +45,7 @@ const socialLinks = [
 const HeaderIcons = () => (
   <HeaderNavIcons>
     {socialLinks.map(({ label, url, icon }) => (
-      <HeaderNavIconLink aria-label={label} href={url}>
+      <HeaderNavIconLink key={label} aria-label={label} href={url}>
         <HeaderNavIcon icon={icon} />
       </HeaderNavIconLink>
     ))}
@@ -68,6 +68,7 @@ function Header(props) {
           <HeaderMobileNav status={status}>
             {navLinks.map(({label, url}, index) => (
               <HeaderMobileNavLink
+                key={label}
                 delay={300 + index * 50}
                 status={status}
                 onClick={toggleMenu}
@@ -89,7 +90,7 @@ function Header(props) {
       <HeaderNav role="navigation">
         <HeaderNavList>
           {navLinks.map(({label, url}) => (
-            <HeaderNavLink to={url}>{label}</HeaderNavLink>
+            <HeaderNavLink key={label} to={url}>{label}</HeaderNavLink>
           ))}
         </HeaderNavList>
         <HeaderIcons />

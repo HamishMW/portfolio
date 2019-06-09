@@ -20,4 +20,4 @@ function TextArea(props) {
   );
 };
 
-export default React.memo(TextArea);
+export default TextArea;

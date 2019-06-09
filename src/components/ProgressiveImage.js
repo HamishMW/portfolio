@@ -184,4 +184,4 @@ const ImageActual = styled.img`
   grid-row: 1;
 `;
 
-export default React.memo(ProgressiveImage);
+export default ProgressiveImage;

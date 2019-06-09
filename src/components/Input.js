@@ -42,14 +42,13 @@ const InputElement = styled.input`
   background: transparent;
   color: ${props => props.theme.colorText};
   box-shadow: inset 0 -2px 0 0 ${props => rgba(props.theme.colorText, 0.2)};
-  transition: box-shadow 0.4s ease;
-  height: 34px;
+  height: 62px;
   width: 100%;
   font-size: 16px;
   font-family: inherit;
   margin: 0;
   border: 0;
-  padding: 16px 0;
+  padding: 24px 0 16px;
   z-index: 16;
   appearance: none;
   border-radius: 0;
@@ -59,6 +58,13 @@ const InputElement = styled.input`
   &::-webkit-contacts-auto-fill-button {
     background-color: ${props => rgba(props.theme.colorText, 0.4)};
     transition: background-color 0.3s ease;
+  }
+
+  &:-webkit-autofill,
+  &:-internal-autofill-selected {
+    -webkit-text-fill-color:  ${props => props.theme.colorText};
+    box-shadow: 0 0 0px 1000px ${props => rgba(props.theme.colorText, 0.1)} inset;
+    transition: background-color 5000s ease-in-out 0s;
   }
 
   &:focus {
@@ -77,23 +83,23 @@ const InputUnderline = styled.div`
   height: 2px;
   position: absolute;
   bottom: 0;
-  transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
+  transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
   transform-origin: left;
 `;
 
 const InputLabel = styled.label`
   color: ${props => rgba(props.theme.colorText, 0.8)};
   position: absolute;
-  top: 18px;
+  top: 26px;
   left: 0;
   display: block;
   transform-origin: top left;
-  transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
+  transition: transform 0.4s ${props => props.theme.curveFastoutSlowin}, color 0.4s ease;
 
   ${props => (props.hasValue || props.focused) && css`
-    color: ${rgba(props.theme.colorText, 0.4)};
+    color: ${rgba(props.theme.colorText, 0.54)};
     transform: scale(0.8) translateY(-28px);
   `}
 `;
 
-export default React.memo(Input);
+export default Input;

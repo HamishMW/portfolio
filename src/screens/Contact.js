@@ -6,13 +6,26 @@ import { AppContext } from '../app/App';
 import Input from '../components/Input';
 import DecoderText from '../components/DecoderText';
 import { Button, RouterButton } from '../components/Button';
-import { media, AnimFade } from '../utils/styleUtils';
+import { media, AnimFade, sectionPadding } from '../utils/styleUtils';
 import Svg from '../components/Svg';
 import { useScrollToTop, useFormInput } from '../utils/hooks';
 
 const sendMessageUrl = 'https://us-central1-hamishw-e3b37.cloudfunctions.net/app/sendMessage';
 const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
+
+function getStatusError(status) {
+  if (status === 200) return false;
+
+  const genericErrorMessage = 'There was a problem sending your message';
+
+  const statuses = {
+    500: 'There was a problem with the server, try again later',
+    404: 'There was a problem connecting to the server. Make sure you are connected to the internet',
+  };
+
+  return statuses[status] || genericErrorMessage;
+}
 
 function Contact() {
   const { status, currentTheme } = useContext(AppContext);
@@ -41,9 +54,8 @@ function Contact() {
         }),
       });
 
-      if (response.status !== 200) {
-        throw new Error(`Fetch failed, status: ${response.status}`);
-      }
+      const errorStatus = getStatusError(response.status);
+      if (errorStatus) throw new Error(errorStatus);
 
       setComplete(true);
       setSending(false);
@@ -75,37 +87,39 @@ function Contact() {
                   />
                 </ContactTitle>
                 <ContactDivider status={status} delay={100} />
-                <ContactInput
-                  {...email}
-                  status={status}
-                  delay={200}
-                  autoComplete="email"
-                  label="Your Email"
-                  type="email"
-                  maxLength={320}
-                  required
-                />
-                <ContactInput
-                  {...message}
-                  status={status}
-                  delay={300}
-                  autoComplete="off"
-                  label="Message"
-                  maxLength={2000}
-                  required
-                  multiline
-                />
-                <ContactButton
-                  disabled={sending}
-                  sending={sending}
-                  loading={sending}
-                  status={status}
-                  delay={400}
-                  icon="send"
-                  type="submit"
-                >
-                  Send Message
-                </ContactButton>
+                <ContactFields>
+                  <ContactInput
+                    {...email}
+                    status={status}
+                    delay={200}
+                    autoComplete="email"
+                    label="Your Email"
+                    type="email"
+                    maxLength={320}
+                    required
+                  />
+                  <ContactInput
+                    {...message}
+                    status={status}
+                    delay={300}
+                    autoComplete="off"
+                    label="Message"
+                    maxLength={5000}
+                    required
+                    multiline
+                  />
+                  <ContactButton
+                    disabled={sending}
+                    sending={sending}
+                    loading={sending}
+                    status={status}
+                    delay={400}
+                    icon="send"
+                    type="submit"
+                  >
+                    Send Message
+                  </ContactButton>
+                </ContactFields>
               </ContactForm>
             )}
           </Transition>
@@ -114,10 +128,7 @@ function Contact() {
           <Transition appear timeout={10} mountOnEnter unmountOnExit>
             {status => (
               <ContactComplete>
-                <ContactCompleteTitle
-                  status={status}
-                  delay={10}
-                >
+                <ContactCompleteTitle status={status} delay={10}>
                   Message Sent
                 </ContactCompleteTitle>
                 <ContactCompleteText status={status} delay={200}>
@@ -151,19 +162,7 @@ const ContactWrapper = styled.section`
   justify-content: center;
   min-height: 100vh;
   width: 100%;
-  padding-left: 80px;
-
-  @media (max-width: ${media.tablet}) {
-    padding-left: 60px;
-  }
-
-  @media (max-width: ${media.mobile}) {
-    padding-left: 0;
-  }
-
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
-    padding-left: 0;
-  }
+  ${sectionPadding}
 
   ${props => (props.status === 'entered' || props.status === 'exiting') && css`
     position: relative;
@@ -173,12 +172,18 @@ const ContactWrapper = styled.section`
 const ContactForm = styled.form`
   max-width: 440px;
   width: 100%;
-  padding: 40px 20px;
+  padding: 40px 0;
 
   @media (max-width: ${media.mobile}) {
-    padding: 120px 20px 40px;
+    padding: 120px 0 40px;
     align-self: flex-start;
   }
+`;
+
+const ContactFields = styled.div`
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: 32px;
 `;
 
 const ContactTitle = styled.h1`
@@ -211,7 +216,7 @@ const ContactTitle = styled.h1`
 `;
 
 const ContactDivider = styled.div`
-  margin-bottom: 70px;
+  margin-bottom: 62px;
   width: 100%;
   height: 1px;
   background: ${props => props.theme.colorPrimary};
@@ -256,8 +261,6 @@ const ContactDivider = styled.div`
 `;
 
 const ContactInput = styled(Input)`
-  margin-top: 16px;
-  margin-bottom: 40px;
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
@@ -280,13 +283,14 @@ const ContactInput = styled(Input)`
 `;
 
 const ContactButton = styled(Button)`
-  margin-top: 20px;
+  margin-top: 28px;
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-delay: ${props => props.status === 'entered' ? '0ms' : `${props.delay + initDelay}ms`};
   transition-duration: ${props => props.status === 'entered' ? '0.4s' : '0.8s'};
   transform: translate3d(0, 80px, 0);
   opacity: 0;
+  justify-self: flex-start;
 
   ${props => props.sending && css`
     svg {
@@ -331,7 +335,7 @@ const ContactComplete = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px;
+  padding: 30px 0;
   position: fixed;
   top: 0;
   right: 0;
