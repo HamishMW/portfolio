@@ -7,7 +7,6 @@ import Input from '../components/Input';
 import DecoderText from '../components/DecoderText';
 import { Button, RouterButton } from '../components/Button';
 import { media, AnimFade, sectionPadding } from '../utils/styleUtils';
-import Svg from '../components/Svg';
 import { useScrollToTop, useFormInput } from '../utils/hooks';
 
 const sendMessageUrl = 'https://us-central1-hamishw-e3b37.cloudfunctions.net/app/sendMessage';
@@ -28,7 +27,7 @@ function getStatusError(status) {
 }
 
 function Contact() {
-  const { status, currentTheme } = useContext(AppContext);
+  const { status } = useContext(AppContext);
   const email = useFormInput('');
   const message = useFormInput('');
   const [sending, setSending] = useState(false);
@@ -148,9 +147,6 @@ function Contact() {
           </Transition>
         }
       </TransitionGroup>
-      <ContactMeta>
-        <Svg color={currentTheme.colorText} icon="message" />
-      </ContactMeta>
     </ContactWrapper>
   );
 }
@@ -391,28 +387,6 @@ const ContactCompleteButton = styled(RouterButton)`
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
-`;
-
-const ContactMeta = styled.div`
-  position: fixed;
-  right: ${props => props.theme.spacingOuter.desktop};
-  bottom: ${props => props.theme.spacingOuter.desktop};
-  transform: rotate(-90deg) translate3d(100%, 0, 0);
-  transform-origin: bottom right;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  opacity: 0;
-  animation: ${css`${AnimFade}`} 0.8s ease 1s forwards;
-
-  @media (max-width: ${media.tablet}) {
-    right: ${props => props.theme.spacingOuter.tablet};
-    bottom: ${props => props.theme.spacingOuter.tablet};
-  }
-
-  @media (max-width: ${media.mobile}) {
-    display: none;
-  }
 `;
 
 export default React.memo(Contact);

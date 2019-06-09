@@ -87,7 +87,7 @@ const IntroContent = styled.section`
 `;
 
 const IntroText = styled.header`
-  max-width: 860px;
+  max-width: 780px;
   width: 100%;
   position: relative;
   top: -20px;

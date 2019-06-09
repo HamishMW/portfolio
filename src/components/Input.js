@@ -38,10 +38,16 @@ const InputWrapper = styled.div`
   display: flex;
 `;
 
+const AutoFillStyle = css`
+  -webkit-text-fill-color:  ${props => props.theme.colorText};
+  box-shadow: 0 0 0px 1000px ${props => rgba(props.theme.colorText, 0.1)} inset;
+`;
+
 const InputElement = styled.input`
   background: transparent;
   color: ${props => props.theme.colorText};
   box-shadow: inset 0 -2px 0 0 ${props => rgba(props.theme.colorText, 0.2)};
+  transition: background-color 5000s ease-in-out 0s;
   height: 62px;
   width: 100%;
   font-size: 16px;
@@ -55,16 +61,13 @@ const InputElement = styled.input`
   min-height: 54px;
   line-height: 1.4;
 
-  &::-webkit-contacts-auto-fill-button {
-    background-color: ${props => rgba(props.theme.colorText, 0.4)};
-    transition: background-color 0.3s ease;
+  &:-internal-autofill-selected {
+    ${AutoFillStyle}
   }
 
-  &:-webkit-autofill,
-  &:-internal-autofill-selected {
-    -webkit-text-fill-color:  ${props => props.theme.colorText};
-    box-shadow: 0 0 0px 1000px ${props => rgba(props.theme.colorText, 0.1)} inset;
-    transition: background-color 5000s ease-in-out 0s;
+  /* Needs to be a single selector to work in safari */
+  &:-webkit-autofill {
+    ${AutoFillStyle}
   }
 
   &:focus {

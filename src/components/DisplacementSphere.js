@@ -99,7 +99,7 @@ function DisplacementSphere() {
   useEffect(() => {
     const onWindowResize = () => {
       const windowWidth = window.innerWidth;
-      const fullHeight = innerHeight();
+      const fullHeight = innerHeight() + 120;
       container.current.style.height = fullHeight;
       renderer.current.setSize(windowWidth, fullHeight);
       camera.current.aspect = windowWidth / fullHeight;
@@ -113,7 +113,7 @@ function DisplacementSphere() {
         sphere.current.position.y = 12;
       } else {
         sphere.current.position.x = 25;
-        sphere.current.position.y = 10;
+        sphere.current.position.y = 16;
       }
     };
 
@@ -168,7 +168,7 @@ function DisplacementSphere() {
   }, [prefersReducedMotion]);
 
   return (
-    <SphereContainer ref={container} aria-hidden />
+    <SphereContainer aria-hidden ref={container} />
   );
 }
 
@@ -178,7 +178,7 @@ const AnimBackgroundFade = keyframes`
 `;
 
 const SphereContainer = styled.div`
-  position: fixed;
+  position: absolute;
   width: 100vw;
   top: 0;
   right: 0;

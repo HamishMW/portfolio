@@ -36,7 +36,6 @@ import volkiharSlidePlaceholder from '../assets/volkihar-slide-placeholder.jpg';
 import { ReactComponent as VolkiharKnightLogo } from '../assets/volkihar-logo.svg';
 
 const DisplacementSlider = lazy(() => import('../components/DisplacementSlider'));
-
 const prerender = navigator.userAgent === 'ReactSnap';
 
 const title = 'Volkihar Knight';
