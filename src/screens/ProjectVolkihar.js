@@ -180,8 +180,8 @@ function ProjectVolkihar() {
           <ProjectSectionBackgroundImage
             srcSet={`${volkiharEnderal} 800w, ${volkiharEnderalLarge} 1100w`}
             placeholder={volkiharEnderalPlaceholder}
-            alt="A dark elf wearing the Volkihar Knight armor with the logo overlaid on the image."
-            sizes={`(max-width: ${media.mobile}) 500px, (max-width: ${media.tablet}) 800px, 1000px`}
+            alt="A promotional image from Enderal showing several characters in the game overlooking a distant city."
+            sizes={`100vw`}
           />
           <ProjectSection as="div">
             <ProjectSectionContent>
