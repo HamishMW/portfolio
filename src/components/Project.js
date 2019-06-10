@@ -34,7 +34,7 @@ export function ProjectBackground(props) {
   }, [prefersReducedMotion]);
 
   return (
-    <ProjectBackgroundImage offset={offset} {...props} />
+    <ProjectBackgroundImage offsetValue={offset} {...props} />
   );
 }
 
@@ -122,7 +122,7 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs(props => ({
   role: 'presentation',
   opacity: props.opacity ? props.opacity : 0.7,
   style: {
-    transform: `translate3d(0, ${props.offset}px, 0)`,
+    transform: `translate3d(0, ${props.offsetValue}px, 0)`,
   },
 }))`
   z-index: 0;
