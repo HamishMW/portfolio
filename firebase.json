@@ -1,7 +1,6 @@
 {
   "hosting": {
     "public": "build",
-    "trailingSlash": false,
     "rewrites": [
       {
         "source": "/functions/**",
