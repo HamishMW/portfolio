@@ -26,6 +26,9 @@ import volkiharBookPlaceholder from '../assets/volkihar-book-placeholder.png';
 import volkiharEnderal from '../assets/volkihar-enderal.jpg';
 import volkiharEnderalLarge from '../assets/volkihar-enderal-large.jpg';
 import volkiharEnderalPlaceholder from '../assets/volkihar-enderal-placeholder.jpg';
+import volkiharEnderalLogo from '../assets/volkihar-enderal-logo.png';
+import volkiharEnderalLogoLarge from '../assets/volkihar-enderal-logo-large.png';
+import volkiharEnderalLogoPlaceholder from '../assets/volkihar-enderal-logo-placeholder.png';
 import volkiharSlide1 from '../assets/volkihar-slide-1.jpg';
 import volkiharSlide1Large from '../assets/volkihar-slide-1-large.jpg';
 import volkiharSlide2 from '../assets/volkihar-slide-2.jpg';
@@ -184,13 +187,21 @@ function ProjectVolkihar() {
           />
           <ProjectSection as="div">
             <ProjectSectionContent>
-              <ProjectTextRow center noMargin>
+              <ProjectTextRow center centerMobile noMargin>
+                <ProgressiveImage
+                  srcSet={`${volkiharEnderalLogo} 400w, ${volkiharEnderalLogoLarge} 800w`}
+                  placeholder={volkiharEnderalLogoPlaceholder}
+                  alt="The Enderal game logo"
+                  sizes={`(max-width: ${media.mobile}) 100vw, (max-width: ${media.tablet}) 100vw, 220px`}
+                  style={{ maxWidth: 220, width: '100%', marginBottom: 30 }}
+                />
                 <ProjectSectionHeading>Featured in Enderal</ProjectSectionHeading>
                 <ProjectSectionText>
                   I was super stoked to have my work featured in the major standalone mod Enderal, which won best fan creation at the game awards in 2016. Within the game my armor design can be found being used for the Wandering Mage armor set.
                 </ProjectSectionText>
                 <LinkButton
                   secondary
+                  iconHoverShift
                   style={{ paddingLeft: '3px' }}
                   icon="chevronRight"
                   target="_blank"
@@ -261,14 +272,14 @@ const ProjectBackgroundSection = styled.section`
   }
 
   ${ProjectSectionContent} {
-    padding: 200px 0;
+    padding: 180px 0 200px;
 
     @media (max-width: ${media.tablet}) {
-      padding: 100px 0
+      padding: 80px 0 100px;
     }
 
     @media (max-width: ${media.mobile}) {
-      padding: 80px 0
+      padding: 60px 0 80px;
     }
   }
 `;

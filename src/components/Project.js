@@ -49,6 +49,7 @@ export function ProjectHeader(props) {
           <ProjectDescription>{description}</ProjectDescription>
           <LinkButton
             secondary
+            iconHoverShift
             style={{ paddingLeft: '3px' }}
             icon="chevronRight"
             href={url}
@@ -335,8 +336,14 @@ export const ProjectTextRow = styled.div`
   margin-bottom: ${props => props.noMargin ? 0 : 80}px;
   text-align: ${props => props.center ? 'center' : 'left'};
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: ${props => props.center ? 'center' : 'flex-start'};
 
-  @media (max-width: ${media.mobile}) {
-    text-align: left;
-  }
+  ${props => !props.centerMobile && css`
+    @media (max-width: ${media.mobile}) {
+      text-align: left;
+      align-items: flex-start;
+    }
+  `}
 `;

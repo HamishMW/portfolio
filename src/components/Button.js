@@ -8,16 +8,39 @@ import { AppContext } from '../app/App';
 
 const ButtonContent = props => {
   const { currentTheme } = useContext(AppContext);
-  const { iconRight, icon, children, secondary, loading } = props;
+  const { iconRight, icon, children, secondary, loading, iconHoverShift } = props;
 
   return (
     <React.Fragment>
-      {icon && <ButtonIcon loading={loading} left icon={icon} secondary={secondary} />}
-      <ButtonText loading={loading} secondary={secondary}>
+      {icon &&
+        <ButtonIcon
+          left
+          loading={loading}
+          secondary={secondary}
+          iconHoverShift={iconHoverShift}
+          icon={icon}
+        />
+      }
+      <ButtonText
+        loading={loading}
+        secondary={secondary}
+      >
         {children}
       </ButtonText>
-      {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary} />}
-      {loading && <ButtonLoader size="24" color={currentTheme.colorBackground} />}
+      {iconRight &&
+        <ButtonIcon
+          loading={loading}
+          secondary={secondary}
+          iconHoverShift={iconHoverShift}
+          icon={iconRight}
+        />
+      }
+      {loading &&
+        <ButtonLoader
+          size="24"
+          color={currentTheme.colorBackground}
+        />
+      }
     </React.Fragment>
   );
 };
@@ -227,7 +250,7 @@ const ButtonIcon = styled(Icon)`
 
   ${/* sc-selector */ButtonContainer}:hover &,
   ${/* sc-selector */ButtonContainer}:focus & {
-    ${props => props.icon === 'arrowRight' && css`
+    ${props => props.iconHoverShift && css`
       transform: translate3d(3px, 0, 0);
     `}
   }
