@@ -3,8 +3,9 @@ import styled, { css, keyframes } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { media, AnimFade, rgba, sectionPadding } from '../utils/styleUtils';
 import DecoderText from '../components/DecoderText';
+import Svg from '../components/Svg';
 import { AppContext } from '../app/App';
-import { useInterval, usePrevious } from '../utils/hooks';
+import { useInterval, usePrevious, useWindowSize } from '../utils/hooks';
 
 const DisplacementSphere = lazy(() => import('../components/DisplacementSphere'));
 const prerender = navigator.userAgent === 'ReactSnap';
@@ -13,8 +14,8 @@ function Intro(props) {
   const { currentTheme } = useContext(AppContext);
   const { id, sectionRef, disciplines, scrollIndicatorHidden } = props;
   const [disciplineIndex, setDisciplineIndex] = useState(0);
+  const windowSize = useWindowSize();
   const prevTheme = usePrevious(currentTheme);
-
   const introLabel = useMemo(() => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '), [disciplines]);
   const currentDisciplines = useMemo(() => disciplines.filter((item, index) => index === disciplineIndex), [disciplineIndex, disciplines]);
 
@@ -69,7 +70,20 @@ function Intro(props) {
                 </TransitionGroup>
               </IntroTitle>
             </IntroText>
-            <MemoizedScrollIndicator isHidden={scrollIndicatorHidden} status={status} />
+            {windowSize.width > media.numTablet &&
+              <MemoizedScrollIndicator
+                isHidden={scrollIndicatorHidden}
+                status={status}
+              />
+            }
+            {windowSize.width <= media.numTablet &&
+              <MemoizedMobileScrollIndicator
+                isHidden={scrollIndicatorHidden}
+                status={status}
+              >
+                <Svg icon="arrowDown" />
+              </MemoizedMobileScrollIndicator>
+            }
           </React.Fragment>
         )}
       </Transition>
@@ -96,7 +110,11 @@ const IntroText = styled.header`
     max-width: 920px;
   }
 
-  @media ${media.mobileLS} {
+  @media (max-width: ${media.mobile}) {
+    top: -50px;
+  }
+
+  @media (max-width: ${media.mobileLS}) {
     top: -10vh;
   }
 `;
@@ -132,7 +150,6 @@ const IntroName = styled.h1`
 
   @media (max-width: ${media.mobile}) {
     margin-bottom: 25px;
-    margin-top: -30px;
     letter-spacing: 0.2em;
     white-space: nowrap;
     overflow: hidden;
@@ -368,12 +385,42 @@ const ScrollIndicator = styled.div`
   @media ${media.mobileLS} {
     display: none;
   }
+`;
 
-  @media (max-width: ${media.mobile}) {
+const AnimMobileScrollIndicator = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
+
+const MobileScrollIndicator = styled.div`
+  position: fixed;
+  bottom: 40px;
+  opacity: ${props => props.status === 'entered' && !props.isHidden ? 1 : 0};
+  transform: translate3d(0, ${props => props.isHidden ? '20px' : 0}, 0);
+  animation-name: ${AnimMobileScrollIndicator};
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(.8,.1,.27,1);
+  transition-duration: 0.4s;
+
+  @media ${media.mobileLS} {
     display: none;
+  }
+
+  svg {
+    stroke: ${props => rgba(props.theme.colorText, 0.5)};
   }
 `;
 
 const MemoizedScrollIndicator = React.memo(ScrollIndicator);
+const MemoizedMobileScrollIndicator = React.memo(MobileScrollIndicator);
 
 export default React.memo(Intro);

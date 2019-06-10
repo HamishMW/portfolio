@@ -19,7 +19,7 @@ const Svg = ({ icon, color = 'white', ...props }) => {
     ),
     arrowDown: () => (
       <svg stroke={color} {...props} width="43" height="15" viewBox="0 0 43 15" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 1l20.5 12L42 1" stroke-width="2" fill="none" />
+        <path d="M1 1l20.5 12L42 1" strokeWidth="2" fill="none" />
       </svg>
     ),
   }[icon]();

@@ -107,10 +107,10 @@ function DisplacementSphere() {
 
       if (windowWidth <= media.numMobile) {
         sphere.current.position.x = 16;
-        sphere.current.position.y = 8;
+        sphere.current.position.y = 10;
       } else if (windowWidth <= media.numTablet) {
         sphere.current.position.x = 20;
-        sphere.current.position.y = 12;
+        sphere.current.position.y = 14;
       } else {
         sphere.current.position.x = 25;
         sphere.current.position.y = 16;
