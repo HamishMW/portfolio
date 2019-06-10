@@ -1,6 +1,6 @@
 # Personal portfolio
 
-![Site preview](/public/social-image.png)
+[![Site preview](/public/social-image.png)](http://hamishw.com)
 
 A design portfolio to showcase a few projects.
 
@@ -22,4 +22,10 @@ To view the components and style guide:
 
 ```bash
 yarn storybook
+```
+
+To run tests:
+
+```bash
+yarn test
 ```

@@ -35,15 +35,24 @@ function ProjectItem(props) {
                 <ProjectItemTitle id={`${id}-title`} status={status}>{title}</ProjectItemTitle>
                 <ProjectItemDescription status={status}>{description}</ProjectItemDescription>
                 <ProjectItemButton status={status}>
-                  {buttonLink ?
+                  {buttonLink &&
                     <LinkButton
+                      iconHoverShift
                       href={buttonLink}
                       target="_blank"
                       iconRight="arrowRight"
                     >
                       {buttonText}
                     </LinkButton>
-                    : <RouterButton to={buttonTo} iconRight="arrowRight">{buttonText}</RouterButton>
+                  }
+                  {buttonTo &&
+                    <RouterButton
+                      iconHoverShift
+                      to={buttonTo}
+                      iconRight="arrowRight"
+                    >
+                      {buttonText}
+                    </RouterButton>
                   }
                 </ProjectItemButton>
               </ProjectItemDetails>

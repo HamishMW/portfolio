@@ -30,6 +30,7 @@ function NotFound() {
                 </NotFoundDescription>
                 <NotFoundButton
                   secondary
+                  iconHoverShift
                   status={status}
                   to="/"
                   icon="chevronRight"
