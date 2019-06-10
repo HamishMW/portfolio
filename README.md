@@ -2,7 +2,7 @@
 
 [![Site preview](/public/social-image.png)](http://hamishw.com)
 
-A design portfolio to showcase a few projects.
+A design portfolio to showcase a few projects. Check out a live version of the [component design system](http://hamishw.com/storybook).
 
 ## Install & run
 
