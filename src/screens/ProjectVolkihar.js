@@ -180,7 +180,7 @@ function ProjectVolkihar() {
         </ProjectSection>
         <ProjectBackgroundSection>
           <ProjectSectionBackgroundImage
-            srcSet={`${volkiharEnderal} 800w, ${volkiharEnderalLarge} 1100w`}
+            srcSet={`${volkiharEnderal} 1280w, ${volkiharEnderalLarge} 1920w`}
             placeholder={volkiharEnderalPlaceholder}
             alt="A promotional image from Enderal showing several characters in the game overlooking a distant city."
             sizes={`100vw`}
@@ -189,7 +189,7 @@ function ProjectVolkihar() {
             <ProjectSectionContent>
               <ProjectTextRow center centerMobile noMargin>
                 <ProgressiveImage
-                  srcSet={`${volkiharEnderalLogo} 400w, ${volkiharEnderalLogoLarge} 800w`}
+                  srcSet={`${volkiharEnderalLogo} 180w, ${volkiharEnderalLogoLarge} 320w`}
                   placeholder={volkiharEnderalLogoPlaceholder}
                   alt="The Enderal game logo"
                   sizes={`(max-width: ${media.mobile}) 100vw, (max-width: ${media.tablet}) 100vw, 220px`}
