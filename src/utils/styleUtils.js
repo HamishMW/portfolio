@@ -31,7 +31,6 @@ export const sectionPadding = css`
   }
 
   @media (max-width: ${media.tablet}) {
-    padding-top: 60px;
     padding-left: 160px;
   }
 

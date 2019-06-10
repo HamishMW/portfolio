@@ -23,7 +23,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cors({ origin: 'https://hamishw.com' }));
 
-app.post('/sendMessage', async (req, res) => {
+app.post('/functions/sendMessage', async (req, res) => {
   try {
     const { email, message } = req.body;
     await admin.database().ref('/messages').push({ email, message });

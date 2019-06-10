@@ -1,10 +1,11 @@
 {
   "hosting": {
     "public": "build",
+    "trailingSlash": false,
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "/functions/**",
+        "function": "app"
       }
     ],
     "headers": [

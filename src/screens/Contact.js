@@ -9,7 +9,6 @@ import { Button, RouterButton } from '../components/Button';
 import { media, AnimFade, sectionPadding } from '../utils/styleUtils';
 import { useScrollToTop, useFormInput } from '../utils/hooks';
 
-const sendMessageUrl = 'https://us-central1-hamishw-e3b37.cloudfunctions.net/app/sendMessage';
 const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
 
@@ -41,7 +40,7 @@ function Contact() {
     try {
       setSending(true);
 
-      const response = await fetch(sendMessageUrl, {
+      const response = await fetch('/functions/sendMessage', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -171,7 +170,7 @@ const ContactForm = styled.form`
   padding: 40px 0;
 
   @media (max-width: ${media.mobile}) {
-    padding: 120px 0 40px;
+    padding: 60px 0 40px;
     align-self: flex-start;
   }
 `;
