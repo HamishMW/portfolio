@@ -37,7 +37,6 @@ export default function DispalcementSlider(props) {
   const renderer = useRef();
   const animating = useRef(false);
   const scheduledAnimationFrame = useRef();
-  // const currentImage = images[imageIndex];
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const goToIndex = useCallback((index, direction = 1) => {
