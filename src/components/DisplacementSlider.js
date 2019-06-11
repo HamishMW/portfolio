@@ -36,18 +36,20 @@ export default function DispalcementSlider(props) {
   const camera = useRef();
   const renderer = useRef();
   const animating = useRef(false);
+  const swipeDirection = useRef();
   const scheduledAnimationFrame = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const goToIndex = useCallback((index, direction = 1) => {
     if (!sliderImages) return;
-    animating.current = true;
     setImageIndex(index);
     const uniforms = material.current.uniforms;
     uniforms.nextImage.value = sliderImages[index];
     uniforms.direction.value = direction;
 
     if (!prefersReducedMotion) {
+      animating.current = true;
+
       new Tween(uniforms.dispFactor)
         .to({ value: 1 }, 1200)
         .easing(Easing.Exponential.InOut)
@@ -60,9 +62,7 @@ export default function DispalcementSlider(props) {
     } else {
       uniforms.currentImage.value = sliderImages[index];
       uniforms.dispFactor.value = 0.0;
-      setTimeout(() => {
-        animating.current = false;
-      }, 100);
+      renderer.current.render(scene.current, camera.current);
     }
   }, [prefersReducedMotion, sliderImages]);
 
@@ -216,13 +216,35 @@ export default function DispalcementSlider(props) {
     };
   }, []);
 
+  const onSwipeMove = (position, event) => {
+    if (animating.current) return;
+
+    const { x } = position;
+    swipeDirection.current = x > 0 ? -1 : 1;
+    const nextIndex = determineIndex(imageIndex, null, images, swipeDirection.current);
+    const uniforms = material.current.uniforms;
+    const displacementClamp = Math.min(Math.max(Math.abs(x) * 0.001, 0), 1);
+
+    requestAnimationFrame(() => {
+      uniforms.currentImage.value = sliderImages[imageIndex];
+      uniforms.nextImage.value = sliderImages[nextIndex];
+      uniforms.direction.value = swipeDirection.current;
+      uniforms.dispFactor.value = displacementClamp;
+      renderer.current.render(scene.current, camera.current);
+    });
+  };
+
+  const onSwipeEnd = (event) => {
+    navigate(swipeDirection.current);
+  };
+
   return (
     <SliderContainer>
       <SliderContainer>
         <Swipe
           allowMouseEvents
-          onSwipeRight={() => navigate(-1)}
-          onSwipeLeft={() => navigate(1)}
+          onSwipeEnd={onSwipeEnd}
+          onSwipeMove={onSwipeMove}
         >
           <SliderCanvasWrapper
             aria-atomic
