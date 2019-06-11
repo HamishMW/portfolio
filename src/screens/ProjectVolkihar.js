@@ -272,14 +272,14 @@ const ProjectBackgroundSection = styled.section`
   }
 
   ${ProjectSectionContent} {
-    padding: 180px 0 200px;
+    padding: 120px 0 140px;
 
     @media (max-width: ${media.tablet}) {
-      padding: 80px 0 100px;
+      padding: 30px 0 60px;
     }
 
     @media (max-width: ${media.mobile}) {
-      padding: 60px 0 80px;
+      padding: 20px 0 40px;
     }
   }
 `;

@@ -27,11 +27,11 @@ export default function DispalcementSlider(props) {
   const { width, height, images, placeholder } = props;
   const [imageIndex, setImageIndex] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [sliderImages, setSliderImages] = useState();
   const container = useRef();
   const imagePlane = useRef();
   const geometry = useRef();
   const material = useRef();
-  const sliderImages = useRef();
   const scene = useRef();
   const camera = useRef();
   const renderer = useRef();
@@ -41,10 +41,11 @@ export default function DispalcementSlider(props) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const goToIndex = useCallback((index, direction = 1) => {
+    if (!sliderImages) return;
     animating.current = true;
     setImageIndex(index);
     const uniforms = material.current.uniforms;
-    uniforms.nextImage.value = sliderImages.current[index];
+    uniforms.nextImage.value = sliderImages[index];
     uniforms.direction.value = direction;
 
     if (!prefersReducedMotion) {
@@ -52,19 +53,19 @@ export default function DispalcementSlider(props) {
         .to({ value: 1 }, 1200)
         .easing(Easing.Exponential.InOut)
         .on('complete', () => {
-          uniforms.currentImage.value = sliderImages.current[index];
+          uniforms.currentImage.value = sliderImages[index];
           uniforms.dispFactor.value = 0.0;
           animating.current = false;
         })
         .start();
     } else {
-      uniforms.currentImage.value = sliderImages.current[index];
+      uniforms.currentImage.value = sliderImages[index];
       uniforms.dispFactor.value = 0.0;
       setTimeout(() => {
         animating.current = false;
       }, 100);
     }
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, sliderImages]);
 
   const navigate = useCallback((direction, index = null) => {
     if (!loaded) return;
@@ -75,15 +76,21 @@ export default function DispalcementSlider(props) {
       return;
     }
 
-    const finalIndex = determineIndex(imageIndex, index, sliderImages.current, direction);
+    const finalIndex = determineIndex(imageIndex, index, sliderImages, direction);
     goToIndex(finalIndex, direction);
-  }, [goToIndex, imageIndex, loaded]);
+  }, [goToIndex, imageIndex, loaded, sliderImages]);
 
   const onNavClick = useCallback(index => {
     if (index === imageIndex) return;
     const direction = index > imageIndex ? 1 : -1;
     navigate(direction, index);
   }, [imageIndex, navigate]);
+
+  useEffect(() => {
+    if (sliderImages && loaded) {
+      goToIndex(0, 0);
+    }
+  }, [goToIndex, loaded, sliderImages]);
 
   useEffect(() => {
     const containerElement = container.current;
@@ -120,7 +127,6 @@ export default function DispalcementSlider(props) {
       imagePlane.current.position.set(0, 0, 0);
       scene.current.add(imagePlane.current);
       autoPlay(true);
-      goToIndex(0, 0);
     };
 
     const loadImages = async () => {
@@ -152,7 +158,7 @@ export default function DispalcementSlider(props) {
       });
 
       const imageResults = await Promise.all(results);
-      sliderImages.current = imageResults;
+      setSliderImages(imageResults);
       addObjects(imageResults);
     };
 
@@ -192,7 +198,7 @@ export default function DispalcementSlider(props) {
         material.current.dispose();
       }
     };
-  }, [goToIndex, height, images, width]);
+  }, [height, images, width]);
 
   useEffect(() => {
     let animation;
@@ -222,7 +228,7 @@ export default function DispalcementSlider(props) {
         >
           <SliderCanvasWrapper ref={container} />
         </Swipe>
-        <SliderPlaceholder aria-hidden src={placeholder} alt="" loaded={!prerender && loaded} />
+        <SliderPlaceholder aria-hidden src={placeholder} alt="" loaded={!prerender && loaded && sliderImages} />
         <SliderButton
           left
           aria-label="Previous slide"
@@ -268,11 +274,14 @@ const SliderCanvasWrapper = styled.div`
 `;
 
 const SliderImage = styled.img`
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
   position: absolute;
-  pointer-events: none;
-  opacity: 0.001;
-  width: 100%;
-  display: block;
 `;
 
 const SliderPlaceholder = styled.img`
