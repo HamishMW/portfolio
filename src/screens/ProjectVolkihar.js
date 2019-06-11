@@ -274,6 +274,10 @@ const ProjectBackgroundSection = styled.section`
   ${ProjectSectionContent} {
     padding: 120px 0 140px;
 
+    @media (max-width: ${media.laptop}) {
+      padding: 40px 0 100px;
+    }
+
     @media (max-width: ${media.tablet}) {
       padding: 30px 0 60px;
     }

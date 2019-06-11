@@ -37,7 +37,7 @@ export default function DispalcementSlider(props) {
   const renderer = useRef();
   const animating = useRef(false);
   const scheduledAnimationFrame = useRef();
-  const currentImage = images[imageIndex];
+  // const currentImage = images[imageIndex];
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const goToIndex = useCallback((index, direction = 1) => {
@@ -220,15 +220,26 @@ export default function DispalcementSlider(props) {
   return (
     <SliderContainer>
       <SliderContainer>
-        <SliderImage src={currentImage.src} srcSet={currentImage.srcset} alt={currentImage.alt} />
         <Swipe
           allowMouseEvents
           onSwipeRight={() => navigate(-1)}
           onSwipeLeft={() => navigate(1)}
         >
-          <SliderCanvasWrapper ref={container} />
+          <SliderCanvasWrapper
+            aria-atomic
+            aria-live="polite"
+            aria-label={images[imageIndex].alt}
+            ref={container}
+            role="img"
+          />
         </Swipe>
-        <SliderPlaceholder aria-hidden src={placeholder} alt="" loaded={!prerender && loaded && sliderImages} />
+        <SliderPlaceholder
+          aria-hidden
+          src={placeholder}
+          alt=""
+          role="presentation"
+          loaded={!prerender && loaded && sliderImages}
+        />
         <SliderButton
           left
           aria-label="Previous slide"
@@ -271,17 +282,6 @@ const SliderCanvasWrapper = styled.div`
     position: relative;
     display: block;
   }
-`;
-
-const SliderImage = styled.img`
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  position: absolute;
 `;
 
 const SliderPlaceholder = styled.img`

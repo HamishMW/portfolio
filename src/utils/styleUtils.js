@@ -9,6 +9,7 @@ export const AnimFade = keyframes`
 // Media queries
 const numMedia = {
   numDesktop: 1440,
+  numLaptop: 1280,
   numTablet: 1024,
   numMobile: 696,
 };
@@ -16,6 +17,7 @@ const numMedia = {
 export const media = {
   ...numMedia,
   desktop: `${numMedia.numDesktop}px`,
+  laptop: `${numMedia.numLaptop}px`,
   tablet: `${numMedia.numTablet}px`,
   mobile: `${numMedia.numMobile}px`,
   mobileLS: `(max-width: 820px) and (max-height: 420px)`,
