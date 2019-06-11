@@ -27,8 +27,7 @@ const japaneseFonts = [
   'Osaka',
   'メイリオ',
   'Meiryo',
-  'ＭＳ Ｐゴシック',
-  'MS PGothic',
+  'Segoe UI',
   'sans-serif',
 ];
 
