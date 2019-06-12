@@ -40,7 +40,7 @@ export default function DispalcementSlider(props) {
   const scheduledAnimationFrame = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const goToIndex = useCallback((index, direction = 1) => {
+  const goToIndex = useCallback((index, direction = 1, duration = 1200, easing = Easing.Exponential.InOut) => {
     if (!sliderImages) return;
     setImageIndex(index);
     const uniforms = material.current.uniforms;
@@ -51,7 +51,7 @@ export default function DispalcementSlider(props) {
       animating.current = true;
 
       new Tween(uniforms.dispFactor)
-        .to({ value: 1 }, 1200)
+        .to({ value: 1 }, duration)
         .easing(Easing.Exponential.InOut)
         .on('complete', () => {
           uniforms.currentImage.value = sliderImages[index];
@@ -66,7 +66,7 @@ export default function DispalcementSlider(props) {
     }
   }, [prefersReducedMotion, sliderImages]);
 
-  const navigate = useCallback((direction, index = null) => {
+  const navigate = useCallback((direction, index = null, duration, easing) => {
     if (!loaded) return;
 
     if (animating.current) {
@@ -76,7 +76,7 @@ export default function DispalcementSlider(props) {
     }
 
     const finalIndex = determineIndex(imageIndex, index, sliderImages, direction);
-    goToIndex(finalIndex, direction);
+    goToIndex(finalIndex, direction, duration, easing);
   }, [goToIndex, imageIndex, loaded, sliderImages]);
 
   const onNavClick = useCallback(index => {
@@ -229,13 +229,15 @@ export default function DispalcementSlider(props) {
       uniforms.currentImage.value = sliderImages[imageIndex];
       uniforms.nextImage.value = sliderImages[nextIndex];
       uniforms.direction.value = swipeDirection.current;
-      uniforms.dispFactor.value = displacementClamp;
+      if (!prefersReducedMotion) {
+        uniforms.dispFactor.value = displacementClamp;
+      }
       renderer.current.render(scene.current, camera.current);
     });
   };
 
   const onSwipeEnd = (event) => {
-    navigate(swipeDirection.current);
+    navigate(swipeDirection.current, null, 300, Easing.Linear);
   };
 
   return (
