@@ -123,23 +123,25 @@ function ProjectSlice(props) {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionGrid>
-            <ProjectSectionGridBackground>
-              <ProgressiveImage
-                srcSet={`${sliceBackgroundBar} 400w, ${sliceBackgroundBarLarge} 898w`}
-                placeholder={sliceBackgroundBarPlaceholder}
-                alt=""
-                role="presentation"
-                sizes={`(max-width: ${media.mobile}) 312px, (max-width: ${media.tablet}) 408px, 514px`}
-              />
-            </ProjectSectionGridBackground>
-            <ProjectSectionGridForeground>
-              <ProgressiveImage
-                srcSet={`${sliceAnnotation} 440w, ${sliceAnnotationLarge} 880w`}
-                placeholder={sliceAnnotationPlaceholder}
-                alt="An annotation preview popover with statistics for shape perimeter and area."
-                sizes={`(max-width: ${media.mobile}) 584px, (max-width: ${media.tablet}) 747px, 556px`}
-              />
-            </ProjectSectionGridForeground>
+            <ProjectSectionGridImage>
+              <ProjectSectionGridBackground>
+                <ProgressiveImage
+                  srcSet={`${sliceBackgroundBar} 400w, ${sliceBackgroundBarLarge} 898w`}
+                  placeholder={sliceBackgroundBarPlaceholder}
+                  alt=""
+                  role="presentation"
+                  sizes={`(max-width: ${media.mobile}) 312px, (max-width: ${media.tablet}) 408px, 514px`}
+                />
+              </ProjectSectionGridBackground>
+              <ProjectSectionGridForeground>
+                <ProgressiveImage
+                  srcSet={`${sliceAnnotation} 440w, ${sliceAnnotationLarge} 880w`}
+                  placeholder={sliceAnnotationPlaceholder}
+                  alt="An annotation preview popover with statistics for shape perimeter and area."
+                  sizes={`(max-width: ${media.mobile}) 584px, (max-width: ${media.tablet}) 747px, 556px`}
+                />
+              </ProjectSectionGridForeground>
+            </ProjectSectionGridImage>
             <ProjectSectionGridText>
               <ProjectSectionHeading>Meaningful details</ProjectSectionHeading>
               <ProjectSectionText>
@@ -177,9 +179,21 @@ const ProjectSectionGrid = styled(ProjectSectionContent)`
   }
 `;
 
-const ProjectSectionGridBackground = styled.div`
+const ProjectSectionGridImage = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 100%;
   grid-column: 1;
   grid-row: 1;
+
+  @media (max-width: 1200px) {
+    grid-template-rows: 1fr;
+  }
+`;
+
+const ProjectSectionGridBackground = styled.div`
+  grid-column: 1;
+  grid-row: 1 / span 2;
 
   @media (max-width: ${media.tablet}) {
     padding: 0 120px;
@@ -192,7 +206,7 @@ const ProjectSectionGridBackground = styled.div`
 
 const ProjectSectionGridForeground = styled.div`
   grid-column: 1;
-  grid-row: 1;
+  grid-row: 2;
   position: relative;
   right: -140px;
   bottom: 40px;

@@ -135,6 +135,10 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs(props => ({
   opacity: 0;
   overflow: hidden;
 
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+  }
+
   ${props => props.entered && css`
     animation: ${AnimFade} 2s ease ${initDelay}ms forwards;
   `}
@@ -214,6 +218,10 @@ const AnimFadeSlide = keyframes`
 const ProjectDetails = styled.div`
   opacity: 0;
 
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+  }
+
   ${props => props.entered && css`
     animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay}ms forwards;
   `}
@@ -254,6 +262,10 @@ const ProjectMeta = styled.ul`
   padding: 0;
   margin-top: 10px;
   opacity: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+  }
 
   ${props => props.entered && css`
     animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay + 200}ms forwards;

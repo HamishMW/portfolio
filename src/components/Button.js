@@ -8,7 +8,7 @@ import { AppContext } from '../app/App';
 
 const ButtonContent = props => {
   const { currentTheme } = useContext(AppContext);
-  const { iconRight, icon, children, secondary, loading, iconHoverShift } = props;
+  const { iconRight, icon, children, secondary, loading, loadingText, iconHoverShift } = props;
 
   return (
     <React.Fragment>
@@ -38,6 +38,7 @@ const ButtonContent = props => {
       {loading &&
         <ButtonLoader
           size="24"
+          text={loadingText}
           color={currentTheme.colorBackground}
         />
       }

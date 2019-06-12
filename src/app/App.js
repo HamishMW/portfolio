@@ -145,7 +145,7 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     width: 100vw;
     overflow-x: hidden;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   *,
@@ -163,8 +163,8 @@ export const GlobalStyles = createGlobalStyle`
   #root *:after {
     @media (prefers-reduced-motion: reduce) {
       animation-duration: 0s;
-      transition-duration: 0s;
       animation-delay: 0s;
+      transition-duration: 0s;
       transition-delay: 0s;
     }
   }

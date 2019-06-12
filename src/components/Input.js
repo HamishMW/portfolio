@@ -47,7 +47,7 @@ const InputElement = styled.input`
   background: transparent;
   color: ${props => props.theme.colorText};
   box-shadow: inset 0 -2px 0 0 ${props => rgba(props.theme.colorText, 0.2)};
-  transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s linear 0s;
   height: 62px;
   width: 100%;
   font-size: 16px;
@@ -60,6 +60,12 @@ const InputElement = styled.input`
   border-radius: 0;
   min-height: 54px;
   line-height: 1.4;
+
+  @media (prefers-reduced-motion: reduce) {
+    #root & {
+      transition: background-color 5000s linear 0s;
+    }
+  }
 
   &:-internal-autofill-selected {
     ${AutoFillStyle}

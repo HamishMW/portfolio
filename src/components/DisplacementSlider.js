@@ -47,21 +47,23 @@ export default function DispalcementSlider(props) {
     uniforms.nextImage.value = sliderImages[index];
     uniforms.direction.value = direction;
 
-    if (!prefersReducedMotion) {
+    const onComplete = () => {
+      uniforms.currentImage.value = sliderImages[index];
+      uniforms.dispFactor.value = 0.0;
+      animating.current = false;
+    };
+
+    if (!prefersReducedMotion && uniforms.dispFactor.value !== 1) {
       animating.current = true;
+      console.log(uniforms.dispFactor.value);
 
       new Tween(uniforms.dispFactor)
         .to({ value: 1 }, duration)
         .easing(Easing.Exponential.InOut)
-        .on('complete', () => {
-          uniforms.currentImage.value = sliderImages[index];
-          uniforms.dispFactor.value = 0.0;
-          animating.current = false;
-        })
+        .on('complete', onComplete)
         .start();
     } else {
-      uniforms.currentImage.value = sliderImages[index];
-      uniforms.dispFactor.value = 0.0;
+      onComplete();
       renderer.current.render(scene.current, camera.current);
     }
   }, [prefersReducedMotion, sliderImages]);
@@ -218,26 +220,26 @@ export default function DispalcementSlider(props) {
 
   const onSwipeMove = (position, event) => {
     if (animating.current) return;
-
     const { x } = position;
     swipeDirection.current = x > 0 ? -1 : 1;
     const nextIndex = determineIndex(imageIndex, null, images, swipeDirection.current);
     const uniforms = material.current.uniforms;
     const displacementClamp = Math.min(Math.max(Math.abs(x) * 0.001, 0), 1);
 
-    requestAnimationFrame(() => {
-      uniforms.currentImage.value = sliderImages[imageIndex];
-      uniforms.nextImage.value = sliderImages[nextIndex];
-      uniforms.direction.value = swipeDirection.current;
-      if (!prefersReducedMotion) {
-        uniforms.dispFactor.value = displacementClamp;
-      }
-      renderer.current.render(scene.current, camera.current);
-    });
+    uniforms.currentImage.value = sliderImages[imageIndex];
+    uniforms.nextImage.value = sliderImages[nextIndex];
+    uniforms.direction.value = swipeDirection.current;
+
+    if (!prefersReducedMotion) {
+      uniforms.dispFactor.value = displacementClamp;
+    }
+
+    renderer.current.render(scene.current, camera.current);
   };
 
-  const onSwipeEnd = (event) => {
-    navigate(swipeDirection.current, null, 300, Easing.Linear);
+  const onSwipeEnd = () => {
+    const duration = (1 - material.current.uniforms.dispFactor.value) * 1000;
+    navigate(swipeDirection.current, null, duration, Easing.Exponential.Out);
   };
 
   return (

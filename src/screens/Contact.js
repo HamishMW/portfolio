@@ -110,6 +110,7 @@ function Contact() {
                     disabled={sending}
                     sending={sending}
                     loading={sending}
+                    loadingText="Sending..."
                     status={status}
                     delay={400}
                     icon="send"
@@ -125,7 +126,7 @@ function Contact() {
         {complete &&
           <Transition appear timeout={10} mountOnEnter unmountOnExit>
             {status => (
-              <ContactComplete>
+              <ContactComplete aria-live="polite">
                 <ContactCompleteTitle status={status} delay={10}>
                   Message Sent
                 </ContactCompleteTitle>
@@ -295,13 +296,12 @@ const ContactButton = styled(Button)`
     }
 
     div {
-      opacity: 0;
-    }
-  `}
-
-  ${props => props.sending && css`
-   div {
       animation: ${AnimFade} 0.5s ease 0.6s forwards;
+      opacity: 0;
+
+      @media (prefers-reduced-motion: reduce) {
+        opacity: 1;
+      }
     }
   `}
 
