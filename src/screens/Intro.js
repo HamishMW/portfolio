@@ -111,11 +111,11 @@ const IntroText = styled.header`
   }
 
   @media (max-width: ${media.mobile}) {
-    top: -50px;
+    top: -30px;
   }
 
   @media (max-width: ${media.mobileLS}) {
-    top: -10vh;
+    top: -16px;
   }
 `;
 
@@ -149,7 +149,7 @@ const IntroName = styled.h1`
   }
 
   @media (max-width: ${media.mobile}) {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     letter-spacing: 0.2em;
     white-space: nowrap;
     overflow: hidden;
@@ -401,7 +401,7 @@ const AnimMobileScrollIndicator = keyframes`
 
 const MobileScrollIndicator = styled.div`
   position: fixed;
-  bottom: 40px;
+  bottom: 20px;
   opacity: ${props => props.status === 'entered' && !props.isHidden ? 1 : 0};
   transform: translate3d(0, ${props => props.isHidden ? '20px' : 0}, 0);
   animation-name: ${AnimMobileScrollIndicator};

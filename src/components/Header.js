@@ -84,7 +84,7 @@ function Header(props) {
           </HeaderMobileNav>
         )}
       </Transition>
-      <HeaderLogo to="/#intro" aria-label="Home">
+      <HeaderLogo to="/#intro" aria-label="Home" onClick={menuOpen ? toggleMenu : undefined}>
         <Monogram highlight />
       </HeaderLogo>
       <HeaderNav role="navigation">
