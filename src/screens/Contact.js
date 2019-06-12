@@ -171,7 +171,7 @@ const ContactForm = styled.form`
   padding: 40px 0;
 
   @media (max-width: ${media.mobile}) {
-    padding: 60px 0 40px;
+    padding: 120px 0 40px;
     align-self: flex-start;
   }
 `;
