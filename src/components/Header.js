@@ -1,9 +1,10 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from './Monogram';
 import Icon from './Icon';
+import NavToggle from '../components/NavToggle';
 import { media, rgba } from '../utils/styleUtils';
 import { useWindowSize } from '../utils/hooks';
 
@@ -55,18 +56,34 @@ const HeaderIcons = () => (
 function Header(props) {
   const { menuOpen, toggleMenu, currentTheme, toggleTheme } = props;
   const windowSize = useWindowSize();
+  const headerRef = useRef();
+  const isMobile = windowSize.width <= media.numMobile || windowSize.height <= 696;
 
   return (
-    <HeaderWrapper role="banner">
+    <HeaderWrapper role="banner" ref={headerRef}>
+      <HeaderLogo to="/#intro" aria-label="Home" onClick={menuOpen ? toggleMenu : undefined}>
+        <Monogram highlight />
+      </HeaderLogo>
+      {isMobile && <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />}
+      {!isMobile &&
+        <HeaderNav role="navigation">
+          <HeaderNavList>
+            {navLinks.map(({ label, url }) => (
+              <HeaderNavLink key={label} to={url}>{label}</HeaderNavLink>
+            ))}
+          </HeaderNavList>
+          <HeaderIcons />
+        </HeaderNav>
+      }
       <Transition
         mountOnEnter
         unmountOnExit
         in={menuOpen}
-        timeout={{ enter: 0, exit: 500 }}
+        timeout={{ enter: 10, exit: 500 }}
       >
         {status => (
-          <HeaderMobileNav status={status}>
-            {navLinks.map(({label, url}, index) => (
+          <HeaderMobileNav status={status} tabIndex={-1}>
+            {navLinks.map(({ label, url }, index) => (
               <HeaderMobileNavLink
                 key={label}
                 delay={300 + index * 50}
@@ -84,18 +101,7 @@ function Header(props) {
           </HeaderMobileNav>
         )}
       </Transition>
-      <HeaderLogo to="/#intro" aria-label="Home" onClick={menuOpen ? toggleMenu : undefined}>
-        <Monogram highlight />
-      </HeaderLogo>
-      <HeaderNav role="navigation">
-        <HeaderNavList>
-          {navLinks.map(({label, url}) => (
-            <HeaderNavLink key={label} to={url}>{label}</HeaderNavLink>
-          ))}
-        </HeaderNavList>
-        <HeaderIcons />
-      </HeaderNav>
-      {windowSize.width > media.numMobile && windowSize.height > 696 &&
+      {!isMobile &&
         <Suspense fallback={<React.Fragment />}>
           <ThemeToggle themeId={currentTheme.id} toggleTheme={toggleTheme} />
         </Suspense>
@@ -146,10 +152,6 @@ const HeaderNav = styled.nav`
   max-width: 45px;
   position: relative;
   top: -10px;
-
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
-    display: none;
-  }
 `;
 
 const HeaderNavList = styled.div`

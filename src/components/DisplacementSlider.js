@@ -224,7 +224,7 @@ export default function DispalcementSlider(props) {
     swipeDirection.current = x > 0 ? -1 : 1;
     const nextIndex = determineIndex(imageIndex, null, images, swipeDirection.current);
     const uniforms = material.current.uniforms;
-    const displacementClamp = Math.min(Math.max(Math.abs(x) * 0.001, 0), 1);
+    const displacementClamp = Math.min(Math.max(Math.abs(x) * 0.0012, 0), 1);
 
     uniforms.currentImage.value = sliderImages[imageIndex];
     uniforms.nextImage.value = sliderImages[nextIndex];
@@ -287,7 +287,7 @@ export default function DispalcementSlider(props) {
             onClick={() => onNavClick(index)}
             active={index === imageIndex}
             aria-label={`Jump to slide ${index + 1}`}
-            aria-pressed={index === imageIndex}
+            aria-selected={index === imageIndex}
           />
         ))}
       </SliderNav>

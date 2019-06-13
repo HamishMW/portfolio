@@ -4,10 +4,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Transition, TransitionGroup, config } from 'react-transition-group';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import NavToggle from '../components/NavToggle';
 import { theme } from '../utils/theme';
-import { media } from '../utils/styleUtils';
-import { useLocalStorage, useWindowSize, usePrefersReducedMotion } from '../utils/hooks';
+import { useLocalStorage, usePrefersReducedMotion } from '../utils/hooks';
 import GothamBook from '../fonts/gotham-book.woff2';
 import GothamMedium from '../fonts/gotham-medium.woff2';
 
@@ -47,8 +45,6 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [storedTheme, setStoredTheme] = useLocalStorage('theme', 'dark');
   const [currentTheme, setCurrentTheme] = useState(theme.dark);
-  const windowSize = useWindowSize();
-  const showMenuButton = windowSize.width <= media.numMobile || windowSize.height <= 696;
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
@@ -100,7 +96,6 @@ function App() {
                 toggleTheme={toggleTheme}
                 currentTheme={currentTheme}
               />
-              {showMenuButton && <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />}
               <TransitionGroup component={React.Fragment}>
                 <Transition key={location.pathname} timeout={300}>
                   {status => (
@@ -177,10 +172,7 @@ const MainContent = styled.main`
   opacity: 0;
   background: ${props => props.theme.colorBackground};
   transition: background 0.4s ease, opacity 0.3s ease;
-
-  &:focus {
-    outline: none;
-  }
+  outline: none;
 
   ${props => props.status === 'exiting' && css`
     position: absolute;
