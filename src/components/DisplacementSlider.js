@@ -55,7 +55,6 @@ export default function DispalcementSlider(props) {
 
     if (!prefersReducedMotion && uniforms.dispFactor.value !== 1) {
       animating.current = true;
-      console.log(uniforms.dispFactor.value);
 
       new Tween(uniforms.dispFactor)
         .to({ value: 1 }, duration)

@@ -74,7 +74,13 @@ function Contact() {
       />
       <TransitionGroup component={React.Fragment}>
         {!complete &&
-          <Transition appear mountOnEnter unmountOnExit timeout={1600}>
+          <Transition 
+            appear 
+            mountOnEnter 
+            unmountOnExit 
+            timeout={1600} 
+            onEnter={(node) => node && node.offsetHeight}
+          >
             {status => (
               <ContactForm method="post" onSubmit={onSubmit} role="form">
                 <ContactTitle status={status} delay={50}>

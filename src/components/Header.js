@@ -59,14 +59,7 @@ function Header(props) {
   const headerRef = useRef();
   const isMobile = windowSize.width <= media.numMobile || windowSize.height <= 696;
 
-  const handleHashClick = () => {
-    const newHash = window.location.hash;
-    window.location.hash = '';
-    window.location.hash = newHash;
-  };
-
   const handleLogoClick = () => {
-    handleHashClick();
     if (menuOpen) toggleMenu();
   };
 
@@ -82,7 +75,6 @@ function Header(props) {
             {navLinks.map(({ label, url }) => (
               <HeaderNavLink
                 key={label}
-                onClick={url.includes('#') ? handleHashClick : undefined}
                 to={url}
               >
                 {label}
