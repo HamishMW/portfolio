@@ -18,6 +18,7 @@ function Intro(props) {
   const prevTheme = usePrevious(currentTheme);
   const introLabel = useMemo(() => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '), [disciplines]);
   const currentDisciplines = useMemo(() => disciplines.filter((item, index) => index === disciplineIndex), [disciplineIndex, disciplines]);
+  const titleId = `${id}-title`;
 
   useInterval(() => {
     const index = (disciplineIndex + 1) % disciplines.length;
@@ -31,7 +32,12 @@ function Intro(props) {
   }, [currentTheme.id, prevTheme]);
 
   return (
-    <IntroContent ref={sectionRef} id={id}>
+    <IntroContent 
+      ref={sectionRef} 
+      id={id} 
+      aria-labelledby={titleId} 
+      tabIndex={-1}
+    >
       <Transition
         key={currentTheme.id}
         appear={!prerender}
@@ -44,7 +50,7 @@ function Intro(props) {
               <DisplacementSphere />
             </Suspense>
             <IntroText>
-              <IntroName status={status}>
+              <IntroName status={status} id={titleId}>
                 <DecoderText text="Hamish Williams" start={!prerender} offset={120} />
               </IntroName>
               <IntroTitle>

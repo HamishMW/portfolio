@@ -11,15 +11,19 @@ export const useId = () => {
 
 export function useScrollToTop(status) {
   const prevStatus = useRef();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (prevStatus.current === 'entering' && status === 'entered') {
+    const hasEntered = prevStatus.current === 'entering' && status === 'entered';
+    const hasEnteredReducedMotion = prefersReducedMotion && status === 'entered';
+
+    if (hasEntered || hasEnteredReducedMotion) {
       document.getElementById('MainContent').focus({ preventScroll: true });
       window.scrollTo(0, 0);
     };
 
     prevStatus.current = status;
-  }, [status]);
+  }, [prefersReducedMotion, status]);
 }
 
 export function useFormInput(initialValue) {

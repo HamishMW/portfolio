@@ -4,6 +4,7 @@ import { Transition } from 'react-transition-group';
 import { media, rgba, sectionPadding } from '../utils/styleUtils';
 import { RouterButton, LinkButton } from '../components/Button';
 import ProgressiveImage from '../components/ProgressiveImage';
+import { useWindowSize } from '../utils/hooks';
 import Svg from '../components/Svg';
 import phone from '../assets/phone.png';
 import phoneLarge from '../assets/phone-large.png';
@@ -15,83 +16,106 @@ function ProjectItem(props) {
     imagePlaceholder, buttonText, buttonLink, buttonTo, alternate, ...rest
   } = props;
 
+  const windowSize = useWindowSize();
+  const titleId = `${id}-title`;
+  const isMobile = windowSize.width <= media.numTablet;
+
+  const renderDetails = (status) => (
+    <ProjectItemDetails>
+      <ProjectItemIndex status={status} aria-hidden>
+        <ProjectItemIndexNumber status={status}>{index}</ProjectItemIndexNumber>
+      </ProjectItemIndex>
+      <ProjectItemTitle id={titleId} status={status}>{title}</ProjectItemTitle>
+      <ProjectItemDescription status={status}>{description}</ProjectItemDescription>
+      <ProjectItemButton status={status}>
+        {buttonLink &&
+          <LinkButton
+            iconHoverShift
+            href={buttonLink}
+            target="_blank"
+            iconRight="arrowRight"
+          >
+            {buttonText}
+          </LinkButton>
+        }
+        {buttonTo &&
+          <RouterButton
+            iconHoverShift
+            to={buttonTo}
+            iconRight="arrowRight"
+          >
+            {buttonText}
+          </RouterButton>
+        }
+      </ProjectItemButton>
+    </ProjectItemDetails>
+  );
+
+  const renderPreview = (status) => (
+    <ProjectItemPreview>
+      {imageType === 'laptop' &&
+        <ProjectItemPreviewContentLaptop>
+          <ProjectItemImageLaptop
+            status={status}
+            srcSet={imageSrc[0]}
+            alt={imageAlt[0]}
+            placeholder={imagePlaceholder[0]}
+            sizes={`(max-width: ${media.mobile}) 300px,(max-width: ${media.tablet}) 420px,(max-width: ${media.desktop}) 860px, 900px`}
+          />
+          <ProjectItemImageLaptopSvg status={status} icon="projects" />
+        </ProjectItemPreviewContentLaptop>
+      }
+      {imageType === 'phone' &&
+        <ProjectItemPreviewContentPhone>
+          <ProjectItemPhoneImageSvg status={status} icon="projects" />
+          {imageSrc && imageSrc.map((src, index) => (
+            <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
+              <ProjectItemPhoneFrame
+                srcSet={`${phone} 414w, ${phoneLarge} 828w`}
+                sizes={`(max-width: ${media.tablet}) 248px, 414px`}
+                alt=""
+                role="presentation"
+                placeholder={phonePlaceholder}
+              />
+              <ProjectItemPhoneImage
+                srcSet={imageSrc[index]}
+                alt={imageAlt[index]}
+                placeholder={imagePlaceholder[index]}
+                sizes={`(max-width: ${media.tablet}) 152px, 254px`}
+              />
+            </ProjectItemPhone>
+          ))}
+        </ProjectItemPreviewContentPhone>
+      }
+    </ProjectItemPreview>
+  );
+
   return (
     <ProjectItemSection
-      aria-labelledby={`${id}-title`}
+      aria-labelledby={titleId}
       index={index}
       ref={sectionRef}
       id={id}
       alternate={alternate}
+      tabIndex={-1}
       {...rest}
     >
       <ProjectItemContent>
         <Transition in={visible} timeout={0}>
           {status => (
             <React.Fragment>
-              <ProjectItemDetails>
-                <ProjectItemIndex status={status} aria-hidden>
-                  <ProjectItemIndexNumber status={status}>{index}</ProjectItemIndexNumber>
-                </ProjectItemIndex>
-                <ProjectItemTitle id={`${id}-title`} status={status}>{title}</ProjectItemTitle>
-                <ProjectItemDescription status={status}>{description}</ProjectItemDescription>
-                <ProjectItemButton status={status}>
-                  {buttonLink &&
-                    <LinkButton
-                      iconHoverShift
-                      href={buttonLink}
-                      target="_blank"
-                      iconRight="arrowRight"
-                    >
-                      {buttonText}
-                    </LinkButton>
-                  }
-                  {buttonTo &&
-                    <RouterButton
-                      iconHoverShift
-                      to={buttonTo}
-                      iconRight="arrowRight"
-                    >
-                      {buttonText}
-                    </RouterButton>
-                  }
-                </ProjectItemButton>
-              </ProjectItemDetails>
-              <ProjectItemPreview>
-                {imageType === 'laptop' &&
-                  <ProjectItemPreviewContentLaptop>
-                    <ProjectItemImageLaptop
-                      status={status}
-                      srcSet={imageSrc[0]}
-                      alt={imageAlt[0]}
-                      placeholder={imagePlaceholder[0]}
-                      sizes={`(max-width: ${media.mobile}) 300px,(max-width: ${media.tablet}) 420px,(max-width: ${media.desktop}) 860px, 900px`}
-                    />
-                    <ProjectItemImageLaptopSvg status={status} icon="projects" />
-                  </ProjectItemPreviewContentLaptop>
-                }
-                {imageType === 'phone' &&
-                  <ProjectItemPreviewContentPhone>
-                    <ProjectItemPhoneImageSvg status={status} icon="projects" />
-                    {imageSrc && imageSrc.map((src, index) => (
-                      <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
-                        <ProjectItemPhoneFrame
-                          srcSet={`${phone} 414w, ${phoneLarge} 828w`}
-                          sizes={`(max-width: ${media.tablet}) 248px, 414px`}
-                          alt=""
-                          role="presentation"
-                          placeholder={phonePlaceholder}
-                        />
-                        <ProjectItemPhoneImage
-                          srcSet={imageSrc[index]}
-                          alt={imageAlt[index]}
-                          placeholder={imagePlaceholder[index]}
-                          sizes={`(max-width: ${media.tablet}) 152px, 254px`}
-                        />
-                      </ProjectItemPhone>
-                    ))}
-                  </ProjectItemPreviewContentPhone>
-                }
-              </ProjectItemPreview>
+              {!alternate && !isMobile &&
+                <React.Fragment>
+                  {renderDetails(status)}
+                  {renderPreview(status)}
+                </React.Fragment>
+              }
+              {(alternate || isMobile) &&
+                <React.Fragment>
+                  {renderPreview(status)}
+                  {renderDetails(status)}
+                </React.Fragment>
+              }
             </React.Fragment>
           )}
         </Transition>
@@ -152,11 +176,8 @@ const ProjectItemSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+  outline: none;
   ${sectionPadding}
-
-  &:focus {
-    outline: none;
-  }
 
   @media (min-width: ${media.desktop}) {
     margin-bottom: 0;
@@ -181,16 +202,6 @@ const ProjectItemSection = styled.section`
 
       @media (max-width: ${media.tablet}) {
         grid-template-columns: 100%;
-      }
-    }
-
-    ${ProjectItemDetails} {
-      grid-column: 2;
-      grid-row: 1;
-
-      @media (max-width: ${media.tablet}) {
-        grid-column: 1;
-        grid-row: 2;
       }
     }
   `}

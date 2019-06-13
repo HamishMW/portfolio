@@ -76,6 +76,7 @@ export default function Home(props) {
       if (!element) return;
       const behavior = scroll && !prefersReducedMotion ? 'smooth' : 'instant';
       const top = element.current.offsetTop;
+      element.current.focus({ preventScroll: true });
 
       if (supportsNativeSmoothScroll) {
         window.scroll({

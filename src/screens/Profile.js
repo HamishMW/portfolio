@@ -12,9 +12,9 @@ import ProfileImgLarge from '../assets/profile-large.jpg';
 import ProfileImgPlaceholder from '../assets/profile-placeholder.jpg';
 import { media, sectionPadding } from '../utils/styleUtils';
 
-const ProfileText = ({ status }) => (
+const ProfileText = ({ status, titleId }) => (
   <React.Fragment>
-    <ProfileTitle status={status} id="profileTitle">
+    <ProfileTitle status={status} id={titleId}>
       <DecoderText
         text="Hi there"
         start={status !== 'exited'}
@@ -32,14 +32,20 @@ const ProfileText = ({ status }) => (
 
 function Profile(props) {
   const { id, visible, sectionRef } = props;
+  const titleId = `${id}-title`;
 
   return (
-    <ProfileSection id={id} ref={sectionRef} aria-labelledby="profileTitle">
+    <ProfileSection
+      id={id}
+      ref={sectionRef}
+      aria-labelledby={titleId}
+      tabIndex={-1}
+    >
       <Transition in={visible} timeout={0}>
         {status => (
           <ProfileContent>
             <ProfileColumn>
-              <ProfileText status={status} />
+              <ProfileText status={status} titleId={titleId} />
               <ProfileButton
                 secondary
                 status={status}

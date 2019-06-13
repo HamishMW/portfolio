@@ -59,9 +59,20 @@ function Header(props) {
   const headerRef = useRef();
   const isMobile = windowSize.width <= media.numMobile || windowSize.height <= 696;
 
+  const handleHashClick = () => {
+    const newHash = window.location.hash;
+    window.location.hash = '';
+    window.location.hash = newHash;
+  };
+
+  const handleLogoClick = () => {
+    handleHashClick();
+    if (menuOpen) toggleMenu();
+  };
+
   return (
     <HeaderWrapper role="banner" ref={headerRef}>
-      <HeaderLogo to="/#intro" aria-label="Home" onClick={menuOpen ? toggleMenu : undefined}>
+      <HeaderLogo to="/#intro" aria-label="Home" onClick={handleLogoClick}>
         <Monogram highlight />
       </HeaderLogo>
       {isMobile && <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />}
@@ -69,7 +80,13 @@ function Header(props) {
         <HeaderNav role="navigation">
           <HeaderNavList>
             {navLinks.map(({ label, url }) => (
-              <HeaderNavLink key={label} to={url}>{label}</HeaderNavLink>
+              <HeaderNavLink
+                key={label}
+                onClick={url.includes('#') ? handleHashClick : undefined}
+                to={url}
+              >
+                {label}
+              </HeaderNavLink>
             ))}
           </HeaderNavList>
           <HeaderIcons />
