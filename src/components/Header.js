@@ -88,10 +88,11 @@ function Header(props) {
         mountOnEnter
         unmountOnExit
         in={menuOpen}
-        timeout={{ enter: 10, exit: 500 }}
+        timeout={{ enter: 0, exit: 500 }}
+        onEnter={(node) => node && node.offsetHeight}
       >
         {status => (
-          <HeaderMobileNav status={status} tabIndex={-1}>
+          <HeaderMobileNav status={status}>
             {navLinks.map(({ label, url }, index) => (
               <HeaderMobileNavLink
                 key={label}

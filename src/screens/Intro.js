@@ -32,10 +32,10 @@ function Intro(props) {
   }, [currentTheme.id, prevTheme]);
 
   return (
-    <IntroContent 
-      ref={sectionRef} 
-      id={id} 
-      aria-labelledby={titleId} 
+    <IntroContent
+      ref={sectionRef}
+      id={id}
+      aria-labelledby={titleId}
       tabIndex={-1}
     >
       <Transition
@@ -103,6 +103,7 @@ const IntroContent = styled.section`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  outline: none;
   ${sectionPadding}
 `;
 

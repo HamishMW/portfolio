@@ -28,6 +28,7 @@ export default function DispalcementSlider(props) {
   const [imageIndex, setImageIndex] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderImages, setSliderImages] = useState();
+  const [canvasWidth, setCanvasWidth] = useState();
   const container = useRef();
   const imagePlane = useRef();
   const geometry = useRef();
@@ -37,10 +38,16 @@ export default function DispalcementSlider(props) {
   const renderer = useRef();
   const animating = useRef(false);
   const swipeDirection = useRef();
+  const lastSwipePosition = useRef();
   const scheduledAnimationFrame = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const goToIndex = useCallback((index, direction = 1, duration = 1200, easing = Easing.Exponential.InOut) => {
+  const goToIndex = useCallback(({
+    index,
+    direction = 1,
+    duration = 1200,
+    easing = Easing.Exponential.InOut,
+  }) => {
     if (!sliderImages) return;
     setImageIndex(index);
     const uniforms = material.current.uniforms;
@@ -49,7 +56,7 @@ export default function DispalcementSlider(props) {
 
     const onComplete = () => {
       uniforms.currentImage.value = sliderImages[index];
-      uniforms.dispFactor.value = 0.0;
+      uniforms.dispFactor.value = 0;
       animating.current = false;
     };
 
@@ -58,7 +65,7 @@ export default function DispalcementSlider(props) {
 
       new Tween(uniforms.dispFactor)
         .to({ value: 1 }, duration)
-        .easing(Easing.Exponential.InOut)
+        .easing(easing)
         .on('complete', onComplete)
         .start();
     } else {
@@ -67,30 +74,49 @@ export default function DispalcementSlider(props) {
     }
   }, [prefersReducedMotion, sliderImages]);
 
-  const navigate = useCallback((direction, index = null, duration, easing) => {
+  const navigate = useCallback(({
+    direction,
+    index = null,
+    ...rest,
+  }) => {
     if (!loaded) return;
 
     if (animating.current) {
       cancelAnimationFrame(scheduledAnimationFrame.current);
-      scheduledAnimationFrame.current = requestAnimationFrame(() => navigate(direction, index));
+      scheduledAnimationFrame.current = requestAnimationFrame(() =>
+        navigate({ direction, index, ...rest }));
       return;
     }
 
     const finalIndex = determineIndex(imageIndex, index, sliderImages, direction);
-    goToIndex(finalIndex, direction, duration, easing);
+    goToIndex({ index: finalIndex, direction: direction, ...rest });
   }, [goToIndex, imageIndex, loaded, sliderImages]);
 
   const onNavClick = useCallback(index => {
     if (index === imageIndex) return;
     const direction = index > imageIndex ? 1 : -1;
-    navigate(direction, index);
+    navigate({ direction, index });
   }, [imageIndex, navigate]);
 
   useEffect(() => {
     if (sliderImages && loaded) {
-      goToIndex(0, 0);
+      goToIndex({ index: 0, direction: 0 });
     }
   }, [goToIndex, loaded, sliderImages]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = parseInt(getComputedStyle(container.current).width, 10);
+      setCanvasWidth(width);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return function cleanup() {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const containerElement = container.current;
@@ -217,13 +243,18 @@ export default function DispalcementSlider(props) {
     };
   }, []);
 
-  const onSwipeMove = (position, event) => {
+  const onSwipeMove = useCallback((position, event) => {
     if (animating.current) return;
     const { x } = position;
+    const absoluteX = Math.abs(x);
+    const containerWidth = canvasWidth;
+    if (absoluteX > 20) event.preventDefault();
+    lastSwipePosition.current = x;
     swipeDirection.current = x > 0 ? -1 : 1;
+    const swipePercentage = 1 - (absoluteX - containerWidth) / containerWidth * -1;
     const nextIndex = determineIndex(imageIndex, null, images, swipeDirection.current);
     const uniforms = material.current.uniforms;
-    const displacementClamp = Math.min(Math.max(Math.abs(x) * 0.0012, 0), 1);
+    const displacementClamp = Math.min(Math.max(swipePercentage, 0), 1);
 
     uniforms.currentImage.value = sliderImages[imageIndex];
     uniforms.nextImage.value = sliderImages[nextIndex];
@@ -234,12 +265,37 @@ export default function DispalcementSlider(props) {
     }
 
     renderer.current.render(scene.current, camera.current);
-  };
+  }, [canvasWidth, imageIndex, images, prefersReducedMotion, sliderImages]);
 
-  const onSwipeEnd = () => {
-    const duration = (1 - material.current.uniforms.dispFactor.value) * 1000;
-    navigate(swipeDirection.current, null, duration, Easing.Exponential.Out);
-  };
+  const onSwipeEnd = useCallback(() => {
+    const uniforms = material.current.uniforms;
+    const duration = (1 - uniforms.dispFactor.value) * 1000;
+    const position = Math.abs(lastSwipePosition.current);
+    const minSwipeDistance = canvasWidth * 0.2;
+    lastSwipePosition.current = 0;
+
+    if (animating.current) return;
+    if (position === 0 || !position) return;
+
+    if (position > minSwipeDistance) {
+      navigate({
+        duration,
+        direction: swipeDirection.current,
+        easing: Easing.Exponential.Out,
+      });
+    } else {
+      uniforms.currentImage.value = uniforms.nextImage.value;
+      uniforms.nextImage.value = uniforms.currentImage.value;
+      uniforms.dispFactor.value = 1 - uniforms.dispFactor.value;
+
+      navigate({
+        duration: 200,
+        direction: swipeDirection.current * -1,
+        index: imageIndex,
+        easing: Easing.Exponential.Out,
+      });
+    }
+  }, [canvasWidth, imageIndex, navigate]);
 
   return (
     <SliderContainer>
@@ -267,14 +323,14 @@ export default function DispalcementSlider(props) {
         <SliderButton
           left
           aria-label="Previous slide"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate({ direction: -1 })}
         >
           <Icon icon="slideLeft" />
         </SliderButton>
         <SliderButton
           right
           aria-label="Next slide"
-          onClick={() => navigate(1)}
+          onClick={() => navigate({ direction: 1 })}
         >
           <Icon icon="slideRight" />
         </SliderButton>
@@ -300,6 +356,7 @@ const SliderContainer = styled.div`
 
 const SliderCanvasWrapper = styled.div`
   position: relative;
+  user-select: none;
   cursor: grab;
 
   canvas {

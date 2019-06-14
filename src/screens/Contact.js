@@ -74,11 +74,11 @@ function Contact() {
       />
       <TransitionGroup component={React.Fragment}>
         {!complete &&
-          <Transition 
-            appear 
-            mountOnEnter 
-            unmountOnExit 
-            timeout={1600} 
+          <Transition
+            appear
+            mountOnEnter
+            unmountOnExit
+            timeout={1600}
             onEnter={(node) => node && node.offsetHeight}
           >
             {status => (
