@@ -2,6 +2,7 @@ import { configure, addParameters, addDecorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import React from 'react';
 import { withKnobs, select } from '@storybook/addon-knobs';
+import { withA11y } from '@storybook/addon-a11y';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/utils/theme';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -13,7 +14,7 @@ addParameters({
   options: {
     theme: {
       ...themes.dark,
-      brandImage: 'https://hamishw.com/favicon.png',
+      brandImage: 'https://hamishw.com/icon.svg',
       brandTitle: 'Hamish Williams Components',
       brandUrl: 'https://hamishw.com',
     },
@@ -48,6 +49,7 @@ addDecorator((story) => {
 });
 
 addDecorator(withKnobs);
+addDecorator(withA11y);
 
 function loadStories() {
   require('../src/stories');

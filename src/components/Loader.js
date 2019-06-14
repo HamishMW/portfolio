@@ -8,7 +8,7 @@ const Loader = ({ size = 32, color = '#fff', text = 'Loading...', ...rest }) => 
 
   const renderScreenReaderTextPortal = () => ReactDOM.createPortal(
     <LoaderAnnouncement aria-live="assertive">{text}</LoaderAnnouncement>
-  , document.body);
+    , document.body);
 
   if (prefersReducedMotion) {
     return (
@@ -20,7 +20,7 @@ const Loader = ({ size = 32, color = '#fff', text = 'Loading...', ...rest }) => 
   }
 
   return (
-    <LoaderContainer size={size} {...rest}>
+    <LoaderContainer aria-label={text} size={size} {...rest}>
       <LoaderSpan color={color} />
       <LoaderSpan color={color} />
       <LoaderSpan color={color} />

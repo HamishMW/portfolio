@@ -69,11 +69,11 @@ function ImageElements(props) {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const placeholderRef = useRef();
 
-  const purgePlaceholder = useCallback(() => {
-    setShowPlaceholder(false);
-  }, []);
-
   useEffect(() => {
+    const purgePlaceholder = () => {
+      setShowPlaceholder(false);
+    };
+
     const placeholderElement = placeholderRef.current;
     placeholderElement.addEventListener('transitionend', purgePlaceholder);
 
@@ -82,7 +82,7 @@ function ImageElements(props) {
         placeholderElement.removeEventListener('transitionend', purgePlaceholder);
       }
     };
-  }, [purgePlaceholder]);
+  }, []);
 
   return (
     <React.Fragment>

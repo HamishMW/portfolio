@@ -8,18 +8,17 @@ import Input from '../components/Input';
 import Anchor from '../components/Anchor';
 import Monogram from '../components/Monogram';
 import DisplacementSphere from '../components/DisplacementSphere';
+import DisplacementSlider from '../components/DisplacementSlider';
 import DecoderText from '../components/DecoderText';
 import { useFormInput } from '../utils/hooks';
+import placeholder from './assets/slider-placeholder.jpg';
 
 const StoryContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: max-content;
+  grid-auto-columns: ${props => props.fullWidth ? '100%' : 'max-content'};
   align-items: flex-start;
   justify-items: flex-start;
 
@@ -63,7 +62,9 @@ storiesOf('Button', module)
 
 storiesOf('Displacement sphere', module)
   .add('sphere', () =>
-    <DisplacementSphere />
+    <StoryContainer>
+      <DisplacementSphere />
+    </StoryContainer>
   );
 
 const ExampleInput = props => {
@@ -104,5 +105,27 @@ storiesOf('Decoder text', module)
       <h2 style={{ fontWeight: 500, margin: 0 }}>
         <DecoderText start text="Slick cyberpunk text" />
       </h2>
+    </StoryContainer>
+  );
+
+storiesOf('Displacement slider', module)
+  .add('images', () =>
+    <StoryContainer fullWidth padding={30}>
+      <DisplacementSlider
+        style={{ maxWidth: 800, width: '100%' }}
+        placeholder={placeholder}
+        images={[
+          {
+            src: 'https://images.unsplash.com/photo-1502716197620-bf14ce1651b3',
+            alt: 'Tokyo at night',
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1502716643504-c4ea7b357d91',
+            alt: 'A cool cyberpunk cityscape'
+          },
+        ]}
+        width={1920}
+        height={1080}
+      />
     </StoryContainer>
   );

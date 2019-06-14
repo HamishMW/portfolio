@@ -23,9 +23,10 @@ function determineIndex(imageIndex, index, images, direction) {
 };
 
 export default function DispalcementSlider(props) {
-  const { width, height, images, placeholder } = props;
+  const { width, height, images, placeholder, ...rest } = props;
   const [imageIndex, setImageIndex] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [sliderImages, setSliderImages] = useState();
   const [canvasWidth, setCanvasWidth] = useState();
   const container = useRef();
@@ -40,6 +41,7 @@ export default function DispalcementSlider(props) {
   const lastSwipePosition = useRef();
   const scheduledAnimationFrame = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const placeholderRef = useRef();
 
   const goToIndex = useCallback(({
     index,
@@ -99,7 +101,7 @@ export default function DispalcementSlider(props) {
 
   useEffect(() => {
     if (sliderImages && loaded) {
-      goToIndex({ index: 0, direction: 0 });
+      goToIndex({ index: 0, direction: 0, duration: 0 });
     }
   }, [goToIndex, loaded, sliderImages]);
 
@@ -167,7 +169,10 @@ export default function DispalcementSlider(props) {
         return new Promise((resolve, reject) => {
           const tempImage = new Image();
           tempImage.src = item.src;
-          tempImage.srcset = item.srcset;
+
+          if (item.srcset) {
+            tempImage.srcset = item.srcset;
+          }
 
           const onLoad = () => {
             tempImage.removeEventListener('load', onLoad);
@@ -242,6 +247,23 @@ export default function DispalcementSlider(props) {
     };
   }, []);
 
+  useEffect(() => {
+    if (placeholder) {
+      const purgePlaceholder = () => {
+        setShowPlaceholder(false);
+      };
+
+      const placeholderElement = placeholderRef.current;
+      placeholderElement.addEventListener('transitionend', purgePlaceholder);
+
+      return function cleanUp() {
+        if (placeholderElement) {
+          placeholderElement.removeEventListener('transitionend', purgePlaceholder);
+        }
+      };
+    }
+  }, [placeholder]);
+
   const onSwipeMove = useCallback((position, event) => {
     if (animating.current) return;
     const { x } = position;
@@ -288,7 +310,7 @@ export default function DispalcementSlider(props) {
       uniforms.dispFactor.value = 1 - uniforms.dispFactor.value;
 
       navigate({
-        duration: 200,
+        duration: uniforms.dispFactor.value * 1000,
         direction: swipeDirection.current * -1,
         index: imageIndex,
         easing: Easing.Exponential.Out,
@@ -297,28 +319,33 @@ export default function DispalcementSlider(props) {
   }, [canvasWidth, imageIndex, navigate]);
 
   return (
-    <SliderContainer>
+    <SliderContainer {...rest}>
       <SliderContainer>
         <Swipe
           allowMouseEvents
           onSwipeEnd={onSwipeEnd}
           onSwipeMove={onSwipeMove}
         >
-          <SliderCanvasWrapper
-            aria-atomic
-            aria-live="polite"
-            aria-label={images[imageIndex].alt}
-            ref={container}
-            role="img"
-          />
+          <SliderImageWrapper>
+            <SliderCanvasWrapper
+              aria-atomic
+              aria-live="polite"
+              aria-label={images[imageIndex].alt}
+              ref={container}
+              role="img"
+            />
+            {showPlaceholder && placeholder &&
+              <SliderPlaceholder
+                aria-hidden
+                src={placeholder}
+                ref={placeholderRef}
+                alt=""
+                role="presentation"
+                loaded={!prerender && loaded && sliderImages}
+              />
+            }
+          </SliderImageWrapper>
         </Swipe>
-        <SliderPlaceholder
-          aria-hidden
-          src={placeholder}
-          alt=""
-          role="presentation"
-          loaded={!prerender && loaded && sliderImages}
-        />
         <SliderButton
           left
           aria-label="Previous slide"
@@ -337,11 +364,11 @@ export default function DispalcementSlider(props) {
       <SliderNav>
         {images.map((image, index) => (
           <SliderNavButton
-            key={image.src}
+            key={image.alt}
             onClick={() => onNavClick(index)}
             active={index === imageIndex}
             aria-label={`Jump to slide ${index + 1}`}
-            aria-selected={index === imageIndex}
+            aria-pressed={index === imageIndex}
           />
         ))}
       </SliderNav>
@@ -353,10 +380,18 @@ const SliderContainer = styled.div`
   position: relative;
 `;
 
+const SliderImageWrapper = styled.div`
+  position: relative;
+  display: grid;
+  grid-template-columns: 100%;
+`;
+
 const SliderCanvasWrapper = styled.div`
   position: relative;
   user-select: none;
   cursor: grab;
+  grid-column: 1;
+  grid-row: 1;
 
   &:active {
     cursor: grabbing;
@@ -369,15 +404,14 @@ const SliderCanvasWrapper = styled.div`
 `;
 
 const SliderPlaceholder = styled.img`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  grid-column: 1;
+  grid-row: 1;
   width: 100%;
   transition: opacity 1s ease;
   opacity: ${props => props.loaded ? 0 : 1};
   pointer-events: none;
+  position: relative;
+  z-index: 1;
 `;
 
 const SliderButton = styled.button`
