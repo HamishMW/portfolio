@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
-import 'intersection-observer';
 import { AppContext } from '../app/App';
 import Intro from '../screens/Intro';
 import ProjectItem from '../screens/ProjectItem';

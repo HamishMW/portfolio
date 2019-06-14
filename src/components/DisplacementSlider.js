@@ -4,7 +4,6 @@ import {
   LinearFilter, TextureLoader, PlaneBufferGeometry, LoadingManager
 } from 'three';
 import styled from 'styled-components/macro';
-import 'intersection-observer';
 import { Easing, Tween, autoPlay } from 'es6-tween';
 import Swipe from 'react-easy-swipe';
 import Icon from './Icon';
@@ -358,6 +357,10 @@ const SliderCanvasWrapper = styled.div`
   position: relative;
   user-select: none;
   cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
 
   canvas {
     position: relative;

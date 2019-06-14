@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import 'intersection-observer';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 

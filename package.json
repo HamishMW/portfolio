@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "es6-tween": "^5.5.10",
-    "intersection-observer": "^0.7.0",
     "ios-inner-height": "^1.1.0",
     "lottie-web": "^5.5.5",
     "react": "^16.8.6",
