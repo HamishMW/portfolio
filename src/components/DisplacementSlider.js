@@ -42,6 +42,7 @@ export default function DispalcementSlider(props) {
   const scheduledAnimationFrame = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
   const placeholderRef = useRef();
+  const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${images[imageIndex].alt}`;
 
   const goToIndex = useCallback(({
     index,
@@ -318,8 +319,21 @@ export default function DispalcementSlider(props) {
     }
   }, [canvasWidth, imageIndex, navigate]);
 
+  const handleKeyDown = (event) => {
+    const actions = {
+      ArrowRight: () => navigate({ direction: 1 }),
+      ArrowLeft: () => navigate({ direction: -1 }),
+    };
+
+    const selectedAction = actions[event.key];
+
+    if (!!selectedAction) {
+      selectedAction();
+    }
+  };
+
   return (
-    <SliderContainer {...rest}>
+    <SliderContainer onKeyDown={handleKeyDown} {...rest}>
       <SliderContainer>
         <Swipe
           allowMouseEvents
@@ -330,7 +344,7 @@ export default function DispalcementSlider(props) {
             <SliderCanvasWrapper
               aria-atomic
               aria-live="polite"
-              aria-label={images[imageIndex].alt}
+              aria-label={currentImageAlt}
               ref={container}
               role="img"
             />

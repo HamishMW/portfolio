@@ -11,7 +11,6 @@ import DisplacementSphere from '../components/DisplacementSphere';
 import DisplacementSlider from '../components/DisplacementSlider';
 import DecoderText from '../components/DecoderText';
 import { useFormInput } from '../utils/hooks';
-import placeholder from './assets/slider-placeholder.jpg';
 
 const StoryContainer = styled.div`
   width: 100vw;
@@ -113,16 +112,20 @@ storiesOf('Displacement slider', module)
     <StoryContainer fullWidth padding={30}>
       <DisplacementSlider
         style={{ maxWidth: 800, width: '100%' }}
-        placeholder={placeholder}
+        placeholder="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAICAgICAQICAgIDAgIDAwYEAwMDAwcFBQQGCAcJCAgHCAgJCg0LCQoMCggICw8LDA0ODg8OCQsQERAOEQ0ODg7/2wBDAQIDAwMDAwcEBAcOCQgJDg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg7/wgARCAASACADAREAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAABAUHBgn/xAAZAQEAAwEBAAAAAAAAAAAAAAAFAwQGAgj/2gAMAwEAAhADEAAAAOanpHEuRHdAjSk8GcqnLA1RdO5nscBYolLViNGLY7CLKMf/xAAjEAABBAEDBAMAAAAAAAAAAAABAAIDBAUSFFETJTIzNILB/9oACAEBAAE/AIYbMngCVRZJXnDpAsndbNhXNPCezuTtPKw23ZS1PaFfmjfaIjCyU5Zj3KkepkTq5VX4CPvKynoKxwG6+w/V/8QAGxEAAwADAQEAAAAAAAAAAAAAAAECAwQRMhL/2gAIAQIBAT8AzpRBirtDxfSJxSmbGwrniNaX0u5xwVtLpJgNryyvR//EABwRAAMAAwEBAQAAAAAAAAAAAAABAgMEESEyE//aAAgBAwEBPwDXzu74U0kXsJTwzW6fhp6lRXWZ/nwvFdMxaN0Sl+Y/sSRrpcP/2Q=="
         images={[
           {
-            src: 'https://images.unsplash.com/photo-1502716197620-bf14ce1651b3',
+            src: 'https://source.unsplash.com/EYmhcdGuYmI/1280x720',
             alt: 'Tokyo at night',
           },
           {
-            src: 'https://images.unsplash.com/photo-1502716643504-c4ea7b357d91',
+            src: 'https://source.unsplash.com/fs9hGJUevXY/1280x720',
             alt: 'A cool cyberpunk cityscape'
           },
+          {
+            src: 'https://source.unsplash.com/ANJHXftvvJ8/1280x720',
+            alt: 'A neon sign with kanji'
+          }
         ]}
         width={1920}
         height={1080}
