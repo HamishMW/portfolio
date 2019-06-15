@@ -114,7 +114,7 @@ const ButtonContainer = styled.button`
   z-index: 1;
 
   ${props => !props.secondary && css`
-    &:before {
+    &::before {
       content: '';
       transition: all 0.4s ${props.theme.curveFastoutSlowin};
       background: ${rgba(props.theme.colorPrimary, 0.4)};
@@ -128,7 +128,7 @@ const ButtonContainer = styled.button`
       opacity: 0;
     }
 
-    &:after {
+    &::after {
       content: '';
       transition: all 0.4s ${props.theme.curveFastoutSlowin};
       background: ${props.theme.colorPrimary};
@@ -172,7 +172,7 @@ const ButtonContainer = styled.button`
     position: relative;
     left: -10px;
 
-    &:after {
+    &::after {
       content: '';
       height: 30px;
       position: absolute;

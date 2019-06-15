@@ -302,6 +302,7 @@ const ProjectSectionBackgroundImage = styled(ProgressiveImage)`
     grid-column: 1;
     grid-row: 1;
     z-index: 1;
+    position: relative;
     background:
       linear-gradient(
         ${props => rgba(props.theme.colorBackground, 1)} 0%,

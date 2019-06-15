@@ -39,28 +39,35 @@ export function ProjectBackground(props) {
 }
 
 export function ProjectHeader(props) {
-  const { title, description, linkLabel, url, roles } = props;
+  const { title, description, linkLabel = 'Visit website', url, roles } = props;
 
   return (
     <ProjectHeaderContainer>
       <ProjectHeaderInner>
-        <ProjectDetails entered={!prerender}>
-          <ProjectTitle>{title}</ProjectTitle>
-          <ProjectDescription>{description}</ProjectDescription>
-          <LinkButton
+        <ProjectDetails>
+          <ProjectTitle entered={!prerender}>{title}</ProjectTitle>
+          <ProjectDescription entered={!prerender}>{description}</ProjectDescription>
+          <ProjectLinkButton
             secondary
             iconHoverShift
+            entered={!prerender}
             style={{ paddingLeft: '3px' }}
             icon="chevronRight"
             href={url}
             target="_blank"
           >
-            {linkLabel ? linkLabel : 'Visit website'}
-          </LinkButton>
+            {linkLabel}
+          </ProjectLinkButton>
         </ProjectDetails>
-        <ProjectMeta entered={!prerender}>
-          {roles && roles.map(role => (
-            <ProjectMetaItem key={role}>{role}</ProjectMetaItem>
+        <ProjectMeta>
+          {roles && roles.map((role, index) => (
+            <ProjectMetaItem
+              key={role}
+              index={index}
+              entered={!prerender}
+            >
+              {role}
+            </ProjectMetaItem>
           ))}
         </ProjectMeta>
       </ProjectHeaderInner>
@@ -149,7 +156,7 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs(props => ({
     height: 100%;
   }
 
-  &:after {
+  &::after {
     content: '';
     position: absolute;
     top: 0;
@@ -216,6 +223,15 @@ const AnimFadeSlide = keyframes`
 `;
 
 const ProjectDetails = styled.div`
+  position: relative;
+`;
+
+const ProjectTitle = styled.h1`
+  margin: 0;
+  font-size: 54px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: ${props => props.theme.colorTitle};
   opacity: 0;
 
   @media (prefers-reduced-motion: reduce) {
@@ -225,14 +241,6 @@ const ProjectDetails = styled.div`
   ${props => props.entered && css`
     animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay}ms forwards;
   `}
-`;
-
-const ProjectTitle = styled.h1`
-  margin: 0;
-  font-size: 54px;
-  font-weight: 500;
-  line-height: 1.1;
-  color: ${props => props.theme.colorTitle};
 
   @media (max-width: ${media.tablet}) {
     font-size: 48px;
@@ -250,17 +258,22 @@ const ProjectTitle = styled.h1`
 const ProjectDescription = styled.p`
   font-size: 22px;
   line-height: 1.4;
+  opacity: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+  }
+
+  ${props => props.entered && css`
+    animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay + 100}ms forwards;
+  `}
 
   @media (max-width: ${media.mobile}) {
     font-size: 18px;
   }
 `;
 
-const ProjectMeta = styled.ul`
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  margin-top: 10px;
+const ProjectLinkButton = styled(LinkButton)`
   opacity: 0;
 
   @media (prefers-reduced-motion: reduce) {
@@ -272,15 +285,31 @@ const ProjectMeta = styled.ul`
   `}
 `;
 
+const ProjectMeta = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+`;
+
 const ProjectMetaItem = styled.li`
   padding: 30px 0;
   font-size: 16px;
   font-weight: ${props => props.theme.id === 'light' ? 500 : 400};
   border-top: 1px solid ${props => rgba(props.theme.colorText, 0.2)};
+  opacity: 0;
 
   &:last-child {
     border-bottom: 1px solid ${props => rgba(props.theme.colorText, 0.2)};
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+  }
+
+  ${props => props.entered && css`
+    animation: ${AnimFadeSlide} 1.5s ${props.theme.curveFastoutSlowin} ${initDelay + 300 + props.index * 140}ms forwards;
+  `}
 
   @media (max-width: ${media.tablet}) {
     padding: 20px 0;

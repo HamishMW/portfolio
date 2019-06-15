@@ -286,7 +286,9 @@ export default function DispalcementSlider(props) {
       uniforms.dispFactor.value = displacementClamp;
     }
 
-    renderer.current.render(scene.current, camera.current);
+    requestAnimationFrame(() => {
+      renderer.current.render(scene.current, camera.current);
+    });
   }, [canvasWidth, imageIndex, images, prefersReducedMotion, sliderImages]);
 
   const onSwipeEnd = useCallback(() => {
@@ -398,18 +400,18 @@ const SliderImageWrapper = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: 100%;
-`;
-
-const SliderCanvasWrapper = styled.div`
-  position: relative;
-  user-select: none;
   cursor: grab;
-  grid-column: 1;
-  grid-row: 1;
 
   &:active {
     cursor: grabbing;
   }
+`;
+
+const SliderCanvasWrapper = styled.div`
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  user-select: none;
 
   canvas {
     position: relative;

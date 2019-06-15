@@ -118,7 +118,7 @@ const NotFoundVideoContainer = styled.div`
     grid-row: 1;
   }
 
-  &:after {
+  &::after {
     content: '';
     background: ${props => props.theme.colorAccent};
     animation-name: ${props => props.status === 'entered' && css`${AnimVideo}`};

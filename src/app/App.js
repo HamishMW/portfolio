@@ -96,11 +96,20 @@ function App() {
                 toggleTheme={toggleTheme}
                 currentTheme={currentTheme}
               />
-              <TransitionGroup component={React.Fragment}>
-                <Transition key={location.pathname} timeout={300}>
+              <TransitionGroup
+                component={MainContent}
+                id="MainContent"
+                role="main"
+                tabIndex={-1}
+              >
+                <Transition
+                  key={location.pathname}
+                  timeout={300}
+                  onEnter={(node) => node && node.offsetHeight}
+                >
                   {status => (
                     <AppContext.Provider value={{ status, updateTheme, toggleTheme, currentTheme }}>
-                      <MainContent status={status} id="MainContent" role="main" tabIndex={-1}>
+                      <PageWrapper status={status} >
                         <Helmet>
                           <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
                         </Helmet>
@@ -114,7 +123,7 @@ function App() {
                             <Route component={NotFound} />
                           </Switch>
                         </Suspense>
-                      </MainContent>
+                      </PageWrapper>
                     </AppContext.Provider>
                   )}
                 </Transition>
@@ -144,8 +153,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   *,
-  *:before,
-  *:after {
+  *::before,
+  *::after {
     box-sizing: inherit;
   }
 
@@ -154,8 +163,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   #root *,
-  #root *:before,
-  #root *:after {
+  #root *::before,
+  #root *::after {
     @media (prefers-reduced-motion: reduce) {
       animation-duration: 0s;
       animation-delay: 0s;
@@ -169,18 +178,21 @@ const MainContent = styled.main`
   width: 100%;
   overflow-x: hidden;
   position: relative;
-  opacity: 0;
   background: ${props => props.theme.colorBackground};
-  transition: background 0.4s ease, opacity 0.3s ease;
+  transition: background 0.4s ease;
   outline: none;
+  display: grid;
+  grid-template-columns: 100%;
+`;
 
-  ${props => props.status === 'exiting' && css`
-    position: absolute;
-    opacity: 0;
-  `}
+const PageWrapper = styled.div`
+  overflow-x: hidden;
+  opacity: 0;
+  grid-column: 1;
+  grid-row: 1;
+  transition: opacity 0.3s ease;
 
-  ${props => props.status === 'entering' && css`
-    position: absolute;
+  ${props => (props.status === 'exiting' || props.status === 'entering') && css`
     opacity: 0;
   `}
 

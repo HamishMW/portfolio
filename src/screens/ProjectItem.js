@@ -4,6 +4,7 @@ import { Transition } from 'react-transition-group';
 import { media, rgba, sectionPadding } from '../utils/styleUtils';
 import { RouterButton, LinkButton } from '../components/Button';
 import ProgressiveImage from '../components/ProgressiveImage';
+import Divider from '../components/Divider';
 import { useWindowSize } from '../utils/hooks';
 import Svg from '../components/Svg';
 import phone from '../assets/phone.png';
@@ -22,7 +23,13 @@ function ProjectItem(props) {
 
   const renderDetails = (status) => (
     <ProjectItemDetails>
-      <ProjectItemIndex status={status} aria-hidden>
+      <ProjectItemIndex aria-hidden>
+        <Divider
+          notchWidth="64px"
+          notchHeight="8px"
+          collapsed={status !== 'entered'}
+          delay={1000}
+        />
         <ProjectItemIndexNumber status={status}>{index}</ProjectItemIndexNumber>
       </ProjectItemIndex>
       <ProjectItemTitle id={titleId} status={status}>{title}</ProjectItemTitle>
@@ -240,32 +247,11 @@ const ProjectItemPreviewContentLaptop = styled.div`
 
 const ProjectItemIndex = styled.div`
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  grid-gap: 12px;
   align-items: center;
   margin-bottom: 32px;
-
-  &:before {
-    content: '';
-    position: relative;
-    display: block;
-    height: 2px;
-    top: -1px;
-    background: ${props => props.theme.colorPrimary};
-    width: 96px;
-    margin-right: 15px;
-    transition-property: transform, opacity;
-    transition-timing-function: ${props => props.theme.curveFastoutSlowin};
-    transition-duration: 0.4s;
-    transition-delay: 1s;
-    transform: scale3d(0, 1, 1);
-    transform-origin: left;
-  }
-
-  ${props => props.status === 'entered' && css`
-    &:before {
-      transform: scale3d(1, 1, 1);
-    }
-  `}
 `;
 
 const ProjectItemIndexNumber = styled.span`

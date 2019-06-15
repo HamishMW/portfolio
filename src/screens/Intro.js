@@ -268,7 +268,7 @@ const IntroTitleWord = styled.span`
     z-index: 0;
   `}
 
-  &:after {
+  &::after {
     content: '';
     width: 100%;
     height: 100%;
@@ -299,13 +299,13 @@ const IntroTitleWord = styled.span`
   ${props => props.delay && css`
     animation-delay: ${props.delay};
 
-    &:after {
+    &::after {
       animation-delay: ${props.delay};
     }
   `}
 
   ${props => props.plus && css`
-    &:before {
+    &::before {
       content: '+';
       margin-right: 10px;
       opacity: 0.4;
@@ -376,7 +376,7 @@ const ScrollIndicator = styled.div`
   opacity: ${props => props.status === 'entered' && !props.isHidden ? 1 : 0};
   transform: translate3d(0, ${props => props.isHidden ? '20px' : 0}, 0);
 
-  &:before {
+  &::before {
     content: '';
     height: 7px;
     width: 2px;

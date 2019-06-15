@@ -134,7 +134,7 @@ const ImageContainer = styled.div`
   grid-template-columns: 100%;
 
   ${props => props.reveal && css`
-    &:before {
+    &::before {
       content: '';
       background: ${props => props.theme.colorAccent};
       position: absolute;

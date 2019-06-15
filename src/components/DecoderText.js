@@ -43,7 +43,7 @@ function shuffle(content, chars, position) {
 };
 
 function DecoderText(props) {
-  const { text, start, offset = 100, delay = 300, fps = 24, ...rest } = props;
+  const { text, start, offset, delay, fps, ...rest } = props;
   const [position, setPosition] = useState(0);
   const [started, setStarted] = useState(false);
   const [output, setOutput] = useState([{ type: 'code', value: '' }]);
@@ -103,14 +103,20 @@ function DecoderText(props) {
   }, [fps, offset, position, started]);
 
   return (
-    <DecoderWrapper {...rest}>
-      <DecoderLabel>{text}</DecoderLabel>
+    <DecoderWrapper className="decoder-text" {...rest}>
+      <span className="decoder-text__label">{text}</span>
       {output.map((item, index) => item.type === 'actual'
-        ? <span aria-hidden key={`${item.value}-${index}`}>{item.value}</span>
-        : <DecoderCode aria-hidden key={`${item.value}-${index}`}>{item.value}</DecoderCode>
+        ? <span aria-hidden className="decoder-text__value" key={`${item.value}-${index}`}>{item.value}</span>
+        : <span aria-hidden className="decoder-text__code" key={`${item.value}-${index}`}>{item.value}</span>
       )}
     </DecoderWrapper>
   );
+};
+
+DecoderText.defaultProps = {
+  offset: 100,
+  delay: 300,
+  fps: 24,
 };
 
 const DecoderWrapper = styled.span`
@@ -118,24 +124,24 @@ const DecoderWrapper = styled.span`
     content: '_';
     visibility: hidden;
   }
-`;
 
-const DecoderLabel = styled.span`
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  position: absolute;
-`;
+  .decoder-text__label {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+  }
 
-const DecoderCode = styled.span`
-  opacity: 0.8;
-  font-weight: 400;
-  font-family: ${japaneseFonts.join(', ')};
-  line-height: 0;
+  .decoder-text__code {
+    opacity: 0.8;
+    font-weight: 400;
+    font-family: ${japaneseFonts.join(', ')};
+    line-height: 0;
+  }
 `;
 
 export default React.memo(DecoderText);

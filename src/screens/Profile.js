@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Anchor from '../components/Anchor';
 import { RouterButton } from '../components/Button';
 import DecoderText from '../components/DecoderText';
+import Divider from '../components/Divider';
 import ProgressiveImage from '../components/ProgressiveImage';
 import Svg from '../components/Svg';
 import ProfileImg from '../assets/profile.jpg';
@@ -56,7 +57,13 @@ function Profile(props) {
               </ProfileButton>
             </ProfileColumn>
             <ProfileColumn>
-              <ProfileTag status={status} aria-hidden>
+              <ProfileTag aria-hidden>
+                <Divider
+                  notchWidth="64px"
+                  notchHeight="8px"
+                  collapsed={status !== 'entered'}
+                  delay={1000}
+                />
                 <ProfileTagText status={status}>About Me</ProfileTagText>
               </ProfileTag>
               <ProfileImage
@@ -195,22 +202,10 @@ const ProfileDescription = styled.p`
 const ProfileTag = styled.div`
   margin-top: 220px;
   margin-bottom: 40px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-gap: 12px;
   align-items: center;
-
-  &:before {
-    content: '';
-    position: relative;
-    display: block;
-    height: 2px;
-    top: -1px;
-    background: ${props => props.theme.colorPrimary};
-    width: 96px;
-    margin-right: 15px;
-    transition: transform 0.4s ${props => props.theme.curveFastoutSlowin} 1s;
-    transform: scale3d(${props => props.status === 'entered' ? 1 : 0}, 1, 1);
-    transform-origin: left;
-  }
 
   @media (max-width: ${media.tablet}) {
     margin-top: 30px;

@@ -186,7 +186,7 @@ const HeaderNavLink = styled(NavLink)`
     color: ${props => props.theme.colorText};
   }
 
-  &:after {
+  &::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -306,7 +306,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     transform: translate3d(0, 0, 0);
   `}
 
-  &:after {
+  &::after {
     content: '';
     position: absolute;
     top: 50%;

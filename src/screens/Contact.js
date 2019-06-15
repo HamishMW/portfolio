@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { AppContext } from '../app/App';
 import Input from '../components/Input';
 import DecoderText from '../components/DecoderText';
+import Divider from '../components/Divider';
 import { Button, RouterButton } from '../components/Button';
 import { media, AnimFade, sectionPadding } from '../utils/styleUtils';
 import { useScrollToTop, useFormInput } from '../utils/hooks';
@@ -217,36 +218,14 @@ const ContactTitle = styled.h1`
   `}
 `;
 
-const ContactDivider = styled.div`
+const ContactDivider = styled(Divider)`
   margin-bottom: 62px;
-  width: 100%;
-  height: 1px;
-  background: ${props => props.theme.colorPrimary};
-  position: relative;
   transition-property: transform, opacity;
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
   transition-delay: ${props => props.delay + initDelay}ms;
   transform: translate3d(0, 90px, 0);
   opacity: 0;
-
-  &:before {
-    content: '';
-    height: 10px;
-    width: 90px;
-    background: ${props => props.theme.colorPrimary};
-    position: absolute;
-    bottom: 0;
-    transform: translateY(100%);
-    clip-path: polygon(
-      0 0,
-      100% 0,
-      100% calc(100% - 10px),
-      calc(100% - 10px) 100%,
-      10px 100%,
-      0 0
-    );
-  }
 
   ${props => (props.status === 'entering' ||
     props.status === 'entered') && !prerender && css`
