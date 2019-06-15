@@ -160,6 +160,7 @@ export const GlobalStyles = createGlobalStyle`
 
   ::selection {
     background: ${props => props.theme.colorAccent};
+    color: rgb(0, 0, 0, 0.9);
   }
 
   #root *,

@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import Icon from './Icon';
 import { Button } from '../components/Button';
+import { media } from '../utils/styleUtils';
 
 const NavToggle = ({ onClick, menuOpen, ...rest }) => (
   <NavToggleButton
@@ -25,6 +26,11 @@ const NavToggleButton = styled(Button)`
   width: 48px;
   height: 48px;
   z-index: 1024;
+  display: none;
+
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+    display: flex;
+  }
 `;
 
 const NavToggleInner = styled.div`

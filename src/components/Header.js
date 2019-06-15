@@ -68,22 +68,20 @@ function Header(props) {
       <HeaderLogo to="/#intro" aria-label="Home" onClick={handleLogoClick}>
         <Monogram highlight />
       </HeaderLogo>
-      {isMobile && <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />}
-      {!isMobile &&
-        <HeaderNav role="navigation">
-          <HeaderNavList>
-            {navLinks.map(({ label, url }) => (
-              <HeaderNavLink
-                key={label}
-                to={url}
-              >
-                {label}
-              </HeaderNavLink>
-            ))}
-          </HeaderNavList>
-          <HeaderIcons />
-        </HeaderNav>
-      }
+      <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
+      <HeaderNav role="navigation">
+        <HeaderNavList>
+          {navLinks.map(({ label, url }) => (
+            <HeaderNavLink
+              key={label}
+              to={url}
+            >
+              {label}
+            </HeaderNavLink>
+          ))}
+        </HeaderNavList>
+        <HeaderIcons />
+      </HeaderNav>
       <Transition
         mountOnEnter
         unmountOnExit
@@ -162,6 +160,10 @@ const HeaderNav = styled.nav`
   max-width: 45px;
   position: relative;
   top: -10px;
+
+  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+    display: none;
+  }
 `;
 
 const HeaderNavList = styled.div`

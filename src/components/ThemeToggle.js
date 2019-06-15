@@ -68,6 +68,12 @@ const ThemeToggleButton = styled(Button)`
     bottom: 30px;
   `}
 
+  ${props => !props.isMobile && css`
+    @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+      display: none;
+    }
+  `}
+
   svg path {
     transition-property: fill, stroke;
     transition-timing-function: ease;
