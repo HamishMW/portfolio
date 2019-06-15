@@ -39,21 +39,28 @@ const LoadableButton = props => {
 
 storiesOf('Button', module)
   .addDecorator(withKnobs)
-  .add('with text', () =>
+  .add('primary', () =>
     <StoryContainer padding={30} gutter={30}>
-      <Button primary onClick={action('clicked')}>Primary</Button>
-      <Button secondary onClick={action('clicked')}>Secondary</Button>
-    </StoryContainer>
-  )
-  .add('with icon', () =>
-    <StoryContainer padding={30} gutter={30}>
+      <Button primary onClick={action('clicked')}>Text only</Button>
       <Button primary icon="send" onClick={action('clicked')}>Icon left</Button>
       <Button primary iconRight="arrowRight" onClick={action('clicked')}>Icon right</Button>
-      <Button secondary icon="arrowRight" onClick={action('clicked')}>Secondary icon</Button>
-      <Button secondary iconRight="arrowRight" onClick={action('clicked')}>Secondary icon right</Button>
     </StoryContainer>
   )
-  .add('with loader', () =>
+  .add('secondary', () =>
+    <StoryContainer padding={30} gutter={30}>
+      <Button secondary onClick={action('clicked')}>Text only</Button>
+      <Button secondary icon="arrowRight" onClick={action('clicked')}>Icon left</Button>
+      <Button secondary iconRight="arrowRight" onClick={action('clicked')}>Icon right</Button>
+    </StoryContainer>
+  )
+  .add('icon only', () =>
+    <StoryContainer padding={30} gutter={20}>
+      <Button iconOnly aria-label="Send" icon="send" onClick={action('clicked')}></Button>
+      <Button iconOnly aria-label="Dribbble" icon="dribbble" onClick={action('clicked')}></Button>
+      <Button iconOnly aria-label="Close" icon="close" onClick={action('clicked')}></Button>
+    </StoryContainer>
+  )
+  .add('loader', () =>
     <StoryContainer padding={30}>
       <LoadableButton primary>Click to load</LoadableButton>
     </StoryContainer>
@@ -84,7 +91,7 @@ storiesOf('Link', module)
   );
 
 storiesOf('Monogram', module)
-  .add('monogram', (props) =>
+  .add('monogram', () =>
     <StoryContainer padding={30}>
       <Monogram highlight />
     </StoryContainer>

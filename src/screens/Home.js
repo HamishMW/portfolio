@@ -18,6 +18,7 @@ import gamestackListPlaceholder from '../assets/gamestack-list-placeholder.jpg';
 import sliceProject from '../assets/slice-project.png';
 import sliceProjectLarge from '../assets/slice-project-large.png';
 import sliceProjectPlaceholder from '../assets/slice-project-placeholder.png';
+
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
 export default function Home(props) {

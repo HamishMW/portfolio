@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
+import { Button } from '../components/Button';
 import themeIconData from '../data/themeIconData.json';
-import { media, rgba } from '../utils/styleUtils';
+import { media } from '../utils/styleUtils';
 import { usePrefersReducedMotion } from '../utils/hooks';
 
 export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest }) {
@@ -36,24 +37,24 @@ export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest })
   }, [themeId, prefersReducedMotion]);
 
   return (
-    <ThemeToggleButton aria-label="Toggle theme" onClick={toggleTheme} isMobile={isMobile} {...rest}>
-      <div ref={lottieContainerRef} />
+    <ThemeToggleButton
+      iconOnly
+      aria-label="Toggle theme"
+      onClick={toggleTheme}
+      isMobile={isMobile}
+      {...rest}
+    >
+      <ThemeToggleWrapper ref={lottieContainerRef} />
     </ThemeToggleButton>
   );
 }
 
-const ThemeToggleButton = styled.button`
-  border: 0;
-  margin: 0;
-  padding: 6px;
-  background: none;
+const ThemeToggleButton = styled(Button)`
   position: fixed;
-  cursor: pointer;
   z-index: 2048;
   width: 48px;
   height: 48px;
-  clip-path: ${props => props.theme.clipPath(8)};
-  transition: background 0.3s ease;
+  padding: 6px;
   top: ${props => props.theme.spacingOuter.numDesktop - 8}px;
   right: ${props => props.theme.spacingOuter.numDesktop - 8}px;
 
@@ -66,13 +67,6 @@ const ThemeToggleButton = styled.button`
     top: unset;
     bottom: 30px;
   `}
-
-  &:hover,
-  &:focus,
-  &:active {
-    background: ${props => rgba(props.theme.colorText, 0.1)};
-    outline: none;
-  }
 
   svg path {
     transition-property: fill, stroke;
@@ -88,4 +82,8 @@ const ThemeToggleButton = styled.button`
     fill: ${props => props.theme.colorText};
     stroke: none;
   }
+`;
+
+const ThemeToggleWrapper = styled.div`
+  display: flex;
 `;

@@ -1,14 +1,22 @@
-import React, { useContext } from 'react';
-import styled, { css } from 'styled-components/macro';
+import React from 'react';
+import styled, { css, withTheme } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Icon from './Icon';
 import { tint, rgba } from '../utils/styleUtils';
-import { AppContext } from '../app/App';
 
-const ButtonContent = props => {
-  const { currentTheme } = useContext(AppContext);
-  const { iconRight, icon, children, secondary, loading, loadingText, iconHoverShift } = props;
+const ButtonContent = withTheme(props => {
+  const {
+    iconRight,
+    icon,
+    children,
+    secondary,
+    iconOnly,
+    loading,
+    loadingText,
+    iconHoverShift,
+    theme,
+  } = props;
 
   return (
     <React.Fragment>
@@ -19,32 +27,37 @@ const ButtonContent = props => {
           secondary={secondary}
           iconHoverShift={iconHoverShift}
           icon={icon}
+          iconOnly={iconOnly}
         />
       }
-      <ButtonText
-        loading={loading}
-        secondary={secondary}
-      >
-        {children}
-      </ButtonText>
+      {children &&
+        <ButtonText
+          loading={loading}
+          secondary={secondary}
+          iconOnly={iconOnly}
+        >
+          {children}
+        </ButtonText>
+      }
       {iconRight &&
         <ButtonIcon
           loading={loading}
           secondary={secondary}
           iconHoverShift={iconHoverShift}
           icon={iconRight}
+          iconOnly={iconOnly}
         />
       }
       {loading &&
         <ButtonLoader
           size="24"
           text={loadingText}
-          color={currentTheme.colorBackground}
+          color={theme.colorBackground}
         />
       }
     </React.Fragment>
   );
-};
+});
 
 export const Button = props => {
   const { className, style, ...rest } = props;
@@ -57,7 +70,7 @@ export const Button = props => {
 };
 
 export const LinkButton = props => {
-  const { className, style, href, rel, target, secondary } = props;
+  const { className, style, href, rel, target, ...rest } = props;
 
   return (
     <ButtonContainer
@@ -67,7 +80,7 @@ export const LinkButton = props => {
       href={href}
       rel={rel || target === '_blank' ? 'noopener noreferrer' : null}
       target={target}
-      secondary={secondary}
+      {...rest}
     >
       <ButtonContent {...props} />
     </ButtonContainer>
@@ -99,7 +112,7 @@ const ButtonLoader = styled(Loader)`
 const ButtonContainer = styled.button`
   background: none;
   height: 56px;
-  padding: 0 26px;
+  padding: ${props => props.iconOnly ? 0 : ' 0 26px'};
   border: 0;
   margin: 0;
   cursor: pointer;
@@ -112,6 +125,10 @@ const ButtonContainer = styled.button`
   font-family: inherit;
   position: relative;
   z-index: 1;
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
 
   ${props => !props.secondary && css`
     &::before {
@@ -142,11 +159,48 @@ const ButtonContainer = styled.button`
     }
   `}
 
+  ${props => props.iconOnly && css`
+    width: 56px;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+      background: ${rgba(props.theme.colorText, 0)};
+    }
+
+    &:hover::after,
+    &:focus::after {
+      background: ${rgba(props.theme.colorText, 0.1)};
+    }
+
+    &::before {
+      background: ${rgba(props.theme.colorText, 0.4)};
+      top: -4px;
+      right: -4px;
+      bottom: -4px;
+      left: -4px;
+      clip-path: polygon(
+        0% 0%,
+        0% 100%,
+        4px 100%,
+        4px 4px,
+        calc(100% - 4px) 4px,
+        calc(100% - 4px) calc(100% - 13px),
+        calc(100% - 13px) calc(100% - 4px),
+        4px calc(100% - 4px),
+        4px 100%,
+        calc(100% - 11px) 100%,
+        100% calc(100% - 11px),
+        100% 0%
+      );
+    }
+  `}
+
   ${props => !props.disabled && !props.secondary && css`
     &:hover,
     &:focus {
       outline: none;
-      transform: scale(1.05);
+      transform: ${props.iconOnly ? 'none' : 'scale(1.05)'};
     }
 
     &:hover:after,
@@ -218,7 +272,7 @@ const ButtonContainer = styled.button`
     }
   `}
 
-  ${props => props.icon && !props.secondary && css`
+  ${props => props.icon && !props.secondary && !props.iconOnly && css`
     padding-right: 32px;
   `}
 `;
@@ -228,6 +282,7 @@ const ButtonText = styled.span`
   font-weight: 500;
   position: relative;
   line-height: 1;
+  flex: 1 0 auto;
 
   ${props => props.loading && css`
     visibility: hidden;
@@ -236,6 +291,10 @@ const ButtonText = styled.span`
   ${props => props.secondary
     ? `color: ${props.theme.colorPrimary};`
     : `color: ${props.theme.colorBackground};
+  `}
+
+  ${props => props.iconOnly && `
+    color: ${props.theme.colorText};
   `}
 `;
 
@@ -249,10 +308,15 @@ const ButtonIcon = styled(Icon)`
     fill: ${props.theme.colorPrimary};
   `}
 
+  ${props => props.iconOnly && css`
+    fill: ${props.theme.colorText};
+    margin: 0;
+  `}
+
   ${/* sc-selector */ButtonContainer}:hover &,
   ${/* sc-selector */ButtonContainer}:focus & {
     ${props => props.iconHoverShift && css`
-      transform: translate3d(3px, 0, 0);
+      transform: translate3d(4px, 0, 0);
     `}
   }
 

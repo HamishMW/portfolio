@@ -102,7 +102,7 @@ export default function DispalcementSlider(props) {
 
   useEffect(() => {
     if (sliderImages && loaded) {
-      goToIndex({ index: 0, direction: 0, duration: 0 });
+      renderer.current.render(scene.current, camera.current);
     }
   }, [goToIndex, loaded, sliderImages]);
 
