@@ -266,7 +266,7 @@ export default function DispalcementSlider(props) {
   }, [placeholder]);
 
   const onSwipeMove = useCallback((position, event) => {
-    if (animating.current) return;
+    if (animating.current || !material.current) return;
     const { x } = position;
     const absoluteX = Math.abs(x);
     const containerWidth = canvasWidth;
@@ -292,6 +292,7 @@ export default function DispalcementSlider(props) {
   }, [canvasWidth, imageIndex, images, prefersReducedMotion, sliderImages]);
 
   const onSwipeEnd = useCallback(() => {
+    if (!material.current) return;
     const uniforms = material.current.uniforms;
     const duration = (1 - uniforms.dispFactor.value) * 1000;
     const position = Math.abs(lastSwipePosition.current);
