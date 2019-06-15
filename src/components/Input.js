@@ -58,6 +58,7 @@ const InputElement = styled.input`
   appearance: none;
   border-radius: 0;
   line-height: 1.4;
+  overflow-x: hidden;
 
   @media (prefers-reduced-motion: reduce) {
     #root & {
