@@ -15,7 +15,12 @@ function NotFound() {
         <title tag="title">404 | Not Found</title>
         <meta name="description" content="404 page not found. This page doesn't exist" />
       </Helmet>
-      <Transition appear in={true} timeout={0}>
+      <Transition
+        appear
+        in={true}
+        timeout={0}
+        onEnter={node => node && node.offsetHeight}
+      >
         {status => (
           <React.Fragment>
             <NotfoundDetails>

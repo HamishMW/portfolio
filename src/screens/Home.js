@@ -76,7 +76,16 @@ export default function Home(props) {
       if (!element) return;
       const behavior = scroll && !prefersReducedMotion ? 'smooth' : 'instant';
       const top = element.current.offsetTop;
-      element.current.focus({ preventScroll: true });
+
+      const scrollObserver = new IntersectionObserver(entries => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          element.current.focus();
+          scrollObserver.unobserve(entry.target);
+        }
+      }, { rootMargin: '-20% 0px -20% 0px' });
+
+      scrollObserver.observe(element.current);
 
       if (supportsNativeSmoothScroll) {
         window.scroll({

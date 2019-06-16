@@ -108,7 +108,11 @@ function ProjectItem(props) {
       {...rest}
     >
       <ProjectItemContent>
-        <Transition in={visible} timeout={0}>
+        <Transition
+          in={visible}
+          timeout={0}
+          onEnter={node => node && node.offsetHeight}
+        >
           {status => (
             <React.Fragment>
               {!alternate && !isMobile &&

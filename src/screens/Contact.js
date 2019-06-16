@@ -80,7 +80,7 @@ function Contact() {
             mountOnEnter
             unmountOnExit
             timeout={1600}
-            onEnter={(node) => node && node.offsetHeight}
+            onEnter={node => node && node.offsetHeight}
           >
             {status => (
               <ContactForm method="post" onSubmit={onSubmit} role="form">
@@ -91,12 +91,7 @@ function Contact() {
                     offset={140}
                   />
                 </ContactTitle>
-                <ContactDivider
-                  status={status}
-                  collapsed={status === 'exited'}
-                  collapseDelay={600}
-                  delay={100}
-                />
+                <ContactDivider status={status} delay={100} />
                 <ContactFields>
                   <ContactInput
                     {...email}
@@ -136,7 +131,13 @@ function Contact() {
           </Transition>
         }
         {complete &&
-          <Transition appear timeout={10} mountOnEnter unmountOnExit>
+          <Transition
+            appear
+            mountOnEnter
+            unmountOnExit
+            timeout={10}
+            onEnter={node => node && node.offsetHeight}
+          >
             {status => (
               <ContactComplete aria-live="polite">
                 <ContactCompleteTitle status={status} delay={10}>

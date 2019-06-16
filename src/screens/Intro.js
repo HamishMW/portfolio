@@ -43,6 +43,7 @@ function Intro(props) {
         appear={!prerender}
         in={!prerender}
         timeout={3000}
+        onEnter={node => node && node.offsetHeight}
       >
         {status => (
           <React.Fragment>
@@ -65,6 +66,7 @@ function Intro(props) {
                       appear
                       timeout={{ enter: 3000, exit: 2000 }}
                       key={`${item}_${index}`}
+                      onEnter={node => node && node.offsetHeight}
                     >
                       {status => (
                         <IntroTitleWord plus aria-hidden delay="0.5s" status={status}>

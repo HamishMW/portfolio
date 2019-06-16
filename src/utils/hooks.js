@@ -18,8 +18,8 @@ export function useScrollToTop(status) {
     const hasEnteredReducedMotion = prefersReducedMotion && status === 'entered';
 
     if (hasEntered || hasEnteredReducedMotion) {
-      document.getElementById('MainContent').focus({ preventScroll: true });
       window.scrollTo(0, 0);
+      document.getElementById('MainContent').focus();
     };
 
     prevStatus.current = status;

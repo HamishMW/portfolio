@@ -42,7 +42,11 @@ function Profile(props) {
       aria-labelledby={titleId}
       tabIndex={-1}
     >
-      <Transition in={visible} timeout={0}>
+      <Transition
+        in={visible}
+        timeout={0}
+        onEnter={node => node && node.offsetHeight}
+      >
         {status => (
           <ProfileContent>
             <ProfileColumn>

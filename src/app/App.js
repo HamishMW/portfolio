@@ -84,6 +84,7 @@ function App() {
           <Route render={({ location }) => (
             <React.Fragment>
               <Helmet>
+                <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
                 <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
                 <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
                 <style>{fontStyles}</style>
@@ -97,22 +98,19 @@ function App() {
                 currentTheme={currentTheme}
               />
               <TransitionGroup
-                component={MainContent}
+                component={AppMainContent}
+                tabIndex={-1}
                 id="MainContent"
                 role="main"
-                tabIndex={-1}
               >
                 <Transition
                   key={location.pathname}
                   timeout={300}
-                  onEnter={(node) => node && node.offsetHeight}
+                  onEnter={node => node && node.offsetHeight}
                 >
                   {status => (
                     <AppContext.Provider value={{ status, updateTheme, toggleTheme, currentTheme }}>
-                      <PageWrapper status={status} >
-                        <Helmet>
-                          <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
-                        </Helmet>
+                      <AppPage status={status} >
                         <Suspense fallback={<React.Fragment />}>
                           <Switch location={location}>
                             <Route exact path="/" component={Home} />
@@ -123,7 +121,7 @@ function App() {
                             <Route component={NotFound} />
                           </Switch>
                         </Suspense>
-                      </PageWrapper>
+                      </AppPage>
                     </AppContext.Provider>
                   )}
                 </Transition>
@@ -175,7 +173,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const MainContent = styled.main`
+const AppMainContent = styled.main`
   width: 100%;
   overflow-x: hidden;
   position: relative;
@@ -186,7 +184,7 @@ const MainContent = styled.main`
   grid-template-columns: 100%;
 `;
 
-const PageWrapper = styled.div`
+const AppPage = styled.div`
   overflow-x: hidden;
   opacity: 0;
   grid-column: 1;
