@@ -11,7 +11,7 @@
     "@storybook/react": "^5.1.8",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "react-scripts": "3.0.1",
+    "react-scripts-mdx": "3.0.3",
     "react-snap": "1.23.0",
     "react-test-renderer": "^16.8.6",
     "rimraf": "^2.6.3",
@@ -22,6 +22,7 @@
     "stylelint-processor-styled-components": "^1.8.0"
   },
   "dependencies": {
+    "@mdx-js/react": "^1.0.20",
     "es6-tween": "^5.5.10",
     "ios-inner-height": "^1.1.0",
     "lottie-web": "^5.5.5",
