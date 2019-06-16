@@ -98,8 +98,9 @@ function DisplacementSphere() {
 
   useEffect(() => {
     const onWindowResize = () => {
+      const canvasHeight = innerHeight();
       const windowWidth = window.innerWidth;
-      const fullHeight = innerHeight() + 120;
+      const fullHeight = canvasHeight + canvasHeight * 0.3;
       container.current.style.height = fullHeight;
       renderer.current.setSize(windowWidth, fullHeight);
       camera.current.aspect = windowWidth / fullHeight;
@@ -110,13 +111,13 @@ function DisplacementSphere() {
       }
 
       if (windowWidth <= media.numMobile) {
-        sphere.current.position.x = 16;
+        sphere.current.position.x = 14;
         sphere.current.position.y = 10;
       } else if (windowWidth <= media.numTablet) {
-        sphere.current.position.x = 20;
+        sphere.current.position.x = 18;
         sphere.current.position.y = 14;
       } else {
-        sphere.current.position.x = 25;
+        sphere.current.position.x = 22;
         sphere.current.position.y = 16;
       }
     };
