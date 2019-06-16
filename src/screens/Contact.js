@@ -91,7 +91,12 @@ function Contact() {
                     offset={140}
                   />
                 </ContactTitle>
-                <ContactDivider status={status} delay={100} />
+                <ContactDivider
+                  status={status}
+                  collapsed={status === 'exited'}
+                  collapseDelay={600}
+                  delay={100}
+                />
                 <ContactFields>
                   <ContactInput
                     {...email}

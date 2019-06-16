@@ -62,7 +62,7 @@ function Profile(props) {
                   notchWidth="64px"
                   notchHeight="8px"
                   collapsed={status !== 'entered'}
-                  delay={1000}
+                  collapseDelay={1000}
                 />
                 <ProfileTagText status={status}>About Me</ProfileTagText>
               </ProfileTag>

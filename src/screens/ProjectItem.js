@@ -28,7 +28,7 @@ function ProjectItem(props) {
           notchWidth="64px"
           notchHeight="8px"
           collapsed={status !== 'entered'}
-          delay={1000}
+          collapseDelay={1000}
         />
         <ProjectItemIndexNumber status={status}>{index}</ProjectItemIndexNumber>
       </ProjectItemIndex>

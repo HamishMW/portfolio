@@ -282,7 +282,7 @@ const ButtonText = styled.span`
   font-weight: 500;
   position: relative;
   line-height: 1;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
 
   ${props => props.loading && css`
     visibility: hidden;

@@ -57,6 +57,7 @@ const ThemeToggleButton = styled(Button)`
   padding: 6px;
   top: ${props => props.theme.spacingOuter.numDesktop - 8}px;
   right: ${props => props.theme.spacingOuter.numDesktop - 8}px;
+  transform: translate3d(0, 0, 0);
 
   @media (max-width: ${media.tablet}) {
     top: ${props => props.isMobile ? 'unset' : `${props.theme.spacingOuter.numTablet - 8}px`};
@@ -73,6 +74,11 @@ const ThemeToggleButton = styled(Button)`
       display: none;
     }
   `}
+
+  svg {
+    flex: 1 1 100%;
+    position: relative;
+  }
 
   svg path {
     transition-property: fill, stroke;

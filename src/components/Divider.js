@@ -15,7 +15,7 @@ const Divider = styled.div`
     transition-property: transform, opacity;
     transition-duration: 600ms;
     transition-timing-function: ${props => props.theme.curveFastoutSlowin};
-    transition-delay: ${props => props.delay}ms;
+    transition-delay: ${props => props.collapseDelay}ms;
     transform: scaleX(${props => props.collapsed ? 0 : 1});
     transform-origin: left center;
   }
@@ -30,22 +30,22 @@ const Divider = styled.div`
     transition-property: clip-path, opacity;
     transition-duration: 600ms;
     transition-timing-function: ${props => props.theme.curveFastoutSlowin};
-    transition-delay: ${props => props.delay + 160}ms;
+    transition-delay: ${props => props.collapseDelay + 160}ms;
     opacity: ${props => props.collapsed ? 0 : 1};
     clip-path: ${props => props.collapsed
-      ? 'polygon(0 0, 0 0, 10px 100%, 10px 100%)'
-      : 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 10px 100%)'
-    };
+    ? 'polygon(0 0, 0 0, 10px 100%, 10px 100%)'
+    : 'polygon(0 0, 100% 0, calc(100% - 10px) 100%, 10px 100%)'
+  };
   }
 `;
 
 Divider.defaultProps = {
-  lineWidth:'100%',
+  lineWidth: '100%',
   lineHeight: '2px',
   notchWidth: '90px',
   notchHeight: '10px',
   collapsed: false,
-  delay: 0,
+  collapseDelay: 0,
 };
 
 export default Divider;
