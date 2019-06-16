@@ -96,6 +96,7 @@ function App() {
                 menuOpen={menuOpen}
                 toggleTheme={toggleTheme}
                 currentTheme={currentTheme}
+                location={location}
               />
               <TransitionGroup
                 component={AppMainContent}

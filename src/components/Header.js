@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useRef } from 'react';
+import React, { lazy, Suspense, useRef, useState } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
@@ -13,15 +13,17 @@ const ThemeToggle = lazy(() => import('../components/ThemeToggle'));
 const navLinks = [
   {
     label: 'Projects',
-    url: '/#projects',
+    pathname: '/',
+    hash: '#projects',
   },
   {
     label: 'Details',
-    url: '/#details',
+    pathname: '/',
+    hash: '#details'
   },
   {
     label: 'Contact',
-    url: '/contact',
+    pathname: '/contact',
   },
 ];
 
@@ -54,27 +56,45 @@ const HeaderIcons = () => (
 );
 
 function Header(props) {
-  const { menuOpen, toggleMenu, currentTheme, toggleTheme } = props;
+  const { menuOpen, location, toggleMenu, currentTheme, toggleTheme } = props;
+  const [hashKey, setHashKey] = useState();
   const windowSize = useWindowSize();
   const headerRef = useRef();
   const isMobile = windowSize.width <= media.numMobile || windowSize.height <= 696;
 
-  const handleLogoClick = () => {
+  const handleNavClick = () => {
+    setHashKey(Math.random().toString(32).substr(2, 8));
+  };
+
+  const handleMobileNavClick = () => {
+    handleNavClick();
     if (menuOpen) toggleMenu();
+  };
+
+  const isMatch = ({ match, hash = '' }) => {
+    if (!match) return false;
+    return `${match.url}${hash}` === `${location.pathname}${location.hash}`;
   };
 
   return (
     <HeaderWrapper role="banner" ref={headerRef}>
-      <HeaderLogo to="/#intro" aria-label="Home" onClick={handleLogoClick}>
+      <HeaderLogo
+        to={{ pathname: '/', hash: '#intro', state: hashKey }}
+        aria-label="Home"
+        onClick={handleMobileNavClick}
+      >
         <Monogram highlight />
       </HeaderLogo>
       <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
       <HeaderNav role="navigation">
         <HeaderNavList>
-          {navLinks.map(({ label, url }) => (
+          {navLinks.map(({ label, pathname, hash }) => (
             <HeaderNavLink
+              exact
+              isActive={(match) => isMatch({ match, hash })}
+              onClick={handleNavClick}
               key={label}
-              to={url}
+              to={{ pathname, hash, state: hashKey }}
             >
               {label}
             </HeaderNavLink>
@@ -91,13 +111,13 @@ function Header(props) {
       >
         {status => (
           <HeaderMobileNav status={status}>
-            {navLinks.map(({ label, url }, index) => (
+            {navLinks.map(({ label, pathname, hash }, index) => (
               <HeaderMobileNavLink
                 key={label}
                 delay={300 + index * 50}
                 status={status}
-                onClick={toggleMenu}
-                to={url}
+                onClick={handleMobileNavClick}
+                to={{ pathname, hash, state: hashKey }}
               >
                 {label}
               </HeaderMobileNavLink>

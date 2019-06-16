@@ -24,7 +24,7 @@ const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modd
 export default function Home(props) {
   const { status } = useContext(AppContext);
   const { location } = props;
-  const { hash } = location;
+  const { hash, state } = location;
   const initHash = useRef(true);
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
@@ -107,7 +107,7 @@ export default function Home(props) {
     } else if (hasEntered) {
       handleHashchange(hash, true);
     }
-  }, [hash, prefersReducedMotion, status]);
+  }, [hash, state, prefersReducedMotion, status]);
 
   return (
     <React.Fragment>
