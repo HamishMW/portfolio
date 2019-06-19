@@ -65,7 +65,18 @@ function ProgressiveImage(props) {
 };
 
 function ImageElements(props) {
-  const { onLoad, loaded, intersect, srcSet, placeholder, delay, ...rest } = props;
+  const {
+    onLoad,
+    loaded,
+    intersect,
+    srcSet,
+    placeholder,
+    delay,
+    videoSrc,
+    src,
+    alt,
+    ...rest
+  } = props;
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const placeholderRef = useRef();
 
@@ -86,14 +97,33 @@ function ImageElements(props) {
 
   return (
     <React.Fragment>
-      <ImageActual
-        delay={delay}
-        onLoad={onLoad}
-        decoding="async"
-        loaded={loaded}
-        srcSet={!prerender && intersect ? srcSet : null}
-        {...rest}
-      />
+      {videoSrc &&
+        <ImageActual
+          autoPlay
+          muted
+          loop
+          playsInline
+          as="video"
+          role="img"
+          delay={delay}
+          onLoadStart={onLoad}
+          loaded={loaded}
+          src={videoSrc}
+          aria-label={alt}
+          {...rest}
+        />
+      }
+      {!videoSrc &&
+        <ImageActual
+          delay={delay}
+          onLoad={onLoad}
+          decoding="async"
+          loaded={loaded}
+          srcSet={!prerender && intersect ? srcSet : undefined}
+          alt={alt}
+          {...rest}
+        />
+      }
       {showPlaceholder &&
         <ImagePlaceholder
           delay={delay}
