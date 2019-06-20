@@ -1,5 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, Fragment } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
+import { usePrefersReducedMotion } from '../utils/hooks';
+import { Button } from '../components/Button';
+import { Transition } from 'react-transition-group';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -79,6 +82,11 @@ function ImageElements(props) {
   } = props;
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const placeholderRef = useRef();
+  const videoRef = useRef();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [playing, setPlaying] = useState(!prefersReducedMotion);
+  const [showPlayButton, setShowPlayButton] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const purgePlaceholder = () => {
@@ -95,23 +103,61 @@ function ImageElements(props) {
     };
   }, []);
 
+  const togglePlaying = () => {
+    if (videoRef.current.paused) {
+      setPlaying(true);
+      videoRef.current.play();
+    } else {
+      setPlaying(false);
+      videoRef.current.pause();
+    }
+  };
+
+  const handleShowPlayButton = () => {
+    setShowPlayButton(true);
+    setIsHovered(true);
+  };
+
   return (
-    <React.Fragment>
+    <Fragment>
       {videoSrc &&
-        <ImageActual
-          autoPlay
-          muted
-          loop
-          playsInline
-          as="video"
-          role="img"
-          delay={delay}
-          onLoadStart={onLoad}
-          loaded={loaded}
-          src={videoSrc}
-          aria-label={alt}
-          {...rest}
-        />
+        <Fragment>
+          <ImageActual
+            autoPlay={!prefersReducedMotion}
+            muted
+            loop
+            playsInline
+            as="video"
+            role="img"
+            delay={delay}
+            onLoadStart={onLoad}
+            loaded={loaded}
+            src={videoSrc}
+            aria-label={alt}
+            ref={videoRef}
+            onMouseOver={handleShowPlayButton}
+            onMouseOut={() => setIsHovered(false)}
+            {...rest}
+          />
+          <Transition
+            in={isHovered}
+            onExit={node => node && node.offsetHeight}
+            onExited={() => setShowPlayButton(false)}
+            timeout={{ enter: 0, exit: 300}}
+          >
+            {(status) => (
+              <ImageButton
+                status={status}
+                showPlayButton={showPlayButton}
+                onFocus={handleShowPlayButton}
+                onBlur={() => setIsHovered(false)}
+                onClick={togglePlaying}
+              >
+                {playing ? 'Pause' : 'Play'}
+              </ImageButton>
+            )}
+          </Transition>
+        </Fragment>
       }
       {!videoSrc &&
         <ImageActual
@@ -134,7 +180,7 @@ function ImageElements(props) {
           role="presentation"
         />
       }
-    </React.Fragment>
+    </Fragment>
   );
 }
 
@@ -211,6 +257,39 @@ const ImageActual = styled.img`
   opacity: ${props => props.loaded ? 1 : 0};
   grid-column: 1;
   grid-row: 1;
+`;
+
+const ImageButton = styled(Button)`
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  position: absolute;
+  opacity: 0;
+  font-size: 16px;
+  transition-property: opacity, background;
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+  cursor: pointer;
+
+  ${props => props.status === 'entered' && css`
+    opacity: 1;
+  `}
+
+  ${props => props.showPlayButton && css`
+    clip: auto;
+    width: auto;
+    height: auto;
+    margin: 0;
+    top: 10px;
+    left: 10px;
+    opacity: 1;
+    overflow: visible;
+    padding: 8px 12px;
+  `}
 `;
 
 export default ProgressiveImage;

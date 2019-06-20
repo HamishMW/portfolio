@@ -10,7 +10,7 @@ import Anchor from '../components/Anchor';
 import Svg from '../components/Svg';
 import CodeBlock from '../components/CodeBlock';
 import { media, rgba, sectionPadding } from '../utils/styleUtils';
-import { useScrollToTop } from '../utils/hooks';
+import { useScrollToTop, useWindowSize } from '../utils/hooks';
 import posts from '../posts';
 import { AppContext } from '../app/App';
 
@@ -28,6 +28,7 @@ function Post({
   ...rest
 }) {
   const { status } = useContext(AppContext);
+  const windowSize = useWindowSize();
   useScrollToTop(status);
 
   return (
@@ -39,7 +40,10 @@ function Post({
       <PostHeader>
         <PostHeaderText>
           <PostDate>
-            <Divider />
+            <Divider
+              notchWidth={windowSize.width > media.numMobile ? '90px' : '60px'}
+              notchHeight={windowSize.width > media.numMobile ? '10px' : '8px'}
+            />
             <span>{new Date(date).toLocaleDateString('default', { year: 'numeric', month: 'long' })}</span>
           </PostDate>
           <PostTitle>{title}</PostTitle>
@@ -136,6 +140,9 @@ const Paragrapgh = styled.p`
   }
 
   @media (max-width: ${media.mobile}) {
+    font-size: 18px;
+    hyphens: auto;
+
     ${HeadingTwo} + & {
       margin-top: 22px;
     }
@@ -150,7 +157,7 @@ const components = {
   wrapper: Post,
   h2: HeadingTwo,
   p: Paragrapgh,
-  a: Anchor,
+  a: (props) => <Anchor target="_blank" {...props} />,
   code: CodeBlock,
 };
 
@@ -185,17 +192,35 @@ const PostHeader = styled.header`
   grid-template-columns: calc(50% - 40px) 1fr;
   grid-gap: 80px;
   align-items: center;
-  height: 80vh;
+  min-height: 80vh;
+
+  @media (max-width: 1600px) {
+    padding-left: 200px;
+    grid-gap: 60px;
+  }
 
   @media (max-width: ${media.laptop}) {
     padding-left: 180px;
     grid-gap: 40px;
+    min-height: 70vh;
   }
 
   @media (max-width: ${media.tablet}) {
     padding-left: 160px;
-    height: 40vh;
+    min-height: 40vh;
     grid-gap: 20px;
+  }
+
+  @media (max-height: 696px) {
+    padding-left: 100px;
+  }
+
+  @media (max-width: ${media.mobile}), ${media.mobileLS} {
+    grid-template-columns: 100%;
+    grid-gap: 20px;
+    height: auto;
+    padding-right: 20px;
+    padding-left: 20px;
   }
 `;
 
@@ -206,6 +231,11 @@ const PostHeaderText = styled.div`
   justify-self: center;
   justify-content: center;
   flex-direction: column;
+  padding: 60px 0 80px;
+
+  @media (max-width: ${media.mobile}), ${media.mobileLS} {
+    padding: 100px 0 0;
+  }
 `;
 
 const PostDate = styled.div`
@@ -220,6 +250,11 @@ const PostDate = styled.div`
 
   @media (max-width: ${media.tablet}) {
     margin-bottom: 30px;
+    grid-gap: 10px;
+  }
+
+  @media (max-width: ${media.mobile}) {
+    grid-template-columns: 100px 1fr;
   }
 `;
 
@@ -230,12 +265,20 @@ const PostTitle = styled.h1`
   margin: 0;
   color: ${props => props.theme.colorTitle};
 
+  @media (max-width: 1600px) {
+    font-size: 80px;
+  }
+
   @media (max-width: ${media.laptop}) {
     font-size: 64px;
   }
 
   @media (max-width: ${media.tablet}) {
-    font-size: 48px;
+    font-size: 42px;
+  }
+
+  @media (max-width: ${media.mobile}) {
+    font-size: 36px;
   }
 `;
 
@@ -243,9 +286,15 @@ const PostBanner = styled.div`
   justify-self: flex-end;
   width: 100%;
   height: 100%;
+
+  @media (max-width: ${media.mobile}) {
+    min-height: 40vh;
+  }
 `;
 
-const PostBannerImage = styled(ProgressiveImage)`
+const PostBannerImage = styled(ProgressiveImage).attrs({
+  className: 'post__banner-image',
+})`
   height: 100%;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 28px 100%, 0 calc(100% - 28px));
 
@@ -272,14 +321,25 @@ const AnimMobileScrollIndicator = keyframes`
 const PostBannerArrow = styled.a`
   position: absolute;
   bottom: 0;
-  left: 10px;
-  animation-name: ${AnimMobileScrollIndicator};
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-  transition-timing-function: cubic-bezier(.8,.1,.27,1);
+  left: -10px;
+  padding: 20px;
 
   svg {
     stroke: ${props => rgba(props.theme.colorText, 0.5)};
+    animation-name: ${AnimMobileScrollIndicator};
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    transition-timing-function: cubic-bezier(.8,.1,.27,1);
+  }
+
+  @media (max-width: ${media.tablet}) {
+    left: -20px;
+  }
+
+  @media (max-width: ${media.mobile}) {
+    position: relative;
+    margin-top: 20px;
+    align-self: flex-start;
   }
 `;
 
@@ -297,6 +357,15 @@ const PostContent = styled.div`
 
   @media (max-width: ${media.laptop}) {
     max-width: 680px;
+    margin-top: 80px;
+  }
+
+  @media (max-width: ${media.tablet}) {
+    margin-top: 70px;
+  }
+
+  @media (max-width: ${media.mobile}) {
+    margin-top: 60px;
   }
 `;
 

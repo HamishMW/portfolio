@@ -14,7 +14,6 @@ const posts = [
     bannerVideo: TestBannerVideo,
     bannerPlaceholder: TestBannerPlaceholder,
     bannerAlt: 'An animation of Kaneda from the film Akira sliding sideways on a motorcycle away from the camera',
-    bannerCredit: 'Akira, 1988',
     tags: ['development', 'design', 'accessiblity'],
     path: '/test',
     content: TestPost,

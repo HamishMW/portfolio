@@ -1,43 +1,44 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
-import { Helmet } from 'react-helmet-async';
+import { media } from '../utils/styleUtils';
 
 function CodeBlock(props) {
   return (
-    <Fragment>
-      <Helmet>
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet" />
-      </Helmet>
-      <CodeBlockElement>
-        <CodeBlockContent {...props} />
-      </CodeBlockElement>
-    </Fragment>
+    <CodeBlockElement>
+      <CodeBlockContent {...props} />
+    </CodeBlockElement>
   );
 };
 
 const prismColors = {
   char: '#D8DEE9',
   comment: '#B2B2B2',
-  keyword: '#c5a5c5',
+  keyword: '#c592ff',
   primitive: '#5a9bcf',
-  string: '#8dc891',
+  string: '#00FF9C',
   variable: '#d7deea',
   boolean: '#ff8b50',
   punctuation: '#88C6BE',
-  tag: '#fc929e',
-  function: '#79b6f2',
-  className: '#FAC863',
-  method: '#6699CC',
-  operator: '#fc929e',
+  tag: '#FF4081',
+  function: 'rgba(0,229,255,1)',
+  className: '#fcee0a',
+  method: 'rgba(0,229,255,1)',
+  operator: '#FF4081',
   background: 'rgb(29, 29, 35)',
 };
 
 const CodeBlockElement = styled.pre`
-  padding: 40px;
-  margin: 60px -40px;
+  padding: 30px;
+  margin: 60px -30px;
   background: ${prismColors.background};
-  clip-path: ${props => props.theme.clipPath(24)};
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
   color: white;
+  overflow-x: auto;
+
+  @media (max-width: ${media.mobile}) {
+    padding: 20px;
+    margin: 40px -20px;
+  }
 `;
 
 const CodeBlockContent = styled.code`
@@ -45,11 +46,14 @@ const CodeBlockContent = styled.code`
   pre,
   pre.prism-code {
     height: auto;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.4;
     white-space: pre;
-    word-break: break-word;
-    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+    font-family: SFMono-Regular, Roboto Mono, Consolas, Liberation Mono, Menlo, Courier, monospace;
+
+    @media (max-width: ${media.mobile}) {
+      font-size: 14px;
+    }
   }
 
   .token.attr-name {
