@@ -83,7 +83,7 @@ function Post({
               </PostDate>
             )}
           </Transition>
-          <PostTitle>
+          <PostTitle aria-label={title}>
             {title.split(' ').map((word, index) => (
               <PostTitleWordWrapper key={`${word}-${index}`}>
                 <PostTitleWord index={index}>
@@ -232,11 +232,11 @@ function Blog() {
     <MDXProvider components={components}>
       <Suspense fallback={Fragment}>
         <Switch>
-          {posts.map(({ content: PostContent, path, ...rest }) => (
+          {posts.map(({ content: PostComp, path, ...rest }) => (
             <Route
               key={path}
               path={`${rootPath}${path}`}
-              render={() => <PostContent {...rest} />}
+              render={() => <PostComp {...rest} />}
             />
           ))}
           <Route component={PostList} />

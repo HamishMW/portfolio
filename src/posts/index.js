@@ -4,7 +4,7 @@ import TestBannerPlaceholder from './assets/akira-placeholder.jpg';
 import PineappleBanner from '../assets/spr-background.jpg';
 import PineappleBannerPlaceholder from '../assets/spr-background-placeholder.jpg';
 
-const TestPost = lazy(() => import('../posts/test.mdx'));
+const TestPost = lazy(() => import('!babel-loader!mdx-loader!../posts/test.mdx'));
 
 const posts = [
   {
