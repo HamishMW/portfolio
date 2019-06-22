@@ -3,7 +3,7 @@ import styled, { css, withTheme } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Icon from './Icon';
-import { tint, rgba } from '../utils/styleUtils';
+import { rgba } from '../utils/styleUtils';
 
 const ButtonContent = withTheme(props => {
   const {
@@ -201,11 +201,6 @@ const ButtonContainer = styled.button`
     &:focus {
       outline: none;
       transform: ${props.iconOnly ? 'none' : 'scale(1.05)'};
-    }
-
-    &:hover:after,
-    &:focus:after {
-      background: ${tint(props.theme.colorPrimary, 0.2)};
     }
 
     &:focus:before {

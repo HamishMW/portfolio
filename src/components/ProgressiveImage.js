@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, Fragment } from 'react
 import styled, { css, keyframes } from 'styled-components/macro';
 import { usePrefersReducedMotion } from '../utils/hooks';
 import { Button } from '../components/Button';
+import Icon from '../components/Icon';
 import { Transition } from 'react-transition-group';
 
 const prerender = navigator.userAgent === 'ReactSnap';
@@ -44,25 +45,14 @@ function ProgressiveImage(props) {
       loaded={loaded}
       delay={delay}
     >
-      {reveal &&
-        <ImageFade intersect={intersect} delay={delay}>
-          <ImageElements
-            delay={delay}
-            onLoad={onLoad}
-            loaded={loaded}
-            intersect={intersect}
-            {...rest}
-          />
-        </ImageFade>
-      }
-      {!reveal &&
-        <ImageElements
-          onLoad={onLoad}
-          loaded={loaded}
-          intersect={intersect}
-          {...rest}
-        />
-      }
+      <ImageElements
+        delay={delay}
+        onLoad={onLoad}
+        loaded={loaded}
+        intersect={intersect}
+        reveal={reveal}
+        {...rest}
+      />
     </ImageContainer>
   );
 };
@@ -78,15 +68,17 @@ function ImageElements(props) {
     videoSrc,
     src,
     alt,
+    reveal,
     ...rest
   } = props;
-  const [showPlaceholder, setShowPlaceholder] = useState(true);
-  const placeholderRef = useRef();
-  const videoRef = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [playing, setPlaying] = useState(!prefersReducedMotion);
   const [showPlayButton, setShowPlayButton] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const placeholderRef = useRef();
+  const videoRef = useRef();
 
   useEffect(() => {
     const purgePlaceholder = () => {
@@ -118,15 +110,26 @@ function ImageElements(props) {
     setIsHovered(true);
   };
 
+  const handleFocusPlayButton = () => {
+    setShowPlayButton(true);
+    setIsFocused(true);
+  };
+
   return (
-    <Fragment>
+    <ImageElementWrapper
+      reveal={reveal}
+      intersect={intersect}
+      delay={delay}
+      onMouseOver={handleShowPlayButton}
+      onMouseOut={() => setIsHovered(false)}
+    >
       {videoSrc &&
         <Fragment>
           <ImageActual
-            autoPlay={!prefersReducedMotion}
             muted
             loop
             playsInline
+            autoPlay={!prefersReducedMotion}
             as="video"
             role="img"
             delay={delay}
@@ -135,24 +138,24 @@ function ImageElements(props) {
             src={videoSrc}
             aria-label={alt}
             ref={videoRef}
-            onMouseOver={handleShowPlayButton}
-            onMouseOut={() => setIsHovered(false)}
             {...rest}
           />
           <Transition
-            in={isHovered}
+            in={isHovered || isFocused}
             onExit={node => node && node.offsetHeight}
             onExited={() => setShowPlayButton(false)}
-            timeout={{ enter: 0, exit: 300}}
+            timeout={{ enter: 0, exit: 300 }}
           >
             {(status) => (
               <ImageButton
+                iconOnly
                 status={status}
                 showPlayButton={showPlayButton}
-                onFocus={handleShowPlayButton}
-                onBlur={() => setIsHovered(false)}
+                onFocus={handleFocusPlayButton}
+                onBlur={() => setIsFocused(false)}
                 onClick={togglePlaying}
               >
+                <Icon icon={playing ? 'pause' : 'play'} />
                 {playing ? 'Pause' : 'Play'}
               </ImageButton>
             )}
@@ -180,7 +183,7 @@ function ImageElements(props) {
           role="presentation"
         />
       }
-    </Fragment>
+    </ImageElementWrapper>
   );
 }
 
@@ -228,9 +231,9 @@ const ImageContainer = styled.div`
   `}
 `;
 
-const ImageFade = styled.div`
-  opacity: ${props => props.intersect ? 1 : 0};
-  transition: opacity 0.4s ease ${props => props.delay + 1000}ms;
+const ImageElementWrapper = styled.div`
+  opacity: ${props => !props.reveal || props.intersect ? 1 : 0};
+  transition: ${props => props.reveal ? `opacity 0.4s ease ${props.delay + 1000}ms` : 'none'};
   transform: translate3d(0, 0, 0);
   position: relative;
   display: grid;
@@ -261,12 +264,6 @@ const ImageActual = styled.img`
 
 const ImageButton = styled(Button)`
   border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
   position: absolute;
   opacity: 0;
   font-size: 16px;
@@ -274,21 +271,56 @@ const ImageButton = styled(Button)`
   transition-duration: 0.3s;
   transition-delay: 0s;
   cursor: pointer;
+  padding: 0 14px 0 10px;
+  height: 40px;
+
+  svg {
+    fill: white;
+    margin-right: 8px;
+    position: relative;
+    top: -1px;
+  }
+
+  span {
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
+
+  &::after {
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  &:hover::after,
+  &:focus::after {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  &::before {
+    background: rgba(0, 0, 0, 0.9);
+  }
 
   ${props => props.status === 'entered' && css`
     opacity: 1;
   `}
 
+  ${props => !props.showPlayButton && css`
+    padding: 0;
+    height: 1px;
+    width: 1px;
+    clip: rect(0 0 0 0);
+    margin: -1px;
+    overflow: hidden;
+  `}
+
   ${props => props.showPlayButton && css`
     clip: auto;
-    width: auto;
-    height: auto;
     margin: 0;
     top: 10px;
     left: 10px;
-    opacity: 1;
     overflow: visible;
-    padding: 8px 12px;
+    width: auto;
   `}
 `;
 

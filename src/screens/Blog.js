@@ -1,19 +1,22 @@
-import React, { Suspense, Fragment, useContext } from 'react';
+import React, { Suspense, Fragment, useContext, useRef } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components/macro';
 import { MDXProvider } from '@mdx-js/react';
 import { Helmet } from 'react-helmet-async';
+import { Transition } from 'react-transition-group';
 import ProgressiveImage from '../components/ProgressiveImage';
 import Footer from '../components/Footer';
 import Divider from '../components/Divider';
 import Anchor from '../components/Anchor';
 import Svg from '../components/Svg';
 import CodeBlock from '../components/CodeBlock';
-import { media, rgba, sectionPadding } from '../utils/styleUtils';
+import { media, rgba, sectionPadding, AnimFade } from '../utils/styleUtils';
 import { useScrollToTop, useWindowSize } from '../utils/hooks';
 import posts from '../posts';
 import { AppContext } from '../app/App';
+import GothamBold from '../fonts/gotham-bold.woff2';
 
+const prerender = navigator.userAgent === 'ReactSnap';
 const rootPath = '/blog';
 
 function Post({
@@ -25,31 +28,78 @@ function Post({
   bannerVideo,
   bannerPlaceholder,
   bannerAlt,
+  readTime,
   ...rest
 }) {
   const { status } = useContext(AppContext);
   const windowSize = useWindowSize();
   useScrollToTop(status);
+  const contentRef = useRef();
+
+  const handleScrollIndicatorClick = (event) => {
+    event.preventDefault();
+
+    window.scrollTo({
+      top: contentRef.current.offsetTop,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <PostArticle>
       <Helmet>
         <title>{`Blog | ${title}`}</title>
         <meta name="description" content={description} />
+        <style>
+          {`
+            @font-face {
+              font-family: 'Gotham';
+              font-weight: 600;
+              src: url(${GothamBold}) format('woff2');
+              font-display: swap;
+            }
+          `}
+        </style>
       </Helmet>
       <PostHeader>
         <PostHeaderText>
-          <PostDate>
-            <Divider
-              notchWidth={windowSize.width > media.numMobile ? '90px' : '60px'}
-              notchHeight={windowSize.width > media.numMobile ? '10px' : '8px'}
-            />
-            <span>{new Date(date).toLocaleDateString('default', { year: 'numeric', month: 'long' })}</span>
-          </PostDate>
-          <PostTitle>{title}</PostTitle>
-          <PostBannerArrow href="#postContent" aria-label="Scroll to post content">
+          <Transition
+            appear
+            in={!prerender}
+            timeout={400}
+            onEnter={node => node && node.offsetHeight}
+          >
+            {status => (
+              <PostDate>
+                <Divider
+                  notchWidth={windowSize.width > media.numMobile ? '90px' : '60px'}
+                  notchHeight={windowSize.width > media.numMobile ? '10px' : '8px'}
+                  collapsed={status !== 'entered'}
+                />
+                <PostDateText status={status}>
+                  {new Date(date).toLocaleDateString('default', { year: 'numeric', month: 'long' })}
+                </PostDateText>
+              </PostDate>
+            )}
+          </Transition>
+          <PostTitle>
+            {title.split(' ').map((word, index) => (
+              <PostTitleWordWrapper key={`${word}-${index}`}>
+                <PostTitleWord index={index}>
+                  {word}{index !== title.split(' ').length - 1 ? '\u00a0' : ''}
+                </PostTitleWord>
+              </PostTitleWordWrapper>
+            ))}
+          </PostTitle>
+          <PostBannerArrow
+            href="#postContent"
+            aria-label="Scroll to post content"
+            onClick={handleScrollIndicatorClick}
+          >
             <Svg icon="arrowDown" />
           </PostBannerArrow>
+          <PostBannerReadTime>{readTime}</PostBannerReadTime>
         </PostHeaderText>
         <PostBanner>
           <PostBannerImage
@@ -61,7 +111,7 @@ function Post({
           />
         </PostBanner>
       </PostHeader>
-      <PostContentWrapper id="postContent">
+      <PostContentWrapper id="postContent" ref={contentRef}>
         <PostContent>{children}</PostContent>
       </PostContentWrapper>
       <Footer />
@@ -77,7 +127,7 @@ function PostList() {
     <div>
       <Helmet>
         <title>{`Blog | Hamish Williams Designer`}</title>
-        <meta name="description" content="A collection of technical design and development ramblings." />
+        <meta name="description" content="A collection of technical design and development articles." />
       </Helmet>
       {posts.map(({ path, title, description }) => (
         <Link key={path} to={`${rootPath}${path}`}>
@@ -153,12 +203,28 @@ const Paragrapgh = styled.p`
   }
 `;
 
+const Image = styled.img`
+  display: block;
+  margin: 60px 0;
+  max-width: 100%;
+  height: auto;
+`;
+
+const InlineCode = styled.code`
+  color: ${props => rgba(props.theme.colorText, 0.54)};
+  background: ${props => rgba(props.theme.colorText, 0.1)};
+  padding: 0.1em 0.4em;
+  font-family: ${props => props.theme.monoFontStack};
+`;
+
 const components = {
   wrapper: Post,
   h2: HeadingTwo,
   p: Paragrapgh,
+  img: Image,
   a: (props) => <Anchor target="_blank" {...props} />,
   code: CodeBlock,
+  inlineCode: InlineCode,
 };
 
 function Blog() {
@@ -228,10 +294,11 @@ const PostHeaderText = styled.div`
   height: 100%;
   position: relative;
   display: flex;
-  justify-self: center;
+  justify-self: flex-end;
   justify-content: center;
   flex-direction: column;
   padding: 60px 0 80px;
+  max-width: 800px;
 
   @media (max-width: ${media.mobile}), ${media.mobileLS} {
     padding: 100px 0 0;
@@ -258,10 +325,16 @@ const PostDate = styled.div`
   }
 `;
 
+const PostDateText = styled.span`
+  opacity: ${props => props.status === 'entered' ? 1 : 0};
+  transform: ${props => props.status === 'entered' ? 'none' : 'translate3d(-5%, 0, 0)'};
+  transition: opacity 0.8s ease, transform 0.8s ${props => props.theme.curveFastoutSlowin};
+`;
+
 const PostTitle = styled.h1`
   font-size: 94px;
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.1;
   margin: 0;
   color: ${props => props.theme.colorTitle};
 
@@ -282,6 +355,35 @@ const PostTitle = styled.h1`
   }
 `;
 
+const AnimPostTitleWord = keyframes`
+  from {
+    transform: translate3d(0, 110%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+`;
+
+const PostTitleWordWrapper = styled.span`
+  overflow: hidden;
+  position: relative;
+  display: inline-flex;
+`;
+
+const PostTitleWord = styled.span`
+  transform: translate3d(0, 110%, 0);
+  animation-name: ${AnimPostTitleWord};
+  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-duration: 1.2s;
+  animation-delay: ${props => props.index * 120}ms;
+  animation-fill-mode: forwards;
+  display: inline-flex;
+
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+  }
+`;
+
 const PostBanner = styled.div`
   justify-self: flex-end;
   width: 100%;
@@ -292,9 +394,7 @@ const PostBanner = styled.div`
   }
 `;
 
-const PostBannerImage = styled(ProgressiveImage).attrs({
-  className: 'post__banner-image',
-})`
+const PostBannerImage = styled(ProgressiveImage)`
   height: 100%;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 28px 100%, 0 calc(100% - 28px));
 
@@ -323,6 +423,16 @@ const PostBannerArrow = styled.a`
   bottom: 0;
   left: -10px;
   padding: 20px;
+  animation-name: ${AnimFade};
+  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+  animation-delay: 1s;
+  opacity: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+  }
 
   svg {
     stroke: ${props => rgba(props.theme.colorText, 0.5)};
@@ -343,6 +453,36 @@ const PostBannerArrow = styled.a`
   }
 `;
 
+const PostBannerReadTime = styled.div`
+  color: ${props => rgba(props.theme.colorText, 0.6)};
+  font-size: 16px;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  padding: 20px 0;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 60px 1fr;
+  grid-gap: 10px;
+  animation-name: ${AnimFade};
+  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+  animation-delay: 1s;
+  opacity: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+  }
+
+  &::before {
+    content: '';
+    height: 2px;
+    background: ${props => rgba(props.theme.colorText, 0.4)};
+    display: block;
+  }
+`;
+
 const PostContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -354,6 +494,16 @@ const PostContent = styled.div`
   width: 100%;
   align-self: center;
   margin-top: 120px;
+  animation-name: ${AnimFade};
+  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-duration: 1.2s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+  }
 
   @media (max-width: ${media.laptop}) {
     max-width: 680px;

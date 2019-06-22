@@ -1,11 +1,10 @@
 import { lazy } from 'react';
-import TestBannerVideo from '../assets/post-inclusive-motion.mp4';
-import TestBannerPlaceholder from '../assets/post-inclusive-motion-placeholder.jpg';
+import TestBannerVideo from './assets/akira.mp4';
+import TestBannerPlaceholder from './assets/akira-placeholder.jpg';
 import PineappleBanner from '../assets/spr-background.jpg';
 import PineappleBannerPlaceholder from '../assets/spr-background-placeholder.jpg';
 
 const TestPost = lazy(() => import('../posts/test.mdx'));
-const PineapplePost = lazy(() => import('../posts/pineapple.mdx'));
 
 const posts = [
   {
@@ -18,6 +17,7 @@ const posts = [
     path: '/test',
     content: TestPost,
     date: '2019-06-29',
+    readTime: '00:06:00:00',
   },
   {
     title: 'Pine face',
@@ -26,8 +26,9 @@ const posts = [
     bannerPlaceholder: PineappleBannerPlaceholder,
     tags: ['pineapple', 'pizza'],
     path: '/pineapple',
-    content: PineapplePost,
+    content: TestPost,
     date: '2019-06-29',
+    readTime: '00:06:00:00',
   },
 ];
 

@@ -10,7 +10,8 @@ function CodeBlock(props) {
   );
 };
 
-const prismColors = {
+// Cyberpanic theme by Hamish Williams
+const codeTheme = {
   char: '#D8DEE9',
   comment: '#B2B2B2',
   keyword: '#c592ff',
@@ -30,7 +31,7 @@ const prismColors = {
 const CodeBlockElement = styled.pre`
   padding: 30px;
   margin: 60px -30px;
-  background: ${prismColors.background};
+  background: ${codeTheme.background};
   clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
   color: white;
   overflow-x: auto;
@@ -49,7 +50,7 @@ const CodeBlockContent = styled.code`
     font-size: 16px;
     line-height: 1.4;
     white-space: pre;
-    font-family: SFMono-Regular, Roboto Mono, Consolas, Liberation Mono, Menlo, Courier, monospace;
+    font-family: ${props => props.theme.monoFontStack};
 
     @media (max-width: ${media.mobile}) {
       font-size: 14px;
@@ -57,7 +58,7 @@ const CodeBlockContent = styled.code`
   }
 
   .token.attr-name {
-    color: ${prismColors.keyword};
+    color: ${codeTheme.keyword};
   }
 
   .token.comment,
@@ -65,7 +66,7 @@ const CodeBlockContent = styled.code`
   .token.prolog,
   .token.doctype,
   .token.cdata {
-    color: ${prismColors.comment};
+    color: ${codeTheme.comment};
   }
 
   .token.property,
@@ -74,54 +75,54 @@ const CodeBlockContent = styled.code`
   .token.constant,
   .token.symbol,
   .token.deleted {
-    color: ${prismColors.primitive};
+    color: ${codeTheme.primitive};
   }
 
   .token.boolean {
-    color: ${prismColors.boolean};
+    color: ${codeTheme.boolean};
   }
 
   .token.tag {
-    color: ${prismColors.tag};
+    color: ${codeTheme.tag};
   }
 
   .token.string {
-    color: ${prismColors.string};
+    color: ${codeTheme.string};
   }
 
   .token.punctuation {
-    color: ${prismColors.punctuation};
+    color: ${codeTheme.punctuation};
   }
 
   .token.selector,
   .token.char,
   .token.builtin,
   .token.inserted {
-    color: ${prismColors.char};
+    color: ${codeTheme.char};
   }
 
   .token.function {
-    color: ${prismColors.function};
+    color: ${codeTheme.function};
   }
 
   .token.operator,
   .token.entity,
   .token.url,
   .token.variable {
-    color: ${prismColors.variable};
+    color: ${codeTheme.variable};
   }
 
   .token.attr-value {
-    color: ${prismColors.string};
+    color: ${codeTheme.string};
   }
 
   .token.keyword {
-    color: ${prismColors.keyword};
+    color: ${codeTheme.keyword};
   }
 
   .token.atrule,
   .token.class-name {
-    color: ${prismColors.className};
+    color: ${codeTheme.className};
   }
 
   .token.important {
