@@ -1,35 +1,13 @@
+/* eslint-disable import/no-webpack-loader-syntax */
 import { lazy } from 'react';
-import TestBannerVideo from './assets/akira.mp4';
-import TestBannerPlaceholder from './assets/akira-placeholder.jpg';
-import PineappleBanner from '../assets/spr-background.jpg';
-import PineappleBannerPlaceholder from '../assets/spr-background-placeholder.jpg';
-
+import { frontMatter as testFrontMatter } from '!babel-loader!mdx-loader!../posts/test.mdx';
 const TestPost = lazy(() => import('!babel-loader!mdx-loader!../posts/test.mdx'));
 
 const posts = [
   {
-    title: 'Accessible motion design for the web',
-    description: 'This is a rad test post',
-    bannerVideo: TestBannerVideo,
-    bannerPlaceholder: TestBannerPlaceholder,
-    bannerAlt: 'An animation of Kaneda from the film Akira sliding sideways on a motorcycle away from the camera',
-    tags: ['development', 'design', 'accessiblity'],
-    path: '/test',
     content: TestPost,
-    date: '2019-06-29',
-    readTime: '00:06:00:00',
-  },
-  {
-    title: 'Pine face',
-    description: 'A tasty pineapple post',
-    banner: PineappleBanner,
-    bannerPlaceholder: PineappleBannerPlaceholder,
-    tags: ['pineapple', 'pizza'],
-    path: '/pineapple',
-    content: TestPost,
-    date: '2019-06-29',
-    readTime: '00:06:00:00',
-  },
+    ...testFrontMatter,
+  }
 ];
 
 export default posts;

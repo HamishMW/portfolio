@@ -52,7 +52,7 @@ const roles = [
 function ProjectVolkihar() {
   const { status, updateTheme, currentTheme } = useContext(AppContext);
   const currentThemeRef = useRef(currentTheme);
-  useScrollToTop(status);
+  useScrollToTop();
 
   useEffect(() => {
     currentThemeRef.current = currentTheme;
