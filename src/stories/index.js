@@ -144,7 +144,7 @@ storiesOf('Displacement slider', module)
 storiesOf('Loader', module)
   .add('default', () =>
     <StoryContainer padding={30}>
-      <Loader />
+      <Loader size={48} />
     </StoryContainer>
   );
 

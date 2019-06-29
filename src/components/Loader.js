@@ -19,12 +19,18 @@ const Loader = ({ size = 32, color = '#fff', text = 'Loading...', ...rest }) => 
     );
   }
 
+  const gapSize = Math.round((size / 3) * 0.2);
+  const spanSize = Math.round((size / 3) - (gapSize * 2) - 1);
+
   return (
     <LoaderContainer aria-label={text} size={size} {...rest}>
-      <LoaderSpanWrapper>
-        <LoaderSpan color={color} />
-        <LoaderSpan color={color} />
-        <LoaderSpan color={color} />
+      <LoaderSpanWrapper
+        gapSize={gapSize}
+        spanSize={spanSize}
+      >
+        <LoaderSpan spanColor={color} />
+        <LoaderSpan spanColor={color} />
+        <LoaderSpan spanColor={color} />
       </LoaderSpanWrapper>
       {renderScreenReaderTextPortal()}
     </LoaderContainer>
@@ -57,8 +63,8 @@ const LoaderAnnouncement = styled.div`
 
 const LoaderSpanWrapper = styled.span`
   display: grid;
-  grid-template-columns: repeat(3, 6px);
-  grid-gap: 2px;
+  grid-template-columns: repeat(3, ${props => props.spanSize}px);
+  grid-gap: ${props => props.gapSize}px;
   align-items: center;
   justify-content: center;
   transform: skewX(20deg);
@@ -84,8 +90,7 @@ const AnimSpan = keyframes`
 
 const LoaderSpan = styled.span`
   height: 60%;
-  width: 6px;
-  background: ${props => props.color};
+  background: ${props => props.spanColor};
   animation: ${AnimSpan} 1.4s ${props => props.theme.curveFastoutSlowin} infinite;
   transform: scaleY(0);
   transform-origin: top left;
