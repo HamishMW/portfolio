@@ -3,6 +3,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import { useScrollToTop } from '../utils/hooks';
+import { sectionPadding, media } from '../utils/styleUtils';
 import posts from '../posts';
 import Post from '../screens/Post';
 
@@ -15,12 +16,14 @@ function PostList() {
         <title>{`Blog | Hamish Williams Designer`}</title>
         <meta name="description" content="A collection of technical design and development articles." />
       </Helmet>
-      {posts.map(({ path, title, description }) => (
-        <Link key={path} to={`/blog${path}`}>
-          <h2>{title}</h2>
-          <p>{description}</p>
-        </Link>
-      ))}
+      <PostListContent>
+        {posts.map(({ path, title, description }) => (
+          <Link key={path} to={`/blog${path}`}>
+            <h2>{title}</h2>
+            <p>{description}</p>
+          </Link>
+        ))}
+      </PostListContent>
     </PostListWrapper>
   );
 }
@@ -46,4 +49,18 @@ function Blog() {
 
 export default Blog;
 
-const PostListWrapper = styled.div``;
+const PostListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  ${sectionPadding}
+`;
+
+const PostListContent = styled.div`
+  max-width: ${props => props.theme.maxWidthDesktop}px;
+  width: 100%;
+
+  @media (max-width: ${media.laptop}) {
+    max-width: ${props => props.theme.maxWidthLaptop}px;
+  }
+`;

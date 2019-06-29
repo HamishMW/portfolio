@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { keyframes } from 'styled-components/macro';
 import { usePrefersReducedMotion } from '../utils/hooks';
 
 const Loader = ({ size = 32, color = '#fff', text = 'Loading...', ...rest }) => {
@@ -21,10 +21,11 @@ const Loader = ({ size = 32, color = '#fff', text = 'Loading...', ...rest }) => 
 
   return (
     <LoaderContainer aria-label={text} size={size} {...rest}>
-      <LoaderSpan color={color} />
-      <LoaderSpan color={color} />
-      <LoaderSpan color={color} />
-      <LoaderSpan color={color} />
+      <LoaderSpanWrapper>
+        <LoaderSpan color={color} />
+        <LoaderSpan color={color} />
+        <LoaderSpan color={color} />
+      </LoaderSpanWrapper>
       {renderScreenReaderTextPortal()}
     </LoaderContainer>
   );
@@ -54,42 +55,47 @@ const LoaderAnnouncement = styled.div`
   position: absolute;
 `;
 
-const AnimGrow = keyframes`
-  0%, 100% {
-    transform: scaleY(0.4);
-    opacity: 0.6;
-  }
+const LoaderSpanWrapper = styled.span`
+  display: grid;
+  grid-template-columns: repeat(3, 6px);
+  grid-gap: 2px;
+  align-items: center;
+  justify-content: center;
+  transform: skewX(20deg);
+`;
 
-  50% {
-    transform: scaleY(0.8);
+const AnimSpan = keyframes`
+  0% {
+    transform: scaleY(0);
+    opacity: 0.5;
+    transform-origin: top;
+  }
+  20%,
+  80% {
+    transform: scaleY(1);
     opacity: 1;
+  }
+  100% {
+    transform: scaleY(0);
+    opacity: 0.5;
+    transform-origin: bottom;
   }
 `;
 
 const LoaderSpan = styled.span`
-  display: block;
-  width: 4px;
-  margin-left: 2px;
-  height: 100%;
-  background-color: ${props => props.color};
-  transform: scaleY(0.4);
-  opacity: 0.6;
-
-  &:nth-child(1) {
-    animation: ${css`${AnimGrow}`} 1s ease-in-out infinite;
-    margin-left: 0;
-  }
+  height: 60%;
+  width: 6px;
+  background: ${props => props.color};
+  animation: ${AnimSpan} 1.4s ${props => props.theme.curveFastoutSlowin} infinite;
+  transform: scaleY(0);
+  transform-origin: top left;
 
   &:nth-child(2) {
-    animation: ${css`${AnimGrow}`} 1s ease-in-out 0.15s infinite;
+    animation-delay: 0.1s;
   }
 
   &:nth-child(3) {
-    animation: ${css`${AnimGrow}`} 1s ease-in-out 0.30s infinite;
-  }
-
-  &:nth-child(4) {
-    animation: ${css`${AnimGrow}`} 1s ease-in-out 0.45s infinite;
+    animation-delay: 0.2s;
   }
 `;
 

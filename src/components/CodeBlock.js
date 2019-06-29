@@ -1,21 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/macro';
 import { media } from '../utils/styleUtils';
+import { AppContext } from '../app/App';
 
-function CodeBlock(props) {
-  return (
-    <CodeBlockElement>
-      <CodeBlockContent {...props} />
-    </CodeBlockElement>
-  );
-};
-
-// Cyberpanic theme by Hamish Williams
-const codeTheme = {
+// Netrunner theme by Hamish Williams
+const netrunnerTheme = {
   char: '#D8DEE9',
   comment: '#B2B2B2',
   keyword: '#c592ff',
-  primitive: '#5a9bcf',
+  primitive: 'rgba(0,229,255,1)',
   string: '#00FF9C',
   variable: '#d7deea',
   boolean: '#ff8b50',
@@ -28,12 +21,46 @@ const codeTheme = {
   background: 'rgb(29, 29, 35)',
 };
 
-const CodeBlockElement = styled.pre`
+// Generic legible light theme by Hamish Williams
+const lightCodeTheme = {
+  char: 'rgba(0, 0, 0, 0.8)',
+  comment: 'rgba(0, 0, 0, 0.6)',
+  keyword: 'rgba(0, 0, 0, 0.8)',
+  primitive: 'rgba(0, 0, 0, 0.8)',
+  string: 'rgba(0, 0, 0, 0.8)',
+  variable: 'rgba(0, 0, 0, 0.8)',
+  boolean: 'rgba(0, 0, 0, 0.8)',
+  punctuation: 'rgba(0, 0, 0, 0.4)',
+  tag: 'rgba(0, 0, 0, 0.8)',
+  function: 'rgba(0, 0, 0, 0.8)',
+  className: 'rgba(0, 0, 0, 1)',
+  method: 'rgba(0, 0, 0, 0.8)',
+  operator: 'rgba(0, 0, 0, 0.4)',
+  background: 'rgb(228, 228, 228)',
+};
+
+const codeThemes = {
+  dark: netrunnerTheme,
+  light: lightCodeTheme,
+};
+
+function CodeBlock(props) {
+  const { currentTheme } = useContext(AppContext);
+  const codeTheme = codeThemes[currentTheme.id];
+
+  return (
+    <CodeBlockWrapper codeTheme={codeTheme}>
+      <CodeBlockContent codeTheme={codeTheme} {...props} />
+    </CodeBlockWrapper>
+  );
+};
+
+const CodeBlockWrapper = styled.pre`
   padding: 30px;
   margin: 60px -30px;
-  background: ${codeTheme.background};
+  background: ${props => props.codeTheme.background};
   clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
-  color: white;
+  color: ${props => props.theme.colorText};
   overflow-x: auto;
 
   @media (max-width: ${media.mobile}) {
@@ -42,8 +69,10 @@ const CodeBlockElement = styled.pre`
   }
 `;
 
-const CodeBlockContent = styled.code`
-  &,
+const CodeBlockContent = styled.pre`
+  margin: 0;
+
+  code,
   pre,
   pre.prism-code {
     height: auto;
@@ -58,7 +87,7 @@ const CodeBlockContent = styled.code`
   }
 
   .token.attr-name {
-    color: ${codeTheme.keyword};
+    color: ${props => props.codeTheme.keyword};
   }
 
   .token.comment,
@@ -66,7 +95,7 @@ const CodeBlockContent = styled.code`
   .token.prolog,
   .token.doctype,
   .token.cdata {
-    color: ${codeTheme.comment};
+    color: ${props => props.codeTheme.comment};
   }
 
   .token.property,
@@ -75,54 +104,54 @@ const CodeBlockContent = styled.code`
   .token.constant,
   .token.symbol,
   .token.deleted {
-    color: ${codeTheme.primitive};
+    color: ${props => props.codeTheme.primitive};
   }
 
   .token.boolean {
-    color: ${codeTheme.boolean};
+    color: ${props => props.codeTheme.boolean};
   }
 
   .token.tag {
-    color: ${codeTheme.tag};
+    color: ${props => props.codeTheme.tag};
   }
 
   .token.string {
-    color: ${codeTheme.string};
+    color: ${props => props.codeTheme.string};
   }
 
   .token.punctuation {
-    color: ${codeTheme.punctuation};
+    color: ${props => props.codeTheme.punctuation};
   }
 
   .token.selector,
   .token.char,
   .token.builtin,
   .token.inserted {
-    color: ${codeTheme.char};
+    color: ${props => props.codeTheme.char};
   }
 
   .token.function {
-    color: ${codeTheme.function};
+    color: ${props => props.codeTheme.function};
   }
 
   .token.operator,
   .token.entity,
   .token.url,
   .token.variable {
-    color: ${codeTheme.variable};
+    color: ${props => props.codeTheme.variable};
   }
 
   .token.attr-value {
-    color: ${codeTheme.string};
+    color: ${props => props.codeTheme.string};
   }
 
   .token.keyword {
-    color: ${codeTheme.keyword};
+    color: ${props => props.codeTheme.keyword};
   }
 
   .token.atrule,
   .token.class-name {
-    color: ${codeTheme.className};
+    color: ${props => props.codeTheme.className};
   }
 
   .token.important {

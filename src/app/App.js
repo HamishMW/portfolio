@@ -200,6 +200,7 @@ const AppPage = styled.div`
 
   ${props => props.status === 'entered' && css`
     transition-duration: 0.5s;
+    transition-delay: 0.2s;
     opacity: 1;
   `}
 `;

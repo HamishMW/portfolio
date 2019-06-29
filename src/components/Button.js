@@ -50,7 +50,7 @@ const ButtonContent = withTheme(props => {
       }
       {loading &&
         <ButtonLoader
-          size="24"
+          size={32}
           text={loadingText}
           color={theme.colorBackground}
         />

@@ -10,6 +10,7 @@ import Monogram from '../components/Monogram';
 import DisplacementSphere from '../components/DisplacementSphere';
 import DisplacementSlider from '../components/DisplacementSlider';
 import DecoderText from '../components/DecoderText';
+import Loader from '../components/Loader';
 import { useFormInput } from '../utils/hooks';
 
 const StoryContainer = styled.div`
@@ -139,3 +140,11 @@ storiesOf('Displacement slider', module)
       />
     </StoryContainer>
   );
+
+storiesOf('Loader', module)
+  .add('default', () =>
+    <StoryContainer padding={30}>
+      <Loader />
+    </StoryContainer>
+  );
+
