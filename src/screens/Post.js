@@ -41,8 +41,6 @@ function PostWrapper({
     });
   };
 
-  console.log(rest);
-
   return (
     <PostArticle>
       <Helmet>
@@ -256,7 +254,7 @@ const PostTitleWord = styled.span`
   animation-name: ${AnimPostTitleWord};
   animation-timing-function: ${props => props.theme.curveFastoutSlowin};
   animation-duration: 1.2s;
-  animation-delay: ${props => props.index * 120}ms;
+  animation-delay: ${props => props.index * 120 + 200}ms;
   animation-fill-mode: forwards;
   display: inline-flex;
 
@@ -391,8 +389,18 @@ const PostContent = styled.div`
     opacity: 1;
   }
 
+  @media (max-width: 1320px) {
+    grid-template-columns: 1fr 80px 740px 80px 1fr;
+    margin-top: 80px;
+  }
+
   @media (max-width: ${media.laptop}) {
     grid-template-columns: 1fr 60px 680px 60px 1fr;
+    margin-top: 80px;
+  }
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr 50px 660px 50px 1fr;
     margin-top: 80px;
   }
 

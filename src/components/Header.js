@@ -17,13 +17,12 @@ const navLinks = [
     hash: '#projects',
   },
   {
-    label: 'Details',
-    pathname: '/',
-    hash: '#details'
-  },
-  {
     label: 'Contact',
     pathname: '/contact',
+  },
+  {
+    label: 'Articles',
+    pathname: '/articles',
   },
 ];
 

@@ -67,7 +67,7 @@ const LoaderSpanWrapper = styled.span`
   grid-gap: ${props => props.gapSize}px;
   align-items: center;
   justify-content: center;
-  transform: skewX(20deg);
+  transform: skewX(22deg);
 `;
 
 const AnimSpan = keyframes`
@@ -76,10 +76,15 @@ const AnimSpan = keyframes`
     opacity: 0.5;
     transform-origin: top;
   }
-  20%,
-  80% {
+  40% {
     transform: scaleY(1);
     opacity: 1;
+    transform-origin: top;
+  }
+  60% {
+    transform: scaleY(1);
+    opacity: 1;
+    transform-origin: bottom;
   }
   100% {
     transform: scaleY(0);
@@ -91,7 +96,7 @@ const AnimSpan = keyframes`
 const LoaderSpan = styled.span`
   height: 60%;
   background: ${props => props.spanColor};
-  animation: ${AnimSpan} 1.4s ${props => props.theme.curveFastoutSlowin} infinite;
+  animation: ${AnimSpan} 1s ${props => props.theme.curveFastoutSlowin} infinite;
   transform: scaleY(0);
   transform-origin: top left;
 

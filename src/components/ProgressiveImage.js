@@ -95,7 +95,9 @@ function ImageElements(props) {
     };
   }, []);
 
-  const togglePlaying = () => {
+  const togglePlaying = (event) => {
+    event.preventDefault();
+
     if (videoRef.current.paused) {
       setPlaying(true);
       videoRef.current.play();
