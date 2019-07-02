@@ -8,6 +8,40 @@ import posts from '../posts';
 import Post from './Post';
 import ProgressiveImage from '../components/ProgressiveImage';
 
+function PostListItem({
+  path,
+  title,
+  description,
+  banner,
+  bannerVideo,
+  bannerPlaceholder,
+  bannerAlt,
+  date,
+}) {
+  return (
+    <PostListItemWrapper>
+      <PostContent to={`/articles${path}`}>
+        <PostImageWrapper>
+          <PostImage
+            srcSet={banner ? require(`../posts/assets/${banner}`) : undefined}
+            videoSrc={bannerVideo ? require(`../posts/assets/${bannerVideo}`) : undefined}
+            placeholder={require(`../posts/assets/${bannerPlaceholder}`)}
+            alt={bannerAlt}
+          />
+          <PostImageTag>K256</PostImageTag>
+        </PostImageWrapper>
+        <PostText>
+          <PostDate>
+            {new Date(date).toLocaleDateString('default', { year: 'numeric', month: 'long' })}
+          </PostDate>
+          <PostTitle>{title}</PostTitle>
+          <PostDescription>{description}</PostDescription>
+        </PostText>
+      </PostContent>
+    </PostListItemWrapper>
+  );
+}
+
 function PostList() {
   useScrollToTop();
 
@@ -18,37 +52,9 @@ function PostList() {
         <meta name="description" content="A collection of technical design and development articles." />
       </Helmet>
       <PostListContent>
-        {posts.map(({
-          path,
-          title,
-          description,
-          banner,
-          bannerVideo,
-          bannerPlaceholder,
-          bannerAlt,
-          date,
-        }) => (
-            <PostListItem key={path}>
-              <PostContent to={`/articles${path}`}>
-                <PostImageWrapper>
-                  <PostImage
-                    srcSet={banner ? require(`../posts/assets/${banner}`) : undefined}
-                    videoSrc={bannerVideo ? require(`../posts/assets/${bannerVideo}`) : undefined}
-                    placeholder={require(`../posts/assets/${bannerPlaceholder}`)}
-                    alt={bannerAlt}
-                  />
-                  <PostImageTag>K256</PostImageTag>
-                </PostImageWrapper>
-                <PostText>
-                  <PostDate>
-                    {new Date(date).toLocaleDateString('default', { year: 'numeric', month: 'long' })}
-                  </PostDate>
-                  <PostTitle>{title}</PostTitle>
-                  <PostDescription>{description}</PostDescription>
-                </PostText>
-              </PostContent>
-            </PostListItem>
-          ))}
+        {posts.map(({ path, ...post }) =>
+          <PostListItem key={path} path={path} {...post} />
+        )}
       </PostListContent>
     </PostListWrapper>
   );
@@ -92,32 +98,41 @@ const PostListContent = styled.div`
   @media (max-width: ${media.laptop}) {
     max-width: ${props => props.theme.maxWidthLaptop}px;
   }
+
+  @media (max-width: ${media.mobile}) {
+    padding-top: 100px;
+  }
 `;
 
-const PostListItem = styled.article`
+const PostListItemWrapper = styled.article`
+  display: flex;
+  justify-content: center;
   ${sectionPadding}
 `;
 
 const PostContent = styled(Link)`
   max-width: 800px;
+  width: 100%;
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-gap: 0 40px;
   text-decoration: none;
   transition: background-color 0.4s ease;
-  padding: 20px;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 40px 100%, 0 calc(100% - 40px));
 
-  &:hover,
-  &:focus {
-    background-color: ${props => rgba(props.theme.colorText, 0.04)};
-    outline: none;
+  @media (max-width: ${media.tablet}) {
+    grid-template-columns: 100%;
+    max-width: 440px;
   }
 `;
 
 const PostText = styled.div`
   grid-column: 2;
   padding: 80px 0;
+
+  @media (max-width: ${media.tablet}) {
+    grid-column: 1;
+    padding: 30px 0;
+  }
 `;
 
 const PostDate = styled.span`
@@ -133,18 +148,17 @@ const PostTitle = styled.h2`
   line-height: 1.2;
   color: ${props => props.theme.colorTitle};
   display: inline;
-
-  background:
-    linear-gradient(${props => rgba(props.theme.colorText, 1)}, ${props => rgba(props.theme.colorText, 1)}) no-repeat 100% 100% / 0 2px,
-    linear-gradient(${props => rgba(props.theme.colorText, 0)}, ${props => rgba(props.theme.colorText, 0)}) no-repeat 0 100% / 100% 2px;
+  background: linear-gradient(${props => rgba(props.theme.colorText, 1)}, ${props => rgba(props.theme.colorText, 1)}) no-repeat 100% 100% / 0 2px;
   transition: background-size 0.4s ${props => props.theme.curveFastoutSlowin};
   padding-bottom: 2px;
 
   &:hover,
   &:focus {
-    background:
-      linear-gradient(${props => rgba(props.theme.colorText, 1)}, ${props => rgba(props.theme.colorText, 1)}) no-repeat 0 100% / 100% 2px,
-      linear-gradient(${props => rgba(props.theme.colorText, 0)}, ${props => rgba(props.theme.colorText, 0)}) no-repeat 0 100% / 100% 2px;
+    background: linear-gradient(${props => rgba(props.theme.colorText, 1)}, ${props => rgba(props.theme.colorText, 1)}) no-repeat 0 100% / 100% 2px;
+  }
+
+  @media (max-width: ${media.mobile}) {
+    font-size: 30px;
   }
 `;
 
@@ -153,6 +167,10 @@ const PostDescription = styled.p`
   line-height: 1.5;
   color: ${props => props.theme.colorText};
   margin: 20px 0 0;
+
+  @media (max-width: ${media.mobile}) {
+    font-size: 18px;
+  }
 `;
 
 const PostImage = styled(ProgressiveImage)`

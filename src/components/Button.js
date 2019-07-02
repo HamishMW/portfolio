@@ -23,7 +23,7 @@ const ButtonContent = withTheme(props => {
       {icon &&
         <ButtonIcon
           left
-          loading={loading}
+          isLoading={loading}
           secondary={secondary}
           iconHoverShift={iconHoverShift}
           icon={icon}
@@ -32,7 +32,7 @@ const ButtonContent = withTheme(props => {
       }
       {children &&
         <ButtonText
-          loading={loading}
+          isLoading={loading}
           secondary={secondary}
           iconOnly={iconOnly}
         >
@@ -41,14 +41,14 @@ const ButtonContent = withTheme(props => {
       }
       {iconRight &&
         <ButtonIcon
-          loading={loading}
+          isLoading={loading}
           secondary={secondary}
           iconHoverShift={iconHoverShift}
           icon={iconRight}
           iconOnly={iconOnly}
         />
       }
-      {loading &&
+      {!!loading &&
         <ButtonLoader
           size={32}
           text={loadingText}
@@ -60,11 +60,15 @@ const ButtonContent = withTheme(props => {
 });
 
 export const Button = props => {
-  const { className, style, ...rest } = props;
+  const { className, style, loading, ...rest } = props;
 
   return (
-    <ButtonContainer className={className} style={style} {...rest}>
-      <ButtonContent {...rest} />
+    <ButtonContainer
+      className={className}
+      style={style}
+      {...rest}
+    >
+      <ButtonContent isLoading={loading ? 1 : 0} {...rest} />
     </ButtonContainer>
   );
 };
@@ -279,7 +283,7 @@ const ButtonText = styled.span`
   line-height: 1;
   flex: 1 1 auto;
 
-  ${props => props.loading && css`
+  ${props => props.isLoading && css`
     visibility: hidden;
   `}
 
@@ -315,7 +319,7 @@ const ButtonIcon = styled(Icon)`
     `}
   }
 
-  ${props => props.loading && css`
+  ${props => props.isLoading && css`
     opacity: 0;
   `}
 `;

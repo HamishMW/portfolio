@@ -267,9 +267,11 @@ const PostBanner = styled.div`
   justify-self: flex-end;
   width: 100%;
   height: 100%;
+  z-index: 1024;
 
   @media (max-width: ${media.mobile}) {
     min-height: 40vh;
+    z-index: 1;
   }
 `;
 
@@ -423,6 +425,7 @@ const HeadingTwo = styled.h2`
   margin: 0;
   font-size: 42px;
   grid-column: 3;
+  font-weight: 500;
 
   @media (max-width: ${media.laptop}) {
     font-size: 34px;
@@ -489,7 +492,7 @@ const Paragrapgh = styled.p`
 
 const Image = styled.img`
   display: block;
-  margin: 60px 0;
+  margin: 80px 0;
   max-width: 100%;
   width: 100%;
   height: auto;
@@ -497,6 +500,7 @@ const Image = styled.img`
 
   @media (max-width: ${media.tablet}) {
     grid-column: 1;
+    margin: 60px 0;
   }
 `;
 
