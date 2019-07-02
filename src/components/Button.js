@@ -12,7 +12,7 @@ const ButtonContent = withTheme(props => {
     children,
     secondary,
     iconOnly,
-    loading,
+    isLoading,
     loadingText,
     iconHoverShift,
     theme,
@@ -23,7 +23,7 @@ const ButtonContent = withTheme(props => {
       {icon &&
         <ButtonIcon
           left
-          isLoading={loading}
+          isLoading={isLoading}
           secondary={secondary}
           iconHoverShift={iconHoverShift}
           icon={icon}
@@ -32,7 +32,7 @@ const ButtonContent = withTheme(props => {
       }
       {children &&
         <ButtonText
-          isLoading={loading}
+          isLoading={isLoading}
           secondary={secondary}
           iconOnly={iconOnly}
         >
@@ -41,14 +41,14 @@ const ButtonContent = withTheme(props => {
       }
       {iconRight &&
         <ButtonIcon
-          isLoading={loading}
+          isLoading={isLoading}
           secondary={secondary}
           iconHoverShift={iconHoverShift}
           icon={iconRight}
           iconOnly={iconOnly}
         />
       }
-      {!!loading &&
+      {!!isLoading &&
         <ButtonLoader
           size={32}
           text={loadingText}
