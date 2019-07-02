@@ -47,9 +47,11 @@ function Intro(props) {
       >
         {status => (
           <React.Fragment>
-            <Suspense fallback={<React.Fragment />}>
-              <DisplacementSphere />
-            </Suspense>
+            {!prerender &&
+              <Suspense fallback={<React.Fragment />}>
+                <DisplacementSphere />
+              </Suspense>
+            }
             <IntroText>
               <IntroName status={status} id={titleId}>
                 <DecoderText text="Hamish Williams" start={!prerender} offset={120} />

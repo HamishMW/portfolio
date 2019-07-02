@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useContext } from 'react';
+import { AppContext } from '../app/App';
 
 let id = 0;
 const genId = () => ++id;
@@ -9,12 +10,13 @@ export const useId = () => {
   return id;
 };
 
-export function useScrollToTop(status) {
-  const prevStatus = useRef();
+export function useScrollToTop() {
+  const { status } = useContext(AppContext);
+  const prevStatus = usePrevious(status);
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    const hasEntered = prevStatus.current === 'entering' && status === 'entered';
+    const hasEntered = prevStatus === 'entering' && status === 'entered';
     const hasEnteredReducedMotion = prefersReducedMotion && status === 'entered';
 
     if (hasEntered || hasEnteredReducedMotion) {
@@ -22,8 +24,7 @@ export function useScrollToTop(status) {
       document.getElementById('MainContent').focus();
     };
 
-    prevStatus.current = status;
-  }, [prefersReducedMotion, status]);
+  }, [prefersReducedMotion, prevStatus, status]);
 }
 
 export function useFormInput(initialValue) {

@@ -32,7 +32,7 @@ function Contact() {
   const message = useFormInput('');
   const [sending, setSending] = useState(false);
   const [complete, setComplete] = useState(false);
-  useScrollToTop(status);
+  useScrollToTop();
 
   const onSubmit = useCallback(async event => {
     event.preventDefault();

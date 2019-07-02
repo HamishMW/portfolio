@@ -14,6 +14,7 @@ const Contact = lazy(() => import('../screens/Contact'));
 const ProjectSPR = lazy(() => import('../screens/ProjectSPR'));
 const ProjectSlice = lazy(() => import('../screens/ProjectSlice'));
 const ProjectVolkihar = lazy(() => import('../screens/ProjectVolkihar'));
+// const Articles = lazy(() => import('../screens/Articles'));
 const NotFound = lazy(() => import('../screens/404'));
 
 const prerender = navigator.userAgent === 'ReactSnap';
@@ -119,6 +120,7 @@ function App() {
                             <Route path="/projects/smart-sparrow" component={ProjectSPR} />
                             <Route path="/projects/slice" component={ProjectSlice} />
                             <Route path="/projects/volkihar-knight" component={ProjectVolkihar} />
+                            {/* <Route path="/articles" component={Articles} /> */}
                             <Route component={NotFound} />
                           </Switch>
                         </Suspense>
@@ -198,6 +200,7 @@ const AppPage = styled.div`
 
   ${props => props.status === 'entered' && css`
     transition-duration: 0.5s;
+    transition-delay: 0.2s;
     opacity: 1;
   `}
 `;

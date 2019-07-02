@@ -16,7 +16,7 @@ const Anchor = styled.a.attrs(({ target, rel }) => ({
 
   background:
     linear-gradient(${props => lineColor(1, props)}, ${props => lineColor(1, props)}) no-repeat 100% 100% / 0 2px,
-    linear-gradient(${props => lineColor(0.2, props)}, ${props => lineColor(0.2, props)}) no-repeat 0 100% / 100% 2px;
+    linear-gradient(${props => lineColor(0.3, props)}, ${props => lineColor(0.3, props)}) no-repeat 0 100% / 100% 2px;
   transition: background-size 0.4s ${props => props.theme.curveFastoutSlowin};
   padding-bottom: 2px;
 
@@ -24,7 +24,7 @@ const Anchor = styled.a.attrs(({ target, rel }) => ({
   &:focus {
     background:
       linear-gradient(${props => lineColor(1, props)}, ${props => lineColor(1, props)}) no-repeat 0 100% / 100% 2px,
-      linear-gradient(${props => lineColor(0.2, props)}, ${props => lineColor(0.2, props)}) no-repeat 0 100% / 100% 2px;
+      linear-gradient(${props => lineColor(0.3, props)}, ${props => lineColor(0.3, props)}) no-repeat 0 100% / 100% 2px;
   }
 `;
 

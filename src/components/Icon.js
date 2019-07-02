@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Icon = ({ className, color, icon, size = 24 }) => {
+const Icon = ({ className, color, icon, size = 24, ...rest }) => {
   return {
     twitter: () => (
       <svg className={className} fill={color} width={size} height={size} viewBox="0 0 24 24">
@@ -55,6 +55,16 @@ const Icon = ({ className, color, icon, size = 24 }) => {
     slideLeft: () => (
       <svg className={className} fill={color} width="18" height="42" viewBox="0 0 18 42">
         <path d="M18.03 1.375L16.47.125-.031 20.75l16.5 20.625 1.562-1.25L2.53 20.75z" />
+      </svg>
+    ),
+    play: () => (
+      <svg className={className} fill={color} width={size} height={size} viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    ),
+    pause: () => (
+      <svg className={className} width={size} height={size} viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
       </svg>
     ),
   }[icon]();

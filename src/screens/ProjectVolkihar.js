@@ -52,7 +52,7 @@ const roles = [
 function ProjectVolkihar() {
   const { status, updateTheme, currentTheme } = useContext(AppContext);
   const currentThemeRef = useRef(currentTheme);
-  useScrollToTop(status);
+  useScrollToTop();
 
   useEffect(() => {
     currentThemeRef.current = currentTheme;
@@ -297,7 +297,7 @@ const ProjectSectionBackgroundImage = styled(ProgressiveImage)`
     object-fit: cover;
   }
 
-  &::after {
+  div::after {
     content: '';
     grid-column: 1;
     grid-row: 1;

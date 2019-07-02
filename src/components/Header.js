@@ -19,7 +19,7 @@ const navLinks = [
   {
     label: 'Details',
     pathname: '/',
-    hash: '#details'
+    hash: '#details',
   },
   {
     label: 'Contact',
@@ -80,7 +80,7 @@ function Header(props) {
     <HeaderWrapper role="banner" ref={headerRef}>
       <HeaderLogo
         to={{ pathname: '/', hash: '#intro', state: hashKey }}
-        aria-label="Home"
+        aria-label="Hamish Williams, Designer"
         onClick={handleMobileNavClick}
       >
         <Monogram highlight />

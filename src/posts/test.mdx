@@ -1,0 +1,65 @@
+---
+path: /test
+title: Accessible motion design for the web
+description: Making sure animation doesn't negatively affect users with prefers-reduced-motion in css and javascript.
+bannerVideo: akira.mp4
+bannerPlaceholder: akira-placeholder.jpg
+bannerAlt: An animation of Kaneda from the film Akira sliding sideways on a motorcycle away from the camera
+tags: ['development', 'design', 'accessiblity']
+date: 2019-06-29
+readTime: '00:06:00:00'
+---
+
+Lorem ipsum [dolor amet hell](/) of aesthetic literally gochujang quinoa. Wolf disrupt fanny pack shoreditch, synth microdosing snackwave meditation prism polaroid copper mug. Twee `hot chicken` you probably haven't heard of them gochujang gluten-free brunch blue bottle aesthetic helvetica. Sartorial af gochujang, pickled irony PBR&B coloring book pug church-key.
+
+<img src="windows-settings.png" alt="Windows settings showing the option to disable animation." />
+
+## Sick title bro
+
+Mustache twee direct trade 90's chia master cleanse poke subway tile shabby chic knausgaard prism adaptogen. Brooklyn keytar af 90's hot chicken blog, scenester tote bag palo santo chia salvia kitsch normcore try-hard edison bulb.
+
+```css
+*,
+*::before,
+*::after {
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
+```
+
+Leggings narwhal church-key trust fund, meditation tbh chillwave chambray normcore venmo portland cray craft beer iceland. Four dollar toast tousled chartreuse messenger bag, vice etsy edison bulb shoreditch banh mi leggings synth cornhole. Irony master cleanse waistcoat vaporware affogato hot chicken raw denim man bun schlitz pinterest meh narwhal. Paleo skateboard readymade shaman. Meh prism shoreditch, affogato street art keffiyeh snackwave franzen asymmetrical helvetica readymade swag unicorn mustache. Leggings organic post-ironic food truck farm-to-table. Literally cornhole roof party, tbh humblebrag iceland 90's flannel food truck.
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function usePrefersReducedMotion() {
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const [reducedMotion, setReducedMotion] = useState(mediaQuery.matches);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const handleMediaChange = () => {
+      if (mediaQuery.matches) {
+        setReducedMotion(true);
+      }
+    };
+
+    mediaQuery.addListener(handleMediaChange);
+
+    return function cleanup() {
+      mediaQuery.removeListener(handleMediaChange);
+    };
+  }, []);
+
+  return (
+    <SickComponent test={salmon} />
+  );
+}
+```
+
+Truffaut fixie celiac, wolf church-key vape pickled gochujang shabby chic bitters tote bag slow-carb. Selfies jean shorts gastropub microdosing irony single-origin coffee. Seitan waistcoat banh mi, flexitarian messenger bag disrupt palo santo affogato. Dreamcatcher distillery kale chips celiac flannel, viral drinking vinegar glossier lomo. Narwhal keffiyeh affogato everyday carry, yr synth four loko. Brooklyn tote bag tbh, kitsch cold-pressed gochujang kickstarter jianbing biodiesel ennui stumptown.

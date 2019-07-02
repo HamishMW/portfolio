@@ -15,6 +15,16 @@ const fonstStack = [
   'sans-serif',
 ];
 
+const monoFontStack = [
+  'SFMono Regular',
+  'Roboto Mono',
+  'Consolas',
+  'Liberation Mono',
+  'Menlo',
+  'Courier',
+  'monospace',
+];
+
 const numSpacing = {
   numSpacingGutter: 20,
   spacingOuter: {
@@ -39,6 +49,7 @@ const base = {
   curveFastoutSlowin: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
   clipPath: (size = 8) => `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
   fontStack: fonstStack.join(', '),
+  monoFontStack: monoFontStack.join(', '),
   colorBlack: 'rgba(0, 0, 0, 1)',
   colorWhite: 'rgba(255, 255, 255, 1)',
   maxWidthDesktop: 1100,

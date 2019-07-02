@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { AppContext } from '../app/App';
 import ProgressiveImage from '../components/ProgressiveImage';
 import { useScrollToTop } from '../utils/hooks';
 import Footer from '../components/Footer';
@@ -26,9 +25,8 @@ const roles = [
   'Front End Development',
 ];
 
-function ProjectSPR(props) {
-  const { status } = useContext(AppContext);
-  useScrollToTop(status);
+function ProjectSPR() {
+  useScrollToTop();
 
   return (
     <React.Fragment>
