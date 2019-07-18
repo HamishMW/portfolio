@@ -52,6 +52,7 @@ function PostList() {
         <meta name="description" content="A collection of technical design and development articles." />
       </Helmet>
       <PostListContent>
+        <PostListTitle>Articles</PostListTitle>
         {posts.map(({ path, ...post }) =>
           <PostListItem key={path} path={path} {...post} />
         )}
@@ -94,6 +95,7 @@ const PostListContent = styled.div`
   grid-template-columns: 100%;
   grid-gap: 60px;
   padding: 80px 0;
+  position: relative;
 
   @media (max-width: ${media.laptop}) {
     max-width: ${props => props.theme.maxWidthLaptop}px;
@@ -108,6 +110,16 @@ const PostListItemWrapper = styled.article`
   display: flex;
   justify-content: center;
   ${sectionPadding}
+`;
+
+const PostListTitle = styled.h1`
+  font-size: 120px;
+  margin: 0;
+  transform: rotate(270deg) translate3d(-50%, 100%, 0);
+  transform-origin: left bottom;
+  position: absolute;
+  left: -80px;
+  top: 180px;
 `;
 
 const PostContent = styled(Link)`
@@ -127,7 +139,7 @@ const PostContent = styled(Link)`
 
 const PostText = styled.div`
   grid-column: 2;
-  padding: 80px 0;
+  padding: 60px 0;
 
   @media (max-width: ${media.tablet}) {
     grid-column: 1;

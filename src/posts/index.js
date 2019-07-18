@@ -7,6 +7,14 @@ const posts = [
   {
     content: TestPost,
     ...testFrontMatter,
+  },
+  {
+    content: TestPost,
+    ...testFrontMatter,
+  },
+  {
+    content: TestPost,
+    ...testFrontMatter,
   }
 ];
 

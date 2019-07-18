@@ -44,10 +44,11 @@ function shuffle(content, chars, position) {
 
 function DecoderText(props) {
   const { text, start, offset, delay, fps, ...rest } = props;
-  const [position, setPosition] = useState(0);
+  const position = useRef(0);
   const [started, setStarted] = useState(false);
-  const [output, setOutput] = useState([{ type: 'code', value: '' }]);
+  const output = useRef([{ type: 'code', value: '' }]);
   const content = useRef(text.split(''));
+  const contentRef = useRef();
   const startTime = useRef(0);
   const elapsedTime = useRef(0);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -64,10 +65,10 @@ function DecoderText(props) {
     }
 
     if (prefersReducedMotion) {
-      setOutput(content.current.map((value, index) => ({
+      output.current = content.current.map((value, index) => ({
         type: 'actual',
         value: content.current[index],
-      })));
+      }));
     }
 
     return function cleanUp() {
@@ -86,29 +87,33 @@ function DecoderText(props) {
 
       if (needsUpdate) {
         elapsedTime.current = elapsed;
-        setPosition(elapsedTime.current / offset);
-        setOutput(shuffle(content.current, chars, position));
-      } else {
+        position.current = elapsedTime.current / offset;
+        output.current = shuffle(content.current, chars, position.current);
+
+        const characterMap = output.current.map(item => {
+          const className = item.type === 'actual' ? 'decoder-text__value' : 'decoder-text__code';
+          return `<span aria-hidden class="${className}">${item.value}</span>`;
+        });
+
+        contentRef.current.innerHTML = characterMap.join('');
+      }
+
+      if (position.current <= content.current.length) {
         animation = requestAnimationFrame(animate);
       }
     };
 
-    if (position <= content.current.length) {
-      animation = requestAnimationFrame(animate);
-    }
+    animation = requestAnimationFrame(animate);
 
     return function cleanup() {
       cancelAnimationFrame(animation);
     };
-  }, [fps, offset, position, started]);
+  }, [fps, offset, started]);
 
   return (
     <DecoderWrapper className="decoder-text" {...rest}>
       <span className="decoder-text__label">{text}</span>
-      {output.map((item, index) => item.type === 'actual'
-        ? <span aria-hidden className="decoder-text__value" key={`${item.value}-${index}`}>{item.value}</span>
-        : <span aria-hidden className="decoder-text__code" key={`${item.value}-${index}`}>{item.value}</span>
-      )}
+      <span className="decoder-text__content" ref={contentRef} />
     </DecoderWrapper>
   );
 };
