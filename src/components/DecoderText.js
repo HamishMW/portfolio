@@ -92,7 +92,7 @@ function DecoderText(props) {
 
         const characterMap = output.current.map(item => {
           const className = item.type === 'actual' ? 'decoder-text__value' : 'decoder-text__code';
-          return `<span aria-hidden class="${className}">${item.value}</span>`;
+          return `<span aria-hidden="true" class="${className}">${item.value}</span>`;
         });
 
         contentRef.current.innerHTML = characterMap.join('');

@@ -18,7 +18,7 @@ function DisplacementSphere() {
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
   const start = useRef(Date.now());
-  const container = useRef();
+  const canvasRef = useRef();
   const mouse = useRef();
   const renderer = useRef();
   const camera = useRef();
@@ -33,13 +33,10 @@ function DisplacementSphere() {
 
   useEffect(() => {
     const rand = Math.random();
-    const containerElement = container.current;
     mouse.current = new Vector2(0.8, 0.5);
-    renderer.current = new WebGLRenderer();
-    camera.current = new PerspectiveCamera(55, width.current / height.current, 0.1, 5000);
+    renderer.current = new WebGLRenderer({ canvas: canvasRef.current, powerPreference: 'high-performance' });
+    camera.current = new PerspectiveCamera(55, width.current / height.current, 0.1, 200);
     scene.current = new Scene();
-    light.current = new DirectionalLight(initialThemeRef.current.colorWhite, 0.6);
-    ambientLight.current = new AmbientLight(initialThemeRef.current.colorWhite, initialThemeRef.current.id === 'light' ? 0.8 : 0.1);
 
     uniforms.current = UniformsUtils.merge([
       UniformsLib['ambient'],
@@ -60,15 +57,10 @@ function DisplacementSphere() {
     scene.current.background = new Color(initialThemeRef.current.colorBackground);
     renderer.current.setSize(width.current, height.current);
     camera.current.position.z = 52;
-    light.current.position.z = 200;
-    light.current.position.x = 100;
-    light.current.position.y = 100;
-    scene.current.add(light.current);
-    scene.current.add(ambientLight.current);
+
     scene.current.add(sphere.current);
     sphere.current.position.z = 0;
     sphere.current.modifier = rand;
-    containerElement.appendChild(renderer.current.domElement);
 
     return function cleanUp() {
       scene.current.remove(sphere.current);
@@ -80,20 +72,28 @@ function DisplacementSphere() {
       renderer.current.forceContextLoss();
       scene.current.dispose();
       camera.current = null;
-      light.current = null;
       sphere.current = null;
-      ambientLight.current = null;
       uniforms.current = null;
-      renderer.current.context = null;
       renderer.current.domElement = null;
-      containerElement.innerHTML = '';
     };
   }, []);
 
   useEffect(() => {
     light.current = new DirectionalLight(currentTheme.colorWhite, 0.6);
+    light.current.position.z = 200;
+    light.current.position.x = 100;
+    light.current.position.y = 100;
     ambientLight.current = new AmbientLight(currentTheme.colorWhite, currentTheme.id === 'light' ? 0.8 : 0.1);
     scene.current.background = new Color(currentTheme.colorBackground);
+    scene.current.add(light.current);
+    scene.current.add(ambientLight.current);
+
+    return function cleanup() {
+      scene.current.remove(light.current);
+      scene.current.remove(ambientLight.current);
+      light.current = null;
+      ambientLight.current = null;
+    };
   }, [currentTheme]);
 
   useEffect(() => {
@@ -101,7 +101,7 @@ function DisplacementSphere() {
       const canvasHeight = innerHeight();
       const windowWidth = window.innerWidth;
       const fullHeight = canvasHeight + canvasHeight * 0.3;
-      container.current.style.height = fullHeight;
+      canvasRef.current.style.height = fullHeight;
       renderer.current.setSize(windowWidth, fullHeight);
       camera.current.aspect = windowWidth / fullHeight;
       camera.current.updateProjectionMatrix();
@@ -173,7 +173,7 @@ function DisplacementSphere() {
   }, [prefersReducedMotion]);
 
   return (
-    <SphereContainer aria-hidden ref={container} />
+    <SphereCanvas aria-hidden ref={canvasRef} />
   );
 }
 
@@ -182,21 +182,17 @@ const AnimBackgroundFade = keyframes`
   100% { opacity: 1; }
 `;
 
-const SphereContainer = styled.div`
+const SphereCanvas = styled.canvas`
   position: absolute;
   width: 100vw;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-
-  canvas {
-    position: absolute;
-    animation-duration: 3s;
-    animation-timing-function: ${props => props.theme.curveFastoutSlowin};
-    animation-fill-mode: forwards;
-    animation-name: ${AnimBackgroundFade};
-  }
+  animation-duration: 3s;
+  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-fill-mode: forwards;
+  animation-name: ${AnimBackgroundFade};
 `;
 
 export default React.memo(DisplacementSphere);
