@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useMemo, useRef, lazy, Suspense } from 'react';
 import styled, { ThemeContext } from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
-import { AppContext } from 'app';
+import { AppContext, TransitionContext } from 'app';
 import ProgressiveImage from 'components/ProgressiveImage';
 import { useScrollToTop } from 'utils/hooks';
 import { LinkButton } from 'components/Button';
@@ -50,7 +50,8 @@ const roles = [
 ];
 
 function ProjectVolkihar() {
-  const { status, updateTheme } = useContext(AppContext);
+  const { status } = useContext(TransitionContext);
+  const { dispatch } = useContext(AppContext);
   const theme = useContext(ThemeContext);
   const themeRef = useRef(theme);
   useScrollToTop();
@@ -61,20 +62,22 @@ function ProjectVolkihar() {
 
   useEffect(() => {
     if ((status === 'entered' || status === 'exiting')) {
-      updateTheme({
-        colorPrimary: theme.id === 'dark'
-          ? 'rgba(240, 211, 150, 1)'
-          : themeRef.current.colorPrimary,
-        colorAccent: 'rgba(240, 211, 150, 1)',
+      dispatch({
+        type: 'updateTheme', value: {
+          colorPrimary: theme.id === 'dark'
+            ? 'rgba(240, 211, 150, 1)'
+            : themeRef.current.colorPrimary,
+          colorAccent: 'rgba(240, 211, 150, 1)',
+        }
       });
     }
 
     return function cleanUp() {
       if (status !== 'entered') {
-        updateTheme();
+        dispatch({ type: 'updateTheme' });
       }
     };
-  }, [updateTheme, status, theme.id]);
+  }, [dispatch, status, theme.id]);
 
   return (
     <React.Fragment>

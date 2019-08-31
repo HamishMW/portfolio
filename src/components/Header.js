@@ -56,7 +56,7 @@ const HeaderIcons = () => (
 );
 
 function Header(props) {
-  const { menuOpen, location, toggleMenu, toggleTheme } = props;
+  const { menuOpen, location, toggleMenu, dispatch } = props;
   const [hashKey, setHashKey] = useState();
   const theme = useContext(ThemeContext);
   const windowSize = useWindowSize();
@@ -125,14 +125,14 @@ function Header(props) {
             ))}
             <HeaderIcons />
             <Suspense fallback={<React.Fragment />}>
-              <ThemeToggle isMobile themeId={theme.id} toggleTheme={toggleTheme} />
+              <ThemeToggle isMobile themeId={theme.id} dispatch={dispatch} />
             </Suspense>
           </HeaderMobileNav>
         )}
       </Transition>
       {!isMobile &&
         <Suspense fallback={<React.Fragment />}>
-          <ThemeToggle themeId={theme.id} toggleTheme={toggleTheme} />
+          <ThemeToggle themeId={theme.id} dispatch={dispatch} />
         </Suspense>
       }
     </HeaderWrapper>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback, useContext } from 'react';
-import { AppContext } from 'app';
+import { TransitionContext } from 'app';
 
 let id = 0;
 const genId = () => ++id;
@@ -11,7 +11,7 @@ export const useId = () => {
 };
 
 export function useScrollToTop() {
-  const { status } = useContext(AppContext);
+  const { status } = useContext(TransitionContext);
   const prevStatus = usePrevious(status);
   const prefersReducedMotion = usePrefersReducedMotion();
 

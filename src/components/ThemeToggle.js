@@ -6,7 +6,7 @@ import themeIconData from 'data/themeIconData.json';
 import { media } from 'utils/styleUtils';
 import { usePrefersReducedMotion } from 'utils/hooks';
 
-export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest }) {
+export default function ThemeToggle({ themeId, dispatch, isMobile, ...rest }) {
   const initThemeId = useRef(themeId);
   const lottieContainerRef = useRef();
   const lottieAnimRef = useRef();
@@ -36,11 +36,15 @@ export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest })
     }
   }, [themeId, prefersReducedMotion]);
 
+  const handleClick = () => {
+    dispatch({ type: 'toggleTheme' });
+  };
+
   return (
     <ThemeToggleButton
       iconOnly
       aria-label="Toggle theme"
-      onClick={toggleTheme}
+      onClick={handleClick}
       isMobile={isMobile}
       {...rest}
     >

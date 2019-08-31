@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { AppContext } from 'app';
+import { TransitionContext } from 'app';
 import Intro from 'screens/Intro';
 import ProjectItem from 'screens/ProjectItem';
 import Profile from 'screens/Profile';
@@ -22,7 +22,7 @@ import sliceProjectPlaceholder from 'assets/slice-project-placeholder.png';
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
 export default function Home(props) {
-  const { status } = useContext(AppContext);
+  const { status } = useContext(TransitionContext);
   const { location } = props;
   const { hash, state } = location;
   const initHash = useRef(true);

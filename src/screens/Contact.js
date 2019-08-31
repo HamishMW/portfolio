@@ -2,7 +2,7 @@ import React, { useState, useContext, useCallback } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
-import { AppContext } from 'app';
+import { TransitionContext } from 'app';
 import Input from 'components/Input';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
@@ -27,7 +27,7 @@ function getStatusError(status) {
 }
 
 function Contact() {
-  const { status } = useContext(AppContext);
+  const { status } = useContext(TransitionContext);
   const email = useFormInput('');
   const message = useFormInput('');
   const [sending, setSending] = useState(false);

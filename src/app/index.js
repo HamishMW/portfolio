@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState, useEffect, createContext, useCallback } from 'react';
+import React, { lazy, Suspense, useEffect, createContext, useReducer } from 'react';
 import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components/macro';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Transition, TransitionGroup, config } from 'react-transition-group';
@@ -8,6 +8,7 @@ import { theme } from 'utils/theme';
 import { useLocalStorage, usePrefersReducedMotion } from 'utils/hooks';
 import GothamBook from 'fonts/gotham-book.woff2';
 import GothamMedium from 'fonts/gotham-medium.woff2';
+import { initialState, reducer } from 'app/reducer';
 
 const Home = lazy(() => import('screens/Home'));
 const Contact = lazy(() => import('screens/Contact'));
@@ -19,6 +20,7 @@ const NotFound = lazy(() => import('screens/404'));
 
 const prerender = navigator.userAgent === 'ReactSnap';
 export const AppContext = createContext();
+export const TransitionContext = createContext();
 
 const consoleMessage = `
 __  __  __
@@ -43,10 +45,13 @@ export const fontStyles = `
 `;
 
 function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [storedTheme, setStoredTheme] = useLocalStorage('theme', 'dark');
-  const [currentTheme, setCurrentTheme] = useState(theme.dark);
+  const [storedTheme] = useLocalStorage('theme', 'dark');
+  const [state, dispatch] = useReducer(reducer, initialState, state => ({
+    ...state,
+    currentTheme: theme[storedTheme],
+  }));
   const prefersReducedMotion = usePrefersReducedMotion();
+  const { currentTheme, menuOpen } = state;
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -61,77 +66,60 @@ function App() {
     window.history.scrollRestoration = 'manual';
   }, []);
 
-  useEffect(() => {
-    setCurrentTheme(theme[storedTheme]);
-  }, [storedTheme]);
-
-  const updateTheme = useCallback(overrides => {
-    setCurrentTheme({ ...theme[currentTheme.id], ...overrides });
-  }, [currentTheme.id]);
-
-  const toggleTheme = useCallback(() => {
-    const newTheme = currentTheme.id === 'dark' ? 'light' : 'dark';
-    setStoredTheme(newTheme);
-  }, [currentTheme.id, setStoredTheme]);
-
-  const toggleMenu = useCallback(() => {
-    setMenuOpen(!menuOpen);
-  }, [menuOpen]);
-
   return (
     <HelmetProvider>
       <ThemeProvider theme={currentTheme}>
-        <BrowserRouter>
-          <Route render={({ location }) => (
-            <React.Fragment>
-              <Helmet>
-                <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
-                <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
-                <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
-                <style>{fontStyles}</style>
-              </Helmet>
-              <GlobalStyles />
-              <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
-              <Header
-                toggleMenu={toggleMenu}
-                menuOpen={menuOpen}
-                toggleTheme={toggleTheme}
-                currentTheme={currentTheme}
-                location={location}
-              />
-              <TransitionGroup
-                component={AppMainContent}
-                tabIndex={-1}
-                id="MainContent"
-                role="main"
-              >
-                <Transition
-                  key={location.pathname}
-                  timeout={300}
-                  onEnter={node => node && node.offsetHeight}
+        <AppContext.Provider value={{ ...state, dispatch }}>
+          <BrowserRouter>
+            <Route render={({ location }) => (
+              <React.Fragment>
+                <Helmet>
+                  <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
+                  <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
+                  <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
+                  <style>{fontStyles}</style>
+                </Helmet>
+                <GlobalStyles />
+                <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
+                <Header
+                  dispatch={dispatch}
+                  menuOpen={menuOpen}
+                  location={location}
+                />
+                <TransitionGroup
+                  component={AppMainContent}
+                  tabIndex={-1}
+                  id="MainContent"
+                  role="main"
                 >
-                  {status => (
-                    <AppContext.Provider value={{ status, updateTheme, toggleTheme }}>
-                      <AppPage status={status} >
-                        <Suspense fallback={<React.Fragment />}>
-                          <Switch location={location}>
-                            <Route exact path="/" component={Home} />
-                            <Route path="/contact" component={Contact} />
-                            <Route path="/projects/smart-sparrow" component={ProjectSPR} />
-                            <Route path="/projects/slice" component={ProjectSlice} />
-                            <Route path="/projects/volkihar-knight" component={ProjectVolkihar} />
-                            {/* <Route path="/articles" component={Articles} /> */}
-                            <Route component={NotFound} />
-                          </Switch>
-                        </Suspense>
-                      </AppPage>
-                    </AppContext.Provider>
-                  )}
-                </Transition>
-              </TransitionGroup>
-            </React.Fragment>
-          )} />
-        </BrowserRouter>
+                  <Transition
+                    key={location.pathname}
+                    timeout={300}
+                    onEnter={node => node && node.offsetHeight}
+                  >
+                    {status => (
+                      <TransitionContext.Provider value={{ ...state, dispatch, status }}>
+                        <AppPage status={status} >
+                          <Suspense fallback={<React.Fragment />}>
+                            <Switch location={location}>
+                              <Route exact path="/" component={Home} />
+                              <Route path="/contact" component={Contact} />
+                              <Route path="/projects/smart-sparrow" component={ProjectSPR} />
+                              <Route path="/projects/slice" component={ProjectSlice} />
+                              <Route path="/projects/volkihar-knight" component={ProjectVolkihar} />
+                              {/* <Route path="/articles" component={Articles} /> */}
+                              <Route component={NotFound} />
+                            </Switch>
+                          </Suspense>
+                        </AppPage>
+                      </TransitionContext.Provider>
+                    )}
+                  </Transition>
+                </TransitionGroup>
+              </React.Fragment>
+            )} />
+          </BrowserRouter>
+        </AppContext.Provider>
       </ThemeProvider>
     </HelmetProvider>
   );

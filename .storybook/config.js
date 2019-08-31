@@ -8,7 +8,7 @@ import { theme } from '../src/utils/theme';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import GothamBook from '../src/fonts/gotham-book.woff2';
 import GothamMedium from '../src/fonts/gotham-medium.woff2';
-import { fontStyles, GlobalStyles, AppContext } from '../src/app';
+import { fontStyles, GlobalStyles } from '../src/app';
 
 addParameters({
   options: {
@@ -26,7 +26,7 @@ const themeKeys = {
   'Light': 'light',
 };
 
-addDecorator((story) => {
+addDecorator(story => {
   const content = story();
   const themeKey = select('Theme', themeKeys, 'dark');
   const currentTheme = theme[themeKey];
@@ -34,7 +34,7 @@ addDecorator((story) => {
   return (
     <HelmetProvider>
       <ThemeProvider theme={currentTheme}>
-        <AppContext.Provider value={{ currentTheme }}>
+        <React.Fragment>
           <Helmet>
             <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
             <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
@@ -42,7 +42,7 @@ addDecorator((story) => {
           </Helmet>
           <GlobalStyles />
           <div id="storyRoot" key={themeKey}>{content}</div>
-        </AppContext.Provider>
+        </React.Fragment>
       </ThemeProvider>
     </HelmetProvider>
   )
