@@ -6,8 +6,8 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from 'components/Header';
 import { theme } from 'utils/theme';
 import { useLocalStorage, usePrefersReducedMotion } from 'utils/hooks';
-import GothamBook from 'fonts/gotham-book.woff2';
-import GothamMedium from 'fonts/gotham-medium.woff2';
+import GothamBook from 'assets/fonts/gotham-book.woff2';
+import GothamMedium from 'assets/fonts/gotham-medium.woff2';
 import { initialState, reducer } from 'app/reducer';
 
 const Home = lazy(() => import('screens/Home'));

@@ -8,43 +8,9 @@ import NavToggle from 'components/NavToggle';
 import { media, rgba } from 'utils/styleUtils';
 import { useWindowSize } from 'utils/hooks';
 import { AppContext } from 'app';
+import { navLinks, socialLinks } from 'data/nav';
 
 const ThemeToggle = lazy(() => import('components/ThemeToggle'));
-
-const navLinks = [
-  {
-    label: 'Projects',
-    pathname: '/',
-    hash: '#projects',
-  },
-  {
-    label: 'Details',
-    pathname: '/',
-    hash: '#details',
-  },
-  {
-    label: 'Contact',
-    pathname: '/contact',
-  },
-];
-
-const socialLinks = [
-  {
-    label: 'Twitter',
-    url: 'https://twitter.com/hamishMW',
-    icon: 'twitter',
-  },
-  {
-    label: 'Dribbble',
-    url: 'https://dribbble.com/hamishw',
-    icon: 'dribbble',
-  },
-  {
-    label: 'Github',
-    url: 'https://github.com/HamishMW',
-    icon: 'github',
-  },
-];
 
 const HeaderIcons = () => (
   <HeaderNavIcons>

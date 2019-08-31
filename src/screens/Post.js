@@ -7,7 +7,7 @@ import Svg from 'components/Svg';
 import { media, rgba, sectionPadding, AnimFade } from 'utils/styleUtils';
 import { useWindowSize, useScrollToTop } from 'utils/hooks';
 import ProgressiveImage from 'components/ProgressiveImage';
-import GothamBold from 'fonts/gotham-bold.woff2';
+import GothamBold from 'assets/fonts/gotham-bold.woff2';
 import { Helmet } from 'react-helmet-async';
 import { MDXProvider } from '@mdx-js/react';
 import Anchor from 'components/Anchor';

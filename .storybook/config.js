@@ -6,8 +6,8 @@ import { withA11y } from '@storybook/addon-a11y';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/utils/theme';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import GothamBook from '../src/fonts/gotham-book.woff2';
-import GothamMedium from '../src/fonts/gotham-medium.woff2';
+import GothamBook from '../src/assets/fonts/gotham-book.woff2';
+import GothamMedium from '../src/assets/fonts/gotham-medium.woff2';
 import { fontStyles, GlobalStyles } from '../src/app';
 
 addParameters({
