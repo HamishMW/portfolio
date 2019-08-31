@@ -46,10 +46,7 @@ export const fontStyles = `
 
 function App() {
   const [storedTheme] = useLocalStorage('theme', 'dark');
-  const [state, dispatch] = useReducer(reducer, initialState, state => ({
-    ...state,
-    currentTheme: theme[storedTheme],
-  }));
+  const [state, dispatch] = useReducer(reducer, initialState);
   const prefersReducedMotion = usePrefersReducedMotion();
   const { currentTheme } = state;
 
@@ -65,6 +62,10 @@ function App() {
     if (!prerender) console.info(consoleMessage);
     window.history.scrollRestoration = 'manual';
   }, []);
+
+  useEffect(() => {
+    dispatch({ type: 'setTheme', value: theme[storedTheme] });
+  }, [storedTheme]);
 
   return (
     <HelmetProvider>
