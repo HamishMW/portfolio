@@ -51,7 +51,7 @@ function App() {
     currentTheme: theme[storedTheme],
   }));
   const prefersReducedMotion = usePrefersReducedMotion();
-  const { currentTheme, menuOpen } = state;
+  const { currentTheme } = state;
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -81,11 +81,7 @@ function App() {
                 </Helmet>
                 <GlobalStyles />
                 <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
-                <Header
-                  dispatch={dispatch}
-                  menuOpen={menuOpen}
-                  location={location}
-                />
+                <Header location={location} />
                 <TransitionGroup
                   component={AppMainContent}
                   tabIndex={-1}

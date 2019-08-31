@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useRef, useState, useContext } from 'react';
-import styled, { css, ThemeContext } from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from 'components/Monogram';
@@ -7,6 +7,7 @@ import Icon from 'components/Icon';
 import NavToggle from 'components/NavToggle';
 import { media, rgba } from 'utils/styleUtils';
 import { useWindowSize } from 'utils/hooks';
+import { AppContext } from 'app';
 
 const ThemeToggle = lazy(() => import('components/ThemeToggle'));
 
@@ -56,9 +57,9 @@ const HeaderIcons = () => (
 );
 
 function Header(props) {
-  const { menuOpen, location, toggleMenu, dispatch } = props;
+  const { menuOpen, dispatch } = useContext(AppContext);
+  const { location } = props;
   const [hashKey, setHashKey] = useState();
-  const theme = useContext(ThemeContext);
   const windowSize = useWindowSize();
   const headerRef = useRef();
   const isMobile = windowSize.width <= media.numMobile || windowSize.height <= 696;
@@ -69,7 +70,7 @@ function Header(props) {
 
   const handleMobileNavClick = () => {
     handleNavClick();
-    if (menuOpen) toggleMenu();
+    if (menuOpen) dispatch({ type: 'toggleMenu' });
   };
 
   const isMatch = ({ match, hash = '' }) => {
@@ -86,13 +87,13 @@ function Header(props) {
       >
         <Monogram highlight />
       </HeaderLogo>
-      <NavToggle onClick={toggleMenu} menuOpen={menuOpen} />
+      <NavToggle onClick={() => dispatch({ type: 'toggleMenu' })} menuOpen={menuOpen} />
       <HeaderNav role="navigation">
         <HeaderNavList>
           {navLinks.map(({ label, pathname, hash }) => (
             <HeaderNavLink
               exact
-              isActive={(match) => isMatch({ match, hash })}
+              isActive={match => isMatch({ match, hash })}
               onClick={handleNavClick}
               key={label}
               to={{ pathname, hash, state: hashKey }}
@@ -125,14 +126,14 @@ function Header(props) {
             ))}
             <HeaderIcons />
             <Suspense fallback={<React.Fragment />}>
-              <ThemeToggle isMobile themeId={theme.id} dispatch={dispatch} />
+              <ThemeToggle isMobile />
             </Suspense>
           </HeaderMobileNav>
         )}
       </Transition>
       {!isMobile &&
         <Suspense fallback={<React.Fragment />}>
-          <ThemeToggle themeId={theme.id} dispatch={dispatch} />
+          <ThemeToggle />
         </Suspense>
       }
     </HeaderWrapper>
