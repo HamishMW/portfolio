@@ -2,11 +2,11 @@ import React, { Suspense, Fragment } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
-import { useScrollToTop } from '../utils/hooks';
-import { sectionPadding, media, rgba } from '../utils/styleUtils';
-import posts from '../posts';
+import { useScrollToTop } from 'utils/hooks';
+import { sectionPadding, media, rgba } from 'utils/styleUtils';
+import posts from 'posts';
 import Post from './Post';
-import ProgressiveImage from '../components/ProgressiveImage';
+import ProgressiveImage from 'components/ProgressiveImage';
 
 function PostListItem({
   path,
@@ -23,9 +23,9 @@ function PostListItem({
       <PostContent to={`/articles${path}`}>
         <PostImageWrapper>
           <PostImage
-            srcSet={banner ? require(`../posts/assets/${banner}`) : undefined}
-            videoSrc={bannerVideo ? require(`../posts/assets/${bannerVideo}`) : undefined}
-            placeholder={require(`../posts/assets/${bannerPlaceholder}`)}
+            srcSet={banner ? require(`posts/assets/${banner}`) : undefined}
+            videoSrc={bannerVideo ? require(`posts/assets/${bannerVideo}`) : undefined}
+            placeholder={require(`posts/assets/${bannerPlaceholder}`)}
             alt={bannerAlt}
           />
           <PostImageTag>K256</PostImageTag>

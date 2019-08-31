@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { media, AnimFade, rgba, sectionPadding } from '../utils/styleUtils';
-import ProgressiveImage from '../components/ProgressiveImage';
-import { LinkButton } from '../components/Button';
-import { usePrefersReducedMotion } from '../utils/hooks';
+import { media, AnimFade, rgba, sectionPadding } from 'utils/styleUtils';
+import ProgressiveImage from 'components/ProgressiveImage';
+import { LinkButton } from 'components/Button';
+import { usePrefersReducedMotion } from 'utils/hooks';
 
 const initDelay = 300;
 const prerender = navigator.userAgent === 'ReactSnap';

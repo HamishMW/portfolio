@@ -1,19 +1,19 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import ProgressiveImage from '../components/ProgressiveImage';
-import { useScrollToTop } from '../utils/hooks';
-import Footer from '../components/Footer';
+import ProgressiveImage from 'components/ProgressiveImage';
+import { useScrollToTop } from 'utils/hooks';
+import Footer from 'components/Footer';
 import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
   ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
-} from '../components/Project';
-import { media } from '../utils/styleUtils';
-import backgroundSpr from '../assets/spr-background.jpg';
-import backgroundSprLarge from '../assets/spr-background-large.jpg';
-import backgroundSprPlaceholder from '../assets/spr-background-placeholder.jpg';
-import imageSprBuilder from '../assets/spr-builder.png';
-import imageSprBuilderLarge from '../assets/spr-builder-large.png';
-import imageSprBuilderPlaceholder from '../assets/spr-builder-placeholder.png';
+} from 'components/Project';
+import { media } from 'utils/styleUtils';
+import backgroundSpr from 'assets/spr-background.jpg';
+import backgroundSprLarge from 'assets/spr-background-large.jpg';
+import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
+import imageSprBuilder from 'assets/spr-builder.png';
+import imageSprBuilderLarge from 'assets/spr-builder-large.png';
+import imageSprBuilderPlaceholder from 'assets/spr-builder-placeholder.png';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 

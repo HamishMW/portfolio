@@ -1,20 +1,19 @@
 import React, { useEffect, useRef, useContext } from 'react';
-import styled, { keyframes } from 'styled-components/macro';
+import styled, { keyframes, ThemeContext } from 'styled-components/macro';
 import {
   Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
   UniformsUtils, UniformsLib, ShaderLib, SphereBufferGeometry, Mesh, Color, ShaderMaterial
 } from 'three';
 import { Easing, Tween, autoPlay } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
-import VertShader from '../shaders/sphereVertShader';
-import FragmentShader from '../shaders/sphereFragmentShader';
-import { media } from '../utils/styleUtils';
-import { AppContext } from '../app/App';
-import { usePrefersReducedMotion } from '../utils/hooks';
+import VertShader from 'shaders/sphereVertShader';
+import FragmentShader from 'shaders/sphereFragmentShader';
+import { media } from 'utils/styleUtils';
+import { usePrefersReducedMotion } from 'utils/hooks';
 
 function DisplacementSphere() {
-  const { currentTheme } = useContext(AppContext);
-  const initialThemeRef = useRef(currentTheme);
+  const theme = useContext(ThemeContext);
+  const initialThemeRef = useRef(theme);
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
   const start = useRef(Date.now());
@@ -79,12 +78,12 @@ function DisplacementSphere() {
   }, []);
 
   useEffect(() => {
-    light.current = new DirectionalLight(currentTheme.colorWhite, 0.6);
+    light.current = new DirectionalLight(theme.colorWhite, 0.6);
     light.current.position.z = 200;
     light.current.position.x = 100;
     light.current.position.y = 100;
-    ambientLight.current = new AmbientLight(currentTheme.colorWhite, currentTheme.id === 'light' ? 0.8 : 0.1);
-    scene.current.background = new Color(currentTheme.colorBackground);
+    ambientLight.current = new AmbientLight(theme.colorWhite, theme.id === 'light' ? 0.8 : 0.1);
+    scene.current.background = new Color(theme.colorBackground);
     scene.current.add(light.current);
     scene.current.add(ambientLight.current);
 
@@ -94,7 +93,7 @@ function DisplacementSphere() {
       light.current = null;
       ambientLight.current = null;
     };
-  }, [currentTheme]);
+  }, [theme]);
 
   useEffect(() => {
     const onWindowResize = () => {

@@ -7,9 +7,9 @@ import styled from 'styled-components/macro';
 import { Easing, Tween, autoPlay } from 'es6-tween';
 import Swipe from 'react-easy-swipe';
 import Icon from './Icon';
-import { media, rgba } from '../utils/styleUtils';
-import { vertex, fragment } from '../shaders/sliderShader';
-import { usePrefersReducedMotion } from '../utils/hooks';
+import { media, rgba } from 'utils/styleUtils';
+import { vertex, fragment } from 'shaders/sliderShader';
+import { usePrefersReducedMotion } from 'utils/hooks';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 

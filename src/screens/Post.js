@@ -1,17 +1,17 @@
 import React, { useRef } from 'react';
 import { Transition } from 'react-transition-group';
 import styled, { keyframes } from 'styled-components/macro';
-import Footer from '../components/Footer';
-import Divider from '../components/Divider';
-import Svg from '../components/Svg';
-import { media, rgba, sectionPadding, AnimFade } from '../utils/styleUtils';
-import { useWindowSize, useScrollToTop } from '../utils/hooks';
-import ProgressiveImage from '../components/ProgressiveImage';
-import GothamBold from '../fonts/gotham-bold.woff2';
+import Footer from 'components/Footer';
+import Divider from 'components/Divider';
+import Svg from 'components/Svg';
+import { media, rgba, sectionPadding, AnimFade } from 'utils/styleUtils';
+import { useWindowSize, useScrollToTop } from 'utils/hooks';
+import ProgressiveImage from 'components/ProgressiveImage';
+import GothamBold from 'fonts/gotham-bold.woff2';
 import { Helmet } from 'react-helmet-async';
 import { MDXProvider } from '@mdx-js/react';
-import Anchor from '../components/Anchor';
-import CodeBlock from '../components/CodeBlock';
+import Anchor from 'components/Anchor';
+import CodeBlock from 'components/CodeBlock';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -99,9 +99,9 @@ function PostWrapper({
         <PostBanner>
           <PostBannerImage
             reveal
-            srcSet={banner ? require(`../posts/assets/${banner}`) : undefined}
-            videoSrc={bannerVideo ? require(`../posts/assets/${bannerVideo}`) : undefined}
-            placeholder={require(`../posts/assets/${bannerPlaceholder}`)}
+            srcSet={banner ? require(`posts/assets/${banner}`) : undefined}
+            videoSrc={bannerVideo ? require(`posts/assets/${bannerVideo}`) : undefined}
+            placeholder={require(`posts/assets/${bannerPlaceholder}`)}
             alt={bannerAlt}
           />
         </PostBanner>
@@ -117,7 +117,7 @@ function PostWrapper({
 function imageFactory({ src, ...props }) {
   if (!src.startsWith('http')) {
     return (
-      <Image {...props} src={require(`../posts/assets/${src}`)} />
+      <Image {...props} src={require(`posts/assets/${src}`)} />
     );
   }
 

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components/macro';
-import { media } from '../utils/styleUtils';
-import { AppContext } from '../app/App';
+import styled, { ThemeContext } from 'styled-components/macro';
+import { media } from 'utils/styleUtils';
 
 // Netrunner theme by Hamish Williams
 const netrunnerTheme = {
@@ -45,8 +44,8 @@ const codeThemes = {
 };
 
 function CodeBlock(props) {
-  const { currentTheme } = useContext(AppContext);
-  const codeTheme = codeThemes[currentTheme.id];
+  const theme = useContext(ThemeContext);
+  const codeTheme = codeThemes[theme.id];
 
   return (
     <CodeBlockWrapper codeTheme={codeTheme}>

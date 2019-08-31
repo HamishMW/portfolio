@@ -1,35 +1,35 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components/macro';
-import ProgressiveImage from '../components/ProgressiveImage';
-import { useScrollToTop } from '../utils/hooks';
-import Footer from '../components/Footer';
+import ProgressiveImage from 'components/ProgressiveImage';
+import { useScrollToTop } from 'utils/hooks';
+import Footer from 'components/Footer';
 import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectTextRow,
   ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
-} from '../components/Project';
-import { media } from '../utils/styleUtils';
-import sliceBackground from '../assets/slice-background.jpg';
-import sliceBackgroundLarge from '../assets/slice-background-large.jpg';
-import sliceBackgroundPlaceholder from '../assets/slice-background-placeholder.jpg';
-import sliceApp from '../assets/slice-app.jpg';
-import sliceAppLarge from '../assets/slice-app-large.jpg';
-import sliceAppPlaceholder from '../assets/slice-app-placeholder.jpg';
-import sliceSidebarLayers from '../assets/slice-sidebar-layers.png';
-import sliceSidebarLayersLarge from '../assets/slice-sidebar-layers-large.png';
-import sliceSidebarLayersPlaceholder from '../assets/slice-sidebar-layers-placeholder.png';
-import sliceSidebarAnnotations from '../assets/slice-sidebar-annotations.png';
-import sliceSidebarAnnotationsLarge from '../assets/slice-sidebar-annotations-large.png';
-import sliceSidebarAnnotationsPlaceholder from '../assets/slice-sidebar-annotations-placeholder.png';
-import sliceSlides from '../assets/slice-slides.jpg';
-import sliceSlidesLarge from '../assets/slice-slides-large.jpg';
-import sliceSlidesPlaceholder from '../assets/slice-slides-placeholder.jpg';
-import sliceBackgroundBar from '../assets/slice-background-bar.jpg';
-import sliceBackgroundBarLarge from '../assets/slice-background-bar-large.jpg';
-import sliceBackgroundBarPlaceholder from '../assets/slice-background-bar-placeholder.jpg';
-import sliceAnnotation from '../assets/slice-annotation.png';
-import sliceAnnotationLarge from '../assets/slice-annotation-large.png';
-import sliceAnnotationPlaceholder from '../assets/slice-annotation-placeholder.png';
+} from 'components/Project';
+import { media } from 'utils/styleUtils';
+import sliceBackground from 'assets/slice-background.jpg';
+import sliceBackgroundLarge from 'assets/slice-background-large.jpg';
+import sliceBackgroundPlaceholder from 'assets/slice-background-placeholder.jpg';
+import sliceApp from 'assets/slice-app.jpg';
+import sliceAppLarge from 'assets/slice-app-large.jpg';
+import sliceAppPlaceholder from 'assets/slice-app-placeholder.jpg';
+import sliceSidebarLayers from 'assets/slice-sidebar-layers.png';
+import sliceSidebarLayersLarge from 'assets/slice-sidebar-layers-large.png';
+import sliceSidebarLayersPlaceholder from 'assets/slice-sidebar-layers-placeholder.png';
+import sliceSidebarAnnotations from 'assets/slice-sidebar-annotations.png';
+import sliceSidebarAnnotationsLarge from 'assets/slice-sidebar-annotations-large.png';
+import sliceSidebarAnnotationsPlaceholder from 'assets/slice-sidebar-annotations-placeholder.png';
+import sliceSlides from 'assets/slice-slides.jpg';
+import sliceSlidesLarge from 'assets/slice-slides-large.jpg';
+import sliceSlidesPlaceholder from 'assets/slice-slides-placeholder.jpg';
+import sliceBackgroundBar from 'assets/slice-background-bar.jpg';
+import sliceBackgroundBarLarge from 'assets/slice-background-bar-large.jpg';
+import sliceBackgroundBarPlaceholder from 'assets/slice-background-bar-placeholder.jpg';
+import sliceAnnotation from 'assets/slice-annotation.png';
+import sliceAnnotationLarge from 'assets/slice-annotation-large.png';
+import sliceAnnotationPlaceholder from 'assets/slice-annotation-placeholder.png';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 

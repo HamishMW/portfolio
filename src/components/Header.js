@@ -1,14 +1,14 @@
-import React, { lazy, Suspense, useRef, useState } from 'react';
-import styled, { css } from 'styled-components/macro';
+import React, { lazy, Suspense, useRef, useState, useContext } from 'react';
+import styled, { css, ThemeContext } from 'styled-components/macro';
 import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
-import Monogram from '../components/Monogram';
-import Icon from '../components/Icon';
-import NavToggle from '../components/NavToggle';
-import { media, rgba } from '../utils/styleUtils';
-import { useWindowSize } from '../utils/hooks';
+import Monogram from 'components/Monogram';
+import Icon from 'components/Icon';
+import NavToggle from 'components/NavToggle';
+import { media, rgba } from 'utils/styleUtils';
+import { useWindowSize } from 'utils/hooks';
 
-const ThemeToggle = lazy(() => import('../components/ThemeToggle'));
+const ThemeToggle = lazy(() => import('components/ThemeToggle'));
 
 const navLinks = [
   {
@@ -56,8 +56,9 @@ const HeaderIcons = () => (
 );
 
 function Header(props) {
-  const { menuOpen, location, toggleMenu, currentTheme, toggleTheme } = props;
+  const { menuOpen, location, toggleMenu, toggleTheme } = props;
   const [hashKey, setHashKey] = useState();
+  const theme = useContext(ThemeContext);
   const windowSize = useWindowSize();
   const headerRef = useRef();
   const isMobile = windowSize.width <= media.numMobile || windowSize.height <= 696;
@@ -124,14 +125,14 @@ function Header(props) {
             ))}
             <HeaderIcons />
             <Suspense fallback={<React.Fragment />}>
-              <ThemeToggle isMobile themeId={currentTheme.id} toggleTheme={toggleTheme} />
+              <ThemeToggle isMobile themeId={theme.id} toggleTheme={toggleTheme} />
             </Suspense>
           </HeaderMobileNav>
         )}
       </Transition>
       {!isMobile &&
         <Suspense fallback={<React.Fragment />}>
-          <ThemeToggle themeId={currentTheme.id} toggleTheme={toggleTheme} />
+          <ThemeToggle themeId={theme.id} toggleTheme={toggleTheme} />
         </Suspense>
       }
     </HeaderWrapper>

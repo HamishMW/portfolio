@@ -3,19 +3,19 @@ import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Transition, TransitionGroup, config } from 'react-transition-group';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import Header from '../components/Header';
-import { theme } from '../utils/theme';
-import { useLocalStorage, usePrefersReducedMotion } from '../utils/hooks';
-import GothamBook from '../fonts/gotham-book.woff2';
-import GothamMedium from '../fonts/gotham-medium.woff2';
+import Header from 'components/Header';
+import { theme } from 'utils/theme';
+import { useLocalStorage, usePrefersReducedMotion } from 'utils/hooks';
+import GothamBook from 'fonts/gotham-book.woff2';
+import GothamMedium from 'fonts/gotham-medium.woff2';
 
-const Home = lazy(() => import('../screens/Home'));
-const Contact = lazy(() => import('../screens/Contact'));
-const ProjectSPR = lazy(() => import('../screens/ProjectSPR'));
-const ProjectSlice = lazy(() => import('../screens/ProjectSlice'));
-const ProjectVolkihar = lazy(() => import('../screens/ProjectVolkihar'));
-// const Articles = lazy(() => import('../screens/Articles'));
-const NotFound = lazy(() => import('../screens/404'));
+const Home = lazy(() => import('screens/Home'));
+const Contact = lazy(() => import('screens/Contact'));
+const ProjectSPR = lazy(() => import('screens/ProjectSPR'));
+const ProjectSlice = lazy(() => import('screens/ProjectSlice'));
+const ProjectVolkihar = lazy(() => import('screens/ProjectVolkihar'));
+// const Articles = lazy(() => import('screens/Articles'));
+const NotFound = lazy(() => import('screens/404'));
 
 const prerender = navigator.userAgent === 'ReactSnap';
 export const AppContext = createContext();
@@ -111,7 +111,7 @@ function App() {
                   onEnter={node => node && node.offsetHeight}
                 >
                   {status => (
-                    <AppContext.Provider value={{ status, updateTheme, toggleTheme, currentTheme }}>
+                    <AppContext.Provider value={{ status, updateTheme, toggleTheme }}>
                       <AppPage status={status} >
                         <Suspense fallback={<React.Fragment />}>
                           <Switch location={location}>

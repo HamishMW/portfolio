@@ -3,15 +3,15 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs } from '@storybook/addon-knobs';
 import styled from 'styled-components/macro';
-import { Button } from '../components/Button';
-import Input from '../components/Input';
-import Anchor from '../components/Anchor';
-import Monogram from '../components/Monogram';
-import DisplacementSphere from '../components/DisplacementSphere';
-import DisplacementSlider from '../components/DisplacementSlider';
-import DecoderText from '../components/DecoderText';
-import Loader from '../components/Loader';
-import { useFormInput } from '../utils/hooks';
+import { Button } from 'components/Button';
+import Input from 'components/Input';
+import Anchor from 'components/Anchor';
+import Monogram from 'components/Monogram';
+import DisplacementSphere from 'components/DisplacementSphere';
+import DisplacementSlider from 'components/DisplacementSlider';
+import DecoderText from 'components/DecoderText';
+import Loader from 'components/Loader';
+import { useFormInput } from 'utils/hooks';
 
 const StoryContainer = styled.div`
   width: 100vw;

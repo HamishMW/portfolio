@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback, useContext } from 'react';
-import { AppContext } from '../app/App';
+import { AppContext } from 'app';
 
 let id = 0;
 const genId = () => ++id;

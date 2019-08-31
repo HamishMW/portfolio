@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css, withTheme } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
-import Loader from '../components/Loader';
+import Loader from 'components/Loader';
 import Icon from './Icon';
-import { rgba } from '../utils/styleUtils';
+import { rgba } from 'utils/styleUtils';
 
 const ButtonContent = withTheme(props => {
   const {

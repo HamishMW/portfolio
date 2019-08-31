@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
-import { Button } from '../components/Button';
-import themeIconData from '../data/themeIconData.json';
-import { media } from '../utils/styleUtils';
-import { usePrefersReducedMotion } from '../utils/hooks';
+import { Button } from 'components/Button';
+import themeIconData from 'data/themeIconData.json';
+import { media } from 'utils/styleUtils';
+import { usePrefersReducedMotion } from 'utils/hooks';
 
 export default function ThemeToggle({ themeId, toggleTheme, isMobile, ...rest }) {
   const initThemeId = useRef(themeId);

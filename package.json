@@ -23,7 +23,7 @@
     "stylelint-processor-styled-components": "^1.8.0"
   },
   "dependencies": {
-    "@mdx-js/react": "^1.3.2",
+    "@mdx-js/react": "^1.4.0",
     "es6-tween": "^5.5.10",
     "ios-inner-height": "^1.1.1",
     "lottie-web": "^5.5.7",
@@ -34,7 +34,7 @@
     "react-router-dom": "5.0.1",
     "react-transition-group": "^4.2.2",
     "styled-components": "^4.3.2",
-    "three": "^0.107.0"
+    "three": "^0.108.0"
   },
   "scripts": {
     "start": "react-scripts start",

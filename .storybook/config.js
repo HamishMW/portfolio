@@ -8,7 +8,7 @@ import { theme } from '../src/utils/theme';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import GothamBook from '../src/fonts/gotham-book.woff2';
 import GothamMedium from '../src/fonts/gotham-medium.woff2';
-import { fontStyles, GlobalStyles, AppContext } from '../src/app/App';
+import { fontStyles, GlobalStyles, AppContext } from '../src/app';
 
 addParameters({
   options: {

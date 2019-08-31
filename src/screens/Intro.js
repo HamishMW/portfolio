@@ -1,21 +1,20 @@
 import React, { Suspense, lazy, useMemo, useContext, useEffect, useState } from 'react';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { css, keyframes, ThemeContext } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import { media, AnimFade, rgba, sectionPadding } from '../utils/styleUtils';
-import DecoderText from '../components/DecoderText';
-import Svg from '../components/Svg';
-import { AppContext } from '../app/App';
-import { useInterval, usePrevious, useWindowSize } from '../utils/hooks';
+import { media, AnimFade, rgba, sectionPadding } from 'utils/styleUtils';
+import DecoderText from 'components/DecoderText';
+import Svg from 'components/Svg';
+import { useInterval, usePrevious, useWindowSize } from 'utils/hooks';
 
-const DisplacementSphere = lazy(() => import('../components/DisplacementSphere'));
+const DisplacementSphere = lazy(() => import('components/DisplacementSphere'));
 const prerender = navigator.userAgent === 'ReactSnap';
 
 function Intro(props) {
-  const { currentTheme } = useContext(AppContext);
+  const theme = useContext(ThemeContext);
   const { id, sectionRef, disciplines, scrollIndicatorHidden } = props;
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const windowSize = useWindowSize();
-  const prevTheme = usePrevious(currentTheme);
+  const prevTheme = usePrevious(theme);
   const introLabel = useMemo(() => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '), [disciplines]);
   const currentDisciplines = useMemo(() => disciplines.filter((item, index) => index === disciplineIndex), [disciplineIndex, disciplines]);
   const titleId = `${id}-title`;
@@ -23,13 +22,13 @@ function Intro(props) {
   useInterval(() => {
     const index = (disciplineIndex + 1) % disciplines.length;
     setDisciplineIndex(index);
-  }, 5000, currentTheme.id);
+  }, 5000, theme.id);
 
   useEffect(() => {
-    if (prevTheme && prevTheme.id !== currentTheme.id) {
+    if (prevTheme && prevTheme.id !== theme.id) {
       setDisciplineIndex(0);
     }
-  }, [currentTheme.id, prevTheme]);
+  }, [theme.id, prevTheme]);
 
   return (
     <IntroContent
@@ -39,7 +38,7 @@ function Intro(props) {
       tabIndex={-1}
     >
       <Transition
-        key={currentTheme.id}
+        key={theme.id}
         appear={!prerender}
         in={!prerender}
         timeout={3000}

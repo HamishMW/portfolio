@@ -1,44 +1,44 @@
 import React, { useEffect, useContext, useMemo, useRef, lazy, Suspense } from 'react';
-import styled from 'styled-components/macro';
+import styled, { ThemeContext } from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
-import { AppContext } from '../app/App';
-import ProgressiveImage from '../components/ProgressiveImage';
-import { useScrollToTop } from '../utils/hooks';
-import { LinkButton } from '../components/Button';
-import Footer from '../components/Footer';
+import { AppContext } from 'app';
+import ProgressiveImage from 'components/ProgressiveImage';
+import { useScrollToTop } from 'utils/hooks';
+import { LinkButton } from 'components/Button';
+import Footer from 'components/Footer';
 import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader,
   ProjectSectionHeading, ProjectSectionText, ProjectTextRow,
-} from '../components/Project';
-import { media, rgba } from '../utils/styleUtils';
-import volkiharBackground from '../assets/volkihar-background.jpg';
-import volkiharBackgroundLarge from '../assets/volkihar-background-large.jpg';
-import volkiharBackgroundPlaceholder from '../assets/volkihar-background-placeholder.jpg';
-import volkiharBanner from '../assets/volkihar-banner.jpg';
-import volkiharBannerLarge from '../assets/volkihar-banner-large.jpg';
-import volkiharBannerPlaceholder from '../assets/volkihar-banner-placeholder.jpg';
-import volkiharArmor from '../assets/volkihar-armor.png';
-import volkiharArmorLarge from '../assets/volkihar-armor-large.png';
-import volkiharArmorPlaceholder from '../assets/volkihar-armor-placeholder.png';
-import volkiharBook from '../assets/volkihar-book.png';
-import volkiharBookLarge from '../assets/volkihar-book-large.png';
-import volkiharBookPlaceholder from '../assets/volkihar-book-placeholder.png';
-import volkiharEnderal from '../assets/volkihar-enderal.jpg';
-import volkiharEnderalLarge from '../assets/volkihar-enderal-large.jpg';
-import volkiharEnderalPlaceholder from '../assets/volkihar-enderal-placeholder.jpg';
-import volkiharEnderalLogo from '../assets/volkihar-enderal-logo.png';
-import volkiharEnderalLogoLarge from '../assets/volkihar-enderal-logo-large.png';
-import volkiharEnderalLogoPlaceholder from '../assets/volkihar-enderal-logo-placeholder.png';
-import volkiharSlide1 from '../assets/volkihar-slide-1.jpg';
-import volkiharSlide1Large from '../assets/volkihar-slide-1-large.jpg';
-import volkiharSlide2 from '../assets/volkihar-slide-2.jpg';
-import volkiharSlide2Large from '../assets/volkihar-slide-2-large.jpg';
-import volkiharSlide3 from '../assets/volkihar-slide-3.jpg';
-import volkiharSlide3Large from '../assets/volkihar-slide-3-large.jpg';
-import volkiharSlidePlaceholder from '../assets/volkihar-slide-placeholder.jpg';
-import { ReactComponent as VolkiharKnightLogo } from '../assets/volkihar-logo.svg';
+} from 'components/Project';
+import { media, rgba } from 'utils/styleUtils';
+import volkiharBackground from 'assets/volkihar-background.jpg';
+import volkiharBackgroundLarge from 'assets/volkihar-background-large.jpg';
+import volkiharBackgroundPlaceholder from 'assets/volkihar-background-placeholder.jpg';
+import volkiharBanner from 'assets/volkihar-banner.jpg';
+import volkiharBannerLarge from 'assets/volkihar-banner-large.jpg';
+import volkiharBannerPlaceholder from 'assets/volkihar-banner-placeholder.jpg';
+import volkiharArmor from 'assets/volkihar-armor.png';
+import volkiharArmorLarge from 'assets/volkihar-armor-large.png';
+import volkiharArmorPlaceholder from 'assets/volkihar-armor-placeholder.png';
+import volkiharBook from 'assets/volkihar-book.png';
+import volkiharBookLarge from 'assets/volkihar-book-large.png';
+import volkiharBookPlaceholder from 'assets/volkihar-book-placeholder.png';
+import volkiharEnderal from 'assets/volkihar-enderal.jpg';
+import volkiharEnderalLarge from 'assets/volkihar-enderal-large.jpg';
+import volkiharEnderalPlaceholder from 'assets/volkihar-enderal-placeholder.jpg';
+import volkiharEnderalLogo from 'assets/volkihar-enderal-logo.png';
+import volkiharEnderalLogoLarge from 'assets/volkihar-enderal-logo-large.png';
+import volkiharEnderalLogoPlaceholder from 'assets/volkihar-enderal-logo-placeholder.png';
+import volkiharSlide1 from 'assets/volkihar-slide-1.jpg';
+import volkiharSlide1Large from 'assets/volkihar-slide-1-large.jpg';
+import volkiharSlide2 from 'assets/volkihar-slide-2.jpg';
+import volkiharSlide2Large from 'assets/volkihar-slide-2-large.jpg';
+import volkiharSlide3 from 'assets/volkihar-slide-3.jpg';
+import volkiharSlide3Large from 'assets/volkihar-slide-3-large.jpg';
+import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
+import { ReactComponent as VolkiharKnightLogo } from 'assets/volkihar-logo.svg';
 
-const DisplacementSlider = lazy(() => import('../components/DisplacementSlider'));
+const DisplacementSlider = lazy(() => import('components/DisplacementSlider'));
 const prerender = navigator.userAgent === 'ReactSnap';
 
 const title = 'Volkihar Knight';
@@ -50,20 +50,21 @@ const roles = [
 ];
 
 function ProjectVolkihar() {
-  const { status, updateTheme, currentTheme } = useContext(AppContext);
-  const currentThemeRef = useRef(currentTheme);
+  const { status, updateTheme } = useContext(AppContext);
+  const theme = useContext(ThemeContext);
+  const themeRef = useRef(theme);
   useScrollToTop();
 
   useEffect(() => {
-    currentThemeRef.current = currentTheme;
-  }, [currentTheme]);
+    themeRef.current = theme;
+  }, [theme]);
 
   useEffect(() => {
     if ((status === 'entered' || status === 'exiting')) {
       updateTheme({
-        colorPrimary: currentTheme.id === 'dark'
+        colorPrimary: theme.id === 'dark'
           ? 'rgba(240, 211, 150, 1)'
-          : currentThemeRef.current.colorPrimary,
+          : themeRef.current.colorPrimary,
         colorAccent: 'rgba(240, 211, 150, 1)',
       });
     }
@@ -73,7 +74,7 @@ function ProjectVolkihar() {
         updateTheme();
       }
     };
-  }, [updateTheme, status, currentTheme.id]);
+  }, [updateTheme, status, theme.id]);
 
   return (
     <React.Fragment>

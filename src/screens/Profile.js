@@ -2,16 +2,16 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
-import Anchor from '../components/Anchor';
-import { RouterButton } from '../components/Button';
-import DecoderText from '../components/DecoderText';
-import Divider from '../components/Divider';
-import ProgressiveImage from '../components/ProgressiveImage';
-import Svg from '../components/Svg';
-import ProfileImg from '../assets/profile.jpg';
-import ProfileImgLarge from '../assets/profile-large.jpg';
-import ProfileImgPlaceholder from '../assets/profile-placeholder.jpg';
-import { media, sectionPadding } from '../utils/styleUtils';
+import Anchor from 'components/Anchor';
+import { RouterButton } from 'components/Button';
+import DecoderText from 'components/DecoderText';
+import Divider from 'components/Divider';
+import ProgressiveImage from 'components/ProgressiveImage';
+import Svg from 'components/Svg';
+import ProfileImg from 'assets/profile.jpg';
+import ProfileImgLarge from 'assets/profile-large.jpg';
+import ProfileImgPlaceholder from 'assets/profile-placeholder.jpg';
+import { media, sectionPadding } from 'utils/styleUtils';
 
 const ProfileText = ({ status, titleId }) => (
   <React.Fragment>
