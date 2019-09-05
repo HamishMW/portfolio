@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useContext } from 'react';
 import styled, { css, ThemeContext } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
 import { Button } from 'components/Button';
-import themeIconData from 'data/themeIconData.json';
+import themeIconData from 'data/themeIcon.json';
 import { media } from 'utils/styleUtils';
 import { usePrefersReducedMotion } from 'utils/hooks';
 import { AppContext } from 'app';

@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { useScrollToTop } from 'utils/hooks';
 import { sectionPadding, media, rgba } from 'utils/styleUtils';
 import posts from 'posts';
-import Post from './Post';
+import Post from 'screens/Post';
 import ProgressiveImage from 'components/ProgressiveImage';
 
 function PostListItem({
@@ -22,12 +22,12 @@ function PostListItem({
     <PostListItemWrapper>
       <PostContent to={`/articles${path}`}>
         <PostImageWrapper>
-          <PostImage
+          {/* <PostImage
             srcSet={banner ? require(`posts/assets/${banner}`) : undefined}
             videoSrc={bannerVideo ? require(`posts/assets/${bannerVideo}`) : undefined}
             placeholder={require(`posts/assets/${bannerPlaceholder}`)}
             alt={bannerAlt}
-          />
+          /> */}
           <PostImageTag>K256</PostImageTag>
         </PostImageWrapper>
         <PostText>
@@ -52,10 +52,14 @@ function PostList() {
         <meta name="description" content="A collection of technical design and development articles." />
       </Helmet>
       <PostListContent>
-        <PostListTitle>Articles</PostListTitle>
-        {posts.map(({ path, ...post }) =>
-          <PostListItem key={path} path={path} {...post} />
-        )}
+        <PostTitleWrapper>
+          <PostListTitle>Articles</PostListTitle>
+        </PostTitleWrapper>
+        <PostListColumn>
+          {posts.map(({ path, ...post }) =>
+            <PostListItem key={path} path={path} {...post} />
+          )}
+        </PostListColumn>
       </PostListContent>
     </PostListWrapper>
   );
@@ -92,8 +96,8 @@ const PostListContent = styled.div`
   max-width: ${props => props.theme.maxWidthDesktop}px;
   width: 100%;
   display: grid;
-  grid-template-columns: 100%;
-  grid-gap: 60px;
+  grid-template-columns: 144px 1fr;
+  grid-gap: 20px;
   padding: 80px 0;
   position: relative;
 
@@ -112,18 +116,26 @@ const PostListItemWrapper = styled.article`
   ${sectionPadding}
 `;
 
+const PostTitleWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
+
+const PostListColumn = styled.div`
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: 60px;
+`;
+
 const PostListTitle = styled.h1`
   font-size: 120px;
   margin: 0;
-  transform: rotate(270deg) translate3d(-50%, 100%, 0);
-  transform-origin: left bottom;
-  position: absolute;
-  left: -80px;
-  top: 180px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  position: relative;
 `;
 
 const PostContent = styled(Link)`
-  max-width: 800px;
   width: 100%;
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -205,6 +217,7 @@ const PostImage = styled(ProgressiveImage)`
 
 const PostImageWrapper = styled.div`
   position: relative;
+  background: rgba(255, 255, 255, 0.1)
 `;
 
 const PostImageTag = styled.div`

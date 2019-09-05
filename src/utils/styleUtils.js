@@ -65,7 +65,6 @@ export function tint(colorString, percent) {
   const g = parseInt(colorArray[1], 10);
   const b = parseInt(colorArray[2], 10);
   const a = parseInt(colorArray[3], 10);
-  console.log(colorArray);
   return `rgba(${(Math.round((t - r) * p) + r)}, ${(Math.round((t - g) * p) + g)}, ${(Math.round((t - b) * p) + b)}, ${a})`;
 };
 

@@ -1,6 +1,6 @@
 import { rgba } from './styleUtils';
 
-const fonstStack = [
+const fontStack = [
   'Gotham',
   'system-ui',
   '-apple-system',
@@ -48,7 +48,7 @@ const spacing = {
 const base = {
   curveFastoutSlowin: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
   clipPath: (size = 8) => `polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%)`,
-  fontStack: fonstStack.join(', '),
+  fontStack: fontStack.join(', '),
   monoFontStack: monoFontStack.join(', '),
   colorBlack: 'rgba(0, 0, 0, 1)',
   colorWhite: 'rgba(255, 255, 255, 1)',

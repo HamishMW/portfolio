@@ -9,6 +9,7 @@
     "@storybook/addon-knobs": "^5.1.11",
     "@storybook/addon-links": "^5.1.11",
     "@storybook/react": "^5.1.11",
+    "babel-loader": "^8.0.6",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "mdx-loader": "^3.0.2",
@@ -23,10 +24,10 @@
     "stylelint-processor-styled-components": "^1.8.0"
   },
   "dependencies": {
-    "@mdx-js/react": "^1.4.0",
+    "@mdx-js/react": "^1.4.3",
     "es6-tween": "^5.5.10",
     "ios-inner-height": "^1.1.1",
-    "lottie-web": "^5.5.7",
+    "lottie-web": "^5.5.8",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-easy-swipe": "^0.0.18",
