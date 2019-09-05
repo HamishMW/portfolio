@@ -80,7 +80,9 @@ export default function Home(props) {
       const scrollObserver = new IntersectionObserver(entries => {
         const [entry] = entries;
         if (entry.isIntersecting) {
-          element.current.focus();
+          setTimeout(() => {
+            element.current.focus();
+          }, prefersReducedMotion ? 0 : 400);
           scrollObserver.unobserve(entry.target);
         }
       }, { rootMargin: '-20% 0px -20% 0px' });

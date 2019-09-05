@@ -4,12 +4,11 @@ import Icon from './Icon';
 import { Button } from 'components/Button';
 import { media } from 'utils/styleUtils';
 
-const NavToggle = ({ onClick, menuOpen, ...rest }) => (
+const NavToggle = ({ menuOpen, ...rest }) => (
   <NavToggleButton
     iconOnly
     aria-label="Menu"
     aria-expanded={menuOpen}
-    onClick={onClick}
     {...rest}
   >
     <NavToggleInner>

@@ -69,6 +69,7 @@ function DecoderText(props) {
         type: 'actual',
         value: content.current[index],
       }));
+      setStarted(true);
     }
 
     return function cleanUp() {
