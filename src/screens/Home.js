@@ -68,8 +68,11 @@ export default function Home(props) {
   useEffect(() => {
     const hasEntered = status === 'entered';
     const supportsNativeSmoothScroll = 'scrollBehavior' in document.documentElement.style;
+    let scrollObserver;
+    let scrollTimeout;
 
     const handleHashchange = (hash, scroll) => {
+      clearTimeout(scrollTimeout);
       const hashSections = [intro, projectOne, details];
       const hashString = hash.replace('#', '');
       const element = hashSections.filter(item => item.current.id === hashString)[0];
@@ -77,10 +80,10 @@ export default function Home(props) {
       const behavior = scroll && !prefersReducedMotion ? 'smooth' : 'instant';
       const top = element.current.offsetTop;
 
-      const scrollObserver = new IntersectionObserver(entries => {
+      scrollObserver = new IntersectionObserver(entries => {
         const [entry] = entries;
         if (entry.isIntersecting) {
-          setTimeout(() => {
+          scrollTimeout = setTimeout(() => {
             element.current.focus();
           }, prefersReducedMotion ? 0 : 400);
           scrollObserver.unobserve(entry.target);
@@ -109,6 +112,13 @@ export default function Home(props) {
     } else if (hasEntered) {
       handleHashchange(hash, true);
     }
+
+    return () => {
+      clearTimeout(scrollTimeout);
+      if (scrollObserver) {
+        scrollObserver.disconnect();
+      }
+    };
   }, [hash, state, prefersReducedMotion, status]);
 
   return (
@@ -127,7 +137,7 @@ export default function Home(props) {
         scrollIndicatorHidden={scrollIndicatorHidden}
       />
       <ProjectItem
-        id="projects"
+        id="project-1"
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index="01"
@@ -141,7 +151,7 @@ export default function Home(props) {
         imageType="laptop"
       />
       <ProjectItem
-        id="projects-1"
+        id="project-2"
         alternate
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
@@ -165,7 +175,7 @@ export default function Home(props) {
         imageType="phone"
       />
       <ProjectItem
-        id="projects-2"
+        id="project-3"
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index="03"
