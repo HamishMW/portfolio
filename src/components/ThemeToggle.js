@@ -26,6 +26,10 @@ export default function ThemeToggle({ isMobile, ...rest }) {
 
     const duration = lottieAnimRef.current.totalFrames - 1;
     lottieAnimRef.current.goToAndStop(initThemeId.current === 'dark' ? duration : 0, true);
+
+    return () => {
+      lottieAnimRef.current.destroy();
+    };
   }, []);
 
   useEffect(() => {
