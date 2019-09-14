@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { rgba } from 'utils/styleUtils';
+import { rgba } from 'utils/style';
 
 const lineColor = (opacity, props) => props.secondary
   ? rgba(props.theme.colorText, opacity)

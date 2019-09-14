@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components/macro';
-import { media } from 'utils/styleUtils';
+import { media } from 'utils/style';
 
 // Netrunner theme by Hamish Williams
 const netrunnerTheme = {

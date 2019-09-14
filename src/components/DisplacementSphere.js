@@ -8,7 +8,7 @@ import { Easing, Tween, autoPlay } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
 import VertShader from 'shaders/sphereVertShader';
 import FragmentShader from 'shaders/sphereFragmentShader';
-import { media } from 'utils/styleUtils';
+import { media } from 'utils/style';
 import { usePrefersReducedMotion } from 'utils/hooks';
 
 function DisplacementSphere() {

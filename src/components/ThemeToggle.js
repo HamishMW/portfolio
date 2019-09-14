@@ -3,7 +3,7 @@ import styled, { css, ThemeContext } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
 import { Button } from 'components/Button';
 import themeIconData from 'data/themeIcon.json';
-import { media } from 'utils/styleUtils';
+import { media } from 'utils/style';
 import { usePrefersReducedMotion } from 'utils/hooks';
 import { AppContext } from 'app';
 

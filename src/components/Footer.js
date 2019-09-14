@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import Anchor from 'components/Anchor';
-import { media, rgba, sectionPadding } from 'utils/styleUtils';
+import { media, rgba, sectionPadding } from 'utils/style';
 
 const Footer = () => (
   <FooterContainer role="contentinfo">

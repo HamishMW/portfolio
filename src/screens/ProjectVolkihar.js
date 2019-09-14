@@ -10,7 +10,7 @@ import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader,
   ProjectSectionHeading, ProjectSectionText, ProjectTextRow,
 } from 'components/Project';
-import { media, rgba } from 'utils/styleUtils';
+import { media, rgba } from 'utils/style';
 import volkiharBackground from 'assets/volkihar-background.jpg';
 import volkiharBackgroundLarge from 'assets/volkihar-background-large.jpg';
 import volkiharBackgroundPlaceholder from 'assets/volkihar-background-placeholder.jpg';

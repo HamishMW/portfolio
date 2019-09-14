@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components/macro';
 import Footer from 'components/Footer';
 import Divider from 'components/Divider';
 import Svg from 'components/Svg';
-import { media, rgba, sectionPadding, AnimFade } from 'utils/styleUtils';
+import { media, rgba, sectionPadding, AnimFade } from 'utils/style';
 import { useWindowSize, useScrollToTop } from 'utils/hooks';
 import ProgressiveImage from 'components/ProgressiveImage';
 import GothamBold from 'assets/fonts/gotham-bold.woff2';

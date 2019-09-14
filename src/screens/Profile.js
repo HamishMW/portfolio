@@ -11,7 +11,7 @@ import Svg from 'components/Svg';
 import ProfileImg from 'assets/profile.jpg';
 import ProfileImgLarge from 'assets/profile-large.jpg';
 import ProfileImgPlaceholder from 'assets/profile-placeholder.jpg';
-import { media, sectionPadding } from 'utils/styleUtils';
+import { media, sectionPadding } from 'utils/style';
 
 const ProfileText = ({ status, titleId }) => (
   <React.Fragment>

@@ -5,7 +5,7 @@ import { Transition } from 'react-transition-group';
 import Monogram from 'components/Monogram';
 import Icon from 'components/Icon';
 import NavToggle from 'components/NavToggle';
-import { media, rgba } from 'utils/styleUtils';
+import { media, rgba } from 'utils/style';
 import { useWindowSize } from 'utils/hooks';
 import { AppContext } from 'app';
 import { navLinks, socialLinks } from 'data/nav';

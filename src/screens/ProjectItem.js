@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
-import { media, rgba, sectionPadding } from 'utils/styleUtils';
+import { media, rgba, sectionPadding } from 'utils/style';
 import { RouterButton, LinkButton } from 'components/Button';
 import ProgressiveImage from 'components/ProgressiveImage';
 import Divider from 'components/Divider';

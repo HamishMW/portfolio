@@ -7,7 +7,7 @@ import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
   ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
 } from 'components/Project';
-import { media } from 'utils/styleUtils';
+import { media } from 'utils/style';
 import backgroundSpr from 'assets/spr-background.jpg';
 import backgroundSprLarge from 'assets/spr-background-large.jpg';
 import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';

@@ -3,7 +3,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import { useScrollToTop } from 'utils/hooks';
-import { sectionPadding, media, rgba } from 'utils/styleUtils';
+import { sectionPadding, media, rgba } from 'utils/style';
 import posts from 'posts';
 import Post from 'screens/Post';
 import ProgressiveImage from 'components/ProgressiveImage';

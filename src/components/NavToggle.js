@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import Icon from './Icon';
 import { Button } from 'components/Button';
-import { media } from 'utils/styleUtils';
+import { media } from 'utils/style';
 
 const NavToggle = ({ menuOpen, ...rest }) => (
   <NavToggleButton
