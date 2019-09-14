@@ -107,6 +107,6 @@ const ThemeToggleButton = styled(Button)`
   }
 `;
 
-const ThemeToggleWrapper = styled.div`
+const ThemeToggleWrapper = styled.span`
   display: flex;
 `;

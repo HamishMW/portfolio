@@ -170,7 +170,8 @@ function ImageElements(props) {
           onLoad={onLoad}
           decoding="async"
           loaded={loaded}
-          srcSet={!prerender && intersect ? srcSet : undefined}
+          src={!prerender && intersect ? srcSet.split(' ')[0] : ''}
+          srcSet={!prerender && intersect ? srcSet : ''}
           alt={alt}
           {...rest}
         />

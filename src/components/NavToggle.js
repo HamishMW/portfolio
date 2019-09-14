@@ -19,16 +19,19 @@ const NavToggle = ({ menuOpen, ...rest }) => (
 );
 
 const NavToggleButton = styled(Button)`
-  position: fixed;
-  top: ${props => props.theme.spacingOuter.mobile};
-  right: ${props => props.theme.spacingOuter.mobile};
-  width: 48px;
-  height: 48px;
-  z-index: 1024;
-  display: none;
+  /* && specificity hack for styled-components beta */
+  && {
+    position: fixed;
+    top: ${props => props.theme.spacingOuter.mobile};
+    right: ${props => props.theme.spacingOuter.mobile};
+    width: 48px;
+    height: 48px;
+    z-index: 1024;
+    display: none;
 
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
-    display: flex;
+    @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+      display: flex;
+    }
   }
 `;
 

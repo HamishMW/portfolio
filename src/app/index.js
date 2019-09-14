@@ -76,8 +76,8 @@ function App() {
               <React.Fragment>
                 <Helmet>
                   <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
-                  <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
-                  <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
+                  <link rel="preload" href={GothamBook} as="font" crossorigin="" />
+                  <link rel="preload" href={GothamMedium} as="font" crossorigin="" />
                   <style>{fontStyles}</style>
                 </Helmet>
                 <GlobalStyles />

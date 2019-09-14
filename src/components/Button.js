@@ -96,7 +96,7 @@ export const RouterButton = props => {
 
   return (
     <ButtonContainer
-      as={Link}
+      as={ButtonLink}
       className={className}
       style={style}
       to={to}
@@ -106,6 +106,8 @@ export const RouterButton = props => {
     </ButtonContainer>
   );
 };
+
+const ButtonLink = ({ secondary, ...rest }) => <Link {...rest} />;
 
 const ButtonLoader = styled(Loader)`
   position: absolute;
