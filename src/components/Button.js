@@ -1,22 +1,21 @@
-import React from 'react';
-import styled, { css, withTheme } from 'styled-components/macro';
+import React, { useContext } from 'react';
+import styled, { css, ThemeContext } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import Loader from 'components/Loader';
 import Icon from './Icon';
 import { rgba } from 'utils/style';
 
-const ButtonContent = withTheme(props => {
-  const {
-    iconRight,
-    icon,
-    children,
-    secondary,
-    iconOnly,
-    isLoading,
-    loadingText,
-    iconHoverShift,
-    theme,
-  } = props;
+function ButtonContent({
+  iconRight,
+  icon,
+  children,
+  secondary,
+  iconOnly,
+  isLoading,
+  loadingText,
+  iconHoverShift,
+}) {
+  const theme = useContext(ThemeContext);
 
   return (
     <React.Fragment>
@@ -57,7 +56,7 @@ const ButtonContent = withTheme(props => {
       }
     </React.Fragment>
   );
-});
+}
 
 export const Button = props => {
   const { className, style, loading, ...rest } = props;
@@ -92,7 +91,7 @@ export const LinkButton = props => {
 };
 
 export const RouterButton = props => {
-  const { className, style, to, secondary } = props;
+  const { className, style, to, secondary, ...rest } = props;
 
   return (
     <ButtonContainer
@@ -102,7 +101,7 @@ export const RouterButton = props => {
       to={to}
       secondary={secondary ? 1 : 0}
     >
-      <ButtonContent {...props} />
+      <ButtonContent secondary={secondary} {...rest} />
     </ButtonContainer>
   );
 };
