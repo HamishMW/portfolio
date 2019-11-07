@@ -4,6 +4,7 @@ import { usePrefersReducedMotion } from 'utils/hooks';
 import { Button } from 'components/Button';
 import Icon from 'components/Icon';
 import { Transition } from 'react-transition-group';
+import { reflow } from 'utils/transition';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -144,7 +145,7 @@ function ImageElements(props) {
           />
           <Transition
             in={isHovered || isFocused}
-            onExit={node => node && node.offsetHeight}
+            onExit={reflow}
             onExited={() => setShowPlayButton(false)}
             timeout={{ enter: 0, exit: 300 }}
           >

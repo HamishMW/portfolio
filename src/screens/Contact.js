@@ -9,6 +9,7 @@ import Divider from 'components/Divider';
 import { Button, RouterButton } from 'components/Button';
 import { media, AnimFade, sectionPadding } from 'utils/style';
 import { useScrollToTop, useFormInput } from 'utils/hooks';
+import { reflow } from 'utils/transition';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
@@ -80,7 +81,7 @@ function Contact() {
             mountOnEnter
             unmountOnExit
             timeout={1600}
-            onEnter={node => node && node.offsetHeight}
+            onEnter={reflow}
           >
             {status => (
               <ContactForm method="post" onSubmit={onSubmit} role="form">
@@ -136,7 +137,7 @@ function Contact() {
             mountOnEnter
             unmountOnExit
             timeout={10}
-            onEnter={node => node && node.offsetHeight}
+            onEnter={reflow}
           >
             {status => (
               <ContactComplete aria-live="polite">

@@ -12,6 +12,7 @@ import { Helmet } from 'react-helmet-async';
 import { MDXProvider } from '@mdx-js/react';
 import Anchor from 'components/Anchor';
 import CodeBlock from 'components/CodeBlock';
+import { reflow } from 'utils/transition';
 
 const prerender = navigator.userAgent === 'ReactSnap';
 
@@ -63,7 +64,7 @@ function PostWrapper({
             appear
             in={!prerender}
             timeout={400}
-            onEnter={node => node && node.offsetHeight}
+            onEnter={reflow}
           >
             {status => (
               <PostDate>

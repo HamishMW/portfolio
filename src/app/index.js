@@ -9,6 +9,7 @@ import { useLocalStorage, usePrefersReducedMotion } from 'utils/hooks';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
 import { initialState, reducer } from 'app/reducer';
+import { reflow } from 'utils/transition';
 
 const Home = lazy(() => import('screens/Home'));
 const Contact = lazy(() => import('screens/Contact'));
@@ -92,7 +93,7 @@ function App() {
                   <Transition
                     key={location.pathname}
                     timeout={300}
-                    onEnter={node => node && node.offsetHeight}
+                    onEnter={reflow}
                   >
                     {status => (
                       <TransitionContext.Provider value={{ ...state, dispatch, status }}>

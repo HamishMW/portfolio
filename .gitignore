@@ -58,6 +58,7 @@ typings/
 .env
 
 build/
+build-storybook/
 config.json
 *-temp.studio
 .firebase

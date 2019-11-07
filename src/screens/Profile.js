@@ -12,6 +12,7 @@ import ProfileImg from 'assets/profile.jpg';
 import ProfileImgLarge from 'assets/profile-large.jpg';
 import ProfileImgPlaceholder from 'assets/profile-placeholder.jpg';
 import { media, sectionPadding } from 'utils/style';
+import { reflow } from 'utils/transition';
 
 const ProfileText = ({ status, titleId }) => (
   <React.Fragment>
@@ -45,7 +46,7 @@ function Profile(props) {
       <Transition
         in={visible}
         timeout={0}
-        onEnter={node => node && node.offsetHeight}
+        onEnter={reflow}
       >
         {status => (
           <ProfileContent>

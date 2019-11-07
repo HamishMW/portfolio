@@ -10,6 +10,7 @@ import Svg from 'components/Svg';
 import phone from 'assets/phone.png';
 import phoneLarge from 'assets/phone-large.png';
 import phonePlaceholder from 'assets/phone-placeholder.png';
+import { reflow } from 'utils/transition';
 
 function ProjectItem(props) {
   const {
@@ -111,7 +112,7 @@ function ProjectItem(props) {
         <Transition
           in={visible}
           timeout={0}
-          onEnter={node => node && node.offsetHeight}
+          onEnter={reflow}
         >
           {status => (
             <React.Fragment>

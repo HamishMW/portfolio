@@ -7,6 +7,7 @@ import DecoderText from 'components/DecoderText';
 import { media, rgba } from 'utils/style';
 import Notfound from 'assets/notfound.mp4';
 import NotfoundPoster from 'assets/notfound.jpg';
+import { reflow } from 'utils/transition';
 
 function NotFound() {
   return (
@@ -19,7 +20,7 @@ function NotFound() {
         appear
         in={true}
         timeout={0}
-        onEnter={node => node && node.offsetHeight}
+        onEnter={reflow}
       >
         {status => (
           <React.Fragment>

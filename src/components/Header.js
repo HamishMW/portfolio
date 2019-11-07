@@ -9,6 +9,7 @@ import { media, rgba } from 'utils/style';
 import { useWindowSize } from 'utils/hooks';
 import { AppContext } from 'app';
 import { navLinks, socialLinks } from 'data/nav';
+import { reflow } from 'utils/transition';
 
 const ThemeToggle = lazy(() => import('components/ThemeToggle'));
 
@@ -75,7 +76,7 @@ function Header(props) {
         unmountOnExit
         in={menuOpen}
         timeout={{ enter: 0, exit: 500 }}
-        onEnter={node => node && node.offsetHeight}
+        onEnter={reflow}
       >
         {status => (
           <HeaderMobileNav status={status}>

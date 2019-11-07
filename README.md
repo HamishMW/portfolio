@@ -1,8 +1,8 @@
 # Personal portfolio
 
-[![Site preview](/public/social-image.png)](http://hamishw.com)
+[![Site preview](/public/social-image.png)](https://hamishw.com)
 
-A design portfolio to showcase a few projects. Check out a live version of the [component design system](http://hamishw.com/storybook).
+A design portfolio to showcase a few projects. Check out a live version of the [component design system](https://storybook.hamishw.com).
 
 ## Install & run
 

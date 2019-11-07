@@ -79,7 +79,7 @@ export default function DispalcementSlider(props) {
   const navigate = useCallback(({
     direction,
     index = null,
-    ...rest,
+    ...rest
   }) => {
     if (!loaded) return;
 

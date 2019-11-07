@@ -39,15 +39,16 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && yarn build-storybook",
+    "build": "react-scripts build",
+    "build-storybook": "build-storybook -o build-storybook && rimraf build-storybook/static/**/*.{jpg,txt,png,mp4,webm,svg}",
     "postbuild": "react-snap",
-    "deploy": "firebase deploy --only hosting",
+    "deploy": "firebase deploy --only hosting:portfolio",
     "deploy-functions": "firebase deploy --only functions",
+    "deploy-storybook": "firebase deploy --only hosting:storybook",
     "serve": "firebase serve --only hosting",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -o build/storybook && rimraf build/storybook/static/**/*.{jpg,txt,png,mp4,webm,svg}"
+    "storybook": "start-storybook -p 9009 -s public"
   },
   "reactSnap": {
     "skipThirdPartyRequests": true,

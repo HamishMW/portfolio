@@ -5,6 +5,7 @@ import { media, AnimFade, rgba, sectionPadding } from 'utils/style';
 import DecoderText from 'components/DecoderText';
 import Svg from 'components/Svg';
 import { useInterval, usePrevious, useWindowSize } from 'utils/hooks';
+import { reflow } from 'utils/transition';
 
 const DisplacementSphere = lazy(() => import('components/DisplacementSphere'));
 const prerender = navigator.userAgent === 'ReactSnap';
@@ -42,7 +43,7 @@ function Intro(props) {
         appear={!prerender}
         in={!prerender}
         timeout={3000}
-        onEnter={node => node && node.offsetHeight}
+        onEnter={reflow}
       >
         {status => (
           <React.Fragment>
@@ -67,7 +68,7 @@ function Intro(props) {
                       appear
                       timeout={{ enter: 3000, exit: 2000 }}
                       key={`${item}_${index}`}
-                      onEnter={node => node && node.offsetHeight}
+                      onEnter={reflow}
                     >
                       {status => (
                         <IntroTitleWord plus aria-hidden delay="0.5s" status={status}>
