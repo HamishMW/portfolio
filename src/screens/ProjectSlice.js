@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
-import styled from 'styled-components/macro';
+import styled, { ThemeContext } from 'styled-components/macro';
 import ProgressiveImage from 'components/ProgressiveImage';
-import { useScrollToTop } from 'utils/hooks';
+import { useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
 import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectTextRow,
   ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
 } from 'components/Project';
-import { media } from 'utils/style';
 import sliceBackground from 'assets/slice-background.jpg';
 import sliceBackgroundLarge from 'assets/slice-background-large.jpg';
 import sliceBackgroundPlaceholder from 'assets/slice-background-placeholder.jpg';
@@ -41,8 +40,9 @@ const roles = [
   'Interface Design',
 ];
 
-function ProjectSlice() {
-  useScrollToTop();
+function ProjectSlice(props) {
+  const { mobile, tablet } = useContext(ThemeContext);
+  useScrollRestore();
 
   return (
     <React.Fragment>
@@ -50,7 +50,7 @@ function ProjectSlice() {
         title={`Projects | ${title}`}
         meta={[{ name: 'description', content: description, }]}
       />
-      <ProjectContainer>
+      <ProjectContainer {...props}>
         <ProjectBackground
           srcSet={`${sliceBackground} 1000w, ${sliceBackgroundLarge} 1920w`}
           placeholder={sliceBackgroundPlaceholder}
@@ -71,7 +71,7 @@ function ProjectSlice() {
                 srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1920w`}
                 placeholder={sliceAppPlaceholder}
                 alt="The Slice web appication showing a selected user annotation."
-                sizes={`(max-width: ${media.mobile}) 100vw, (max-width: ${media.tablet}) 90vw, 80vw`}
+                sizes={`(max-width: ${mobile}px) 100vw, (max-width: ${tablet}px) 90vw, 80vw`}
               />
             </ProjectImage>
           </ProjectSectionContent>
@@ -92,13 +92,13 @@ function ProjectSlice() {
                 srcSet={`${sliceSidebarLayers} 300w, ${sliceSidebarLayersLarge} 700w`}
                 placeholder={sliceSidebarLayersPlaceholder}
                 alt="The layers sidebar design, now with user profiles."
-                sizes={`(max-width: ${media.mobile}) 200px, 343px`}
+                sizes={`(max-width: ${mobile}px) 200px, 343px`}
               />
               <SidebarImage
                 srcSet={`${sliceSidebarAnnotations} 300w, ${sliceSidebarAnnotationsLarge} 700w`}
                 placeholder={sliceSidebarAnnotationsPlaceholder}
                 alt="Multiple user annotations on a shared layer."
-                sizes={`(max-width: ${media.mobile}) 200px, 343px`}
+                sizes={`(max-width: ${mobile}px) 200px, 343px`}
               />
             </SidebarImages>
           </ProjectSectionColumns>
@@ -115,7 +115,7 @@ function ProjectSlice() {
               srcSet={`${sliceSlides} 800w, ${sliceSlidesLarge} 1440w`}
               placeholder={sliceSlidesPlaceholder}
               alt="The new My Slides tab in slice, showing annotated and favorited slides."
-              sizes={`(max-width: ${media.mobile}) 500px, (max-width: ${media.tablet}) 800px, 1000px`}
+              sizes={`(max-width: ${mobile}px) 500px, (max-width: ${tablet}px) 800px, 1000px`}
             />
           </ProjectSectionContent>
         </ProjectSection>
@@ -128,7 +128,7 @@ function ProjectSlice() {
                   placeholder={sliceBackgroundBarPlaceholder}
                   alt=""
                   role="presentation"
-                  sizes={`(max-width: ${media.mobile}) 312px, (max-width: ${media.tablet}) 408px, 514px`}
+                  sizes={`(max-width: ${mobile}px) 312px, (max-width: ${tablet}px) 408px, 514px`}
                 />
               </ProjectSectionGridBackground>
               <ProjectSectionGridForeground>
@@ -136,7 +136,7 @@ function ProjectSlice() {
                   srcSet={`${sliceAnnotation} 440w, ${sliceAnnotationLarge} 880w`}
                   placeholder={sliceAnnotationPlaceholder}
                   alt="An annotation preview popover with statistics for shape perimeter and area."
-                  sizes={`(max-width: ${media.mobile}) 584px, (max-width: ${media.tablet}) 747px, 556px`}
+                  sizes={`(max-width: ${mobile}px) 584px, (max-width: ${tablet}px) 747px, 556px`}
                 />
               </ProjectSectionGridForeground>
             </ProjectSectionGridImage>
@@ -160,7 +160,7 @@ const ProjectSectionColumns = styled(ProjectSectionContent)`
   grid-gap: 70px;
   margin: 20px 0 60px;
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     grid-template-columns: 1fr;
     margin: 0 0 60px;
   }
@@ -172,7 +172,7 @@ const ProjectSectionGrid = styled(ProjectSectionContent)`
   grid-gap: 70px;
   margin: 40px 0;
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     grid-template-columns: 1fr;
   }
 `;
@@ -193,11 +193,11 @@ const ProjectSectionGridBackground = styled.div`
   grid-column: 1;
   grid-row: 1 / span 2;
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     padding: 0 120px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     padding: 0 60px;
   }
 `;
@@ -221,11 +221,11 @@ const ProjectSectionGridForeground = styled.div`
 const ProjectSectionGridText = styled.div`
   padding-top: 80px;
 
-  @media (max-width: ${media.desktop}) {
+  @media (max-width: ${props => props.theme.desktop}px) {
     padding-top: 40px;
   }
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     padding-top: 0;
   }
 `;
@@ -235,12 +235,12 @@ const SidebarImages = styled.div`
   grid-template-columns: repeat(6, [col] 1fr);
   align-items: center;
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     padding: 0 80px;
     margin-top: 60px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     padding: 0 20px;
     margin-top: 40px;
   }
@@ -253,7 +253,7 @@ const SidebarImagesText = styled.div`
   justify-content: center;
   padding-right: 10px;
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     padding-right: 0;
   }
 `;

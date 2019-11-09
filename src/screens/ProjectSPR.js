@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import ProgressiveImage from 'components/ProgressiveImage';
-import { useScrollToTop } from 'utils/hooks';
+import { useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
 import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
   ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
 } from 'components/Project';
-import { media } from 'utils/style';
 import backgroundSpr from 'assets/spr-background.jpg';
 import backgroundSprLarge from 'assets/spr-background-large.jpg';
 import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
@@ -26,7 +26,8 @@ const roles = [
 ];
 
 function ProjectSPR() {
-  useScrollToTop();
+  const { mobile, tablet } = useContext(ThemeContext);
+  useScrollRestore();
 
   return (
     <React.Fragment>
@@ -53,7 +54,7 @@ function ProjectSPR() {
                 reveal
                 srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
                 placeholder={imageSprBuilderPlaceholder}
-                sizes={`(max-width: ${media.mobile}) 500px, (max-width: ${media.tablet}) 800px, 1000px`}
+                sizes={`(max-width: ${mobile}px) 500px, (max-width: ${tablet}px) 800px, 1000px`}
               />
             </ProjectImage>
           </ProjectSectionContent>

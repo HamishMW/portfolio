@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import Icon from './Icon';
 import { Button } from 'components/Button';
-import { media } from 'utils/style';
 
 const NavToggle = ({ menuOpen, ...rest }) => (
   <NavToggleButton
@@ -22,14 +21,14 @@ const NavToggleButton = styled(Button)`
   /* && specificity hack for styled-components beta */
   && {
     position: fixed;
-    top: ${props => props.theme.spacingOuter.mobile};
-    right: ${props => props.theme.spacingOuter.mobile};
+    top: ${props => props.theme.spacingOuter.mobile}px;
+    right: ${props => props.theme.spacingOuter.mobile}px;
     width: 48px;
     height: 48px;
     z-index: 1024;
     display: none;
 
-    @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+    @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
       display: flex;
     }
   }

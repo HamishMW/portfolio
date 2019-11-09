@@ -8,8 +8,7 @@ import { Easing, Tween, autoPlay } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
 import VertShader from 'shaders/sphereVertShader';
 import FragmentShader from 'shaders/sphereFragmentShader';
-import { media } from 'utils/style';
-import { usePrefersReducedMotion } from 'utils/hooks';
+import { usePrefersReducedMotion } from 'hooks';
 
 function DisplacementSphere() {
   const theme = useContext(ThemeContext);
@@ -109,10 +108,10 @@ function DisplacementSphere() {
         renderer.current.render(scene.current, camera.current);
       }
 
-      if (windowWidth <= media.numMobile) {
+      if (windowWidth <= theme.mobile) {
         sphere.current.position.x = 14;
         sphere.current.position.y = 10;
-      } else if (windowWidth <= media.numTablet) {
+      } else if (windowWidth <= theme.tablet) {
         sphere.current.position.x = 18;
         sphere.current.position.y = 14;
       } else {
@@ -127,7 +126,7 @@ function DisplacementSphere() {
     return function cleanup() {
       window.removeEventListener('resize', onWindowResize);
     };
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, theme.mobile, theme.tablet]);
 
   useEffect(() => {
     const onMouseMove = event => {

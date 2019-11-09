@@ -6,47 +6,30 @@ export const AnimFade = keyframes`
   100% {opacity: 1}
 `;
 
-// Media queries
-const numMedia = {
-  numDesktop: 1440,
-  numLaptop: 1280,
-  numTablet: 1024,
-  numMobile: 696,
-};
-
-export const media = {
-  ...numMedia,
-  desktop: `${numMedia.numDesktop}px`,
-  laptop: `${numMedia.numLaptop}px`,
-  tablet: `${numMedia.numTablet}px`,
-  mobile: `${numMedia.numMobile}px`,
-  mobileLS: `(max-width: 820px) and (max-height: 420px)`,
-};
-
 // Style helpers
 export const sectionPadding = css`
   padding-right: 120px;
   padding-left: 200px;
 
-  @media (min-width: ${media.desktop}) {
+  @media (min-width: ${props => props.theme.desktop}px) {
     padding-left: 120px;
   }
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     padding-left: 160px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     padding-right: 25px;
     padding-left: 25px;
   }
 
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
-    padding-left: ${props => props.theme.spacingOuter.mobile};
-    padding-right: ${props => props.theme.spacingOuter.mobile};
+  @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
+    padding-left: ${props => props.theme.spacingOuter.mobile}px;
+    padding-right: ${props => props.theme.spacingOuter.mobile}px;
   }
 
-  @media ${media.mobileLS} {
+  @media ${props => props.theme.mobileLS} {
     padding-left: 100px;
     padding-right: 100px;
   }

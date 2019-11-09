@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { usePrefersReducedMotion } from 'utils/hooks';
+import { usePrefersReducedMotion } from 'hooks';
 
 const chars = [
   'ア', 'イ', 'ウ', 'エ', 'オ',

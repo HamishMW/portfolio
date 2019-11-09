@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { media, AnimFade, rgba, sectionPadding } from 'utils/style';
+import { AnimFade, rgba, sectionPadding } from 'utils/style';
 import ProgressiveImage from 'components/ProgressiveImage';
 import { LinkButton } from 'components/Button';
-import { usePrefersReducedMotion } from 'utils/hooks';
+import { usePrefersReducedMotion } from 'hooks';
 
 const initDelay = 300;
 const prerender = navigator.userAgent === 'ReactSnap';
@@ -96,13 +96,13 @@ export const ProjectSection = styled.section`
   align-items: center;
   ${sectionPadding}
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     padding-top: 60px;
     padding-bottom: 60px;
     height: auto;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     padding-top: 40px;
     padding-bottom: 40px;
   }
@@ -112,12 +112,12 @@ export const ProjectSection = styled.section`
     padding-top: 120px;
     padding-bottom: 140px;
 
-    @media (max-width: ${media.tablet}) {
+    @media (max-width: ${props => props.theme.tablet}px) {
       padding-top: 80px;
       padding-bottom: 100px;
     }
 
-    @media (max-width: ${media.mobile}) {
+    @media (max-width: ${props => props.theme.mobile}px) {
       padding-top: 80px;
       padding-bottom: 100px;
     }
@@ -177,12 +177,12 @@ const ProjectHeaderContainer = styled(ProjectSection)`
   padding-top: 140px;
   padding-bottom: 40px;
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     padding-top: 100px;
     padding-bottom: 0;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     padding-top: 130px;
     padding-bottom: 20px;
   }
@@ -195,7 +195,7 @@ const ProjectHeaderInner = styled.div`
   grid-gap: 100px;
   max-width: ${props => props.theme.maxWidthLaptop}px;
 
-  @media (min-width: ${media.desktop}) {
+  @media (min-width: ${props => props.theme.desktop}px) {
     max-width: ${props => props.theme.maxWidthDesktop}px;
     grid-template-columns: 1fr 400px;
   }
@@ -205,7 +205,7 @@ const ProjectHeaderInner = styled.div`
     grid-gap: 40px;
   }
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     grid-template-columns: 100%;
     grid-gap: 30px;
   }
@@ -242,11 +242,11 @@ const ProjectTitle = styled.h1`
     animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay}ms forwards;
   `}
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     font-size: 48px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     font-size: 34px;
   }
 
@@ -268,7 +268,7 @@ const ProjectDescription = styled.p`
     animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay + 100}ms forwards;
   `}
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     font-size: 18px;
   }
 `;
@@ -311,11 +311,11 @@ const ProjectMetaItem = styled.li`
     animation: ${AnimFadeSlide} 1.5s ${props.theme.curveFastoutSlowin} ${initDelay + 300 + props.index * 140}ms forwards;
   `}
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     padding: 20px 0;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     padding: 15px 0;
   }
 `;
@@ -338,7 +338,7 @@ export const ProjectSectionContent = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: ${media.desktop}) {
+  @media (min-width: ${props => props.theme.desktop}px) {
     max-width: ${props => props.theme.maxWidthDesktop}px;
   }
 `;
@@ -349,7 +349,7 @@ export const ProjectSectionHeading = styled.h2`
   margin: 0;
   color: ${props => props.theme.colorTitle};
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     font-size: 24px;
   }
 `;
@@ -365,7 +365,7 @@ export const ProjectSectionText = styled.p`
     margin-top: 14px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     font-size: 18px;
     margin-top: 22px;
   }
@@ -382,7 +382,7 @@ export const ProjectTextRow = styled.div`
   align-items: ${props => props.center ? 'center' : 'flex-start'};
 
   ${props => !props.centerMobile && css`
-    @media (max-width: ${media.mobile}) {
+    @media (max-width: ${props => props.theme.mobile}px) {
       text-align: left;
       align-items: flex-start;
     }

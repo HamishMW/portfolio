@@ -25,24 +25,21 @@ const monoFontStack = [
   'monospace',
 ];
 
-const numSpacing = {
-  numSpacingGutter: 20,
+const spacing = {
+  spacingGutter: 20,
   spacingOuter: {
-    numDesktop: 60,
-    numTablet: 40,
-    numMobile: 20,
+    desktop: 60,
+    tablet: 40,
+    mobile: 20,
   }
 };
 
-const spacing = {
-  ...numSpacing,
-  spacingGutter: `${numSpacing.numSpacingGutter}px`,
-  spacingOuter: {
-    ...numSpacing.spacingOuter,
-    desktop: `${numSpacing.spacingOuter.numDesktop}px`,
-    tablet: `${numSpacing.spacingOuter.numTablet}px`,
-    mobile: `${numSpacing.spacingOuter.numMobile}px`,
-  },
+const media = {
+  desktop: 1440,
+  laptop: 1280,
+  tablet: 1024,
+  mobile: 696,
+  mobileLS: `(max-width: 820px) and (max-height: 420px)`,
 };
 
 const base = {
@@ -60,6 +57,7 @@ const dark = {
   id: 'dark',
   ...spacing,
   ...base,
+  ...media,
   colorBackground: 'rgba(17, 17, 17, 1)',
   colorBackgroundLight: 'rgba(26, 26, 26, 1)',
   colorTitle: base.colorWhite,
@@ -72,6 +70,7 @@ const light = {
   id: 'light',
   ...spacing,
   ...base,
+  ...media,
   colorBackground: 'rgba(242, 242, 242, 1)',
   colorBackgroundLight: 'rgba(255, 255, 255, 1)',
   colorTitle: base.colorBlack,

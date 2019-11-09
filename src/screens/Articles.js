@@ -2,8 +2,8 @@ import React, { Suspense, Fragment } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
-import { useScrollToTop } from 'utils/hooks';
-import { sectionPadding, media, rgba } from 'utils/style';
+import { useScrollRestore } from 'hooks';
+import { sectionPadding, rgba } from 'utils/style';
 import posts from 'posts';
 import Post from 'screens/Post';
 import ProgressiveImage from 'components/ProgressiveImage';
@@ -43,7 +43,7 @@ function PostListItem({
 }
 
 function PostList() {
-  useScrollToTop();
+  useScrollRestore();
 
   return (
     <PostListWrapper>
@@ -101,11 +101,11 @@ const PostListContent = styled.div`
   padding: 80px 0;
   position: relative;
 
-  @media (max-width: ${media.laptop}) {
+  @media (max-width: ${props => props.theme.laptop}px) {
     max-width: ${props => props.theme.maxWidthLaptop}px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     padding-top: 100px;
   }
 `;
@@ -143,7 +143,7 @@ const PostContent = styled(Link)`
   text-decoration: none;
   transition: background-color 0.4s ease;
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     grid-template-columns: 100%;
     max-width: 440px;
   }
@@ -153,7 +153,7 @@ const PostText = styled.div`
   grid-column: 2;
   padding: 60px 0;
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     grid-column: 1;
     padding: 30px 0;
   }
@@ -181,7 +181,7 @@ const PostTitle = styled.h2`
     background: linear-gradient(${props => rgba(props.theme.colorText, 1)}, ${props => rgba(props.theme.colorText, 1)}) no-repeat 0 100% / 100% 2px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     font-size: 30px;
   }
 `;
@@ -192,7 +192,7 @@ const PostDescription = styled.p`
   color: ${props => props.theme.colorText};
   margin: 20px 0 0;
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     font-size: 18px;
   }
 `;

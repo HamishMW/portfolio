@@ -7,8 +7,8 @@ import Input from 'components/Input';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
 import { Button, RouterButton } from 'components/Button';
-import { media, AnimFade, sectionPadding } from 'utils/style';
-import { useScrollToTop, useFormInput } from 'utils/hooks';
+import { AnimFade, sectionPadding } from 'utils/style';
+import { useScrollRestore, useFormInput } from 'hooks';
 import { reflow } from 'utils/transition';
 
 const prerender = navigator.userAgent === 'ReactSnap';
@@ -33,7 +33,7 @@ function Contact() {
   const message = useFormInput('');
   const [sending, setSending] = useState(false);
   const [complete, setComplete] = useState(false);
-  useScrollToTop();
+  useScrollRestore();
 
   const onSubmit = useCallback(async event => {
     event.preventDefault();
@@ -184,7 +184,7 @@ const ContactForm = styled.form`
   width: 100%;
   padding: 40px 0;
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mnobile}px) {
     padding: 120px 0 40px;
     align-self: flex-start;
   }

@@ -1,12 +1,12 @@
 import React, { lazy, Suspense, useRef, useState, useContext } from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, ThemeContext } from 'styled-components/macro';
 import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from 'components/Monogram';
 import Icon from 'components/Icon';
 import NavToggle from 'components/NavToggle';
-import { media, rgba } from 'utils/style';
-import { useWindowSize } from 'utils/hooks';
+import { rgba } from 'utils/style';
+import { useWindowSize } from 'hooks';
 import { AppContext } from 'app';
 import { navLinks, socialLinks } from 'data/nav';
 import { reflow } from 'utils/transition';
@@ -25,11 +25,12 @@ const HeaderIcons = () => (
 
 function Header(props) {
   const { menuOpen, dispatch } = useContext(AppContext);
+  const { mobile } = useContext(ThemeContext);
   const { location } = props;
   const [hashKey, setHashKey] = useState();
   const windowSize = useWindowSize();
   const headerRef = useRef();
-  const isMobile = windowSize.width <= media.numMobile || windowSize.height <= 696;
+  const isMobile = windowSize.width <= mobile || windowSize.height <= 696;
 
   const handleNavClick = () => {
     setHashKey(Math.random().toString(32).substr(2, 8));
@@ -116,19 +117,19 @@ const HeaderWrapper = styled.header`
   padding: 0;
   width: 45px;
   z-index: 1024;
-  top: ${props => props.theme.spacingOuter.desktop};
-  left: ${props => props.theme.spacingOuter.desktop};
-  bottom: ${props => props.theme.spacingOuter.desktop};
+  top: ${props => props.theme.spacingOuter.desktop}px;
+  left: ${props => props.theme.spacingOuter.desktop}px;
+  bottom: ${props => props.theme.spacingOuter.desktop}px;
 
-  @media (max-width: ${media.tablet}) {
-    top: ${props => props.theme.spacingOuter.tablet};
-    left: ${props => props.theme.spacingOuter.tablet};
-    bottom: ${props => props.theme.spacingOuter.tablet};
+  @media (max-width: ${props => props.theme.tablet}px) {
+    top: ${props => props.theme.spacingOuter.tablet}px;
+    left: ${props => props.theme.spacingOuter.tablet}px;
+    bottom: ${props => props.theme.spacingOuter.tablet}px;
   }
 
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
-    top: ${props => props.theme.spacingOuter.mobile};
-    left: ${props => props.theme.spacingOuter.mobile};
+  @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
+    top: ${props => props.theme.spacingOuter.mobile}px;
+    left: ${props => props.theme.spacingOuter.mobile}px;
     bottom: auto;
   }
 `;
@@ -150,7 +151,7 @@ const HeaderNav = styled.nav`
   position: relative;
   top: -10px;
 
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
     display: none;
   }
 `;
@@ -207,14 +208,14 @@ const HeaderNavIcons = styled.div`
   position: relative;
   z-index: 16;
 
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
     flex-direction: row;
     position: absolute;
     bottom: 30px;
     left: 30px;
   }
 
-  @media ${media.mobileLS} {
+  @media ${props => props.theme.mobileLpxS} {
     left: 20px;
     transform: none;
     flex-direction: column;
@@ -259,7 +260,7 @@ const HeaderMobileNav = styled.nav`
   justify-content: center;
   backdrop-filter: blur(10px);
 
-  @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
     display: flex;
   }
 `;
@@ -280,7 +281,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   position: relative;
   top: -15px;
 
-  @media ${media.mobileLS} {
+  @media ${props => props.theme.mobileLpxS} {
     top: auto;
   }
 

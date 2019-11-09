@@ -11,7 +11,7 @@ import DisplacementSphere from 'components/DisplacementSphere';
 import DisplacementSlider from 'components/DisplacementSlider';
 import DecoderText from 'components/DecoderText';
 import Loader from 'components/Loader';
-import { useFormInput } from 'utils/hooks';
+import { useFormInput } from 'hooks';
 
 const StoryContainer = styled.div`
   width: 100vw;

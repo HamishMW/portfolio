@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, Fragment } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { usePrefersReducedMotion } from 'utils/hooks';
+import { usePrefersReducedMotion } from 'hooks';
 import { Button } from 'components/Button';
 import Icon from 'components/Icon';
 import { Transition } from 'react-transition-group';

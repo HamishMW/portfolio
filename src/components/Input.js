@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components/macro';
 import TextArea from 'components/TextArea';
 import { rgba } from 'utils/style';
-import { useId } from 'utils/hooks';
+import { useId } from 'hooks';
 
 function Input(props) {
   const { id, label, hasValue, multiline, className, ...restProps } = props;

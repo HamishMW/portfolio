@@ -1,10 +1,10 @@
 import React, { Suspense, lazy, useMemo, useContext, useEffect, useState } from 'react';
 import styled, { css, keyframes, ThemeContext } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import { media, AnimFade, rgba, sectionPadding } from 'utils/style';
+import { AnimFade, rgba, sectionPadding } from 'utils/style';
 import DecoderText from 'components/DecoderText';
 import Svg from 'components/Svg';
-import { useInterval, usePrevious, useWindowSize } from 'utils/hooks';
+import { useInterval, usePrevious, useWindowSize } from 'hooks';
 import { reflow } from 'utils/transition';
 
 const DisplacementSphere = lazy(() => import('components/DisplacementSphere'));
@@ -80,13 +80,13 @@ function Intro(props) {
                 </TransitionGroup>
               </IntroTitle>
             </IntroText>
-            {windowSize.width > media.numTablet &&
+            {windowSize.width > theme.tablet &&
               <MemoizedScrollIndicator
                 isHidden={scrollIndicatorHidden}
                 status={status}
               />
             }
-            {windowSize.width <= media.numTablet &&
+            {windowSize.width <= theme.tablet &&
               <MemoizedMobileScrollIndicator
                 isHidden={scrollIndicatorHidden}
                 status={status}
@@ -117,15 +117,15 @@ const IntroText = styled.header`
   position: relative;
   top: -20px;
 
-  @media (min-width: ${media.desktop}) {
+  @media (min-width: ${props => props.theme.desktop}px) {
     max-width: 920px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     top: -30px;
   }
 
-  @media (max-width: ${media.mobileLS}) {
+  @media ${props => props.theme.mobileLS} {
     top: -16px;
   }
 `;
@@ -149,24 +149,24 @@ const IntroName = styled.h1`
     opacity: 1;
   `}
 
-  @media (min-width: ${media.desktop}) {
+  @media (min-width: ${props => props.theme.desktop}px) {
     font-size: 28px;
     margin-bottom: 40px;
   }
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     font-size: 18px;
     margin-bottom: 40px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     margin-bottom: 20px;
     letter-spacing: 0.2em;
     white-space: nowrap;
     overflow: hidden;
   }
 
-  @media ${media.mobileLS} {
+  @media ${props => props.theme.mobileLS} {
     margin-bottom: 20px;
     margin-top: 30px;
   }
@@ -180,7 +180,7 @@ const IntroTitle = styled.h2`
   letter-spacing: -0.005em;
   font-weight: ${props => props.theme.id === 'light' ? 600 : 500};
 
-  @media (min-width: ${media.desktop}) {
+  @media (min-width: ${props => props.theme.desktop}px) {
     font-size: 120px;
   }
 
@@ -393,7 +393,7 @@ const ScrollIndicator = styled.div`
     animation: ${css`${AnimScrollIndicator} 2s ease infinite`};
   }
 
-  @media ${media.mobileLS} {
+  @media ${props => props.theme.mobileLS} {
     display: none;
   }
 `;
@@ -422,7 +422,7 @@ const MobileScrollIndicator = styled.div`
   transition-timing-function: cubic-bezier(.8,.1,.27,1);
   transition-duration: 0.4s;
 
-  @media ${media.mobileLS} {
+  @media ${props => props.theme.mobileLS}px {
     display: none;
   }
 

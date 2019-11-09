@@ -3,8 +3,7 @@ import styled, { css, ThemeContext } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
 import { Button } from 'components/Button';
 import themeIconData from 'data/themeIcon.json';
-import { media } from 'utils/style';
-import { usePrefersReducedMotion } from 'utils/hooks';
+import { usePrefersReducedMotion } from 'hooks';
 import { AppContext } from 'app';
 
 export default function ThemeToggle({ isMobile, ...rest }) {
@@ -66,13 +65,13 @@ const ThemeToggleButton = styled(Button)`
   width: 48px;
   height: 48px;
   padding: 6px;
-  top: ${props => props.theme.spacingOuter.numDesktop - 8}px;
-  right: ${props => props.theme.spacingOuter.numDesktop - 8}px;
+  top: ${props => props.theme.spacingOuter.desktop - 8}px;
+  right: ${props => props.theme.spacingOuter.desktop - 8}px;
   transform: translate3d(0, 0, 0);
 
-  @media (max-width: ${media.tablet}) {
-    top: ${props => props.isMobile ? 'unset' : `${props.theme.spacingOuter.numTablet - 8}px`};
-    right: ${props => props.isMobile ? '30px' : `${props.theme.spacingOuter.numTablet - 8}px`};
+  @media (max-width: ${props => props.theme.tablt}px) {
+    top: ${props => props.isMobile ? 'unset' : `${props.theme.spacingOuter.tablet - 8}px`};
+    right: ${props => props.isMobile ? '30px' : `${props.theme.spacingOuter.tablet - 8}px`};
   }
 
   ${props => props.isMobile && css`
@@ -81,7 +80,7 @@ const ThemeToggleButton = styled(Button)`
   `}
 
   ${props => !props.isMobile && css`
-    @media (max-width: ${media.mobile}), (max-height: ${media.mobile}) {
+    @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
       display: none;
     }
   `}

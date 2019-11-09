@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { Transition } from 'react-transition-group';
-import styled, { keyframes } from 'styled-components/macro';
+import styled, { keyframes, ThemeContext } from 'styled-components/macro';
 import Footer from 'components/Footer';
 import Divider from 'components/Divider';
 import Svg from 'components/Svg';
-import { media, rgba, sectionPadding, AnimFade } from 'utils/style';
-import { useWindowSize, useScrollToTop } from 'utils/hooks';
+import { rgba, sectionPadding, AnimFade } from 'utils/style';
+import { useWindowSize, useScrollRestore } from 'hooks';
 import ProgressiveImage from 'components/ProgressiveImage';
 import GothamBold from 'assets/fonts/gotham-bold.woff2';
 import { Helmet } from 'react-helmet-async';
@@ -28,8 +28,9 @@ function PostWrapper({
   readTime,
   ...rest
 }) {
+  const { mobile } = useContext(ThemeContext);
   const windowSize = useWindowSize();
-  useScrollToTop();
+  useScrollRestore();
   const contentRef = useRef();
 
   const handleScrollIndicatorClick = (event) => {
@@ -43,7 +44,7 @@ function PostWrapper({
   };
 
   return (
-    <PostArticle>
+    <PostArticle {...rest}>
       <Helmet>
         <title>{`Blog | ${title}`}</title>
         <meta name="description" content={description} />
@@ -69,8 +70,8 @@ function PostWrapper({
             {status => (
               <PostDate>
                 <Divider
-                  notchWidth={windowSize.width > media.numMobile ? '90px' : '60px'}
-                  notchHeight={windowSize.width > media.numMobile ? '10px' : '8px'}
+                  notchWidth={windowSize.width > mobile ? '90px' : '60px'}
+                  notchHeight={windowSize.width > mobile ? '10px' : '8px'}
                   collapsed={status !== 'entered'}
                 />
                 <PostDateText status={status}>
@@ -144,13 +145,13 @@ const PostHeader = styled.header`
     grid-gap: 60px;
   }
 
-  @media (max-width: ${media.laptop}) {
+  @media (max-width: ${props => props.theme.laptop}px) {
     padding-left: 180px;
     grid-gap: 40px;
     min-height: 70vh;
   }
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     padding-left: 160px;
     min-height: 40vh;
     grid-gap: 20px;
@@ -160,7 +161,7 @@ const PostHeader = styled.header`
     padding-left: 100px;
   }
 
-  @media (max-width: ${media.mobile}), ${media.mobileLS} {
+  @media (max-width: ${props => props.theme.mobile}px), ${props => props.theme.mobileLS} {
     grid-template-columns: 100%;
     grid-gap: 20px;
     height: auto;
@@ -180,7 +181,7 @@ const PostHeaderText = styled.div`
   padding: 60px 0 80px;
   max-width: 800px;
 
-  @media (max-width: ${media.mobile}), ${media.mobileLS} {
+  @media (max-width: ${props => props.theme.mobile}px), ${props => props.theme.mobileLS} {
     padding: 100px 0 0;
   }
 `;
@@ -195,12 +196,12 @@ const PostDate = styled.div`
   grid-gap: 20px;
   align-items: center;
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     margin-bottom: 30px;
     grid-gap: 10px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     grid-template-columns: 100px 1fr;
   }
 `;
@@ -222,15 +223,15 @@ const PostTitle = styled.h1`
     font-size: 80px;
   }
 
-  @media (max-width: ${media.laptop}) {
+  @media (max-width: ${props => props.theme.laptop}px) {
     font-size: 64px;
   }
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     font-size: 42px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     font-size: 36px;
   }
 `;
@@ -270,7 +271,7 @@ const PostBanner = styled.div`
   height: 100%;
   z-index: 1024;
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     min-height: 40vh;
     z-index: 1;
   }
@@ -324,11 +325,11 @@ const PostBannerArrow = styled.a`
     transition-timing-function: cubic-bezier(.8,.1,.27,1);
   }
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     left: -20px;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     position: relative;
     margin-top: 20px;
     align-self: flex-start;
@@ -397,7 +398,7 @@ const PostContent = styled.div`
     margin-top: 80px;
   }
 
-  @media (max-width: ${media.laptop}) {
+  @media (max-width: ${props => props.theme.laptop}px) {
     grid-template-columns: 1fr 60px 680px 60px 1fr;
     margin-top: 80px;
   }
@@ -407,7 +408,7 @@ const PostContent = styled.div`
     margin-top: 80px;
   }
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     grid-template-columns: 100%;
     margin-top: 70px;
 
@@ -416,7 +417,7 @@ const PostContent = styled.div`
     }
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     margin-top: 60px;
   }
 `;
@@ -428,16 +429,16 @@ const HeadingTwo = styled.h2`
   grid-column: 3;
   font-weight: 500;
 
-  @media (max-width: ${media.laptop}) {
+  @media (max-width: ${props => props.theme.laptop}px) {
     font-size: 34px;
   }
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     font-size: 24px;
     grid-column: 1;
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     font-size: 22px;
   }
 `;
@@ -457,7 +458,7 @@ const Paragrapgh = styled.p`
     margin-top: 26px;
   }
 
-  @media (max-width: ${media.laptop}) {
+  @media (max-width: ${props => props.theme.laptop}px) {
     font-size: 20px;
 
     ${HeadingTwo} + & {
@@ -469,7 +470,7 @@ const Paragrapgh = styled.p`
     }
   }
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     grid-column: 1;
 
     ${HeadingTwo} + & {
@@ -477,7 +478,7 @@ const Paragrapgh = styled.p`
     }
   }
 
-  @media (max-width: ${media.mobile}) {
+  @media (max-width: ${props => props.theme.mobile}px) {
     font-size: 18px;
     hyphens: auto;
 
@@ -499,7 +500,7 @@ const Image = styled.img`
   height: auto;
   grid-column: 2 / span 3;
 
-  @media (max-width: ${media.tablet}) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     grid-column: 1;
     margin: 60px 0;
   }
