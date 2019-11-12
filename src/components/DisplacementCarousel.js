@@ -4,7 +4,7 @@ import {
   LinearFilter, TextureLoader, PlaneBufferGeometry, LoadingManager
 } from 'three';
 import styled from 'styled-components/macro';
-import { Easing, Tween, autoPlay } from 'es6-tween';
+import gsap from 'gsap';
 import Swipe from 'react-easy-swipe';
 import Icon from './Icon';
 import { rgba } from 'utils/style';
@@ -47,8 +47,8 @@ export default function DispalcementSlider(props) {
   const goToIndex = useCallback(({
     index,
     direction = 1,
-    duration = 1200,
-    easing = Easing.Exponential.InOut,
+    duration = 1.4,
+    ease = 'expo.inOut',
   }) => {
     if (!sliderImages) return;
     setImageIndex(index);
@@ -62,14 +62,14 @@ export default function DispalcementSlider(props) {
       animating.current = false;
     };
 
+    const animate = async () => {
+      await gsap.to(uniforms.dispFactor, { duration, value: 1, ease, onComplete });
+      onComplete();
+    };
+
     if (!prefersReducedMotion && uniforms.dispFactor.value !== 1) {
       animating.current = true;
-
-      new Tween(uniforms.dispFactor)
-        .to({ value: 1 }, duration)
-        .easing(easing)
-        .on('complete', onComplete)
-        .start();
+      animate();
     } else {
       onComplete();
       renderer.current.render(scene.current, camera.current);
@@ -154,7 +154,6 @@ export default function DispalcementSlider(props) {
       imagePlane.current = new Mesh(geometry.current, material.current);
       imagePlane.current.position.set(0, 0, 0);
       scene.current.add(imagePlane.current);
-      autoPlay(true);
     };
 
     const loadImages = async () => {
@@ -293,7 +292,7 @@ export default function DispalcementSlider(props) {
   const onSwipeEnd = useCallback(() => {
     if (!material.current) return;
     const uniforms = material.current.uniforms;
-    const duration = (1 - uniforms.dispFactor.value) * 1000;
+    const duration = (1 - uniforms.dispFactor.value);
     const position = Math.abs(lastSwipePosition.current);
     const minSwipeDistance = canvasWidth * 0.2;
     lastSwipePosition.current = 0;
@@ -305,7 +304,7 @@ export default function DispalcementSlider(props) {
       navigate({
         duration,
         direction: swipeDirection.current,
-        easing: Easing.Exponential.Out,
+        ease: 'expo.out',
       });
     } else {
       uniforms.currentImage.value = uniforms.nextImage.value;
@@ -313,10 +312,10 @@ export default function DispalcementSlider(props) {
       uniforms.dispFactor.value = 1 - uniforms.dispFactor.value;
 
       navigate({
-        duration: uniforms.dispFactor.value * 1000,
+        duration: uniforms.dispFactor.value,
         direction: swipeDirection.current * -1,
         index: imageIndex,
-        easing: Easing.Exponential.Out,
+        ease: 'expo.out',
       });
     }
   }, [canvasWidth, imageIndex, navigate]);

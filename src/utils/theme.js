@@ -35,7 +35,7 @@ const spacing = {
 };
 
 const media = {
-  desktop: 1440,
+  desktop: 1600,
   laptop: 1280,
   tablet: 1024,
   mobile: 696,

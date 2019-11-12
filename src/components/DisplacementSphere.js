@@ -4,8 +4,8 @@ import {
   Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
   UniformsUtils, UniformsLib, ShaderLib, SphereBufferGeometry, Mesh, Color, ShaderMaterial
 } from 'three';
-import { Easing, Tween, autoPlay } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
+import gsap from 'gsap';
 import VertShader from 'shaders/sphereVertShader';
 import FragmentShader from 'shaders/sphereFragmentShader';
 import { usePrefersReducedMotion } from 'hooks';
@@ -133,14 +133,15 @@ function DisplacementSphere() {
       const mouseY = event.clientY / window.innerHeight;
       const mouseX = event.clientX / window.innerWidth;
 
-      new Tween(sphere.current.rotation)
-        .to({ x: mouseY / 2, y: mouseX / 2 }, 2000)
-        .easing(Easing.Quartic.Out)
-        .start();
+      gsap.to(sphere.current.rotation, {
+        duration: 2,
+        x: mouseY / 2,
+        y: mouseX / 2,
+        ease: 'power4.out',
+      });
     };
 
     if (!prefersReducedMotion) {
-      autoPlay(true);
       window.addEventListener('mousemove', onMouseMove);
     }
 
