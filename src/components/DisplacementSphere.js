@@ -130,19 +130,18 @@ function DisplacementSphere() {
   }, [prefersReducedMotion, theme.mobile, theme.tablet]);
 
   useEffect(() => {
-    let latestMousePosition = { x: 0, y: 0 };
     let ticking = false;
     let animationFrame = null;
 
     const onMouseMove = event => {
       const animate = () => {
-        latestMousePosition = {
+        const position = {
           x: event.clientX / window.innerWidth,
           y: event.clientY / window.innerHeight,
         };
 
         tweenRef.current = new Tween(sphere.current.rotation)
-          .to({ x: latestMousePosition.y / 2, y: latestMousePosition.x / 2 }, 2000)
+          .to({ x: position.y / 2, y: position.x / 2 }, 2000)
           .easing(Easing.Quartic.Out)
           .start();
 
@@ -160,6 +159,7 @@ function DisplacementSphere() {
     }
 
     return function cleanup() {
+      console.log(animationFrame);
       window.removeEventListener('mousemove', onMouseMove);
       removeTween(tweenRef.current);
       cancelAnimationFrame(animationFrame);
