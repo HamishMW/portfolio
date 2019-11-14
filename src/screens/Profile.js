@@ -132,7 +132,7 @@ const ProfileSection = styled.section`
     padding-left: ${props => props.theme.spacingOuter.mobile}px;
   }
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${props => props.theme.mobileLpxS} {
     padding-right: 100px;
     padding-left: 100px;
   }

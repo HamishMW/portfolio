@@ -215,7 +215,7 @@ const HeaderNavIcons = styled.div`
     left: 30px;
   }
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${props => props.theme.mobileLpxS} {
     left: 20px;
     transform: none;
     flex-direction: column;
@@ -281,7 +281,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   position: relative;
   top: -15px;
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${props => props.theme.mobileLpxS} {
     top: auto;
   }
 

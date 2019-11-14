@@ -38,7 +38,7 @@ import volkiharSlide3Large from 'assets/volkihar-slide-3-large.jpg';
 import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
 import { ReactComponent as VolkiharKnightLogo } from 'assets/volkihar-logo.svg';
 
-const DisplacementCarousel = lazy(() => import('components/DisplacementCarousel'));
+const DisplacementSlider = lazy(() => import('components/DisplacementSlider'));
 const prerender = navigator.userAgent === 'ReactSnap';
 
 const title = 'Volkihar Knight';
@@ -157,7 +157,7 @@ function ProjectVolkihar() {
         <ProjectSection>
           <ProjectSectionSlider>
             <Suspense fallback={<React.Fragment />}>
-              <DisplacementCarousel
+              <DisplacementSlider
                 placeholder={volkiharSlidePlaceholder}
                 images={useMemo(() => [
                   {
