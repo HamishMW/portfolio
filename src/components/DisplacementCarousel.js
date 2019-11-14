@@ -4,11 +4,11 @@ import {
   LinearFilter, TextureLoader, PlaneBufferGeometry, LoadingManager
 } from 'three';
 import styled from 'styled-components/macro';
-import { Easing, Tween, autoPlay } from 'es6-tween';
+import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
 import Swipe from 'react-easy-swipe';
 import Icon from './Icon';
 import { rgba } from 'utils/style';
-import { vertex, fragment } from 'shaders/sliderShader';
+import { vertex, fragment } from 'shaders/carouselShader';
 import { usePrefersReducedMotion } from 'hooks';
 
 const prerender = navigator.userAgent === 'ReactSnap';
@@ -42,6 +42,7 @@ export default function DispalcementSlider(props) {
   const scheduledAnimationFrame = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
   const placeholderRef = useRef();
+  const tweenRef = useRef();
   const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${images[imageIndex].alt}`;
 
   const goToIndex = useCallback(({
@@ -65,7 +66,7 @@ export default function DispalcementSlider(props) {
     if (!prefersReducedMotion && uniforms.dispFactor.value !== 1) {
       animating.current = true;
 
-      new Tween(uniforms.dispFactor)
+      tweenRef.current = new Tween(uniforms.dispFactor)
         .to({ value: 1 }, duration)
         .easing(easing)
         .on('complete', onComplete)
@@ -154,7 +155,6 @@ export default function DispalcementSlider(props) {
       imagePlane.current = new Mesh(geometry.current, material.current);
       imagePlane.current.position.set(0, 0, 0);
       scene.current.add(imagePlane.current);
-      autoPlay(true);
     };
 
     const loadImages = async () => {
@@ -236,6 +236,7 @@ export default function DispalcementSlider(props) {
     const animate = () => {
       animation = requestAnimationFrame(animate);
       if (animating.current) {
+        updateTween();
         renderer.current.render(scene.current, camera.current);
       }
     };
@@ -244,6 +245,7 @@ export default function DispalcementSlider(props) {
 
     return function cleanup() {
       cancelAnimationFrame(animation);
+      removeTween(tweenRef.current);
     };
   }, []);
 

@@ -4,11 +4,11 @@
   "homepage": "https://hamishw.com",
   "private": true,
   "devDependencies": {
-    "@storybook/addon-a11y": "^5.2.5",
-    "@storybook/addon-actions": "^5.2.5",
-    "@storybook/addon-knobs": "^5.2.5",
-    "@storybook/addon-links": "^5.2.5",
-    "@storybook/react": "^5.2.5",
+    "@storybook/addon-a11y": "^5.2.6",
+    "@storybook/addon-actions": "^5.2.6",
+    "@storybook/addon-knobs": "^5.2.6",
+    "@storybook/addon-links": "^5.2.6",
+    "@storybook/react": "^5.2.6",
     "babel-loader": "^8.0.6",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
@@ -34,7 +34,7 @@
     "react-helmet-async": "^1.0.4",
     "react-router-dom": "5.1.2",
     "react-transition-group": "^4.3.0",
-    "styled-components": "^5.0.0-rc.0",
+    "styled-components": "^5.0.0-rc.1",
     "three": "^0.110.0"
   },
   "scripts": {

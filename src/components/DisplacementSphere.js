@@ -4,7 +4,7 @@ import {
   Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
   UniformsUtils, UniformsLib, ShaderLib, SphereBufferGeometry, Mesh, Color, ShaderMaterial
 } from 'three';
-import { Easing, Tween, autoPlay } from 'es6-tween';
+import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
 import VertShader from 'shaders/sphereVertShader';
 import FragmentShader from 'shaders/sphereFragmentShader';
@@ -27,6 +27,7 @@ function DisplacementSphere() {
   const material = useRef();
   const geometry = useRef();
   const sphere = useRef();
+  const tweenRef = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
@@ -133,19 +134,19 @@ function DisplacementSphere() {
       const mouseY = event.clientY / window.innerHeight;
       const mouseX = event.clientX / window.innerWidth;
 
-      new Tween(sphere.current.rotation)
+      tweenRef.current = new Tween(sphere.current.rotation)
         .to({ x: mouseY / 2, y: mouseX / 2 }, 2000)
         .easing(Easing.Quartic.Out)
         .start();
     };
 
     if (!prefersReducedMotion) {
-      autoPlay(true);
       window.addEventListener('mousemove', onMouseMove);
     }
 
     return function cleanup() {
       window.removeEventListener('mousemove', onMouseMove);
+      removeTween(tweenRef.current);
     };
   }, [prefersReducedMotion]);
 
@@ -154,9 +155,10 @@ function DisplacementSphere() {
 
     const animate = () => {
       animation = requestAnimationFrame(animate);
-      uniforms.current.time.value = .00005 * (Date.now() - start.current);
+      uniforms.current.time.value = 0.00005 * (Date.now() - start.current);
       sphere.current.rotation.z += 0.001;
       renderer.current.render(scene.current, camera.current);
+      updateTween();
     };
 
     if (!prefersReducedMotion) {
