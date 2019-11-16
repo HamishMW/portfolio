@@ -72,7 +72,9 @@ export default function DispalcementSlider(props) {
         .start();
     } else {
       onComplete();
-      renderer.current.render(scene.current, camera.current);
+      requestAnimationFrame(() => {
+        renderer.current.render(scene.current, camera.current);
+      });
     }
   }, [prefersReducedMotion, sliderImages]);
 
@@ -102,7 +104,9 @@ export default function DispalcementSlider(props) {
 
   useEffect(() => {
     if (sliderImages && loaded) {
-      renderer.current.render(scene.current, camera.current);
+      requestAnimationFrame(() => {
+        renderer.current.render(scene.current, camera.current);
+      });
     }
   }, [goToIndex, loaded, sliderImages]);
 
@@ -159,7 +163,7 @@ export default function DispalcementSlider(props) {
     const loadImages = async () => {
       const manager = new LoadingManager();
 
-      manager.onLoad = function () {
+      manager.onLoad = () => {
         setLoaded(true);
       };
 
