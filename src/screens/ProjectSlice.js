@@ -52,7 +52,7 @@ function ProjectSlice(props) {
       />
       <ProjectContainer {...props}>
         <ProjectBackground
-          srcSet={`${sliceBackground} 1000w, ${sliceBackgroundLarge} 1920w`}
+          srcSet={`${sliceBackground} 1280w, ${sliceBackgroundLarge} 2560w`}
           placeholder={sliceBackgroundPlaceholder}
           opacity={0.8}
           entered={!prerender}
