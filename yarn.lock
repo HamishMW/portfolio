@@ -13036,7 +13036,7 @@ style-to-object@0.2.3, style-to-object@^0.2.1:
   dependencies:
     inline-style-parser "0.1.1"
 
-styled-components@^5.0.0-rc.1:
+styled-components@^5.0.0-rc.2:
   version "5.0.0-regexrehydrate"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-5.0.0-regexrehydrate.tgz#897ced99abad29ce50fa507f5305ed8ae7543c90"
   integrity sha512-aq6kkk1CAdiOG6gUua2snWLn0BJYN+1wzNkBP1sLUv+5G5F6s+y2cBtOgTTIOyaTGIiAlQsFWJ4M2f+th8JsIQ==

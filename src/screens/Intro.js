@@ -12,7 +12,7 @@ const DisplacementSphere = lazy(() => import('components/DisplacementSphere'));
 
 function Intro(props) {
   const theme = useTheme();
-  const { id, sectionRef, disciplines, scrollIndicatorHidden } = props;
+  const { id, sectionRef, disciplines, scrollIndicatorHidden, ...rest } = props;
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const windowSize = useWindowSize();
   const prevTheme = usePrevious(theme);
@@ -37,6 +37,7 @@ function Intro(props) {
       id={id}
       aria-labelledby={titleId}
       tabIndex={-1}
+      {...rest}
     >
       <Transition
         key={theme.id}
@@ -67,11 +68,16 @@ function Intro(props) {
                     <Transition
                       appear
                       timeout={{ enter: 3000, exit: 2000 }}
-                      key={`${item}_${index}`}
+                      key={item}
                       onEnter={reflow}
                     >
-                      {status => (
-                        <IntroTitleWord plus aria-hidden delay="0.5s" status={status}>
+                      {wordStatus => (
+                        <IntroTitleWord
+                          plus
+                          aria-hidden
+                          delay="0.5s"
+                          status={wordStatus}
+                        >
                           {item}
                         </IntroTitleWord>
                       )}

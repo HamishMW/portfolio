@@ -1,4 +1,4 @@
-import { rgba } from './style';
+import { rgba } from '../utils/style';
 
 const fontStack = [
   'Gotham',

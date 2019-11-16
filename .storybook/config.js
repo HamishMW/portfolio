@@ -4,7 +4,7 @@ import React from 'react';
 import { withKnobs, select } from '@storybook/addon-knobs';
 import { withA11y } from '@storybook/addon-a11y';
 import { ThemeProvider } from 'styled-components';
-import { theme } from '../src/utils/theme';
+import { theme } from '../src/app/theme';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import GothamBook from '../src/assets/fonts/gotham-book.woff2';
 import GothamMedium from '../src/assets/fonts/gotham-medium.woff2';
