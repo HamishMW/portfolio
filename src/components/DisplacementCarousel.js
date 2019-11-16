@@ -10,8 +10,7 @@ import Icon from './Icon';
 import { rgba } from 'utils/style';
 import { vertex, fragment } from 'shaders/carouselShader';
 import { usePrefersReducedMotion } from 'hooks';
-
-const prerender = navigator.userAgent === 'ReactSnap';
+import prerender from 'utils/prerender';
 
 function determineIndex(imageIndex, index, images, direction) {
   if (index !== null) return index;
@@ -193,13 +192,11 @@ export default function DispalcementSlider(props) {
       addObjects(imageResults);
     };
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          loadImages();
-          observer.unobserve(entry.target);
-        }
-      });
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        loadImages();
+        observer.unobserve(entry.target);
+      }
     });
 
     observer.observe(containerElement);

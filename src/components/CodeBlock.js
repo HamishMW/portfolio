@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import styled, { ThemeContext } from 'styled-components/macro';
+import React from 'react';
+import styled, { useTheme } from 'styled-components/macro';
 
 // Netrunner theme by Hamish Williams
 const netrunnerTheme = {
@@ -19,7 +19,7 @@ const netrunnerTheme = {
   background: 'rgb(29, 29, 35)',
 };
 
-// Generic legible light theme by Hamish Williams
+// Legible light theme by Hamish Williams
 const lightCodeTheme = {
   char: 'rgba(0, 0, 0, 0.8)',
   comment: 'rgba(0, 0, 0, 0.6)',
@@ -43,7 +43,7 @@ const codeThemes = {
 };
 
 function CodeBlock(props) {
-  const theme = useContext(ThemeContext);
+  const theme = useTheme();
   const codeTheme = codeThemes[theme.id];
 
   return (

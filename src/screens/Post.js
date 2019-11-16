@@ -1,6 +1,6 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef } from 'react';
 import { Transition } from 'react-transition-group';
-import styled, { keyframes, ThemeContext } from 'styled-components/macro';
+import styled, { keyframes, useTheme } from 'styled-components/macro';
 import Footer from 'components/Footer';
 import Divider from 'components/Divider';
 import Svg from 'components/Svg';
@@ -13,8 +13,7 @@ import { MDXProvider } from '@mdx-js/react';
 import Anchor from 'components/Anchor';
 import CodeBlock from 'components/CodeBlock';
 import { reflow } from 'utils/transition';
-
-const prerender = navigator.userAgent === 'ReactSnap';
+import prerender from 'utils/prerender';
 
 function PostWrapper({
   children,
@@ -28,7 +27,7 @@ function PostWrapper({
   readTime,
   ...rest
 }) {
-  const { mobile } = useContext(ThemeContext);
+  const { mobile } = useTheme();
   const windowSize = useWindowSize();
   useScrollRestore();
   const contentRef = useRef();

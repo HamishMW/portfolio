@@ -1,9 +1,9 @@
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import { usePrevious, usePrefersReducedMotion } from '.';
-import { TransitionContext } from 'app';
+import { useRouteTransition } from 'hooks';
 
 function useScrollRestore() {
-  const { status } = useContext(TransitionContext);
+  const { status } = useRouteTransition();
   const prevStatus = usePrevious(status);
   const prefersReducedMotion = usePrefersReducedMotion();
 

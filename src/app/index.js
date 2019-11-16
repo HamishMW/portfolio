@@ -4,12 +4,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Transition, TransitionGroup, config as transitionConfig } from 'react-transition-group';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from 'components/Header';
-import { theme } from 'utils/theme';
+import { theme } from 'app/theme';
 import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
-import { initialState, reducer } from 'app/reducer';
+import { initialize, reducer } from 'app/reducer';
 import { reflow } from 'utils/transition';
+import prerender from 'utils/prerender';
 
 const Home = lazy(() => import('screens/Home'));
 const Contact = lazy(() => import('screens/Contact'));
@@ -19,7 +20,6 @@ const ProjectVolkihar = lazy(() => import('screens/ProjectVolkihar'));
 // const Articles = lazy(() => import('screens/Articles'));
 const NotFound = lazy(() => import('screens/404'));
 
-const prerender = navigator.userAgent === 'ReactSnap';
 export const AppContext = createContext();
 export const TransitionContext = createContext();
 
@@ -47,7 +47,7 @@ export const fontStyles = `
 
 function App() {
   const [storedTheme] = useLocalStorage('theme', 'dark');
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, { storedTheme }, initialize);
   const prefersReducedMotion = usePrefersReducedMotion();
   const { currentTheme } = state;
 

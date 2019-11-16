@@ -1,13 +1,12 @@
-import React, { lazy, Suspense, useRef, useState, useContext } from 'react';
-import styled, { css, ThemeContext } from 'styled-components/macro';
+import React, { lazy, Suspense, useRef, useState } from 'react';
+import styled, { css, useTheme } from 'styled-components/macro';
 import { NavLink, Link } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from 'components/Monogram';
 import Icon from 'components/Icon';
 import NavToggle from 'components/NavToggle';
 import { rgba } from 'utils/style';
-import { useWindowSize } from 'hooks';
-import { AppContext } from 'app';
+import { useWindowSize, useAppContext } from 'hooks';
 import { navLinks, socialLinks } from 'data/nav';
 import { reflow } from 'utils/transition';
 
@@ -24,8 +23,8 @@ const HeaderIcons = () => (
 );
 
 function Header(props) {
-  const { menuOpen, dispatch } = useContext(AppContext);
-  const { mobile } = useContext(ThemeContext);
+  const { menuOpen, dispatch } = useAppContext();
+  const { mobile } = useTheme();
   const { location } = props;
   const [hashKey, setHashKey] = useState();
   const windowSize = useWindowSize();

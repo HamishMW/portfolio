@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from 'styled-components/macro';
+import React from 'react';
+import { useTheme } from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import ProgressiveImage from 'components/ProgressiveImage';
 import { useScrollRestore } from 'hooks';
@@ -14,8 +14,7 @@ import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
 import imageSprBuilder from 'assets/spr-builder.png';
 import imageSprBuilderLarge from 'assets/spr-builder-large.png';
 import imageSprBuilderPlaceholder from 'assets/spr-builder-placeholder.png';
-
-const prerender = navigator.userAgent === 'ReactSnap';
+import prerender from 'utils/prerender';
 
 const title = 'Designing the future of education';
 const description = 'I worked as the design lead on a major iteration of Smart Sparrow’s product. We took the platform in a bold new direction, focusing on becoming the best tool for learning designers.';
@@ -26,7 +25,7 @@ const roles = [
 ];
 
 function ProjectSPR() {
-  const { mobile, tablet } = useContext(ThemeContext);
+  const { mobile, tablet } = useTheme();
   useScrollRestore();
 
   return (

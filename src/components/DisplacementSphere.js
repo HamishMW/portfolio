@@ -1,18 +1,19 @@
-import React, { useEffect, useRef, useContext } from 'react';
-import styled, { keyframes, ThemeContext } from 'styled-components/macro';
+import React, { useEffect, useRef } from 'react';
+import styled, { useTheme } from 'styled-components/macro';
 import {
   Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
   UniformsUtils, UniformsLib, ShaderLib, SphereBufferGeometry, Mesh, Color, ShaderMaterial
 } from 'three';
 import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
-import VertShader from 'shaders/sphereVertShader';
-import FragmentShader from 'shaders/sphereFragmentShader';
+import vertShader from 'shaders/sphereVertShader';
+import fragShader from 'shaders/sphereFragShader';
+import { Transition } from 'react-transition-group';
 import { usePrefersReducedMotion } from 'hooks';
+import { reflow, isVisible } from 'utils/transition';
 
 function DisplacementSphere() {
-  const theme = useContext(ThemeContext);
-  const initialThemeRef = useRef(theme);
+  const { colorBackground, id: themeId, colorWhite, mobile, tablet } = useTheme();
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
   const start = useRef(Date.now());
@@ -46,14 +47,13 @@ function DisplacementSphere() {
 
     material.current = new ShaderMaterial({
       uniforms: uniforms.current,
-      vertexShader: VertShader,
-      fragmentShader: FragmentShader,
+      vertexShader: vertShader,
+      fragmentShader: fragShader,
       lights: true,
     });
 
     geometry.current = new SphereBufferGeometry(32, 128, 128);
     sphere.current = new Mesh(geometry.current, material.current);
-    scene.current.background = new Color(initialThemeRef.current.colorBackground);
     renderer.current.setSize(width.current, height.current);
     camera.current.position.z = 52;
 
@@ -78,12 +78,12 @@ function DisplacementSphere() {
   }, []);
 
   useEffect(() => {
-    light.current = new DirectionalLight(theme.colorWhite, 0.6);
+    light.current = new DirectionalLight(colorWhite, 0.6);
     light.current.position.z = 200;
     light.current.position.x = 100;
     light.current.position.y = 100;
-    ambientLight.current = new AmbientLight(theme.colorWhite, theme.id === 'light' ? 0.8 : 0.1);
-    scene.current.background = new Color(theme.colorBackground);
+    ambientLight.current = new AmbientLight(colorWhite, themeId === 'light' ? 0.8 : 0.1);
+    scene.current.background = new Color(colorBackground);
     scene.current.add(light.current);
     scene.current.add(ambientLight.current);
 
@@ -93,10 +93,10 @@ function DisplacementSphere() {
       light.current = null;
       ambientLight.current = null;
     };
-  }, [theme]);
+  }, [colorBackground, colorWhite, themeId]);
 
   useEffect(() => {
-    const onWindowResize = () => {
+    const handleResize = () => {
       const canvasHeight = innerHeight();
       const windowWidth = window.innerWidth;
       const fullHeight = canvasHeight + canvasHeight * 0.3;
@@ -109,10 +109,10 @@ function DisplacementSphere() {
         renderer.current.render(scene.current, camera.current);
       }
 
-      if (windowWidth <= theme.mobile) {
+      if (windowWidth <= mobile) {
         sphere.current.position.x = 14;
         sphere.current.position.y = 10;
-      } else if (windowWidth <= theme.tablet) {
+      } else if (windowWidth <= tablet) {
         sphere.current.position.x = 18;
         sphere.current.position.y = 14;
       } else {
@@ -121,13 +121,13 @@ function DisplacementSphere() {
       }
     };
 
-    window.addEventListener('resize', onWindowResize);
-    onWindowResize();
+    window.addEventListener('resize', handleResize);
+    handleResize();
 
     return function cleanup() {
-      window.removeEventListener('resize', onWindowResize);
+      window.removeEventListener('resize', handleResize);
     };
-  }, [prefersReducedMotion, theme.mobile, theme.tablet]);
+  }, [mobile, prefersReducedMotion, tablet]);
 
   useEffect(() => {
     let ticking = false;
@@ -159,7 +159,6 @@ function DisplacementSphere() {
     }
 
     return function cleanup() {
-      console.log(animationFrame);
       window.removeEventListener('mousemove', onMouseMove);
       removeTween(tweenRef.current);
       cancelAnimationFrame(animationFrame);
@@ -189,14 +188,13 @@ function DisplacementSphere() {
   }, [prefersReducedMotion]);
 
   return (
-    <SphereCanvas aria-hidden ref={canvasRef} />
+    <Transition appear in onEnter={reflow} timeout={3000}>
+      {status =>
+        <SphereCanvas aria-hidden status={status} ref={canvasRef} />
+      }
+    </Transition>
   );
 }
-
-const AnimBackgroundFade = keyframes`
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-`;
 
 const SphereCanvas = styled.canvas`
   position: absolute;
@@ -205,10 +203,10 @@ const SphereCanvas = styled.canvas`
   right: 0;
   bottom: 0;
   left: 0;
-  animation-duration: 3s;
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
-  animation-fill-mode: forwards;
-  animation-name: ${AnimBackgroundFade};
+  opacity: ${props => isVisible(props.status) ? 1 : 0};
+  transition-property: opacity;
+  transition-duration: 3s;
+  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
 `;
 
 export default React.memo(DisplacementSphere);

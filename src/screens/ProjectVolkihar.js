@@ -1,9 +1,8 @@
-import React, { useEffect, useContext, useMemo, useRef, lazy, Suspense } from 'react';
-import styled, { ThemeContext } from 'styled-components/macro';
+import React, { useEffect, useMemo, useRef, lazy, Suspense } from 'react';
+import styled, { useTheme } from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
-import { AppContext, TransitionContext } from 'app';
 import ProgressiveImage from 'components/ProgressiveImage';
-import { useScrollRestore } from 'hooks';
+import { useScrollRestore, useAppContext, useRouteTransition } from 'hooks';
 import { LinkButton } from 'components/Button';
 import Footer from 'components/Footer';
 import {
@@ -37,9 +36,9 @@ import volkiharSlide3 from 'assets/volkihar-slide-3.jpg';
 import volkiharSlide3Large from 'assets/volkihar-slide-3-large.jpg';
 import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
 import { ReactComponent as VolkiharKnightLogo } from 'assets/volkihar-logo.svg';
+import prerender from 'utils/prerender';
 
 const DisplacementCarousel = lazy(() => import('components/DisplacementCarousel'));
-const prerender = navigator.userAgent === 'ReactSnap';
 
 const title = 'Volkihar Knight';
 const description = 'A lore-friendly armor mod for The Elder Scrolls V: Skyrim. Released on PC and Xbox One with over 700,000 downloads across both platforms.';
@@ -50,9 +49,9 @@ const roles = [
 ];
 
 function ProjectVolkihar() {
-  const { status } = useContext(TransitionContext);
-  const { dispatch } = useContext(AppContext);
-  const theme = useContext(ThemeContext);
+  const { status } = useRouteTransition();
+  const { dispatch } = useAppContext();
+  const theme = useTheme();
   const themeRef = useRef(theme);
   useScrollRestore();
 

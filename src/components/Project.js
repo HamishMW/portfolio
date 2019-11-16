@@ -4,9 +4,9 @@ import { AnimFade, rgba, sectionPadding } from 'utils/style';
 import ProgressiveImage from 'components/ProgressiveImage';
 import { LinkButton } from 'components/Button';
 import { usePrefersReducedMotion } from 'hooks';
+import prerender from 'utils/prerender';
 
 const initDelay = 300;
-const prerender = navigator.userAgent === 'ReactSnap';
 
 export function ProjectBackground(props) {
   const [offset, setOffset] = useState();

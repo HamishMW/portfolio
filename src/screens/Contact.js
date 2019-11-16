@@ -1,17 +1,16 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
-import { TransitionContext } from 'app';
 import Input from 'components/Input';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
 import { Button, RouterButton } from 'components/Button';
 import { AnimFade, sectionPadding } from 'utils/style';
-import { useScrollRestore, useFormInput } from 'hooks';
+import { useScrollRestore, useFormInput, useRouteTransition } from 'hooks';
 import { reflow } from 'utils/transition';
+import prerender from 'utils/prerender';
 
-const prerender = navigator.userAgent === 'ReactSnap';
 const initDelay = 300;
 
 function getStatusError(status) {
@@ -28,7 +27,7 @@ function getStatusError(status) {
 }
 
 function Contact() {
-  const { status } = useContext(TransitionContext);
+  const { status } = useRouteTransition();
   const email = useFormInput('');
   const message = useFormInput('');
   const [sending, setSending] = useState(false);

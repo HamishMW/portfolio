@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import styled, { ThemeContext } from 'styled-components/macro';
+import styled, { useTheme } from 'styled-components/macro';
 import ProgressiveImage from 'components/ProgressiveImage';
 import { useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
@@ -29,8 +29,7 @@ import sliceBackgroundBarPlaceholder from 'assets/slice-background-bar-placehold
 import sliceAnnotation from 'assets/slice-annotation.png';
 import sliceAnnotationLarge from 'assets/slice-annotation-large.png';
 import sliceAnnotationPlaceholder from 'assets/slice-annotation-placeholder.png';
-
-const prerender = navigator.userAgent === 'ReactSnap';
+import prerender from 'utils/prerender';
 
 const title = 'Biomedical image collaboration';
 const description = 'This project involved designing a better way for biomedical educators and learners to annotate digital slides together.';
@@ -41,7 +40,7 @@ const roles = [
 ];
 
 function ProjectSlice(props) {
-  const { mobile, tablet } = useContext(ThemeContext);
+  const { mobile, tablet } = useTheme();
   useScrollRestore();
 
   return (

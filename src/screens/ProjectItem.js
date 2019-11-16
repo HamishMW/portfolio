@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import styled, { css, ThemeContext } from 'styled-components/macro';
+import React from 'react';
+import styled, { css, useTheme } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
 import { rgba, sectionPadding } from 'utils/style';
 import { RouterButton, LinkButton } from 'components/Button';
@@ -18,10 +18,10 @@ function ProjectItem(props) {
     imagePlaceholder, buttonText, buttonLink, buttonTo, alternate, ...rest
   } = props;
 
-  const windowSize = useWindowSize();
-  const { mobile, tablet, desktop } = useContext(ThemeContext);
+  const { width } = useWindowSize();
+  const { mobile, tablet, desktop } = useTheme();
   const titleId = `${id}-title`;
-  const isMobile = windowSize.width <= tablet;
+  const isMobile = width <= tablet;
 
   const renderDetails = (status) => (
     <ProjectItemDetails>
