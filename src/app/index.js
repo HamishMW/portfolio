@@ -10,6 +10,7 @@ import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
 import { initialState, reducer } from 'app/reducer';
 import { reflow } from 'utils/transition';
+import prerender from 'utils/prerender';
 
 const Home = lazy(() => import('screens/Home'));
 const Contact = lazy(() => import('screens/Contact'));
@@ -19,7 +20,6 @@ const ProjectVolkihar = lazy(() => import('screens/ProjectVolkihar'));
 // const Articles = lazy(() => import('screens/Articles'));
 const NotFound = lazy(() => import('screens/404'));
 
-const prerender = navigator.userAgent === 'ReactSnap';
 export const AppContext = createContext();
 export const TransitionContext = createContext();
 

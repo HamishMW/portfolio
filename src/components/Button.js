@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import styled, { css, ThemeContext } from 'styled-components/macro';
+import React from 'react';
+import styled, { css, useTheme } from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import Loader from 'components/Loader';
 import Icon from './Icon';
@@ -15,7 +15,7 @@ function ButtonContent({
   loadingText,
   iconHoverShift,
 }) {
-  const theme = useContext(ThemeContext);
+  const theme = useTheme();
 
   return (
     <React.Fragment>

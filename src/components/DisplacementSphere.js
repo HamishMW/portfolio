@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useContext } from 'react';
-import styled, { keyframes, ThemeContext } from 'styled-components/macro';
+import React, { useEffect, useRef } from 'react';
+import styled, { keyframes, useTheme } from 'styled-components/macro';
 import {
   Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
   UniformsUtils, UniformsLib, ShaderLib, SphereBufferGeometry, Mesh, Color, ShaderMaterial
@@ -11,7 +11,7 @@ import FragmentShader from 'shaders/sphereFragmentShader';
 import { usePrefersReducedMotion } from 'hooks';
 
 function DisplacementSphere() {
-  const theme = useContext(ThemeContext);
+  const theme = useTheme();
   const initialThemeRef = useRef(theme);
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);

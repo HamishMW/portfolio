@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef, useMemo, useContext } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { TransitionContext } from 'app';
 import Intro from 'screens/Intro';
 import ProjectItem from 'screens/ProjectItem';
 import Profile from 'screens/Profile';
 import Footer from 'components/Footer';
-import { usePrefersReducedMotion } from 'hooks';
+import { usePrefersReducedMotion, useRouteTransition } from 'hooks';
 import sprProject from 'assets/spr-project.png';
 import sprProjectLarge from 'assets/spr-project-large.png';
 import sprProjectPlaceholder from 'assets/spr-project-placeholder.png';
@@ -22,7 +21,7 @@ import sliceProjectPlaceholder from 'assets/slice-project-placeholder.png';
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
 export default function Home(props) {
-  const { status } = useContext(TransitionContext);
+  const { status } = useRouteTransition();
   const { location } = props;
   const { hash, state } = location;
   const initHash = useRef(true);

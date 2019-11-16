@@ -1,17 +1,17 @@
-import React, { Suspense, lazy, useMemo, useContext, useEffect, useState } from 'react';
-import styled, { css, keyframes, ThemeContext } from 'styled-components/macro';
+import React, { Suspense, lazy, useMemo, useEffect, useState } from 'react';
+import styled, { css, keyframes, useTheme } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { AnimFade, rgba, sectionPadding } from 'utils/style';
 import DecoderText from 'components/DecoderText';
 import Svg from 'components/Svg';
 import { useInterval, usePrevious, useWindowSize } from 'hooks';
 import { reflow } from 'utils/transition';
+import prerender from 'utils/prerender';
 
 const DisplacementSphere = lazy(() => import('components/DisplacementSphere'));
-const prerender = navigator.userAgent === 'ReactSnap';
 
 function Intro(props) {
-  const theme = useContext(ThemeContext);
+  const theme = useTheme();
   const { id, sectionRef, disciplines, scrollIndicatorHidden } = props;
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const windowSize = useWindowSize();

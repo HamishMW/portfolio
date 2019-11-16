@@ -1,14 +1,13 @@
-import React, { useEffect, useRef, useContext } from 'react';
-import styled, { css, ThemeContext } from 'styled-components/macro';
+import React, { useEffect, useRef } from 'react';
+import styled, { css, useTheme } from 'styled-components/macro';
 import lottie from 'lottie-web/build/player/lottie_light.min';
 import { Button } from 'components/Button';
 import themeIconData from 'data/themeIcon.json';
-import { usePrefersReducedMotion } from 'hooks';
-import { AppContext } from 'app';
+import { usePrefersReducedMotion, useAppContext } from 'hooks';
 
 export default function ThemeToggle({ isMobile, ...rest }) {
-  const theme = useContext(ThemeContext);
-  const { dispatch } = useContext(AppContext);
+  const theme = useTheme();
+  const { dispatch } = useAppContext();
   const initThemeId = useRef(theme.id);
   const lottieContainerRef = useRef();
   const lottieAnimRef = useRef();

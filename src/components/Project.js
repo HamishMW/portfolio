@@ -4,25 +4,25 @@ import { AnimFade, rgba, sectionPadding } from 'utils/style';
 import ProgressiveImage from 'components/ProgressiveImage';
 import { LinkButton } from 'components/Button';
 import { usePrefersReducedMotion } from 'hooks';
+import prerender from 'utils/prerender';
 
 const initDelay = 300;
-const prerender = navigator.userAgent === 'ReactSnap';
 
 export function ProjectBackground(props) {
   const [offset, setOffset] = useState();
-  const scheduledAnimationFrame = useRef(false);
+  const ticking = useRef(false);
   const prefersReducedMotion = usePrefersReducedMotion();
   const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (prefersReducedMotion || scheduledAnimationFrame.current) return;
+      if (prefersReducedMotion || ticking.current) return;
       lastScrollY.current = window.scrollY;
-      scheduledAnimationFrame.current = true;
+      ticking.current = true;
 
       requestAnimationFrame(() => {
         setOffset(lastScrollY.current * 0.4);
-        scheduledAnimationFrame.current = false;
+        ticking.current = false;
       });
     };
 

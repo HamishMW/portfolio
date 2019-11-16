@@ -5,8 +5,7 @@ import { Button } from 'components/Button';
 import Icon from 'components/Icon';
 import { Transition } from 'react-transition-group';
 import { reflow } from 'utils/transition';
-
-const prerender = navigator.userAgent === 'ReactSnap';
+import prerender from 'utils/prerender';
 
 function ProgressiveImage(props) {
   const { className, style, reveal, delay = 0, ...rest } = props;
@@ -19,14 +18,12 @@ function ProgressiveImage(props) {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const image = entry.target;
-          setIntersect(true);
-          observer.unobserve(image);
-        }
-      });
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        const image = entry.target;
+        setIntersect(true);
+        observer.unobserve(image);
+      }
     });
 
     observer.observe(containerRef.current);
@@ -123,8 +120,8 @@ function ImageElements(props) {
       reveal={reveal}
       intersect={intersect}
       delay={delay}
-      onMouseOver={handleShowPlayButton}
-      onMouseOut={() => setIsHovered(false)}
+      onMouseOver={videoSrc ? handleShowPlayButton : undefined}
+      onMouseOut={videoSrc ? () => setIsHovered(false) : undefined}
     >
       {videoSrc &&
         <Fragment>
