@@ -22,12 +22,12 @@ function PostListItem({
     <PostListItemWrapper>
       <PostContent to={`/articles${path}`}>
         <PostImageWrapper>
-          <PostImage
+          {/* <PostImage
             srcSet={banner ? require(`posts/assets/${banner}`) : undefined}
             videoSrc={bannerVideo ? require(`posts/assets/${bannerVideo}`) : undefined}
             placeholder={require(`posts/assets/${bannerPlaceholder}`)}
             alt={bannerAlt}
-          />
+          /> */}
           <PostImageTag>K256</PostImageTag>
         </PostImageWrapper>
         <PostText>

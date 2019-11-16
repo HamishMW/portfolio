@@ -4,11 +4,11 @@ import {
   LinearFilter, TextureLoader, PlaneBufferGeometry, LoadingManager
 } from 'three';
 import styled from 'styled-components/macro';
-import gsap from 'gsap';
+import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
 import Swipe from 'react-easy-swipe';
 import Icon from './Icon';
 import { rgba } from 'utils/style';
-import { vertex, fragment } from 'shaders/sliderShader';
+import { vertex, fragment } from 'shaders/carouselShader';
 import { usePrefersReducedMotion } from 'hooks';
 import prerender from 'utils/prerender';
 
@@ -41,13 +41,14 @@ export default function DispalcementSlider(props) {
   const scheduledAnimationFrame = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
   const placeholderRef = useRef();
+  const tweenRef = useRef();
   const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${images[imageIndex].alt}`;
 
   const goToIndex = useCallback(({
     index,
     direction = 1,
-    duration = 1.4,
-    ease = 'expo.inOut',
+    duration = 1200,
+    easing = Easing.Exponential.InOut,
   }) => {
     if (!sliderImages) return;
     setImageIndex(index);
@@ -61,14 +62,14 @@ export default function DispalcementSlider(props) {
       animating.current = false;
     };
 
-    const animate = async () => {
-      await gsap.to(uniforms.dispFactor, { duration, value: 1, ease, onComplete });
-      onComplete();
-    };
-
     if (!prefersReducedMotion && uniforms.dispFactor.value !== 1) {
       animating.current = true;
-      animate();
+
+      tweenRef.current = new Tween(uniforms.dispFactor)
+        .to({ value: 1 }, duration)
+        .easing(easing)
+        .on('complete', onComplete)
+        .start();
     } else {
       onComplete();
       renderer.current.render(scene.current, camera.current);
@@ -232,6 +233,7 @@ export default function DispalcementSlider(props) {
     const animate = () => {
       animation = requestAnimationFrame(animate);
       if (animating.current) {
+        updateTween();
         renderer.current.render(scene.current, camera.current);
       }
     };
@@ -240,6 +242,7 @@ export default function DispalcementSlider(props) {
 
     return function cleanup() {
       cancelAnimationFrame(animation);
+      removeTween(tweenRef.current);
     };
   }, []);
 
@@ -289,7 +292,7 @@ export default function DispalcementSlider(props) {
   const onSwipeEnd = useCallback(() => {
     if (!material.current) return;
     const uniforms = material.current.uniforms;
-    const duration = (1 - uniforms.dispFactor.value);
+    const duration = (1 - uniforms.dispFactor.value) * 1000;
     const position = Math.abs(lastSwipePosition.current);
     const minSwipeDistance = canvasWidth * 0.2;
     lastSwipePosition.current = 0;
@@ -301,7 +304,7 @@ export default function DispalcementSlider(props) {
       navigate({
         duration,
         direction: swipeDirection.current,
-        ease: 'expo.out',
+        easing: Easing.Exponential.Out,
       });
     } else {
       uniforms.currentImage.value = uniforms.nextImage.value;
@@ -309,10 +312,10 @@ export default function DispalcementSlider(props) {
       uniforms.dispFactor.value = 1 - uniforms.dispFactor.value;
 
       navigate({
-        duration: uniforms.dispFactor.value,
+        duration: uniforms.dispFactor.value * 1000,
         direction: swipeDirection.current * -1,
         index: imageIndex,
-        ease: 'expo.out',
+        easing: Easing.Exponential.Out,
       });
     }
   }, [canvasWidth, imageIndex, navigate]);

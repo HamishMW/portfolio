@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { AnimFade, rgba, sectionPadding } from 'utils/style';
 import ProgressiveImage from 'components/ProgressiveImage';
@@ -10,26 +10,31 @@ const initDelay = 300;
 
 export function ProjectBackground(props) {
   const [offset, setOffset] = useState();
-  const ticking = useRef(false);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (prefersReducedMotion || ticking.current) return;
-      lastScrollY.current = window.scrollY;
-      ticking.current = true;
+    let ticking = false;
+    let animationFrame = null;
 
-      requestAnimationFrame(() => {
-        setOffset(lastScrollY.current * 0.4);
-        ticking.current = false;
-      });
+    const animate = () => {
+      setOffset(window.scrollY * 0.4);
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    if (!prefersReducedMotion) {
+      window.addEventListener('scroll', handleScroll);
+    }
 
     return function cleanUp() {
       window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(animationFrame);
     };
   }, [prefersReducedMotion]);
 

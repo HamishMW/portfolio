@@ -14,11 +14,8 @@ import Loader from 'components/Loader';
 import { useFormInput } from 'hooks';
 
 const StoryContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: ${props => props.fullWidth ? '100%' : 'max-content'};
@@ -118,7 +115,7 @@ storiesOf('Decoder text', module)
     </StoryContainer>
   );
 
-storiesOf('Displacement carousel', module)
+storiesOf('Displacement slider', module)
   .add('images', () =>
     <StoryContainer fullWidth padding={30}>
       <DisplacementCarousel
