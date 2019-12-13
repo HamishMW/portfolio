@@ -50,9 +50,4 @@ addDecorator(story => {
 
 addDecorator(withKnobs);
 addDecorator(withA11y);
-
-function loadStories() {
-  require('../src/stories');
-};
-
-configure(loadStories, module);
+configure(require.context('../src', true, /\.stories\.js$/), module);
