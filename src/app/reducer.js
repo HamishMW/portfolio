@@ -1,11 +1,9 @@
 import { theme } from 'app/theme';
 
-export function initialize({ storedTheme }) {
-  return {
-    menuOpen: false,
-    currentTheme: theme[storedTheme],
-  };
-}
+export const initialState = {
+  menuOpen: false,
+  currentTheme: theme.dark,
+};
 
 export function reducer(state, action) {
   switch (action.type) {

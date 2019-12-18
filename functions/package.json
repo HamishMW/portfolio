@@ -12,13 +12,13 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "firebase-admin": "~8.7.0",
+    "firebase-admin": "~8.8.0",
     "firebase-functions": "^3.3.0",
     "helmet": "^3.21.2",
-    "nodemailer": "^6.3.1"
+    "nodemailer": "^6.4.2"
   },
   "devDependencies": {
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.2",
     "eslint-plugin-promise": "^4.2.1"
   },
   "engines": {

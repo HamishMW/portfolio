@@ -8,7 +8,7 @@ import { theme } from 'app/theme';
 import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
-import { initialize, reducer } from 'app/reducer';
+import { initialState, reducer } from 'app/reducer';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 
@@ -47,7 +47,7 @@ export const fontStyles = `
 
 function App() {
   const [storedTheme] = useLocalStorage('theme', 'dark');
-  const [state, dispatch] = useReducer(reducer, { storedTheme }, initialize);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const prefersReducedMotion = usePrefersReducedMotion();
   const { currentTheme } = state;
 
