@@ -68,7 +68,7 @@ const ThemeToggleButton = styled(Button)`
   right: ${props => props.theme.spacingOuter.desktop - 8}px;
   transform: translate3d(0, 0, 0);
 
-  @media (max-width: ${props => props.theme.tablt}px) {
+  @media (max-width: ${props => props.theme.tablet}px) {
     top: ${props => props.isMobile ? 'unset' : `${props.theme.spacingOuter.tablet - 8}px`};
     right: ${props => props.isMobile ? '30px' : `${props.theme.spacingOuter.tablet - 8}px`};
   }

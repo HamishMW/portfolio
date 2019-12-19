@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css, useTheme } from 'styled-components/macro';
-import { Link } from 'react-router-dom';
+import { Link } from 'components/Link';
 import Loader from 'components/Loader';
 import Icon from './Icon';
 import { rgba } from 'utils/style';

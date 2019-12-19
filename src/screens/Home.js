@@ -37,11 +37,11 @@ export default function Home(props) {
   useEffect(() => {
     const revealSections = [intro, projectOne, projectTwo, projectThree, details];
 
-    const sectionObserver = new IntersectionObserver(entries => {
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const section = entry.target;
-          sectionObserver.unobserve(section);
+          observer.unobserve(section);
           if (visibleSections.includes(section)) return;
           setVisibleSections(prevSections => [...prevSections, section]);
         }
@@ -79,13 +79,13 @@ export default function Home(props) {
       const behavior = scroll && !prefersReducedMotion ? 'smooth' : 'instant';
       const top = element.current.offsetTop;
 
-      scrollObserver = new IntersectionObserver(entries => {
+      scrollObserver = new IntersectionObserver((entries, observer) => {
         const [entry] = entries;
         if (entry.isIntersecting) {
           scrollTimeout = setTimeout(() => {
             element.current.focus();
           }, prefersReducedMotion ? 0 : 400);
-          scrollObserver.unobserve(entry.target);
+          observer.unobserve(entry.target);
         }
       }, { rootMargin: '-20% 0px -20% 0px' });
 

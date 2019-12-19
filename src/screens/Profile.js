@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
-import { Link } from 'react-router-dom';
+import { Link } from 'components/Link';
 import Anchor from 'components/Anchor';
 import { RouterButton } from 'components/Button';
 import DecoderText from 'components/DecoderText';

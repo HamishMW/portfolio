@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useRef, useState } from 'react';
 import styled, { css, useTheme } from 'styled-components/macro';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link } from 'components/Link';
 import { Transition } from 'react-transition-group';
 import Monogram from 'components/Monogram';
 import Icon from 'components/Icon';
