@@ -3,11 +3,17 @@
     {
       "target": "portfolio",
       "public": "build",
-      "trailingSlash": false,
       "rewrites": [
         {
           "source": "/functions/**",
           "function": "app"
+        }
+      ],
+      "redirects": [
+        {
+          "source": "/index.html",
+          "destination": "/",
+          "type": 301
         }
       ],
       "headers": [
