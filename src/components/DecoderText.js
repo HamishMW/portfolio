@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, memo } from 'react';
 import styled from 'styled-components/macro';
 import { usePrefersReducedMotion } from 'hooks';
 
@@ -150,4 +150,4 @@ const DecoderWrapper = styled.span`
   }
 `;
 
-export default React.memo(DecoderText);
+export default memo(DecoderText);

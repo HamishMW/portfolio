@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled, { css, useTheme } from 'styled-components/macro';
 import { Link } from 'components/Link';
 import Loader from 'components/Loader';
@@ -18,7 +18,7 @@ function ButtonContent({
   const theme = useTheme();
 
   return (
-    <React.Fragment>
+    <Fragment>
       {icon &&
         <ButtonIcon
           left
@@ -54,7 +54,7 @@ function ButtonContent({
           color={theme.colorBackground}
         />
       }
-    </React.Fragment>
+    </Fragment>
   );
 }
 

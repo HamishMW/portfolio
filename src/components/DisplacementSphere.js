@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import styled, { useTheme } from 'styled-components/macro';
 import {
   Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
@@ -209,4 +209,4 @@ const SphereCanvas = styled.canvas`
   transition-timing-function: ${props => props.theme.curveFastoutSlowin};
 `;
 
-export default React.memo(DisplacementSphere);
+export default memo(DisplacementSphere);

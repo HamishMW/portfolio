@@ -1,6 +1,6 @@
 import { configure, addParameters, addDecorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { withKnobs, select } from '@storybook/addon-knobs';
 import { withA11y } from '@storybook/addon-a11y';
 import { ThemeProvider } from 'styled-components';
@@ -34,7 +34,7 @@ addDecorator(story => {
   return (
     <HelmetProvider>
       <ThemeProvider theme={currentTheme}>
-        <React.Fragment>
+        <Fragment>
           <Helmet>
             <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
             <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
@@ -42,7 +42,7 @@ addDecorator(story => {
           </Helmet>
           <GlobalStyles />
           <div id="storyRoot" key={themeKey}>{content}</div>
-        </React.Fragment>
+        </Fragment>
       </ThemeProvider>
     </HelmetProvider>
   )

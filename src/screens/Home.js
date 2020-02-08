@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Intro from 'screens/Intro';
 import ProjectItem from 'screens/ProjectItem';
@@ -121,7 +121,7 @@ export default function Home(props) {
   }, [hash, state, prefersReducedMotion, status]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Helmet
         title="Hamish Williams | Designer"
         meta={[{
@@ -193,6 +193,6 @@ export default function Home(props) {
         id="details"
       />
       <Footer />
-    </React.Fragment>
+    </Fragment>
   );
 };

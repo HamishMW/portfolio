@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 import styled, { useTheme } from 'styled-components/macro';
 import ProgressiveImage from 'components/ProgressiveImage';
@@ -44,7 +44,7 @@ function ProjectSlice(props) {
   useScrollRestore();
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Helmet
         title={`Projects | ${title}`}
         meta={[{ name: 'description', content: description, }]}
@@ -149,7 +149,7 @@ function ProjectSlice(props) {
         </ProjectSection>
       </ProjectContainer>
       <Footer />
-    </React.Fragment>
+    </Fragment>
   );
 }
 

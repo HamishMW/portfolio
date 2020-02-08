@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
@@ -73,7 +73,7 @@ function Contact() {
           content: 'Send me a message if you’re interested in discussing a project or if you just want to say hi',
         }]}
       />
-      <TransitionGroup component={React.Fragment}>
+      <TransitionGroup component={null}>
         {!complete &&
           <Transition
             appear
@@ -379,4 +379,4 @@ const ContactCompleteButton = styled(RouterButton)`
   `}
 `;
 
-export default React.memo(Contact);
+export default memo(Contact);

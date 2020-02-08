@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useRef, useState } from 'react';
+import React, { lazy, Suspense, useRef, useState, memo } from 'react';
 import styled, { css, useTheme } from 'styled-components/macro';
 import { NavLink, Link } from 'components/Link';
 import { Transition } from 'react-transition-group';
@@ -92,14 +92,14 @@ function Header(props) {
               </HeaderMobileNavLink>
             ))}
             <HeaderIcons />
-            <Suspense fallback={<React.Fragment />}>
+            <Suspense fallback={null}>
               <ThemeToggle isMobile />
             </Suspense>
           </HeaderMobileNav>
         )}
       </Transition>
       {!isMobile &&
-        <Suspense fallback={<React.Fragment />}>
+        <Suspense fallback={null}>
           <ThemeToggle />
         </Suspense>
       }
@@ -318,4 +318,4 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   }
 `;
 
-export default React.memo(Header);
+export default memo(Header);

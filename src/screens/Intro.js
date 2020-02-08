@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useMemo, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useMemo, useEffect, useState, Fragment, memo } from 'react';
 import styled, { css, keyframes, useTheme } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { AnimFade, rgba, sectionPadding } from 'utils/style';
@@ -47,9 +47,9 @@ function Intro(props) {
         onEnter={reflow}
       >
         {status => (
-          <React.Fragment>
+          <Fragment>
             {!prerender &&
-              <Suspense fallback={<React.Fragment />}>
+              <Suspense fallback={null}>
                 <DisplacementSphere />
               </Suspense>
             }
@@ -100,7 +100,7 @@ function Intro(props) {
                 <Svg icon="arrowDown" />
               </MemoizedMobileScrollIndicator>
             }
-          </React.Fragment>
+          </Fragment>
         )}
       </Transition>
     </IntroContent>
@@ -437,7 +437,7 @@ const MobileScrollIndicator = styled.div`
   }
 `;
 
-const MemoizedScrollIndicator = React.memo(ScrollIndicator);
-const MemoizedMobileScrollIndicator = React.memo(MobileScrollIndicator);
+const MemoizedScrollIndicator = memo(ScrollIndicator);
+const MemoizedMobileScrollIndicator = memo(MobileScrollIndicator);
 
-export default React.memo(Intro);
+export default memo(Intro);

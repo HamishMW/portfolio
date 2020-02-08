@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, createContext, useReducer } from 'react';
+import React, { lazy, Suspense, useEffect, createContext, useReducer, Fragment } from 'react';
 import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components/macro';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Transition, TransitionGroup, config as transitionConfig } from 'react-transition-group';
@@ -74,7 +74,7 @@ function App() {
         <AppContext.Provider value={{ ...state, dispatch }}>
           <BrowserRouter>
             <Route render={({ location }) => (
-              <React.Fragment>
+              <Fragment>
                 <Helmet>
                   <link rel="canonical" href={`https://hamishw.com${location.pathname}`} />
                   <link rel="preload" href={GothamBook} as="font" crossorigin="" />
@@ -98,7 +98,7 @@ function App() {
                     {status => (
                       <TransitionContext.Provider value={{ ...state, dispatch, status }}>
                         <AppPage status={status} >
-                          <Suspense fallback={<React.Fragment />}>
+                          <Suspense fallback={<Fragment />}>
                             <Switch location={location}>
                               <Route exact path="/" component={Home} />
                               <Route path="/contact" component={Contact} />
@@ -114,7 +114,7 @@ function App() {
                     )}
                   </Transition>
                 </TransitionGroup>
-              </React.Fragment>
+              </Fragment>
             )} />
           </BrowserRouter>
         </AppContext.Provider>

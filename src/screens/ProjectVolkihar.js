@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, lazy, Suspense } from 'react';
+import React, { useEffect, useMemo, useRef, lazy, Suspense, Fragment } from 'react';
 import styled, { useTheme } from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import ProgressiveImage from 'components/ProgressiveImage';
@@ -79,7 +79,7 @@ function ProjectVolkihar() {
   }, [dispatch, status, theme.id]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Helmet
         title={`Projects | ${title}`}
         meta={[{ name: 'description', content: description, }]}
@@ -155,7 +155,7 @@ function ProjectVolkihar() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionSlider>
-            <Suspense fallback={<React.Fragment />}>
+            <Suspense fallback={null}>
               <DisplacementCarousel
                 placeholder={volkiharSlidePlaceholder}
                 images={useMemo(() => [
@@ -218,7 +218,7 @@ function ProjectVolkihar() {
         </ProjectBackgroundSection>
       </ProjectContainer>
       <Footer />
-    </React.Fragment>
+    </Fragment>
   );
 }
 

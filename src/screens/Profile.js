@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment, memo } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
 import { Link } from 'components/Link';
@@ -15,7 +15,7 @@ import { sectionPadding } from 'utils/style';
 import { reflow } from 'utils/transition';
 
 const ProfileText = ({ status, titleId }) => (
-  <React.Fragment>
+  <Fragment>
     <ProfileTitle status={status} id={titleId}>
       <DecoderText
         text="Hi there"
@@ -29,7 +29,7 @@ const ProfileText = ({ status, titleId }) => (
     <ProfileDescription status={status}>
       In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and <Anchor as={Link} to="/projects/volkihar-knight">make mods</Anchor>. I’m always down for hearing about new projects, so feel free to drop me a line.
     </ProfileDescription>
-  </React.Fragment>
+  </Fragment>
 );
 
 function Profile(props) {
@@ -269,4 +269,4 @@ const ProfileButton = styled(RouterButton)`
   `}
 `;
 
-export default React.memo(Profile);
+export default memo(Profile);
