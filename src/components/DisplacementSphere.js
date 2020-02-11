@@ -12,7 +12,7 @@ import { Transition } from 'react-transition-group';
 import { usePrefersReducedMotion } from 'hooks';
 import { reflow, isVisible } from 'utils/transition';
 
-function DisplacementSphere() {
+function DisplacementSphere(props) {
   const { colorBackground, id: themeId, colorWhite, mobile, tablet } = useTheme();
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
@@ -190,7 +190,7 @@ function DisplacementSphere() {
   return (
     <Transition appear in onEnter={reflow} timeout={3000}>
       {status =>
-        <SphereCanvas aria-hidden status={status} ref={canvasRef} />
+        <SphereCanvas aria-hidden status={status} ref={canvasRef} {...props} />
       }
     </Transition>
   );

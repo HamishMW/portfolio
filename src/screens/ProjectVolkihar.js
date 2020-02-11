@@ -296,8 +296,9 @@ const ProjectSectionBackgroundImage = styled(ProgressiveImage)`
   grid-row: 1;
 
   img {
-    height: 100%;
     object-fit: cover;
+    justify-self: stretch;
+    align-self: stretch;
   }
 
   div::after {

@@ -4,7 +4,7 @@ import { TransitionGroup, Transition } from 'react-transition-group';
 import { AnimFade, rgba, sectionPadding } from 'utils/style';
 import DecoderText from 'components/DecoderText';
 import Svg from 'components/Svg';
-import { useInterval, usePrevious, useWindowSize } from 'hooks';
+import { useInterval, usePrevious, useWindowSize, useParallax } from 'hooks';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 
@@ -19,6 +19,7 @@ function Intro(props) {
   const introLabel = useMemo(() => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '), [disciplines]);
   const currentDisciplines = useMemo(() => disciplines.filter((item, index) => index === disciplineIndex), [disciplineIndex, disciplines]);
   const titleId = `${id}-title`;
+  const offset = useParallax(0.4);
 
   useInterval(() => {
     const index = (disciplineIndex + 1) % disciplines.length;
@@ -50,7 +51,7 @@ function Intro(props) {
           <Fragment>
             {!prerender &&
               <Suspense fallback={null}>
-                <DisplacementSphere />
+                <DisplacementSphere style={{ transform: `translate3d(0, ${offset}px, 0)` }} />
               </Suspense>
             }
             <IntroText>
@@ -128,6 +129,10 @@ const IntroText = styled.header`
   }
 
   @media (max-width: ${props => props.theme.mobile}px) {
+    top: -60px;
+  }
+
+  @media (max-width: 400px) {
     top: -30px;
   }
 
@@ -195,6 +200,10 @@ const IntroTitle = styled.h2`
   }
 
   @media (max-width: 600px) {
+    font-size: 56px;
+  }
+
+  @media (max-width: 400px) {
     font-size: 42px;
   }
 `;

@@ -1,42 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { AnimFade, rgba, sectionPadding } from 'utils/style';
 import ProgressiveImage from 'components/ProgressiveImage';
 import { LinkButton } from 'components/Button';
-import { usePrefersReducedMotion } from 'hooks';
+import { useParallax } from 'hooks';
 import prerender from 'utils/prerender';
 
 const initDelay = 300;
 
 export function ProjectBackground(props) {
-  const [offset, setOffset] = useState();
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  useEffect(() => {
-    let ticking = false;
-    let animationFrame = null;
-
-    const animate = () => {
-      setOffset(window.scrollY * 0.4);
-      ticking = false;
-    };
-
-    const handleScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        animationFrame = requestAnimationFrame(animate);
-      }
-    };
-
-    if (!prefersReducedMotion) {
-      window.addEventListener('scroll', handleScroll);
-    }
-
-    return function cleanUp() {
-      window.removeEventListener('scroll', handleScroll);
-      cancelAnimationFrame(animationFrame);
-    };
-  }, [prefersReducedMotion]);
+  const offset = useParallax(0.4);
 
   return (
     <ProjectBackgroundImage offsetValue={offset} {...props} />
