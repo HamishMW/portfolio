@@ -9,7 +9,7 @@ import prerender from 'utils/prerender';
 const initDelay = 300;
 
 export function ProjectBackground(props) {
-  const offset = useParallax(0.4);
+  const offset = useParallax(-0.6);
 
   return (
     <ProjectBackgroundImage offsetValue={offset} {...props} />
@@ -111,7 +111,7 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs(props => ({
   },
 }))`
   z-index: 0;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;

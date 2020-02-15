@@ -10,7 +10,7 @@ function useParallax(multiplier) {
     let animationFrame = null;
 
     const animate = () => {
-      setOffset(window.scrollY * multiplier);
+      setOffset(Math.max(0, window.scrollY) * multiplier);
       ticking = false;
     };
 

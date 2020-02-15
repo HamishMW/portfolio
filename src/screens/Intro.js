@@ -19,7 +19,7 @@ function Intro(props) {
   const introLabel = useMemo(() => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '), [disciplines]);
   const currentDisciplines = useMemo(() => disciplines.filter((item, index) => index === disciplineIndex), [disciplineIndex, disciplines]);
   const titleId = `${id}-title`;
-  const offset = useParallax(0.4);
+  const offset = useParallax(-0.6);
 
   useInterval(() => {
     const index = (disciplineIndex + 1) % disciplines.length;
@@ -51,7 +51,7 @@ function Intro(props) {
           <Fragment>
             {!prerender &&
               <Suspense fallback={null}>
-                <DisplacementSphere style={{ transform: `translate3d(0, ${offset}px, 0)` }} />
+                <DisplacementSphere style={{ transform: `translate3d(0, ${offset}px, 0)`, position: 'fixed' }} />
               </Suspense>
             }
             <IntroText>
