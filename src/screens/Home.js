@@ -17,13 +17,13 @@ import gamestackListPlaceholder from 'assets/gamestack-list-placeholder.jpg';
 import sliceProject from 'assets/slice-project.png';
 import sliceProjectLarge from 'assets/slice-project-large.png';
 import sliceProjectPlaceholder from 'assets/slice-project-placeholder.png';
+import { useLocation } from 'react-router-dom';
 
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
-export default function Home(props) {
+export default function Home() {
   const { status } = useRouteTransition();
-  const { location } = props;
-  const { hash, state } = location;
+  const { hash, state } = useLocation();
   const initHash = useRef(true);
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
