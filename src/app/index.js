@@ -26,7 +26,7 @@ export const TransitionContext = createContext();
 const consoleMessage = `
 __  __  __
 \u005C \u005C \u005C \u005C \u005C\u2215\n \u005C \u005C\u2215\u005C \u005C\n  \u005C\u2215  \u005C\u2215
-\n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio-2018\n\n
+\n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio\n\n
 `;
 
 export const fontStyles = `

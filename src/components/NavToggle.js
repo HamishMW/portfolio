@@ -11,8 +11,8 @@ const NavToggle = ({ menuOpen, ...rest }) => (
     {...rest}
   >
     <NavToggleInner>
-      <NavToggleIcon open={menuOpen} icon="menu" size={32} color="white" />
-      <NavToggleIcon open={menuOpen} icon="close" size={32} color="white" />
+      <NavToggleIcon open={menuOpen} icon="menu" />
+      <NavToggleIcon open={menuOpen} icon="close" />
     </NavToggleInner>
   </NavToggleButton>
 );
@@ -51,6 +51,8 @@ const NavToggleIcon = styled(Icon)`
   opacity: 1;
   transform: rotate(0deg);
   fill: ${props => props.theme.colorText};
+  width: 32px;
+  height: 32px;
 
   ${props => props.icon === 'close' && css`
     transition-delay: 0s;

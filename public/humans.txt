@@ -14,8 +14,7 @@ Hamish Williams
 Hand crafted design & web development
 
 Design tools:
-Sketch
-InVision
+Figma
 Photoshop
 
 twitter.com/hamishmw
