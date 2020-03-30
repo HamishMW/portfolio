@@ -6,7 +6,7 @@ A design portfolio to showcase a few projects. Check out a live version of the [
 
 ## Install & run
 
-Make sure you have npm and yarn installed. Install dependencies with:
+Make sure you have nodejs and yarn installed. Install dependencies with:
 
 ```bash
 yarn
