@@ -4,7 +4,7 @@ import { TransitionGroup, Transition } from 'react-transition-group';
 import { AnimFade, rgba, sectionPadding } from 'utils/style';
 import DecoderText from 'components/DecoderText';
 import Svg from 'components/Svg';
-import { useInterval, usePrevious, useWindowSize, useParallax } from 'hooks';
+import { useInterval, usePrevious, useWindowSize } from 'hooks';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 
@@ -19,7 +19,6 @@ function Intro(props) {
   const introLabel = useMemo(() => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '), [disciplines]);
   const currentDisciplines = useMemo(() => disciplines.filter((item, index) => index === disciplineIndex), [disciplineIndex, disciplines]);
   const titleId = `${id}-title`;
-  const offset = useParallax(-0.6);
 
   useInterval(() => {
     const index = (disciplineIndex + 1) % disciplines.length;
@@ -51,7 +50,7 @@ function Intro(props) {
           <Fragment>
             {!prerender &&
               <Suspense fallback={null}>
-                <DisplacementSphere style={{ transform: `translate3d(0, ${offset}px, 0)`, position: 'fixed' }} />
+                <DisplacementSphere />
               </Suspense>
             }
             <IntroText>
