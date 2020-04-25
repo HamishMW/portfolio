@@ -12,10 +12,10 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "firebase-admin": "~8.9.2",
-    "firebase-functions": "^3.3.0",
-    "helmet": "^3.21.2",
-    "nodemailer": "^6.4.2"
+    "firebase-admin": "~8.11.0",
+    "firebase-functions": "^3.6.1",
+    "helmet": "^3.22.0",
+    "nodemailer": "^6.4.6"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
