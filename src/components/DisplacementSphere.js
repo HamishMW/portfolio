@@ -68,7 +68,6 @@ function DisplacementSphere(props) {
       geometry.current.dispose();
       material.current.dispose();
       renderer.current.dispose();
-      renderer.current.forceContextLoss();
       scene.current.dispose();
       camera.current = null;
       sphere.current = null;

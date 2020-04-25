@@ -208,7 +208,6 @@ export default function DispalcementSlider(props) {
     return function cleanUp() {
       animating.current = false;
       renderer.current.dispose();
-      renderer.current.forceContextLoss();
       renderer.current.domElement = null;
       observer.disconnect();
       containerElement.innerHTML = '';
