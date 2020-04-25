@@ -207,10 +207,10 @@ const SkipToMain = styled.a`
   height: 1px;
   overflow: hidden;
   color: ${props => props.theme.colorBackground};
+  background: ${props => props.theme.colorPrimary};
   z-index: 99;
 
   &:focus {
-    background: ${props => props.theme.colorPrimary};
     padding: 8px 16px;
     position: fixed;
     top: 16px;

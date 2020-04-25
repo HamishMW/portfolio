@@ -26,7 +26,9 @@ const Svg = ({ icon, color = 'white', ...props }) => {
   }[icon]();
 };
 
-const StyledSvg = styled.svg`
+const StyledSvg = styled.svg.attrs({
+  'aria-hidden': true,
+})`
   display: block;
 `;
 

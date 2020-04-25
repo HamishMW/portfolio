@@ -53,7 +53,7 @@ export default function ThemeToggle({ isMobile, ...rest }) {
       isMobile={isMobile}
       {...rest}
     >
-      <ThemeToggleWrapper ref={lottieContainerRef} />
+      <ThemeToggleWrapper aria-hidden ref={lottieContainerRef} />
     </ThemeToggleButton>
   );
 }

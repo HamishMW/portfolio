@@ -33,7 +33,7 @@ const Icon = ({ icon, style, className }) => {
   const IconComponent = icons[icon];
 
   return (
-    <IconComponent style={style} className={className} />
+    <IconComponent aria-hidden style={style} className={className} />
   );
 };
 
