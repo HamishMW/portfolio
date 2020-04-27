@@ -4,7 +4,7 @@ import styled, { keyframes, useTheme } from 'styled-components/macro';
 import Footer from 'components/Footer';
 import Divider from 'components/Divider';
 import Svg from 'components/Svg';
-import { rgba, sectionPadding, AnimFade } from 'utils/style';
+import { sectionPadding, AnimFade } from 'utils/style';
 import { useWindowSize, useScrollRestore } from 'hooks';
 import ProgressiveImage from 'components/ProgressiveImage';
 import GothamBold from 'assets/fonts/gotham-bold.woff2';
@@ -14,6 +14,7 @@ import Anchor from 'components/Anchor';
 import CodeBlock from 'components/CodeBlock';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
+import { media } from 'utils/style';
 
 function PostWrapper({
   children,
@@ -27,7 +28,6 @@ function PostWrapper({
   readTime,
   ...rest
 }) {
-  const { mobile } = useTheme();
   const windowSize = useWindowSize();
   useScrollRestore();
   const contentRef = useRef();
@@ -51,7 +51,7 @@ function PostWrapper({
           {`
             @font-face {
               font-family: 'Gotham';
-              font-weight: 600;
+              font-weight: 700;
               src: url(${GothamBold}) format('woff2');
               font-display: swap;
             }
@@ -69,8 +69,8 @@ function PostWrapper({
             {status => (
               <PostDate>
                 <Divider
-                  notchWidth={windowSize.width > mobile ? '90px' : '60px'}
-                  notchHeight={windowSize.width > mobile ? '10px' : '8px'}
+                  notchWidth={windowSize.width > media.mobile ? '90px' : '60px'}
+                  notchHeight={windowSize.width > media.mobile ? '10px' : '8px'}
                   collapsed={status !== 'entered'}
                 />
                 <PostDateText status={status}>
@@ -144,13 +144,13 @@ const PostHeader = styled.header`
     grid-gap: 60px;
   }
 
-  @media (max-width: ${props => props.theme.laptop}px) {
+  @media (max-width: ${media.laptop}px) {
     padding-left: 180px;
     grid-gap: 40px;
     min-height: 70vh;
   }
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     padding-left: 160px;
     min-height: 40vh;
     grid-gap: 20px;
@@ -160,7 +160,7 @@ const PostHeader = styled.header`
     padding-left: 100px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px), ${props => props.theme.mobileLS} {
+  @media (max-width: ${media.mobile}px), ${media.mobileLS} {
     grid-template-columns: 100%;
     grid-gap: 20px;
     height: auto;
@@ -180,27 +180,27 @@ const PostHeaderText = styled.div`
   padding: 60px 0 80px;
   max-width: 800px;
 
-  @media (max-width: ${props => props.theme.mobile}px), ${props => props.theme.mobileLS} {
+  @media (max-width: ${media.mobile}px), ${media.mobileLS} {
     padding: 100px 0 0;
   }
 `;
 
 const PostDate = styled.div`
   font-size: 18px;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   margin-bottom: 60px;
-  color: ${props => props.theme.colorPrimary};
+  color: rgb(var(--rgbPrimary));
   display: grid;
   grid-template-columns: 140px 1fr;
   grid-gap: 20px;
   align-items: center;
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     margin-bottom: 30px;
     grid-gap: 10px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     grid-template-columns: 100px 1fr;
   }
 `;
@@ -208,29 +208,29 @@ const PostDate = styled.div`
 const PostDateText = styled.span`
   opacity: ${props => props.status === 'entered' ? 1 : 0};
   transform: ${props => props.status === 'entered' ? 'none' : 'translate3d(-5%, 0, 0)'};
-  transition: opacity 0.8s ease, transform 0.8s ${props => props.theme.curveFastoutSlowin};
+  transition: opacity 0.8s ease, transform 0.8s var(--curveFastoutSlowin);
 `;
 
 const PostTitle = styled.h1`
   font-size: 94px;
-  font-weight: 600;
+  font-weight: var(--fontWeightBold);
   line-height: 1.1;
   margin: 0;
-  color: ${props => props.theme.colorTitle};
+  color: rgb(var(--rgbTitle));
 
   @media (max-width: 1600px) {
     font-size: 80px;
   }
 
-  @media (max-width: ${props => props.theme.laptop}px) {
+  @media (max-width: ${media.laptop}px) {
     font-size: 64px;
   }
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     font-size: 42px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 36px;
   }
 `;
@@ -253,7 +253,7 @@ const PostTitleWordWrapper = styled.span`
 const PostTitleWord = styled.span`
   transform: translate3d(0, 110%, 0);
   animation-name: ${AnimPostTitleWord};
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-timing-function: var(--curveFastoutSlowin);
   animation-duration: 1.2s;
   animation-delay: ${props => props.index * 120 + 200}ms;
   animation-fill-mode: forwards;
@@ -270,7 +270,7 @@ const PostBanner = styled.div`
   height: 100%;
   z-index: 1024;
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     min-height: 40vh;
     z-index: 1;
   }
@@ -306,7 +306,7 @@ const PostBannerArrow = styled.a`
   left: -10px;
   padding: 20px;
   animation-name: ${AnimFade};
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-timing-function: var(--curveFastoutSlowin);
   animation-duration: 0.6s;
   animation-fill-mode: forwards;
   animation-delay: 1s;
@@ -317,18 +317,18 @@ const PostBannerArrow = styled.a`
   }
 
   svg {
-    stroke: ${props => rgba(props.theme.colorText, 0.5)};
+    stroke: rgb(var(--rgbTitle) / 0.5);
     animation-name: ${AnimMobileScrollIndicator};
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
     transition-timing-function: cubic-bezier(.8,.1,.27,1);
   }
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     left: -20px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     position: relative;
     margin-top: 20px;
     align-self: flex-start;
@@ -336,7 +336,7 @@ const PostBannerArrow = styled.a`
 `;
 
 const PostBannerReadTime = styled.div`
-  color: ${props => rgba(props.theme.colorText, 0.6)};
+  color: rgb(var(--rgbTitle) / 0.6);
   font-size: 16px;
   position: absolute;
   bottom: 10px;
@@ -347,7 +347,7 @@ const PostBannerReadTime = styled.div`
   grid-template-columns: 60px 1fr;
   grid-gap: 10px;
   animation-name: ${AnimFade};
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-timing-function: var(--curveFastoutSlowin);
   animation-duration: 0.6s;
   animation-fill-mode: forwards;
   animation-delay: 1s;
@@ -360,7 +360,7 @@ const PostBannerReadTime = styled.div`
   &::before {
     content: '';
     height: 2px;
-    background: ${props => rgba(props.theme.colorText, 0.4)};
+    background: rgb(var(--rgbTitle) / 0.4);
     display: block;
   }
 `;
@@ -376,7 +376,7 @@ const PostContent = styled.div`
   align-self: center;
   margin-top: 120px;
   animation-name: ${AnimFade};
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-timing-function: var(--curveFastoutSlowin);
   animation-duration: 1.2s;
   animation-delay: 1s;
   animation-fill-mode: forwards;
@@ -397,7 +397,7 @@ const PostContent = styled.div`
     margin-top: 80px;
   }
 
-  @media (max-width: ${props => props.theme.laptop}px) {
+  @media (max-width: ${media.laptop}px) {
     grid-template-columns: 1fr 60px 680px 60px 1fr;
     margin-top: 80px;
   }
@@ -407,7 +407,7 @@ const PostContent = styled.div`
     margin-top: 80px;
   }
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     grid-template-columns: 100%;
     margin-top: 70px;
 
@@ -416,34 +416,34 @@ const PostContent = styled.div`
     }
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     margin-top: 60px;
   }
 `;
 
 const HeadingTwo = styled.h2`
-  color: ${props => props.theme.colorTitle};
+  color: rgb(var(--rgbTitle));
   margin: 0;
   font-size: 42px;
   grid-column: 3;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
 
-  @media (max-width: ${props => props.theme.laptop}px) {
+  @media (max-width: ${media.laptop}px) {
     font-size: 34px;
   }
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     font-size: 24px;
     grid-column: 1;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 22px;
   }
 `;
 
 const Paragrapgh = styled.p`
-  color: ${props => rgba(props.theme.colorText, 0.8)};
+  color: rgb(var(--rgbTitle) / 0.8);
   margin: 0;
   font-size: 24px;
   line-height: 1.5;
@@ -457,7 +457,7 @@ const Paragrapgh = styled.p`
     margin-top: 26px;
   }
 
-  @media (max-width: ${props => props.theme.laptop}px) {
+  @media (max-width: ${media.laptop}px) {
     font-size: 20px;
 
     ${HeadingTwo} + & {
@@ -469,7 +469,7 @@ const Paragrapgh = styled.p`
     }
   }
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     grid-column: 1;
 
     ${HeadingTwo} + & {
@@ -477,7 +477,7 @@ const Paragrapgh = styled.p`
     }
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 18px;
     hyphens: auto;
 
@@ -499,17 +499,17 @@ const Image = styled.img`
   height: auto;
   grid-column: 2 / span 3;
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     grid-column: 1;
     margin: 60px 0;
   }
 `;
 
 const InlineCode = styled.code`
-  color: ${props => rgba(props.theme.colorText, 0.6)};
-  background: ${props => rgba(props.theme.colorText, 0.1)};
+  color: rgb(var(--rgbTitle) / 0.6);
+  background: rgb(var(--rgbTitle) / 0.1);
   padding: 0.1em 0.3em;
-  font-family: ${props => props.theme.monoFontStack};
+  font-family: var(--monoFontStack);
 `;
 
 const components = {

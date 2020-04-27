@@ -9,7 +9,6 @@ import {
   ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader,
   ProjectSectionHeading, ProjectSectionText, ProjectTextRow,
 } from 'components/Project';
-import { rgba } from 'utils/style';
 import volkiharBackground from 'assets/volkihar-background.jpg';
 import volkiharBackgroundLarge from 'assets/volkihar-background-large.jpg';
 import volkiharBackgroundPlaceholder from 'assets/volkihar-background-placeholder.jpg';
@@ -37,6 +36,8 @@ import volkiharSlide3Large from 'assets/volkihar-slide-3-large.jpg';
 import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
 import { ReactComponent as VolkiharKnightLogo } from 'assets/volkihar-logo.svg';
 import prerender from 'utils/prerender';
+import { media } from 'utils/style';
+import { createThemeProperties } from 'app/theme';
 
 const DisplacementCarousel = lazy(() => import('components/DisplacementCarousel'));
 
@@ -63,10 +64,10 @@ function ProjectVolkihar() {
     if ((status === 'entered' || status === 'exiting')) {
       dispatch({
         type: 'updateTheme', value: {
-          colorPrimary: theme.id === 'dark'
-            ? 'rgba(240, 211, 150, 1)'
-            : themeRef.current.colorPrimary,
-          colorAccent: 'rgba(240, 211, 150, 1)',
+          rgbPrimary: theme.id === 'dark'
+            ? '240 211 150'
+            : themeRef.current.rgbPrimary,
+          rgbAccent: '240 211 150',
         }
       });
     }
@@ -235,7 +236,7 @@ const ProjectSectionColumns = styled(ProjectSectionContent)`
   grid-gap: 70px;
   margin: 0;
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     grid-template-columns: 1fr;
   }
 `;
@@ -255,7 +256,7 @@ const VolkiharLogoContainer = styled.div`
   margin-bottom: 80px;
   width: 100%;
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     padding: ${props => props.theme.id === 'light' ? '30px' : 0} 40px;
     margin-bottom: 40px;
   }
@@ -277,15 +278,15 @@ const ProjectBackgroundSection = styled.section`
   ${ProjectSectionContent} {
     padding: 120px 0 140px;
 
-    @media (max-width: ${props => props.theme.laptop}px) {
+    @media (max-width: ${media.laptop}px) {
       padding: 40px 0 100px;
     }
 
-    @media (max-width: ${props => props.theme.tablet}px) {
+    @media (max-width: ${media.tablet}px) {
       padding: 30px 0 60px;
     }
 
-    @media (max-width: ${props => props.theme.mobile}px) {
+    @media (max-width: ${media.mobile}px) {
       padding: 20px 0 40px;
     }
   }
@@ -309,13 +310,13 @@ const ProjectSectionBackgroundImage = styled(ProgressiveImage)`
     position: relative;
     background:
       linear-gradient(
-        ${props => rgba(props.theme.colorBackground, 1)} 0%,
-        ${props => rgba(props.theme.colorBackground, 0.9)} 20%,
-        ${props => rgba(props.theme.colorBackground, 0)} 100%),
+        rgb(var(--rgbBackground) / 1) 0%,
+        rgb(var(--rgbBackground) / 0.9) 20%,
+        rgb(var(--rgbBackground) / 0) 100%),
       linear-gradient(
-        ${props => rgba(props.theme.colorBackground, 0)} 0%,
-        ${props => rgba(props.theme.colorBackground, 0.9)} 80%,
-        ${props => rgba(props.theme.colorBackground, 1)} 100%);
+        rgb(var(--rgbBackground) / 0) 0%,
+        rgb(var(--rgbBackground) / 0.9) 80%,
+        rgb(var(--rgbBackground) / 1) 100%);
   }
 `;
 

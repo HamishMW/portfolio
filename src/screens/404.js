@@ -4,10 +4,10 @@ import { Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
 import { RouterButton } from 'components/Button';
 import DecoderText from 'components/DecoderText';
-import { rgba } from 'utils/style';
 import Notfound from 'assets/notfound.mp4';
 import NotfoundPoster from 'assets/notfound.jpg';
 import { reflow } from 'utils/transition';
+import { media } from 'utils/style';
 
 function NotFound() {
   return (
@@ -78,7 +78,7 @@ const NotFoundSection = styled.section`
   height: 100vh;
   padding-left: 140px;
 
-  @media(max-width: ${props => props.theme.tablet}px) {
+  @media(max-width: ${media.tablet}px) {
     padding-top: 80px;
     padding-bottom: 80px;
     padding-left: 80px;
@@ -87,7 +87,7 @@ const NotFoundSection = styled.section`
     height: auto;
   }
 
-  @media(max-width: ${props => props.theme.mobile}px) {
+  @media(max-width: ${media.mobile}px) {
     padding-left: 0;
   }
 `;
@@ -119,17 +119,17 @@ const NotFoundVideoContainer = styled.div`
   position: relative;
   border: 30px solid transparent;
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     min-height: 240px;
     grid-row: 1;
   }
 
   &::after {
     content: '';
-    background: ${props => props.theme.colorAccent};
+    background: rgb(var(--rgbAccent));
     animation-name: ${props => props.status === 'entered' && css`${AnimVideo}`};
     animation-duration: 1.8s;
-    animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+    animation-timing-function: var(--curveFastoutSlowin);
 
     position: absolute;
     top: 0;
@@ -156,14 +156,14 @@ const NotFoundVideo = styled.video`
     opacity: 1;
   `}
 
-  @media(max-width: ${props => props.theme.mobile}px) {
+  @media(max-width: ${media.mobile}px) {
     left: 0;
   }
 `;
 
 const NotFoundCredit = styled.a`
-  color: ${props => rgba(props.theme.colorWhite, 0.4)};
-  background: ${props => rgba(props.theme.colorBlack, 0.6)};
+  color: rgb(var(--rgbWhite) / 0.4);
+  background: rgb(var(--rgbBlack) / 0.6);
   padding: 4px 8px;
   font-size: 14px;
   position: absolute;
@@ -182,7 +182,7 @@ const NotFoundCredit = styled.a`
 
   &:hover,
   &:focus {
-    color: ${props => props.theme.colorWhite};
+    color: rgb(var(--rgbWhite));
   }
 `;
 
@@ -193,7 +193,7 @@ const NotfoundDetails = styled.div`
   padding: 0 40px;
   height: 100%;
 
-  @media(max-width: ${props => props.theme.mobile}px) {
+  @media(max-width: ${media.mobile}px) {
     padding: 0 30px;
     grid-row: 2;
   }
@@ -210,16 +210,16 @@ const NotFoundTitle = styled.h1`
   margin: 0;
   margin-bottom: 16px;
   font-size: 86px;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: var(--curveFastoutSlowin);
   transition-duration: 0.8s;
   transition-delay: 0.1s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
-  color: ${props => props.theme.colorTitle};
+  color: rgb(var(--rgbTitle));
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 64px;
   }
 
@@ -231,14 +231,14 @@ const NotFoundTitle = styled.h1`
 
 const NotFoundSubHeading = styled.h2`
   font-size: 24px;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   margin: 0;
   margin-bottom: 24px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: ${props => rgba(props.theme.colorText, 0.4)};
+  color: rgb(var(--rgbTitle) / 0.4);
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: var(--curveFastoutSlowin);
   transition-duration: 0.8s;
   transition-delay: 0.2s;
   transform: translate3d(0, 40px, 0);
@@ -247,7 +247,7 @@ const NotFoundSubHeading = styled.h2`
   white-space: nowrap;
   flex: 0 0 auto;
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 18px;
   }
 
@@ -258,14 +258,14 @@ const NotFoundSubHeading = styled.h2`
 `;
 
 const NotFoundDescription = styled.p`
-  color: ${props => rgba(props.theme.colorText, 0.9)};
+  color: rgb(var(--rgbTitle) / 0.9);
   margin: 0;
   margin-bottom: 20px;
   padding: 0;
   font-size: 18px;
   line-height: 1.4;
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: var(--curveFastoutSlowin);
   transition-duration: 0.8s;
   transition-delay: 0.3s;
   transform: translate3d(0, 40px, 0);
@@ -279,7 +279,7 @@ const NotFoundDescription = styled.p`
 
 const NotFoundButton = styled(RouterButton)`
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: var(--curveFastoutSlowin);
   transition-duration: 0.8s;
   transition-delay: 0.4s;
   transform: translate3d(0, 40px, 0);

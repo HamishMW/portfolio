@@ -4,6 +4,7 @@ import lottie from 'lottie-web/build/player/lottie_light.min';
 import { Button } from 'components/Button';
 import themeIconData from 'data/themeIcon.json';
 import { usePrefersReducedMotion, useAppContext } from 'hooks';
+import { media } from 'utils/style';
 
 export default function ThemeToggle({ isMobile, ...rest }) {
   const theme = useTheme();
@@ -64,22 +65,22 @@ const ThemeToggleButton = styled(Button)`
   width: 48px;
   height: 48px;
   padding: 6px;
-  top: ${props => props.theme.spacingOuter.desktop - 8}px;
-  right: ${props => props.theme.spacingOuter.desktop - 8}px;
+  top: var(--spacingOuter);
+  right: var(--spacingOuter);
+  margin-top: -8px;
+  margin-right: -8px;
   transform: translate3d(0, 0, 0);
-
-  @media (max-width: ${props => props.theme.tablet}px) {
-    top: ${props => props.isMobile ? 'unset' : `${props.theme.spacingOuter.tablet - 8}px`};
-    right: ${props => props.isMobile ? '30px' : `${props.theme.spacingOuter.tablet - 8}px`};
-  }
 
   ${props => props.isMobile && css`
     top: unset;
     bottom: 30px;
+    right: 30px;
+    margin-top: 0;
+    margin-right: 0;
   `}
 
   ${props => !props.isMobile && css`
-    @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
+    @media (max-width: ${media.mobile}px), (max-height: ${media.mobile}px) {
       display: none;
     }
   `}
@@ -96,11 +97,11 @@ const ThemeToggleButton = styled(Button)`
   }
 
   svg g > path {
-    stroke: ${props => props.theme.colorText};
+    stroke: rgb(var(--rgbText));
   }
 
   svg g[mask] path {
-    fill: ${props => props.theme.colorText};
+    fill: rgb(var(--rgbText));
     stroke: none;
   }
 `;

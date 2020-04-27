@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { useTheme } from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import ProgressiveImage from 'components/ProgressiveImage';
 import { useScrollRestore } from 'hooks';
@@ -15,6 +14,7 @@ import imageSprBuilder from 'assets/spr-builder.png';
 import imageSprBuilderLarge from 'assets/spr-builder-large.png';
 import imageSprBuilderPlaceholder from 'assets/spr-builder-placeholder.png';
 import prerender from 'utils/prerender';
+import { media } from 'utils/style';
 
 const title = 'Designing the future of education';
 const description = 'I worked as the design lead on a major iteration of Smart Sparrow’s product. We took the platform in a bold new direction, focusing on becoming the best tool for learning designers.';
@@ -25,7 +25,6 @@ const roles = [
 ];
 
 function ProjectSPR() {
-  const { mobile, tablet } = useTheme();
   useScrollRestore();
 
   return (
@@ -53,7 +52,7 @@ function ProjectSPR() {
                 reveal
                 srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
                 placeholder={imageSprBuilderPlaceholder}
-                sizes={`(max-width: ${mobile}px) 500px, (max-width: ${tablet}px) 800px, 1000px`}
+                sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
               />
             </ProjectImage>
           </ProjectSectionContent>

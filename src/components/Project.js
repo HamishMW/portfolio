@@ -1,10 +1,11 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { AnimFade, rgba, sectionPadding } from 'utils/style';
+import { AnimFade, sectionPadding } from 'utils/style';
 import ProgressiveImage from 'components/ProgressiveImage';
 import { LinkButton } from 'components/Button';
 import { useParallax } from 'hooks';
 import prerender from 'utils/prerender';
+import { media } from 'utils/style';
 
 const initDelay = 300;
 
@@ -74,28 +75,28 @@ export const ProjectSection = styled.section`
   align-items: center;
   ${sectionPadding}
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     padding-top: 60px;
     padding-bottom: 60px;
     height: auto;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     padding-top: 40px;
     padding-bottom: 40px;
   }
 
   ${props => props.light && css`
-    background: ${props.theme.colorBackgroundLight};
+    background: rgb(var(--rgbBackgroundLight));
     padding-top: 120px;
     padding-bottom: 140px;
 
-    @media (max-width: ${props => props.theme.tablet}px) {
+    @media (max-width: ${media.tablet}px) {
       padding-top: 80px;
       padding-bottom: 100px;
     }
 
-    @media (max-width: ${props => props.theme.mobile}px) {
+    @media (max-width: ${media.mobile}px) {
       padding-top: 80px;
       padding-bottom: 100px;
     }
@@ -145,8 +146,8 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs(props => ({
     width: 100%;
     height: 100%;
     background: linear-gradient(180deg,
-      ${props => rgba(props.theme.colorBackground, props.opacity)} 0%,
-      ${props => props.theme.colorBackground} 100%
+      ${props => `rgb(var(--rgbBackground) / ${props.opacity})`} 0%,
+      rgb(var(--rgbBackground)) 100%
     );
   }
 `;
@@ -155,12 +156,12 @@ const ProjectHeaderContainer = styled(ProjectSection)`
   padding-top: 140px;
   padding-bottom: 40px;
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     padding-top: 100px;
     padding-bottom: 0;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     padding-top: 130px;
     padding-bottom: 20px;
   }
@@ -171,10 +172,9 @@ const ProjectHeaderInner = styled.div`
   display: grid;
   grid-template-columns: 1fr 300px;
   grid-gap: 100px;
-  max-width: ${props => props.theme.maxWidthLaptop}px;
+  max-width: var(--maxWidth);
 
-  @media (min-width: ${props => props.theme.desktop}px) {
-    max-width: ${props => props.theme.maxWidthDesktop}px;
+  @media (min-width: ${media.desktop}px) {
     grid-template-columns: 1fr 400px;
   }
 
@@ -183,7 +183,7 @@ const ProjectHeaderInner = styled.div`
     grid-gap: 40px;
   }
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     grid-template-columns: 100%;
     grid-gap: 30px;
   }
@@ -207,9 +207,9 @@ const ProjectDetails = styled.div`
 const ProjectTitle = styled.h1`
   margin: 0;
   font-size: 54px;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   line-height: 1.1;
-  color: ${props => props.theme.colorTitle};
+  color: rgb(var(--rgbTitle));
   opacity: 0;
 
   @media (prefers-reduced-motion: reduce) {
@@ -217,14 +217,14 @@ const ProjectTitle = styled.h1`
   }
 
   ${props => props.entered && css`
-    animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay}ms forwards;
+    animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay}ms forwards;
   `}
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     font-size: 48px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 34px;
   }
 
@@ -243,10 +243,10 @@ const ProjectDescription = styled.p`
   }
 
   ${props => props.entered && css`
-    animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay + 100}ms forwards;
+    animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay + 100}ms forwards;
   `}
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 18px;
   }
 `;
@@ -259,7 +259,7 @@ const ProjectLinkButton = styled(LinkButton)`
   }
 
   ${props => props.entered && css`
-    animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay + 200}ms forwards;
+    animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay + 200}ms forwards;
   `}
 `;
 
@@ -274,26 +274,26 @@ const ProjectMetaItem = styled.li`
   padding: 30px 0;
   font-size: 16px;
   font-weight: ${props => props.theme.id === 'light' ? 500 : 400};
-  border-top: 1px solid ${props => rgba(props.theme.colorText, 0.2)};
+  border-top: 1px solid rgb(var(--rgbTitle) / 0.2);
   opacity: 0;
 
   &:last-child {
-    border-bottom: 1px solid ${props => rgba(props.theme.colorText, 0.2)};
+    border-bottom: 1px solid rgb(var(--rgbTitle) / 0.2);
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  @media(prefers-reduced-motion: reduce) {
     opacity: 1;
   }
 
   ${props => props.entered && css`
-    animation: ${AnimFadeSlide} 1.5s ${props.theme.curveFastoutSlowin} ${initDelay + 300 + props.index * 140}ms forwards;
+    animation: ${AnimFadeSlide} 1.5s var(--curveFastoutSlowin) ${initDelay + 300 + props.index * 140}ms forwards;
   `}
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media(max-width: ${media.tablet}px) {
     padding: 20px 0;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media(max-width: ${media.mobile}px) {
     padding: 15px 0;
   }
 `;
@@ -311,23 +311,19 @@ export const ProjectImage = styled.div`
 `;
 
 export const ProjectSectionContent = styled.div`
-  max-width: ${props => props.theme.maxWidthLaptop}px;
+  max-width: var(--maxWidth);
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  @media (min-width: ${props => props.theme.desktop}px) {
-    max-width: ${props => props.theme.maxWidthDesktop}px;
-  }
 `;
 
 export const ProjectSectionHeading = styled.h2`
   font-size: 32px;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   margin: 0;
-  color: ${props => props.theme.colorTitle};
+  color: rgb(var(--rgbTitle));
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media(max-width: ${media.mobile}px) {
     font-size: 24px;
   }
 `;
@@ -337,13 +333,13 @@ export const ProjectSectionText = styled.p`
   line-height: 1.4;
   margin: 0;
   margin-top: 28px;
-  color: ${props => rgba(props.theme.colorText, 0.7)};
+  color: rgb(var(--rgbTitle) / 0.7);
 
   & + a {
     margin-top: 14px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media(max-width: ${media.mobile}px) {
     font-size: 18px;
     margin-top: 22px;
   }
@@ -360,7 +356,7 @@ export const ProjectTextRow = styled.div`
   align-items: ${props => props.center ? 'center' : 'flex-start'};
 
   ${props => !props.centerMobile && css`
-    @media (max-width: ${props => props.theme.mobile}px) {
+    @media (max-width: ${media.mobile}px) {
       text-align: left;
       align-items: flex-start;
     }

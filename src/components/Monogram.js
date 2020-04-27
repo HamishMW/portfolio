@@ -21,16 +21,16 @@ function Monogram({ highlight, ...props }) {
 }
 
 const MonogramWrapper = styled.svg`
-  fill: ${props => props.theme.colorText};
+  fill: rgb(var(--rgbText));
 `;
 
 const MonogramHighlight = styled.rect`
-  fill: ${props => props.theme.colorAccent};
+  fill: rgb(var(--rgbAccent));
   opacity: 0;
   transform: scale3d(1, 0, 1);
   transform-origin: top;
   transition:
-    transform 0.4s ${props => props.theme.curveFastoutSlowin},
+    transform 0.4s var(--curveFastoutSlowin),
     opacity 0.1s ease 0.4s;
 
   a:focus &,
@@ -40,7 +40,7 @@ const MonogramHighlight = styled.rect`
     transform: scale3d(1, 1, 1);
     transform-origin: bottom;
     transition:
-      transform 0.4s ${props => props.theme.curveFastoutSlowin},
+      transform 0.4s var(--curveFastoutSlowin),
       opacity 0.1s ease;
   }
 `;

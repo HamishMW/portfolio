@@ -47,7 +47,7 @@ const LoaderContainer = styled.div`
 const LoaderText = styled.div`
   color: ${props => props.color};
   font-size: 16px;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
 `;
 
 const LoaderAnnouncement = styled.div`
@@ -96,7 +96,7 @@ const AnimSpan = keyframes`
 const LoaderSpan = styled.span`
   height: 60%;
   background: ${props => props.spanColor};
-  animation: ${AnimSpan} 1s ${props => props.theme.curveFastoutSlowin} infinite;
+  animation: ${AnimSpan} 1s var(--curveFastoutSlowin) infinite;
   transform: scaleY(0);
   transform-origin: top left;
 

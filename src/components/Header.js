@@ -1,14 +1,14 @@
 import React, { lazy, Suspense, useRef, useState, memo } from 'react';
-import styled, { css, useTheme } from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { NavLink, Link } from 'components/Link';
 import { Transition } from 'react-transition-group';
 import Monogram from 'components/Monogram';
 import Icon from 'components/Icon';
 import NavToggle from 'components/NavToggle';
-import { rgba } from 'utils/style';
 import { useWindowSize, useAppContext } from 'hooks';
 import { navLinks, socialLinks } from 'data/nav';
 import { reflow } from 'utils/transition';
+import { media } from 'utils/style';
 
 const ThemeToggle = lazy(() => import('components/ThemeToggle'));
 
@@ -24,12 +24,11 @@ const HeaderIcons = () => (
 
 function Header(props) {
   const { menuOpen, dispatch } = useAppContext();
-  const { mobile } = useTheme();
   const { location } = props;
   const [hashKey, setHashKey] = useState();
   const windowSize = useWindowSize();
   const headerRef = useRef();
-  const isMobile = windowSize.width <= mobile || windowSize.height <= 696;
+  const isMobile = windowSize.width <= media.mobile || windowSize.height <= 696;
 
   const handleNavClick = () => {
     setHashKey(Math.random().toString(32).substr(2, 8));
@@ -116,19 +115,11 @@ const HeaderWrapper = styled.header`
   padding: 0;
   width: 45px;
   z-index: 1024;
-  top: ${props => props.theme.spacingOuter.desktop}px;
-  left: ${props => props.theme.spacingOuter.desktop}px;
-  bottom: ${props => props.theme.spacingOuter.desktop}px;
+  top: var(--spacingOuter);
+  left: var(--spacingOuter);
+  bottom: var(--spacingOuter);
 
-  @media (max-width: ${props => props.theme.tablet}px) {
-    top: ${props => props.theme.spacingOuter.tablet}px;
-    left: ${props => props.theme.spacingOuter.tablet}px;
-    bottom: ${props => props.theme.spacingOuter.tablet}px;
-  }
-
-  @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
-    top: ${props => props.theme.spacingOuter.mobile}px;
-    left: ${props => props.theme.spacingOuter.mobile}px;
+  @media (max-width: ${media.mobile}px), (max-height: ${media.mobile}px) {
     bottom: auto;
   }
 `;
@@ -150,7 +141,7 @@ const HeaderNav = styled.nav`
   position: relative;
   top: -10px;
 
-  @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px), (max-height: ${media.mobile}px) {
     display: none;
   }
 `;
@@ -163,9 +154,9 @@ const HeaderNavList = styled.div`
 
 const HeaderNavLink = styled(NavLink)`
   padding: 20px;
-  color: ${props => rgba(props.theme.colorText, 0.8)};
+  color: rgb(var(--rgbTitle) / 0.8);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   position: relative;
   transition: color 0.3s ease 0.1s;
   line-height: 1;
@@ -174,7 +165,7 @@ const HeaderNavLink = styled(NavLink)`
   &:active,
   &:focus,
   &.active {
-    color: ${props => props.theme.colorText};
+    color: rgb(var(--rgbText));
   }
 
   &::after {
@@ -184,9 +175,9 @@ const HeaderNavLink = styled(NavLink)`
     right: 10px;
     left: 10px;
     height: 4px;
-    background: ${props => props.theme.colorAccent};
+    background: rgb(var(--rgbAccent));
     transform: scaleX(0) translateY(-2px);
-    transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+    transition: transform 0.4s var(--curveFastoutSlowin);
     transform-origin: right;
   }
 
@@ -207,14 +198,14 @@ const HeaderNavIcons = styled.div`
   position: relative;
   z-index: 16;
 
-  @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px), (max-height: ${media.mobile}px) {
     flex-direction: row;
     position: absolute;
     bottom: 30px;
     left: 30px;
   }
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${media.mobileLS} {
     left: 20px;
     transform: none;
     flex-direction: column;
@@ -232,13 +223,13 @@ const HeaderNavIconLink = styled.a.attrs({
 `;
 
 const HeaderNavIcon = styled(Icon)`
-  fill: ${props => rgba(props.theme.colorText, 0.6)};
+  fill: rgb(var(--rgbTitle) / 0.6);
   transition: fill 0.4s ease;
 
   ${/* sc-selector */HeaderNavIconLink}:hover &,
   ${/* sc-selector */HeaderNavIconLink}:focus &,
   ${/* sc-selector */HeaderNavIconLink}:active & {
-    fill: ${props => props.theme.colorAccent};
+    fill: rgb(var(--rgbAccent));
   }
 `;
 
@@ -248,18 +239,18 @@ const HeaderMobileNav = styled.nav`
   right: 0;
   bottom: 0;
   left: 0;
-  background: ${props => rgba(props.theme.colorBackground, 0.9)};
+  background: rgb(var(--rgbBackground) / 0.9);
   transform: translate3d(0, ${props => props.status === 'entered' ? 0 : '-100%'}, 0);
   transition-property: transform, background;
   transition-duration: 0.5s;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: var(--curveFastoutSlowin);
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(10px);
 
-  @media (max-width: ${props => props.theme.mobile}px), (max-height: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px), (max-height: ${media.mobile}px) {
     display: flex;
   }
 `;
@@ -271,16 +262,16 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   font-size: 22px;
   text-align: center;
   text-decoration: none;
-  color: ${props => props.theme.colorText};
+  color: rgb(var(--rgbText));
   padding: 20px;
   transform: translate3d(0, -30px, 0);
   opacity: 0;
-  transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
+  transition: all 0.3s var(--curveFastoutSlowin);
   transition-delay: ${props => props.delay}ms;
   position: relative;
   top: -15px;
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${media.mobileLS} {
     top: auto;
   }
 
@@ -304,9 +295,9 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     right: 60px;
     left: 60px;
     height: 4px;
-    background: ${props => props.theme.colorAccent};
+    background: rgb(var(--rgbAccent));
     transform: scaleX(0) translateY(-1px);
-    transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+    transition: transform 0.4s var(--curveFastoutSlowin);
     transform-origin: right;
   }
 

@@ -1,12 +1,13 @@
 import React, { Suspense, lazy, useMemo, useEffect, useState, Fragment, memo } from 'react';
 import styled, { css, keyframes, useTheme } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import { AnimFade, rgba, sectionPadding } from 'utils/style';
+import { AnimFade, sectionPadding } from 'utils/style';
 import DecoderText from 'components/DecoderText';
 import Svg from 'components/Svg';
 import { useInterval, usePrevious, useWindowSize } from 'hooks';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
+import { media } from 'utils/style';
 
 const DisplacementSphere = lazy(() => import('components/DisplacementSphere'));
 
@@ -123,11 +124,11 @@ const IntroText = styled.header`
   position: relative;
   top: -20px;
 
-  @media (min-width: ${props => props.theme.desktop}px) {
+  @media (min-width: ${media.desktop}px) {
     max-width: 920px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     top: -60px;
   }
 
@@ -135,7 +136,7 @@ const IntroText = styled.header`
     top: -30px;
   }
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${media.mobileLS} {
     top: -16px;
   }
 `;
@@ -144,10 +145,10 @@ const IntroName = styled.h1`
   text-transform: uppercase;
   font-size: 24px;
   letter-spacing: 0.3em;
-  color: ${props => rgba(props.theme.colorText, 0.8)};
+  color: rgb(var(--rgbTitle) / 0.8);
   margin-bottom: 40px;
   margin-top: 0;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   line-height: 1;
   opacity: 0;
 
@@ -159,24 +160,24 @@ const IntroName = styled.h1`
     opacity: 1;
   `}
 
-  @media (min-width: ${props => props.theme.desktop}px) {
+  @media (min-width: ${media.desktop}px) {
     font-size: 28px;
     margin-bottom: 40px;
   }
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     font-size: 18px;
     margin-bottom: 40px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     margin-bottom: 20px;
     letter-spacing: 0.2em;
     white-space: nowrap;
     overflow: hidden;
   }
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${media.mobileLS} {
     margin-bottom: 20px;
     margin-top: 30px;
   }
@@ -188,9 +189,9 @@ const IntroTitle = styled.h2`
   font-size: 100px;
   margin: 0;
   letter-spacing: -0.005em;
-  font-weight: ${props => props.theme.id === 'light' ? 600 : 500};
+  font-weight: var(--fontWeightMedium);
 
-  @media (min-width: ${props => props.theme.desktop}px) {
+  @media (min-width: ${media.desktop}px) {
     font-size: 120px;
   }
 
@@ -229,11 +230,19 @@ const IntroTitleRow = styled.span`
   `}
 `;
 
-const AnimTextReveal = props => keyframes`
-  0% { color: ${rgba(props.theme.colorTitle, 0)}; }
-  50% { color: ${rgba(props.theme.colorTitle, 0)}; }
-  60% { color: ${props.theme.colorTitle}; }
-  100% { color: ${props.theme.colorTitle}; }
+const AnimTextReveal = keyframes`
+  0% {
+    color: rgb(var(--rgbTitle) / 0);
+  }
+  50% {
+    color: rgb(var(--rgbTitle) / 0);
+  }
+  60% {
+    color: rgb(var(--rgbTitle));
+  }
+  100% {
+    color: rgb(var(--rgbTitle));
+  }
 `;
 
 const AnimTextRevealMask = keyframes`
@@ -266,20 +275,20 @@ const IntroTitleWord = styled.span`
   line-height: 1;
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
-  color: ${props => rgba(props.theme.colorTitle, 0)};
+  animation-timing-function: var(--curveFastoutSlowin);
+  color: rgb(var(--rgbTitle) / 0);
   transition: opacity 0.5s ease 0.4s;
 
   ${props => props.status === 'entering' && css`
-    animation-name: ${AnimTextReveal(props)};
+    animation-name: ${AnimTextReveal};
   `}
 
   ${props => props.status === 'entered' && css`
-    color: ${props.theme.colorTitle};
+    color: rgb(var(--rgbTitle));
   `}
 
   ${props => props.status === 'exiting' && css`
-    color: ${props.theme.colorTitle};
+    color: rgb(var(--rgbTitle));
     opacity: 0;
     position: absolute;
     top: 0;
@@ -290,11 +299,11 @@ const IntroTitleWord = styled.span`
     content: '';
     width: 100%;
     height: 100%;
-    background: ${props => props.theme.colorAccent};
+    background: rgb(var(--rgbAccent));
     opacity: 0;
     animation-duration: 1.5s;
     animation-fill-mode: forwards;
-    animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+    animation-timing-function: var(--curveFastoutSlowin);
     transform-origin: left;
     position: absolute;
     top: 0;
@@ -345,14 +354,14 @@ const AnimLineIntro = keyframes`
 const IntroTitleLine = styled.span`
   content: '';
   height: 2px;
-  background: ${props => rgba(props.theme.colorText, 0.3)};
+  background: rgb(var(--rgbTitle) / 0.3);
   width: 120%;
   display: flex;
   margin-left: 20px;
   animation-duration: 0.8s;
   animation-delay: 1s;
   animation-fill-mode: forwards;
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-timing-function: var(--curveFastoutSlowin);
   transform-origin: left;
   opacity: 0;
 
@@ -382,7 +391,7 @@ const AnimScrollIndicator = keyframes`
 `;
 
 const ScrollIndicator = styled.div`
-  border: 2px solid ${props => rgba(props.theme.colorText, 0.4)};
+  border: 2px solid rgb(var(--rgbTitle) / 0.4);
   border-radius: 20px;
   width: 26px;
   height: 38px;
@@ -398,7 +407,7 @@ const ScrollIndicator = styled.div`
     content: '';
     height: 7px;
     width: 2px;
-    background: ${props => rgba(props.theme.colorText, 0.4)};
+    background: rgb(var(--rgbTitle) / 0.4);
     border-radius: 4px;
     position: absolute;
     top: 6px;
@@ -407,7 +416,7 @@ const ScrollIndicator = styled.div`
     animation: ${css`${AnimScrollIndicator} 2s ease infinite`};
   }
 
-  @media ${props => props.theme.mobileLS} {
+  @media ${media.mobileLS} {
     display: none;
   }
 `;
@@ -433,15 +442,15 @@ const MobileScrollIndicator = styled.div`
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
   transition-property: opacity, transform;
-  transition-timing-function: cubic-bezier(.8,.1,.27,1);
+  transition-timing-function: cubic-bezier(.8, .1, .27, 1);
   transition-duration: 0.4s;
 
-  @media ${props => props.theme.mobileLS}px {
+  @media ${media.mobileLS} {
     display: none;
   }
 
   svg {
-    stroke: ${props => rgba(props.theme.colorText, 0.5)};
+    stroke: rgb(var(--rgbTitle) / 0.5);
   }
 `;
 

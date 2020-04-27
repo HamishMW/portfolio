@@ -144,7 +144,7 @@ const DecoderWrapper = styled.span`
 
   .decoder-text__code {
     opacity: 0.8;
-    font-weight: 400;
+    font-weight: var(--fontWeightRegular);
     font-family: ${japaneseFonts.join(', ')};
     line-height: 0;
   }

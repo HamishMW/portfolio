@@ -3,7 +3,7 @@ import styled, { css, useTheme } from 'styled-components/macro';
 import { Link } from 'components/Link';
 import Loader from 'components/Loader';
 import Icon from './Icon';
-import { rgba } from 'utils/style';
+import { cornerClip } from 'utils/style';
 
 function ButtonContent({
   iconRight,
@@ -51,7 +51,7 @@ function ButtonContent({
         <ButtonLoader
           size={32}
           text={loadingText}
-          color={theme.colorBackground}
+          color={`rgb(${theme.rgbBackground})`}
         />
       }
     </Fragment>
@@ -121,11 +121,11 @@ const ButtonContainer = styled.button`
   border: 0;
   margin: 0;
   cursor: pointer;
-  transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
+  transition: all 0.3s var(--curveFastoutSlowin);
   display: flex;
   display: inline-flex;
   align-items: center;
-  color: ${props => props.theme.colorBackground};
+  color: rgb(var(--rgbBackground));
   text-decoration: none;
   font-family: inherit;
   position: relative;
@@ -138,9 +138,8 @@ const ButtonContainer = styled.button`
   ${props => !props.secondary && css`
     &::before {
       content: '';
-      transition: all 0.4s ${props.theme.curveFastoutSlowin};
-      background: ${rgba(props.theme.colorPrimary, 0.4)};
-      clip-path: ${props.theme.clipPath(10)};
+      transition: all 0.4s var(--curveFastoutSlowin);
+      background: rgb(var(--rgbPrimary) / 0.4);
       position: absolute;
       top: -5px;
       right: -5px;
@@ -148,19 +147,20 @@ const ButtonContainer = styled.button`
       left: -5px;
       z-index: -1;
       opacity: 0;
+      ${cornerClip(10)}
     }
 
     &::after {
       content: '';
-      transition: all 0.4s ${props.theme.curveFastoutSlowin};
-      background: ${props.theme.colorPrimary};
-      clip-path: ${props.theme.clipPath(8)};
+      transition: all 0.4s var(--curveFastoutSlowin);
+      background: rgb(var(--rgbPrimary));
       position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
       z-index: -1;
+      ${cornerClip(8)}
     }
   `}
 
@@ -170,16 +170,16 @@ const ButtonContainer = styled.button`
     justify-content: center;
 
     &::after {
-      background: ${rgba(props.theme.colorText, 0)};
+      background: rgb(var(--rgbTitle) / 0);
     }
 
     &:hover::after,
     &:focus::after {
-      background: ${rgba(props.theme.colorText, 0.1)};
+      background: rgb(var(--rgbTitle) / 0.1);
     }
 
     &::before {
-      background: ${rgba(props.theme.colorText, 0.4)};
+      background: rgb(var(--rgbTitle) / 0.4);
       top: -4px;
       right: -4px;
       bottom: -4px;
@@ -220,7 +220,7 @@ const ButtonContainer = styled.button`
 
   ${props => props.secondary && css`
     background: none;
-    color: ${props.theme.colorPrimary};
+    color: rgb(var(--rgbPrimary));
     padding-left: 10px;
     padding-right: 10px;
     position: relative;
@@ -234,10 +234,10 @@ const ButtonContainer = styled.button`
       right: 0;
       bottom: 0;
       left: 0;
-      background: ${rgba(props.theme.colorPrimary, 0.2)};
+      background-color: rgb(var(--rgbPrimary) / 0.2);
       transform: scale3d(0, 1, 1) translateY(-50%);
       transform-origin: right;
-      transition: transform 0.4s ${props.theme.curveFastoutSlowin};
+      transition: transform 0.4s var(--curveFastoutSlowin);
     }
 
     &:hover,
@@ -257,7 +257,7 @@ const ButtonContainer = styled.button`
 
     &::before {
       content: '';
-      transition: box-shadow 0.4s ${props.theme.curveFastoutSlowin};
+      transition: box-shadow 0.4s var(--curveFastoutSlowin);
       transform: translateY(-50%);
       height: 30px;
       position: absolute;
@@ -268,7 +268,7 @@ const ButtonContainer = styled.button`
     }
 
     &:focus::before {
-      box-shadow: 0 0 0 4px ${props => rgba(props.theme.colorPrimary, 0.4)};
+      box-shadow: 0 0 0 4px rgb(var(--rgbPrimary) / 0.4);
     }
   `}
 
@@ -279,7 +279,7 @@ const ButtonContainer = styled.button`
 
 const ButtonText = styled.span`
   font-size: 18px;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   position: relative;
   line-height: 1;
   flex: 1 1 auto;
@@ -289,27 +289,27 @@ const ButtonText = styled.span`
   `}
 
   ${props => props.secondary
-    ? `color: ${props.theme.colorPrimary};`
-    : `color: ${props.theme.colorBackground};
+    ? `color: rgb(var(--rgbPrimary));`
+    : `color: rgb(var(--rgbBackground));
   `}
 
   ${props => props.iconOnly && `
-    color: ${props.theme.colorText};
+    color: rgb(var(--rgbText));
   `}
 `;
 
 const ButtonIcon = styled(Icon)`
   margin-left: ${props => (props.left ? '0' : '6px')};
   margin-right: ${props => (props.left ? '6px' : '0')};
-  transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
-  fill: ${props => props.theme.colorBackground};
+  transition: all 0.3s var(--curveFastoutSlowin);
+  fill: rgb(var(--rgbBackground));
 
   ${props => props.secondary && css`
-    fill: ${props.theme.colorPrimary};
+    fill: rgb(var(--rgbPrimary));
   `}
 
   ${props => props.iconOnly && css`
-    fill: ${props.theme.colorText};
+    fill: rgb(var(--rgbText));
     margin: 0;
   `}
 

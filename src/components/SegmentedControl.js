@@ -1,6 +1,5 @@
 import React, { createContext, useRef, useContext, useLayoutEffect, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components/macro';
-import { rgba } from 'utils/style';
 
 const SegmentedControlContext = createContext({});
 
@@ -92,7 +91,7 @@ const SegmentedControlContainer = styled.div`
 
   &::before {
     content: '';
-    background-color: ${props => props.theme.colorText};
+    background-color: rgb(var(--rgbText));
     position: absolute;
     top: 0;
     right: 0;
@@ -121,7 +120,7 @@ const SegmentedControlButton = styled.button`
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  color: ${props => props.theme.colorText};
+  color: rgb(var(--rgbText));
   transition-property: color, background;
   transition-duration: 0.4s;
   transition-timing-function: ease;
@@ -130,7 +129,7 @@ const SegmentedControlButton = styled.button`
   height: 56px;
   font-size: inherit;
   font-family: inherit;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   cursor: pointer;
 
   &::-moz-focus-inner {
@@ -138,12 +137,12 @@ const SegmentedControlButton = styled.button`
   }
 
   &[aria-selected=true] {
-    color: ${props => props.theme.colorBackground};
+    color: rgb(var(--rgbBackground));
   }
 
   &::before {
     content: '';
-    background: ${props => rgba(props.theme.colorText, 0.4)};
+    background: rgb(var(--rgbTitle) / 0.4);
     opacity: 0;
     position: absolute;
     top: -4px;
@@ -163,7 +162,7 @@ const SegmentedControlButton = styled.button`
   }
 
   & + & {
-    box-shadow: inset 2px 0 0 ${props => props.theme.colorText};
+    box-shadow: inset 2px 0 0 rgb(var(--rgbText));
   }
 
   &:focus {
@@ -176,10 +175,10 @@ const SegmentedControlIndicator = styled.div`
   top: 2px;
   bottom: 2px;
   left: 0;
-  background-color: ${props => props.theme.colorText};
+  background-color: rgb(var(--rgbText));
   transition-property: width, transform, clip-path;
   transition-duration: 0.4s;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: var(--curveFastoutSlowin);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
 
   ${props => props.isLast && css`

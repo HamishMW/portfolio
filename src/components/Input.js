@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components/macro';
 import TextArea from 'components/TextArea';
-import { rgba } from 'utils/style';
 import { useId } from 'hooks';
 
 function Input(props) {
@@ -39,14 +38,14 @@ const InputWrapper = styled.div`
 `;
 
 const AutoFillStyle = css`
-  -webkit-text-fill-color:  ${props => props.theme.colorText};
-  box-shadow: 0 0 0px 1000px ${props => rgba(props.theme.colorText, 0.1)} inset;
+  -webkit-text-fill-color:  rgb(var(--rgbText));
+  box-shadow: 0 0 0px 1000px rgb(var(--rgbTitle) / 0.1) inset;
 `;
 
 const InputElement = styled.input`
   background: transparent;
-  color: ${props => props.theme.colorText};
-  box-shadow: inset 0 -2px 0 0 ${props => rgba(props.theme.colorText, 0.2)};
+  color: rgb(var(--rgbText));
+  box-shadow: inset 0 -2px 0 0 rgb(var(--rgbTitle) / 0.2);
   transition: background-color 5000s linear 0s;
   width: 100%;
   font-size: 16px;
@@ -80,32 +79,32 @@ const InputElement = styled.input`
   }
 
   &::-webkit-contacts-auto-fill-button:hover {
-    background-color: ${props => props.theme.colorPrimary};
+    background-color: rgb(var(--rgbPrimary));
   }
 `;
 
 const InputUnderline = styled.div`
-  background: ${props => props.theme.colorPrimary};
+  background: rgb(var(--rgbPrimary));
   transform: scale3d(${props => props.focused ? 1 : 0}, 1, 1);
   width: 100%;
   height: 2px;
   position: absolute;
   bottom: 0;
-  transition: transform 0.4s ${props => props.theme.curveFastoutSlowin};
+  transition: transform 0.4s var(--curveFastoutSlowin);
   transform-origin: left;
 `;
 
 const InputLabel = styled.label`
-  color: ${props => rgba(props.theme.colorText, 0.8)};
+  color: rgb(var(--rgbTitle) / 0.8);
   position: absolute;
   top: 26px;
   left: 0;
   display: block;
   transform-origin: top left;
-  transition: transform 0.4s ${props => props.theme.curveFastoutSlowin}, color 0.4s ease;
+  transition: transform 0.4s var(--curveFastoutSlowin), color 0.4s ease;
 
   ${props => (props.hasValue || props.focused) && css`
-    color: ${rgba(props.theme.colorText, 0.54)};
+    color: rgb(var(--rgbTitle) / 0.54);
     transform: scale(0.8) translateY(-28px);
   `}
 `;

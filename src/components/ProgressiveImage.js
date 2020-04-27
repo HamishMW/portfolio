@@ -216,7 +216,7 @@ const ImageContainer = styled.div`
   ${props => props.reveal && css`
     &::before {
       content: '';
-      background: ${props => props.theme.colorAccent};
+      background-color: rgb(var(--rgbAccent));
       position: absolute;
       top: 0;
       right: 0;
@@ -226,7 +226,7 @@ const ImageContainer = styled.div`
       transform-origin: left;
       z-index: 16;
       animation: ${props.intersect && !prerender && css`
-        ${AnimImageReveal} 1.8s ${props.theme.curveFastoutSlowin} ${props.delay + 200}ms
+        ${AnimImageReveal} 1.8s var(--curveFastoutSlowin) ${props.delay + 200}ms
       `};
     }
   `}

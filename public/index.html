@@ -6,7 +6,7 @@
 
   <script>
     if (navigator.doNotTrack !== '1' && navigator.userAgent !== 'ReactSnap') {
-      var script = document.createElement('script');
+      const script = document.createElement('script');
       script.src = 'https://www.googletagmanager.com/gtag/js?id=UA-38720984-1';
       script.async = true;
       document.head.appendChild(script);
@@ -44,6 +44,10 @@
 </head>
 
 <body>
+  <script>
+    const preferredTheme = JSON.parse(localStorage.getItem('theme'));
+    document.body.className = preferredTheme || 'dark';
+  </script>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
 </body>

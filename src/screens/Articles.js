@@ -3,10 +3,11 @@ import { Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import { useScrollRestore } from 'hooks';
-import { sectionPadding, rgba } from 'utils/style';
+import { sectionPadding } from 'utils/style';
 import posts from 'posts';
 import Post from 'screens/Post';
 import ProgressiveImage from 'components/ProgressiveImage';
+import { media } from 'utils/style';
 
 function PostListItem({
   path,
@@ -93,7 +94,7 @@ const PostListWrapper = styled.div`
 `;
 
 const PostListContent = styled.div`
-  max-width: ${props => props.theme.maxWidthDesktop}px;
+  max-width: var(--maxWidth);
   width: 100%;
   display: grid;
   grid-template-columns: 144px 1fr;
@@ -101,11 +102,8 @@ const PostListContent = styled.div`
   padding: 80px 0;
   position: relative;
 
-  @media (max-width: ${props => props.theme.laptop}px) {
-    max-width: ${props => props.theme.maxWidthLaptop}px;
-  }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     padding-top: 100px;
   }
 `;
@@ -143,7 +141,7 @@ const PostContent = styled(Link)`
   text-decoration: none;
   transition: background-color 0.4s ease;
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     grid-template-columns: 100%;
     max-width: 440px;
   }
@@ -153,7 +151,7 @@ const PostText = styled.div`
   grid-column: 2;
   padding: 60px 0;
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     grid-column: 1;
     padding: 30px 0;
   }
@@ -162,26 +160,26 @@ const PostText = styled.div`
 const PostDate = styled.span`
   display: block;
   margin-bottom: 8px;
-  color: ${props => rgba(props.theme.colorText, 0.6)};
+  color: rgb(var(--rgbTitle) / 0.6);
 `;
 
 const PostTitle = styled.h2`
   margin: 0;
   font-size: 36px;
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
   line-height: 1.2;
-  color: ${props => props.theme.colorTitle};
+  color: rgb(var(--rgbTitle));
   display: inline;
-  background: linear-gradient(${props => rgba(props.theme.colorText, 1)}, ${props => rgba(props.theme.colorText, 1)}) no-repeat 100% 100% / 0 2px;
-  transition: background-size 0.4s ${props => props.theme.curveFastoutSlowin};
+  background: linear-gradient(rgb(var(--rgbText)), rgb(var(--rgbText))) no-repeat 100% 100% / 0 2px;
+  transition: background-size 0.4s var(--curveFastoutSlowin);
   padding-bottom: 2px;
 
   &:hover,
   &:focus {
-    background: linear-gradient(${props => rgba(props.theme.colorText, 1)}, ${props => rgba(props.theme.colorText, 1)}) no-repeat 0 100% / 100% 2px;
+    background: linear-gradient(rgb(var(--rgbText)), rgb(var(--rgbText))) no-repeat 0 100% / 100% 2px;
   }
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 30px;
   }
 `;
@@ -189,10 +187,10 @@ const PostTitle = styled.h2`
 const PostDescription = styled.p`
   font-size: 20px;
   line-height: 1.5;
-  color: ${props => props.theme.colorText};
+  color: rgb(var(--rgbText));
   margin: 20px 0 0;
 
-  @media (max-width: ${props => props.theme.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 18px;
   }
 `;
@@ -206,7 +204,7 @@ const PostImage = styled(ProgressiveImage)`
     height: 100%;
     width: 100%;
     object-fit: cover;
-    transition: transform 0.5s ${props => props.theme.curveFastoutSlowin};
+    transition: transform 0.5s var(--curveFastoutSlowin);
   }
 
   ${/* sc-selector */PostContent}:hover & img,
@@ -217,7 +215,7 @@ const PostImage = styled(ProgressiveImage)`
 
 const PostImageWrapper = styled.div`
   position: relative;
-  background: rgba(255, 255, 255, 0.1)
+  background: rgba(255, 255, 255, 0.1);
 `;
 
 const PostImageTag = styled.div`
@@ -228,6 +226,6 @@ const PostImageTag = styled.div`
   text-align: center;
   width: 60px;
   font-size: 14px;
-  font-weight: 500;
-  color: ${props => rgba(props.theme.colorText, 0.6)};
+  font-weight: var(--fontWeightMedium);
+  color: rgb(var(--rgbTitle) / 0.6);
 `;

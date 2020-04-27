@@ -11,9 +11,10 @@ import fragShader from 'shaders/sphereFragShader';
 import { Transition } from 'react-transition-group';
 import { usePrefersReducedMotion } from 'hooks';
 import { reflow, isVisible } from 'utils/transition';
+import { media } from 'utils/style';
 
 function DisplacementSphere(props) {
-  const { colorBackground, id: themeId, colorWhite, mobile, tablet } = useTheme();
+  const { rgbBackground, id: themeId, colorWhite } = useTheme();
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
   const start = useRef(Date.now());
@@ -82,7 +83,7 @@ function DisplacementSphere(props) {
     light.current.position.x = 100;
     light.current.position.y = 100;
     ambientLight.current = new AmbientLight(colorWhite, themeId === 'light' ? 0.8 : 0.1);
-    scene.current.background = new Color(colorBackground);
+    scene.current.background = new Color(`rgb(${rgbBackground.split(' ').join(', ')})`);
     scene.current.add(light.current);
     scene.current.add(ambientLight.current);
 
@@ -92,7 +93,7 @@ function DisplacementSphere(props) {
       light.current = null;
       ambientLight.current = null;
     };
-  }, [colorBackground, colorWhite, themeId]);
+  }, [rgbBackground, colorWhite, themeId]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -108,10 +109,10 @@ function DisplacementSphere(props) {
         renderer.current.render(scene.current, camera.current);
       }
 
-      if (windowWidth <= mobile) {
+      if (windowWidth <= media.mobile) {
         sphere.current.position.x = 14;
         sphere.current.position.y = 10;
-      } else if (windowWidth <= tablet) {
+      } else if (windowWidth <= media.tablet) {
         sphere.current.position.x = 18;
         sphere.current.position.y = 14;
       } else {
@@ -126,7 +127,7 @@ function DisplacementSphere(props) {
     return function cleanup() {
       window.removeEventListener('resize', handleResize);
     };
-  }, [mobile, prefersReducedMotion, tablet]);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     let ticking = false;
@@ -205,7 +206,7 @@ const SphereCanvas = styled.canvas`
   opacity: ${props => isVisible(props.status) ? 1 : 0};
   transition-property: opacity;
   transition-duration: 3s;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: var(--curveFastoutSlowin);
 `;
 
 export default memo(DisplacementSphere);

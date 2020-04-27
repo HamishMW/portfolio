@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import Anchor from 'components/Anchor';
-import { rgba, sectionPadding } from 'utils/style';
+import { sectionPadding } from 'utils/style';
+import { media } from 'utils/style';
 
 const Footer = () => (
   <FooterContainer role="contentinfo">
@@ -20,10 +21,10 @@ const FooterContainer = styled.footer`
   z-index: 16;
   position: relative;
   font-size: 16px;
-  color: ${props => rgba(props.theme.colorText, 0.6)};
+  color: rgb(var(--rgbTitle) / 0.6);
   ${sectionPadding}
 
-  @media (max-width: ${props => props.theme.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
     padding-top: 60px;
     padding-bottom: 60px;
   }
