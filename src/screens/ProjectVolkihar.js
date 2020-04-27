@@ -107,7 +107,7 @@ function ProjectVolkihar() {
                 srcSet={`${volkiharBanner} 800w, ${volkiharBannerLarge} 1100w`}
                 placeholder={volkiharBannerPlaceholder}
                 alt="A dark elf wearing the Volkihar Knight armor with the logo overlaid on the image."
-                sizes={`(max-width: ${theme.mobile}px) 500px, (max-width: ${theme.tablet}px) 800px, 1000px`}
+                sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
               />
             </ProjectImage>
           </ProjectSectionContent>
@@ -118,7 +118,7 @@ function ProjectVolkihar() {
               srcSet={`${volkiharBook} 480w, ${volkiharBookLarge} 960w`}
               placeholder={volkiharBookPlaceholder}
               alt="A book containing a sketch depicting the logo and armor"
-              sizes={`(max-width: ${theme.mobile}px) 90vw, (max-width: ${theme.tablet}px) 80vw, 70vw`}
+              sizes={`(max-width: ${media.mobile}px) 90vw, (max-width: ${media.tablet}px) 80vw, 70vw`}
             />
           </ProjectSectionContent>
         </ProjectSection>
@@ -128,7 +128,7 @@ function ProjectVolkihar() {
               srcSet={`${volkiharArmor} 400w, ${volkiharArmorLarge} 800w`}
               placeholder={volkiharArmorPlaceholder}
               alt="A 3D render of the full suit of armor."
-              sizes={`(max-width: ${theme.mobile}px) 100vw, (max-width: ${theme.tablet}px) 100vw, 50vw`}
+              sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 50vw`}
             />
             <VolkiharTextSection>
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
@@ -196,7 +196,7 @@ function ProjectVolkihar() {
                   srcSet={`${volkiharEnderalLogo} 180w, ${volkiharEnderalLogoLarge} 320w`}
                   placeholder={volkiharEnderalLogoPlaceholder}
                   alt="The Enderal game logo"
-                  sizes={`(max-width: ${theme.mobile}px) 100vw, (max-width: ${theme.tablet}px) 100vw, 220px`}
+                  sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 220px`}
                   style={{ maxWidth: 220, width: '100%', marginBottom: 30 }}
                 />
                 <ProjectSectionHeading>Featured in Enderal</ProjectSectionHeading>

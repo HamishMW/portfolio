@@ -87,13 +87,13 @@ function Intro(props) {
                 </TransitionGroup>
               </IntroTitle>
             </IntroText>
-            {windowSize.width > theme.tablet &&
+            {windowSize.width > media.tablet &&
               <MemoizedScrollIndicator
                 isHidden={scrollIndicatorHidden}
                 status={status}
               />
             }
-            {windowSize.width <= theme.tablet &&
+            {windowSize.width <= media.tablet &&
               <MemoizedMobileScrollIndicator
                 isHidden={scrollIndicatorHidden}
                 status={status}

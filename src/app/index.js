@@ -144,7 +144,11 @@ export const GlobalStyles = createGlobalStyle`
       --spacingOuter: 40px;
     }
 
-    @media (max-width: ${media.mobile}px, (max-height: ${media.mobile}px)) {
+    @media (max-width: ${media.mobile}px) {
+      --spacingOuter: 20px;
+    }
+
+    @media (max-height: ${media.mobile}px) {
       --spacingOuter: 20px;
     }
   }
