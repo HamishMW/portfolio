@@ -3,6 +3,7 @@
     "baseUrl": "src"
   },
   "include": [
-    "src"
+    "src",
+    ".storybook/StoryContainer.js"
   ]
 }

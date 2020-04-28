@@ -13,13 +13,13 @@ import { initialState, reducer } from 'app/reducer';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 
-const Home = lazy(() => import('screens/Home'));
-const Contact = lazy(() => import('screens/Contact'));
-const ProjectSPR = lazy(() => import('screens/ProjectSPR'));
-const ProjectSlice = lazy(() => import('screens/ProjectSlice'));
-const ProjectVolkihar = lazy(() => import('screens/ProjectVolkihar'));
-// const Articles = lazy(() => import('screens/Articles'));
-const NotFound = lazy(() => import('screens/404'));
+const Home = lazy(() => import('pages/Home'));
+const Contact = lazy(() => import('pages/Contact'));
+const ProjectSPR = lazy(() => import('pages/SmartSparrow'));
+const ProjectSlice = lazy(() => import('pages/Slice'));
+const ProjectVolkihar = lazy(() => import('pages/VolkiharKnight'));
+// const Articles = lazy(() => import('pages/Articles'));
+const NotFound = lazy(() => import('pages/404'));
 
 export const AppContext = createContext();
 export const TransitionContext = createContext();
