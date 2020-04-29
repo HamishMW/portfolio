@@ -24,15 +24,17 @@ export default function ThemeToggle({ isMobile, ...rest }) {
       {...rest}
     >
       <ThemeToggleSvg width="38" height="38" viewBox="0 0 38 38">
-        <mask id={maskId}>
-          <ThemeToggleCircle isMask isDark={isDark} />
-          <ThemeToggleMask isDark={isDark} cx="25" cy="14" r="9" />
-        </mask>
+        <defs>
+          <mask id={maskId}>
+            <ThemeToggleCircle isMask isDark={isDark} cx="19" cy="19" r="13" />
+            <ThemeToggleMask isDark={isDark} cx="25" cy="14" r="9" />
+          </mask>
+        </defs>
         <ThemeTogglePath
           isDark={isDark}
           d="M19 3v7M19 35v-7M32.856 11l-6.062 3.5M5.144 27l6.062-3.5M5.144 11l6.062 3.5M32.856 27l-6.062-3.5"
         />
-        <ThemeToggleCircle isDark={isDark} mask={`url(#${maskId})`} />
+        <ThemeToggleCircle isDark={isDark} mask={`url(#${maskId})`} cx="19" cy="19" r="12" />
       </ThemeToggleSvg>
     </ThemeToggleButton>
   );
@@ -69,11 +71,7 @@ const ThemeToggleSvg = styled.svg`
   display: block;
 `;
 
-const ThemeToggleCircle = styled.circle.attrs({
-  cx: 19,
-  cy: 19,
-  r: 12,
-})`
+const ThemeToggleCircle = styled.circle`
   fill: ${props => props.isMask ? 'white' : 'currentColor'};
   transform: ${props => props.isDark ? 'none' : 'scale(0.6)'};
   transform-origin: center;
