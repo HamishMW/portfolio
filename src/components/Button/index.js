@@ -115,8 +115,10 @@ const ButtonLoader = styled(Loader)`
 `;
 
 const ButtonContainer = styled.button`
+  --buttonSize: 56px;
+
   background: none;
-  height: 56px;
+  height: var(--buttonSize);
   padding: ${props => props.iconOnly ? 0 : ' 0 26px'};
   border: 0;
   margin: 0;
@@ -161,43 +163,6 @@ const ButtonContainer = styled.button`
       left: 0;
       z-index: -1;
       ${cornerClip(8)}
-    }
-  `}
-
-  ${props => props.iconOnly && css`
-    width: 56px;
-    align-items: center;
-    justify-content: center;
-
-    &::after {
-      background: rgb(var(--rgbTitle) / 0);
-    }
-
-    &:hover::after,
-    &:focus::after {
-      background: rgb(var(--rgbTitle) / 0.1);
-    }
-
-    &::before {
-      background: rgb(var(--rgbTitle) / 0.4);
-      top: -4px;
-      right: -4px;
-      bottom: -4px;
-      left: -4px;
-      clip-path: polygon(
-        0% 0%,
-        0% 100%,
-        4px 100%,
-        4px 4px,
-        calc(100% - 4px) 4px,
-        calc(100% - 4px) calc(100% - 13px),
-        calc(100% - 13px) calc(100% - 4px),
-        4px calc(100% - 4px),
-        4px 100%,
-        calc(100% - 11px) 100%,
-        100% calc(100% - 11px),
-        100% 0%
-      );
     }
   `}
 
@@ -275,14 +240,55 @@ const ButtonContainer = styled.button`
   ${props => props.icon && !props.secondary && !props.iconOnly && css`
     padding-right: 32px;
   `}
+
+  ${props => props.iconOnly && css`
+    width: var(--buttonSize);
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    &::after {
+      background: rgb(var(--rgbTitle) / 0);
+    }
+
+    &:hover::after,
+    &:focus::after {
+      background: rgb(var(--rgbTitle) / 0.1);
+    }
+
+    &::before {
+      background: rgb(var(--rgbTitle) / 0.4);
+      top: -4px;
+      right: -4px;
+      bottom: -4px;
+      left: -4px;
+      clip-path: polygon(
+        0% 0%,
+        0% 100%,
+        4px 100%,
+        4px 4px,
+        calc(100% - 4px) 4px,
+        calc(100% - 4px) calc(100% - 13px),
+        calc(100% - 13px) calc(100% - 4px),
+        4px calc(100% - 4px),
+        4px 100%,
+        calc(100% - 11px) 100%,
+        100% calc(100% - 11px),
+        100% 0%
+      );
+    }
+  `}
 `;
 
-const ButtonText = styled.span`
+const ButtonText = styled.div`
   font-size: 18px;
   font-weight: var(--fontWeightMedium);
   position: relative;
   line-height: 1;
   flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   ${props => props.isLoading && css`
     visibility: hidden;

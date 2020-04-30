@@ -45,7 +45,6 @@ const ThemeToggleButton = styled(Button)`
   z-index: 2048;
   width: 48px;
   height: 48px;
-  padding: 6px;
   top: var(--spacingOuter);
   right: var(--spacingOuter);
   margin-top: -8px;
