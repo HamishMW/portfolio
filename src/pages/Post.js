@@ -54,7 +54,7 @@ function PostWrapper({
               font-family: 'Gotham';
               font-weight: 700;
               src: url(${GothamBold}) format('woff2');
-              font-display: block;
+              font-display: swap;
             }
           `}
         </style>
