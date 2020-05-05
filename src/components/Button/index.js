@@ -19,7 +19,7 @@ function ButtonContent({
 
   return (
     <Fragment>
-      {icon &&
+      {icon && (
         <ButtonIcon
           left
           isLoading={isLoading}
@@ -28,17 +28,13 @@ function ButtonContent({
           icon={icon}
           iconOnly={iconOnly}
         />
-      }
-      {children &&
-        <ButtonText
-          isLoading={isLoading}
-          secondary={secondary}
-          iconOnly={iconOnly}
-        >
+      )}
+      {children && (
+        <ButtonText isLoading={isLoading} secondary={secondary} iconOnly={iconOnly}>
           {children}
         </ButtonText>
-      }
-      {iconRight &&
+      )}
+      {iconRight && (
         <ButtonIcon
           isLoading={isLoading}
           secondary={secondary}
@@ -46,14 +42,14 @@ function ButtonContent({
           icon={iconRight}
           iconOnly={iconOnly}
         />
-      }
-      {!!isLoading &&
+      )}
+      {!!isLoading && (
         <ButtonLoader
           size={32}
           text={loadingText}
           color={`rgb(${theme.rgbBackground})`}
         />
-      }
+      )}
     </Fragment>
   );
 }
@@ -62,11 +58,7 @@ export const Button = props => {
   const { className, style, loading, ...rest } = props;
 
   return (
-    <ButtonContainer
-      className={className}
-      style={style}
-      {...rest}
-    >
+    <ButtonContainer className={className} style={style} {...rest}>
       <ButtonContent isLoading={loading ? 1 : 0} {...rest} />
     </ButtonContainer>
   );
@@ -119,7 +111,7 @@ const ButtonContainer = styled.button`
 
   background: none;
   height: var(--buttonSize);
-  padding: ${props => props.iconOnly ? 0 : ' 0 26px'};
+  padding: ${props => (props.iconOnly ? 0 : ' 0 26px')};
   border: 0;
   margin: 0;
   cursor: pointer;
@@ -137,147 +129,160 @@ const ButtonContainer = styled.button`
     border: 0;
   }
 
-  ${props => !props.secondary && css`
-    &::before {
-      content: '';
-      transition: all 0.4s var(--curveFastoutSlowin);
-      background: rgb(var(--rgbPrimary) / 0.4);
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      bottom: -5px;
-      left: -5px;
-      z-index: -1;
-      opacity: 0;
-      ${cornerClip(10)}
-    }
+  ${props =>
+    !props.secondary &&
+    css`
+      &::before {
+        content: '';
+        transition: all 0.4s var(--curveFastoutSlowin);
+        background: rgb(var(--rgbPrimary) / 0.4);
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        bottom: -5px;
+        left: -5px;
+        z-index: -1;
+        opacity: 0;
+        ${cornerClip(10)}
+      }
 
-    &::after {
-      content: '';
-      transition: all 0.4s var(--curveFastoutSlowin);
-      background: rgb(var(--rgbPrimary));
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: -1;
-      ${cornerClip(8)}
-    }
-  `}
+      &::after {
+        content: '';
+        transition: all 0.4s var(--curveFastoutSlowin);
+        background: rgb(var(--rgbPrimary));
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        ${cornerClip(8)}
+      }
+    `}
 
-  ${props => !props.disabled && !props.secondary && css`
-    &:hover,
-    &:focus {
-      outline: none;
-      transform: ${props.iconOnly ? 'none' : 'scale(1.05)'};
-    }
+  ${props =>
+    !props.disabled &&
+    !props.secondary &&
+    css`
+      &:hover,
+      &:focus {
+        outline: none;
+        transform: ${props.iconOnly ? 'none' : 'scale(1.05)'};
+      }
 
-    &:focus:before {
-      opacity: 1;
-    }
-  `}
+      &:focus:before {
+        opacity: 1;
+      }
+    `}
 
   &:active {
     transform: scale(1);
     transition-duration: 0.1s;
   }
 
-  ${props => props.secondary && css`
-    background: none;
-    color: rgb(var(--rgbPrimary));
-    padding-left: 10px;
-    padding-right: 10px;
-    position: relative;
-    left: -10px;
+  ${props =>
+    props.secondary &&
+    css`
+      background: none;
+      color: rgb(var(--rgbPrimary));
+      padding-left: 10px;
+      padding-right: 10px;
+      position: relative;
+      left: -10px;
 
-    &::after {
-      content: '';
-      height: 30px;
-      position: absolute;
-      top: 50%;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: rgb(var(--rgbPrimary) / 0.2);
-      transform: scale3d(0, 1, 1) translateY(-50%);
-      transform-origin: right;
-      transition: transform 0.4s var(--curveFastoutSlowin);
-    }
+      &::after {
+        content: '';
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgb(var(--rgbPrimary) / 0.2);
+        transform: scale3d(0, 1, 1) translateY(-50%);
+        transform-origin: right;
+        transition: transform 0.4s var(--curveFastoutSlowin);
+      }
 
-    &:hover,
-    &:focus,
-    &:active {
-      outline: none;
-      transform: none;
-      background: transparent;
-    }
+      &:hover,
+      &:focus,
+      &:active {
+        outline: none;
+        transform: none;
+        background: transparent;
+      }
 
-    &:hover::after,
-    &:focus::after,
-    &:active::after {
-      transform: scale3d(1, 1, 1) translateY(-50%);
-      transform-origin: left;
-    }
+      &:hover::after,
+      &:focus::after,
+      &:active::after {
+        transform: scale3d(1, 1, 1) translateY(-50%);
+        transform-origin: left;
+      }
 
-    &::before {
-      content: '';
-      transition: box-shadow 0.4s var(--curveFastoutSlowin);
-      transform: translateY(-50%);
-      height: 30px;
-      position: absolute;
-      top: 50%;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
+      &::before {
+        content: '';
+        transition: box-shadow 0.4s var(--curveFastoutSlowin);
+        transform: translateY(-50%);
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
 
-    &:focus::before {
-      box-shadow: 0 0 0 4px rgb(var(--rgbPrimary) / 0.4);
-    }
-  `}
+      &:focus::before {
+        box-shadow: 0 0 0 4px rgb(var(--rgbPrimary) / 0.4);
+      }
+    `}
 
-  ${props => props.icon && !props.secondary && !props.iconOnly && css`
-    padding-right: 32px;
-  `}
+  ${props =>
+    props.icon &&
+    !props.secondary &&
+    !props.iconOnly &&
+    css`
+      padding-right: 32px;
+    `}
 
-  ${props => props.iconOnly && css`
-    width: var(--buttonSize);
-    align-items: center;
-    justify-content: center;
-    padding: 0;
+  ${props =>
+    props.iconOnly &&
+    css`
+      width: var(--buttonSize);
+      align-items: center;
+      justify-content: center;
+      padding: 0;
 
-    &::after {
-      background: rgb(var(--rgbTitle) / 0);
-    }
+      &::after {
+        background: rgb(var(--rgbTitle) / 0);
+      }
 
-    &:hover::after,
-    &:focus::after {
-      background: rgb(var(--rgbTitle) / 0.1);
-    }
+      &:hover::after,
+      &:focus::after {
+        background: rgb(var(--rgbTitle) / 0.1);
+      }
 
-    &::before {
-      background: rgb(var(--rgbTitle) / 0.4);
-      top: -4px;
-      right: -4px;
-      bottom: -4px;
-      left: -4px;
-      clip-path: polygon(
-        0% 0%,
-        0% 100%,
-        4px 100%,
-        4px 4px,
-        calc(100% - 4px) 4px,
-        calc(100% - 4px) calc(100% - 13px),
-        calc(100% - 13px) calc(100% - 4px),
-        4px calc(100% - 4px),
-        4px 100%,
-        calc(100% - 11px) 100%,
-        100% calc(100% - 11px),
-        100% 0%
-      );
-    }
-  `}
+      &::before {
+        background: rgb(var(--rgbTitle) / 0.4);
+        top: -4px;
+        right: -4px;
+        bottom: -4px;
+        left: -4px;
+        clip-path: polygon(
+          0% 0%,
+          0% 100%,
+          4px 100%,
+          4px 4px,
+          calc(100% - 4px) 4px,
+          calc(100% - 4px) calc(100% - 13px),
+          calc(100% - 13px) calc(100% - 4px),
+          4px calc(100% - 4px),
+          4px 100%,
+          calc(100% - 11px) 100%,
+          100% calc(100% - 11px),
+          100% 0%
+        );
+      }
+    `}
 `;
 
 const ButtonText = styled.div`
@@ -290,16 +295,21 @@ const ButtonText = styled.div`
   align-items: center;
   justify-content: center;
 
-  ${props => props.isLoading && css`
-    visibility: hidden;
+  ${props =>
+    props.isLoading &&
+    css`
+      visibility: hidden;
+    `}
+
+  ${props =>
+    props.secondary
+      ? `color: rgb(var(--rgbPrimary));`
+      : `color: rgb(var(--rgbBackground));
   `}
 
-  ${props => props.secondary
-    ? `color: rgb(var(--rgbPrimary));`
-    : `color: rgb(var(--rgbBackground));
-  `}
-
-  ${props => props.iconOnly && `
+  ${props =>
+    props.iconOnly &&
+    `
     color: rgb(var(--rgbText));
   `}
 `;
@@ -310,23 +320,31 @@ const ButtonIcon = styled(Icon)`
   transition: all 0.3s var(--curveFastoutSlowin);
   fill: rgb(var(--rgbBackground));
 
-  ${props => props.secondary && css`
-    fill: rgb(var(--rgbPrimary));
-  `}
-
-  ${props => props.iconOnly && css`
-    fill: rgb(var(--rgbText));
-    margin: 0;
-  `}
-
-  ${/* sc-selector */ButtonContainer}:hover &,
-  ${/* sc-selector */ButtonContainer}:focus & {
-    ${props => props.iconHoverShift && css`
-      transform: translate3d(4px, 0, 0);
+  ${props =>
+    props.secondary &&
+    css`
+      fill: rgb(var(--rgbPrimary));
     `}
+
+  ${props =>
+    props.iconOnly &&
+    css`
+      fill: rgb(var(--rgbText));
+      margin: 0;
+    `}
+
+  ${/* sc-selector */ ButtonContainer}:hover &,
+  ${/* sc-selector */ ButtonContainer}:focus & {
+    ${props =>
+      props.iconHoverShift &&
+      css`
+        transform: translate3d(4px, 0, 0);
+      `}
   }
 
-  ${props => props.isLoading && css`
-    opacity: 0;
-  `}
+  ${props =>
+    props.isLoading &&
+    css`
+      opacity: 0;
+    `}
 `;

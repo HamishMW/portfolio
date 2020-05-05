@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Transition } from 'react-transition-group';
-import styled, { keyframes } from 'styled-components/macro';
+import styled, { keyframes, css } from 'styled-components/macro';
 import Footer from 'components/Footer';
 import Divider from 'components/Divider';
 import { sectionPadding, AnimFade } from 'utils/style';
@@ -32,7 +32,7 @@ function PostWrapper({
   useScrollRestore();
   const contentRef = useRef();
 
-  const handleScrollIndicatorClick = (event) => {
+  const handleScrollIndicatorClick = event => {
     event.preventDefault();
 
     window.scrollTo({
@@ -47,6 +47,7 @@ function PostWrapper({
       <Helmet>
         <title>{`Blog | ${title}`}</title>
         <meta name="description" content={description} />
+        <link rel="preload" href={GothamBold} as="font" crossorigin="" />
         <style>
           {`
             @font-face {
@@ -60,12 +61,7 @@ function PostWrapper({
       </Helmet>
       <PostHeader>
         <PostHeaderText>
-          <Transition
-            appear
-            in={!prerender}
-            timeout={400}
-            onEnter={reflow}
-          >
+          <Transition appear in={!prerender} timeout={400} onEnter={reflow}>
             {status => (
               <PostDate>
                 <Divider
@@ -74,7 +70,10 @@ function PostWrapper({
                   collapsed={status !== 'entered'}
                 />
                 <PostDateText status={status}>
-                  {new Date(date).toLocaleDateString('default', { year: 'numeric', month: 'long' })}
+                  {new Date(date).toLocaleDateString('default', {
+                    year: 'numeric',
+                    month: 'long',
+                  })}
                 </PostDateText>
               </PostDate>
             )}
@@ -83,7 +82,8 @@ function PostWrapper({
             {title.split(' ').map((word, index) => (
               <PostTitleWordWrapper key={`${word}-${index}`}>
                 <PostTitleWord index={index}>
-                  {word}{index !== title.split(' ').length - 1 ? '\u00a0' : ''}
+                  {word}
+                  {index !== title.split(' ').length - 1 ? '\u00a0' : ''}
                 </PostTitleWord>
               </PostTitleWordWrapper>
             ))}
@@ -93,7 +93,7 @@ function PostWrapper({
             aria-label="Scroll to post content"
             onClick={handleScrollIndicatorClick}
           >
-            <ArrowDown />
+            <ArrowDown aria-hidden />
           </PostBannerArrow>
           <PostBannerReadTime>{readTime}</PostBannerReadTime>
         </PostHeaderText>
@@ -117,13 +117,11 @@ function PostWrapper({
 
 function imageFactory({ src, ...props }) {
   if (!src.startsWith('http')) {
-    return (
-      <Image {...props} src={require(`posts/assets/${src}`)} />
-    );
+    return <Image {...props} src={require(`posts/assets/${src}`)} />;
   }
 
   return <Image {...props} src={src} />;
-};
+}
 
 const PostArticle = styled.article`
   position: relative;
@@ -206,8 +204,8 @@ const PostDate = styled.div`
 `;
 
 const PostDateText = styled.span`
-  opacity: ${props => props.status === 'entered' ? 1 : 0};
-  transform: ${props => props.status === 'entered' ? 'none' : 'translate3d(-5%, 0, 0)'};
+  opacity: ${props => (props.status === 'entered' ? 1 : 0)};
+  transform: ${props => (props.status === 'entered' ? 'none' : 'translate3d(-5%, 0, 0)')};
   transition: opacity 0.8s ease, transform 0.8s var(--curveFastoutSlowin);
 `;
 
@@ -321,7 +319,7 @@ const PostBannerArrow = styled.a`
     animation-name: ${AnimMobileScrollIndicator};
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
-    transition-timing-function: cubic-bezier(.8,.1,.27,1);
+    transition-timing-function: cubic-bezier(0.8, 0.1, 0.27, 1);
   }
 
   @media (max-width: ${media.tablet}px) {
@@ -517,17 +515,13 @@ const components = {
   h2: HeadingTwo,
   p: Paragrapgh,
   img: imageFactory,
-  a: (props) => <Anchor target="_blank" {...props} />,
+  a: props => <Anchor target="_blank" {...props} />,
   pre: Code,
   inlineCode: InlineCode,
 };
 
 function Post({ children }) {
-  return (
-    <MDXProvider components={components}>
-      {children}
-    </MDXProvider>
-  );
+  return <MDXProvider components={components}>{children}</MDXProvider>;
 }
 
 export default Post;

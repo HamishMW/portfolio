@@ -9,11 +9,12 @@ function TextArea(props) {
   useEffect(() => {
     const style = getComputedStyle(textareaRef.current);
     const lineHeight = parseInt(style.lineHeight, 10);
-    const paddingHeight = parseInt(style.paddingTop, 10) + parseInt(style.paddingBottom, 10);
+    const paddingHeight =
+      parseInt(style.paddingTop, 10) + parseInt(style.paddingBottom, 10);
     setTextareaDimensions({ lineHeight, paddingHeight });
   }, []);
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     onChange(event);
 
     const { lineHeight, paddingHeight } = textareaDimensions;
@@ -31,7 +32,7 @@ function TextArea(props) {
       event.target.scrollTop = event.target.scrollHeight;
     }
 
-    setRows((maxRows && currentRows > maxRows) ? maxRows : currentRows);
+    setRows(maxRows && currentRows > maxRows ? maxRows : currentRows);
   };
 
   return (
@@ -44,6 +45,6 @@ function TextArea(props) {
       value={value}
     />
   );
-};
+}
 
 export default TextArea;

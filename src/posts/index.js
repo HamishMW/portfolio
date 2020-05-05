@@ -15,7 +15,7 @@ const posts = [
   {
     content: TestPost,
     ...testFrontMatter,
-  }
+  },
 ];
 
 export default posts;

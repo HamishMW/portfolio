@@ -5,8 +5,15 @@ import Image from 'components/Image';
 import { useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
 import {
-  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectTextRow,
-  ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
+  ProjectContainer,
+  ProjectSection,
+  ProjectSectionContent,
+  ProjectImage,
+  ProjectTextRow,
+  ProjectSectionHeading,
+  ProjectSectionText,
+  ProjectBackground,
+  ProjectHeader,
 } from 'components/ProjectLayout';
 import sliceBackground from './assets/slice-background.jpg';
 import sliceBackgroundLarge from './assets/slice-background-large.jpg';
@@ -33,12 +40,9 @@ import prerender from 'utils/prerender';
 import { media } from 'utils/style';
 
 const title = 'Biomedical image collaboration';
-const description = 'This project involved designing a better way for biomedical educators and learners to annotate digital slides together.';
-const roles = [
-  'User Research',
-  'UX Design',
-  'Interface Design',
-];
+const description =
+  'This project involved designing a better way for biomedical educators and learners to annotate digital slides together.';
+const roles = ['User Research', 'UX Design', 'Interface Design'];
 
 function ProjectSlice(props) {
   useScrollRestore();
@@ -47,7 +51,7 @@ function ProjectSlice(props) {
     <Fragment>
       <Helmet
         title={`Projects | ${title}`}
-        meta={[{ name: 'description', content: description, }]}
+        meta={[{ name: 'description', content: description }]}
       />
       <ProjectContainer {...props}>
         <ProjectBackground
@@ -80,10 +84,14 @@ function ProjectSlice(props) {
             <SidebarImagesText>
               <ProjectSectionHeading>Bringing it together</ProjectSectionHeading>
               <ProjectSectionText>
-                Teachers needed a better way to create collaborative group activities by annotating slides on Slice. Before starting this project, a layer could only be annotated by a single user, making it difficult for learners to work together.
+                Teachers needed a better way to create collaborative group activities by
+                annotating slides on Slice. Before starting this project, a layer could
+                only be annotated by a single user, making it difficult for learners to
+                work together.
               </ProjectSectionText>
               <ProjectSectionText>
-                Our solution was to allow users to be invited to a layer, where they can see others’ annotations and make their own.
+                Our solution was to allow users to be invited to a layer, where they can
+                see others’ annotations and make their own.
               </ProjectSectionText>
             </SidebarImagesText>
             <SidebarImages>
@@ -107,7 +115,12 @@ function ProjectSlice(props) {
             <ProjectTextRow>
               <ProjectSectionHeading>Improving the experience</ProjectSectionHeading>
               <ProjectSectionText>
-                A problem we heard about often form users was that it was difficult to find images they had previously seen or worked on. To solve this we added a new tab that lists all previously annotated slides. In addition, we added the ability to favorite slides, so if users find an interesting slide they want to annotate later, they can easily save it to their account.
+                A problem we heard about often form users was that it was difficult to
+                find images they had previously seen or worked on. To solve this we added
+                a new tab that lists all previously annotated slides. In addition, we
+                added the ability to favorite slides, so if users find an interesting
+                slide they want to annotate later, they can easily save it to their
+                account.
               </ProjectSectionText>
             </ProjectTextRow>
             <Image
@@ -142,7 +155,11 @@ function ProjectSlice(props) {
             <ProjectSectionGridText>
               <ProjectSectionHeading>Meaningful details</ProjectSectionHeading>
               <ProjectSectionText>
-                Marking and annotating areas on high resolution biomedical images is the core experience of the app, and it was easy to get lost or lose sense of scale when zooming in on details. Adding measurements for the perimeter and area of an annotation both helped to communicate the overall scale of the image and how large the annotated feature is in comparison.
+                Marking and annotating areas on high resolution biomedical images is the
+                core experience of the app, and it was easy to get lost or lose sense of
+                scale when zooming in on details. Adding measurements for the perimeter
+                and area of an annotation both helped to communicate the overall scale of
+                the image and how large the annotated feature is in comparison.
               </ProjectSectionText>
             </ProjectSectionGridText>
           </ProjectSectionGrid>

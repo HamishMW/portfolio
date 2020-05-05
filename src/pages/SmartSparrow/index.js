@@ -4,8 +4,14 @@ import Image from 'components/Image';
 import { useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
 import {
-  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
-  ProjectSectionHeading, ProjectSectionText, ProjectBackground, ProjectHeader
+  ProjectContainer,
+  ProjectSection,
+  ProjectSectionContent,
+  ProjectImage,
+  ProjectSectionHeading,
+  ProjectSectionText,
+  ProjectBackground,
+  ProjectHeader,
 } from 'components/ProjectLayout';
 import backgroundSpr from './assets/spr-background.jpg';
 import backgroundSprLarge from './assets/spr-background-large.jpg';
@@ -17,12 +23,9 @@ import prerender from 'utils/prerender';
 import { media } from 'utils/style';
 
 const title = 'Designing the future of education';
-const description = 'I worked as the design lead on a major iteration of Smart Sparrow’s product. We took the platform in a bold new direction, focusing on becoming the best tool for learning designers.';
-const roles = [
-  'Art Direction',
-  'UX and UI Design',
-  'Front End Development',
-];
+const description =
+  'I worked as the design lead on a major iteration of Smart Sparrow’s product. We took the platform in a bold new direction, focusing on becoming the best tool for learning designers.';
+const roles = ['Art Direction', 'UX and UI Design', 'Front End Development'];
 
 function ProjectSPR() {
   useScrollRestore();
@@ -31,7 +34,7 @@ function ProjectSPR() {
     <Fragment>
       <Helmet
         title={`Projects | ${title}`}
-        meta={[{ name: 'description', content: description, }]}
+        meta={[{ name: 'description', content: description }]}
       />
       <ProjectContainer>
         <ProjectBackground
@@ -60,16 +63,17 @@ function ProjectSPR() {
         <ProjectSection>
           <ProjectSectionHeading>Full project coming soon...</ProjectSectionHeading>
         </ProjectSection>
-        {false &&
+        {false && (
           <ProjectSection center>
             <ProjectSectionHeading>The Challenge</ProjectSectionHeading>
             <ProjectSectionText>
-              The goal of the new product design was to make creating online learning better for
-              teams. As part of my role as lead product designer, I worked to create a consistent
-              design system that allowed us to quickly design and build prototypes for user testing.
+              The goal of the new product design was to make creating online learning
+              better for teams. As part of my role as lead product designer, I worked to
+              create a consistent design system that allowed us to quickly design and
+              build prototypes for user testing.
             </ProjectSectionText>
           </ProjectSection>
-        }
+        )}
       </ProjectContainer>
       {false && <Footer />}
     </Fragment>

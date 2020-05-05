@@ -15,15 +15,28 @@ import { ReactComponent as KatakanaProject } from 'assets/katakana-project.svg';
 
 function ProjectItem(props) {
   const {
-    id, visible, sectionRef, index, title, description, imageSrc, imageAlt, imageType,
-    imagePlaceholder, buttonText, buttonLink, buttonTo, alternate, ...rest
+    id,
+    visible,
+    sectionRef,
+    index,
+    title,
+    description,
+    imageSrc,
+    imageAlt,
+    imageType,
+    imagePlaceholder,
+    buttonText,
+    buttonLink,
+    buttonTo,
+    alternate,
+    ...rest
   } = props;
 
   const { width } = useWindowSize();
   const titleId = `${id}-title`;
   const isMobile = width <= media.tablet;
 
-  const renderDetails = (status) => (
+  const renderDetails = status => (
     <ProjectItemDetails>
       <ProjectItemIndex aria-hidden>
         <Divider
@@ -34,10 +47,12 @@ function ProjectItem(props) {
         />
         <ProjectItemIndexNumber status={status}>{index}</ProjectItemIndexNumber>
       </ProjectItemIndex>
-      <ProjectItemTitle id={titleId} status={status}>{title}</ProjectItemTitle>
+      <ProjectItemTitle id={titleId} status={status}>
+        {title}
+      </ProjectItemTitle>
       <ProjectItemDescription status={status}>{description}</ProjectItemDescription>
       <ProjectItemButton status={status}>
-        {buttonLink &&
+        {buttonLink && (
           <LinkButton
             iconHoverShift
             href={buttonLink}
@@ -46,23 +61,19 @@ function ProjectItem(props) {
           >
             {buttonText}
           </LinkButton>
-        }
-        {buttonTo &&
-          <RouterButton
-            iconHoverShift
-            to={buttonTo}
-            iconRight="arrowRight"
-          >
+        )}
+        {buttonTo && (
+          <RouterButton iconHoverShift to={buttonTo} iconRight="arrowRight">
             {buttonText}
           </RouterButton>
-        }
+        )}
       </ProjectItemButton>
     </ProjectItemDetails>
   );
 
-  const renderPreview = (status) => (
+  const renderPreview = status => (
     <ProjectItemPreview>
-      {imageType === 'laptop' &&
+      {imageType === 'laptop' && (
         <ProjectItemPreviewContentLaptop>
           <ProjectItemImageLaptop
             status={status}
@@ -73,29 +84,30 @@ function ProjectItem(props) {
           />
           <ProjectItemImageLaptopSvg status={status} icon="projects" />
         </ProjectItemPreviewContentLaptop>
-      }
-      {imageType === 'phone' &&
+      )}
+      {imageType === 'phone' && (
         <ProjectItemPreviewContentPhone>
           <ProjectItemPhoneImageSvg status={status} icon="projects" />
-          {imageSrc && imageSrc.map((src, index) => (
-            <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
-              <ProjectItemPhoneFrame
-                srcSet={`${phone} 414w, ${phoneLarge} 828w`}
-                sizes={`(max-width: ${media.tablet}px) 248px, 414px`}
-                alt=""
-                role="presentation"
-                placeholder={phonePlaceholder}
-              />
-              <ProjectItemPhoneImage
-                srcSet={imageSrc[index]}
-                alt={imageAlt[index]}
-                placeholder={imagePlaceholder[index]}
-                sizes={`(max-width: ${media.tablet}px) 152px, 254px`}
-              />
-            </ProjectItemPhone>
-          ))}
+          {imageSrc &&
+            imageSrc.map((src, index) => (
+              <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
+                <ProjectItemPhoneFrame
+                  srcSet={`${phone} 414w, ${phoneLarge} 828w`}
+                  sizes={`(max-width: ${media.tablet}px) 248px, 414px`}
+                  alt=""
+                  role="presentation"
+                  placeholder={phonePlaceholder}
+                />
+                <ProjectItemPhoneImage
+                  srcSet={imageSrc[index]}
+                  alt={imageAlt[index]}
+                  placeholder={imagePlaceholder[index]}
+                  sizes={`(max-width: ${media.tablet}px) 152px, 254px`}
+                />
+              </ProjectItemPhone>
+            ))}
         </ProjectItemPreviewContentPhone>
-      }
+      )}
     </ProjectItemPreview>
   );
 
@@ -110,32 +122,28 @@ function ProjectItem(props) {
       {...rest}
     >
       <ProjectItemContent>
-        <Transition
-          in={visible}
-          timeout={0}
-          onEnter={reflow}
-        >
+        <Transition in={visible} timeout={0} onEnter={reflow}>
           {status => (
             <Fragment>
-              {!alternate && !isMobile &&
+              {!alternate && !isMobile && (
                 <Fragment>
                   {renderDetails(status)}
                   {renderPreview(status)}
                 </Fragment>
-              }
-              {(alternate || isMobile) &&
+              )}
+              {(alternate || isMobile) && (
                 <Fragment>
                   {renderPreview(status)}
                   {renderDetails(status)}
                 </Fragment>
-              }
+              )}
             </Fragment>
           )}
         </Transition>
       </ProjectItemContent>
     </ProjectItemSection>
   );
-};
+}
 
 const ProjectItemContent = styled.div`
   width: 100%;
@@ -179,7 +187,7 @@ const ProjectItemSection = styled.section`
   padding-right: 80px;
   padding-bottom: 40px;
   padding-left: 220px;
-  margin-top: ${props => props.index === '01' ? '0' : '120px'};
+  margin-top: ${props => (props.index === '01' ? '0' : '120px')};
   margin-bottom: 120px;
   position: relative;
   display: flex;
@@ -195,7 +203,7 @@ const ProjectItemSection = styled.section`
 
   @media (max-width: ${media.tablet}px) {
     height: auto;
-    margin-top: ${props => props.index === '01' ? '0' : '60px'};
+    margin-top: ${props => (props.index === '01' ? '0' : '60px')};
     margin-bottom: 60px;
   }
 
@@ -205,15 +213,17 @@ const ProjectItemSection = styled.section`
     overflow-x: hidden;
   }
 
-  ${props => props.alternate && css`
-    ${ProjectItemContent} {
-      grid-template-columns: 55% 40%;
+  ${props =>
+    props.alternate &&
+    css`
+      ${ProjectItemContent} {
+        grid-template-columns: 55% 40%;
 
-      @media (max-width: ${media.tablet}px) {
-        grid-template-columns: 100%;
+        @media (max-width: ${media.tablet}px) {
+          grid-template-columns: 100%;
+        }
       }
-    }
-  `}
+    `}
 `;
 
 const ProjectItemPreview = styled.div`
@@ -267,10 +277,12 @@ const ProjectItemIndexNumber = styled.span`
   transition-duration: 0.4s;
   transition-delay: 1.3s;
 
-  ${props => props.status === 'entered' && css`
-    transform: translateX(0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transform: translateX(0);
+      opacity: 1;
+    `}
 `;
 
 const ProjectItemTitle = styled.h2`
@@ -288,10 +300,12 @@ const ProjectItemTitle = styled.h2`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 
   @media (max-width: 1245px) {
     font-size: 36px;
@@ -315,10 +329,12 @@ const ProjectItemDescription = styled.p`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 
   @media (max-width: ${media.mobile}px) {
     font-size: 16px;
@@ -333,10 +349,12 @@ const ProjectItemButton = styled.div`
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 `;
 
 const ProjectItemImageLaptop = styled(Image)`
@@ -351,21 +369,25 @@ const ProjectItemImageLaptop = styled(Image)`
   position: relative;
   right: -140px;
 
-  ${props => props.status === 'entered' && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 
-  ${props => props.theme.id === 'light' && css`
-    z-index: 1;
-  `}
+  ${props =>
+    props.theme.id === 'light' &&
+    css`
+      z-index: 1;
+    `}
 
   @media(min-width: 1440px) {
     width: 880px;
     height: 542px;
   }
 
-  @media(max-width: 1245px) {
+  @media (max-width: 1245px) {
     width: 761px;
     height: 491px;
   }
@@ -385,30 +407,32 @@ const ProjectItemImageLaptop = styled(Image)`
 `;
 
 const ProjectItemSvg = styled(KatakanaProject)`
-  opacity: ${props => props.status === 'entered' ? 1 : 0};
+  opacity: ${props => (props.status === 'entered' ? 1 : 0)};
   transition: opacity 0.4s ease 0.6s;
   fill: rgb(var(--rgbTitle));
 
-  ${props => props.theme.id === 'light' && css`
-    opacity: ${props => props.status === 'entered' ? 0.4 : 0};
-  `}
+  ${props =>
+    props.theme.id === 'light' &&
+    css`
+      opacity: ${props => (props.status === 'entered' ? 0.4 : 0)};
+    `}
 `;
 
 const ProjectItemImageLaptopSvg = styled(ProjectItemSvg)`
   position: absolute;
-  bottom: ${props => props.theme.id === 'light' ? -60 : -40}px;
+  bottom: ${props => (props.theme.id === 'light' ? -60 : -40)}px;
   right: -200px;
   width: 600px;
 
   @media (max-width: ${media.tablet}px) {
     width: 400px;
     right: 0;
-    bottom: ${props => props.theme.id === 'light' ? 50 : 64}px;
+    bottom: ${props => (props.theme.id === 'light' ? 50 : 64)}px;
   }
 
   @media (max-width: ${media.mobile}px) {
     width: 260px;
-    bottom: ${props => props.theme.id === 'light' ? -10 : 10}px;
+    bottom: ${props => (props.theme.id === 'light' ? -10 : 10)}px;
   }
 `;
 
@@ -425,32 +449,37 @@ const ProjectItemPhone = styled.div`
   max-width: 100%;
   flex: 1 0 100%;
 
-  ${props => props.first ? css`
-    left: calc(50% - 140px);
-    top: -120px;
-    transform: translate3d(0, 80px, 0);
-    transition-delay: 0s;
+  ${props =>
+    props.first
+      ? css`
+          left: calc(50% - 140px);
+          top: -120px;
+          transform: translate3d(0, 80px, 0);
+          transition-delay: 0s;
 
-    @media (max-width: ${media.tablet}px) {
-      left: calc(50% - 48px);
-      top: -60px;
-    }
-  `: css`
-    left: calc(-50% + 20px);
-    top: 120px;
-    transform: translate3d(0, 80px, 0);
-    transition-delay: 0.2s;
+          @media (max-width: ${media.tablet}px) {
+            left: calc(50% - 48px);
+            top: -60px;
+          }
+        `
+      : css`
+          left: calc(-50% + 20px);
+          top: 120px;
+          transform: translate3d(0, 80px, 0);
+          transition-delay: 0.2s;
 
-    @media (max-width: ${media.tablet}px) {
-      left: calc(-50% + 40px);
-      top: 60px;
-    }
-  `}
+          @media (max-width: ${media.tablet}px) {
+            left: calc(-50% + 40px);
+            top: 60px;
+          }
+        `}
 
-  ${props => props.status === 'entered' && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 `;
 
 const ProjectItemPhoneFrame = styled(Image)`
@@ -465,7 +494,7 @@ const ProjectItemPhoneFrame = styled(Image)`
 `;
 
 const ProjectItemPhoneImage = styled(Image)`
-  box-shadow: 0 0 0 2px #1C1C1C;
+  box-shadow: 0 0 0 2px #1c1c1c;
   position: relative;
   top: -14px;
   width: 254px;
@@ -477,7 +506,7 @@ const ProjectItemPhoneImage = styled(Image)`
   }
 
   @media (max-width: ${media.tablet}px) {
-    box-shadow: 0 0 0 1px #1C1C1C;
+    box-shadow: 0 0 0 1px #1c1c1c;
     width: 152px;
     height: 270px;
     top: -9px;

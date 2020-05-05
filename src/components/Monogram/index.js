@@ -14,12 +14,12 @@ function Monogram({ highlight, ...props }) {
         </clipPath>
       </defs>
       <rect clipPath={`url(#${clipId})`} width="100%" height="100%" />
-      {highlight &&
+      {highlight && (
         <g clipPath={`url(#${clipId})`}>
           <MonogramHighlight className="monogram__highlight" width="100%" height="100%" />
         </g>
-      }
-    </MonogramWrapper >
+      )}
+    </MonogramWrapper>
   );
 }
 
@@ -32,19 +32,15 @@ const MonogramHighlight = styled.rect`
   opacity: 0;
   transform: scale3d(1, 0, 1);
   transform-origin: top;
-  transition:
-    transform 0.4s var(--curveFastoutSlowin),
-    opacity 0.1s ease 0.4s;
+  transition: transform 0.4s var(--curveFastoutSlowin), opacity 0.1s ease 0.4s;
 
   a:focus &,
   a:hover &,
-  ${/* sc-selector */MonogramWrapper}:hover & {
+  ${/* sc-selector */ MonogramWrapper}:hover & {
     opacity: 1;
     transform: scale3d(1, 1, 1);
     transform-origin: bottom;
-    transition:
-      transform 0.4s var(--curveFastoutSlowin),
-      opacity 0.1s ease;
+    transition: transform 0.4s var(--curveFastoutSlowin), opacity 0.1s ease;
   }
 `;
 

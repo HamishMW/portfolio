@@ -45,5 +45,13 @@ export const sectionPadding = css`
 `;
 
 export function cornerClip(size = 8) {
-  return css`clip-path: polygon(0 0, 100% 0, 100% calc(100% - ${size}px), calc(100% - ${size}px) 100%, 0 100%);`;
+  return css`
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - ${size}px),
+      calc(100% - ${size}px) 100%,
+      0 100%
+    );
+  `;
 }

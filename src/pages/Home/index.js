@@ -37,20 +37,26 @@ export default function Home() {
   useEffect(() => {
     const revealSections = [intro, projectOne, projectTwo, projectThree, details];
 
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const section = entry.target;
-          observer.unobserve(section);
-          if (visibleSections.includes(section)) return;
-          setVisibleSections(prevSections => [...prevSections, section]);
-        }
-      });
-    }, { rootMargin: '0px 0px -10% 0px' });
+    const sectionObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const section = entry.target;
+            observer.unobserve(section);
+            if (visibleSections.includes(section)) return;
+            setVisibleSections(prevSections => [...prevSections, section]);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px' }
+    );
 
-    const indicatorObserver = new IntersectionObserver(([entry]) => {
-      setScrollIndicatorHidden(!entry.isIntersecting);
-    }, { rootMargin: '-100% 0px 0px 0px' });
+    const indicatorObserver = new IntersectionObserver(
+      ([entry]) => {
+        setScrollIndicatorHidden(!entry.isIntersecting);
+      },
+      { rootMargin: '-100% 0px 0px 0px' }
+    );
 
     revealSections.forEach(section => {
       sectionObserver.observe(section.current);
@@ -79,15 +85,21 @@ export default function Home() {
       const behavior = scroll && !prefersReducedMotion ? 'smooth' : 'instant';
       const top = element.current.offsetTop;
 
-      scrollObserver = new IntersectionObserver((entries, observer) => {
-        const [entry] = entries;
-        if (entry.isIntersecting) {
-          scrollTimeout = setTimeout(() => {
-            element.current.focus();
-          }, prefersReducedMotion ? 0 : 400);
-          observer.unobserve(entry.target);
-        }
-      }, { rootMargin: '-20% 0px -20% 0px' });
+      scrollObserver = new IntersectionObserver(
+        (entries, observer) => {
+          const [entry] = entries;
+          if (entry.isIntersecting) {
+            scrollTimeout = setTimeout(
+              () => {
+                element.current.focus();
+              },
+              prefersReducedMotion ? 0 : 400
+            );
+            observer.unobserve(entry.target);
+          }
+        },
+        { rootMargin: '-20% 0px -20% 0px' }
+      );
 
       scrollObserver.observe(element.current);
 
@@ -124,10 +136,13 @@ export default function Home() {
     <Fragment>
       <Helmet
         title="Hamish Williams | Designer + Developer"
-        meta={[{
-          name: 'description',
-          content: "Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design.",
-        }]}
+        meta={[
+          {
+            name: 'description',
+            content:
+              'Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design.',
+          },
+        ]}
       />
       <Intro
         id="intro"
@@ -159,18 +174,18 @@ export default function Home() {
         description="Design and development for a video game tracking app built in React Native"
         buttonText="View Website"
         buttonLink="https://gamestackapp.com"
-        imageSrc={useMemo(() => [
-          `${gamestackLogin} 254w, ${gamestackLoginLarge} 508w`,
-          `${gamestackList} 254w, ${gamestackListLarge} 508w`,
-        ], [])}
-        imageAlt={useMemo(() => [
-          'App login screen',
-          'List of games being tracked',
-        ], [])}
-        imagePlaceholder={useMemo(() => [
-          gamestackLoginPlaceholder,
-          gamestackListPlaceholder,
-        ], [])}
+        imageSrc={useMemo(
+          () => [
+            `${gamestackLogin} 254w, ${gamestackLoginLarge} 508w`,
+            `${gamestackList} 254w, ${gamestackListLarge} 508w`,
+          ],
+          []
+        )}
+        imageAlt={useMemo(() => ['App login screen', 'List of games being tracked'], [])}
+        imagePlaceholder={useMemo(
+          () => [gamestackLoginPlaceholder, gamestackListPlaceholder],
+          []
+        )}
         imageType="phone"
       />
       <ProjectItem
@@ -195,4 +210,4 @@ export default function Home() {
       <Footer />
     </Fragment>
   );
-};
+}

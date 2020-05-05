@@ -1,4 +1,11 @@
-import React, { createContext, useRef, useContext, useLayoutEffect, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useRef,
+  useContext,
+  useLayoutEffect,
+  useEffect,
+  useState,
+} from 'react';
 import styled, { css } from 'styled-components/macro';
 
 const SegmentedControlContext = createContext({});
@@ -36,7 +43,7 @@ function SegmentedControl({ children, currentIndex, onChange, ...props }) {
         onKeyDown={handleKeyDown}
         {...props}
       >
-        {!!indicator &&
+        {!!indicator && (
           <SegmentedControlIndicator
             isLast={currentIndex === buttonRefs.current.length - 1}
             style={{
@@ -44,7 +51,7 @@ function SegmentedControl({ children, currentIndex, onChange, ...props }) {
               width: indicator.width - 2,
             }}
           />
-        }
+        )}
         {children}
       </SegmentedControlContainer>
     </SegmentedControlContext.Provider>
@@ -136,7 +143,7 @@ const SegmentedControlButton = styled.button`
     border: 0;
   }
 
-  &[aria-selected=true] {
+  &[aria-selected='true'] {
     color: rgb(var(--rgbBackground));
   }
 
@@ -153,11 +160,17 @@ const SegmentedControlButton = styled.button`
   }
 
   &:last-child::before {
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 13px), calc(100% - 13px) 100%, 0 100%);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 13px),
+      calc(100% - 13px) 100%,
+      0 100%
+    );
     right: -4px;
   }
 
-  ${/* sc-selector */SegmentedControlContainer}:focus &[aria-selected=true]::before {
+  ${/* sc-selector */ SegmentedControlContainer}:focus &[aria-selected=true]::before {
     opacity: 1;
   }
 
@@ -181,9 +194,17 @@ const SegmentedControlIndicator = styled.div`
   transition-timing-function: var(--curveFastoutSlowin);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
 
-  ${props => props.isLast && css`
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
-  `}
+  ${props =>
+    props.isLast &&
+    css`
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% calc(100% - 10px),
+        calc(100% - 10px) 100%,
+        0 100%
+      );
+    `}
 `;
 
 const SegmentedControlLabel = styled.span`

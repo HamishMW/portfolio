@@ -17,9 +17,7 @@ const ExampleInput = props => {
   );
 };
 
-export const text = () => (
-  <ExampleInput label="Your name" type="text" />
-);
+export const text = () => <ExampleInput label="Your name" type="text" />;
 
 export const multiline = () => (
   <ExampleInput multiline label="Type a message" type="text" />

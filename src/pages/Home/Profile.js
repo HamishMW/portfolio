@@ -18,17 +18,22 @@ import { ReactComponent as KatakanaProfile } from 'assets/katakana-profile.svg';
 const ProfileText = ({ status, titleId }) => (
   <Fragment>
     <ProfileTitle status={status} id={titleId}>
-      <DecoderText
-        text="Hi there"
-        start={status !== 'exited'}
-        offset={140}
-      />
+      <DecoderText text="Hi there" start={status !== 'exited'} offset={140} />
     </ProfileTitle>
     <ProfileDescription status={status}>
-      I’m Hamish, currently I live in Sydney working as a senior product designer at <Anchor href="https://www.qwilr.com" target="_blank">Qwilr</Anchor>. My projects include UX design, UI animations, and icon illustration. Being comfortable with code allows me to rapidly prototype and validate experiences.
+      I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
+      <Anchor href="https://www.qwilr.com" target="_blank">
+        Qwilr
+      </Anchor>
+      . My projects include UX design, UI animations, and icon illustration. Being
+      comfortable with code allows me to rapidly prototype and validate experiences.
     </ProfileDescription>
     <ProfileDescription status={status}>
-      In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and <Anchor as={Link} to="/projects/volkihar-knight">make mods</Anchor>. I’m always down for hearing about new projects, so feel free to drop me a line.
+      In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
+      <Anchor as={Link} to="/projects/volkihar-knight">
+        make mods
+      </Anchor>
+      . I’m always down for hearing about new projects, so feel free to drop me a line.
     </ProfileDescription>
   </Fragment>
 );
@@ -38,27 +43,13 @@ function Profile(props) {
   const titleId = `${id}-title`;
 
   return (
-    <ProfileSection
-      id={id}
-      ref={sectionRef}
-      aria-labelledby={titleId}
-      tabIndex={-1}
-    >
-      <Transition
-        in={visible}
-        timeout={0}
-        onEnter={reflow}
-      >
+    <ProfileSection id={id} ref={sectionRef} aria-labelledby={titleId} tabIndex={-1}>
+      <Transition in={visible} timeout={0} onEnter={reflow}>
         {status => (
           <ProfileContent>
             <ProfileColumn>
               <ProfileText status={status} titleId={titleId} />
-              <ProfileButton
-                secondary
-                status={status}
-                to="/contact"
-                icon="send"
-              >
+              <ProfileButton secondary status={status} to="/contact" icon="send">
                 Send me a message
               </ProfileButton>
             </ProfileColumn>
@@ -88,7 +79,7 @@ function Profile(props) {
       </Transition>
     </ProfileSection>
   );
-};
+}
 
 const ProfileSection = styled.section`
   width: 100vw;
@@ -170,7 +161,7 @@ const ProfileTitle = styled.h2`
   font-weight: var(--fontWeightMedium);
   margin-bottom: 40px;
   white-space: nowrap;
-  opacity: ${props => props.status === 'entered' ? 1 : 0};
+  opacity: ${props => (props.status === 'entered' ? 1 : 0)};
   transition: opacity 0.8s ease 0.4s;
   color: rgb(var(--rgbTitle));
 
@@ -192,9 +183,11 @@ const ProfileDescription = styled.p`
   opacity: 0;
   transition: opacity 0.8s ease 0.6s;
 
-  ${props => props.status === 'entered' && css`
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      opacity: 1;
+    `}
 
   @media (max-width: ${media.mobile}px) {
     font-size: 18px;
@@ -225,10 +218,12 @@ const ProfileTagText = styled.div`
   transition-duration: 0.4s;
   transition-delay: 1.3s;
 
-  ${props => props.status === 'entered' && css`
-    transform: translateX(0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transform: translateX(0);
+      opacity: 1;
+    `}
 `;
 
 const ProfileImage = styled(Image)`
@@ -244,7 +239,7 @@ const ProfileSvg = styled(KatakanaProfile)`
   transform: translate3d(50%, -80px, 0);
   height: 620px;
   z-index: 32;
-  opacity: ${props => props.status === 'entered' ? 1 : 0};
+  opacity: ${props => (props.status === 'entered' ? 1 : 0)};
   transition: opacity 0.4s ease 0.6s;
   fill: rgb(var(--rgbTitle));
 
@@ -261,9 +256,11 @@ const ProfileButton = styled(RouterButton)`
   opacity: 0;
   transition: opacity 0.8s ease 0.6s;
 
-  ${props => props.status === 'entered' && css`
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      opacity: 1;
+    `}
 `;
 
 export default memo(Profile);

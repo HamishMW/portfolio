@@ -6,9 +6,11 @@ import { usePrefersReducedMotion } from 'hooks';
 const Loader = ({ size = 32, color = '#fff', text = 'Loading...', ...rest }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const renderScreenReaderTextPortal = () => ReactDOM.createPortal(
-    <LoaderAnnouncement aria-live="assertive">{text}</LoaderAnnouncement>
-    , document.body);
+  const renderScreenReaderTextPortal = () =>
+    ReactDOM.createPortal(
+      <LoaderAnnouncement aria-live="assertive">{text}</LoaderAnnouncement>,
+      document.body
+    );
 
   if (prefersReducedMotion) {
     return (
@@ -20,14 +22,11 @@ const Loader = ({ size = 32, color = '#fff', text = 'Loading...', ...rest }) => 
   }
 
   const gapSize = Math.round((size / 3) * 0.2);
-  const spanSize = Math.round((size / 3) - (gapSize * 2) - 1);
+  const spanSize = Math.round(size / 3 - gapSize * 2 - 1);
 
   return (
     <LoaderContainer aria-label={text} size={size} {...rest}>
-      <LoaderSpanWrapper
-        gapSize={gapSize}
-        spanSize={spanSize}
-      >
+      <LoaderSpanWrapper gapSize={gapSize} spanSize={spanSize}>
         <LoaderSpan spanColor={color} />
         <LoaderSpan spanColor={color} />
         <LoaderSpan spanColor={color} />

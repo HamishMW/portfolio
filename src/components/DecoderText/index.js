@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, memo } from 'react';
 import styled from 'styled-components/macro';
 import { usePrefersReducedMotion } from 'hooks';
 
+// prettier-ignore
 const chars = [
   'ア', 'イ', 'ウ', 'エ', 'オ',
   'カ', 'キ', 'ク', 'ケ', 'コ',
@@ -40,7 +41,7 @@ function shuffle(content, chars, position) {
     const rand = Math.floor(Math.random() * chars.length);
     return { type: 'code', value: chars[rand] };
   });
-};
+}
 
 function DecoderText(props) {
   const { text, start, offset, delay, fps, ...rest } = props;
@@ -92,7 +93,8 @@ function DecoderText(props) {
         output.current = shuffle(content.current, chars, position.current);
 
         const characterMap = output.current.map(item => {
-          const className = item.type === 'actual' ? 'decoder-text__value' : 'decoder-text__code';
+          const className =
+            item.type === 'actual' ? 'decoder-text__value' : 'decoder-text__code';
           return `<span aria-hidden="true" class="${className}">${item.value}</span>`;
         });
 
@@ -117,7 +119,7 @@ function DecoderText(props) {
       <span className="decoder-text__content" ref={contentRef} />
     </DecoderWrapper>
   );
-};
+}
 
 DecoderText.defaultProps = {
   offset: 100,

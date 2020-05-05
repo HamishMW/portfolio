@@ -53,7 +53,7 @@ function Code(props) {
       <CodeContent codeTheme={codeTheme} {...props} />
     </CodeWrapper>
   );
-};
+}
 
 const CodeWrapper = styled.pre`
   ${generateThemeProperties(lightCodeTheme)};
@@ -165,7 +165,7 @@ const CodeContent = styled.pre`
   }
 
   .token.bold {
-    font-weight: var(--fontWeightBold),
+    font-weight: var(--fontWeightBold);
   }
 
   .token.italic {

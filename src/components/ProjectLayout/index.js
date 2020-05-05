@@ -12,9 +12,7 @@ const initDelay = 300;
 export function ProjectBackground(props) {
   const offset = useParallax(-0.6);
 
-  return (
-    <ProjectBackgroundImage offsetValue={offset} {...props} />
-  );
+  return <ProjectBackgroundImage offsetValue={offset} {...props} />;
 }
 
 export function ProjectHeader(props) {
@@ -39,12 +37,8 @@ export function ProjectHeader(props) {
           </ProjectLinkButton>
         </ProjectDetails>
         <ProjectMeta>
-          {roles && roles.map((role, index) => (
-            <ProjectMetaItem
-              key={role}
-              index={index}
-              entered={!prerender}
-            >
+          {roles?.map((role, index) => (
+            <ProjectMetaItem key={role} index={index} entered={!prerender}>
               {role}
             </ProjectMetaItem>
           ))}
@@ -86,21 +80,23 @@ export const ProjectSection = styled.section`
     padding-bottom: 40px;
   }
 
-  ${props => props.light && css`
-    background: rgb(var(--rgbBackgroundLight));
-    padding-top: 120px;
-    padding-bottom: 140px;
+  ${props =>
+    props.light &&
+    css`
+      background: rgb(var(--rgbBackgroundLight));
+      padding-top: 120px;
+      padding-bottom: 140px;
 
-    @media (max-width: ${media.tablet}px) {
-      padding-top: 80px;
-      padding-bottom: 100px;
-    }
+      @media (max-width: ${media.tablet}px) {
+        padding-top: 80px;
+        padding-bottom: 100px;
+      }
 
-    @media (max-width: ${media.mobile}px) {
-      padding-top: 80px;
-      padding-bottom: 100px;
-    }
-  `}
+      @media (max-width: ${media.mobile}px) {
+        padding-top: 80px;
+        padding-bottom: 100px;
+      }
+    `}
 `;
 
 export const ProjectBackgroundImage = styled(Image).attrs(props => ({
@@ -125,9 +121,11 @@ export const ProjectBackgroundImage = styled(Image).attrs(props => ({
     opacity: 1;
   }
 
-  ${props => props.entered && css`
-    animation: ${AnimFade} 2s ease ${initDelay}ms forwards;
-  `}
+  ${props =>
+    props.entered &&
+    css`
+      animation: ${AnimFade} 2s ease ${initDelay}ms forwards;
+    `}
 
   img {
     object-fit: cover;
@@ -145,7 +143,8 @@ export const ProjectBackgroundImage = styled(Image).attrs(props => ({
     z-index: 1;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg,
+    background: linear-gradient(
+      180deg,
       ${props => `rgb(var(--rgbBackground) / ${props.opacity})`} 0%,
       rgb(var(--rgbBackground)) 100%
     );
@@ -216,9 +215,11 @@ const ProjectTitle = styled.h1`
     opacity: 1;
   }
 
-  ${props => props.entered && css`
-    animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay}ms forwards;
-  `}
+  ${props =>
+    props.entered &&
+    css`
+      animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay}ms forwards;
+    `}
 
   @media (max-width: ${media.tablet}px) {
     font-size: 48px;
@@ -242,9 +243,12 @@ const ProjectDescription = styled.p`
     opacity: 1;
   }
 
-  ${props => props.entered && css`
-    animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay + 100}ms forwards;
-  `}
+  ${props =>
+    props.entered &&
+    css`
+      animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay + 100}ms
+        forwards;
+    `}
 
   @media (max-width: ${media.mobile}px) {
     font-size: 18px;
@@ -258,9 +262,12 @@ const ProjectLinkButton = styled(LinkButton)`
     opacity: 1;
   }
 
-  ${props => props.entered && css`
-    animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay + 200}ms forwards;
-  `}
+  ${props =>
+    props.entered &&
+    css`
+      animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay + 200}ms
+        forwards;
+    `}
 `;
 
 const ProjectMeta = styled.ul`
@@ -273,7 +280,7 @@ const ProjectMeta = styled.ul`
 const ProjectMetaItem = styled.li`
   padding: 30px 0;
   font-size: 16px;
-  font-weight: ${props => props.theme.id === 'light' ? 500 : 400};
+  font-weight: ${props => (props.theme.id === 'light' ? 500 : 400)};
   border-top: 1px solid rgb(var(--rgbTitle) / 0.2);
   opacity: 0;
 
@@ -285,9 +292,12 @@ const ProjectMetaItem = styled.li`
     opacity: 1;
   }
 
-  ${props => props.entered && css`
-    animation: ${AnimFadeSlide} 1.5s var(--curveFastoutSlowin) ${initDelay + 300 + props.index * 140}ms forwards;
-  `}
+  ${props =>
+    props.entered &&
+    css`
+      animation: ${AnimFadeSlide} 1.5s var(--curveFastoutSlowin)
+        ${initDelay + 300 + props.index * 140}ms forwards;
+    `}
 
   @media(max-width: ${media.tablet}px) {
     padding: 20px 0;
@@ -323,7 +333,7 @@ export const ProjectSectionHeading = styled.h2`
   margin: 0;
   color: rgb(var(--rgbTitle));
 
-  @media(max-width: ${media.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 24px;
   }
 `;
@@ -339,7 +349,7 @@ export const ProjectSectionText = styled.p`
     margin-top: 14px;
   }
 
-  @media(max-width: ${media.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
     font-size: 18px;
     margin-top: 22px;
   }
@@ -348,17 +358,19 @@ export const ProjectSectionText = styled.p`
 export const ProjectTextRow = styled.div`
   max-width: 660px;
   align-self: center;
-  margin-bottom: ${props => props.noMargin ? 0 : 80}px;
-  text-align: ${props => props.center ? 'center' : 'left'};
+  margin-bottom: ${props => (props.noMargin ? 0 : 80)}px;
+  text-align: ${props => (props.center ? 'center' : 'left')};
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: ${props => props.center ? 'center' : 'flex-start'};
+  align-items: ${props => (props.center ? 'center' : 'flex-start')};
 
-  ${props => !props.centerMobile && css`
-    @media (max-width: ${media.mobile}px) {
-      text-align: left;
-      align-items: flex-start;
-    }
-  `}
+  ${props =>
+    !props.centerMobile &&
+    css`
+      @media (max-width: ${media.mobile}px) {
+        text-align: left;
+        align-items: flex-start;
+      }
+    `}
 `;

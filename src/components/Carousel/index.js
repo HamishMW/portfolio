@@ -1,10 +1,23 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
-  WebGLRenderer, OrthographicCamera, Scene, Mesh, Color, ShaderMaterial,
-  LinearFilter, TextureLoader, PlaneBufferGeometry, LoadingManager
+  WebGLRenderer,
+  OrthographicCamera,
+  Scene,
+  Mesh,
+  Color,
+  ShaderMaterial,
+  LinearFilter,
+  TextureLoader,
+  PlaneBufferGeometry,
+  LoadingManager,
 } from 'three';
 import styled from 'styled-components/macro';
-import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
+import {
+  Easing,
+  Tween,
+  update as updateTween,
+  remove as removeTween,
+} from 'es6-tween';
 import Swipe from 'react-easy-swipe';
 import Icon from 'components/Icon';
 import { cornerClip } from 'utils/style';
@@ -20,7 +33,7 @@ function determineIndex(imageIndex, index, images, direction) {
   const nextIndex = (imageIndex + 1) % length;
   const finalIndex = direction > 0 ? nextIndex : prevIndex;
   return finalIndex;
-};
+}
 
 export default function Carousel(props) {
   const { width, height, images, placeholder, ...rest } = props;
@@ -43,65 +56,78 @@ export default function Carousel(props) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const placeholderRef = useRef();
   const tweenRef = useRef();
-  const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${images[imageIndex].alt}`;
+  const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${
+    images[imageIndex].alt
+  }`;
 
-  const goToIndex = useCallback(({
-    index,
-    direction = 1,
-    duration = 1200,
-    easing = Easing.Exponential.InOut,
-  }) => {
-    if (!sliderImages) return;
-    setImageIndex(index);
-    const uniforms = material.current.uniforms;
-    uniforms.nextImage.value = sliderImages[index];
-    uniforms.direction.value = direction;
+  const goToIndex = useCallback(
+    ({
+      index,
+      direction = 1,
+      duration = 1200,
+      easing = Easing.Exponential.InOut,
+    }) => {
+      if (!sliderImages) return;
+      setImageIndex(index);
+      const uniforms = material.current.uniforms;
+      uniforms.nextImage.value = sliderImages[index];
+      uniforms.direction.value = direction;
 
-    const onComplete = () => {
-      uniforms.currentImage.value = sliderImages[index];
-      uniforms.dispFactor.value = 0;
-      animating.current = false;
-    };
+      const onComplete = () => {
+        uniforms.currentImage.value = sliderImages[index];
+        uniforms.dispFactor.value = 0;
+        animating.current = false;
+      };
 
-    if (!prefersReducedMotion && uniforms.dispFactor.value !== 1) {
-      animating.current = true;
+      if (!prefersReducedMotion && uniforms.dispFactor.value !== 1) {
+        animating.current = true;
 
-      tweenRef.current = new Tween(uniforms.dispFactor)
-        .to({ value: 1 }, duration)
-        .easing(easing)
-        .on('complete', onComplete)
-        .start();
-    } else {
-      onComplete();
-      requestAnimationFrame(() => {
-        renderer.current.render(scene.current, camera.current);
-      });
-    }
-  }, [prefersReducedMotion, sliderImages]);
+        tweenRef.current = new Tween(uniforms.dispFactor)
+          .to({ value: 1 }, duration)
+          .easing(easing)
+          .on('complete', onComplete)
+          .start();
+      } else {
+        onComplete();
+        requestAnimationFrame(() => {
+          renderer.current.render(scene.current, camera.current);
+        });
+      }
+    },
+    [prefersReducedMotion, sliderImages]
+  );
 
-  const navigate = useCallback(({
-    direction,
-    index = null,
-    ...rest
-  }) => {
-    if (!loaded) return;
+  const navigate = useCallback(
+    ({ direction, index = null, ...rest }) => {
+      if (!loaded) return;
 
-    if (animating.current) {
-      cancelAnimationFrame(scheduledAnimationFrame.current);
-      scheduledAnimationFrame.current = requestAnimationFrame(() =>
-        navigate({ direction, index, ...rest }));
-      return;
-    }
+      if (animating.current) {
+        cancelAnimationFrame(scheduledAnimationFrame.current);
+        scheduledAnimationFrame.current = requestAnimationFrame(() =>
+          navigate({ direction, index, ...rest })
+        );
+        return;
+      }
 
-    const finalIndex = determineIndex(imageIndex, index, sliderImages, direction);
-    goToIndex({ index: finalIndex, direction: direction, ...rest });
-  }, [goToIndex, imageIndex, loaded, sliderImages]);
+      const finalIndex = determineIndex(
+        imageIndex,
+        index,
+        sliderImages,
+        direction
+      );
+      goToIndex({ index: finalIndex, direction: direction, ...rest });
+    },
+    [goToIndex, imageIndex, loaded, sliderImages]
+  );
 
-  const onNavClick = useCallback(index => {
-    if (index === imageIndex) return;
-    const direction = index > imageIndex ? 1 : -1;
-    navigate({ direction, index });
-  }, [imageIndex, navigate]);
+  const onNavClick = useCallback(
+    index => {
+      if (index === imageIndex) return;
+      const direction = index > imageIndex ? 1 : -1;
+      navigate({ direction, index });
+    },
+    [imageIndex, navigate]
+  );
 
   useEffect(() => {
     if (sliderImages && loaded) {
@@ -127,7 +153,14 @@ export default function Carousel(props) {
 
   useEffect(() => {
     const containerElement = container.current;
-    const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
+    const cameraOptions = [
+      width / -2,
+      width / 2,
+      height / 2,
+      height / -2,
+      1,
+      1000,
+    ];
     renderer.current = new WebGLRenderer({ antialias: false });
     camera.current = new OrthographicCamera(...cameraOptions);
     scene.current = new Scene();
@@ -261,37 +294,49 @@ export default function Carousel(props) {
 
       return function cleanUp() {
         if (placeholderElement) {
-          placeholderElement.removeEventListener('transitionend', purgePlaceholder);
+          placeholderElement.removeEventListener(
+            'transitionend',
+            purgePlaceholder
+          );
         }
       };
     }
   }, [placeholder]);
 
-  const onSwipeMove = useCallback((position, event) => {
-    if (animating.current || !material.current) return;
-    const { x } = position;
-    const absoluteX = Math.abs(x);
-    const containerWidth = canvasWidth;
-    if (absoluteX > 20) event.preventDefault();
-    lastSwipePosition.current = x;
-    swipeDirection.current = x > 0 ? -1 : 1;
-    const swipePercentage = 1 - (absoluteX - containerWidth) / containerWidth * -1;
-    const nextIndex = determineIndex(imageIndex, null, images, swipeDirection.current);
-    const uniforms = material.current.uniforms;
-    const displacementClamp = Math.min(Math.max(swipePercentage, 0), 1);
+  const onSwipeMove = useCallback(
+    (position, event) => {
+      if (animating.current || !material.current) return;
+      const { x } = position;
+      const absoluteX = Math.abs(x);
+      const containerWidth = canvasWidth;
+      if (absoluteX > 20) event.preventDefault();
+      lastSwipePosition.current = x;
+      swipeDirection.current = x > 0 ? -1 : 1;
+      const swipePercentage =
+        1 - ((absoluteX - containerWidth) / containerWidth) * -1;
+      const nextIndex = determineIndex(
+        imageIndex,
+        null,
+        images,
+        swipeDirection.current
+      );
+      const uniforms = material.current.uniforms;
+      const displacementClamp = Math.min(Math.max(swipePercentage, 0), 1);
 
-    uniforms.currentImage.value = sliderImages[imageIndex];
-    uniforms.nextImage.value = sliderImages[nextIndex];
-    uniforms.direction.value = swipeDirection.current;
+      uniforms.currentImage.value = sliderImages[imageIndex];
+      uniforms.nextImage.value = sliderImages[nextIndex];
+      uniforms.direction.value = swipeDirection.current;
 
-    if (!prefersReducedMotion) {
-      uniforms.dispFactor.value = displacementClamp;
-    }
+      if (!prefersReducedMotion) {
+        uniforms.dispFactor.value = displacementClamp;
+      }
 
-    requestAnimationFrame(() => {
-      renderer.current.render(scene.current, camera.current);
-    });
-  }, [canvasWidth, imageIndex, images, prefersReducedMotion, sliderImages]);
+      requestAnimationFrame(() => {
+        renderer.current.render(scene.current, camera.current);
+      });
+    },
+    [canvasWidth, imageIndex, images, prefersReducedMotion, sliderImages]
+  );
 
   const onSwipeEnd = useCallback(() => {
     if (!material.current) return;
@@ -324,7 +369,7 @@ export default function Carousel(props) {
     }
   }, [canvasWidth, imageIndex, navigate]);
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = event => {
     const actions = {
       ArrowRight: () => navigate({ direction: 1 }),
       ArrowLeft: () => navigate({ direction: -1 }),
@@ -353,7 +398,7 @@ export default function Carousel(props) {
               ref={container}
               role="img"
             />
-            {showPlaceholder && placeholder &&
+            {showPlaceholder && placeholder && (
               <SliderPlaceholder
                 aria-hidden
                 src={placeholder}
@@ -362,7 +407,7 @@ export default function Carousel(props) {
                 role="presentation"
                 loaded={!prerender && loaded && sliderImages}
               />
-            }
+            )}
           </SliderImageWrapper>
         </Swipe>
         <SliderButton
@@ -393,7 +438,7 @@ export default function Carousel(props) {
       </SliderNav>
     </SliderContainer>
   );
-};
+}
 
 const SliderContainer = styled.div`
   position: relative;
@@ -427,7 +472,7 @@ const SliderPlaceholder = styled.img`
   grid-row: 1;
   width: 100%;
   transition: opacity 1s ease;
-  opacity: ${props => props.loaded ? 0 : 1};
+  opacity: ${props => (props.loaded ? 0 : 1)};
   pointer-events: none;
   position: relative;
   z-index: 1;
@@ -440,8 +485,8 @@ const SliderButton = styled.button`
   padding: 14px 26px;
   position: absolute;
   top: 50%;
-  right: ${props => props.right ? '10px' : 'unset'};
-  left: ${props => props.left ? '10px' : 'unset'};
+  right: ${props => (props.right ? '10px' : 'unset')};
+  left: ${props => (props.left ? '10px' : 'unset')};
   transform: translate3d(0, -50%, 0);
   z-index: 32;
   cursor: pointer;
@@ -532,7 +577,8 @@ const SliderNavButton = styled.button`
     height: 10px;
     border-radius: 50%;
     display: block;
-    background: ${props => props.active ? 'rgb(var(--rgbText))' : 'rgb(var(--rgbTitle) / 0.2)'};
+    background: ${props =>
+      props.active ? 'rgb(var(--rgbText))' : 'rgb(var(--rgbTitle) / 0.2)'};
     transition-property: background, box-shadow;
     transition-duration: 0.5s;
     transition-timing-function: var(--curveFastoutSlowin);
@@ -540,7 +586,7 @@ const SliderNavButton = styled.button`
 
   &:focus::after {
     box-shadow: 0 0 0 4px rgb(var(--rgbTitle) / 0.2);
-    background: ${props => props.active ? 'rgb(var(--rgbText))' : 'rgb(var(--rgbTitle) / 0.6)'
-  };
+    background: ${props =>
+      props.active ? 'rgb(var(--rgbText))' : 'rgb(var(--rgbTitle) / 0.6)'};
   }
 `;

@@ -35,54 +35,54 @@ function Contact() {
   const [complete, setComplete] = useState(false);
   useScrollRestore();
 
-  const onSubmit = useCallback(async event => {
-    event.preventDefault();
-    if (sending) return;
+  const onSubmit = useCallback(
+    async event => {
+      event.preventDefault();
+      if (sending) return;
 
-    try {
-      setSending(true);
+      try {
+        setSending(true);
 
-      const response = await fetch('/functions/sendMessage', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email.value,
-          message: message.value,
-        }),
-      });
+        const response = await fetch('/functions/sendMessage', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email.value,
+            message: message.value,
+          }),
+        });
 
-      const errorStatus = getStatusError(response.status);
-      if (errorStatus) throw new Error(errorStatus);
+        const errorStatus = getStatusError(response.status);
+        if (errorStatus) throw new Error(errorStatus);
 
-      setComplete(true);
-      setSending(false);
-    } catch (error) {
-      setSending(false);
-      alert(error.message);
-    }
-  }, [email.value, message.value, sending]);
+        setComplete(true);
+        setSending(false);
+      } catch (error) {
+        setSending(false);
+        alert(error.message);
+      }
+    },
+    [email.value, message.value, sending]
+  );
 
   return (
     <ContactWrapper status={status}>
       <Helmet
         title="Contact me"
-        meta={[{
-          name: 'description',
-          content: 'Send me a message if you’re interested in discussing a project or if you just want to say hi',
-        }]}
+        meta={[
+          {
+            name: 'description',
+            content:
+              'Send me a message if you’re interested in discussing a project or if you just want to say hi',
+          },
+        ]}
       />
       <TransitionGroup component={null}>
-        {!complete &&
-          <Transition
-            appear
-            mountOnEnter
-            unmountOnExit
-            timeout={1600}
-            onEnter={reflow}
-          >
+        {!complete && (
+          <Transition appear mountOnEnter unmountOnExit timeout={1600} onEnter={reflow}>
             {status => (
               <ContactForm method="post" onSubmit={onSubmit} role="form">
                 <ContactTitle status={status} delay={50}>
@@ -130,15 +130,9 @@ function Contact() {
               </ContactForm>
             )}
           </Transition>
-        }
-        {complete &&
-          <Transition
-            appear
-            mountOnEnter
-            unmountOnExit
-            timeout={10}
-            onEnter={reflow}
-          >
+        )}
+        {complete && (
+          <Transition appear mountOnEnter unmountOnExit timeout={10} onEnter={reflow}>
             {status => (
               <ContactComplete aria-live="polite">
                 <ContactCompleteTitle status={status} delay={10}>
@@ -159,7 +153,7 @@ function Contact() {
               </ContactComplete>
             )}
           </Transition>
-        }
+        )}
       </TransitionGroup>
     </ContactWrapper>
   );
@@ -174,9 +168,11 @@ const ContactWrapper = styled.section`
   width: 100%;
   ${sectionPadding}
 
-  ${props => (props.status === 'entered' || props.status === 'exiting') && css`
-    position: relative;
-  `}
+  ${props =>
+    (props.status === 'entered' || props.status === 'exiting') &&
+    css`
+      position: relative;
+    `}
 `;
 
 const ContactForm = styled.form`
@@ -211,18 +207,22 @@ const ContactTitle = styled.h1`
   opacity: 0;
   height: 32px;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    (props.status === 'entering' || props.status === 'entered') &&
+    !prerender &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 
-  ${props => props.status === 'exiting' && css`
-    transition-duration: 0.4s;
-    transition-delay: 0s;
-    transform: translate3d(0, -40px, 0);
-    opacity: 0;
-  `}
+  ${props =>
+    props.status === 'exiting' &&
+    css`
+      transition-duration: 0.4s;
+      transition-delay: 0s;
+      transform: translate3d(0, -40px, 0);
+      opacity: 0;
+    `}
 `;
 
 const ContactDivider = styled(Divider)`
@@ -234,18 +234,22 @@ const ContactDivider = styled(Divider)`
   transform: translate3d(0, 90px, 0);
   opacity: 0;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    (props.status === 'entering' || props.status === 'entered') &&
+    !prerender &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 
-  ${props => props.status === 'exiting' && css`
-    transition-duration: 0.4s;
-    transition-delay: 0s;
-    transform: translate3d(0, -40px, 0);
-    opacity: 0;
-  `}
+  ${props =>
+    props.status === 'exiting' &&
+    css`
+      transition-duration: 0.4s;
+      transition-delay: 0s;
+      transform: translate3d(0, -40px, 0);
+      opacity: 0;
+    `}
 `;
 
 const ContactInput = styled(Input)`
@@ -256,65 +260,78 @@ const ContactInput = styled(Input)`
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    (props.status === 'entering' || props.status === 'entered') &&
+    !prerender &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 
-  ${props => props.status === 'exiting' && css`
-    transition-duration: 0.4s;
-    transition-delay: 0s;
-    transform: translate3d(0, -40px, 0);
-    opacity: 0;
-  `}
+  ${props =>
+    props.status === 'exiting' &&
+    css`
+      transition-duration: 0.4s;
+      transition-delay: 0s;
+      transform: translate3d(0, -40px, 0);
+      opacity: 0;
+    `}
 `;
 
 const ContactButton = styled(Button)`
   margin-top: 28px;
   transition-property: transform, opacity;
   transition-timing-function: var(--curveFastoutSlowin);
-  transition-delay: ${props => props.status === 'entered' ? '0ms' : `${props.delay + initDelay}ms`};
-  transition-duration: ${props => props.status === 'entered' ? '0.4s' : '0.8s'};
+  transition-delay: ${props =>
+    props.status === 'entered' ? '0ms' : `${props.delay + initDelay}ms`};
+  transition-duration: ${props => (props.status === 'entered' ? '0.4s' : '0.8s')};
   transform: translate3d(0, 80px, 0);
   opacity: 0;
   justify-self: flex-start;
 
-  ${props => props.sending && css`
-    svg {
-      transition: transform ${props.curveFastoutSlowin} 0.8s, opacity 0.3s ease 0.3s;
-      transform: translate3d(150px, 0, 0);
-      opacity: 0;
-    }
-
-    div {
-      animation: ${AnimFade} 0.5s ease 0.6s forwards;
-      opacity: 0;
-
-      @media (prefers-reduced-motion: reduce) {
-        opacity: 1;
+  ${props =>
+    props.sending &&
+    css`
+      svg {
+        transition: transform ${props.curveFastoutSlowin} 0.8s, opacity 0.3s ease 0.3s;
+        transform: translate3d(150px, 0, 0);
+        opacity: 0;
       }
-    }
-  `}
 
-  ${props => props.status === 'entering' && css`
-    &:hover {
+      div {
+        animation: ${AnimFade} 0.5s ease 0.6s forwards;
+        opacity: 0;
+
+        @media (prefers-reduced-motion: reduce) {
+          opacity: 1;
+        }
+      }
+    `}
+
+  ${props =>
+    props.status === 'entering' &&
+    css`
+      &:hover {
+        transform: translate3d(0, 0, 0);
+      }
+    `}
+
+  ${props =>
+    (props.status === 'entering' || props.status === 'entered') &&
+    !prerender &&
+    css`
       transform: translate3d(0, 0, 0);
-    }
-  `}
+      opacity: 1;
+    `}
 
-  ${props => (props.status === 'entering' ||
-    props.status === 'entered') && !prerender && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
-
-  ${props => props.status === 'exiting' && css`
-    transition-duration: 0.4s;
-    transition-delay: 0s;
-    transform: translate3d(0, -40px, 0);
-    opacity: 0;
-  `}
+  ${props =>
+    props.status === 'exiting' &&
+    css`
+      transition-duration: 0.4s;
+      transition-delay: 0s;
+      transform: translate3d(0, -40px, 0);
+      opacity: 0;
+    `}
 `;
 
 const ContactComplete = styled.div`
@@ -343,10 +360,12 @@ const ContactCompleteTitle = styled.h1`
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 `;
 
 const ContactCompleteText = styled.p`
@@ -359,10 +378,12 @@ const ContactCompleteText = styled.p`
   transform: translate3d(0, 80px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 `;
 
 const ContactCompleteButton = styled(RouterButton)`
@@ -374,10 +395,12 @@ const ContactCompleteButton = styled(RouterButton)`
   opacity: 0;
   padding-left: 3px;
 
-  ${props => props.status === 'entered' && css`
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    `}
 `;
 
 export default memo(Contact);

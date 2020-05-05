@@ -30,7 +30,7 @@ function Input(props) {
       <InputUnderline focused={focused} />
     </InputWrapper>
   );
-};
+}
 
 const InputWrapper = styled.div`
   position: relative;
@@ -38,7 +38,7 @@ const InputWrapper = styled.div`
 `;
 
 const AutoFillStyle = css`
-  -webkit-text-fill-color:  rgb(var(--rgbText));
+  -webkit-text-fill-color: rgb(var(--rgbText));
   box-shadow: 0 0 0px 1000px rgb(var(--rgbTitle) / 0.1) inset;
 `;
 
@@ -85,7 +85,7 @@ const InputElement = styled.input`
 
 const InputUnderline = styled.div`
   background: rgb(var(--rgbPrimary));
-  transform: scale3d(${props => props.focused ? 1 : 0}, 1, 1);
+  transform: scale3d(${props => (props.focused ? 1 : 0)}, 1, 1);
   width: 100%;
   height: 2px;
   position: absolute;
@@ -103,10 +103,12 @@ const InputLabel = styled.label`
   transform-origin: top left;
   transition: transform 0.4s var(--curveFastoutSlowin), color 0.4s ease;
 
-  ${props => (props.hasValue || props.focused) && css`
-    color: rgb(var(--rgbTitle) / 0.54);
-    transform: scale(0.8) translateY(-28px);
-  `}
+  ${props =>
+    (props.hasValue || props.focused) &&
+    css`
+      color: rgb(var(--rgbTitle) / 0.54);
+      transform: scale(0.8) translateY(-28px);
+    `}
 `;
 
 export default Input;

@@ -53,7 +53,7 @@ function ProgressiveImage(props) {
       />
     </ImageContainer>
   );
-};
+}
 
 function ImageElements(props) {
   const {
@@ -93,7 +93,7 @@ function ImageElements(props) {
     };
   }, []);
 
-  const togglePlaying = (event) => {
+  const togglePlaying = event => {
     event.preventDefault();
 
     if (videoRef.current.paused) {
@@ -123,7 +123,7 @@ function ImageElements(props) {
       onMouseOver={videoSrc ? handleShowPlayButton : undefined}
       onMouseOut={videoSrc ? () => setIsHovered(false) : undefined}
     >
-      {videoSrc &&
+      {videoSrc && (
         <Fragment>
           <ImageActual
             muted
@@ -146,7 +146,7 @@ function ImageElements(props) {
             onExited={() => setShowPlayButton(false)}
             timeout={{ enter: 0, exit: 300 }}
           >
-            {(status) => (
+            {status => (
               <ImageButton
                 iconOnly
                 status={status}
@@ -161,8 +161,8 @@ function ImageElements(props) {
             )}
           </Transition>
         </Fragment>
-      }
-      {!videoSrc &&
+      )}
+      {!videoSrc && (
         <ImageActual
           delay={delay}
           onLoad={onLoad}
@@ -173,8 +173,8 @@ function ImageElements(props) {
           alt={alt}
           {...rest}
         />
-      }
-      {showPlaceholder &&
+      )}
+      {showPlaceholder && (
         <ImagePlaceholder
           delay={delay}
           ref={placeholderRef}
@@ -183,7 +183,7 @@ function ImageElements(props) {
           alt=""
           role="presentation"
         />
-      }
+      )}
     </ImageElementWrapper>
   );
 }
@@ -213,28 +213,33 @@ const ImageContainer = styled.div`
   display: grid;
   grid-template-columns: 100%;
 
-  ${props => props.reveal && css`
-    &::before {
-      content: '';
-      background-color: rgb(var(--rgbAccent));
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      transform: scale3d(0, 1, 1);
-      transform-origin: left;
-      z-index: 16;
-      animation: ${props.intersect && !prerender && css`
+  ${props =>
+    props.reveal &&
+    css`
+      &::before {
+        content: '';
+        background-color: rgb(var(--rgbAccent));
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: scale3d(0, 1, 1);
+        transform-origin: left;
+        z-index: 16;
+        animation: ${props.intersect &&
+        !prerender &&
+        css`
         ${AnimImageReveal} 1.8s var(--curveFastoutSlowin) ${props.delay + 200}ms
       `};
-    }
-  `}
+      }
+    `}
 `;
 
 const ImageElementWrapper = styled.div`
-  opacity: ${props => !props.reveal || props.intersect ? 1 : 0};
-  transition: ${props => props.reveal ? `opacity 0.4s ease ${props.delay + 1000}ms` : 'none'};
+  opacity: ${props => (!props.reveal || props.intersect ? 1 : 0)};
+  transition: ${props =>
+    props.reveal ? `opacity 0.4s ease ${props.delay + 1000}ms` : 'none'};
   transform: translate3d(0, 0, 0);
   position: relative;
   display: grid;
@@ -249,7 +254,7 @@ const ImagePlaceholder = styled.img`
   display: block;
   position: relative;
   z-index: 1;
-  opacity: ${props => props.loaded ? 0 : 1};
+  opacity: ${props => (props.loaded ? 0 : 1)};
   grid-column: 1;
   grid-row: 1;
 `;
@@ -258,7 +263,7 @@ const ImageActual = styled.img`
   width: 100%;
   height: auto;
   display: block;
-  opacity: ${props => props.loaded ? 1 : 0};
+  opacity: ${props => (props.loaded ? 1 : 0)};
   grid-column: 1;
   grid-row: 1;
 `;
@@ -302,27 +307,33 @@ const ImageButton = styled(Button)`
     background: rgba(0, 0, 0, 0.9);
   }
 
-  ${props => props.status === 'entered' && css`
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      opacity: 1;
+    `}
 
-  ${props => !props.showPlayButton && css`
-    padding: 0;
-    height: 1px;
-    width: 1px;
-    clip: rect(0 0 0 0);
-    margin: -1px;
-    overflow: hidden;
-  `}
+  ${props =>
+    !props.showPlayButton &&
+    css`
+      padding: 0;
+      height: 1px;
+      width: 1px;
+      clip: rect(0 0 0 0);
+      margin: -1px;
+      overflow: hidden;
+    `}
 
-  ${props => props.showPlayButton && css`
-    clip: auto;
-    margin: 0;
-    top: 10px;
-    left: 10px;
-    overflow: visible;
-    width: auto;
-  `}
+  ${props =>
+    props.showPlayButton &&
+    css`
+      clip: auto;
+      margin: 0;
+      top: 10px;
+      left: 10px;
+      overflow: visible;
+      width: auto;
+    `}
 `;
 
 export default ProgressiveImage;

@@ -1,7 +1,18 @@
-import React, { lazy, Suspense, useEffect, createContext, useReducer, Fragment } from 'react';
+import React, {
+  lazy,
+  Suspense,
+  useEffect,
+  createContext,
+  useReducer,
+  Fragment,
+} from 'react';
 import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components/macro';
 import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
-import { Transition, TransitionGroup, config as transitionConfig } from 'react-transition-group';
+import {
+  Transition,
+  TransitionGroup,
+  config as transitionConfig,
+} from 'react-transition-group';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from 'components/Header';
 import { theme, createThemeProperties } from 'app/theme';
@@ -28,22 +39,6 @@ const consoleMessage = `
 __  __  __
 \u005C \u005C \u005C \u005C \u005C\u2215\n \u005C \u005C\u2215\u005C \u005C\n  \u005C\u2215  \u005C\u2215
 \n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio\n\n
-`;
-
-export const fontStyles = `
-  @font-face {
-    font-family: 'Gotham';
-    font-weight: 400;
-    src: url(${GothamBook}) format('woff');
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Gotham';
-    font-weight: 500;
-    src: url(${GothamMedium}) format('woff2');
-    font-display: swap;
-  }
 `;
 
 function App() {
@@ -92,7 +87,36 @@ function AppRoutes() {
         <link rel="canonical" href={`https://hamishw.com${pathname}`} />
         <link rel="preload" href={GothamBook} as="font" crossorigin="" />
         <link rel="preload" href={GothamMedium} as="font" crossorigin="" />
-        <style>{fontStyles}</style>
+        <style>
+          {`
+            @font-face {
+              font-family: "Gotham";
+              font-weight: 400;
+              src: url(${GothamBook}) format("woff");
+              font-display: swap;
+            }
+
+            @font-face {
+              font-family: "Gotham";
+              font-weight: 500;
+              src: url(${GothamMedium}) format("woff2");
+              font-display: swap;
+            }
+          `}
+        </style>
+        {prerender && (
+          <style>
+            {`
+              .dark {
+                ${createThemeProperties(theme.dark)}
+              }
+
+              .light {
+                ${createThemeProperties(theme.light)}
+              }
+            `}
+          </style>
+        )}
       </Helmet>
       <GlobalStyles />
       <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
@@ -103,14 +127,10 @@ function AppRoutes() {
         id="MainContent"
         role="main"
       >
-        <Transition
-          key={pathname}
-          timeout={300}
-          onEnter={reflow}
-        >
+        <Transition key={pathname} timeout={300} onEnter={reflow}>
           {status => (
             <TransitionContext.Provider value={{ status }}>
-              <AppPage status={status} >
+              <AppPage status={status}>
                 <Suspense fallback={<Fragment />}>
                   <Switch location={location}>
                     <Route exact path="/" component={Home} />
@@ -135,6 +155,7 @@ export const GlobalStyles = createGlobalStyle`
   :root {
     --spacingOuter: 60px;
     --maxWidth: 1100px;
+    ${props => createThemeProperties(props.theme)}
 
     @media (max-width: ${media.laptop}px) {
       --maxWidth: 1000px;
@@ -152,22 +173,6 @@ export const GlobalStyles = createGlobalStyle`
       --spacingOuter: 20px;
     }
   }
-
-  .dark {
-    ${createThemeProperties(theme.dark)}
-  }
-
-  .light {
-    ${createThemeProperties(theme.light)}
-  }
-
-  ${!prerender && css`
-    body.light,
-    body.dark,
-    body {
-      ${props => createThemeProperties(props.theme)}
-    }
-  `}
 
   html,
   body {
@@ -223,15 +228,19 @@ const AppPage = styled.div`
   grid-row: 1;
   transition: opacity 0.3s ease;
 
-  ${props => (props.status === 'exiting' || props.status === 'entering') && css`
-    opacity: 0;
-  `}
+  ${props =>
+    (props.status === 'exiting' || props.status === 'entering') &&
+    css`
+      opacity: 0;
+    `}
 
-  ${props => props.status === 'entered' && css`
-    transition-duration: 0.5s;
-    transition-delay: 0.2s;
-    opacity: 1;
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      transition-duration: 0.5s;
+      transition-delay: 0.2s;
+      opacity: 1;
+    `}
 `;
 
 const SkipToMain = styled.a`

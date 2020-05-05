@@ -5,12 +5,7 @@ import { Button } from 'components/Button';
 import { media } from 'utils/style';
 
 const NavToggle = ({ menuOpen, ...rest }) => (
-  <NavToggleButton
-    iconOnly
-    aria-label="Menu"
-    aria-expanded={menuOpen}
-    {...rest}
-  >
+  <NavToggleButton iconOnly aria-label="Menu" aria-expanded={menuOpen} {...rest}>
     <NavToggleInner>
       <NavToggleIcon open={menuOpen} icon="menu" />
       <NavToggleIcon open={menuOpen} icon="close" />
@@ -55,23 +50,31 @@ const NavToggleIcon = styled(Icon)`
   width: 32px;
   height: 32px;
 
-  ${props => props.icon === 'close' && css`
-    transition-delay: 0s;
-    transform: rotate(-45deg);
-    opacity: 0;
-  `}
+  ${props =>
+    props.icon === 'close' &&
+    css`
+      transition-delay: 0s;
+      transform: rotate(-45deg);
+      opacity: 0;
+    `}
 
-  ${props => props.open && props.icon === 'close' && css`
-    transition-delay: 0.1s;
-    transform: rotate(0deg);
-    opacity: 1;
-  `}
+  ${props =>
+    props.open &&
+    props.icon === 'close' &&
+    css`
+      transition-delay: 0.1s;
+      transform: rotate(0deg);
+      opacity: 1;
+    `}
 
-  ${props => props.open && props.icon === 'menu' && css`
-    transition-delay: 0s;
-    transform: rotate(45deg);
-    opacity: 0;
-  `}
+  ${props =>
+    props.open &&
+    props.icon === 'menu' &&
+    css`
+      transition-delay: 0s;
+      transform: rotate(45deg);
+      opacity: 0;
+    `}
 `;
 
 export default NavToggle;

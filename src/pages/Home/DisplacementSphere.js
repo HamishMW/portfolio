@@ -1,8 +1,19 @@
 import React, { useEffect, useRef, memo } from 'react';
 import styled, { useTheme } from 'styled-components/macro';
 import {
-  Vector2, WebGLRenderer, PerspectiveCamera, Scene, DirectionalLight, AmbientLight,
-  UniformsUtils, UniformsLib, ShaderLib, SphereBufferGeometry, Mesh, Color, ShaderMaterial
+  Vector2,
+  WebGLRenderer,
+  PerspectiveCamera,
+  Scene,
+  DirectionalLight,
+  AmbientLight,
+  UniformsUtils,
+  UniformsLib,
+  ShaderLib,
+  SphereBufferGeometry,
+  Mesh,
+  Color,
+  ShaderMaterial,
 } from 'three';
 import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
@@ -35,7 +46,10 @@ function DisplacementSphere(props) {
   useEffect(() => {
     const rand = Math.random();
     mouse.current = new Vector2(0.8, 0.5);
-    renderer.current = new WebGLRenderer({ canvas: canvasRef.current, powerPreference: 'high-performance' });
+    renderer.current = new WebGLRenderer({
+      canvas: canvasRef.current,
+      powerPreference: 'high-performance',
+    });
     camera.current = new PerspectiveCamera(55, width.current / height.current, 0.1, 200);
     scene.current = new Scene();
 
@@ -189,9 +203,7 @@ function DisplacementSphere(props) {
 
   return (
     <Transition appear in onEnter={reflow} timeout={3000}>
-      {status =>
-        <SphereCanvas aria-hidden status={status} ref={canvasRef} {...props} />
-      }
+      {status => <SphereCanvas aria-hidden status={status} ref={canvasRef} {...props} />}
     </Transition>
   );
 }
@@ -203,7 +215,7 @@ const SphereCanvas = styled.canvas`
   right: 0;
   bottom: 0;
   left: 0;
-  opacity: ${props => isVisible(props.status) ? 1 : 0};
+  opacity: ${props => (isVisible(props.status) ? 1 : 0)};
   transition-property: opacity;
   transition-duration: 3s;
   transition-timing-function: var(--curveFastoutSlowin);

@@ -33,7 +33,10 @@ function PostListItem({
         </PostImageWrapper>
         <PostText>
           <PostDate>
-            {new Date(date).toLocaleDateString('default', { year: 'numeric', month: 'long' })}
+            {new Date(date).toLocaleDateString('default', {
+              year: 'numeric',
+              month: 'long',
+            })}
           </PostDate>
           <PostTitle>{title}</PostTitle>
           <PostDescription>{description}</PostDescription>
@@ -50,16 +53,19 @@ function PostList() {
     <PostListWrapper>
       <Helmet>
         <title>{`Articles | Hamish Williams Designer`}</title>
-        <meta name="description" content="A collection of technical design and development articles." />
+        <meta
+          name="description"
+          content="A collection of technical design and development articles."
+        />
       </Helmet>
       <PostListContent>
         <PostTitleWrapper>
           <PostListTitle>Articles</PostListTitle>
         </PostTitleWrapper>
         <PostListColumn>
-          {posts.map(({ path, ...post }) =>
+          {posts.map(({ path, ...post }) => (
             <PostListItem key={path} path={path} {...post} />
-          )}
+          ))}
         </PostListColumn>
       </PostListContent>
     </PostListWrapper>
@@ -101,7 +107,6 @@ const PostListContent = styled.div`
   grid-gap: 20px;
   padding: 80px 0;
   position: relative;
-
 
   @media (max-width: ${media.mobile}px) {
     padding-top: 100px;
@@ -170,13 +175,15 @@ const PostTitle = styled.h2`
   line-height: 1.2;
   color: rgb(var(--rgbTitle));
   display: inline;
-  background: linear-gradient(rgb(var(--rgbText)), rgb(var(--rgbText))) no-repeat 100% 100% / 0 2px;
+  background: linear-gradient(rgb(var(--rgbText)), rgb(var(--rgbText))) no-repeat 100%
+    100% / 0 2px;
   transition: background-size 0.4s var(--curveFastoutSlowin);
   padding-bottom: 2px;
 
   &:hover,
   &:focus {
-    background: linear-gradient(rgb(var(--rgbText)), rgb(var(--rgbText))) no-repeat 0 100% / 100% 2px;
+    background: linear-gradient(rgb(var(--rgbText)), rgb(var(--rgbText))) no-repeat 0 100% /
+      100% 2px;
   }
 
   @media (max-width: ${media.mobile}px) {
@@ -207,8 +214,8 @@ const PostImage = styled(ProgressiveImage)`
     transition: transform 0.5s var(--curveFastoutSlowin);
   }
 
-  ${/* sc-selector */PostContent}:hover & img,
-  ${/* sc-selector */PostContent}:hover & video {
+  ${/* sc-selector */ PostContent}:hover & img,
+  ${/* sc-selector */ PostContent}:hover & video {
     transform: scale3d(1.1, 1.1, 1);
   }
 `;

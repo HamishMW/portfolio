@@ -1,5 +1,9 @@
 import React, { Fragment, useState, useEffect, useRef, forwardRef } from 'react';
-import { Link as RouterLink, NavLink as RouterNavLink, useLocation } from 'react-router-dom';
+import {
+  Link as RouterLink,
+  NavLink as RouterNavLink,
+  useLocation,
+} from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import prerender from 'utils/prerender';
 
@@ -50,6 +54,6 @@ Link.defaultProps = {
   as: RouterLink,
 };
 
-export const NavLink = forwardRef((props, ref) =>
+export const NavLink = forwardRef((props, ref) => (
   <Link as={RouterNavLink} ref={ref} {...props} />
-);
+));

@@ -94,12 +94,10 @@ function Header(props) {
           </HeaderMobileNav>
         )}
       </Transition>
-      {!isMobile &&
-        <ThemeToggle />
-      }
+      {!isMobile && <ThemeToggle />}
     </HeaderWrapper>
   );
-};
+}
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -221,9 +219,9 @@ const HeaderNavIcon = styled(Icon)`
   fill: rgb(var(--rgbTitle) / 0.6);
   transition: fill 0.4s ease;
 
-  ${/* sc-selector */HeaderNavIconLink}:hover &,
-  ${/* sc-selector */HeaderNavIconLink}:focus &,
-  ${/* sc-selector */HeaderNavIconLink}:active & {
+  ${/* sc-selector */ HeaderNavIconLink}:hover &,
+  ${/* sc-selector */ HeaderNavIconLink}:focus &,
+  ${/* sc-selector */ HeaderNavIconLink}:active & {
     fill: rgb(var(--rgbAccent));
   }
 `;
@@ -235,7 +233,7 @@ const HeaderMobileNav = styled.nav`
   bottom: 0;
   left: 0;
   background: rgb(var(--rgbBackground) / 0.9);
-  transform: translate3d(0, ${props => props.status === 'entered' ? 0 : '-100%'}, 0);
+  transform: translate3d(0, ${props => (props.status === 'entered' ? 0 : '-100%')}, 0);
   transition-property: transform, background;
   transition-duration: 0.5s;
   transition-timing-function: var(--curveFastoutSlowin);
@@ -278,10 +276,12 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     font-size: 18px;
   }
 
-  ${props => props.status === 'entered' && css`
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  `}
+  ${props =>
+    props.status === 'entered' &&
+    css`
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    `}
 
   &::after {
     content: '';

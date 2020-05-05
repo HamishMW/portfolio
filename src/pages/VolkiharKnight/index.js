@@ -6,8 +6,15 @@ import { useScrollRestore, useAppContext, useRouteTransition } from 'hooks';
 import { LinkButton } from 'components/Button';
 import Footer from 'components/Footer';
 import {
-  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage, ProjectBackground, ProjectHeader,
-  ProjectSectionHeading, ProjectSectionText, ProjectTextRow,
+  ProjectContainer,
+  ProjectSection,
+  ProjectSectionContent,
+  ProjectImage,
+  ProjectBackground,
+  ProjectHeader,
+  ProjectSectionHeading,
+  ProjectSectionText,
+  ProjectTextRow,
 } from 'components/ProjectLayout';
 import volkiharBackground from './assets/volkihar-background.jpg';
 import volkiharBackgroundLarge from './assets/volkihar-background-large.jpg';
@@ -41,12 +48,9 @@ import { media } from 'utils/style';
 const Carousel = lazy(() => import('components/Carousel'));
 
 const title = 'Volkihar Knight';
-const description = 'A lore-friendly armor mod for The Elder Scrolls V: Skyrim. Released on PC and Xbox One with over 700,000 downloads across both platforms.';
-const roles = [
-  '3D Modelling',
-  'Texturing',
-  'Graphic Design',
-];
+const description =
+  'A lore-friendly armor mod for The Elder Scrolls V: Skyrim. Released on PC and Xbox One with over 700,000 downloads across both platforms.';
+const roles = ['3D Modelling', 'Texturing', 'Graphic Design'];
 
 function ProjectVolkihar() {
   const { status } = useRouteTransition();
@@ -60,14 +64,13 @@ function ProjectVolkihar() {
   }, [theme]);
 
   useEffect(() => {
-    if ((status === 'entered' || status === 'exiting')) {
+    if (status === 'entered' || status === 'exiting') {
       dispatch({
-        type: 'updateTheme', value: {
-          rgbPrimary: theme.id === 'dark'
-            ? '240 211 150'
-            : themeRef.current.rgbPrimary,
+        type: 'updateTheme',
+        value: {
+          rgbPrimary: theme.id === 'dark' ? '240 211 150' : themeRef.current.rgbPrimary,
           rgbAccent: '240 211 150',
-        }
+        },
       });
     }
 
@@ -82,7 +85,7 @@ function ProjectVolkihar() {
     <Fragment>
       <Helmet
         title={`Projects | ${title}`}
-        meta={[{ name: 'description', content: description, }]}
+        meta={[{ name: 'description', content: description }]}
       />
       <ProjectContainer>
         <ProjectBackground
@@ -132,10 +135,17 @@ function ProjectVolkihar() {
             <VolkiharTextSection>
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>
-                As a player I noticed there weren’t any heavy armor options for the Volkihar faction. This kinda sucks when you’ve specialised in heavy armor and decide to join the faction and discover they all wear light armor.
+                As a player I noticed there weren’t any heavy armor options for the
+                Volkihar faction. This kinda sucks when you’ve specialised in heavy armor
+                and decide to join the faction and discover they all wear light armor.
               </ProjectSectionText>
               <ProjectSectionText>
-                My solution was to create a mod that combines meshes from the Volkihar faction armor with heavy plate armor. The mod builds upon textures and meshes from the base game, so it unifies with Skyrim’s overall aesthetic. I combined and modified the meshes in 3DS Max. To establish a cohesive design across the set, I edited existing textures, and designed custom textures in Photoshop.
+                My solution was to create a mod that combines meshes from the Volkihar
+                faction armor with heavy plate armor. The mod builds upon textures and
+                meshes from the base game, so it unifies with Skyrim’s overall aesthetic.
+                I combined and modified the meshes in 3DS Max. To establish a cohesive
+                design across the set, I edited existing textures, and designed custom
+                textures in Photoshop.
               </ProjectSectionText>
             </VolkiharTextSection>
           </ProjectSectionColumns>
@@ -143,12 +153,17 @@ function ProjectVolkihar() {
         <ProjectSection>
           <ProjectSectionContent>
             <VolkiharLogoContainer>
-              <VolkiharKnightLogo />
+              <VolkiharKnightLogo
+                role="img"
+                aria-label="The Volkihar Knight logo, a monogram using the letters 'V' and 'K"
+              />
             </VolkiharLogoContainer>
             <ProjectTextRow center noMargin>
               <ProjectSectionHeading>Identity design</ProjectSectionHeading>
               <ProjectSectionText>
-                The monogram uses custom designed typography to get the right balance of weight and angularity. I combined this with Trajan for the text, which is also used for Skyrim's game title wordmark.
+                The monogram uses custom designed typography to get the right balance of
+                weight and angularity. I combined this with Trajan for the text, which is
+                also used for Skyrim's game title wordmark.
               </ProjectSectionText>
             </ProjectTextRow>
           </ProjectSectionContent>
@@ -158,23 +173,27 @@ function ProjectVolkihar() {
             <Suspense fallback={null}>
               <Carousel
                 placeholder={volkiharSlidePlaceholder}
-                images={useMemo(() => [
-                  {
-                    src: volkiharSlide1,
-                    srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
-                    alt: 'A female character wearing the black coloured armor set.'
-                  },
-                  {
-                    src: volkiharSlide2,
-                    srcset: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
-                    alt: 'A close up of the custom gauntlets design.',
-                  },
-                  {
-                    src: volkiharSlide3,
-                    srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
-                    alt: 'A female character weilding a sword and wearing the red coloured armor.',
-                  },
-                ], [])}
+                images={useMemo(
+                  () => [
+                    {
+                      src: volkiharSlide1,
+                      srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
+                      alt: 'A female character wearing the black coloured armor set.',
+                    },
+                    {
+                      src: volkiharSlide2,
+                      srcset: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
+                      alt: 'A close up of the custom gauntlets design.',
+                    },
+                    {
+                      src: volkiharSlide3,
+                      srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
+                      alt:
+                        'A female character weilding a sword and wearing the red coloured armor.',
+                    },
+                  ],
+                  []
+                )}
                 width={useMemo(() => 1920, [])}
                 height={useMemo(() => 1080, [])}
               />
@@ -200,7 +219,10 @@ function ProjectVolkihar() {
                 />
                 <ProjectSectionHeading>Featured in Enderal</ProjectSectionHeading>
                 <ProjectSectionText>
-                  I was super stoked to have my work featured in the major standalone mod Enderal, which won best fan creation at the game awards in 2016. Within the game my armor design can be found being used for the Wandering Mage armor set.
+                  I was super stoked to have my work featured in the major standalone mod
+                  Enderal, which won best fan creation at the game awards in 2016. Within
+                  the game my armor design can be found being used for the Wandering Mage
+                  armor set.
                 </ProjectSectionText>
                 <LinkButton
                   secondary
@@ -251,12 +273,12 @@ const VolkiharLogoContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: #111111;
-  padding: ${props => props.theme.id === 'light' ? '60px' : 0} 80px;
+  padding: ${props => (props.theme.id === 'light' ? '60px' : 0)} 80px;
   margin-bottom: 80px;
   width: 100%;
 
   @media (max-width: ${media.mobile}px) {
-    padding: ${props => props.theme.id === 'light' ? '30px' : 0} 40px;
+    padding: ${props => (props.theme.id === 'light' ? '30px' : 0)} 40px;
     margin-bottom: 40px;
   }
 
@@ -307,15 +329,16 @@ const ProjectSectionBackgroundImage = styled(Image)`
     grid-row: 1;
     z-index: 1;
     position: relative;
-    background:
-      linear-gradient(
+    background: linear-gradient(
         rgb(var(--rgbBackground) / 1) 0%,
         rgb(var(--rgbBackground) / 0.9) 20%,
-        rgb(var(--rgbBackground) / 0) 100%),
+        rgb(var(--rgbBackground) / 0) 100%
+      ),
       linear-gradient(
         rgb(var(--rgbBackground) / 0) 0%,
         rgb(var(--rgbBackground) / 0.9) 80%,
-        rgb(var(--rgbBackground) / 1) 100%);
+        rgb(var(--rgbBackground) / 1) 100%
+      );
   }
 `;
 

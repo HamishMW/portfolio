@@ -32,9 +32,7 @@ const icons = {
 const Icon = ({ icon, style, className }) => {
   const IconComponent = icons[icon];
 
-  return (
-    <IconComponent aria-hidden style={style} className={className} />
-  );
+  return <IconComponent aria-hidden style={style} className={className} />;
 };
 
 export default Icon;
