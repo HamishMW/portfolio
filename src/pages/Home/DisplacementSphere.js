@@ -17,8 +17,8 @@ import {
 } from 'three';
 import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
-import vertShader from './sphereVertShader';
-import fragShader from './sphereFragShader';
+import vertShader from './shaders/sphereVertShader';
+import fragShader from './shaders/sphereFragShader';
 import { Transition } from 'react-transition-group';
 import { usePrefersReducedMotion } from 'hooks';
 import { reflow, isVisible } from 'utils/transition';

@@ -56,7 +56,10 @@ function App() {
   }, [prefersReducedMotion]);
 
   useEffect(() => {
-    if (!prerender) console.info(consoleMessage);
+    if (!prerender) {
+      console.info(consoleMessage);
+      document.body.removeAttribute('class');
+    }
     window.history.scrollRestoration = 'manual';
   }, []);
 
@@ -104,19 +107,6 @@ function AppRoutes() {
             }
           `}
         </style>
-        {prerender && (
-          <style>
-            {`
-              .dark {
-                ${createThemeProperties(theme.dark)}
-              }
-
-              .light {
-                ${createThemeProperties(theme.light)}
-              }
-            `}
-          </style>
-        )}
       </Helmet>
       <GlobalStyles />
       <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
@@ -155,7 +145,6 @@ export const GlobalStyles = createGlobalStyle`
   :root {
     --spacingOuter: 60px;
     --maxWidth: 1100px;
-    ${props => createThemeProperties(props.theme)}
 
     @media (max-width: ${media.laptop}px) {
       --maxWidth: 1000px;
@@ -172,6 +161,25 @@ export const GlobalStyles = createGlobalStyle`
     @media (max-height: ${media.mobile}px) {
       --spacingOuter: 20px;
     }
+  }
+
+  .dark {
+    ${createThemeProperties(theme.dark)}
+  }
+
+  .light {
+    ${createThemeProperties(theme.light)}
+  }
+
+  ${
+    !prerender &&
+    css`
+      body.light,
+      body.dark,
+      body {
+        ${props => createThemeProperties(props.theme)}
+      }
+    `
   }
 
   html,
