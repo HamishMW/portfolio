@@ -96,14 +96,14 @@ function AppRoutes() {
               font-family: "Gotham";
               font-weight: 400;
               src: url(${GothamBook}) format("woff");
-              font-display: swap;
+              font-display: block;
             }
 
             @font-face {
               font-family: "Gotham";
               font-weight: 500;
               src: url(${GothamMedium}) format("woff2");
-              font-display: swap;
+              font-display: block;
             }
           `}
         </style>
