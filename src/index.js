@@ -4,6 +4,7 @@ import App from './app';
 import * as serviceWorker from './serviceWorker';
 
 const rootElement = document.getElementById('root');
+
 if (rootElement.hasChildNodes()) {
   hydrate(<App />, rootElement);
 } else {

@@ -71,6 +71,8 @@ function Profile(props) {
                 srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
                 sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
                 alt="Me at the Torii (gate) on Miyajima, an island off the coast of Hiroshima in Japan"
+                width={480}
+                height={560}
               />
               <ProfileSvg svg="profile" status={status} />
             </ProfileColumn>

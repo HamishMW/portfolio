@@ -1,55 +1,69 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="utf-8">
+    <script>
+      if (navigator.doNotTrack !== '1' && navigator.userAgent !== 'ReactSnap') {
+        const script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=UA-38720984-1';
+        script.async = true;
+        document.head.appendChild(script);
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-38720984-1');
+      }
+    </script>
 
-  <script>
-    if (navigator.doNotTrack !== '1' && navigator.userAgent !== 'ReactSnap') {
-      const script = document.createElement('script');
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=UA-38720984-1';
-      script.async = true;
-      document.head.appendChild(script);
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-38720984-1');
-    }
-  </script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#111111" />
+    <meta name="author" content="Hamish Williams" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
-  <meta name="theme-color" content="#111111">
-  <meta name="author" content="Hamish Williams">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.svg" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/icon-256.png" />
+    <link type="text/plain" rel="author" href="%PUBLIC_URL%/humans.txt" />
 
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png">
-  <link rel="apple-touch-icon" href='%PUBLIC_URL%/icon-256.png'>
-  <link type="text/plain" rel="author" href='%PUBLIC_URL%/humans.txt'>
+    <meta
+      property="og:image"
+      content="https://hamishw.com%PUBLIC_URL%/social-image.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="549" />
 
-  <meta property="og:image" content='https://hamishw.com%PUBLIC_URL%/social-image.png'>
-  <meta property="og:image:type" content='image/png'>
-  <meta property="og:image:width" content='1200'>
-  <meta property="og:image:height" content='549'>
+    <meta property="og:title" content="Hamish Williams | Designer + Developer" />
+    <meta property="og:site_name" content="hamishw.com" />
+    <meta property="og:url" content="https://hamishw.com" />
+    <meta
+      property="og:description"
+      content="User interface, illustration, and user experience designer"
+    />
 
-  <meta property="og:title" content='Hamish Williams | Designer + Developer'>
-  <meta property="og:site_name" content='hamishw.com'>
-  <meta property="og:url" content='https://hamishw.com'>
-  <meta property="og:description" content='User interface, illustration, and user experience designer'>
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:description"
+      content="User interface, illustration, and user experience designer"
+    />
+    <meta name="twitter:title" content="Hamish Williams | Designer + Developer" />
+    <meta name="twitter:site" content="@hamishMW" />
+    <meta
+      name="twitter:image"
+      content="https://hamishw.com%PUBLIC_URL%/social-image.png"
+    />
+  </head>
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:description" content='User interface, illustration, and user experience designer'>
-  <meta name="twitter:title" content='Hamish Williams | Designer + Developer'>
-  <meta name="twitter:site" content='@hamishMW'>
-  <meta name="twitter:image" content='https://hamishw.com%PUBLIC_URL%/social-image.png'>
-</head>
-
-<body>
-  <script>
-    const preferredTheme = JSON.parse(localStorage.getItem('theme'));
-    document.body.className = preferredTheme || 'dark';
-  </script>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-</body>
-
+  <body>
+    <script>
+      const preferredTheme = JSON.parse(localStorage.getItem('theme'));
+      document.body.className = preferredTheme || 'dark';
+    </script>
+    <div id="root"></div>
+  </body>
 </html>

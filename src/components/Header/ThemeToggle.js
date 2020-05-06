@@ -4,7 +4,7 @@ import { Button } from 'components/Button';
 import { useAppContext, useId } from 'hooks';
 import { media } from 'utils/style';
 
-export default function ThemeToggle({ isMobile, ...rest }) {
+const ThemeToggle = ({ isMobile, ...rest }) => {
   const theme = useTheme();
   const { dispatch } = useAppContext();
   const isDark = theme.id === 'dark';
@@ -44,7 +44,7 @@ export default function ThemeToggle({ isMobile, ...rest }) {
       </ThemeToggleSvg>
     </ThemeToggleButton>
   );
-}
+};
 
 const ThemeToggleButton = styled(Button)`
   position: fixed;
@@ -110,3 +110,5 @@ const ThemeTogglePath = styled.path`
   transition-delay: ${props => (props.isDark ? '0s' : '0.3s')};
   opacity: ${props => (props.isDark ? 0 : 1)};
 `;
+
+export default ThemeToggle;

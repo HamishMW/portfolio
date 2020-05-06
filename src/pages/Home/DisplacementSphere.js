@@ -1,20 +1,17 @@
 import React, { useEffect, useRef, memo } from 'react';
 import styled, { useTheme } from 'styled-components/macro';
-import {
-  Vector2,
-  WebGLRenderer,
-  PerspectiveCamera,
-  Scene,
-  DirectionalLight,
-  AmbientLight,
-  UniformsUtils,
-  UniformsLib,
-  ShaderLib,
-  SphereBufferGeometry,
-  Mesh,
-  Color,
-  ShaderMaterial,
-} from 'three';
+import { Vector2 } from 'three/src/math/Vector2';
+import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
+import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
+import { Scene } from 'three/src/scenes/Scene';
+import { DirectionalLight } from 'three/src/lights/DirectionalLight';
+import { AmbientLight } from 'three/src/lights/AmbientLight';
+import { UniformsUtils } from 'three/src/renderers/shaders/UniformsUtils';
+import { UniformsLib } from 'three/src/renderers/shaders/UniformsLib';
+import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
+import { SphereBufferGeometry } from 'three/src/geometries/SphereGeometry';
+import { Mesh } from 'three/src/objects/Mesh';
+import { Color } from 'three/src/math/Color';
 import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
 import vertShader from './shaders/sphereVertShader';
@@ -53,19 +50,21 @@ function DisplacementSphere(props) {
     camera.current = new PerspectiveCamera(55, width.current / height.current, 0.1, 200);
     scene.current = new Scene();
 
-    uniforms.current = UniformsUtils.merge([
-      UniformsLib['ambient'],
-      UniformsLib['lights'],
-      ShaderLib.phong.uniforms,
-      { time: { type: 'f', value: 0 } },
-    ]);
+    material.current = new MeshPhongMaterial();
 
-    material.current = new ShaderMaterial({
-      uniforms: uniforms.current,
-      vertexShader: vertShader,
-      fragmentShader: fragShader,
-      lights: true,
-    });
+    material.current.onBeforeCompile = shader => {
+      uniforms.current = UniformsUtils.merge([
+        UniformsLib['ambient'],
+        UniformsLib['lights'],
+        shader.uniforms,
+        { time: { type: 'f', value: 0 } },
+      ]);
+
+      shader.uniforms = uniforms.current;
+      shader.vertexShader = vertShader;
+      shader.fragmentShader = fragShader;
+      shader.lights = true;
+    };
 
     geometry.current = new SphereBufferGeometry(32, 128, 128);
     sphere.current = new Mesh(geometry.current, material.current);
@@ -184,7 +183,9 @@ function DisplacementSphere(props) {
 
     const animate = () => {
       animation = requestAnimationFrame(animate);
-      uniforms.current.time.value = 0.00005 * (Date.now() - start.current);
+      if (uniforms.current !== undefined) {
+        uniforms.current.time.value = 0.00005 * (Date.now() - start.current);
+      }
       sphere.current.rotation.z += 0.001;
       renderer.current.render(scene.current, camera.current);
       updateTween();

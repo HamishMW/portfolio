@@ -1,23 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import {
-  WebGLRenderer,
-  OrthographicCamera,
-  Scene,
-  Mesh,
-  Color,
-  ShaderMaterial,
-  LinearFilter,
-  TextureLoader,
-  PlaneBufferGeometry,
-  LoadingManager,
-} from 'three';
+import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
+import { LinearFilter } from 'three/src/constants';
+import { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
+import { Scene } from 'three/src/scenes/Scene';
+import { PlaneBufferGeometry } from 'three/src/geometries/PlaneGeometry';
+import { TextureLoader } from 'three/src/loaders/TextureLoader';
+import { LoadingManager } from 'three/src/loaders/LoadingManager';
+import { ShaderMaterial } from 'three/src/materials/ShaderMaterial';
+import { Mesh } from 'three/src/objects/Mesh';
+import { Color } from 'three/src/math/Color';
 import styled from 'styled-components/macro';
-import {
-  Easing,
-  Tween,
-  update as updateTween,
-  remove as removeTween,
-} from 'es6-tween';
+import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
 import Swipe from 'react-easy-swipe';
 import Icon from 'components/Icon';
 import { cornerClip } from 'utils/style';
@@ -61,12 +54,7 @@ export default function Carousel(props) {
   }`;
 
   const goToIndex = useCallback(
-    ({
-      index,
-      direction = 1,
-      duration = 1200,
-      easing = Easing.Exponential.InOut,
-    }) => {
+    ({ index, direction = 1, duration = 1200, easing = Easing.Exponential.InOut }) => {
       if (!sliderImages) return;
       setImageIndex(index);
       const uniforms = material.current.uniforms;
@@ -109,12 +97,7 @@ export default function Carousel(props) {
         return;
       }
 
-      const finalIndex = determineIndex(
-        imageIndex,
-        index,
-        sliderImages,
-        direction
-      );
+      const finalIndex = determineIndex(imageIndex, index, sliderImages, direction);
       goToIndex({ index: finalIndex, direction: direction, ...rest });
     },
     [goToIndex, imageIndex, loaded, sliderImages]
@@ -153,14 +136,7 @@ export default function Carousel(props) {
 
   useEffect(() => {
     const containerElement = container.current;
-    const cameraOptions = [
-      width / -2,
-      width / 2,
-      height / 2,
-      height / -2,
-      1,
-      1000,
-    ];
+    const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
     renderer.current = new WebGLRenderer({ antialias: false });
     camera.current = new OrthographicCamera(...cameraOptions);
     scene.current = new Scene();
@@ -294,10 +270,7 @@ export default function Carousel(props) {
 
       return function cleanUp() {
         if (placeholderElement) {
-          placeholderElement.removeEventListener(
-            'transitionend',
-            purgePlaceholder
-          );
+          placeholderElement.removeEventListener('transitionend', purgePlaceholder);
         }
       };
     }
@@ -312,14 +285,8 @@ export default function Carousel(props) {
       if (absoluteX > 20) event.preventDefault();
       lastSwipePosition.current = x;
       swipeDirection.current = x > 0 ? -1 : 1;
-      const swipePercentage =
-        1 - ((absoluteX - containerWidth) / containerWidth) * -1;
-      const nextIndex = determineIndex(
-        imageIndex,
-        null,
-        images,
-        swipeDirection.current
-      );
+      const swipePercentage = 1 - ((absoluteX - containerWidth) / containerWidth) * -1;
+      const nextIndex = determineIndex(imageIndex, null, images, swipeDirection.current);
       const uniforms = material.current.uniforms;
       const displacementClamp = Math.min(Math.max(swipePercentage, 0), 1);
 
@@ -385,11 +352,7 @@ export default function Carousel(props) {
   return (
     <SliderContainer onKeyDown={handleKeyDown} {...rest}>
       <SliderContainer>
-        <Swipe
-          allowMouseEvents
-          onSwipeEnd={onSwipeEnd}
-          onSwipeMove={onSwipeMove}
-        >
+        <Swipe allowMouseEvents onSwipeEnd={onSwipeEnd} onSwipeMove={onSwipeMove}>
           <SliderImageWrapper>
             <SliderCanvasWrapper
               aria-atomic
