@@ -16,22 +16,22 @@ export const AnimFade = keyframes`
   100% {opacity: 1}
 `;
 
-// Style helpers
+// Offse content padding based on the header nav
 export const sectionPadding = css`
-  padding-right: 120px;
-  padding-left: 200px;
+  padding-right: var(--space5XL);
+  padding-left: calc(var(--space4XL) * 2);
 
   @media (min-width: ${media.desktop}px) {
-    padding-left: 120px;
+    padding-left: var(--space5XL);
   }
 
   @media (max-width: ${media.tablet}px) {
-    padding-left: 160px;
+    padding-left: calc(var(--space4XL) + var(--space3XL));
   }
 
   @media (max-width: ${media.mobile}px) {
-    padding-right: 25px;
-    padding-left: 25px;
+    padding-right: var(--spaceL);
+    padding-left: var(--spaceL);
   }
 
   @media (max-width: ${media.mobile}px), (max-height: ${media.mobile}px) {
@@ -40,11 +40,12 @@ export const sectionPadding = css`
   }
 
   @media ${media.mobileLS} {
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: var(--space4XL);
+    padding-right: var(--space4XL);
   }
 `;
 
+// Clip path to create angled corners
 export function cornerClip(size = 8) {
   return css`
     clip-path: polygon(

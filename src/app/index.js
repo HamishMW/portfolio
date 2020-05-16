@@ -186,6 +186,7 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     font-family: var(--fontStack);
     font-weight: var(--fontWeightRegular);
+    font-size: var(--fontSizeBodyS);
     background: rgb(var(--rgbBackground));
     color: var(--colorTextBody);
     border: 0;

@@ -208,7 +208,7 @@ const ProjectItemSection = styled.section`
   }
 
   @media (max-width: ${media.mobile}px) {
-    padding-bottom: 100px;
+    padding-bottom: var(--space4XL);
     margin-bottom: 0;
     overflow-x: hidden;
   }

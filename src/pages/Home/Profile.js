@@ -127,8 +127,8 @@ const ProfileSection = styled.section`
   }
 
   @media ${media.mobileLS} {
-    padding-right: 100px;
-    padding-left: 100px;
+    padding-right: var(--space4XL);
+    padding-left: var(--space4XL);
   }
 `;
 
@@ -189,7 +189,7 @@ const ProfileTag = styled.div`
   margin-top: 220px;
   margin-bottom: 40px;
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: var(--space4XL) 1fr;
   grid-gap: 12px;
   align-items: center;
 

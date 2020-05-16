@@ -297,18 +297,18 @@ const ProjectBackgroundSection = styled.section`
   }
 
   ${ProjectSectionContent} {
-    padding: 120px 0 140px;
+    padding: var(--space5XL) 0 calc(var(--space5XL) + var(--spaceL));
 
     @media (max-width: ${media.laptop}px) {
-      padding: 40px 0 100px;
+      padding: var(--space2XL) 0 var(--space4XL);
     }
 
     @media (max-width: ${media.tablet}px) {
-      padding: 30px 0 60px;
+      padding: var(--spaceXL) 0 var(--space2XL);
     }
 
     @media (max-width: ${media.mobile}px) {
-      padding: 20px 0 40px;
+      padding: var(--spaceL) 0 var(--space2XL);
     }
   }
 `;

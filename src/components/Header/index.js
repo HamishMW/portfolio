@@ -120,7 +120,7 @@ const HeaderWrapper = styled.header`
 const HeaderLogo = styled(Link)`
   display: flex;
   position: relative;
-  padding: var(--spaceM);
+  padding: var(--spaceM) var(--spaceM) var(--spaceL);
   z-index: 16;
 `;
 
@@ -146,7 +146,7 @@ const HeaderNavList = styled.div`
 `;
 
 const HeaderNavLink = styled(NavLink)`
-  padding: var(--spaceL);
+  padding: var(--spaceM);
   color: rgb(var(--rgbText) / 0.8);
   text-decoration: none;
   font-weight: var(--fontWeightMedium);
@@ -165,8 +165,8 @@ const HeaderNavLink = styled(NavLink)`
     content: '';
     position: absolute;
     top: 50%;
-    right: var(--spaceM);
-    left: var(--spaceM);
+    right: var(--spaceS);
+    left: var(--spaceS);
     height: 4px;
     background: rgb(var(--rgbAccent));
     transform: scaleX(0) translateY(-2px);
@@ -212,7 +212,11 @@ const HeaderNavIconLink = styled.a.attrs({
   rel: 'noopener noreferrer',
 })`
   display: flex;
-  padding: var(--spaceM);
+  align-items: center;
+  justify-content: center;
+  padding: var(--spaceS);
+  width: var(--space2XL);
+  height: var(--space2XL);
 `;
 
 const HeaderNavIcon = styled(Icon)`

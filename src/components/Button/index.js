@@ -339,7 +339,7 @@ const ButtonIcon = styled(Icon)`
     ${props =>
       props.iconHoverShift &&
       css`
-        transform: translate3d(4px, 0, 0);
+        transform: translate3d(var(--spaceXS), 0, 0);
       `}
   }
 

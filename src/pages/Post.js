@@ -400,7 +400,7 @@ const PostContent = styled.div`
     margin-top: 80px;
   }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1096px) {
     grid-template-columns: 1fr 50px 660px 50px 1fr;
     margin-top: 80px;
   }
