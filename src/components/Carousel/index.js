@@ -445,11 +445,11 @@ const SliderButton = styled.button`
   border: 0;
   margin: 0;
   background: none;
-  padding: 14px 26px;
+  padding: var(--spaceM) var(--spaceL);
   position: absolute;
   top: 50%;
-  right: ${props => (props.right ? '10px' : 'unset')};
-  left: ${props => (props.left ? '10px' : 'unset')};
+  right: ${props => (props.right ? 'var(--spaceM)' : 'unset')};
+  left: ${props => (props.left ? 'var(--spaceM)' : 'unset')};
   transform: translate3d(0, -50%, 0);
   z-index: 32;
   cursor: pointer;
@@ -520,14 +520,16 @@ const SliderNav = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 8px;
+  margin-top: var(--spaceS);
 `;
 
 const SliderNavButton = styled.button`
+  --navButtonSize: 10px;
+
   background: none;
   border: 0;
   margin: 0;
-  padding: 16px;
+  padding: var(--spaceM);
   cursor: pointer;
 
   &:focus {
@@ -536,20 +538,20 @@ const SliderNavButton = styled.button`
 
   &::after {
     content: '';
-    width: 10px;
-    height: 10px;
+    width: var(--navButtonSize);
+    height: var(--navButtonSize);
     border-radius: 50%;
     display: block;
     background: ${props =>
-      props.active ? 'rgb(var(--rgbText))' : 'rgb(var(--rgbTitle) / 0.2)'};
+      props.active ? 'var(--colorTextBody)' : 'rgb(var(--rgbText) / 0.2)'};
     transition-property: background, box-shadow;
     transition-duration: 0.5s;
     transition-timing-function: var(--curveFastoutSlowin);
   }
 
   &:focus::after {
-    box-shadow: 0 0 0 4px rgb(var(--rgbTitle) / 0.2);
+    box-shadow: 0 0 0 4px rgb(var(--rgbText) / 0.2);
     background: ${props =>
-      props.active ? 'rgb(var(--rgbText))' : 'rgb(var(--rgbTitle) / 0.6)'};
+      props.active ? 'var(--colorTextBody)' : 'var(--colorTextLight)'};
   }
 `;

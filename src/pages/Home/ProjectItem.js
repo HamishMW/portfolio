@@ -147,7 +147,7 @@ function ProjectItem(props) {
 
 const ProjectItemContent = styled.div`
   width: 100%;
-  max-width: var(--maxWidth);
+  max-width: var(--maxWidthL);
   align-items: center;
   justify-content: center;
   display: grid;
@@ -261,16 +261,16 @@ const ProjectItemIndex = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: 90px 1fr;
-  grid-gap: 12px;
+  grid-gap: var(--spaceM);
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: var(--spaceXL);
 `;
 
 const ProjectItemIndexNumber = styled.span`
-  font-size: 16px;
+  font-size: var(--fontSizeBodyS);
   font-weight: var(--fontWeightMedium);
   color: rgb(var(--rgbPrimary));
-  transform: translateX(-10px);
+  transform: translateX(calc(var(--spaceM) * -1));
   opacity: 0;
   transition-property: transform, opacity;
   transition-timing-function: var(--curveFastoutSlowin);
@@ -286,13 +286,12 @@ const ProjectItemIndexNumber = styled.span`
 `;
 
 const ProjectItemTitle = styled.h2`
-  font-size: 42px;
+  font-size: var(--fontSizeH2);
   font-weight: var(--fontWeightMedium);
-  line-height: 1.2;
-  margin: 0;
-  margin-bottom: 16px;
+  color: var(--colorTextTitle);
+  line-height: var(--lineHeightTitle);
+  margin: 0 0 var(--spaceL) 0;
   padding: 0;
-  color: rgb(var(--rgbTitle));
   transition-property: transform, opacity;
   transition-timing-function: var(--curveFastoutSlowin);
   transition-duration: 0.8s;
@@ -306,22 +305,14 @@ const ProjectItemTitle = styled.h2`
       transform: translate3d(0, 0, 0);
       opacity: 1;
     `}
-
-  @media (max-width: 1245px) {
-    font-size: 36px;
-  }
-
-  @media (max-width: ${media.mobile}px) {
-    font-size: 28px;
-  }
 `;
 
 const ProjectItemDescription = styled.p`
-  font-size: 18px;
-  line-height: 1.4;
-  color: rgb(var(--rgbTitle) / 0.8);
+  font-size: var(--fontSizeBodyL);
+  line-height: var(--lineHeightBody);
+  color: var(--colorTextBody);
   font-weight: var(--fontWeightRegular);
-  margin-bottom: 38px;
+  margin: 0 0 var(--spaceXL) 0;
   transition-property: transform, opacity;
   transition-timing-function: var(--curveFastoutSlowin);
   transition-duration: 0.8s;
@@ -335,10 +326,6 @@ const ProjectItemDescription = styled.p`
       transform: translate3d(0, 0, 0);
       opacity: 1;
     `}
-
-  @media (max-width: ${media.mobile}px) {
-    font-size: 16px;
-  }
 `;
 
 const ProjectItemButton = styled.div`
@@ -409,7 +396,7 @@ const ProjectItemImageLaptop = styled(Image)`
 const ProjectItemSvg = styled(KatakanaProject)`
   opacity: ${props => (props.status === 'entered' ? 1 : 0)};
   transition: opacity 0.4s ease 0.6s;
-  fill: rgb(var(--rgbTitle));
+  fill: var(--colorTextTitle);
 
   ${props =>
     props.theme.id === 'light' &&

@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 
 const lineColor = (opacity, props) =>
   props.secondary
-    ? `rgb(var(--rgbTitle) / ${opacity})`
+    ? `rgb(var(--rgbText) / ${opacity})`
     : `rgb(var(--rgbPrimary) / ${opacity})`;
 
 const Link = styled.a.attrs(({ target, rel }) => ({

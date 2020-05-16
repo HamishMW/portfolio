@@ -214,7 +214,7 @@ const PostTitle = styled.h1`
   font-weight: var(--fontWeightBold);
   line-height: 1.1;
   margin: 0;
-  color: rgb(var(--rgbTitle));
+  color: var(--colorTextTitle);
 
   @media (max-width: 1600px) {
     font-size: 80px;
@@ -315,7 +315,7 @@ const PostBannerArrow = styled.a`
   }
 
   svg {
-    stroke: rgb(var(--rgbTitle) / 0.5);
+    stroke: rgb(var(--rgbText) / 0.5);
     animation-name: ${AnimMobileScrollIndicator};
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
@@ -334,7 +334,7 @@ const PostBannerArrow = styled.a`
 `;
 
 const PostBannerReadTime = styled.div`
-  color: rgb(var(--rgbTitle) / 0.6);
+  color: var(--colorTextLight);
   font-size: 16px;
   position: absolute;
   bottom: 10px;
@@ -358,7 +358,7 @@ const PostBannerReadTime = styled.div`
   &::before {
     content: '';
     height: 2px;
-    background: rgb(var(--rgbTitle) / 0.4);
+    background: rgb(var(--rgbText) / 0.4);
     display: block;
   }
 `;
@@ -420,7 +420,7 @@ const PostContent = styled.div`
 `;
 
 const HeadingTwo = styled.h2`
-  color: rgb(var(--rgbTitle));
+  color: var(--colorTextTitle);
   margin: 0;
   font-size: 42px;
   grid-column: 3;
@@ -441,7 +441,7 @@ const HeadingTwo = styled.h2`
 `;
 
 const Paragrapgh = styled.p`
-  color: rgb(var(--rgbTitle) / 0.8);
+  color: rgb(var(--rgbText) / 0.8);
   margin: 0;
   font-size: 24px;
   line-height: 1.5;
@@ -504,8 +504,8 @@ const Image = styled.img`
 `;
 
 const InlineCode = styled.code`
-  color: rgb(var(--rgbTitle) / 0.6);
-  background: rgb(var(--rgbTitle) / 0.1);
+  color: var(--colorTextLight);
+  background: rgb(var(--rgbText) / 0.1);
   padding: 0.1em 0.3em;
   font-family: var(--monoFontStack);
 `;

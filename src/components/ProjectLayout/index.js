@@ -28,7 +28,7 @@ export function ProjectHeader(props) {
             secondary
             iconHoverShift
             entered={!prerender}
-            style={{ paddingLeft: '3px' }}
+            style={{ paddingLeft: 'var(--spaceXS)' }}
             icon="chevronRight"
             href={url}
             target="_blank"
@@ -61,8 +61,8 @@ export const ProjectContainer = styled.article`
 export const ProjectSection = styled.section`
   position: relative;
   width: 100vw;
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: var(--space4XL);
+  padding-bottom: var(--space4XL);
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -70,31 +70,31 @@ export const ProjectSection = styled.section`
   ${sectionPadding}
 
   @media (max-width: ${media.tablet}px) {
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: var(--space3XL);
+    padding-bottom: var(--space3XL);
     height: auto;
   }
 
   @media (max-width: ${media.mobile}px) {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: var(--space2XL);
+    padding-bottom: var(--space2XL);
   }
 
   ${props =>
     props.light &&
     css`
       background: rgb(var(--rgbBackgroundLight));
-      padding-top: 120px;
-      padding-bottom: 140px;
+      padding-top: var(--space5XL);
+      padding-bottom: calc(var(--space5XL) + var(--spaceXL));
 
       @media (max-width: ${media.tablet}px) {
-        padding-top: 80px;
-        padding-bottom: 100px;
+        padding-top: var(--space3XL);
+        padding-bottom: var(--space4XL);
       }
 
       @media (max-width: ${media.mobile}px) {
-        padding-top: 80px;
-        padding-bottom: 100px;
+        padding-top: var(--space2XL);
+        padding-bottom: var(--space4XL);
       }
     `}
 `;
@@ -152,17 +152,17 @@ export const ProjectBackgroundImage = styled(Image).attrs(props => ({
 `;
 
 const ProjectHeaderContainer = styled(ProjectSection)`
-  padding-top: 140px;
-  padding-bottom: 40px;
+  padding-top: var(--space5XL);
+  padding-bottom: var(--space2XL);
 
   @media (max-width: ${media.tablet}px) {
-    padding-top: 100px;
+    padding-top: var(--space4XL);
     padding-bottom: 0;
   }
 
   @media (max-width: ${media.mobile}px) {
-    padding-top: 130px;
-    padding-bottom: 20px;
+    padding-top: var(--space5XL);
+    padding-bottom: var(--spaceXL);
   }
 `;
 
@@ -170,8 +170,8 @@ const ProjectHeaderInner = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: 1fr 300px;
-  grid-gap: 100px;
-  max-width: var(--maxWidth);
+  grid-gap: var(--space4XL);
+  max-width: var(--maxWidthL);
 
   @media (min-width: ${media.desktop}px) {
     grid-template-columns: 1fr 400px;
@@ -179,19 +179,19 @@ const ProjectHeaderInner = styled.div`
 
   @media (max-width: 1200px) {
     grid-template-columns: 1fr 200px;
-    grid-gap: 40px;
+    grid-gap: var(--space2XL);
   }
 
   @media (max-width: ${media.tablet}px) {
     grid-template-columns: 100%;
-    grid-gap: 30px;
+    grid-gap: var(--spaceXL);
   }
 `;
 
 const AnimFadeSlide = keyframes`
   0% {
     opacity: 0;
-    transform: translate3d(0, 60px, 0);
+    transform: translate3d(0, var(--space3XL), 0);
   }
   100% {
     opacity: 1;
@@ -204,11 +204,11 @@ const ProjectDetails = styled.div`
 `;
 
 const ProjectTitle = styled.h1`
-  margin: 0;
-  font-size: 54px;
+  font-size: var(--fontSizeH1);
   font-weight: var(--fontWeightMedium);
-  line-height: 1.1;
-  color: rgb(var(--rgbTitle));
+  line-height: var(--lineHeightTitle);
+  margin: 0 0 var(--spaceL) 0;
+  color: var(--colorTextTitle);
   opacity: 0;
 
   @media (prefers-reduced-motion: reduce) {
@@ -220,23 +220,12 @@ const ProjectTitle = styled.h1`
     css`
       animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay}ms forwards;
     `}
-
-  @media (max-width: ${media.tablet}px) {
-    font-size: 48px;
-  }
-
-  @media (max-width: ${media.mobile}px) {
-    font-size: 34px;
-  }
-
-  @media (max-width: 320px) {
-    font-size: 28px;
-  }
 `;
 
 const ProjectDescription = styled.p`
-  font-size: 22px;
-  line-height: 1.4;
+  font-size: calc(var(--fontSizeBodyL) + 2px);
+  line-height: var(--lineHeightBody);
+  margin: 0 0 var(--spaceL) 0;
   opacity: 0;
 
   @media (prefers-reduced-motion: reduce) {
@@ -249,10 +238,6 @@ const ProjectDescription = styled.p`
       animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay + 100}ms
         forwards;
     `}
-
-  @media (max-width: ${media.mobile}px) {
-    font-size: 18px;
-  }
 `;
 
 const ProjectLinkButton = styled(LinkButton)`
@@ -274,18 +259,19 @@ const ProjectMeta = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 0;
-  margin-top: 10px;
+  margin-top: var(--spaceM);
 `;
 
 const ProjectMetaItem = styled.li`
-  padding: 30px 0;
-  font-size: 16px;
-  font-weight: ${props => (props.theme.id === 'light' ? 500 : 400)};
-  border-top: 1px solid rgb(var(--rgbTitle) / 0.2);
+  padding: var(--spaceL) 0;
+  font-size: var(--fontSizeBodyS);
+  font-weight: ${props =>
+    props.theme.id === 'light' ? 'var(--fontWeightMedium)' : 'var(--fontWeightRegular)'};
+  border-top: 1px solid rgb(var(--rgbText) / 0.2);
   opacity: 0;
 
   &:last-child {
-    border-bottom: 1px solid rgb(var(--rgbTitle) / 0.2);
+    border-bottom: 1px solid rgb(var(--rgbText) / 0.2);
   }
 
   @media(prefers-reduced-motion: reduce) {
@@ -299,12 +285,8 @@ const ProjectMetaItem = styled.li`
         ${initDelay + 300 + props.index * 140}ms forwards;
     `}
 
-  @media(max-width: ${media.tablet}px) {
-    padding: 20px 0;
-  }
-
   @media(max-width: ${media.mobile}px) {
-    padding: 15px 0;
+    padding: var(--spaceM) 0;
   }
 `;
 
@@ -321,44 +303,39 @@ export const ProjectImage = styled.div`
 `;
 
 export const ProjectSectionContent = styled.div`
-  max-width: var(--maxWidth);
+  max-width: var(--maxWidthL);
   width: 100%;
   display: flex;
   flex-direction: column;
 `;
 
 export const ProjectSectionHeading = styled.h2`
-  font-size: 32px;
+  font-size: var(--fontSizeH2);
   font-weight: var(--fontWeightMedium);
-  margin: 0;
-  color: rgb(var(--rgbTitle));
+  margin: 0 0 var(--spaceL) 0;
+  color: var(--colorTextTitle);
 
   @media (max-width: ${media.mobile}px) {
-    font-size: 24px;
+    margin-bottom: var(--spaceM);
   }
 `;
 
 export const ProjectSectionText = styled.p`
-  font-size: 20px;
-  line-height: 1.4;
+  font-size: var(--fontSizeBodyL);
+  line-height: var(--lineHeightBody);
+  color: var(--colorTextBody);
   margin: 0;
-  margin-top: 28px;
-  color: rgb(var(--rgbTitle) / 0.7);
 
-  & + a {
-    margin-top: 14px;
-  }
-
-  @media (max-width: ${media.mobile}px) {
-    font-size: 18px;
-    margin-top: 22px;
+  & + a,
+  & + & {
+    margin-top: var(--spaceL);
   }
 `;
 
 export const ProjectTextRow = styled.div`
-  max-width: 660px;
+  max-width: var(--maxWidthM);
   align-self: center;
-  margin-bottom: ${props => (props.noMargin ? 0 : 80)}px;
+  margin-bottom: ${props => (props.noMargin ? 0 : 'var(--space3XL)')};
   text-align: ${props => (props.center ? 'center' : 'left')};
   position: relative;
   display: flex;

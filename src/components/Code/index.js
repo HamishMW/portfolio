@@ -62,16 +62,16 @@ const CodeWrapper = styled.pre`
     ${generateThemeProperties(netrunnerTheme)};
   }
 
-  padding: 30px;
-  margin: 60px -30px;
+  padding: var(--spaceXL);
+  margin: var(--space3XL) calc(var(--spaceL) * -1);
   background: var(--background);
   clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
-  color: rgb(var(--rgbText));
+  color: var(--colorTextBody);
   overflow-x: auto;
 
   @media (max-width: ${media.mobile}px) {
-    padding: 20px;
-    margin: 40px -20px;
+    padding: var(--spaceL);
+    margin: var(--space2XL) calc(var(--spaceXL) * -1);
   }
 `;
 
@@ -82,14 +82,10 @@ const CodeContent = styled.pre`
   pre,
   pre.prism-code {
     height: auto;
-    font-size: 16px;
-    line-height: 1.4;
+    font-size: var(--fontSizeBodyS);
+    line-height: var(--lineHeightBody);
     white-space: pre;
     font-family: var(--monoFontStack);
-
-    @media (max-width: ${media.mobile}px) {
-      font-size: 14px;
-    }
   }
 
   .token.attr-name {

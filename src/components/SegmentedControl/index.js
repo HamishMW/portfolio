@@ -98,7 +98,7 @@ const SegmentedControlContainer = styled.div`
 
   &::before {
     content: '';
-    background-color: rgb(var(--rgbText));
+    background-color: var(--colorTextBody);
     position: absolute;
     top: 0;
     right: 0;
@@ -127,7 +127,7 @@ const SegmentedControlButton = styled.button`
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  color: rgb(var(--rgbText));
+  color: var(--colorTextBody);
   transition-property: color, background;
   transition-duration: 0.4s;
   transition-timing-function: ease;
@@ -149,7 +149,7 @@ const SegmentedControlButton = styled.button`
 
   &::before {
     content: '';
-    background: rgb(var(--rgbTitle) / 0.4);
+    background: rgb(var(--rgbText) / 0.4);
     opacity: 0;
     position: absolute;
     top: -4px;
@@ -175,7 +175,7 @@ const SegmentedControlButton = styled.button`
   }
 
   & + & {
-    box-shadow: inset 2px 0 0 rgb(var(--rgbText));
+    box-shadow: inset 2px 0 0 var(--colorTextBody);
   }
 
   &:focus {
@@ -188,7 +188,7 @@ const SegmentedControlIndicator = styled.div`
   top: 2px;
   bottom: 2px;
   left: 0;
-  background-color: rgb(var(--rgbText));
+  background-color: var(--colorTextBody);
   transition-property: width, transform, clip-path;
   transition-duration: 0.4s;
   transition-timing-function: var(--curveFastoutSlowin);

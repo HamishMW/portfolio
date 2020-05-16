@@ -33,30 +33,32 @@ function Input(props) {
 }
 
 const InputWrapper = styled.div`
+  --inputFontSize: 16px;
+
   position: relative;
   display: flex;
 `;
 
 const AutoFillStyle = css`
-  -webkit-text-fill-color: rgb(var(--rgbText));
-  box-shadow: 0 0 0px 1000px rgb(var(--rgbTitle) / 0.1) inset;
+  -webkit-text-fill-color: var(--colorTextBody);
+  box-shadow: 0 0 0px 1000px rgb(var(--rgbText) / 0.1) inset;
 `;
 
 const InputElement = styled.input`
   background: transparent;
-  color: rgb(var(--rgbText));
-  box-shadow: inset 0 -2px 0 0 rgb(var(--rgbTitle) / 0.2);
+  color: var(--colorTextBody);
+  box-shadow: inset 0 -2px 0 0 rgb(var(--rgbText) / 0.2);
   transition: background-color 5000s linear 0s;
   width: 100%;
-  font-size: 16px;
   font-family: inherit;
+  font-size: var(--inputFontSize);
+  line-height: var(--lineHeightBody);
   margin: 0;
   border: 0;
-  padding: 24px 0 16px;
+  padding: var(--spaceL) 0 var(--spaceM);
   z-index: 16;
   appearance: none;
   border-radius: 0;
-  line-height: 1.4;
   overflow-x: hidden;
 
   @media (prefers-reduced-motion: reduce) {
@@ -95,9 +97,9 @@ const InputUnderline = styled.div`
 `;
 
 const InputLabel = styled.label`
-  color: rgb(var(--rgbTitle) / 0.8);
+  color: rgb(var(--rgbText) / 0.8);
   position: absolute;
-  top: 26px;
+  top: var(--spaceL);
   left: 0;
   display: block;
   transform-origin: top left;
@@ -106,8 +108,8 @@ const InputLabel = styled.label`
   ${props =>
     (props.hasValue || props.focused) &&
     css`
-      color: rgb(var(--rgbTitle) / 0.54);
-      transform: scale(0.8) translateY(-28px);
+      color: rgb(var(--rgbText) / 0.54);
+      transform: scale(0.8) translateY(calc(var(--spaceL) * -1));
     `}
 `;
 

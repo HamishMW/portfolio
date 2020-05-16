@@ -47,22 +47,24 @@ const ThemeToggle = ({ isMobile, ...rest }) => {
 };
 
 const ThemeToggleButton = styled(Button)`
+  --buttonSize: var(--space2XL);
+
   position: fixed;
   z-index: 2048;
-  width: 48px;
-  height: 48px;
-  top: var(--spacingOuter);
-  right: var(--spacingOuter);
-  margin-top: -8px;
-  margin-right: -8px;
+  width: var(--buttonSize);
+  height: var(--buttonSize);
+  top: var(--spaceOuter);
+  right: var(--spaceOuter);
+  margin-top: calc(var(--spaceS) * -1);
+  margin-right: calc(var(--spaceS) * -1);
   transform: translate3d(0, 0, 0);
 
   ${props =>
     props.isMobile &&
     css`
       top: unset;
-      bottom: 30px;
-      right: 30px;
+      bottom: var(--spaceXL);
+      right: var(--spaceXL);
       margin-top: 0;
       margin-right: 0;
     `}

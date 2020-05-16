@@ -100,7 +100,7 @@ const PostListWrapper = styled.div`
 `;
 
 const PostListContent = styled.div`
-  max-width: var(--maxWidth);
+  max-width: var(--maxWidthL);
   width: 100%;
   display: grid;
   grid-template-columns: 144px 1fr;
@@ -165,7 +165,7 @@ const PostText = styled.div`
 const PostDate = styled.span`
   display: block;
   margin-bottom: 8px;
-  color: rgb(var(--rgbTitle) / 0.6);
+  color: var(--colorTextLight);
 `;
 
 const PostTitle = styled.h2`
@@ -173,17 +173,17 @@ const PostTitle = styled.h2`
   font-size: 36px;
   font-weight: var(--fontWeightMedium);
   line-height: 1.2;
-  color: rgb(var(--rgbTitle));
+  color: var(--colorTextTitle);
   display: inline;
-  background: linear-gradient(rgb(var(--rgbText)), rgb(var(--rgbText))) no-repeat 100%
+  background: linear-gradient(var(--colorTextBody), var(--colorTextBody)) no-repeat 100%
     100% / 0 2px;
   transition: background-size 0.4s var(--curveFastoutSlowin);
   padding-bottom: 2px;
 
   &:hover,
   &:focus {
-    background: linear-gradient(rgb(var(--rgbText)), rgb(var(--rgbText))) no-repeat 0 100% /
-      100% 2px;
+    background: linear-gradient(var(--colorTextBody), var(--colorTextBody)) no-repeat 0
+      100% / 100% 2px;
   }
 
   @media (max-width: ${media.mobile}px) {
@@ -194,7 +194,7 @@ const PostTitle = styled.h2`
 const PostDescription = styled.p`
   font-size: 20px;
   line-height: 1.5;
-  color: rgb(var(--rgbText));
+  color: var(--colorTextBody);
   margin: 20px 0 0;
 
   @media (max-width: ${media.mobile}px) {
@@ -234,5 +234,5 @@ const PostImageTag = styled.div`
   width: 60px;
   font-size: 14px;
   font-weight: var(--fontWeightMedium);
-  color: rgb(var(--rgbTitle) / 0.6);
+  color: var(--colorTextLight);
 `;

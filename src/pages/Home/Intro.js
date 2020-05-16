@@ -157,7 +157,7 @@ const IntroName = styled.h1`
   text-transform: uppercase;
   font-size: 24px;
   letter-spacing: 0.3em;
-  color: rgb(var(--rgbTitle) / 0.8);
+  color: var(--colorTextBody);
   margin-bottom: 40px;
   margin-top: 0;
   font-weight: var(--fontWeightMedium);
@@ -252,16 +252,16 @@ const IntroTitleRow = styled.span`
 
 const AnimTextReveal = keyframes`
   0% {
-    color: rgb(var(--rgbTitle) / 0);
+    color: rgb(var(--rgbText) / 0);
   }
   50% {
-    color: rgb(var(--rgbTitle) / 0);
+    color: rgb(var(--rgbText) / 0);
   }
   60% {
-    color: rgb(var(--rgbTitle));
+    color: var(--colorTextTitle);
   }
   100% {
-    color: rgb(var(--rgbTitle));
+    color: var(--colorTextTitle);
   }
 `;
 
@@ -296,7 +296,7 @@ const IntroTitleWord = styled.span`
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
   animation-timing-function: var(--curveFastoutSlowin);
-  color: rgb(var(--rgbTitle) / 0);
+  color: rgb(var(--rgbText) / 0);
   transition: opacity 0.5s ease 0.4s;
 
   ${props =>
@@ -308,13 +308,13 @@ const IntroTitleWord = styled.span`
   ${props =>
     props.status === 'entered' &&
     css`
-      color: rgb(var(--rgbTitle));
+      color: var(--colorTextTitle);
     `}
 
   ${props =>
     props.status === 'exiting' &&
     css`
-      color: rgb(var(--rgbTitle));
+      color: var(--colorTextTitle);
       opacity: 0;
       position: absolute;
       top: 0;
@@ -388,7 +388,7 @@ const AnimLineIntro = keyframes`
 const IntroTitleLine = styled.span`
   content: '';
   height: 2px;
-  background: rgb(var(--rgbTitle) / 0.3);
+  background: rgb(var(--rgbText) / 0.3);
   width: 120%;
   display: flex;
   margin-left: 20px;
@@ -429,7 +429,7 @@ const AnimScrollIndicator = keyframes`
 `;
 
 const ScrollIndicator = styled.div`
-  border: 2px solid rgb(var(--rgbTitle) / 0.4);
+  border: 2px solid rgb(var(--rgbText) / 0.4);
   border-radius: 20px;
   width: 26px;
   height: 38px;
@@ -445,7 +445,7 @@ const ScrollIndicator = styled.div`
     content: '';
     height: 7px;
     width: 2px;
-    background: rgb(var(--rgbTitle) / 0.4);
+    background: rgb(var(--rgbText) / 0.4);
     border-radius: 4px;
     position: absolute;
     top: 6px;
@@ -490,7 +490,7 @@ const MobileScrollIndicator = styled.div`
   }
 
   svg {
-    stroke: rgb(var(--rgbTitle) / 0.5);
+    stroke: rgb(var(--rgbText) / 0.5);
   }
 `;
 

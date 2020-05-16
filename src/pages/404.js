@@ -170,11 +170,11 @@ const NotFoundVideo = styled.video`
 const NotFoundCredit = styled.a`
   color: rgb(var(--rgbWhite) / 0.4);
   background: rgb(var(--rgbBlack) / 0.6);
-  padding: 4px 8px;
-  font-size: 14px;
+  padding: var(--spaceXXS) var(--spaceXS);
+  font-size: var(--fontSizeBodyS);
   position: absolute;
-  bottom: 16px;
-  left: 16px;
+  bottom: var(--spaceS);
+  left: var(--spaceS);
   transform: translate3d(0, 0, 0);
   text-decoration: none;
   transition-property: all;
@@ -198,11 +198,10 @@ const NotfoundDetails = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 40px;
+  padding: 0 var(--spaceXL);
   height: 100%;
 
   @media (max-width: ${media.mobile}px) {
-    padding: 0 30px;
     grid-row: 2;
   }
 `;
@@ -216,16 +215,16 @@ const NotFoundText = styled.div`
 
 const NotFoundTitle = styled.h1`
   margin: 0;
-  margin-bottom: 16px;
+  margin-bottom: var(--spaceM);
   font-size: 86px;
   font-weight: var(--fontWeightMedium);
   transition-property: transform, opacity;
   transition-timing-function: var(--curveFastoutSlowin);
   transition-duration: 0.8s;
   transition-delay: 0.1s;
-  transform: translate3d(0, 40px, 0);
+  transform: translate3d(0, var(--spaceL), 0);
   opacity: 0;
-  color: rgb(var(--rgbTitle));
+  color: var(--colorTextTitle);
 
   @media (max-width: ${media.mobile}px) {
     font-size: 64px;
@@ -240,18 +239,18 @@ const NotFoundTitle = styled.h1`
 `;
 
 const NotFoundSubHeading = styled.h2`
-  font-size: 24px;
+  font-size: var(--fontSizeH3);
   font-weight: var(--fontWeightMedium);
   margin: 0;
-  margin-bottom: 24px;
+  margin-bottom: var(--spaceL);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: rgb(var(--rgbTitle) / 0.4);
+  color: rgb(var(--rgbText) / 0.4);
   transition-property: transform, opacity;
   transition-timing-function: var(--curveFastoutSlowin);
   transition-duration: 0.8s;
   transition-delay: 0.2s;
-  transform: translate3d(0, 40px, 0);
+  transform: translate3d(0, var(--spaceL), 0);
   opacity: 0;
   max-width: 100%;
   white-space: nowrap;
@@ -270,17 +269,16 @@ const NotFoundSubHeading = styled.h2`
 `;
 
 const NotFoundDescription = styled.p`
-  color: rgb(var(--rgbTitle) / 0.9);
-  margin: 0;
-  margin-bottom: 20px;
+  color: var(--colorTextBody);
+  margin: 0 0 var(--spaceL) 0;
   padding: 0;
-  font-size: 18px;
-  line-height: 1.4;
+  font-size: var(--fontSizeBodyM);
+  line-height: var(--lineHeightBody);
   transition-property: transform, opacity;
   transition-timing-function: var(--curveFastoutSlowin);
   transition-duration: 0.8s;
   transition-delay: 0.3s;
-  transform: translate3d(0, 40px, 0);
+  transform: translate3d(0, var(--spaceL), 0);
   opacity: 0;
 
   ${props =>
@@ -296,10 +294,10 @@ const NotFoundButton = styled(RouterButton)`
   transition-timing-function: var(--curveFastoutSlowin);
   transition-duration: 0.8s;
   transition-delay: 0.4s;
-  transform: translate3d(0, 40px, 0);
+  transform: translate3d(0, var(--spaceL), 0);
   opacity: 0;
   align-self: flex-start;
-  padding-left: 3px;
+  padding-left: var(--spaceXXS);
 
   ${props =>
     props.status === 'entered' &&

@@ -45,7 +45,7 @@ const LoaderContainer = styled.div`
 
 const LoaderText = styled.div`
   color: ${props => props.color};
-  font-size: 16px;
+  font-size: var(--fontSizeBodyS);
   font-weight: var(--fontWeightMedium);
 `;
 

@@ -6,6 +6,7 @@ export const media = {
   laptop: 1280,
   tablet: 1024,
   mobile: 696,
+  mobileSmall: 320,
   mobileLS: `(max-width: 820px) and (max-height: 420px)`,
 };
 
@@ -34,8 +35,8 @@ export const sectionPadding = css`
   }
 
   @media (max-width: ${media.mobile}px), (max-height: ${media.mobile}px) {
-    padding-left: var(--spacingOuter);
-    padding-right: var(--spacingOuter);
+    padding-left: var(--spaceOuter);
+    padding-right: var(--spaceOuter);
   }
 
   @media ${media.mobileLS} {

@@ -122,8 +122,8 @@ const ProfileSection = styled.section`
   }
 
   @media (max-width: ${media.mobile}px), (max-height: ${media.mobile}px) {
-    padding-right: var(--spacingOuter);
-    padding-left: var(--spacingOuter);
+    padding-right: var(--spaceOuter);
+    padding-left: var(--spaceOuter);
   }
 
   @media ${media.mobileLS} {
@@ -136,7 +136,7 @@ const ProfileContent = styled.div`
   display: grid;
   grid-template-columns: 44% 48%;
   grid-column-gap: 8%;
-  max-width: var(--maxWidth);
+  max-width: var(--maxWidthL);
   width: 100%;
 
   @media (max-width: ${media.tablet}px) {
@@ -158,30 +158,23 @@ const ProfileColumn = styled.div`
 `;
 
 const ProfileTitle = styled.h2`
-  font-size: 42px;
-  margin: 0;
+  font-size: var(--fontSizeH2);
   font-weight: var(--fontWeightMedium);
-  margin-bottom: 40px;
+  color: var(--colorTextTitle);
   white-space: nowrap;
+  margin: 0 0 var(--spaceL) 0;
   opacity: ${props => (props.status === 'entered' ? 1 : 0)};
   transition: opacity 0.8s ease 0.4s;
-  color: rgb(var(--rgbTitle));
-
-  @media (max-width: 1245px) {
-    font-size: 36px;
-  }
 
   @media (max-width: ${media.mobile}px) {
-    font-size: 28px;
-    margin-bottom: 30px;
+    margin-bottom: var(--spaceXL);
   }
 `;
 
 const ProfileDescription = styled.p`
-  font-size: 22px;
-  line-height: 1.4;
-  margin: 0;
-  margin-bottom: 30px;
+  font-size: var(--fontSizeBodyL);
+  line-height: var(--lineHeightBody);
+  margin: 0 0 var(--spaceXL) 0;
   opacity: 0;
   transition: opacity 0.8s ease 0.6s;
 
@@ -190,10 +183,6 @@ const ProfileDescription = styled.p`
     css`
       opacity: 1;
     `}
-
-  @media (max-width: ${media.mobile}px) {
-    font-size: 18px;
-  }
 `;
 
 const ProfileTag = styled.div`
@@ -210,10 +199,10 @@ const ProfileTag = styled.div`
 `;
 
 const ProfileTagText = styled.div`
-  font-size: 16px;
+  font-size: var(--fontSizeBodyS);
   font-weight: var(--fontWeightMedium);
   color: rgb(var(--rgbPrimary));
-  transform: translateX(-10px);
+  transform: translateX(calc(var(--spaceM) * -1));
   opacity: 0;
   transition-property: opacity, transform;
   transition-timing-function: var(--curveFastoutSlowin);
@@ -243,7 +232,7 @@ const ProfileSvg = styled(KatakanaProfile)`
   z-index: 32;
   opacity: ${props => (props.status === 'entered' ? 1 : 0)};
   transition: opacity 0.4s ease 0.6s;
-  fill: rgb(var(--rgbTitle));
+  fill: var(--colorTextTitle);
 
   @media (max-width: ${media.tablet}px) {
     height: 460px;

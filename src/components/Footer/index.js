@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import Anchor from 'components/Anchor';
 import { sectionPadding } from 'utils/style';
-import { media } from 'utils/style';
 
 const Footer = () => (
   <FooterContainer role="contentinfo">
@@ -19,17 +18,12 @@ const FooterContainer = styled.footer`
   align-items: baseline;
   justify-content: center;
   width: 100vw;
-  padding: 70px 30px;
+  padding: var(--space3XL) var(--spaceL);
   z-index: 16;
   position: relative;
-  font-size: 16px;
-  color: rgb(var(--rgbTitle) / 0.6);
+  font-size: var(--fontSizeBodyS);
+  color: var(--colorTextLight);
   ${sectionPadding}
-
-  @media (max-width: ${media.tablet}px) {
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
 
   ${Anchor} {
     display: inline-flex;
@@ -37,7 +31,7 @@ const FooterContainer = styled.footer`
 `;
 
 const FooterDate = styled.span`
-  padding-right: 5px;
+  padding-right: var(--spaceXS);
   display: inline-flex;
 `;
 
