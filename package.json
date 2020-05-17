@@ -20,7 +20,7 @@
     "rimraf": "^3.0.2",
     "source-map-explorer": "^2.4.2",
     "storybook-addon-styled-component-theme": "^1.3.0",
-    "stylelint": "^13.3.3",
+    "stylelint": "^13.4.0",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0"
@@ -33,8 +33,8 @@
     "react-dom": "^16.13.1",
     "react-easy-swipe": "^0.0.18",
     "react-helmet-async": "^1.0.6",
-    "react-router-dom": "5.1.2",
-    "react-transition-group": "^4.3.0",
+    "react-router-dom": "5.2.0",
+    "react-transition-group": "^4.4.1",
     "styled-components": "^5.1.0",
     "three": "^0.116.1"
   },
