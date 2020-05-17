@@ -45,8 +45,8 @@ const codeThemes = {
 };
 
 function Code(props) {
-  const theme = useTheme();
-  const codeTheme = codeThemes[theme.id];
+  const { themeId } = useTheme();
+  const codeTheme = codeThemes[themeId];
 
   return (
     <CodeWrapper codeTheme={codeTheme}>

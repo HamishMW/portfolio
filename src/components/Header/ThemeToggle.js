@@ -5,9 +5,9 @@ import { useAppContext, useId } from 'hooks';
 import { media } from 'utils/style';
 
 const ThemeToggle = ({ isMobile, ...rest }) => {
-  const theme = useTheme();
+  const { themeId } = useTheme();
   const { dispatch } = useAppContext();
-  const isDark = theme.id === 'dark';
+  const isDark = themeId === 'dark';
   const id = useId();
   const maskId = `theme-toggle-clip-${id}`;
 
@@ -87,15 +87,15 @@ const ThemeToggleCircle = styled.circle`
   transform: ${props => (props.isDark ? 'none' : 'scale(0.6)')};
   transform-origin: center;
   transition-property: transform, fill;
-  transition-duration: 0.6s;
-  transition-timing-function: var(--curveFastoutSlowin);
+  transition-duration: var(--durationL);
+  transition-timing-function: var(--bezierFastoutSlowin);
   transition-delay: ${props => (props.isDark ? '0.3s' : '0s')};
 `;
 
 const ThemeToggleMask = styled.circle`
   fill: black;
   transform: ${props => (props.isDark ? 'none' : 'translate3d(100%, -100%, 0)')};
-  transition: transform 0.6s var(--curveFastoutSlowin);
+  transition: transform var(--durationL) var(--bezierFastoutSlowin);
   transition-delay: ${props => (props.isDark ? '0.3s' : '0s')};
 `;
 
@@ -107,8 +107,8 @@ const ThemeTogglePath = styled.path`
   stroke-dasharray: 7 7;
   stroke-dashoffset: ${props => (props.isDark ? 7 : 0)};
   transition-property: stroke-dashoffset, opacity;
-  transition-duration: 0.6s;
-  transition-timing-function: var(--curveFastoutSlowin);
+  transition-duration: var(--durationL);
+  transition-timing-function: var(--bezierFastoutSlowin);
   transition-delay: ${props => (props.isDark ? '0s' : '0.3s')};
   opacity: ${props => (props.isDark ? 0 : 1)};
 `;

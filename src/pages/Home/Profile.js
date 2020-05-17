@@ -164,7 +164,7 @@ const ProfileTitle = styled.h2`
   white-space: nowrap;
   margin: 0 0 var(--spaceL) 0;
   opacity: ${props => (props.status === 'entered' ? 1 : 0)};
-  transition: opacity 0.8s ease 0.4s;
+  transition: opacity var(--durationXL) ease var(--durationM);
 
   @media (max-width: ${media.mobile}px) {
     margin-bottom: var(--spaceXL);
@@ -176,7 +176,7 @@ const ProfileDescription = styled.p`
   line-height: var(--lineHeightBody);
   margin: 0 0 var(--spaceXL) 0;
   opacity: 0;
-  transition: opacity 0.8s ease 0.6s;
+  transition: opacity var(--durationXL) ease var(--durationL);
 
   ${props =>
     props.status === 'entered' &&
@@ -205,8 +205,8 @@ const ProfileTagText = styled.div`
   transform: translateX(calc(var(--spaceM) * -1));
   opacity: 0;
   transition-property: opacity, transform;
-  transition-timing-function: var(--curveFastoutSlowin);
-  transition-duration: 0.4s;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationM);
   transition-delay: 1.3s;
 
   ${props =>
@@ -231,7 +231,7 @@ const ProfileSvg = styled(KatakanaProfile)`
   height: 620px;
   z-index: 32;
   opacity: ${props => (props.status === 'entered' ? 1 : 0)};
-  transition: opacity 0.4s ease 0.6s;
+  transition: opacity var(--durationM) ease var(--durationL);
   fill: var(--colorTextTitle);
 
   @media (max-width: ${media.tablet}px) {
@@ -245,7 +245,7 @@ const ProfileSvg = styled(KatakanaProfile)`
 
 const ProfileButton = styled(RouterButton)`
   opacity: 0;
-  transition: opacity 0.8s ease 0.6s;
+  transition: opacity var(--durationXL) ease var(--durationL);
 
   ${props =>
     props.status === 'entered' &&

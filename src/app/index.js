@@ -15,7 +15,7 @@ import {
 } from 'react-transition-group';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from 'components/Header';
-import { theme, tokens, createThemeProperties } from 'app/theme';
+import { theme, tokens, createThemeProperties, msToNum } from 'app/theme';
 import { cornerClip, media } from 'utils/style';
 import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
@@ -35,10 +35,10 @@ const NotFound = lazy(() => import('pages/404'));
 export const AppContext = createContext();
 export const TransitionContext = createContext();
 
-const consoleMessage = `
+const repoPrompt = `
 __  __  __
 \u005C \u005C \u005C \u005C \u005C\u2215\n \u005C \u005C\u2215\u005C \u005C\n  \u005C\u2215  \u005C\u2215
-\n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio\n\n
+\n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio
 `;
 
 export const fontStyles = `
@@ -73,8 +73,10 @@ function App() {
 
   useEffect(() => {
     if (!prerender) {
-      console.info(consoleMessage);
+      console.info(`${repoPrompt}\n\n`);
       document.body.removeAttribute('class');
+      const markupComment = document.createComment(repoPrompt);
+      document.documentElement.prepend(markupComment);
     }
     window.history.scrollRestoration = 'manual';
   }, []);
@@ -117,7 +119,11 @@ function AppRoutes() {
         id="MainContent"
         role="main"
       >
-        <Transition key={pathname} timeout={300} onEnter={reflow}>
+        <Transition
+          key={pathname}
+          timeout={msToNum(tokens.base.durationS)}
+          onEnter={reflow}
+        >
           {status => (
             <TransitionContext.Provider value={{ status }}>
               <AppPage status={status}>
@@ -143,7 +149,7 @@ function AppRoutes() {
 
 export const GlobalStyles = createGlobalStyle`
   :root {
-    ${createThemeProperties(tokens.desktop)}
+    ${createThemeProperties(tokens.base)}
 
     @media (max-width: ${media.laptop}px) {
       ${createThemeProperties(tokens.laptop)}
@@ -186,7 +192,6 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     font-family: var(--fontStack);
     font-weight: var(--fontWeightRegular);
-    font-size: var(--fontSizeBodyS);
     background: rgb(var(--rgbBackground));
     color: var(--colorTextBody);
     border: 0;
@@ -203,7 +208,7 @@ export const GlobalStyles = createGlobalStyle`
 
   ::selection {
     background: rgb(var(--rgbAccent));
-    color: rgb(var(--rgbBlack) / 0.9);
+    color: rgb(var(--rgbBlack));
   }
 
   #root *,
@@ -223,7 +228,7 @@ const AppMainContent = styled.main`
   overflow-x: hidden;
   position: relative;
   background: rgb(var(--rgbBackground));
-  transition: background 0.4s ease;
+  transition: background var(--durationM) ease;
   outline: none;
   display: grid;
   grid-template: 100% / 100%;
@@ -233,7 +238,7 @@ const AppPage = styled.div`
   overflow-x: hidden;
   opacity: 0;
   grid-area: 1 / 1;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--durationS) ease;
 
   ${props =>
     (props.status === 'exiting' || props.status === 'entering') &&
@@ -244,8 +249,8 @@ const AppPage = styled.div`
   ${props =>
     props.status === 'entered' &&
     css`
-      transition-duration: 0.5s;
-      transition-delay: 0.2s;
+      transition-duration: var(--durationL);
+      transition-delay: var(--durationXS);
       opacity: 1;
     `}
 `;

@@ -11,7 +11,6 @@ import { UniformsLib } from 'three/src/renderers/shaders/UniformsLib';
 import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
 import { SphereBufferGeometry } from 'three/src/geometries/SphereGeometry';
 import { Mesh } from 'three/src/objects/Mesh';
-import { Color } from 'three/src/math/Color';
 import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
 import innerHeight from 'ios-inner-height';
 import vertShader from './sphereVertShader';
@@ -20,9 +19,10 @@ import { Transition } from 'react-transition-group';
 import { usePrefersReducedMotion } from 'hooks';
 import { reflow, isVisible } from 'utils/transition';
 import { media } from 'utils/style';
+import { rgbToThreeColor } from 'app/theme';
 
 function DisplacementSphere(props) {
-  const { rgbBackground, id: themeId, colorWhite } = useTheme();
+  const { rgbBackground, themeId, colorWhite } = useTheme();
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
   const start = useRef(Date.now());
@@ -96,7 +96,7 @@ function DisplacementSphere(props) {
     light.current.position.x = 100;
     light.current.position.y = 100;
     ambientLight.current = new AmbientLight(colorWhite, themeId === 'light' ? 0.8 : 0.1);
-    scene.current.background = new Color(`rgb(${rgbBackground.split(' ').join(', ')})`);
+    scene.current.background = rgbToThreeColor(rgbBackground);
     scene.current.add(light.current);
     scene.current.add(ambientLight.current);
 
@@ -219,7 +219,7 @@ const SphereCanvas = styled.canvas`
   opacity: ${props => (isVisible(props.status) ? 1 : 0)};
   transition-property: opacity;
   transition-duration: 3s;
-  transition-timing-function: var(--curveFastoutSlowin);
+  transition-timing-function: var(--bezierFastoutSlowin);
 `;
 
 export default memo(DisplacementSphere);

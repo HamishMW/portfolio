@@ -45,8 +45,8 @@ const NavToggleIcon = styled(Icon)`
 
   position: absolute;
   transition-property: opacity, transform, fill;
-  transition-duration: 0.4s;
-  transition-timing-function: var(--curveFastoutSlowin);
+  transition-duration: var(--durationM);
+  transition-timing-function: var(--bezierFastoutSlowin);
   transition-delay: 0.1s;
   opacity: 1;
   transform: rotate(0deg);

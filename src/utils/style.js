@@ -12,11 +12,11 @@ export const media = {
 
 // Animation utils
 export const AnimFade = keyframes`
-  0% {opacity: 0}
-  100% {opacity: 1}
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 `;
 
-// Offse content padding based on the header nav
+// Offset content padding based on the header nav
 export const sectionPadding = css`
   padding-right: var(--space5XL);
   padding-left: calc(var(--space4XL) * 2);

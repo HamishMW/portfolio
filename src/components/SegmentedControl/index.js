@@ -129,7 +129,7 @@ const SegmentedControlButton = styled.button`
   background-color: transparent;
   color: var(--colorTextBody);
   transition-property: color, background;
-  transition-duration: 0.4s;
+  transition-duration: var(--durationM);
   transition-timing-function: ease;
   border: 0;
   padding: 0 18px;
@@ -156,7 +156,7 @@ const SegmentedControlButton = styled.button`
     right: -6px;
     bottom: -4px;
     left: -4px;
-    transition: opacity 0.4s ease;
+    transition: opacity var(--durationM) ease;
   }
 
   &:last-child::before {
@@ -190,8 +190,8 @@ const SegmentedControlIndicator = styled.div`
   left: 0;
   background-color: var(--colorTextBody);
   transition-property: width, transform, clip-path;
-  transition-duration: 0.4s;
-  transition-timing-function: var(--curveFastoutSlowin);
+  transition-duration: var(--durationM);
+  transition-timing-function: var(--bezierFastoutSlowin);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
 
   ${props =>

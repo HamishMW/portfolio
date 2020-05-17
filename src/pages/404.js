@@ -8,6 +8,7 @@ import Notfound from 'assets/notfound.mp4';
 import NotfoundPoster from 'assets/notfound.jpg';
 import { reflow } from 'utils/transition';
 import { media } from 'utils/style';
+import { pxToRem } from 'app/theme';
 
 function NotFound() {
   return (
@@ -133,7 +134,7 @@ const NotFoundVideoContainer = styled.div`
         ${AnimVideo}
       `};
     animation-duration: 1.8s;
-    animation-timing-function: var(--curveFastoutSlowin);
+    animation-timing-function: var(--bezierFastoutSlowin);
 
     position: absolute;
     top: 0;
@@ -154,7 +155,7 @@ const NotFoundVideo = styled.video`
   opacity: 0;
   transition-property: opacity;
   transition-delay: 1s;
-  transition-duration: 0.4s;
+  transition-duration: var(--durationM);
 
   ${props =>
     props.status === 'entered' &&
@@ -178,8 +179,8 @@ const NotFoundCredit = styled.a`
   transform: translate3d(0, 0, 0);
   text-decoration: none;
   transition-property: all;
-  transition-delay: 0.4s;
-  transition-duration: 0.4s;
+  transition-delay: var(--durationM);
+  transition-duration: var(--durationM);
   opacity: 0;
 
   ${props =>
@@ -216,18 +217,18 @@ const NotFoundText = styled.div`
 const NotFoundTitle = styled.h1`
   margin: 0;
   margin-bottom: var(--spaceM);
-  font-size: 86px;
+  font-size: ${pxToRem(86)};
   font-weight: var(--fontWeightMedium);
   transition-property: transform, opacity;
-  transition-timing-function: var(--curveFastoutSlowin);
-  transition-duration: 0.8s;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
   transition-delay: 0.1s;
   transform: translate3d(0, var(--spaceL), 0);
   opacity: 0;
   color: var(--colorTextTitle);
 
   @media (max-width: ${media.mobile}px) {
-    font-size: 64px;
+    font-size: ${pxToRem(64)};
   }
 
   ${props =>
@@ -247,8 +248,8 @@ const NotFoundSubHeading = styled.h2`
   letter-spacing: 0.04em;
   color: rgb(var(--rgbText) / 0.4);
   transition-property: transform, opacity;
-  transition-timing-function: var(--curveFastoutSlowin);
-  transition-duration: 0.8s;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
   transition-delay: 0.2s;
   transform: translate3d(0, var(--spaceL), 0);
   opacity: 0;
@@ -257,7 +258,7 @@ const NotFoundSubHeading = styled.h2`
   flex: 0 0 auto;
 
   @media (max-width: ${media.mobile}px) {
-    font-size: 18px;
+    font-size: ${pxToRem(18)};
   }
 
   ${props =>
@@ -275,8 +276,8 @@ const NotFoundDescription = styled.p`
   font-size: var(--fontSizeBodyM);
   line-height: var(--lineHeightBody);
   transition-property: transform, opacity;
-  transition-timing-function: var(--curveFastoutSlowin);
-  transition-duration: 0.8s;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
   transition-delay: 0.3s;
   transform: translate3d(0, var(--spaceL), 0);
   opacity: 0;
@@ -291,9 +292,9 @@ const NotFoundDescription = styled.p`
 
 const NotFoundButton = styled(RouterButton)`
   transition-property: transform, opacity;
-  transition-timing-function: var(--curveFastoutSlowin);
-  transition-duration: 0.8s;
-  transition-delay: 0.4s;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--durationM);
   transform: translate3d(0, var(--spaceL), 0);
   opacity: 0;
   align-self: flex-start;

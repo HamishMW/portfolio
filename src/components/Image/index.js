@@ -6,6 +6,7 @@ import Icon from 'components/Icon';
 import { Transition } from 'react-transition-group';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
+import { msToNum, tokens } from 'app/theme';
 
 function ProgressiveImage(props) {
   const { className, style, reveal, delay = 0, ...rest } = props;
@@ -144,7 +145,7 @@ function ImageElements(props) {
             in={isHovered || isFocused}
             onExit={reflow}
             onExited={() => setShowPlayButton(false)}
-            timeout={{ enter: 0, exit: 300 }}
+            timeout={{ enter: 0, exit: msToNum(tokens.base.durationS) }}
           >
             {status => (
               <ImageButton
@@ -230,7 +231,7 @@ const ImageContainer = styled.div`
         animation: ${props.intersect &&
         !prerender &&
         css`
-        ${AnimImageReveal} 1.8s var(--curveFastoutSlowin) ${props.delay + 200}ms
+        ${AnimImageReveal} 1.8s var(--bezierFastoutSlowin) ${props.delay + 200}ms
       `};
       }
     `}
@@ -239,7 +240,7 @@ const ImageContainer = styled.div`
 const ImageElementWrapper = styled.div`
   opacity: ${props => (!props.reveal || props.intersect ? 1 : 0)};
   transition: ${props =>
-    props.reveal ? `opacity 0.4s ease ${props.delay + 1000}ms` : 'none'};
+    props.reveal ? `opacity var(--durationM) ease ${props.delay + 1000}ms` : 'none'};
   transform: translate3d(0, 0, 0);
   position: relative;
   display: grid;
@@ -249,7 +250,7 @@ const ImageElementWrapper = styled.div`
 const ImagePlaceholder = styled.img`
   width: 100%;
   height: auto;
-  transition: opacity 0.4s ease;
+  transition: opacity var(--durationM) ease;
   pointer-events: none;
   display: block;
   position: relative;
@@ -269,12 +270,14 @@ const ImageActual = styled.img`
 `;
 
 const ImageButton = styled(Button)`
+  --buttonTextSize: 16px;
+
   border: 0;
   position: absolute;
   opacity: 0;
-  font-size: 16px;
+  font-size: var(--buttonTextSize);
   transition-property: opacity, background;
-  transition-duration: 0.3s;
+  transition-duration: var(--durationS);
   transition-delay: 0s;
   cursor: pointer;
   padding: 0 14px 0 10px;

@@ -14,7 +14,7 @@ export const clean = scene => {
   });
 };
 
-const cleanMaterial = material => {
+export const cleanMaterial = material => {
   material.dispose();
 
   // dispose textures

@@ -4,6 +4,7 @@ import { Link } from 'components/Link';
 import Loader from 'components/Loader';
 import Icon from 'components/Icon';
 import { cornerClip } from 'utils/style';
+import { pxToRem } from 'app/theme';
 
 function ButtonContent({
   iconRight,
@@ -107,16 +108,18 @@ const ButtonLoader = styled(Loader)`
 `;
 
 const ButtonContainer = styled.button`
-  --buttonSize: 56px;
-  --buttonFontSize: 18px;
+  --buttonSize: ${pxToRem(56)};
+  --buttonFontSize: ${pxToRem(18)};
 
   background: none;
   height: var(--buttonSize);
-  padding: ${props => (props.iconOnly ? 0 : ' 0 26px')};
+  padding: ${props => (props.iconOnly ? 0 : '0 var(--spaceL)')};
   border: 0;
   margin: 0;
   cursor: pointer;
-  transition: all 0.3s var(--curveFastoutSlowin);
+  transition-property: transform, opacity, color, background;
+  transition-duration: var(--durationS);
+  transition-timing-function: var(--bezierFastoutSlowin);
   display: flex;
   display: inline-flex;
   align-items: center;
@@ -135,7 +138,9 @@ const ButtonContainer = styled.button`
     css`
       &::before {
         content: '';
-        transition: all 0.4s var(--curveFastoutSlowin);
+        transition-property: box-shadow, transform, opacity, background;
+        transition-duration: var(--durationM);
+        transition-timing-function: var(--bezierFastoutSlowin);
         background: rgb(var(--rgbPrimary) / 0.4);
         position: absolute;
         top: -5px;
@@ -149,7 +154,9 @@ const ButtonContainer = styled.button`
 
       &::after {
         content: '';
-        transition: all 0.4s var(--curveFastoutSlowin);
+        transition-property: box-shadow, transform, opacity, background;
+        transition-duration: var(--durationM);
+        transition-timing-function: var(--bezierFastoutSlowin);
         background: rgb(var(--rgbPrimary));
         position: absolute;
         top: 0;
@@ -202,7 +209,7 @@ const ButtonContainer = styled.button`
         background-color: rgb(var(--rgbPrimary) / 0.2);
         transform: scale3d(0, 1, 1) translateY(-50%);
         transform-origin: right;
-        transition: transform 0.4s var(--curveFastoutSlowin);
+        transition: transform var(--durationM) var(--bezierFastoutSlowin);
       }
 
       &:hover,
@@ -222,7 +229,7 @@ const ButtonContainer = styled.button`
 
       &::before {
         content: '';
-        transition: box-shadow 0.4s var(--curveFastoutSlowin);
+        transition: box-shadow var(--durationM) var(--bezierFastoutSlowin);
         transform: translateY(-50%);
         height: 30px;
         position: absolute;
@@ -316,9 +323,11 @@ const ButtonText = styled.div`
 `;
 
 const ButtonIcon = styled(Icon)`
-  margin-left: ${props => (props.left ? '0' : '6px')};
-  margin-right: ${props => (props.left ? '6px' : '0')};
-  transition: all 0.3s var(--curveFastoutSlowin);
+  margin-left: ${props => (props.left ? '0' : 'var(--spaceS)')};
+  margin-right: ${props => (props.left ? 'var(--spaceS)' : '0')};
+  transition-property: transform, opacity, fill;
+  transition-duration: var(--durationS);
+  transition-timing-function: var(--bezierFastoutSlowin);
   fill: rgb(var(--rgbBackground));
 
   ${props =>

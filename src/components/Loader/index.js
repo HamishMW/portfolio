@@ -95,7 +95,7 @@ const AnimSpan = keyframes`
 const LoaderSpan = styled.span`
   height: 60%;
   background: ${props => props.spanColor};
-  animation: ${AnimSpan} 1s var(--curveFastoutSlowin) infinite;
+  animation: ${AnimSpan} 1s var(--bezierFastoutSlowin) infinite;
   transform: scaleY(0);
   transform-origin: top left;
 

@@ -470,8 +470,8 @@ const SliderButton = styled.button`
     bottom: 0;
     left: 0;
     transition-property: background, box-shadow;
-    transition-duration: 0.4s;
-    transition-timing-function: var(--curveFastoutSlowin);
+    transition-duration: var(--durationM);
+    transition-timing-function: var(--bezierFastoutSlowin);
     ${cornerClip(12)}
   }
 
@@ -502,8 +502,8 @@ const SliderButton = styled.button`
       100% 0%
     );
     transition-property: background, box-shadow;
-    transition-duration: 0.4s;
-    transition-timing-function: var(--curveFastoutSlowin);
+    transition-duration: var(--durationM);
+    transition-timing-function: var(--bezierFastoutSlowin);
   }
 
   &:focus::after {
@@ -545,8 +545,8 @@ const SliderNavButton = styled.button`
     background: ${props =>
       props.active ? 'var(--colorTextBody)' : 'rgb(var(--rgbText) / 0.2)'};
     transition-property: background, box-shadow;
-    transition-duration: 0.5s;
-    transition-timing-function: var(--curveFastoutSlowin);
+    transition-duration: var(--durationL);
+    transition-timing-function: var(--bezierFastoutSlowin);
   }
 
   &:focus::after {

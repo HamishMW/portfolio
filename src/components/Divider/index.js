@@ -13,8 +13,8 @@ const Divider = styled.div`
     background: rgb(var(--rgbPrimary));
     opacity: ${props => (props.collapsed ? 0 : 1)};
     transition-property: transform, opacity;
-    transition-duration: 600ms;
-    transition-timing-function: var(--curveFastoutSlowin);
+    transition-duration: var(--durationL);
+    transition-timing-function: var(--bezierFastoutSlowin);
     transition-delay: ${props => props.collapseDelay}ms;
     transform: scaleX(${props => (props.collapsed ? 0 : 1)});
     transform-origin: left center;
@@ -28,8 +28,8 @@ const Divider = styled.div`
     position: absolute;
     top: ${props => props.lineHeight};
     transition-property: clip-path, opacity;
-    transition-duration: 600ms;
-    transition-timing-function: var(--curveFastoutSlowin);
+    transition-duration: var(--durationL);
+    transition-timing-function: var(--bezierFastoutSlowin);
     transition-delay: ${props => props.collapseDelay + 160}ms;
     opacity: ${props => (props.collapsed ? 0 : 1)};
     clip-path: ${props =>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components/macro';
 import TextArea from 'components/TextArea';
 import { useId } from 'hooks';
+import { pxToRem } from 'app/theme';
 
 function Input(props) {
   const { id, label, hasValue, multiline, className, ...restProps } = props;
@@ -33,7 +34,7 @@ function Input(props) {
 }
 
 const InputWrapper = styled.div`
-  --inputFontSize: 16px;
+  --inputFontSize: ${pxToRem(16)};
 
   position: relative;
   display: flex;
@@ -92,7 +93,7 @@ const InputUnderline = styled.div`
   height: 2px;
   position: absolute;
   bottom: 0;
-  transition: transform 0.4s var(--curveFastoutSlowin);
+  transition: transform var(--durationM) var(--bezierFastoutSlowin);
   transform-origin: left;
 `;
 
@@ -103,7 +104,8 @@ const InputLabel = styled.label`
   left: 0;
   display: block;
   transform-origin: top left;
-  transition: transform 0.4s var(--curveFastoutSlowin), color 0.4s ease;
+  transition: transform var(--durationM) var(--bezierFastoutSlowin),
+    color var(--durationM) ease;
 
   ${props =>
     (props.hasValue || props.focused) &&

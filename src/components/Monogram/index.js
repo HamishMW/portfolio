@@ -32,7 +32,8 @@ const MonogramHighlight = styled.rect`
   opacity: 0;
   transform: scale3d(1, 0, 1);
   transform-origin: top;
-  transition: transform 0.4s var(--curveFastoutSlowin), opacity 0.1s ease 0.4s;
+  transition: transform var(--durationM) var(--bezierFastoutSlowin),
+    opacity 0.1s ease var(--durationM);
 
   a:focus &,
   a:hover &,
@@ -40,7 +41,7 @@ const MonogramHighlight = styled.rect`
     opacity: 1;
     transform: scale3d(1, 1, 1);
     transform-origin: bottom;
-    transition: transform 0.4s var(--curveFastoutSlowin), opacity 0.1s ease;
+    transition: transform var(--durationM) var(--bezierFastoutSlowin), opacity 0.1s ease;
   }
 `;
 

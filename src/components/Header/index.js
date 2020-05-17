@@ -10,6 +10,7 @@ import { useWindowSize, useAppContext } from 'hooks';
 import { navLinks, socialLinks } from './navData';
 import { reflow } from 'utils/transition';
 import { media } from 'utils/style';
+import { pxToRem, tokens, msToNum } from 'app/theme';
 
 const HeaderIcons = () => (
   <HeaderNavIcons>
@@ -73,7 +74,7 @@ function Header(props) {
         mountOnEnter
         unmountOnExit
         in={menuOpen}
-        timeout={{ enter: 0, exit: 500 }}
+        timeout={{ enter: 0, exit: msToNum(tokens.base.durationL) }}
         onEnter={reflow}
       >
         {status => (
@@ -81,7 +82,7 @@ function Header(props) {
             {navLinks.map(({ label, pathname, hash }, index) => (
               <HeaderMobileNavLink
                 key={label}
-                delay={300 + index * 50}
+                delay={`calc(${tokens.base.durationS} + ${index}ms * 50ms)`}
                 status={status}
                 onClick={handleMobileNavClick}
                 to={{ pathname, hash, state: hashKey }}
@@ -100,17 +101,23 @@ function Header(props) {
 }
 
 const HeaderWrapper = styled.header`
+  --headerNavFontSize: ${pxToRem(16)};
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  position: fixed;
   padding: 0;
   width: var(--space2XL);
-  z-index: 1024;
+  position: fixed;
   top: var(--spaceOuter);
   left: var(--spaceOuter);
   bottom: var(--spaceOuter);
+  z-index: 1024;
+
+  @media (max-width: ${media.mobile}px) {
+    --headerNavFontSize: ${pxToRem(22)};
+  }
 
   @media (max-width: ${media.mobile}px), (max-height: ${media.mobile}px) {
     bottom: auto;
@@ -120,8 +127,12 @@ const HeaderWrapper = styled.header`
 const HeaderLogo = styled(Link)`
   display: flex;
   position: relative;
-  padding: var(--spaceM) var(--spaceM) var(--spaceL);
+  padding: var(--spaceS) var(--spaceS) var(--spaceL);
   z-index: 16;
+
+  @media (max-width: ${media.mobile}px) {
+    padding-bottom: var(--spaceS);
+  }
 `;
 
 const HeaderNav = styled.nav`
@@ -148,10 +159,11 @@ const HeaderNavList = styled.div`
 const HeaderNavLink = styled(NavLink)`
   padding: var(--spaceM);
   color: rgb(var(--rgbText) / 0.8);
-  text-decoration: none;
   font-weight: var(--fontWeightMedium);
+  font-size: var(--headerNavFontSize);
+  text-decoration: none;
   position: relative;
-  transition: color 0.3s ease 0.1s;
+  transition: color var(--durationS) ease 0.1s;
   line-height: 1;
 
   &:hover,
@@ -170,7 +182,7 @@ const HeaderNavLink = styled(NavLink)`
     height: 4px;
     background: rgb(var(--rgbAccent));
     transform: scaleX(0) translateY(-2px);
-    transition: transform 0.4s var(--curveFastoutSlowin);
+    transition: transform var(--durationM) var(--bezierFastoutSlowin);
     transform-origin: right;
   }
 
@@ -221,7 +233,7 @@ const HeaderNavIconLink = styled.a.attrs({
 
 const HeaderNavIcon = styled(Icon)`
   fill: var(--colorTextLight);
-  transition: fill 0.4s ease;
+  transition: fill var(--durationM) ease;
 
   ${/* sc-selector */ HeaderNavIconLink}:hover &,
   ${/* sc-selector */ HeaderNavIconLink}:focus &,
@@ -239,8 +251,8 @@ const HeaderMobileNav = styled.nav`
   background: rgb(var(--rgbBackground) / 0.9);
   transform: translate3d(0, ${props => (props.status === 'entered' ? 0 : '-100%')}, 0);
   transition-property: transform, background;
-  transition-duration: 0.5s;
-  transition-timing-function: var(--curveFastoutSlowin);
+  transition-duration: var(--durationL);
+  transition-timing-function: var(--bezierFastoutSlowin);
   display: none;
   flex-direction: column;
   align-items: center;
@@ -256,15 +268,17 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
   active: 'active',
 })`
   width: 100%;
-  font-size: 22px;
+  font-size: var(--headerNavFontSize);
   text-align: center;
   text-decoration: none;
   color: var(--colorTextBody);
   padding: var(--spaceL);
   transform: translate3d(0, calc(var(--spaceXL) * -1), 0);
   opacity: 0;
-  transition: all 0.3s var(--curveFastoutSlowin);
-  transition-delay: ${props => props.delay}ms;
+  transition-property: transform, opacity;
+  transition-duration: var(--durationS);
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-delay: ${props => props.delay};
   position: relative;
   top: calc(var(--spaceM) * -1);
 
@@ -272,12 +286,8 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     top: auto;
   }
 
-  @media (max-width: 400px) {
-    font-size: 18px;
-  }
-
-  @media (max-height: 360px) {
-    font-size: 18px;
+  @media (max-width: 400px), (max-height: 360px) {
+    --headerNavFontSize: ${pxToRem(18)};
   }
 
   ${props =>
@@ -296,7 +306,7 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     height: 4px;
     background: rgb(var(--rgbAccent));
     transform: scaleX(0) translateY(-1px);
-    transition: transform 0.4s var(--curveFastoutSlowin);
+    transition: transform var(--durationM) var(--bezierFastoutSlowin);
     transform-origin: right;
   }
 

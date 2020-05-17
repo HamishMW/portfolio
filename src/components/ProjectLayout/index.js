@@ -6,6 +6,7 @@ import { LinkButton } from 'components/Button';
 import { useParallax } from 'hooks';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
+import { pxToRem } from 'app/theme';
 
 const initDelay = 300;
 
@@ -218,12 +219,12 @@ const ProjectTitle = styled.h1`
   ${props =>
     props.entered &&
     css`
-      animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay}ms forwards;
+      animation: ${AnimFadeSlide} 1.4s var(--bezierFastoutSlowin) ${initDelay}ms forwards;
     `}
 `;
 
 const ProjectDescription = styled.p`
-  font-size: calc(var(--fontSizeBodyL) + 2px);
+  font-size: calc(var(--fontSizeBodyL) + ${pxToRem(2)});
   line-height: var(--lineHeightBody);
   margin: 0 0 var(--spaceL) 0;
   opacity: 0;
@@ -235,7 +236,7 @@ const ProjectDescription = styled.p`
   ${props =>
     props.entered &&
     css`
-      animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay + 100}ms
+      animation: ${AnimFadeSlide} 1.4s var(--bezierFastoutSlowin) ${initDelay + 100}ms
         forwards;
     `}
 `;
@@ -250,7 +251,7 @@ const ProjectLinkButton = styled(LinkButton)`
   ${props =>
     props.entered &&
     css`
-      animation: ${AnimFadeSlide} 1.4s var(--curveFastoutSlowin) ${initDelay + 200}ms
+      animation: ${AnimFadeSlide} 1.4s var(--bezierFastoutSlowin) ${initDelay + 200}ms
         forwards;
     `}
 `;
@@ -266,7 +267,9 @@ const ProjectMetaItem = styled.li`
   padding: var(--spaceL) 0;
   font-size: var(--fontSizeBodyS);
   font-weight: ${props =>
-    props.theme.id === 'light' ? 'var(--fontWeightMedium)' : 'var(--fontWeightRegular)'};
+    props.theme.themeId === 'light'
+      ? 'var(--fontWeightMedium)'
+      : 'var(--fontWeightRegular)'};
   border-top: 1px solid rgb(var(--rgbText) / 0.2);
   opacity: 0;
 
@@ -281,7 +284,7 @@ const ProjectMetaItem = styled.li`
   ${props =>
     props.entered &&
     css`
-      animation: ${AnimFadeSlide} 1.5s var(--curveFastoutSlowin)
+      animation: ${AnimFadeSlide} 1.5s var(--bezierFastoutSlowin)
         ${initDelay + 300 + props.index * 140}ms forwards;
     `}
 

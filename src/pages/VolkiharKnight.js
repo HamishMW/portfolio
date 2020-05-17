@@ -68,7 +68,8 @@ function ProjectVolkihar() {
       dispatch({
         type: 'updateTheme',
         value: {
-          rgbPrimary: theme.id === 'dark' ? '240 211 150' : themeRef.current.rgbPrimary,
+          rgbPrimary:
+            theme.themeId === 'dark' ? '240 211 150' : themeRef.current.rgbPrimary,
           rgbAccent: '240 211 150',
         },
       });
@@ -79,7 +80,7 @@ function ProjectVolkihar() {
         dispatch({ type: 'updateTheme' });
       }
     };
-  }, [dispatch, status, theme.id]);
+  }, [dispatch, status, theme.themeId]);
 
   return (
     <Fragment>
@@ -273,12 +274,12 @@ const VolkiharLogoContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: #111111;
-  padding: ${props => (props.theme.id === 'light' ? '60px' : 0)} 80px;
+  padding: ${props => (props.theme.themeId === 'light' ? '60px' : 0)} 80px;
   margin-bottom: 80px;
   width: 100%;
 
   @media (max-width: ${media.mobile}px) {
-    padding: ${props => (props.theme.id === 'light' ? '30px' : 0)} 40px;
+    padding: ${props => (props.theme.themeId === 'light' ? '30px' : 0)} 40px;
     margin-bottom: 40px;
   }
 
