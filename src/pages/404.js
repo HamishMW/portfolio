@@ -2,13 +2,14 @@ import React, { Fragment } from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
-import { RouterButton } from 'components/Button';
+import { Button } from 'components/Button';
 import DecoderText from 'components/DecoderText';
 import Notfound from 'assets/notfound.mp4';
 import NotfoundPoster from 'assets/notfound.jpg';
 import { reflow } from 'utils/transition';
 import { media } from 'utils/style';
 import { pxToRem } from 'app/theme';
+import { Link } from 'react-router-dom';
 
 function NotFound() {
   return (
@@ -37,6 +38,7 @@ function NotFound() {
                 <NotFoundButton
                   secondary
                   iconHoverShift
+                  as={Link}
                   status={status}
                   to="/"
                   icon="chevronRight"
@@ -290,7 +292,7 @@ const NotFoundDescription = styled.p`
     `}
 `;
 
-const NotFoundButton = styled(RouterButton)`
+const NotFoundButton = styled(Button)`
   transition-property: transform, opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);

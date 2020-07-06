@@ -17,6 +17,7 @@ export function reducer(state, action) {
     case 'toggleTheme': {
       const newThemeKey = state.currentTheme.themeId === 'dark' ? 'light' : 'dark';
       window.localStorage.setItem('theme', JSON.stringify(newThemeKey));
+      document.body.setAttribute('class', newThemeKey);
       return { ...state, currentTheme: theme[newThemeKey] };
     }
     case 'toggleMenu':

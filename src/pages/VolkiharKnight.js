@@ -3,7 +3,7 @@ import styled, { useTheme } from 'styled-components/macro';
 import { Helmet } from 'react-helmet-async';
 import Image from 'components/Image';
 import { useScrollRestore, useAppContext, useRouteTransition } from 'hooks';
-import { LinkButton } from 'components/Button';
+import { Button } from 'components/Button';
 import Footer from 'components/Footer';
 import {
   ProjectContainer,
@@ -225,16 +225,16 @@ function ProjectVolkihar() {
                   the game my armor design can be found being used for the Wandering Mage
                   armor set.
                 </ProjectSectionText>
-                <LinkButton
+                <Button
                   secondary
                   iconHoverShift
-                  style={{ paddingLeft: '3px' }}
+                  as="a"
                   icon="chevronRight"
                   target="_blank"
                   href="https://store.steampowered.com/app/933480/Enderal_Forgotten_Stories/"
                 >
                   View on Steam
-                </LinkButton>
+                </Button>
               </ProjectTextRow>
             </ProjectSectionContent>
           </ProjectSection>

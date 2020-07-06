@@ -25,7 +25,7 @@ const FooterContainer = styled.footer`
   color: var(--colorTextLight);
   ${sectionPadding}
 
-  ${Anchor} {
+  a {
     display: inline-flex;
   }
 `;

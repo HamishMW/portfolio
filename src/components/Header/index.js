@@ -11,11 +11,17 @@ import { navLinks, socialLinks } from './navData';
 import { reflow } from 'utils/transition';
 import { media } from 'utils/style';
 import { pxToRem, tokens, msToNum } from 'app/theme';
+import { focusRing, blurOnMouseUp } from 'utils/focus';
 
 const HeaderIcons = () => (
   <HeaderNavIcons>
     {socialLinks.map(({ label, url, icon }) => (
-      <HeaderNavIconLink key={label} aria-label={label} href={url}>
+      <HeaderNavIconLink
+        key={label}
+        aria-label={label}
+        href={url}
+        onMouseUp={blurOnMouseUp}
+      >
         <HeaderNavIcon icon={icon} />
       </HeaderNavIconLink>
     ))}
@@ -63,6 +69,7 @@ function Header(props) {
               onClick={handleNavClick}
               key={label}
               to={{ pathname, hash, state: hashKey }}
+              onMouseUp={blurOnMouseUp}
             >
               {label}
             </HeaderNavLink>
@@ -86,6 +93,7 @@ function Header(props) {
                 status={status}
                 onClick={handleMobileNavClick}
                 to={{ pathname, hash, state: hashKey }}
+                onMouseUp={blurOnMouseUp}
               >
                 {label}
               </HeaderMobileNavLink>
@@ -193,6 +201,8 @@ const HeaderNavLink = styled(NavLink)`
     transform: scaleX(1) translateY(-2px);
     transform-origin: left;
   }
+
+  ${focusRing}
 `;
 
 const HeaderNavIcons = styled.div`
@@ -229,6 +239,7 @@ const HeaderNavIconLink = styled.a.attrs({
   padding: var(--spaceS);
   width: var(--space2XL);
   height: var(--space2XL);
+  ${focusRing}
 `;
 
 const HeaderNavIcon = styled(Icon)`
@@ -316,6 +327,8 @@ const HeaderMobileNavLink = styled(NavLink).attrs({
     transform: scaleX(1) translateY(-1px);
     transform-origin: left;
   }
+
+  ${focusRing}
 `;
 
 export default memo(Header);

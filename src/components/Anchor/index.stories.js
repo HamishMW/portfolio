@@ -9,7 +9,7 @@ export default {
 };
 
 export const anchor = () => (
-  <StoryContainer padding={30} gutter={30} style={{ fontSize: 18 }}>
+  <StoryContainer padding={32} gutter={32} style={{ fontSize: 18 }}>
     <Anchor href="#" onClick={e => e.preventDefault()}>
       I'm an anchor link
     </Anchor>

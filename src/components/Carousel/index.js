@@ -9,15 +9,15 @@ import { LoadingManager } from 'three/src/loaders/LoadingManager';
 import { ShaderMaterial } from 'three/src/materials/ShaderMaterial';
 import { Mesh } from 'three/src/objects/Mesh';
 import { Color } from 'three/src/math/Color';
-import styled from 'styled-components/macro';
 import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
+import classNames from 'classnames';
 import Swipe from 'react-easy-swipe';
-import Icon from 'components/Icon';
-import { cornerClip } from 'utils/style';
 import { vertex, fragment } from './carouselShader';
 import { usePrefersReducedMotion } from 'hooks';
 import prerender from 'utils/prerender';
-import { media } from 'utils/style';
+import { ReactComponent as ArrowLeft } from 'assets/arrow-left.svg';
+import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
+import './index.css';
 
 function determineIndex(imageIndex, index, images, direction) {
   if (index !== null) return index;
@@ -35,7 +35,7 @@ export default function Carousel(props) {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [sliderImages, setSliderImages] = useState();
   const [canvasWidth, setCanvasWidth] = useState();
-  const container = useRef();
+  const canvasRef = useRef();
   const imagePlane = useRef();
   const geometry = useRef();
   const material = useRef();
@@ -122,7 +122,7 @@ export default function Carousel(props) {
 
   useEffect(() => {
     const handleResize = () => {
-      const width = parseInt(getComputedStyle(container.current).width, 10);
+      const width = parseInt(getComputedStyle(canvasRef.current).width, 10);
       setCanvasWidth(width);
     };
 
@@ -135,9 +135,8 @@ export default function Carousel(props) {
   }, []);
 
   useEffect(() => {
-    const containerElement = container.current;
     const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
-    renderer.current = new WebGLRenderer({ antialias: false });
+    renderer.current = new WebGLRenderer({ antialias: false, canvas: canvasRef.current });
     camera.current = new OrthographicCamera(...cameraOptions);
     scene.current = new Scene();
     renderer.current.setPixelRatio(window.devicePixelRatio);
@@ -148,7 +147,6 @@ export default function Carousel(props) {
     renderer.current.domElement.setAttribute('aria-hidden', true);
     scene.current.background = new Color(0x111111);
     camera.current.position.z = 1;
-    containerElement.appendChild(renderer.current.domElement);
 
     const addObjects = textures => {
       material.current = new ShaderMaterial({
@@ -213,14 +211,13 @@ export default function Carousel(props) {
       }
     });
 
-    observer.observe(containerElement);
+    observer.observe(canvasRef.current);
 
     return function cleanUp() {
       animating.current = false;
       renderer.current.dispose();
       renderer.current.domElement = null;
       observer.disconnect();
-      containerElement.innerHTML = '';
 
       if (imagePlane.current) {
         scene.current.remove(imagePlane.current);
@@ -350,47 +347,52 @@ export default function Carousel(props) {
   };
 
   return (
-    <SliderContainer onKeyDown={handleKeyDown} {...rest}>
-      <SliderContainer>
+    <div className="carousel" onKeyDown={handleKeyDown} {...rest}>
+      <div className="carousel__content">
         <Swipe allowMouseEvents onSwipeEnd={onSwipeEnd} onSwipeMove={onSwipeMove}>
-          <SliderImageWrapper>
-            <SliderCanvasWrapper
+          <div className="carousel__image-wrapper">
+            <div
               aria-atomic
+              className="carousel__canvas-wrapper"
               aria-live="polite"
               aria-label={currentImageAlt}
-              ref={container}
               role="img"
-            />
+            >
+              <canvas className="carousel__canvas" ref={canvasRef} />
+            </div>
             {showPlaceholder && placeholder && (
-              <SliderPlaceholder
+              <img
                 aria-hidden
+                className={classNames('carousel__placeholder', {
+                  'carousel__placeholder--loaded': !prerender && loaded && sliderImages,
+                })}
                 src={placeholder}
                 ref={placeholderRef}
                 alt=""
                 role="presentation"
-                loaded={!prerender && loaded && sliderImages}
               />
             )}
-          </SliderImageWrapper>
+          </div>
         </Swipe>
-        <SliderButton
-          left
+        <button
+          className="carousel__button carousel__button--prev"
           aria-label="Previous slide"
           onClick={() => navigate({ direction: -1 })}
         >
-          <Icon icon="slideLeft" />
-        </SliderButton>
-        <SliderButton
-          right
+          <ArrowLeft />
+        </button>
+        <button
+          className="carousel__button carousel__button--next"
           aria-label="Next slide"
           onClick={() => navigate({ direction: 1 })}
         >
-          <Icon icon="slideRight" />
-        </SliderButton>
-      </SliderContainer>
-      <SliderNav>
+          <ArrowRight />
+        </button>
+      </div>
+      <div className="carousel__nav">
         {images.map((image, index) => (
-          <SliderNavButton
+          <button
+            className="carousel__nav-button"
             key={image.alt}
             onClick={() => onNavClick(index)}
             active={index === imageIndex}
@@ -398,160 +400,7 @@ export default function Carousel(props) {
             aria-pressed={index === imageIndex}
           />
         ))}
-      </SliderNav>
-    </SliderContainer>
+      </div>
+    </div>
   );
 }
-
-const SliderContainer = styled.div`
-  position: relative;
-`;
-
-const SliderImageWrapper = styled.div`
-  position: relative;
-  display: grid;
-  grid-template-columns: 100%;
-  cursor: grab;
-
-  &:active {
-    cursor: grabbing;
-  }
-`;
-
-const SliderCanvasWrapper = styled.div`
-  position: relative;
-  grid-column: 1;
-  grid-row: 1;
-  user-select: none;
-
-  canvas {
-    position: relative;
-    display: block;
-  }
-`;
-
-const SliderPlaceholder = styled.img`
-  grid-column: 1;
-  grid-row: 1;
-  width: 100%;
-  transition: opacity 1s ease;
-  opacity: ${props => (props.loaded ? 0 : 1)};
-  pointer-events: none;
-  position: relative;
-  z-index: 1;
-`;
-
-const SliderButton = styled.button`
-  border: 0;
-  margin: 0;
-  background: none;
-  padding: var(--spaceM) var(--spaceL);
-  position: absolute;
-  top: 50%;
-  right: ${props => (props.right ? 'var(--spaceM)' : 'unset')};
-  left: ${props => (props.left ? 'var(--spaceM)' : 'unset')};
-  transform: translate3d(0, -50%, 0);
-  z-index: 32;
-  cursor: pointer;
-
-  @media (max-width: ${media.mobile}px) {
-    display: none;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transition-property: background, box-shadow;
-    transition-duration: var(--durationM);
-    transition-timing-function: var(--bezierFastoutSlowin);
-    ${cornerClip(12)}
-  }
-
-  &:hover::before,
-  &:focus::before {
-    background: rgb(var(--rgbWhite) / 0.1);
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: -3px;
-    right: -3px;
-    bottom: -3px;
-    left: -3px;
-    clip-path: polygon(
-      0% 0%,
-      0% 100%,
-      3px 100%,
-      3px 3px,
-      calc(100% - 3px) 3px,
-      calc(100% - 3px) calc(100% - 16px),
-      calc(100% - 16px) calc(100% - 3px),
-      3px calc(100% - 3px),
-      3px 100%,
-      calc(100% - 15px) 100%,
-      100% calc(100% - 15px),
-      100% 0%
-    );
-    transition-property: background, box-shadow;
-    transition-duration: var(--durationM);
-    transition-timing-function: var(--bezierFastoutSlowin);
-  }
-
-  &:focus::after {
-    background: rgb(var(--rgbWhite) / 0.4);
-  }
-
-  svg {
-    fill: rgb(var(--rgbWhite));
-    display: block;
-  }
-`;
-
-const SliderNav = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: var(--spaceS);
-`;
-
-const SliderNavButton = styled.button`
-  --navButtonSize: 10px;
-
-  background: none;
-  border: 0;
-  margin: 0;
-  padding: var(--spaceM);
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::after {
-    content: '';
-    width: var(--navButtonSize);
-    height: var(--navButtonSize);
-    border-radius: 50%;
-    display: block;
-    background: ${props =>
-      props.active ? 'var(--colorTextBody)' : 'rgb(var(--rgbText) / 0.2)'};
-    transition-property: background, box-shadow;
-    transition-duration: var(--durationL);
-    transition-timing-function: var(--bezierFastoutSlowin);
-  }
-
-  &:focus::after {
-    box-shadow: 0 0 0 4px rgb(var(--rgbText) / 0.2);
-    background: ${props =>
-      props.active ? 'var(--colorTextBody)' : 'var(--colorTextLight)'};
-  }
-`;

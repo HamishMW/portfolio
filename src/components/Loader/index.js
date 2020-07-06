@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components/macro';
 import { usePrefersReducedMotion } from 'hooks';
 
-const Loader = ({ size = 32, color = '#fff', text = 'Loading...', ...rest }) => {
+const Loader = ({ size = 32, text = 'Loading...', ...rest }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const renderScreenReaderTextPortal = () =>
@@ -14,7 +14,7 @@ const Loader = ({ size = 32, color = '#fff', text = 'Loading...', ...rest }) => 
 
   if (prefersReducedMotion) {
     return (
-      <LoaderText color={color} {...rest}>
+      <LoaderText {...rest}>
         {text}
         {renderScreenReaderTextPortal()}
       </LoaderText>
@@ -27,9 +27,9 @@ const Loader = ({ size = 32, color = '#fff', text = 'Loading...', ...rest }) => 
   return (
     <LoaderContainer aria-label={text} size={size} {...rest}>
       <LoaderSpanWrapper gapSize={gapSize} spanSize={spanSize}>
-        <LoaderSpan spanColor={color} />
-        <LoaderSpan spanColor={color} />
-        <LoaderSpan spanColor={color} />
+        <LoaderSpan />
+        <LoaderSpan />
+        <LoaderSpan />
       </LoaderSpanWrapper>
       {renderScreenReaderTextPortal()}
     </LoaderContainer>
@@ -44,7 +44,7 @@ const LoaderContainer = styled.div`
 `;
 
 const LoaderText = styled.div`
-  color: ${props => props.color};
+  color: inherit;
   font-size: var(--fontSizeBodyS);
   font-weight: var(--fontWeightMedium);
 `;
@@ -94,7 +94,7 @@ const AnimSpan = keyframes`
 
 const LoaderSpan = styled.span`
   height: 60%;
-  background: ${props => props.spanColor};
+  background: currentColor;
   animation: ${AnimSpan} 1s var(--bezierFastoutSlowin) infinite;
   transform: scaleY(0);
   transform-origin: top left;

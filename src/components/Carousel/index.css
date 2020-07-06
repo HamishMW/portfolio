@@ -1,0 +1,173 @@
+.carousel {
+  position: relative;
+}
+
+.carousel__content {
+  position: relative;
+}
+
+.carousel__image-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100%;
+  cursor: grab;
+}
+
+.carousel__image-wrapper:active {
+  cursor: grabbing;
+}
+
+.carousel__canvas-wrapper {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  user-select: none;
+}
+
+.carousel__canvas {
+  position: relative;
+  display: block;
+}
+
+.carousel__placeholder {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  transition: opacity 1s ease;
+  opacity: 0;
+  pointer-events: none;
+  position: relative;
+  z-index: 1;
+}
+
+.carousel__placeholder--loaded {
+  opacity: 1;
+}
+
+.carousel__button {
+  border: 0;
+  margin: 0;
+  background: none;
+  padding: var(--spaceM) var(--spaceL);
+  position: absolute;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+  z-index: 32;
+  cursor: pointer;
+}
+
+.carousel__button:focus {
+  outline: none;
+}
+
+.carousel__button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition-property: background, box-shadow;
+  transition-duration: var(--durationM);
+  transition-timing-function: var(--bezierFastoutSlowin);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+}
+
+.carousel__button:hover::before,
+.carousel__button:focus::before {
+  background: rgb(var(--rgbWhite) / 0.1);
+}
+
+.carousel__button::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  bottom: -3px;
+  left: -3px;
+  clip-path: polygon(
+    0% 0%,
+    0% 100%,
+    3px 100%,
+    3px 3px,
+    calc(100% - 3px) 3px,
+    calc(100% - 3px) calc(100% - 16px),
+    calc(100% - 16px) calc(100% - 3px),
+    3px calc(100% - 3px),
+    3px 100%,
+    calc(100% - 15px) 100%,
+    100% calc(100% - 15px),
+    100% 0%
+  );
+  transition-property: background, box-shadow;
+  transition-duration: var(--durationM);
+  transition-timing-function: var(--bezierFastoutSlowin);
+}
+
+.carousel__button:focus::after {
+  background: rgb(var(--rgbWhite) / 0.4);
+}
+
+.carousel__button svg {
+  fill: rgb(var(--rgbWhite));
+  display: block;
+}
+
+.carousel__button--prev {
+  left: var(--spaceM);
+}
+
+.carousel__button--next {
+  right: var(--spaceM);
+}
+
+@media (max-width: env(--test)) {
+  .carousel__button {
+    display: none;
+  }
+}
+
+.carousel__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--spaceS);
+}
+
+.carousel__nav-button {
+  --navButtonSize: 10px;
+  --buttonColor: rgb(var(--rgbText) / 0.2);
+  --buttonFocusColor: var(--colorTextLight);
+
+  background: none;
+  border: 0;
+  margin: 0;
+  padding: var(--spaceM);
+  cursor: pointer;
+}
+
+.carousel__nav-button[aria-pressed='true'] {
+  --buttonColor: var(--colorTextBody);
+  --buttonFocusColor: var(--colorTextBody);
+}
+
+.carousel__nav-button:focus {
+  outline: none;
+}
+
+.carousel__nav-button::after {
+  content: '';
+  border-radius: 50%;
+  display: block;
+  width: var(--navButtonSize);
+  height: var(--navButtonSize);
+  background: var(--buttonColor);
+  transition-property: background, box-shadow;
+  transition-duration: var(--durationL);
+  transition-timing-function: var(--bezierFastoutSlowin);
+}
+
+.carousel__nav-button:focus::after {
+  box-shadow: 0 0 0 4px rgb(var(--rgbText) / 0.2);
+  background: var(--buttonFocusColor);
+}

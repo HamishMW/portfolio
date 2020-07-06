@@ -1,9 +1,10 @@
 import React, { Fragment, memo } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
+import { Link as RouterLink } from 'react-router-dom';
 import { Link } from 'components/Link';
 import Anchor from 'components/Anchor';
-import { RouterButton } from 'components/Button';
+import { Button } from 'components/Button';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
 import Image from 'components/Image';
@@ -30,7 +31,7 @@ const ProfileText = ({ status, titleId }) => (
     </ProfileDescription>
     <ProfileDescription status={status}>
       In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
-      <Anchor as={Link} to="/projects/volkihar-knight">
+      <Anchor as={RouterLink} to="/projects/volkihar-knight">
         make mods
       </Anchor>
       . I’m always down for hearing about new projects, so feel free to drop me a line.
@@ -49,7 +50,13 @@ function Profile(props) {
           <ProfileContent>
             <ProfileColumn>
               <ProfileText status={status} titleId={titleId} />
-              <ProfileButton secondary status={status} to="/contact" icon="send">
+              <ProfileButton
+                secondary
+                as={Link}
+                status={status}
+                to="/contact"
+                icon="send"
+              >
                 Send me a message
               </ProfileButton>
             </ProfileColumn>
@@ -243,9 +250,10 @@ const ProfileSvg = styled(KatakanaProfile)`
   }
 `;
 
-const ProfileButton = styled(RouterButton)`
+const ProfileButton = styled(Button)`
   opacity: 0;
-  transition: opacity var(--durationXL) ease var(--durationL);
+  transition: opacity var(--durationXL) ease var(--durationL),
+    box-shadow var(--durationM) var(--bezierFastoutSlowin);
 
   ${props =>
     props.status === 'entered' &&

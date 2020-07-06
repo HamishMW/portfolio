@@ -15,7 +15,7 @@ const LoadableButton = props => {
 };
 
 export const primary = () => (
-  <StoryContainer padding={30} gutter={30}>
+  <StoryContainer padding={32} gutter={32}>
     <Button primary onClick={action('clicked')}>
       Text only
     </Button>
@@ -29,7 +29,7 @@ export const primary = () => (
 );
 
 export const secondary = () => (
-  <StoryContainer padding={30} gutter={30}>
+  <StoryContainer padding={32} gutter={32}>
     <Button secondary onClick={action('clicked')}>
       Text only
     </Button>
@@ -43,7 +43,7 @@ export const secondary = () => (
 );
 
 export const iconOnly = () => (
-  <StoryContainer padding={30} gutter={20}>
+  <StoryContainer padding={32} gutter={20}>
     <Button iconOnly aria-label="Send" icon="send" onClick={action('clicked')}></Button>
     <Button
       iconOnly
@@ -56,7 +56,7 @@ export const iconOnly = () => (
 );
 
 export const loader = () => (
-  <StoryContainer padding={30}>
+  <StoryContainer padding={32}>
     <LoadableButton primary>Click to load</LoadableButton>
   </StoryContainer>
 );

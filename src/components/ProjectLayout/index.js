@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { AnimFade, sectionPadding } from 'utils/style';
 import Image from 'components/Image';
-import { LinkButton } from 'components/Button';
+import { Button } from 'components/Button';
 import { useParallax } from 'hooks';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
@@ -28,6 +28,7 @@ export function ProjectHeader(props) {
           <ProjectLinkButton
             secondary
             iconHoverShift
+            as="a"
             entered={!prerender}
             style={{ paddingLeft: 'var(--spaceXS)' }}
             icon="chevronRight"
@@ -241,7 +242,7 @@ const ProjectDescription = styled.p`
     `}
 `;
 
-const ProjectLinkButton = styled(LinkButton)`
+const ProjectLinkButton = styled(Button)`
   opacity: 0;
 
   @media (prefers-reduced-motion: reduce) {

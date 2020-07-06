@@ -2,7 +2,8 @@ import React, { Fragment, memo } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
 import { sectionPadding } from 'utils/style';
-import { RouterButton, LinkButton } from 'components/Button';
+import { Link } from 'react-router-dom';
+import { Button } from 'components/Button';
 import Image from 'components/Image';
 import Divider from 'components/Divider';
 import { useWindowSize } from 'hooks';
@@ -53,19 +54,20 @@ function ProjectItem(props) {
       <ProjectItemDescription status={status}>{description}</ProjectItemDescription>
       <ProjectItemButton status={status}>
         {buttonLink && (
-          <LinkButton
+          <Button
             iconHoverShift
+            as="a"
             href={buttonLink}
             target="_blank"
             iconRight="arrowRight"
           >
             {buttonText}
-          </LinkButton>
+          </Button>
         )}
         {buttonTo && (
-          <RouterButton iconHoverShift to={buttonTo} iconRight="arrowRight">
+          <Button iconHoverShift as={Link} to={buttonTo} iconRight="arrowRight">
             {buttonText}
-          </RouterButton>
+          </Button>
         )}
       </ProjectItemButton>
     </ProjectItemDetails>

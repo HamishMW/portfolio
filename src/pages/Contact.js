@@ -5,13 +5,14 @@ import { Helmet } from 'react-helmet-async';
 import Input from 'components/Input';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
-import { Button, RouterButton } from 'components/Button';
+import { Button } from 'components/Button';
 import { AnimFade, sectionPadding } from 'utils/style';
 import { useScrollRestore, useFormInput, useRouteTransition } from 'hooks';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
 import { tokens, msToNum } from 'app/theme';
+import { Link } from 'react-router-dom';
 
 const initDelay = tokens.base.durationS;
 
@@ -146,6 +147,7 @@ function Contact() {
                 </ContactCompleteText>
                 <ContactCompleteButton
                   secondary
+                  as={Link}
                   to="/"
                   status={status}
                   delay={tokens.base.durationM}
@@ -282,7 +284,7 @@ const ContactInput = styled(Input)`
 
 const ContactButton = styled(Button)`
   margin-top: var(--spaceXL);
-  transition-property: transform, opacity;
+  transition-property: transform, opacity, box-shadow;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-delay: ${props =>
     props.status === 'entered' ? '0ms' : `calc(${props.delay} + ${initDelay})`};
@@ -390,8 +392,8 @@ const ContactCompleteText = styled.p`
     `}
 `;
 
-const ContactCompleteButton = styled(RouterButton)`
-  transition-property: transform, opacity;
+const ContactCompleteButton = styled(Button)`
+  transition-property: transform, opacity, box-shadow;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
   transition-delay: ${props => props.delay};
