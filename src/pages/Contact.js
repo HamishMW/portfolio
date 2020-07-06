@@ -15,6 +15,7 @@ import { tokens, msToNum } from 'app/theme';
 import { Link } from 'react-router-dom';
 
 const initDelay = tokens.base.durationS;
+const functionsUrl = 'https://5h36icx3yj.execute-api.us-east-1.amazonaws.com/dev';
 
 function getStatusError(status) {
   if (status === 200) return false;
@@ -45,7 +46,7 @@ function Contact() {
       try {
         setSending(true);
 
-        const response = await fetch('/functions/sendMessage', {
+        const response = await fetch(`${functionsUrl}/functions/sendMessage`, {
           method: 'POST',
           mode: 'cors',
           headers: {
