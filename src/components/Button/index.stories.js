@@ -22,7 +22,7 @@ export const primary = () => (
     <Button primary icon="send" onClick={action('clicked')}>
       Icon left
     </Button>
-    <Button primary iconRight="arrowRight" onClick={action('clicked')}>
+    <Button primary iconEnd="arrowRight" onClick={action('clicked')}>
       Icon right
     </Button>
   </StoryContainer>
@@ -36,7 +36,7 @@ export const secondary = () => (
     <Button secondary icon="arrowRight" onClick={action('clicked')}>
       Icon left
     </Button>
-    <Button secondary iconRight="arrowRight" onClick={action('clicked')}>
+    <Button secondary iconEnd="arrowRight" onClick={action('clicked')}>
       Icon right
     </Button>
   </StoryContainer>

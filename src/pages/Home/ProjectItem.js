@@ -59,13 +59,13 @@ function ProjectItem(props) {
             as="a"
             href={buttonLink}
             target="_blank"
-            iconRight="arrowRight"
+            iconEnd="arrowRight"
           >
             {buttonText}
           </Button>
         )}
         {buttonTo && (
-          <Button iconHoverShift as={Link} to={buttonTo} iconRight="arrowRight">
+          <Button iconHoverShift as={Link} to={buttonTo} iconEnd="arrowRight">
             {buttonText}
           </Button>
         )}

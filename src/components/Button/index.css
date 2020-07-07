@@ -29,6 +29,15 @@
   border: 0;
 }
 
+.button:focus {
+  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+  outline: none;
+}
+
+.button:active {
+  box-shadow: none;
+}
+
 .button::after {
   content: '';
   transition-property: box-shadow, transform, opacity, background;
