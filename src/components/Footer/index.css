@@ -1,0 +1,21 @@
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  width: 100vw;
+  padding: var(--space3XL) var(--spaceL);
+  z-index: 16;
+  position: relative;
+  font-size: var(--fontSizeBodyS);
+  color: var(--colorTextLight);
+}
+
+.footer__link {
+  display: inline-flex;
+}
+
+.footer__date {
+  padding-right: var(--spaceXS);
+  display: inline-flex;
+}

@@ -41,6 +41,8 @@ const baseTokens = {
     'Gotham, system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif',
   monoFontStack:
     'SFMono Regular, Roboto Mono, Consolas, Liberation Mono, Menlo, Courier, monospace',
+  japaneseFontStack:
+    'ヒラギノ角ゴ Pro W3, Hiragino Kaku Gothic Pro, Hiragino Sans, Osaka, メイリオ, Meiryo, Segoe UI, sans-serif',
   fontWeightRegular: 400,
   fontWeightMedium: 500,
   fontWeightBold: 700,

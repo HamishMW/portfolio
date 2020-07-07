@@ -32,7 +32,9 @@ addDecorator(story => {
   const themeKey = select('Theme', themeKeys, 'dark');
   const currentTheme = theme[themeKey];
 
-  document.body.setAttribute('class', themeKey);
+  useEffect(() => {
+    document.body.setAttribute('class', themeKey);
+  }, [themeKey]);
 
   return (
     <HelmetProvider>

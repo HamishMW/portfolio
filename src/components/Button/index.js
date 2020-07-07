@@ -29,7 +29,7 @@ export const Button = ({
         'button--secondary': secondary,
       })}
       href={href}
-      rel={rel || target === '_blank' ? 'noopener noreferrer' : null}
+      rel={rel || (target === '_blank' ? 'noopener noreferrer' : null)}
       target={target}
       onMouseUp={blurOnMouseUp}
       {...rest}
