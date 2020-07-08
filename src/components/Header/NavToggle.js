@@ -1,84 +1,36 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
 import Icon from 'components/Icon';
 import { Button } from 'components/Button';
-import { media } from 'utils/style';
+import './NavToggle.css';
 
-const NavToggle = ({ menuOpen, ...rest }) => (
-  <NavToggleButton iconOnly aria-label="Menu" aria-expanded={menuOpen} {...rest}>
-    <NavToggleInner>
-      <NavToggleIcon open={menuOpen} icon="menu" />
-      <NavToggleIcon open={menuOpen} icon="close" />
-    </NavToggleInner>
-  </NavToggleButton>
-);
+const NavToggle = ({ menuOpen, ...rest }) => {
+  const iconClass = classNames('nav-toggle__icon', {
+    'nav-toggle__icon--open': menuOpen,
+  });
 
-const NavToggleButton = styled(Button)`
-  --buttonSize: var(--space2XL);
-
-  /* && specificity hack for styled-components beta */
-  && {
-    position: fixed;
-    top: var(--spaceOuter);
-    right: var(--spaceOuter);
-    width: var(--buttonSize);
-    height: var(--buttonSize);
-    z-index: 1024;
-    display: none;
-
-    @media (max-width: ${media.mobile}px), (max-height: ${media.mobile}px) {
-      display: flex;
-    }
-  }
-`;
-
-const NavToggleInner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-`;
-
-const NavToggleIcon = styled(Icon)`
-  --iconSize: var(--spaceXL);
-
-  position: absolute;
-  transition-property: opacity, transform, fill;
-  transition-duration: var(--durationM);
-  transition-timing-function: var(--bezierFastoutSlowin);
-  transition-delay: 0.1s;
-  opacity: 1;
-  transform: rotate(0deg);
-  fill: var(--colorTextBody);
-  width: var(--iconSize);
-  height: var(--iconSize);
-
-  ${props =>
-    props.icon === 'close' &&
-    css`
-      transition-delay: 0s;
-      transform: rotate(-45deg);
-      opacity: 0;
-    `}
-
-  ${props =>
-    props.open &&
-    props.icon === 'close' &&
-    css`
-      transition-delay: 0.1s;
-      transform: rotate(0deg);
-      opacity: 1;
-    `}
-
-  ${props =>
-    props.open &&
-    props.icon === 'menu' &&
-    css`
-      transition-delay: 0s;
-      transform: rotate(45deg);
-      opacity: 0;
-    `}
-`;
+  return (
+    <Button
+      iconOnly
+      className="nav-toggle"
+      aria-label="Menu"
+      aria-expanded={menuOpen}
+      {...rest}
+    >
+      <div className="nav-toggle__inner">
+        <Icon
+          className={classNames(iconClass, 'nav-toggle__icon--menu')}
+          open={menuOpen}
+          icon="menu"
+        />
+        <Icon
+          className={classNames(iconClass, 'nav-toggle__icon--close')}
+          open={menuOpen}
+          icon="close"
+        />
+      </div>
+    </Button>
+  );
+};
 
 export default NavToggle;

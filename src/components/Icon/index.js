@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ReactComponent as Twitter } from 'assets/icons/twitter.svg';
 import { ReactComponent as Dribbble } from 'assets/icons/dribbble.svg';
 import { ReactComponent as Github } from 'assets/icons/github.svg';
@@ -11,6 +12,7 @@ import { ReactComponent as Send } from 'assets/icons/send.svg';
 import { ReactComponent as Play } from 'assets/icons/play.svg';
 import { ReactComponent as Pause } from 'assets/icons/pause.svg';
 import { ReactComponent as Figma } from 'assets/icons/figma.svg';
+import './index.css';
 
 export const icons = {
   twitter: Twitter,
@@ -27,11 +29,11 @@ export const icons = {
   figma: Figma,
 };
 
-const Icon = ({ icon, style, className }) => {
+const Icon = ({ icon, style, className, ...rest }) => {
   const IconComponent = icons[icon];
 
   return (
-    <IconComponent aria-hidden style={style} fill="currentColor" className={className} />
+    <IconComponent aria-hidden className={classNames('icon', className)} {...rest} />
   );
 };
 
