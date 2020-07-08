@@ -28,3 +28,16 @@
 .anchor--secondary {
   --anchorColor: var(--rgbText);
 }
+
+.anchor:focus {
+  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+  outline: none;
+}
+
+.anchor:-moz-focus-inner {
+  border: 0;
+}
+
+.anchor:active {
+  box-shadow: none;
+}
