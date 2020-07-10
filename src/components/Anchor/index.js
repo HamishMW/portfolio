@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { blurOnMouseUp } from 'utils/focus';
+import { blurOnMouseUp } from '/utils/focus';
 import './index.css';
 
 const Anchor = ({

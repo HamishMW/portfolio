@@ -1,4 +1,4 @@
-import { css } from 'styled-components/macro';
+import { css } from 'styled-components';
 
 /**
  * Blur clickable element on mouseup to hide focus states from

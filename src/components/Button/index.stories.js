@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs } from '@storybook/addon-knobs';
-import { Button } from 'components/Button';
+import { Button } from '/components/Button';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import TextArea from 'components/TextArea';
-import { useId } from 'hooks';
+import TextArea from '/components/TextArea';
+import { useId } from '/hooks';
 import './index.css';
 
 function Input({ id, label, hasValue, value, multiline, className, ...rest }) {
@@ -14,7 +14,7 @@ function Input({ id, label, hasValue, value, multiline, className, ...rest }) {
   return (
     <div className={classNames('input', className)}>
       <label
-        className={classNames('input__label', className, {
+        className={classNames('input__label', {
           'input__label--focused': focused,
           'input__label--has-value': !!value,
         })}

@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import Loader from 'components/Loader';
-import Icon from 'components/Icon';
-import { blurOnMouseUp } from 'utils/focus';
+import Loader from '/components/Loader';
+import Icon from '/components/Icon';
+import { blurOnMouseUp } from '/utils/focus';
 import './index.css';
 
 export const Button = ({

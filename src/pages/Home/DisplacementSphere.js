@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, memo } from 'react';
-import styled, { useTheme } from 'styled-components/macro';
+import styled, { useTheme } from 'styled-components';
 import { Vector2 } from 'three/src/math/Vector2';
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
 import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
@@ -16,10 +16,10 @@ import innerHeight from 'ios-inner-height';
 import vertShader from './sphereVertShader';
 import fragShader from './sphereFragShader';
 import { Transition } from 'react-transition-group';
-import { usePrefersReducedMotion } from 'hooks';
-import { reflow, isVisible } from 'utils/transition';
-import { media } from 'utils/style';
-import { rgbToThreeColor } from 'app/theme';
+import { usePrefersReducedMotion } from '/hooks';
+import { reflow, isVisible } from '/utils/transition';
+import { media } from '/utils/style';
+import { rgbToThreeColor } from '/app/theme';
 
 function DisplacementSphere(props) {
   const { rgbBackground, themeId, colorWhite } = useTheme();

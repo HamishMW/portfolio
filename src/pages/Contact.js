@@ -1,17 +1,17 @@
 import React, { useState, useCallback, memo } from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
-import Input from 'components/Input';
-import DecoderText from 'components/DecoderText';
-import Divider from 'components/Divider';
-import { Button } from 'components/Button';
-import { AnimFade, sectionPadding } from 'utils/style';
-import { useScrollRestore, useFormInput, useRouteTransition } from 'hooks';
-import { reflow } from 'utils/transition';
-import prerender from 'utils/prerender';
-import { media } from 'utils/style';
-import { tokens, msToNum } from 'app/theme';
+import Input from '/components/Input';
+import DecoderText from '/components/DecoderText';
+import Divider from '/components/Divider';
+import { Button } from '/components/Button';
+import { AnimFade, sectionPadding } from '/utils/style';
+import { useScrollRestore, useFormInput, useRouteTransition } from '/hooks';
+import { reflow } from '/utils/transition';
+import prerender from '/utils/prerender';
+import { media } from '/utils/style';
+import { tokens, msToNum } from '/app/theme';
 import { Link } from 'react-router-dom';
 
 const initDelay = tokens.base.durationS;

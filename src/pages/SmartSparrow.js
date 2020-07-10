@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Image from 'components/Image';
-import { useScrollRestore } from 'hooks';
-import Footer from 'components/Footer';
+import Image from '/components/Image';
+import { useScrollRestore } from '/hooks';
+import Footer from '/components/Footer';
 import {
   ProjectContainer,
   ProjectSection,
@@ -12,15 +12,15 @@ import {
   ProjectSectionText,
   ProjectBackground,
   ProjectHeader,
-} from 'components/ProjectLayout';
-import backgroundSpr from 'assets/spr-background.jpg';
-import backgroundSprLarge from 'assets/spr-background-large.jpg';
-import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
-import imageSprBuilder from 'assets/spr-builder.png';
-import imageSprBuilderLarge from 'assets/spr-builder-large.png';
-import imageSprBuilderPlaceholder from 'assets/spr-builder-placeholder.png';
-import prerender from 'utils/prerender';
-import { media } from 'utils/style';
+} from '/components/ProjectLayout';
+import backgroundSpr from '/assets/spr-background.jpg';
+import backgroundSprLarge from '/assets/spr-background-large.jpg';
+import backgroundSprPlaceholder from '/assets/spr-background-placeholder.jpg';
+import imageSprBuilder from '/assets/spr-builder.png';
+import imageSprBuilderLarge from '/assets/spr-builder-large.png';
+import imageSprBuilderPlaceholder from '/assets/spr-builder-placeholder.png';
+import prerender from '/utils/prerender';
+import { media } from '/utils/style';
 
 const title = 'Designing the future of education';
 const description =

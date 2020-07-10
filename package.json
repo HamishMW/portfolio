@@ -4,22 +4,24 @@
   "homepage": "https://hamishw.com",
   "private": true,
   "devDependencies": {
+    "@babel/core": "^7.10.4",
     "@storybook/addon-a11y": "^5.3.19",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-knobs": "^5.3.19",
     "@storybook/addon-links": "^5.3.19",
     "@storybook/react": "^5.3.19",
+    "@svgr/parcel-plugin-svgr": "^5.4.0",
     "babel-loader": "^8.1.0",
+    "babel-preset-react-app": "^9.1.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "mdx-loader": "^3.0.2",
+    "parcel-bundler": "^1.12.4",
     "prettier": "^2.0.5",
-    "react-scripts": "3.4.1",
     "react-snap": "1.23.0",
     "react-test-renderer": "^16.13.1",
     "rimraf": "^3.0.2",
     "source-map-explorer": "^2.4.2",
-    "storybook-addon-styled-component-theme": "^1.3.0",
     "stylelint": "^13.4.0",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
@@ -27,8 +29,12 @@
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.6",
+    "app": "^0.1.0",
+    "assets": "^3.0.1",
     "classnames": "^2.2.6",
+    "components": "^0.1.0",
     "es6-tween": "^5.5.11",
+    "hooks": "^0.3.2",
     "ios-inner-height": "^1.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -37,18 +43,17 @@
     "react-router-dom": "5.2.0",
     "react-transition-group": "^4.4.1",
     "styled-components": "^5.1.0",
-    "three": "^0.118.3"
+    "three": "^0.118.3",
+    "utils": "^0.3.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "parcel src/index.html",
     "build": "react-scripts build",
     "build-storybook": "build-storybook -o build-storybook && rimraf build-storybook/static/**/*.{jpg,txt,png,mp4,webm,svg}",
     "postbuild": "react-snap",
     "deploy": "firebase deploy --only hosting:portfolio",
     "deploy-storybook": "firebase deploy --only hosting:storybook",
     "serve": "firebase serve --only hosting",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
@@ -69,5 +74,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/HamishMW/portfolio-2018.git",
+  "author": "Hamish Williams <tr4nsfuse@gmail.com>",
+  "license": "MIT"
 }

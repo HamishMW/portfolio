@@ -1,17 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
-import { ReactComponent as Twitter } from 'assets/icons/twitter.svg';
-import { ReactComponent as Dribbble } from 'assets/icons/dribbble.svg';
-import { ReactComponent as Github } from 'assets/icons/github.svg';
-import { ReactComponent as Email } from 'assets/icons/email.svg';
-import { ReactComponent as Menu } from 'assets/icons/menu.svg';
-import { ReactComponent as ArrowRight } from 'assets/icons/arrow-right.svg';
-import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
-import { ReactComponent as Close } from 'assets/icons/close.svg';
-import { ReactComponent as Send } from 'assets/icons/send.svg';
-import { ReactComponent as Play } from 'assets/icons/play.svg';
-import { ReactComponent as Pause } from 'assets/icons/pause.svg';
-import { ReactComponent as Figma } from 'assets/icons/figma.svg';
+import Twitter from '/assets/icons/twitter.svg';
+import Dribbble from '/assets/icons/dribbble.svg';
+import Github from '/assets/icons/github.svg';
+import Email from '/assets/icons/email.svg';
+import Menu from '/assets/icons/menu.svg';
+import ArrowRight from '/assets/icons/arrow-right.svg';
+import ChevronRight from '/assets/icons/chevron-right.svg';
+import Close from '/assets/icons/close.svg';
+import Send from '/assets/icons/send.svg';
+import Play from '/assets/icons/play.svg';
+import Pause from '/assets/icons/pause.svg';
+import Figma from '/assets/icons/figma.svg';
 import './index.css';
 
 export const icons = {

@@ -1,20 +1,22 @@
 import React, { Fragment, memo } from 'react';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
+import styled, { css } from 'styled-components';
 import { Transition } from 'react-transition-group';
 import { Link as RouterLink } from 'react-router-dom';
-import { Link } from 'components/Link';
-import Anchor from 'components/Anchor';
-import { Button } from 'components/Button';
-import DecoderText from 'components/DecoderText';
-import Divider from 'components/Divider';
-import Image from 'components/Image';
-import ProfileImg from 'assets/profile.jpg';
-import ProfileImgLarge from 'assets/profile-large.jpg';
-import ProfileImgPlaceholder from 'assets/profile-placeholder.jpg';
-import { sectionPadding } from 'utils/style';
-import { reflow } from 'utils/transition';
-import { media } from 'utils/style';
-import { ReactComponent as KatakanaProfile } from 'assets/katakana-profile.svg';
+import { Link } from '/components/Link';
+import Anchor from '/components/Anchor';
+import { Button } from '/components/Button';
+import DecoderText from '/components/DecoderText';
+import Divider from '/components/Divider';
+import Image from '/components/Image';
+import ProfileImg from '/assets/profile.jpg';
+import ProfileImgLarge from '/assets/profile-large.jpg';
+import ProfileImgPlaceholder from '/assets/profile-placeholder.jpg';
+import { sectionPadding } from '/utils/style';
+import { reflow } from '/utils/transition';
+import { media } from '/utils/style';
+import KatakanaProfile from '/assets/katakana-profile.svg';
+import './Profile.css';
 
 const ProfileText = ({ status, titleId }) => (
   <Fragment>
@@ -50,15 +52,16 @@ function Profile(props) {
           <ProfileContent>
             <ProfileColumn>
               <ProfileText status={status} titleId={titleId} />
-              <ProfileButton
+              <Button
                 secondary
+                className={classNames('profile__button', `profile__button--${status}`)}
                 as={Link}
                 status={status}
                 to="/contact"
                 icon="send"
               >
                 Send me a message
-              </ProfileButton>
+              </Button>
             </ProfileColumn>
             <ProfileColumn>
               <ProfileTag aria-hidden>
@@ -248,18 +251,6 @@ const ProfileSvg = styled(KatakanaProfile)`
   @media (max-width: ${media.mobile}px) {
     height: 400px;
   }
-`;
-
-const ProfileButton = styled(Button)`
-  opacity: 0;
-  transition: opacity var(--durationXL) ease var(--durationL),
-    box-shadow var(--durationM) var(--bezierFastoutSlowin);
-
-  ${props =>
-    props.status === 'entered' &&
-    css`
-      opacity: 1;
-    `}
 `;
 
 export default memo(Profile);

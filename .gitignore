@@ -63,3 +63,5 @@ config.json
 *-temp.studio
 .firebase
 .serverless
+.cache
+dist/

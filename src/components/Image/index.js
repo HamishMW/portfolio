@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback, Fragment } from 'react';
 import classNames from 'classnames';
-import { usePrefersReducedMotion } from 'hooks';
-import { Button } from 'components/Button';
-import Icon from 'components/Icon';
+import { usePrefersReducedMotion } from '/hooks';
+import { Button } from '/components/Button';
+import Icon from '/components/Icon';
 import { Transition } from 'react-transition-group';
-import { reflow } from 'utils/transition';
-import prerender from 'utils/prerender';
-import { msToNum, tokens } from 'app/theme';
+import { reflow } from '/utils/transition';
+import prerender from '/utils/prerender';
+import { msToNum, tokens } from '/app/theme';
 import './index.css';
 
 function ProgressiveImage(props) {

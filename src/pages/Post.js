@@ -1,21 +1,21 @@
 import React, { useRef } from 'react';
 import { Transition } from 'react-transition-group';
-import styled, { keyframes, css } from 'styled-components/macro';
-import Footer from 'components/Footer';
-import Divider from 'components/Divider';
-import { sectionPadding, AnimFade } from 'utils/style';
-import { useWindowSize, useScrollRestore } from 'hooks';
-import ProgressiveImage from 'components/Image/ProgressiveImage';
-import GothamBold from 'assets/fonts/gotham-bold.woff2';
+import styled, { keyframes, css } from 'styled-components';
+import Footer from '/components/Footer';
+import Divider from '/components/Divider';
+import { sectionPadding, AnimFade } from '/utils/style';
+import { useWindowSize, useScrollRestore } from '/hooks';
+import ProgressiveImage from '/components/Image/ProgressiveImage';
+import GothamBold from '/assets/fonts/gotham-bold.woff2';
 import { Helmet } from 'react-helmet-async';
 import { MDXProvider } from '@mdx-js/react';
-import Anchor from 'components/Link';
-import Code from 'components/Code';
-import { reflow } from 'utils/transition';
-import prerender from 'utils/prerender';
-import { media } from 'utils/style';
-import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
-import { tokens, msToNum } from 'app/theme';
+import Anchor from '/components/Link';
+import Code from '/components/Code';
+import { reflow } from '/utils/transition';
+import prerender from '/utils/prerender';
+import { media } from '/utils/style';
+import ArrowDown from '/assets/arrow-down.svg';
+import { tokens, msToNum } from '/app/theme';
 
 function PostWrapper({
   children,

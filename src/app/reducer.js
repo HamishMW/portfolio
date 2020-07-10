@@ -1,4 +1,4 @@
-import { theme } from 'app/theme';
+import { theme } from '/app/theme';
 
 export const initialState = {
   menuOpen: false,
