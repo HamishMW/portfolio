@@ -5,7 +5,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import prerender from '/utils/prerender';
+import prerender from 'utils/prerender';
 
 // Wraps react router's link to prefetch visible page links
 

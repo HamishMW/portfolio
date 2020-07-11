@@ -1,10 +1,10 @@
 import React from 'react';
-import Model from '/components/Model';
+import Model from 'components/Model';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 import deviceModels from './deviceModels';
-import phoneTexture from '/assets/gamestack-login-large.png';
-import phoneTexture2 from '/assets/gamestack-list-large.png';
-import laptopTexture from '/assets/spr-builder-large.png';
+import phoneTexture from 'assets/gamestack-login-large.png';
+import phoneTexture2 from 'assets/gamestack-list-large.png';
+import laptopTexture from 'assets/spr-builder-large.png';
 
 export default {
   title: 'Model',

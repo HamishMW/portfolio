@@ -1,9 +1,0 @@
-.profile__button {
-  opacity: 0;
-  transition: opacity var(--durationXL) ease var(--durationL),
-    box-shadow var(--durationM) var(--bezierFastoutSlowin);
-}
-
-.profile__button--entered {
-  opacity: 1;
-}

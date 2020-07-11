@@ -6,7 +6,7 @@ import React, {
   useReducer,
   Fragment,
 } from 'react';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components/macro';
 import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 import {
   Transition,
@@ -15,24 +15,24 @@ import {
 } from 'react-transition-group';
 import classNames from 'classnames';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import Header from '/components/Header';
-import { theme, tokens, createThemeProperties, msToNum } from '/app/theme';
-import { media } from '/utils/style';
-import { useLocalStorage, usePrefersReducedMotion } from '/hooks';
-import GothamBook from '/assets/fonts/gotham-book.woff2';
-import GothamMedium from '/assets/fonts/gotham-medium.woff2';
-import { initialState, reducer } from '/app/reducer';
-import { reflow } from '/utils/transition';
-import prerender from '/utils/prerender';
+import Header from 'components/Header';
+import { theme, tokens, createThemeProperties, msToNum } from 'app/theme';
+import { media } from 'utils/style';
+import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
+import GothamBook from 'assets/fonts/gotham-book.woff2';
+import GothamMedium from 'assets/fonts/gotham-medium.woff2';
+import { initialState, reducer } from 'app/reducer';
+import { reflow } from 'utils/transition';
+import prerender from 'utils/prerender';
 import './index.css';
 
-const Home = lazy(() => import('/pages/Home'));
-const Contact = lazy(() => import('/pages/Contact'));
-const ProjectSPR = lazy(() => import('/pages/SmartSparrow'));
-const ProjectSlice = lazy(() => import('/pages/Slice'));
-const ProjectVolkihar = lazy(() => import('/pages/VolkiharKnight'));
-// const Articles = lazy(() => import('/pages/Articles'));
-const NotFound = lazy(() => import('/pages/404'));
+const Home = lazy(() => import('pages/Home'));
+const Contact = lazy(() => import('pages/Contact'));
+const ProjectSPR = lazy(() => import('pages/SmartSparrow'));
+const ProjectSlice = lazy(() => import('pages/Slice'));
+const ProjectVolkihar = lazy(() => import('pages/VolkiharKnight'));
+// const Articles = lazy(() => import('pages/Articles'));
+const NotFound = lazy(() => import('pages/404'));
 
 export const AppContext = createContext();
 export const TransitionContext = createContext();

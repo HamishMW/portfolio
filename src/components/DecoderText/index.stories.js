@@ -1,6 +1,6 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
-import DecoderText from '/components/DecoderText';
+import DecoderText from 'components/DecoderText';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {

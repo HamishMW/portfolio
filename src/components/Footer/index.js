@@ -1,5 +1,5 @@
 import React from 'react';
-import Anchor from '/components/Anchor';
+import Anchor from 'components/Anchor';
 import './index.css';
 
 const Footer = () => (

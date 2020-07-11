@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
-import { Button } from '/components/Button';
-import DecoderText from '/components/DecoderText';
-import Notfound from '/assets/notfound.mp4';
-import NotfoundPoster from '/assets/notfound.jpg';
-import { reflow } from '/utils/transition';
-import { media } from '/utils/style';
-import { pxToRem } from '/app/theme';
+import { Button } from 'components/Button';
+import DecoderText from 'components/DecoderText';
+import Notfound from 'assets/notfound.mp4';
+import NotfoundPoster from 'assets/notfound.jpg';
+import { reflow } from 'utils/transition';
+import { media } from 'utils/style';
+import { pxToRem } from 'app/theme';
 import { Link } from 'react-router-dom';
 
 function NotFound() {

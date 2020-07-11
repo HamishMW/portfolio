@@ -1,4 +1,4 @@
-import { keyframes, css } from 'styled-components';
+import { keyframes, css } from 'styled-components/macro';
 
 // Media query breakpoints
 export const media = {

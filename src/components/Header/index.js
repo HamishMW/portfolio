@@ -1,16 +1,16 @@
 import React, { useRef, useState, memo } from 'react';
-import { NavLink, Link } from '/components/Link';
+import { NavLink, Link } from 'components/Link';
 import { Transition } from 'react-transition-group';
-import Monogram from '/components/Monogram';
-import Icon from '/components/Icon';
+import Monogram from 'components/Monogram';
+import Icon from 'components/Icon';
 import NavToggle from './NavToggle';
 import ThemeToggle from './ThemeToggle';
-import { useWindowSize, useAppContext } from '/hooks';
+import { useWindowSize, useAppContext } from 'hooks';
 import { navLinks, socialLinks } from './navData';
-import { reflow } from '/utils/transition';
-import { media } from '/utils/style';
-import { tokens, msToNum } from '/app/theme';
-import { blurOnMouseUp } from '/utils/focus';
+import { reflow } from 'utils/transition';
+import { media } from 'utils/style';
+import { tokens, msToNum } from 'app/theme';
+import { blurOnMouseUp } from 'utils/focus';
 import './index.css';
 
 const HeaderIcons = () => (

@@ -25,12 +25,15 @@
     <meta name="theme-color" content="#111111" />
     <meta name="author" content="Hamish Williams" />
 
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="shortcut icon" href="/assets/favicon.svg" />
-    <link rel="apple-touch-icon" href="/assets/icon-256.png" />
-    <link type="text/plain" rel="author" href="/humans.txt" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.svg" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/icon-256.png" />
+    <link type="text/plain" rel="author" href="%PUBLIC_URL%/humans.txt" />
 
-    <meta property="og:image" content="https://hamishw.com/assets/social-image.png" />
+    <meta
+      property="og:image"
+      content="https://hamishw.com%PUBLIC_URL%/social-image.png"
+    />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="549" />
@@ -50,7 +53,10 @@
     />
     <meta name="twitter:title" content="Hamish Williams | Designer + Developer" />
     <meta name="twitter:site" content="@hamishMW" />
-    <meta name="twitter:image" content="https://hamishw.com/social-image.png" />
+    <meta
+      name="twitter:image"
+      content="https://hamishw.com%PUBLIC_URL%/social-image.png"
+    />
   </head>
 
   <body>
@@ -60,5 +66,4 @@
     </script>
     <div id="root"></div>
   </body>
-  <script src="index.js"></script>
 </html>

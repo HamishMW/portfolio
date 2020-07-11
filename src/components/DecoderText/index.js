@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, memo } from 'react';
 import classNames from 'classnames';
-import { usePrefersReducedMotion } from '/hooks';
+import { usePrefersReducedMotion } from 'hooks';
 import './index.css';
 
 // prettier-ignore

@@ -1,6 +1,6 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
-import Loader from '/components/Loader';
+import Loader from 'components/Loader';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {

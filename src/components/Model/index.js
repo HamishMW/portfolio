@@ -13,9 +13,8 @@ import {
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
-import styled from 'styled-components';
-import { clean } from '/utils/three';
-import './index.css';
+import styled from 'styled-components/macro';
+import { clean } from 'utils/three';
 
 const MeshTypes = {
   frame: 'Frame',
@@ -159,10 +158,26 @@ const Model = ({ models, enableControls, cameraPosition }) => {
   }, [cameraPosition, enableControls, models, render]);
 
   return (
-    <div className="model" ref={containerRef}>
-      <canvas className="model__canvas" ref={canvasRef} />
-    </div>
+    <ModelContainer ref={containerRef}>
+      <ModelCanvas ref={canvasRef} />
+    </ModelContainer>
   );
 };
+
+const ModelContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+`;
+
+const ModelCanvas = styled.canvas`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+`;
 
 export default memo(Model);

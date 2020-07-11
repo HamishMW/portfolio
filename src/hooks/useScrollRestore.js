@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { usePrevious, usePrefersReducedMotion } from '.';
-import { useRouteTransition } from '/hooks';
+import { useRouteTransition } from 'hooks';
 
 function useScrollRestore() {
   const { status } = useRouteTransition();

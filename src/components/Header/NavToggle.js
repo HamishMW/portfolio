@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '/components/Icon';
-import { Button } from '/components/Button';
+import Icon from 'components/Icon';
+import { Button } from 'components/Button';
 import './NavToggle.css';
 
 const NavToggle = ({ menuOpen, ...rest }) => {

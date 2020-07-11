@@ -1,18 +1,18 @@
 import React, { Fragment, memo } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { Transition } from 'react-transition-group';
-import { sectionPadding } from '/utils/style';
+import { sectionPadding } from 'utils/style';
 import { Link } from 'react-router-dom';
-import { Button } from '/components/Button';
-import Image from '/components/Image';
-import Divider from '/components/Divider';
-import { useWindowSize } from '/hooks';
-import phone from '/assets/phone.png';
-import phoneLarge from '/assets/phone-large.png';
-import phonePlaceholder from '/assets/phone-placeholder.png';
-import { reflow } from '/utils/transition';
-import { media } from '/utils/style';
-import KatakanaProject from '/assets/katakana-project.svg';
+import { Button } from 'components/Button';
+import Image from 'components/Image';
+import Divider from 'components/Divider';
+import { useWindowSize } from 'hooks';
+import phone from 'assets/phone.png';
+import phoneLarge from 'assets/phone-large.png';
+import phonePlaceholder from 'assets/phone-placeholder.png';
+import { reflow } from 'utils/transition';
+import { media } from 'utils/style';
+import { ReactComponent as KatakanaProject } from 'assets/katakana-project.svg';
 
 function ProjectItem(props) {
   const {

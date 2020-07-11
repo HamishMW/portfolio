@@ -7,18 +7,18 @@ import React, {
   Fragment,
   memo,
 } from 'react';
-import styled, { css, keyframes, useTheme } from 'styled-components';
+import styled, { css, keyframes, useTheme } from 'styled-components/macro';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import { AnimFade, sectionPadding } from '/utils/style';
-import DecoderText from '/components/DecoderText';
-import { useInterval, usePrevious, useWindowSize } from '/hooks';
-import { reflow } from '/utils/transition';
-import prerender from '/utils/prerender';
-import { media } from '/utils/style';
-import ArrowDown from '/assets/arrow-down.svg';
-import { pxToRem, tokens } from '/app/theme';
+import { AnimFade, sectionPadding } from 'utils/style';
+import DecoderText from 'components/DecoderText';
+import { useInterval, usePrevious, useWindowSize } from 'hooks';
+import { reflow } from 'utils/transition';
+import prerender from 'utils/prerender';
+import { media } from 'utils/style';
+import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
+import { pxToRem, tokens } from 'app/theme';
 
-const DisplacementSphere = lazy(() => import('/pages/Home/DisplacementSphere'));
+const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
 
 function Intro(props) {
   const theme = useTheme();

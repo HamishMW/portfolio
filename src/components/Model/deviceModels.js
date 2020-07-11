@@ -1,5 +1,5 @@
-import iphone11 from '/assets/iphone-11.glb';
-import macbookPro from '/assets/macbook-pro.glb';
+import iphone11 from 'assets/iphone-11.glb';
+import macbookPro from 'assets/macbook-pro.glb';
 
 const models = {
   phone: {

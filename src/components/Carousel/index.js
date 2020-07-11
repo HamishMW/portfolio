@@ -13,10 +13,10 @@ import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6
 import classNames from 'classnames';
 import Swipe from 'react-easy-swipe';
 import { vertex, fragment } from './carouselShader';
-import { usePrefersReducedMotion } from '/hooks';
-import prerender from '/utils/prerender';
-import ArrowLeft from '/assets/arrow-left.svg';
-import ArrowRight from '/assets/arrow-right.svg';
+import { usePrefersReducedMotion } from 'hooks';
+import prerender from 'utils/prerender';
+import { ReactComponent as ArrowLeft } from 'assets/arrow-left.svg';
+import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
 import './index.css';
 
 function determineIndex(imageIndex, index, images, direction) {

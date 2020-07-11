@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
-import SegmentedControl, { SegmentedControlOption } from '/components/SegmentedControl';
+import SegmentedControl, { SegmentedControlOption } from 'components/SegmentedControl';
 
 export default {
   title: 'SegmentedControl',

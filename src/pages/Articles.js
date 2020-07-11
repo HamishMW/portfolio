@@ -1,13 +1,13 @@
-import React, { Suspense, Fragment } from '/pages/Articles/node_modules/react';
-import { Route, Switch, Link } from '/pages/Articles/node_modules/react-router-dom';
-import styled from '/pages/Articles/node_modules/styled-components';
+import React, { Suspense, Fragment } from 'pages/Articles/node_modules/react';
+import { Route, Switch, Link } from 'pages/Articles/node_modules/react-router-dom';
+import styled from 'pages/Articles/node_modules/styled-components/macro';
 import { Helmet } from 'react-helmet-async';
-import { useScrollRestore } from '/pages/Articles/node_modules/hooks';
-import { sectionPadding } from '/pages/Articles/node_modules/utils/style';
-import posts from '/pages/Articles/node_modules/posts';
-import Post from '/pages/Articles/node_modules/pages/Post';
-import ProgressiveImage from '/pages/Articles/node_modules/components/ProgressiveImage';
-import { media } from '/pages/Articles/node_modules/utils/style';
+import { useScrollRestore } from 'pages/Articles/node_modules/hooks';
+import { sectionPadding } from 'pages/Articles/node_modules/utils/style';
+import posts from 'pages/Articles/node_modules/posts';
+import Post from 'pages/Articles/node_modules/pages/Post';
+import ProgressiveImage from 'pages/Articles/node_modules/components/ProgressiveImage';
+import { media } from 'pages/Articles/node_modules/utils/style';
 
 function PostListItem({
   path,

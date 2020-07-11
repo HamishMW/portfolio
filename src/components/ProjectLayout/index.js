@@ -1,12 +1,12 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
-import { AnimFade, sectionPadding } from '/utils/style';
-import Image from '/components/Image';
-import { Button } from '/components/Button';
-import { useParallax } from '/hooks';
-import prerender from '/utils/prerender';
-import { media } from '/utils/style';
-import { pxToRem } from '/app/theme';
+import styled, { css, keyframes } from 'styled-components/macro';
+import { AnimFade, sectionPadding } from 'utils/style';
+import Image from 'components/Image';
+import { Button } from 'components/Button';
+import { useParallax } from 'hooks';
+import prerender from 'utils/prerender';
+import { media } from 'utils/style';
+import { pxToRem } from 'app/theme';
 
 const initDelay = 300;
 

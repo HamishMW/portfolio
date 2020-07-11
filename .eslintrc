@@ -1,6 +1,8 @@
 {
   "extends": "react-app",
-  "plugins": ["react-hooks"],
+  "plugins": [
+    "react-hooks"
+  ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -11,10 +13,12 @@
         "paths": [
           {
             "name": "styled-components",
-            "message": "Please import from styled-components."
+            "message": "Please import from styled-components/macro."
           }
         ],
-        "patterns": ["!styled-components"]
+        "patterns": [
+          "!styled-components/macro"
+        ]
       }
     ]
   }
