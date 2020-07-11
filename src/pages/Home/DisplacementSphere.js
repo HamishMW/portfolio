@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, memo } from 'react';
-import styled, { useTheme } from 'styled-components/macro';
+import classNames from 'classnames';
 import { Vector2 } from 'three/src/math/Vector2';
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
 import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
@@ -16,13 +16,15 @@ import innerHeight from 'ios-inner-height';
 import vertShader from './sphereVertShader';
 import fragShader from './sphereFragShader';
 import { Transition } from 'react-transition-group';
-import { usePrefersReducedMotion } from 'hooks';
-import { reflow, isVisible } from 'utils/transition';
+import { usePrefersReducedMotion, useAppContext } from 'hooks';
+import { reflow } from 'utils/transition';
 import { media } from 'utils/style';
 import { rgbToThreeColor } from 'app/theme';
+import './DisplacementSphere.css';
 
 function DisplacementSphere(props) {
-  const { rgbBackground, themeId, colorWhite } = useTheme();
+  const { currentTheme } = useAppContext();
+  const { rgbBackground, themeId, colorWhite } = currentTheme;
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
   const start = useRef(Date.now());
@@ -204,22 +206,16 @@ function DisplacementSphere(props) {
 
   return (
     <Transition appear in onEnter={reflow} timeout={3000}>
-      {status => <SphereCanvas aria-hidden status={status} ref={canvasRef} {...props} />}
+      {status => (
+        <canvas
+          aria-hidden
+          className={classNames('displacement-sphere', `displacement-sphere--${status}`)}
+          ref={canvasRef}
+          {...props}
+        />
+      )}
     </Transition>
   );
 }
-
-const SphereCanvas = styled.canvas`
-  position: absolute;
-  width: 100vw;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: ${props => (isVisible(props.status) ? 1 : 0)};
-  transition-property: opacity;
-  transition-duration: 3s;
-  transition-timing-function: var(--bezierFastoutSlowin);
-`;
 
 export default memo(DisplacementSphere);

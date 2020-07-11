@@ -34,10 +34,6 @@
   outline: none;
 }
 
-.button:active {
-  box-shadow: none;
-}
-
 .button::after {
   content: '';
   transition-property: box-shadow, transform, opacity, background;
@@ -68,6 +64,7 @@
 }
 
 .button:active {
+  box-shadow: none;
   transform: scale(1);
   transition-duration: calc(var(--durationXS) / 2);
 }

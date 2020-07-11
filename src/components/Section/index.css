@@ -1,6 +1,7 @@
 .section {
   padding-right: var(--space5XL);
   padding-left: calc(var(--space4XL) * 2);
+  outline: none;
 }
 
 @media (min-width: 1600px) {

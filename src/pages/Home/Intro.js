@@ -1,38 +1,28 @@
-import React, {
-  Suspense,
-  lazy,
-  useMemo,
-  useEffect,
-  useState,
-  Fragment,
-  memo,
-} from 'react';
-import styled, { css, keyframes, useTheme } from 'styled-components/macro';
+import React, { Suspense, lazy, useEffect, useState, Fragment } from 'react';
+import classNames from 'classnames';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import { AnimFade, sectionPadding } from 'utils/style';
 import DecoderText from 'components/DecoderText';
-import { useInterval, usePrevious, useWindowSize } from 'hooks';
+import { useInterval, usePrevious, useWindowSize, useAppContext } from 'hooks';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
 import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
-import { pxToRem, tokens } from 'app/theme';
+import { tokens } from 'app/theme';
+import Section from 'components/Section';
+import './Intro.css';
 
 const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
 
-function Intro(props) {
-  const theme = useTheme();
-  const { id, sectionRef, disciplines, scrollIndicatorHidden, ...rest } = props;
+function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
+  const { currentTheme: theme } = useAppContext();
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const windowSize = useWindowSize();
   const prevTheme = usePrevious(theme);
-  const introLabel = useMemo(
-    () => [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(', and '),
-    [disciplines]
+  const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(
+    ', and '
   );
-  const currentDisciplines = useMemo(
-    () => disciplines.filter((item, index) => index === disciplineIndex),
-    [disciplineIndex, disciplines]
+  const currentDisciplines = disciplines.filter(
+    (item, index) => index === disciplineIndex
   );
   const titleId = `${id}-title`;
 
@@ -52,7 +42,9 @@ function Intro(props) {
   }, [theme.themeId, prevTheme]);
 
   return (
-    <IntroContent
+    <Section
+      className="intro"
+      as="section"
       ref={sectionRef}
       id={id}
       aria-labelledby={titleId}
@@ -73,19 +65,44 @@ function Intro(props) {
                 <DisplacementSphere />
               </Suspense>
             )}
-            <IntroText>
-              <IntroName status={status} id={titleId}>
+            <header className="intro__text">
+              <h1
+                className={classNames('intro__name', `intro__name--${status}`)}
+                id={titleId}
+              >
                 <DecoderText text="Hamish Williams" start={!prerender} offset={120} />
-              </IntroName>
-              <IntroTitle>
-                <IntroTitleLabel>{`Designer + ${introLabel}`}</IntroTitleLabel>
-                <IntroTitleRow aria-hidden prerender={prerender}>
-                  <IntroTitleWord status={status} delay={tokens.base.durationXS}>
+              </h1>
+              <h2 className="intro__title">
+                <span className="intro__title-label">{`Designer + ${introLabel}`}</span>
+                <span
+                  aria-hidden
+                  className={classNames('intro__title-row', {
+                    'intro__title-row--hidden': prerender,
+                  })}
+                >
+                  <span
+                    className={classNames(
+                      'intro__title-word',
+                      `intro__title-word--${status}`
+                    )}
+                    style={{ '--delay': tokens.base.durationXS }}
+                  >
                     Designer
-                  </IntroTitleWord>
-                  <IntroTitleLine status={status} />
-                </IntroTitleRow>
-                <TransitionGroup component={IntroTitleRow} prerender={prerender}>
+                  </span>
+                  <span
+                    className={classNames(
+                      'intro__title-line',
+                      `intro__title-line--${status}`
+                    )}
+                  />
+                </span>
+                <TransitionGroup
+                  className={classNames('intro__title-row', {
+                    'intro__title-row--hidden': prerender,
+                  })}
+                  component="span"
+                  prerender={prerender}
+                >
                   {currentDisciplines.map((item, index) => (
                     <Transition
                       appear
@@ -94,413 +111,50 @@ function Intro(props) {
                       onEnter={reflow}
                     >
                       {wordStatus => (
-                        <IntroTitleWord
-                          plus
+                        <span
                           aria-hidden
-                          delay={tokens.base.durationL}
-                          status={wordStatus}
+                          className={classNames(
+                            'intro__title-word',
+                            'intro__title-word--plus',
+                            `intro__title-word--${wordStatus}`
+                          )}
+                          style={{ '--delay': tokens.base.durationL }}
                         >
                           {item}
-                        </IntroTitleWord>
+                        </span>
                       )}
                     </Transition>
                   ))}
                 </TransitionGroup>
-              </IntroTitle>
-            </IntroText>
+              </h2>
+            </header>
             {windowSize.width > media.tablet && (
-              <MemoizedScrollIndicator isHidden={scrollIndicatorHidden} status={status} />
-            )}
-            {windowSize.width <= media.tablet && (
-              <MemoizedMobileScrollIndicator
+              <div
+                className={classNames(
+                  'intro__scroll-indicator',
+                  `intro__scroll-indicator--${status}`,
+                  { 'intro__scroll-indicator--hidden': scrollIndicatorHidden }
+                )}
                 isHidden={scrollIndicatorHidden}
                 status={status}
+              />
+            )}
+            {windowSize.width <= media.tablet && (
+              <div
+                className={classNames(
+                  'intro__mobile-scroll-indicator',
+                  `intro__mobile-scroll-indicator--${status}`,
+                  { 'intro__mobile-scroll-indicator--hidden': scrollIndicatorHidden }
+                )}
               >
                 <ArrowDown aria-hidden />
-              </MemoizedMobileScrollIndicator>
+              </div>
             )}
           </Fragment>
         )}
       </Transition>
-    </IntroContent>
+    </Section>
   );
 }
 
-const IntroContent = styled.section`
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  outline: none;
-  ${sectionPadding}
-`;
-
-const IntroText = styled.header`
-  max-width: 780px;
-  width: 100%;
-  position: relative;
-  top: calc(var(--spaceL) * -1);
-
-  @media (min-width: ${media.desktop}px) {
-    max-width: 920px;
-  }
-
-  @media (max-width: ${media.mobile}px) {
-    top: calc(var(--space3XL) * -1);
-  }
-
-  @media (max-width: 400px) {
-    top: calc(var(--spaceXL) * -1);
-  }
-
-  @media ${media.mobileLS} {
-    top: calc(var(--spaceM) * -1);
-  }
-`;
-
-const IntroName = styled.h1`
-  text-transform: uppercase;
-  font-size: ${pxToRem(24)};
-  letter-spacing: 0.3em;
-  color: var(--colorTextBody);
-  margin-bottom: var(--space2XL);
-  margin-top: 0;
-  font-weight: var(--fontWeightMedium);
-  line-height: 1;
-  opacity: 0;
-
-  ${props =>
-    props.status === 'entering' &&
-    css`
-      animation: ${css`
-        ${AnimFade} var(--durationL) ease 0.2s forwards
-      `};
-    `}
-
-  ${props =>
-    props.status === 'entered' &&
-    css`
-      opacity: 1;
-    `}
-
-  @media (min-width: ${media.desktop}px) {
-    font-size: ${pxToRem(28)};
-    margin-bottom: var(--space2XL);
-  }
-
-  @media (max-width: ${media.tablet}px) {
-    font-size: ${pxToRem(18)};
-    margin-bottom: var(--space2XL);
-  }
-
-  @media (max-width: ${media.mobile}px) {
-    margin-bottom: 20px;
-    letter-spacing: 0.2em;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-
-  @media ${media.mobileLS} {
-    margin-bottom: 20px;
-    margin-top: 30px;
-  }
-`;
-
-const IntroTitle = styled.h2`
-  display: flex;
-  flex-direction: column;
-  font-size: ${pxToRem(100)};
-  margin: 0;
-  letter-spacing: -0.005em;
-  font-weight: var(--fontWeightMedium);
-
-  @media (min-width: ${media.desktop}px) {
-    font-size: ${pxToRem(120)};
-  }
-
-  @media (max-width: 860px) {
-    font-size: ${pxToRem(80)};
-  }
-
-  @media (max-width: 600px) {
-    font-size: ${pxToRem(56)};
-  }
-
-  @media (max-width: 400px) {
-    font-size: ${pxToRem(42)};
-  }
-`;
-
-const IntroTitleLabel = styled.span`
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  position: absolute;
-`;
-
-const IntroTitleRow = styled.span`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-
-  ${props =>
-    props.prerender &&
-    css`
-      opacity: 0;
-    `}
-`;
-
-const AnimTextReveal = keyframes`
-  0% {
-    color: rgb(var(--rgbText) / 0);
-  }
-  50% {
-    color: rgb(var(--rgbText) / 0);
-  }
-  60% {
-    color: var(--colorTextTitle);
-  }
-  100% {
-    color: var(--colorTextTitle);
-  }
-`;
-
-const AnimTextRevealMask = keyframes`
-  0% {
-    opacity: 1;
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-  50% {
-    opacity: 1;
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-  51% {
-    opacity: 1;
-    transform: scaleX(1);
-    transform-origin: right;
-  }
-  100% {
-    opacity: 1;
-    transform: scaleX(0);
-    transform-origin: right;
-  }
-`;
-
-const IntroTitleWord = styled.span`
-  position: relative;
-  display: flex;
-  align-items: center;
-  line-height: 1;
-  animation-duration: 1.5s;
-  animation-fill-mode: forwards;
-  animation-timing-function: var(--bezierFastoutSlowin);
-  color: rgb(var(--rgbText) / 0);
-  transition: opacity 0.5s ease 0.4s;
-
-  ${props =>
-    props.status === 'entering' &&
-    css`
-      animation-name: ${AnimTextReveal};
-    `}
-
-  ${props =>
-    props.status === 'entered' &&
-    css`
-      color: var(--colorTextTitle);
-    `}
-
-  ${props =>
-    props.status === 'exiting' &&
-    css`
-      color: var(--colorTextTitle);
-      opacity: 0;
-      position: absolute;
-      top: 0;
-      z-index: 0;
-    `}
-
-  &::after {
-    content: '';
-    width: 100%;
-    height: 100%;
-    background: rgb(var(--rgbAccent));
-    opacity: 0;
-    animation-duration: 1.5s;
-    animation-fill-mode: forwards;
-    animation-timing-function: var(--bezierFastoutSlowin);
-    transform-origin: left;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-
-    ${props =>
-      props.status === 'entering' &&
-      css`
-        animation-name: ${AnimTextRevealMask};
-      `}
-
-    ${props =>
-      props.status === 'entered' &&
-      css`
-        opacity: 1;
-        transform: scaleX(0);
-        transform-origin: right;
-      `}
-  }
-
-  ${props =>
-    props.delay &&
-    css`
-      animation-delay: ${props.delay};
-
-      &::after {
-        animation-delay: ${props.delay};
-      }
-    `}
-
-  ${props =>
-    props.plus &&
-    css`
-      &::before {
-        content: '+';
-        margin-right: 10px;
-        opacity: 0.4;
-      }
-    `}
-`;
-
-const AnimLineIntro = keyframes`
-  0% {
-    transform: scaleX(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-`;
-
-const IntroTitleLine = styled.span`
-  content: '';
-  height: 2px;
-  background: rgb(var(--rgbText) / 0.3);
-  width: 120%;
-  display: flex;
-  margin-left: 20px;
-  animation-duration: 0.8s;
-  animation-delay: 1s;
-  animation-fill-mode: forwards;
-  animation-timing-function: var(--bezierFastoutSlowin);
-  transform-origin: left;
-  opacity: 0;
-
-  ${props =>
-    props.status === 'entering' &&
-    css`
-      animation-name: ${AnimLineIntro};
-    `}
-
-  ${props =>
-    props.status === 'entered' &&
-    css`
-      transform: scaleX(1);
-      opacity: 1;
-    `}
-`;
-
-const AnimScrollIndicator = keyframes`
-  0% {
-    transform: translate3d(-1px, 0, 0);
-    opacity: 0;
-  }
-  20% {
-    transform: translate3d(-1px, 0, 0);
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(-1px, 8px, 0);
-    opacity: 0;
-  }
-`;
-
-const ScrollIndicator = styled.div`
-  border: 2px solid rgb(var(--rgbText) / 0.4);
-  border-radius: 20px;
-  width: 26px;
-  height: 38px;
-  position: fixed;
-  bottom: 64px;
-  transition-property: opacity, transform;
-  transition-duration: var(--durationL);
-  transition-timing-function: ease;
-  opacity: ${props => (props.status === 'entered' && !props.isHidden ? 1 : 0)};
-  transform: translate3d(0, ${props => (props.isHidden ? '20px' : 0)}, 0);
-
-  &::before {
-    content: '';
-    height: 7px;
-    width: 2px;
-    background: rgb(var(--rgbText) / 0.4);
-    border-radius: 4px;
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-1px);
-    animation: ${css`
-      ${AnimScrollIndicator} 2s ease infinite
-    `};
-  }
-
-  @media ${media.mobileLS} {
-    display: none;
-  }
-`;
-
-const AnimMobileScrollIndicator = keyframes`
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`;
-
-const MobileScrollIndicator = styled.div`
-  position: fixed;
-  bottom: 20px;
-  opacity: ${props => (props.status === 'entered' && !props.isHidden ? 1 : 0)};
-  transform: translate3d(0, ${props => (props.isHidden ? '20px' : 0)}, 0);
-  animation-name: ${AnimMobileScrollIndicator};
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-  transition-property: opacity, transform;
-  transition-timing-function: cubic-bezier(0.8, 0.1, 0.27, 1);
-  transition-duration: var(--durationM);
-
-  @media ${media.mobileLS} {
-    display: none;
-  }
-
-  svg {
-    stroke: rgb(var(--rgbText) / 0.5);
-  }
-`;
-
-const MemoizedScrollIndicator = memo(ScrollIndicator);
-const MemoizedMobileScrollIndicator = memo(MobileScrollIndicator);
-
-export default memo(Intro);
+export default Intro;
