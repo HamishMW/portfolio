@@ -21,9 +21,21 @@ app.use(express.json());
 // app.use(cors({ origin: 'https://hamishw.com' }));
 app.use(cors({ origin: '*' }));
 
+const MAX_MESSAGE_LENGTH = 2048;
+
 app.post('/functions/sendMessage', async (req, res) => {
   try {
     const { email, message } = req.body;
+
+    if (!email || !/(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
+      return res.status(400).json({ error: 'Please enter a valid email address' });
+    } else if (!message) {
+      return res.status(400).json({ error: 'Please enter a message' });
+    } else if (message.length > MAX_MESSAGE_LENGTH) {
+      return res.status(400).json({
+        error: `Please enter a message fewer than ${MAX_MESSAGE_LENGTH} characters`,
+      });
+    }
 
     const mailOptions = {
       from: `Portfolio <${gmailEmail}>`,
@@ -34,10 +46,10 @@ app.post('/functions/sendMessage', async (req, res) => {
 
     await mailTransport.sendMail(mailOptions);
 
-    res.status(200).json({ message: 'Message sent successfully' });
+    return res.status(200).json({ message: 'Message sent successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Message rejected' });
+    return res.status(500).json({ error: 'Message rejected' });
   }
 });
 

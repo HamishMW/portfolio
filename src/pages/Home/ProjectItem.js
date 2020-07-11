@@ -36,6 +36,7 @@ const ProjectItem = ({
   const { width } = useWindowSize();
   const titleId = `${id}-title`;
   const isMobile = width <= media.tablet;
+  const svgOpacity = theme.themeId === 'light' ? 0.7 : 1;
 
   const renderDetails = status => (
     <div className="project-item__details">
@@ -107,6 +108,7 @@ const ProjectItem = ({
             sizes={`(max-width: ${media.mobile}px) 300px, (max-width: ${media.tablet}px) 420px, (max-width: ${media.desktop}px) 860px, 900px`}
           />
           <KatakanaProject
+            style={{ '--opacity': svgOpacity }}
             className={classNames(
               'project-item__svg',
               'project-item__svg--laptop',
@@ -121,6 +123,7 @@ const ProjectItem = ({
       {imageType === 'phone' && (
         <div className="project-item__preview-content-phone">
           <KatakanaProject
+            style={{ '--opacity': svgOpacity }}
             className={classNames(
               'project-item__svg',
               'project-item__svg--phone',

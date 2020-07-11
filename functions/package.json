@@ -8,8 +8,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "helmet": "^3.22.0",
-    "nodemailer": "^6.4.6",
+    "helmet": "^3.23.3",
+    "nodemailer": "^6.4.10",
     "serverless-http": "^2.5.0"
   },
   "devDependencies": {

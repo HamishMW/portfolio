@@ -1,5 +1,7 @@
 .divider {
   position: relative;
+  width: var(--lineWidth);
+  height: var(--lineHeight);
 }
 
 .divider__line {
@@ -12,6 +14,7 @@
   transition-property: transform, opacity;
   transition-duration: var(--durationL);
   transition-timing-function: var(--bezierFastoutSlowin);
+  transition-delay: var(--collapseDelay);
   transform: scaleX(1);
   transform-origin: left center;
 }
@@ -28,8 +31,12 @@
   transition-property: clip-path, opacity;
   transition-duration: var(--durationL);
   transition-timing-function: var(--bezierFastoutSlowin);
+  transition-delay: var(--collapseDelay);
   opacity: 1;
   clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 10px 100%);
+  width: var(--notchWidth);
+  height: var(--notchHeight);
+  top: var(--lineHeight);
 }
 
 .divider__notch--collapsed {

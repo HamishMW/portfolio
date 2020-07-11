@@ -10,23 +10,25 @@ const Divider = ({
   collapseDelay,
   collapsed,
   className,
+  style,
 }) => (
   <div
     className={classNames('divider', className)}
-    style={{ width: lineWidth, height: lineHeight }}
+    style={{
+      '--lineWidth': lineWidth,
+      '--lineHeight': lineHeight,
+      '--notchWidth': notchWidth,
+      '--notchHeight': notchHeight,
+      '--collapseDelay': `${collapseDelay}ms`,
+      ...style,
+    }}
   >
     <div
       className={classNames('divider__line', { 'divider__line--collapsed': collapsed })}
-      style={{ transitionDelay: `${collapseDelay}ms` }}
     />
     <div
       className={classNames('divider__notch', { 'divider__notch--collapsed': collapsed })}
-      style={{
-        width: notchWidth,
-        height: notchHeight,
-        top: lineHeight,
-        transitionDelay: `${collapseDelay + 160}ms`,
-      }}
+      style={{ '--collapseDelay': `${collapseDelay + 160}ms` }}
     />
   </div>
 );

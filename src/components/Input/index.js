@@ -4,7 +4,7 @@ import TextArea from 'components/TextArea';
 import { useId } from 'hooks';
 import './index.css';
 
-function Input({ id, label, hasValue, value, multiline, className, ...rest }) {
+function Input({ id, label, hasValue, value, multiline, className, style, ...rest }) {
   const [focused, setFocused] = useState(false);
   const generatedId = useId();
   const inputId = id || `input-${generatedId}`;
@@ -12,7 +12,7 @@ function Input({ id, label, hasValue, value, multiline, className, ...rest }) {
   const InputElement = multiline ? TextArea : 'input';
 
   return (
-    <div className={classNames('input', className)}>
+    <div className={classNames('input', className)} style={style}>
       <label
         className={classNames('input__label', {
           'input__label--focused': focused,
