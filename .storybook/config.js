@@ -3,12 +3,11 @@ import { themes } from '@storybook/theming';
 import React, { Fragment, useEffect } from 'react';
 import { withKnobs, select } from '@storybook/addon-knobs';
 import { withA11y } from '@storybook/addon-a11y';
-import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/app/theme';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import GothamBook from '../src/assets/fonts/gotham-book.woff2';
 import GothamMedium from '../src/assets/fonts/gotham-medium.woff2';
-import { fontStyles, globalStyles } from '../src/app';
+import { fontStyles, globalStyles, AppContext } from '../src/app';
 import '../src/app/index.css';
 
 addParameters({
@@ -38,19 +37,19 @@ addDecorator(story => {
 
   return (
     <HelmetProvider>
-      <ThemeProvider theme={currentTheme}>
-        <Fragment>
-          <Helmet>
-            <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
-            <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
-            <style>{fontStyles}</style>
-            <style>{globalStyles}</style>
-          </Helmet>
+      <Fragment>
+        <Helmet>
+          <link rel="preload" href={GothamBook} as="font" crossorigin="crossorigin" />
+          <link rel="preload" href={GothamMedium} as="font" crossorigin="crossorigin" />
+          <style>{fontStyles}</style>
+          <style>{globalStyles}</style>
+        </Helmet>
+        <AppContext.Provider state={{ theme: currentTheme }}>
           <div id="storyRoot" key={themeKey}>
             {content}
           </div>
-        </Fragment>
-      </ThemeProvider>
+        </AppContext.Provider>
+      </Fragment>
     </HelmetProvider>
   );
 });

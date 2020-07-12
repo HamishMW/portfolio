@@ -12,11 +12,12 @@ import { Color } from 'three/src/math/Color';
 import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
 import classNames from 'classnames';
 import Swipe from 'react-easy-swipe';
-import { vertex, fragment } from './carouselShader';
 import { usePrefersReducedMotion } from 'hooks';
 import prerender from 'utils/prerender';
+import { blurOnMouseUp } from 'utils/focus';
 import { ReactComponent as ArrowLeft } from 'assets/arrow-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
+import { vertex, fragment } from './carouselShader';
 import './index.css';
 
 function determineIndex(imageIndex, index, images, direction) {
@@ -173,6 +174,9 @@ export default function Carousel(props) {
 
       manager.onLoad = () => {
         setLoaded(true);
+        requestAnimationFrame(() => {
+          renderer.current.render(scene.current, camera.current);
+        });
       };
 
       const loader = new TextureLoader(manager);
@@ -378,6 +382,7 @@ export default function Carousel(props) {
           className="carousel__button carousel__button--prev"
           aria-label="Previous slide"
           onClick={() => navigate({ direction: -1 })}
+          onMouseUp={blurOnMouseUp}
         >
           <ArrowLeft />
         </button>
@@ -385,6 +390,7 @@ export default function Carousel(props) {
           className="carousel__button carousel__button--next"
           aria-label="Next slide"
           onClick={() => navigate({ direction: 1 })}
+          onMouseUp={blurOnMouseUp}
         >
           <ArrowRight />
         </button>
@@ -395,6 +401,7 @@ export default function Carousel(props) {
             className="carousel__nav-button"
             key={image.alt}
             onClick={() => onNavClick(index)}
+            onMouseUp={blurOnMouseUp}
             aria-label={`Jump to slide ${index + 1}`}
             aria-pressed={index === imageIndex}
           />

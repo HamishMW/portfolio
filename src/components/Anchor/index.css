@@ -13,7 +13,7 @@
   color: rgb(var(--anchorColor));
   background: var(--filledLineGradient) no-repeat 100% 100% / 0 var(--lineStrokeWidth),
     var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
-  transition-property: background-size, box-shadow;
+  transition-property: background-size;
   transition-duration: var(--durationM);
   transition-timing-function: var(--bezierFastoutSlowin);
   padding-bottom: var(--lineStrokeWidth);

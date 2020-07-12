@@ -3,7 +3,8 @@
   "description": "Serverless functions for hamishw.com using AWS lambda",
   "scripts": {
     "lint": "eslint .",
-    "deploy": "serverless deploy"
+    "deploy": "serverless deploy",
+    "deploy:prod": "serverless deploy --stage production"
   },
   "dependencies": {
     "cors": "^2.8.5",

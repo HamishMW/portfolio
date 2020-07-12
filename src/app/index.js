@@ -58,7 +58,7 @@ export const fontStyles = `
   }
 `;
 
-function App() {
+const App = () => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -91,9 +91,9 @@ function App() {
       </AppContext.Provider>
     </HelmetProvider>
   );
-}
+};
 
-function AppRoutes() {
+const AppRoutes = () => {
   const location = useLocation();
   const { pathname } = location;
 
@@ -143,7 +143,7 @@ function AppRoutes() {
       </TransitionGroup>
     </Fragment>
   );
-}
+};
 
 export const globalStyles = `
   :root {

@@ -147,13 +147,13 @@
   opacity: 0;
 }
 
-.contact__button--sending div {
+.contact__button--sending .loader {
   animation: fade-in var(--durationM) ease var(--durationL) forwards;
   opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .contact__button--sending div {
+  .contact__button--sending .loader {
     opacity: 1;
   }
 }

@@ -140,7 +140,7 @@ export const ProjectTextRow = ({
 );
 
 export const ProjectSectionColumns = ({ className, ...rest }) => (
-  <ProjectSection
+  <ProjectSectionContent
     className={classNames('project__section-columns', className)}
     {...rest}
   />

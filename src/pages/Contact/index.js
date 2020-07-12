@@ -14,20 +14,30 @@ import { Link } from 'react-router-dom';
 import Section from 'components/Section';
 import './index.css';
 
+const isProd = process.env.NODE_ENV === 'production';
 const initDelay = tokens.base.durationS;
-const functionsUrl = 'https://5h36icx3yj.execute-api.us-east-1.amazonaws.com/dev';
+const functionsRegion = 'us-east-1';
+const functionsEnv = isProd ? 'production' : 'dev';
+const functionsEndpoint = isProd ? 'klcyd10c76' : '5h36icx3yj';
+const functionsUrl = `https://${functionsEndpoint}.execute-api.${functionsRegion}.amazonaws.com/${functionsEnv}`;
 
-function getStatusError(status) {
+function getStatusError({
+  status,
+  errorMessage,
+  fallback = 'There was a problem with your request',
+}) {
   if (status === 200) return false;
-
-  const genericErrorMessage = 'There was a problem sending your message';
 
   const statuses = {
     500: 'There was a problem with the server, try again later',
     404: 'There was a problem connecting to the server. Make sure you are connected to the internet',
   };
 
-  return statuses[status] || genericErrorMessage;
+  if (errorMessage) {
+    return errorMessage;
+  }
+
+  return statuses[status] || fallback;
 }
 
 function getDelay(delayMs, initDelayMs = `0ms`, multiplier = 1) {
@@ -63,8 +73,15 @@ const Contact = () => {
           }),
         });
 
-        const errorStatus = getStatusError(response.status);
-        if (errorStatus) throw new Error(errorStatus);
+        const responseMessage = await response.json();
+
+        const statusError = getStatusError({
+          status: response?.status,
+          errorMessage: responseMessage?.error,
+          fallback: 'There was a problem sending your message',
+        });
+
+        if (statusError) throw new Error(statusError);
 
         setComplete(true);
         setSending(false);
@@ -116,7 +133,7 @@ const Contact = () => {
                 />
                 <div className="contact__fields">
                   <Input
-                    {...email}
+                    required
                     className={classNames('contact__input', `contact__input--${status}`, {
                       'contact__input--hidden': prerender,
                     })}
@@ -124,20 +141,20 @@ const Contact = () => {
                     autoComplete="email"
                     label="Your Email"
                     type="email"
-                    maxLength={320}
-                    required
+                    maxLength={512}
+                    {...email}
                   />
                   <Input
-                    {...message}
+                    required
+                    multiline
                     className={classNames('contact__input', `contact__input--${status}`, {
                       'contact__input--hidden': prerender,
                     })}
                     style={getDelay(tokens.base.durationS, initDelay)}
                     autoComplete="off"
                     label="Message"
-                    maxLength={5000}
-                    required
-                    multiline
+                    maxLength={4096}
+                    {...message}
                   />
                   <Button
                     className={classNames(
@@ -163,7 +180,7 @@ const Contact = () => {
           </Transition>
         )}
         {complete && (
-          <Transition appear mountOnEnter unmountOnExit onEnter={reflow}>
+          <Transition appear mountOnEnter unmountOnExit onEnter={reflow} timeout={0}>
             {status => (
               <div className="contact__complete" aria-live="polite">
                 <h1
