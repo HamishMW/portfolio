@@ -23,8 +23,8 @@ import { rgbToThreeColor } from 'app/theme';
 import './DisplacementSphere.css';
 
 function DisplacementSphere(props) {
-  const { currentTheme } = useAppContext();
-  const { rgbBackground, themeId, colorWhite } = currentTheme;
+  const { theme } = useAppContext();
+  const { rgbBackground, themeId, colorWhite } = theme;
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
   const start = useRef(Date.now());

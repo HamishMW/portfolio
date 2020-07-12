@@ -36,7 +36,6 @@
     "react-helmet-async": "^1.0.6",
     "react-router-dom": "5.2.0",
     "react-transition-group": "^4.4.1",
-    "styled-components": "^5.1.0",
     "three": "^0.118.3"
   },
   "scripts": {

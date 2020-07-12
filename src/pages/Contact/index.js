@@ -143,11 +143,13 @@ const Contact = () => {
                     className={classNames(
                       'contact__button',
                       `contact__button--${status}`,
-                      { 'contact__button--hidden': prerender }
+                      {
+                        'contact__button--hidden': prerender,
+                        'contact__button--sending': sending,
+                      }
                     )}
                     style={getDelay(tokens.base.durationM, initDelay)}
                     disabled={sending}
-                    sending={sending}
                     loading={sending}
                     loadingText="Sending..."
                     icon="send"

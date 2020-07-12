@@ -5,8 +5,8 @@ import { useAppContext, useId } from 'hooks';
 import './ThemeToggle.css';
 
 const ThemeToggle = ({ isMobile, ...rest }) => {
-  const { dispatch, currentTheme } = useAppContext();
-  const { themeId } = currentTheme;
+  const { dispatch, theme } = useAppContext();
+  const { themeId } = theme;
   const isDark = themeId === 'dark';
   const id = useId();
   const maskId = `theme-toggle-mask-${id}`;

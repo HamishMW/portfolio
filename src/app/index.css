@@ -80,8 +80,7 @@ body {
   height: 1px;
   overflow: hidden;
   color: rgb(var(--rgbBackground));
-  background: rgb(var(--rgbPrimary));
-  z-index: 99;
+  z-index: 128;
 }
 
 .skip-to-main:focus {
@@ -95,5 +94,21 @@ body {
   text-decoration: none;
   font-weight: var(--fontWeightMedium);
   line-height: 1;
+  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+}
+
+.skip-to-main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(var(--rgbPrimary));
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  z-index: -1;
+}
+
+.skip-to-main::-moz-focus-inner {
+  border: 0;
 }

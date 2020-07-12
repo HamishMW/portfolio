@@ -395,7 +395,6 @@ export default function Carousel(props) {
             className="carousel__nav-button"
             key={image.alt}
             onClick={() => onNavClick(index)}
-            active={index === imageIndex}
             aria-label={`Jump to slide ${index + 1}`}
             aria-pressed={index === imageIndex}
           />

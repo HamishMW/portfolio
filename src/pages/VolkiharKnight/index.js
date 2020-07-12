@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo, useRef, lazy, Suspense, Fragment } from 'react';
-import styled, { useTheme } from 'styled-components/macro';
+import React, { lazy, Suspense, Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Image from 'components/Image';
-import { useScrollRestore, useAppContext, useRouteTransition } from 'hooks';
+import { useScrollRestore, useRouteTransition } from 'hooks';
 import { Button } from 'components/Button';
 import Footer from 'components/Footer';
 import {
@@ -15,6 +14,7 @@ import {
   ProjectSectionHeading,
   ProjectSectionText,
   ProjectTextRow,
+  ProjectSectionColumns,
 } from 'components/ProjectLayout';
 import volkiharBackground from 'assets/volkihar-background.jpg';
 import volkiharBackgroundLarge from 'assets/volkihar-background-large.jpg';
@@ -44,6 +44,7 @@ import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
 import { ReactComponent as VolkiharKnightLogo } from 'assets/volkihar-logo.svg';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
+import './index.css';
 
 const Carousel = lazy(() => import('components/Carousel'));
 
@@ -54,33 +55,7 @@ const roles = ['3D Modelling', 'Texturing', 'Graphic Design'];
 
 function ProjectVolkihar() {
   const { status } = useRouteTransition();
-  const { dispatch } = useAppContext();
-  const theme = useTheme();
-  const themeRef = useRef(theme);
   useScrollRestore();
-
-  useEffect(() => {
-    themeRef.current = theme;
-  }, [theme]);
-
-  useEffect(() => {
-    if (status === 'entered' || status === 'exiting') {
-      dispatch({
-        type: 'updateTheme',
-        value: {
-          rgbPrimary:
-            theme.themeId === 'dark' ? '240 211 150' : themeRef.current.rgbPrimary,
-          rgbAccent: '240 211 150',
-        },
-      });
-    }
-
-    return function cleanUp() {
-      if (status !== 'entered') {
-        dispatch({ type: 'updateTheme' });
-      }
-    };
-  }, [dispatch, status, theme.themeId]);
 
   return (
     <Fragment>
@@ -88,7 +63,18 @@ function ProjectVolkihar() {
         title={`Projects | ${title}`}
         meta={[{ name: 'description', content: description }]}
       />
-      <ProjectContainer>
+      {(status === 'entered' || status === 'exiting') && (
+        <style>{`
+          .dark {
+            --rgbPrimary: 240 211 150;
+            --rgbAccent: 240 211 150;
+          }
+          .light {
+            --rgbAccent: 240 211 150;
+          }
+        `}</style>
+      )}
+      <ProjectContainer className="volkihar">
         <ProjectBackground
           srcSet={`${volkiharBackground} 1000w, ${volkiharBackgroundLarge} 1600w`}
           placeholder={volkiharBackgroundPlaceholder}
@@ -133,7 +119,7 @@ function ProjectVolkihar() {
               alt="A 3D render of the full suit of armor."
               sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 50vw`}
             />
-            <VolkiharTextSection>
+            <div className="volkihar__text-section">
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>
                 As a player I noticed there weren’t any heavy armor options for the
@@ -148,17 +134,17 @@ function ProjectVolkihar() {
                 design across the set, I edited existing textures, and designed custom
                 textures in Photoshop.
               </ProjectSectionText>
-            </VolkiharTextSection>
+            </div>
           </ProjectSectionColumns>
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionContent>
-            <VolkiharLogoContainer>
+            <div className="volkihar__logo-container">
               <VolkiharKnightLogo
                 role="img"
                 aria-label="The Volkihar Knight logo, a monogram using the letters 'V' and 'K"
               />
-            </VolkiharLogoContainer>
+            </div>
             <ProjectTextRow center noMargin>
               <ProjectSectionHeading>Identity design</ProjectSectionHeading>
               <ProjectSectionText>
@@ -170,39 +156,37 @@ function ProjectVolkihar() {
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
-          <ProjectSectionSlider>
+          <ProjectSectionContent className="volkihar__carousel">
             <Suspense fallback={null}>
               <Carousel
                 placeholder={volkiharSlidePlaceholder}
-                images={useMemo(
-                  () => [
-                    {
-                      src: volkiharSlide1,
-                      srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
-                      alt: 'A female character wearing the black coloured armor set.',
-                    },
-                    {
-                      src: volkiharSlide2,
-                      srcset: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
-                      alt: 'A close up of the custom gauntlets design.',
-                    },
-                    {
-                      src: volkiharSlide3,
-                      srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
-                      alt:
-                        'A female character weilding a sword and wearing the red coloured armor.',
-                    },
-                  ],
-                  []
-                )}
-                width={useMemo(() => 1920, [])}
-                height={useMemo(() => 1080, [])}
+                images={[
+                  {
+                    src: volkiharSlide1,
+                    srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
+                    alt: 'A female character wearing the black coloured armor set.',
+                  },
+                  {
+                    src: volkiharSlide2,
+                    srcset: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
+                    alt: 'A close up of the custom gauntlets design.',
+                  },
+                  {
+                    src: volkiharSlide3,
+                    srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
+                    alt:
+                      'A female character weilding a sword and wearing the red coloured armor.',
+                  },
+                ]}
+                width={1920}
+                height={1080}
               />
             </Suspense>
-          </ProjectSectionSlider>
+          </ProjectSectionContent>
         </ProjectSection>
-        <ProjectBackgroundSection>
-          <ProjectSectionBackgroundImage
+        <section className="volkihar__background-section">
+          <Image
+            className="volkihar__background-image"
             srcSet={`${volkiharEnderal} 1280w, ${volkiharEnderalLarge} 1920w`}
             placeholder={volkiharEnderalPlaceholder}
             alt="A promotional image from Enderal showing several characters in the game overlooking a distant city."
@@ -238,109 +222,11 @@ function ProjectVolkihar() {
               </ProjectTextRow>
             </ProjectSectionContent>
           </ProjectSection>
-        </ProjectBackgroundSection>
+        </section>
       </ProjectContainer>
       <Footer />
     </Fragment>
   );
 }
-
-const ProjectSectionSlider = styled(ProjectSectionContent)`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 70px;
-  margin: 0;
-`;
-
-const ProjectSectionColumns = styled(ProjectSectionContent)`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 70px;
-  margin: 0;
-
-  @media (max-width: ${media.tablet}px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const VolkiharTextSection = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-const VolkiharLogoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #111111;
-  padding: ${props => (props.theme.themeId === 'light' ? '60px' : 0)} 80px;
-  margin-bottom: 80px;
-  width: 100%;
-
-  @media (max-width: ${media.mobile}px) {
-    padding: ${props => (props.theme.themeId === 'light' ? '30px' : 0)} 40px;
-    margin-bottom: 40px;
-  }
-
-  svg {
-    max-width: 400px;
-  }
-`;
-
-const ProjectBackgroundSection = styled.section`
-  display: grid;
-  grid-template-columns: 100%;
-
-  ${ProjectSection} {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  ${ProjectSectionContent} {
-    padding: var(--space5XL) 0 calc(var(--space5XL) + var(--spaceL));
-
-    @media (max-width: ${media.laptop}px) {
-      padding: var(--space2XL) 0 var(--space4XL);
-    }
-
-    @media (max-width: ${media.tablet}px) {
-      padding: var(--spaceXL) 0 var(--space2XL);
-    }
-
-    @media (max-width: ${media.mobile}px) {
-      padding: var(--spaceL) 0 var(--space2XL);
-    }
-  }
-`;
-
-const ProjectSectionBackgroundImage = styled(Image)`
-  grid-column: 1;
-  grid-row: 1;
-
-  img {
-    object-fit: cover;
-    justify-self: stretch;
-    align-self: stretch;
-  }
-
-  div::after {
-    content: '';
-    grid-column: 1;
-    grid-row: 1;
-    z-index: 1;
-    position: relative;
-    background: linear-gradient(
-        rgb(var(--rgbBackground) / 1) 0%,
-        rgb(var(--rgbBackground) / 0.9) 20%,
-        rgb(var(--rgbBackground) / 0) 100%
-      ),
-      linear-gradient(
-        rgb(var(--rgbBackground) / 0) 0%,
-        rgb(var(--rgbBackground) / 0.9) 80%,
-        rgb(var(--rgbBackground) / 1) 100%
-      );
-  }
-`;
 
 export default ProjectVolkihar;

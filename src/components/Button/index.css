@@ -31,7 +31,6 @@
 
 .button:focus {
   box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
-  outline: none;
 }
 
 .button::after {
@@ -49,18 +48,12 @@
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
 }
 
-.button:hover,
-.button:focus {
+.button:hover {
   transform: scale(1.05);
 }
 
-.button--icon-only:hover,
-.button--icon-only:focus {
+.button--icon-only:hover {
   transform: none;
-}
-
-.button:focus:before {
-  opacity: 1;
 }
 
 .button:active {
@@ -96,17 +89,12 @@
   clip-path: none;
 }
 
-.button--secondary:hover,
-.button--secondary:focus,
-.button--secondary:active {
-  outline: none;
+.button--secondary:hover {
   transform: none;
   background: transparent;
 }
 
-.button--secondary:hover::after,
-.button--secondary:focus::after,
-.button--secondary:active::after {
+.button--secondary:hover::after {
   transform: scale3d(1, 1, 1);
   transform-origin: left;
 }
@@ -129,8 +117,7 @@
   background: rgb(var(--rgbText) / 0);
 }
 
-.button--icon-only:hover::after,
-.button--icon-only:focus::after {
+.button--icon-only:hover::after {
   background: rgb(var(--rgbText) / 0.1);
 }
 
@@ -167,8 +154,7 @@
   margin-left: var(--spaceS);
 }
 
-.button:hover .button__icon--shift,
-.button:focus .button__icon--shift {
+.button:hover .button__icon--shift {
   transform: translate3d(var(--spaceXS), 0, 0);
 }
 

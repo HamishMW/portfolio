@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
-import styled from 'styled-components/macro';
 import Image from 'components/Image';
 import { useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
@@ -14,6 +13,7 @@ import {
   ProjectSectionText,
   ProjectBackground,
   ProjectHeader,
+  ProjectSectionColumns,
 } from 'components/ProjectLayout';
 import sliceBackground from 'assets/slice-background.jpg';
 import sliceBackgroundLarge from 'assets/slice-background-large.jpg';
@@ -38,6 +38,7 @@ import sliceAnnotationLarge from 'assets/slice-annotation-large.png';
 import sliceAnnotationPlaceholder from 'assets/slice-annotation-placeholder.png';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
+import './index.css';
 
 const title = 'Biomedical image collaboration';
 const description =
@@ -53,7 +54,7 @@ function ProjectSlice(props) {
         title={`Projects | ${title}`}
         meta={[{ name: 'description', content: description }]}
       />
-      <ProjectContainer {...props}>
+      <ProjectContainer className="slice">
         <ProjectBackground
           srcSet={`${sliceBackground} 1280w, ${sliceBackgroundLarge} 2560w`}
           placeholder={sliceBackgroundPlaceholder}
@@ -80,8 +81,8 @@ function ProjectSlice(props) {
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
-          <ProjectSectionColumns>
-            <SidebarImagesText>
+          <ProjectSectionColumns className="slice__columns">
+            <div className="sidebar__images-text">
               <ProjectSectionHeading>Bringing it together</ProjectSectionHeading>
               <ProjectSectionText>
                 Teachers needed a better way to create collaborative group activities by
@@ -93,21 +94,23 @@ function ProjectSlice(props) {
                 Our solution was to allow users to be invited to a layer, where they can
                 see others’ annotations and make their own.
               </ProjectSectionText>
-            </SidebarImagesText>
-            <SidebarImages>
-              <SidebarImage
+            </div>
+            <div className="slice__sidebar-images">
+              <Image
+                className="slice__sidebar-image"
                 srcSet={`${sliceSidebarLayers} 300w, ${sliceSidebarLayersLarge} 700w`}
                 placeholder={sliceSidebarLayersPlaceholder}
                 alt="The layers sidebar design, now with user profiles."
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
               />
-              <SidebarImage
+              <Image
+                className="slice__sidebar-image"
                 srcSet={`${sliceSidebarAnnotations} 300w, ${sliceSidebarAnnotationsLarge} 700w`}
                 placeholder={sliceSidebarAnnotationsPlaceholder}
                 alt="Multiple user annotations on a shared layer."
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
               />
-            </SidebarImages>
+            </div>
           </ProjectSectionColumns>
         </ProjectSection>
         <ProjectSection light>
@@ -132,9 +135,9 @@ function ProjectSlice(props) {
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
-          <ProjectSectionGrid>
-            <ProjectSectionGridImage>
-              <ProjectSectionGridBackground>
+          <ProjectSectionContent className="slice__grid">
+            <div className="slice__grid-image">
+              <div className="slice__grid-background">
                 <Image
                   srcSet={`${sliceBackgroundBar} 400w, ${sliceBackgroundBarLarge} 898w`}
                   placeholder={sliceBackgroundBarPlaceholder}
@@ -142,17 +145,17 @@ function ProjectSlice(props) {
                   role="presentation"
                   sizes={`(max-width: ${media.mobile}px) 312px, (max-width: ${media.tablet}px) 408px, 514px`}
                 />
-              </ProjectSectionGridBackground>
-              <ProjectSectionGridForeground>
+              </div>
+              <div className="slice__grid-foreground">
                 <Image
                   srcSet={`${sliceAnnotation} 440w, ${sliceAnnotationLarge} 880w`}
                   placeholder={sliceAnnotationPlaceholder}
                   alt="An annotation preview popover with statistics for shape perimeter and area."
                   sizes={`(max-width: ${media.mobile}px) 584px, (max-width: ${media.tablet}px) 747px, 556px`}
                 />
-              </ProjectSectionGridForeground>
-            </ProjectSectionGridImage>
-            <ProjectSectionGridText>
+              </div>
+            </div>
+            <div className="slice__grid-text">
               <ProjectSectionHeading>Meaningful details</ProjectSectionHeading>
               <ProjectSectionText>
                 Marking and annotating areas on high resolution biomedical images is the
@@ -161,134 +164,13 @@ function ProjectSlice(props) {
                 and area of an annotation both helped to communicate the overall scale of
                 the image and how large the annotated feature is in comparison.
               </ProjectSectionText>
-            </ProjectSectionGridText>
-          </ProjectSectionGrid>
+            </div>
+          </ProjectSectionContent>
         </ProjectSection>
       </ProjectContainer>
       <Footer />
     </Fragment>
   );
 }
-
-const ProjectSectionColumns = styled(ProjectSectionContent)`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 70px;
-  margin: 20px 0 60px;
-
-  @media (max-width: ${media.tablet}px) {
-    grid-template-columns: 1fr;
-    margin: 0 0 60px;
-  }
-`;
-
-const ProjectSectionGrid = styled(ProjectSectionContent)`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 70px;
-  margin: 40px 0;
-
-  @media (max-width: ${media.tablet}px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const ProjectSectionGridImage = styled.div`
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 100%;
-  grid-column: 1;
-  grid-row: 1;
-
-  @media (max-width: 1200px) {
-    grid-template-rows: 1fr;
-  }
-`;
-
-const ProjectSectionGridBackground = styled.div`
-  grid-column: 1;
-  grid-row: 1 / span 2;
-
-  @media (max-width: ${media.tablet}px) {
-    padding: 0 120px;
-  }
-
-  @media (max-width: ${media.mobile}px) {
-    padding: 0 60px;
-  }
-`;
-
-const ProjectSectionGridForeground = styled.div`
-  grid-column: 1;
-  grid-row: 2;
-  position: relative;
-  right: -140px;
-  bottom: 40px;
-  align-self: flex-end;
-  width: 110%;
-
-  @media (max-width: 1200px) {
-    width: auto;
-    left: auto;
-    right: auto;
-  }
-`;
-
-const ProjectSectionGridText = styled.div`
-  padding-top: 80px;
-
-  @media (max-width: ${media.desktop}px) {
-    padding-top: 40px;
-  }
-
-  @media (max-width: ${media.tablet}px) {
-    padding-top: 0;
-  }
-`;
-
-const SidebarImages = styled.div`
-  display: grid;
-  grid-template-columns: repeat(6, [col] 1fr);
-  align-items: center;
-
-  @media (max-width: ${media.tablet}px) {
-    padding: 0 80px;
-    margin-top: 60px;
-  }
-
-  @media (max-width: ${media.mobile}px) {
-    padding: 0 20px;
-    margin-top: 40px;
-  }
-`;
-
-const SidebarImagesText = styled.div`
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  justify-content: center;
-  padding-right: 10px;
-
-  @media (max-width: ${media.tablet}px) {
-    padding-right: 0;
-  }
-`;
-
-const SidebarImage = styled(Image)`
-  &:first-child {
-    grid-column: col 1 / span 4;
-    grid-row: 1;
-    position: relative;
-    top: 5%;
-    opacity: 0.4;
-  }
-
-  &:last-child {
-    grid-column: col 3 / span 4;
-    grid-row: 1;
-    position: relative;
-    top: -5%;
-  }
-`;
 
 export default ProjectSlice;

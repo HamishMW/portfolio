@@ -92,7 +92,6 @@ function Profile({ id, visible, sectionRef }) {
                 reveal
                 className="profile__image"
                 delay={100}
-                visible={visible}
                 placeholder={ProfileImgPlaceholder}
                 srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
                 sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}

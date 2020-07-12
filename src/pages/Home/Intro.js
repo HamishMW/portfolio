@@ -14,7 +14,7 @@ import './Intro.css';
 const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
 
 function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
-  const { currentTheme: theme } = useAppContext();
+  const { theme } = useAppContext();
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const windowSize = useWindowSize();
   const prevTheme = usePrevious(theme);
@@ -101,7 +101,6 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
                     'intro__title-row--hidden': prerender,
                   })}
                   component="span"
-                  prerender={prerender}
                 >
                   {currentDisciplines.map((item, index) => (
                     <Transition
@@ -135,7 +134,6 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
                   `intro__scroll-indicator--${status}`,
                   { 'intro__scroll-indicator--hidden': scrollIndicatorHidden }
                 )}
-                isHidden={scrollIndicatorHidden}
                 status={status}
               />
             )}

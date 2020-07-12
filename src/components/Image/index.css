@@ -38,7 +38,7 @@
 }
 
 .image--reveal.image--intersect::before {
-  animation: image-reveal 1.8s var(--bezierFastoutSlowin);
+  animation: image-reveal 1.8s var(--bezierFastoutSlowin) var(--delay);
 }
 
 .image-container {
@@ -71,13 +71,13 @@
   grid-template-columns: 100%;
 }
 
-.image__element-wrapper--intersect {
-  opacity: 1;
+.image__element-wrapper--reveal {
+  opacity: 0;
+  transition: opacity var(--durationM) ease var(--delay);
 }
 
-.image__element-wrapper--reveal {
+.image__element-wrapper--intersect {
   opacity: 1;
-  transition: opacity var(--durationM) ease;
 }
 
 .image__placeholder {

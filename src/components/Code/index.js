@@ -1,12 +1,12 @@
 import React from 'react';
-import { useTheme } from 'styled-components/macro';
+import { useAppContext } from 'hooks';
 import './index.css';
 
 const Code = props => {
-  const { themeId } = useTheme();
+  const { theme } = useAppContext();
 
   return (
-    <pre className={`code code--${themeId}`}>
+    <pre className={`code code--${theme.themeId}`}>
       <pre className="code__content" {...props} />
     </pre>
   );

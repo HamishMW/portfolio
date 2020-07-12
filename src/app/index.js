@@ -6,7 +6,6 @@ import React, {
   useReducer,
   Fragment,
 } from 'react';
-import { ThemeProvider } from 'styled-components/macro';
 import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 import {
   Transition,
@@ -63,7 +62,6 @@ function App() {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const { currentTheme } = state;
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -86,13 +84,11 @@ function App() {
 
   return (
     <HelmetProvider>
-      <ThemeProvider theme={currentTheme}>
-        <AppContext.Provider value={{ ...state, dispatch }}>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-        </AppContext.Provider>
-      </ThemeProvider>
+      <AppContext.Provider value={{ ...state, dispatch }}>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </AppContext.Provider>
     </HelmetProvider>
   );
 }

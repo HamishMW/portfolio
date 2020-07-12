@@ -74,8 +74,14 @@ export const ProjectContainer = ({ className, ...rest }) => (
   <article className={classNames('project', className)} {...rest} />
 );
 
-export const ProjectSection = ({ className, ...rest }) => (
-  <Section className={classNames('project__section', className)} as="section" {...rest} />
+export const ProjectSection = ({ className, light, ...rest }) => (
+  <Section
+    className={classNames('project__section', className, {
+      'project__section--light': light,
+    })}
+    as="section"
+    {...rest}
+  />
 );
 
 export const ProjectBackground = ({ opacity = 0.7, className, entered, ...rest }) => {
@@ -129,6 +135,13 @@ export const ProjectTextRow = ({
       'project__text-row--center-mobile': centerMobile,
       'project__text-row--no-margin': noMargin,
     })}
+    {...rest}
+  />
+);
+
+export const ProjectSectionColumns = ({ className, ...rest }) => (
+  <ProjectSection
+    className={classNames('project__section-columns', className)}
     {...rest}
   />
 );

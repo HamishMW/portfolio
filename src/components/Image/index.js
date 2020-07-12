@@ -41,7 +41,7 @@ function ProgressiveImage(props) {
         'image--intersect': intersect,
         'image--reveal': reveal,
       })}
-      style={{ ...style, animationDelay: `${delay}ms` }}
+      style={{ ...style, '--delay': `${delay}ms` }}
       ref={containerRef}
     >
       <ImageElements
@@ -124,7 +124,7 @@ function ImageElements(props) {
       })}
       onMouseOver={videoSrc ? handleShowPlayButton : undefined}
       onMouseOut={videoSrc ? () => setIsHovered(false) : undefined}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ '--delay': `${delay + 1000}ms` }}
     >
       {videoSrc && (
         <Fragment>
@@ -135,7 +135,6 @@ function ImageElements(props) {
             className={classNames('image__element', { 'image__element--loaded': loaded })}
             autoPlay={!prefersReducedMotion}
             role="img"
-            delay={delay}
             onLoadStart={onLoad}
             src={videoSrc}
             aria-label={alt}

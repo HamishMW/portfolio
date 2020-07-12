@@ -32,7 +32,7 @@ const ProjectItem = ({
   alternate,
   ...rest
 }) => {
-  const { currentTheme: theme } = useAppContext();
+  const { theme } = useAppContext();
   const { width } = useWindowSize();
   const titleId = `${id}-title`;
   const isMobile = width <= media.tablet;

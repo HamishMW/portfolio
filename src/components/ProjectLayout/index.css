@@ -321,3 +321,16 @@
     text-align: center;
   }
 }
+
+.project__section-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 70px;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .project__section-columns {
+    grid-template-columns: 1fr;
+  }
+}
