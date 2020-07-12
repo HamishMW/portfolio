@@ -2,7 +2,9 @@
   "name": "portfolio",
   "version": "0.1.0",
   "homepage": "https://hamishw.com",
-  "private": true,
+  "description": "Portfolio site for Hamish Williams",
+  "repository": "https://github.com/HamishMW/portfolio.git",
+  "author": "Hamish Williams <hello@hamishw.com>",
   "devDependencies": {
     "@storybook/addon-a11y": "^5.3.19",
     "@storybook/addon-actions": "^5.3.19",
@@ -19,11 +21,8 @@
     "react-test-renderer": "^16.13.1",
     "rimraf": "^3.0.2",
     "source-map-explorer": "^2.4.2",
-    "storybook-addon-styled-component-theme": "^1.3.0",
-    "stylelint": "^13.4.0",
-    "stylelint-config-recommended": "^3.0.0",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.10.0"
+    "stylelint": "^13.6.1",
+    "stylelint-config-recommended": "^3.0.0"
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.6",

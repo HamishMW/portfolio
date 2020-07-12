@@ -41,16 +41,6 @@
   }
 }
 
-.project-item--alternate .project-item__content {
-  grid-template-columns: 55% 40%;
-}
-
-@media (max-width: 1024px) {
-  .project-item--alternate .project-item__content {
-    grid-template-columns: 100%;
-  }
-}
-
 .project-item__content {
   width: 100%;
   max-width: var(--maxWidthL);
@@ -61,9 +51,19 @@
   grid-column-gap: 2%;
 }
 
+.project-item--alternate .project-item__content {
+  grid-template-columns: 55% 40%;
+}
+
 @media (max-width: 1245px) {
   .project-item__content {
     grid-template-columns: 50% 50%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .project-item--alternate .project-item__content {
+    grid-template-columns: 100%;
   }
 }
 
@@ -360,6 +360,7 @@
   height: 452px;
 }
 
+.project-item__phone-image .image,
 .project-item__phone-image img {
   width: 100%;
   height: 100%;
