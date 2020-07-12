@@ -20,10 +20,9 @@ const IS_PROD = process.env.ENV === 'production';
 const ORIGIN = IS_PROD ? 'https://hamishw.com' : '*';
 const MAX_EMAIL_LENGTH = 512;
 const MAX_MESSAGE_LENGTH = 4096;
-const LIMIT = IS_PROD ? 1024 : 64;
 
 app.use(helmet());
-app.use(express.json({ limit: LIMIT }));
+app.use(express.json());
 app.use(cors({ origin: ORIGIN }));
 
 app.post('/functions/sendMessage', async (req, res) => {
