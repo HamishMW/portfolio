@@ -2,8 +2,5 @@
   "compilerOptions": {
     "baseUrl": "src"
   },
-  "include": [
-    "src",
-    ".storybook/StoryContainer.js"
-  ]
+  "include": ["src", ".storybook/StoryContainer.js"]
 }

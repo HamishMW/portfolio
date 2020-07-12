@@ -1,0 +1,17 @@
+.displacement-sphere {
+  position: absolute;
+  width: 100vw;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 3s;
+  transition-timing-function: var(--bezierFastoutSlowin);
+}
+
+.displacement-sphere--entering,
+.displacement-sphere--entered {
+  opacity: 1;
+}

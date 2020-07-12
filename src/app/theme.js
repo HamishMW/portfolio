@@ -1,28 +1,5 @@
 import { Color } from 'three/src/math/Color';
 
-const fontStack = [
-  'Gotham',
-  'system-ui',
-  '-apple-system',
-  'BlinkMacSystemFont',
-  'San Francisco',
-  'Roboto',
-  'Segoe UI',
-  'Ubuntu',
-  'Helvetica Neue',
-  'sans-serif',
-];
-
-const monoFontStack = [
-  'SFMono Regular',
-  'Roboto Mono',
-  'Consolas',
-  'Liberation Mono',
-  'Menlo',
-  'Courier',
-  'monospace',
-];
-
 /**
  * Convert pixel values to rem for a11y
  */
@@ -41,6 +18,15 @@ export const msToNum = msString => Number(msString.replace('ms', ''));
 export const rgbToThreeColor = rgb =>
   new Color(...rgb.split(' ').map(value => Number(value) / 255));
 
+/**
+ * Transform theme token objects into CSS custom properties
+ */
+export function createThemeProperties(theme) {
+  return Object.keys(theme)
+    .map(key => `--${key}: ${theme[key]};`)
+    .join('\n');
+}
+
 // Full list of tokens
 const baseTokens = {
   rgbBlack: '0 0 0',
@@ -51,8 +37,12 @@ const baseTokens = {
   durationM: '400ms',
   durationL: '600ms',
   durationXL: '800ms',
-  fontStack: fontStack.join(', '),
-  monoFontStack: monoFontStack.join(', '),
+  fontStack:
+    'Gotham, system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif',
+  monoFontStack:
+    'SFMono Regular, Roboto Mono, Consolas, Liberation Mono, Menlo, Courier, monospace',
+  japaneseFontStack:
+    'ヒラギノ角ゴ Pro W3, Hiragino Kaku Gothic Pro, Hiragino Sans, Osaka, メイリオ, Meiryo, Segoe UI, sans-serif',
   fontWeightRegular: 400,
   fontWeightMedium: 500,
   fontWeightBold: 700,
@@ -143,10 +133,3 @@ export const tokens = {
 };
 
 export const theme = { dark, light };
-
-/**
- * Transform theme token objects into CSS custom properties
- */
-export function createThemeProperties(theme) {
-  return Object.keys(theme).map(key => `--${key}: ${theme[key]};`);
-}

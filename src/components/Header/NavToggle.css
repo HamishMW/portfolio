@@ -1,0 +1,58 @@
+.nav-toggle {
+  --buttonSize: var(--space2XL);
+
+  position: fixed;
+  top: var(--spaceOuter);
+  right: var(--spaceOuter);
+  width: var(--buttonSize);
+  height: var(--buttonSize);
+  z-index: 1024;
+  display: none;
+}
+
+@media (max-width: 696px), (max-height: 696px) {
+  .nav-toggle {
+    display: flex;
+  }
+}
+
+.nav-toggle__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.nav-toggle__icon {
+  --iconSize: var(--spaceXL);
+
+  position: absolute;
+  transition-property: opacity, transform, fill;
+  transition-duration: var(--durationM);
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-delay: 0.1s;
+  opacity: 1;
+  transform: rotate(0deg);
+  fill: var(--colorTextBody);
+  width: var(--iconSize);
+  height: var(--iconSize);
+}
+
+.nav-toggle__icon--open {
+  transition-delay: 0s;
+  transform: rotate(45deg);
+  opacity: 0;
+}
+
+.nav-toggle__icon--close {
+  transition-delay: 0s;
+  transform: rotate(-45deg);
+  opacity: 0;
+}
+
+.nav-toggle__icon--open.nav-toggle__icon--close {
+  transition-delay: 0.1s;
+  transform: rotate(0deg);
+  opacity: 1;
+}

@@ -1,36 +1,30 @@
-import styled from 'styled-components/macro';
+import React from 'react';
+import classNames from 'classnames';
+import { blurOnMouseUp } from 'utils/focus';
+import './index.css';
 
-const lineColor = (opacity, props) =>
-  props.secondary
-    ? `rgb(var(--rgbText) / ${opacity})`
-    : `rgb(var(--rgbPrimary) / ${opacity})`;
+const Anchor = ({
+  rel,
+  target,
+  children,
+  secondary,
+  className,
+  as: Component = 'a',
+  ...rest
+}) => {
+  const relValue = rel || target === '_blank' ? 'noreferrer noopener' : undefined;
 
-const Link = styled.a.attrs(({ target, rel }) => ({
-  rel: rel || target === '_blank' ? 'noreferrer noopener' : null,
-}))`
-  --lineStrokeWidth: 2px;
+  return (
+    <Component
+      className={classNames('anchor', className, { 'anchor--secondary': secondary })}
+      rel={relValue}
+      target={target}
+      onMouseUp={blurOnMouseUp}
+      {...rest}
+    >
+      {children}
+    </Component>
+  );
+};
 
-  display: inline;
-  text-decoration: none;
-  color: ${props => (props.secondary ? 'inherit' : 'rgb(var(--rgbPrimary))')};
-
-  /* prettier-ignore */
-  background:
-    linear-gradient(${props => lineColor(1, props)}, ${props =>
-  lineColor(1, props)}) no-repeat 100% 100% / 0 var(--lineStrokeWidth),
-    linear-gradient(${props => lineColor(0.3, props)}, ${props =>
-  lineColor(0.3, props)}) no-repeat 0 100% / 100% var(--lineStrokeWidth);
-  transition: background-size var(--durationM) var(--bezierFastoutSlowin);
-  padding-bottom: var(--lineStrokeWidth);
-
-  &:hover,
-  &:focus {
-    background:
-      linear-gradient(${props => lineColor(1, props)}, ${props =>
-  lineColor(1, props)}) no-repeat 0 100% / 100% var(--lineStrokeWidth),
-      linear-gradient(${props => lineColor(0.3, props)}, ${props =>
-  lineColor(0.3, props)}) no-repeat 0 100% / 100% var(--lineStrokeWidth);
-  }
-`;
-
-export default Link;
+export default Anchor;

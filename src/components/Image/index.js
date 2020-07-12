@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, Fragment } from 'react';
-import styled, { css, keyframes } from 'styled-components/macro';
+import classNames from 'classnames';
 import { usePrefersReducedMotion } from 'hooks';
 import { Button } from 'components/Button';
 import Icon from 'components/Icon';
@@ -7,6 +7,7 @@ import { Transition } from 'react-transition-group';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { msToNum, tokens } from 'app/theme';
+import './index.css';
 
 function ProgressiveImage(props) {
   const { className, style, reveal, delay = 0, ...rest } = props;
@@ -35,14 +36,13 @@ function ProgressiveImage(props) {
   }, []);
 
   return (
-    <ImageContainer
-      className={className}
-      style={style}
+    <div
+      className={classNames('image', className, {
+        'image--intersect': intersect,
+        'image--reveal': reveal,
+      })}
+      style={{ ...style, '--delay': `${delay}ms` }}
       ref={containerRef}
-      reveal={reveal}
-      intersect={intersect}
-      loaded={loaded}
-      delay={delay}
     >
       <ImageElements
         delay={delay}
@@ -52,7 +52,7 @@ function ProgressiveImage(props) {
         reveal={reveal}
         {...rest}
       />
-    </ImageContainer>
+    </div>
   );
 }
 
@@ -117,25 +117,25 @@ function ImageElements(props) {
   };
 
   return (
-    <ImageElementWrapper
-      reveal={reveal}
-      intersect={intersect}
-      delay={delay}
+    <div
+      className={classNames('image__element-wrapper', {
+        'image__element-wrapper--reveal': reveal,
+        'image__element-wrapper--intersect': intersect,
+      })}
       onMouseOver={videoSrc ? handleShowPlayButton : undefined}
       onMouseOut={videoSrc ? () => setIsHovered(false) : undefined}
+      style={{ '--delay': `${delay + 1000}ms` }}
     >
       {videoSrc && (
         <Fragment>
-          <ImageActual
+          <video
             muted
             loop
             playsInline
+            className={classNames('image__element', { 'image__element--loaded': loaded })}
             autoPlay={!prefersReducedMotion}
-            as="video"
             role="img"
-            delay={delay}
             onLoadStart={onLoad}
-            loaded={loaded}
             src={videoSrc}
             aria-label={alt}
             ref={videoRef}
@@ -148,27 +148,27 @@ function ImageElements(props) {
             timeout={{ enter: 0, exit: msToNum(tokens.base.durationS) }}
           >
             {status => (
-              <ImageButton
+              <Button
                 iconOnly
-                status={status}
-                showPlayButton={showPlayButton}
+                className={classNames('image__button', `image__button--${status}`, {
+                  'image__button--visible': showPlayButton,
+                })}
                 onFocus={handleFocusPlayButton}
                 onBlur={() => setIsFocused(false)}
                 onClick={togglePlaying}
               >
                 <Icon icon={playing ? 'pause' : 'play'} />
                 {playing ? 'Pause' : 'Play'}
-              </ImageButton>
+              </Button>
             )}
           </Transition>
         </Fragment>
       )}
       {!videoSrc && (
-        <ImageActual
-          delay={delay}
+        <img
+          className={classNames('image__element', { 'image__element--loaded': loaded })}
           onLoad={onLoad}
           decoding="async"
-          loaded={loaded}
           src={!prerender && intersect ? srcSet.split(' ')[0] : ''}
           srcSet={!prerender && intersect ? srcSet : ''}
           alt={alt}
@@ -176,167 +176,20 @@ function ImageElements(props) {
         />
       )}
       {showPlaceholder && (
-        <ImagePlaceholder
-          delay={delay}
+        <img
+          aria-hidden
+          className={classNames('image__placeholder', {
+            'image__placeholder--loaded': loaded,
+          })}
+          style={{ transitionDelay: `${delay}ms` }}
           ref={placeholderRef}
-          loaded={loaded}
           src={placeholder}
           alt=""
           role="presentation"
         />
       )}
-    </ImageElementWrapper>
+    </div>
   );
 }
-
-const AnimImageReveal = keyframes`
-  0% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: left;
-  }
-  49% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: left;
-  }
-  50% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: right;
-  }
-  100% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: right;
-  }
-`;
-
-const ImageContainer = styled.div`
-  position: relative;
-  transform: translate3d(0, 0, 0);
-  display: grid;
-  grid-template-columns: 100%;
-
-  ${props =>
-    props.reveal &&
-    css`
-      &::before {
-        content: '';
-        background-color: rgb(var(--rgbAccent));
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        transform: scale3d(0, 1, 1);
-        transform-origin: left;
-        z-index: 16;
-        animation: ${props.intersect &&
-        !prerender &&
-        css`
-        ${AnimImageReveal} 1.8s var(--bezierFastoutSlowin) ${props.delay + 200}ms
-      `};
-      }
-    `}
-`;
-
-const ImageElementWrapper = styled.div`
-  opacity: ${props => (!props.reveal || props.intersect ? 1 : 0)};
-  transition: ${props =>
-    props.reveal ? `opacity var(--durationM) ease ${props.delay + 1000}ms` : 'none'};
-  transform: translate3d(0, 0, 0);
-  position: relative;
-  display: grid;
-  grid-template-columns: 100%;
-`;
-
-const ImagePlaceholder = styled.img`
-  width: 100%;
-  height: auto;
-  transition: opacity var(--durationM) ease;
-  pointer-events: none;
-  display: block;
-  position: relative;
-  z-index: 1;
-  opacity: ${props => (props.loaded ? 0 : 1)};
-  grid-column: 1;
-  grid-row: 1;
-`;
-
-const ImageActual = styled.img`
-  width: 100%;
-  height: auto;
-  display: block;
-  opacity: ${props => (props.loaded ? 1 : 0)};
-  grid-column: 1;
-  grid-row: 1;
-`;
-
-const ImageButton = styled(Button)`
-  --buttonTextSize: 16px;
-
-  border: 0;
-  position: absolute;
-  opacity: 0;
-  font-size: var(--buttonTextSize);
-  transition-property: opacity, background;
-  transition-duration: var(--durationS);
-  transition-delay: 0s;
-  cursor: pointer;
-  padding: 0 14px 0 10px;
-  height: 40px;
-
-  svg {
-    fill: white;
-    margin-right: var(--spaceS);
-    position: relative;
-    top: -1px;
-  }
-
-  span {
-    color: white;
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-  }
-
-  &::after {
-    background: rgba(0, 0, 0, 0.6);
-  }
-
-  &:hover::after,
-  &:focus::after {
-    background: rgba(0, 0, 0, 0.7);
-  }
-
-  &::before {
-    background: rgba(0, 0, 0, 0.9);
-  }
-
-  ${props =>
-    props.status === 'entered' &&
-    css`
-      opacity: 1;
-    `}
-
-  ${props =>
-    !props.showPlayButton &&
-    css`
-      padding: 0;
-      height: 1px;
-      width: 1px;
-      clip: rect(0 0 0 0);
-      margin: -1px;
-      overflow: hidden;
-    `}
-
-  ${props =>
-    props.showPlayButton &&
-    css`
-      clip: auto;
-      margin: 0;
-      top: var(--spaceM);
-      left: var(--spaceM);
-      overflow: visible;
-      width: auto;
-    `}
-`;
 
 export default ProgressiveImage;

@@ -2,22 +2,23 @@ import { theme } from 'app/theme';
 
 export const initialState = {
   menuOpen: false,
-  currentTheme: theme.dark,
+  theme: theme.dark,
 };
 
 export function reducer(state, action) {
   switch (action.type) {
     case 'setTheme':
-      return { ...state, currentTheme: action.value };
+      return { ...state, theme: action.value };
     case 'updateTheme':
       return {
         ...state,
-        currentTheme: { ...theme[state.currentTheme.themeId], ...action.value },
+        theme: { ...theme[state.theme.themeId], ...action.value },
       };
     case 'toggleTheme': {
-      const newThemeKey = state.currentTheme.themeId === 'dark' ? 'light' : 'dark';
+      const newThemeKey = state.theme.themeId === 'dark' ? 'light' : 'dark';
       window.localStorage.setItem('theme', JSON.stringify(newThemeKey));
-      return { ...state, currentTheme: theme[newThemeKey] };
+      document.body.setAttribute('class', newThemeKey);
+      return { ...state, theme: theme[newThemeKey] };
     }
     case 'toggleMenu':
       return { ...state, menuOpen: !state.menuOpen };

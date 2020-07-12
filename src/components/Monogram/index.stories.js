@@ -9,7 +9,7 @@ export default {
 };
 
 export const monogram = () => (
-  <StoryContainer padding={30}>
+  <StoryContainer padding={32}>
     <Monogram highlight />
   </StoryContainer>
 );

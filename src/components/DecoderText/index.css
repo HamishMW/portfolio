@@ -1,0 +1,22 @@
+.decoder-text::after {
+  content: '_';
+  visibility: hidden;
+}
+
+.decoder-text__label {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+.decoder-text__code {
+  opacity: 0.8;
+  font-weight: var(--fontWeightRegular);
+  font-family: var(--japaneseFontStack);
+  line-height: 0;
+}

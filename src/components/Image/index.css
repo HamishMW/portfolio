@@ -1,0 +1,135 @@
+@keyframes image-reveal {
+  0% {
+    transform: scale3d(0, 1, 1);
+    transform-origin: left;
+  }
+  49% {
+    transform: scale3d(1, 1, 1);
+    transform-origin: left;
+  }
+  50% {
+    transform: scale3d(1, 1, 1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scale3d(0, 1, 1);
+    transform-origin: right;
+  }
+}
+
+.image {
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.image--reveal::before {
+  content: '';
+  background-color: rgb(var(--rgbAccent));
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: scale3d(0, 1, 1);
+  transform-origin: left;
+  z-index: 16;
+}
+
+.image--reveal.image--intersect::before {
+  animation: image-reveal 1.8s var(--bezierFastoutSlowin) var(--delay);
+}
+
+.image-container {
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.image-container--reveal {
+  content: '';
+  background-color: rgb(var(--rgbAccent));
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: scale3d(0, 1, 1);
+  transform-origin: left;
+  z-index: 16;
+  animation: image-reveal 1.8s var(--bezierFastoutSlowin);
+}
+
+.image__element-wrapper {
+  opacity: 0;
+  transition: none;
+  transform: translate3d(0, 0, 0);
+  position: relative;
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.image__element-wrapper--reveal {
+  opacity: 0;
+  transition: opacity var(--durationM) ease var(--delay);
+}
+
+.image__element-wrapper--intersect {
+  opacity: 1;
+}
+
+.image__placeholder {
+  width: 100%;
+  height: auto;
+  transition: opacity var(--durationM) ease;
+  pointer-events: none;
+  display: block;
+  position: relative;
+  z-index: 1;
+  opacity: 1;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.image__placeholder--loaded {
+  opacity: 0;
+}
+
+.image__element {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.image__element--loaded {
+  opacity: 1;
+}
+
+.image__button {
+  position: absolute;
+  opacity: 0;
+  padding: 0;
+  height: 1px;
+  width: 1px;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  overflow: hidden;
+}
+
+.image__button--visible {
+  clip: auto;
+  margin: 0;
+  top: var(--spaceM);
+  left: var(--spaceM);
+  overflow: visible;
+  width: auto;
+}
+
+.image__button--entered {
+  opacity: 1;
+}

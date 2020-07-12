@@ -1,0 +1,115 @@
+html,
+body {
+  box-sizing: border-box;
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightRegular);
+  background: rgb(var(--rgbBackground));
+  color: var(--colorTextBody);
+  border: 0;
+  margin: 0;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+::selection {
+  background: rgb(var(--rgbAccent));
+  color: rgb(var(--rgbBlack));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #root *,
+  #root *::before,
+  #root *::after {
+    animation-duration: 0s;
+    animation-delay: 0s;
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.app {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  background: rgb(var(--rgbBackground));
+  transition: background var(--durationM) ease;
+  outline: none;
+  display: grid;
+  grid-template: 100% / 100%;
+}
+
+.app__page {
+  overflow-x: hidden;
+  opacity: 0;
+  grid-area: 1 / 1;
+  transition: opacity var(--durationS) ease;
+}
+
+.app__page--exiting,
+.app__page--entering {
+  opacity: 0;
+}
+
+.app__page--entered {
+  transition-duration: var(--durationL);
+  transition-delay: var(--durationXS);
+  opacity: 1;
+}
+
+.skip-to-main {
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  color: rgb(var(--rgbBackground));
+  z-index: 128;
+}
+
+.skip-to-main:focus {
+  padding: var(--spaceS) var(--spaceM);
+  position: fixed;
+  top: var(--spaceM);
+  left: var(--spaceM);
+  clip: auto;
+  width: auto;
+  height: auto;
+  text-decoration: none;
+  font-weight: var(--fontWeightMedium);
+  line-height: 1;
+  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+  outline: none;
+}
+
+.skip-to-main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(var(--rgbPrimary));
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  z-index: -1;
+}
+
+.skip-to-main::-moz-focus-inner {
+  border: 0;
+}

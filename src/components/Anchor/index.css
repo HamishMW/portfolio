@@ -1,0 +1,43 @@
+.anchor {
+  --lineStrokeWidth: 2px;
+  --anchorColor: var(--rgbPrimary);
+  --lineOpacity: 0.3;
+  --filledLineGradient: linear-gradient(rgb(var(--anchorColor)), rgb(var(--anchorColor)));
+  --unfilledLineGradient: linear-gradient(
+    rgb(var(--anchorColor) / var(--lineOpacity)),
+    rgb(var(--anchorColor) / var(--lineOpacity))
+  );
+
+  display: inline;
+  text-decoration: none;
+  color: rgb(var(--anchorColor));
+  background: var(--filledLineGradient) no-repeat 100% 100% / 0 var(--lineStrokeWidth),
+    var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
+  transition-property: background-size;
+  transition-duration: var(--durationM);
+  transition-timing-function: var(--bezierFastoutSlowin);
+  padding-bottom: var(--lineStrokeWidth);
+}
+
+.anchor:hover,
+.anchor:focus {
+  background: var(--filledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth),
+    var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
+}
+
+.anchor--secondary {
+  --anchorColor: var(--rgbText);
+}
+
+.anchor:focus {
+  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+  outline: none;
+}
+
+.anchor:-moz-focus-inner {
+  border: 0;
+}
+
+.anchor:active {
+  box-shadow: none;
+}

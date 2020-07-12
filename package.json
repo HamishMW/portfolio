@@ -4,11 +4,11 @@
   "homepage": "https://hamishw.com",
   "private": true,
   "devDependencies": {
-    "@storybook/addon-a11y": "^5.3.18",
-    "@storybook/addon-actions": "^5.3.18",
-    "@storybook/addon-knobs": "^5.3.18",
-    "@storybook/addon-links": "^5.3.18",
-    "@storybook/react": "^5.3.18",
+    "@storybook/addon-a11y": "^5.3.19",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-knobs": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/react": "^5.3.19",
     "babel-loader": "^8.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -26,7 +26,8 @@
     "stylelint-processor-styled-components": "^1.10.0"
   },
   "dependencies": {
-    "@mdx-js/react": "^1.6.1",
+    "@mdx-js/react": "^1.6.6",
+    "classnames": "^2.2.6",
     "es6-tween": "^5.5.11",
     "ios-inner-height": "^1.1.1",
     "react": "^16.13.1",
@@ -35,8 +36,7 @@
     "react-helmet-async": "^1.0.6",
     "react-router-dom": "5.2.0",
     "react-transition-group": "^4.4.1",
-    "styled-components": "^5.1.0",
-    "three": "^0.116.1"
+    "three": "^0.118.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,7 +44,6 @@
     "build-storybook": "build-storybook -o build-storybook && rimraf build-storybook/static/**/*.{jpg,txt,png,mp4,webm,svg}",
     "postbuild": "react-snap",
     "deploy": "firebase deploy --only hosting:portfolio",
-    "deploy-functions": "firebase deploy --only functions",
     "deploy-storybook": "firebase deploy --only hosting:storybook",
     "serve": "firebase serve --only hosting",
     "test": "react-scripts test --env=jsdom",
@@ -59,7 +58,7 @@
   },
   "browserslist": {
     "production": [
-      ">1%",
+      ">10%",
       "not dead",
       "not ie 11",
       "not op_mini all"

@@ -1,0 +1,45 @@
+.divider {
+  position: relative;
+  width: var(--lineWidth);
+  height: var(--lineHeight);
+}
+
+.divider__line {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(var(--rgbPrimary));
+  opacity: 1;
+  transition-property: transform, opacity;
+  transition-duration: var(--durationL);
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-delay: var(--collapseDelay);
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.divider__line--collapsed {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.divider__notch {
+  content: '';
+  background-color: rgb(var(--rgbPrimary));
+  position: absolute;
+  transition-property: clip-path, opacity;
+  transition-duration: var(--durationL);
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-delay: var(--collapseDelay);
+  opacity: 1;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 10px 100%);
+  width: var(--notchWidth);
+  height: var(--notchHeight);
+  top: var(--lineHeight);
+}
+
+.divider__notch--collapsed {
+  opacity: 0;
+  clip-path: polygon(0 0, 0 0, 10px 100%, 10px 100%);
+}

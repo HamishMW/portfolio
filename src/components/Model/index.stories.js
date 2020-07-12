@@ -4,14 +4,14 @@ import { StoryContainer } from '../../../.storybook/StoryContainer';
 import deviceModels from './deviceModels';
 import phoneTexture from 'assets/gamestack-login-large.png';
 import phoneTexture2 from 'assets/gamestack-list-large.png';
-import laptopTexture from 'pages/SmartSparrow/assets/spr-builder-large.png';
+import laptopTexture from 'assets/spr-builder-large.png';
 
 export default {
   title: 'Model',
 };
 
 export const phone = () => (
-  <StoryContainer fullWidth padding={30}>
+  <StoryContainer fullWidth padding={32}>
     <Model
       enableControls
       cameraPosition={[0, 0, 8]}
@@ -32,7 +32,7 @@ export const phone = () => (
 );
 
 export const laptop = () => (
-  <StoryContainer fullWidth padding={30}>
+  <StoryContainer fullWidth padding={32}>
     <Model
       enableControls
       cameraPosition={[0, 0, 6]}

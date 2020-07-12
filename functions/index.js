@@ -1,13 +1,13 @@
-const functions = require('firebase-functions');
+const serverless = require('serverless-http');
 const nodemailer = require('nodemailer');
-const admin = require('firebase-admin');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 
 const app = express();
-const gmailEmail = functions.config().gmail.email;
-const gmailPassword = functions.config().gmail.password;
+const gmailEmail = process.env.nodeMailerEmail;
+const gmailPassword = process.env.nodeMailerPassword;
+
 const mailTransport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -16,42 +16,48 @@ const mailTransport = nodemailer.createTransport({
   },
 });
 
-admin.initializeApp();
+const IS_PROD = process.env.ENV === 'production';
+const ORIGIN = IS_PROD ? 'https://hamishw.com' : '*';
+const MAX_EMAIL_LENGTH = 512;
+const MAX_MESSAGE_LENGTH = 4096;
+const LIMIT = IS_PROD ? 1024 : 64;
+
 app.use(helmet());
-app.use(express.json());
-app.use(cors({ origin: 'https://hamishw.com' }));
+app.use(express.json({ limit: LIMIT }));
+app.use(cors({ origin: ORIGIN }));
 
 app.post('/functions/sendMessage', async (req, res) => {
   try {
     const { email, message } = req.body;
-    await admin.database().ref('/messages').push({ email, message });
-    res.status(200).json({ message: 'Message sent successfully' });
+
+    if (!email || !/(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
+      return res.status(400).json({ error: 'Please enter a valid email address' });
+    } else if (!message) {
+      return res.status(400).json({ error: 'Please enter a message' });
+    } else if (email.length > MAX_EMAIL_LENGTH) {
+      return res.status(400).json({
+        error: `Please enter an email fewer than ${MAX_EMAIL_LENGTH} characters`,
+      });
+    } else if (message.length > MAX_MESSAGE_LENGTH) {
+      return res.status(400).json({
+        error: `Please enter a message fewer than ${MAX_MESSAGE_LENGTH} characters`,
+      });
+    }
+
+    const mailOptions = {
+      from: `Portfolio <${gmailEmail}>`,
+      to: 'hello@hamishw.com',
+      subject: `New message from ${email}`,
+      text: `From: ${email}\n\n${message}`,
+    };
+
+    await mailTransport.sendMail(mailOptions);
+
+    return res.status(200).json({ message: 'Message sent successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Message rejected' });
+    return res.status(500).json({ error: 'Message rejected' });
   }
 });
 
-function sendMail(email, message) {
-  const mailOptions = {
-    from: `Portfolio <${gmailEmail}>`,
-    to: 'hello@hamishw.com',
-    subject: `New message from ${email}`,
-    text: `From: ${email}\n\n${message}`,
-  };
-
-  return mailTransport.sendMail(mailOptions);
-}
-
-exports.sendMail = functions.database.ref('/messages/{messageID}').onCreate(snapshot => {
-  const { email, message } = snapshot.val();
-
-  // Automatically remove test messages
-  if (email === 'test@test.test') {
-    snapshot.ref.set(null);
-  }
-
-  return sendMail(email, message);
-});
-
-exports.app = functions.https.onRequest(app);
+module.exports.handler = serverless(app);

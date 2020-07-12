@@ -6,23 +6,24 @@ import React, {
   useReducer,
   Fragment,
 } from 'react';
-import styled, { createGlobalStyle, ThemeProvider, css } from 'styled-components/macro';
 import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 import {
   Transition,
   TransitionGroup,
   config as transitionConfig,
 } from 'react-transition-group';
+import classNames from 'classnames';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from 'components/Header';
 import { theme, tokens, createThemeProperties, msToNum } from 'app/theme';
-import { cornerClip, media } from 'utils/style';
+import { media } from 'utils/style';
 import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
 import { initialState, reducer } from 'app/reducer';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
+import './index.css';
 
 const Home = lazy(() => import('pages/Home'));
 const Contact = lazy(() => import('pages/Contact'));
@@ -57,11 +58,10 @@ export const fontStyles = `
   }
 `;
 
-function App() {
+const App = () => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const { currentTheme } = state;
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -74,9 +74,6 @@ function App() {
   useEffect(() => {
     if (!prerender) {
       console.info(`${repoPrompt}\n\n`);
-      document.body.removeAttribute('class');
-      const markupComment = document.createComment(repoPrompt);
-      document.documentElement.prepend(markupComment);
     }
     window.history.scrollRestoration = 'manual';
   }, []);
@@ -87,18 +84,16 @@ function App() {
 
   return (
     <HelmetProvider>
-      <ThemeProvider theme={currentTheme}>
-        <AppContext.Provider value={{ ...state, dispatch }}>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-        </AppContext.Provider>
-      </ThemeProvider>
+      <AppContext.Provider value={{ ...state, dispatch }}>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </AppContext.Provider>
     </HelmetProvider>
   );
-}
+};
 
-function AppRoutes() {
+const AppRoutes = () => {
   const location = useLocation();
   const { pathname } = location;
 
@@ -109,12 +104,15 @@ function AppRoutes() {
         <link rel="preload" href={GothamMedium} as="font" crossorigin="" />
         <link rel="preload" href={GothamBook} as="font" crossorigin="" />
         <style>{fontStyles}</style>
+        <style>{globalStyles}</style>
       </Helmet>
-      <GlobalStyles />
-      <SkipToMain href="#MainContent">Skip to main content</SkipToMain>
+      <a className="skip-to-main" href="#MainContent">
+        Skip to main content
+      </a>
       <Header location={location} />
       <TransitionGroup
-        component={AppMainContent}
+        component="main"
+        className="app"
         tabIndex={-1}
         id="MainContent"
         role="main"
@@ -126,7 +124,7 @@ function AppRoutes() {
         >
           {status => (
             <TransitionContext.Provider value={{ status }}>
-              <AppPage status={status}>
+              <div className={classNames('app__page', `app__page--${status}`)}>
                 <Suspense fallback={<Fragment />}>
                   <Switch location={location}>
                     <Route exact path="/" component={Home} />
@@ -138,32 +136,40 @@ function AppRoutes() {
                     <Route component={NotFound} />
                   </Switch>
                 </Suspense>
-              </AppPage>
+              </div>
             </TransitionContext.Provider>
           )}
         </Transition>
       </TransitionGroup>
     </Fragment>
   );
-}
+};
 
-export const GlobalStyles = createGlobalStyle`
+export const globalStyles = `
   :root {
     ${createThemeProperties(tokens.base)}
+  }
 
-    @media (max-width: ${media.laptop}px) {
+  @media (max-width: ${media.laptop}px) {
+    :root {
       ${createThemeProperties(tokens.laptop)}
     }
+  }
 
-    @media (max-width: ${media.tablet}px) {
+  @media (max-width: ${media.tablet}px) {
+    :root {
       ${createThemeProperties(tokens.tablet)}
     }
+  }
 
-    @media (max-width: ${media.mobile}px) {
+  @media (max-width: ${media.mobile}px) {
+    :root {
       ${createThemeProperties(tokens.mobile)}
     }
+  }
 
-    @media (max-width: ${media.mobileSmall}px) {
+  @media (max-width: ${media.mobileSmall}px) {
+    :root {
       ${createThemeProperties(tokens.mobileSmall)}
     }
   }
@@ -174,111 +180,6 @@ export const GlobalStyles = createGlobalStyle`
 
   .light {
     ${createThemeProperties(theme.light)}
-  }
-
-  ${
-    !prerender &&
-    css`
-      body.light,
-      body.dark,
-      body {
-        ${props => createThemeProperties(props.theme)}
-      }
-    `
-  }
-
-  html,
-  body {
-    box-sizing: border-box;
-    font-family: var(--fontStack);
-    font-weight: var(--fontWeightRegular);
-    background: rgb(var(--rgbBackground));
-    color: var(--colorTextBody);
-    border: 0;
-    margin: 0;
-    width: 100vw;
-    overflow-x: hidden;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-  }
-
-  ::selection {
-    background: rgb(var(--rgbAccent));
-    color: rgb(var(--rgbBlack));
-  }
-
-  #root *,
-  #root *::before,
-  #root *::after {
-    @media (prefers-reduced-motion: reduce) {
-      animation-duration: 0s;
-      animation-delay: 0s;
-      transition-duration: 0s;
-      transition-delay: 0s;
-    }
-  }
-`;
-
-const AppMainContent = styled.main`
-  width: 100%;
-  overflow-x: hidden;
-  position: relative;
-  background: rgb(var(--rgbBackground));
-  transition: background var(--durationM) ease;
-  outline: none;
-  display: grid;
-  grid-template: 100% / 100%;
-`;
-
-const AppPage = styled.div`
-  overflow-x: hidden;
-  opacity: 0;
-  grid-area: 1 / 1;
-  transition: opacity var(--durationS) ease;
-
-  ${props =>
-    (props.status === 'exiting' || props.status === 'entering') &&
-    css`
-      opacity: 0;
-    `}
-
-  ${props =>
-    props.status === 'entered' &&
-    css`
-      transition-duration: var(--durationL);
-      transition-delay: var(--durationXS);
-      opacity: 1;
-    `}
-`;
-
-const SkipToMain = styled.a`
-  border: 0;
-  padding: 0;
-  clip: rect(0 0 0 0);
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  color: rgb(var(--rgbBackground));
-  background: rgb(var(--rgbPrimary));
-  z-index: 99;
-
-  &:focus {
-    padding: var(--spaceS) var(--spaceM);
-    position: fixed;
-    top: var(--spaceM);
-    left: var(--spaceM);
-    clip: auto;
-    width: auto;
-    height: auto;
-    text-decoration: none;
-    font-weight: var(--fontWeightMedium);
-    line-height: 1;
-    ${cornerClip(8)}
   }
 `;
 
