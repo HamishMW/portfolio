@@ -12,6 +12,18 @@
   position: relative;
 }
 
+@media (max-width: 1024px) {
+  .contact {
+    padding-top: 15vh;
+  }
+}
+
+@media (max-width: 696px) {
+  .contact {
+    padding-top: 0;
+  }
+}
+
 .contact__form {
   max-width: var(--maxWidthS);
   width: 100%;
