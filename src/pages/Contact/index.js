@@ -1,17 +1,18 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import Input from 'components/Input';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
 import { Button } from 'components/Button';
+import Section from 'components/Section';
+import Icon from 'components/Icon';
 import { useScrollRestore, useFormInput, useRouteTransition } from 'hooks';
-import { reflow } from 'utils/transition';
+import { reflow, isVisible } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { tokens, msToNum } from 'app/theme';
-import { Link } from 'react-router-dom';
-import Section from 'components/Section';
 import './index.css';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -47,15 +48,19 @@ function getDelay(delayMs, initDelayMs = `0ms`, multiplier = 1) {
 
 const Contact = () => {
   const { status } = useRouteTransition();
+  const errorRef = useRef();
   const email = useFormInput('');
   const message = useFormInput('');
   const [sending, setSending] = useState(false);
   const [complete, setComplete] = useState(false);
+  const [statusError, setStatusError] = useState('');
   useScrollRestore();
 
   const onSubmit = useCallback(
     async event => {
       event.preventDefault();
+      setStatusError('');
+
       if (sending) return;
 
       try {
@@ -87,7 +92,7 @@ const Contact = () => {
         setSending(false);
       } catch (error) {
         setSending(false);
-        alert(error.message);
+        setStatusError(error.message);
       }
     },
     [email.value, message.value, sending]
@@ -131,50 +136,70 @@ const Contact = () => {
                   )}
                   style={getDelay(tokens.base.durationXS, initDelay, 0.4)}
                 />
-                <div className="contact__fields">
-                  <Input
-                    required
-                    className={classNames('contact__input', `contact__input--${status}`, {
-                      'contact__input--hidden': prerender,
-                    })}
-                    style={getDelay(tokens.base.durationXS, initDelay)}
-                    autoComplete="email"
-                    label="Your Email"
-                    type="email"
-                    maxLength={512}
-                    {...email}
-                  />
-                  <Input
-                    required
-                    multiline
-                    className={classNames('contact__input', `contact__input--${status}`, {
-                      'contact__input--hidden': prerender,
-                    })}
-                    style={getDelay(tokens.base.durationS, initDelay)}
-                    autoComplete="off"
-                    label="Message"
-                    maxLength={4096}
-                    {...message}
-                  />
-                  <Button
-                    className={classNames(
-                      'contact__button',
-                      `contact__button--${status}`,
-                      {
-                        'contact__button--hidden': prerender,
-                        'contact__button--sending': sending,
-                      }
-                    )}
-                    style={getDelay(tokens.base.durationM, initDelay)}
-                    disabled={sending}
-                    loading={sending}
-                    loadingText="Sending..."
-                    icon="send"
-                    type="submit"
-                  >
-                    Send Message
-                  </Button>
-                </div>
+                <Input
+                  required
+                  className={classNames('contact__input', `contact__input--${status}`, {
+                    'contact__input--hidden': prerender,
+                  })}
+                  style={getDelay(tokens.base.durationXS, initDelay)}
+                  autoComplete="email"
+                  label="Your Email"
+                  type="email"
+                  maxLength={512}
+                  {...email}
+                />
+                <Input
+                  required
+                  multiline
+                  className={classNames('contact__input', `contact__input--${status}`, {
+                    'contact__input--hidden': prerender,
+                  })}
+                  style={getDelay(tokens.base.durationS, initDelay)}
+                  autoComplete="off"
+                  label="Message"
+                  maxLength={4096}
+                  {...message}
+                />
+                <TransitionGroup component={null}>
+                  {!!statusError && (
+                    <Transition timeout={msToNum(tokens.base.durationM)}>
+                      {errorStatus => (
+                        <div
+                          className={classNames(
+                            'contact__form-error',
+                            `contact__form-error--${errorStatus}`
+                          )}
+                          style={{
+                            '--height': isVisible(errorStatus)
+                              ? `${errorRef.current?.getBoundingClientRect().height}px`
+                              : '0px',
+                          }}
+                        >
+                          <div className="contact__form-error-content" ref={errorRef}>
+                            <div className="contact__form-error-message">
+                              <Icon className="contact__form-error-icon" icon="error" />
+                              {statusError}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </Transition>
+                  )}
+                </TransitionGroup>
+                <Button
+                  className={classNames('contact__button', `contact__button--${status}`, {
+                    'contact__button--hidden': prerender,
+                    'contact__button--sending': sending,
+                  })}
+                  style={getDelay(tokens.base.durationM, initDelay)}
+                  disabled={sending}
+                  loading={sending}
+                  loadingText="Sending..."
+                  icon="send"
+                  type="submit"
+                >
+                  Send Message
+                </Button>
               </form>
             )}
           </Transition>

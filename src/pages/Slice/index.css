@@ -5,7 +5,7 @@
 .slice__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 70px;
+  gap: 70px;
   margin: 40px 0;
 }
 

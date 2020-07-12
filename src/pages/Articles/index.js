@@ -104,7 +104,7 @@ const PostListContent = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 144px 1fr;
-  grid-gap: 20px;
+  gap: 20px;
   padding: 80px 0;
   position: relative;
 
@@ -127,7 +127,7 @@ const PostTitleWrapper = styled.div`
 const PostListColumn = styled.div`
   display: grid;
   grid-template-columns: 100%;
-  grid-gap: 60px;
+  gap: 60px;
 `;
 
 const PostListTitle = styled.h1`
@@ -142,7 +142,7 @@ const PostContent = styled(Link)`
   width: 100%;
   display: grid;
   grid-template-columns: 300px 1fr;
-  grid-gap: 0 40px;
+  gap: 0 40px;
   text-decoration: none;
   transition: background-color var(--durationM) ease;
 

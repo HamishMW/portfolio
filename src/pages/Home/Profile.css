@@ -105,7 +105,7 @@
   margin-bottom: 40px;
   display: grid;
   grid-template-columns: var(--space4XL) 1fr;
-  grid-gap: 12px;
+  gap: 12px;
   align-items: center;
 }
 

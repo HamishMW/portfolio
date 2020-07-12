@@ -4,6 +4,7 @@ import { ReactComponent as Twitter } from 'assets/icons/twitter.svg';
 import { ReactComponent as Dribbble } from 'assets/icons/dribbble.svg';
 import { ReactComponent as Github } from 'assets/icons/github.svg';
 import { ReactComponent as Email } from 'assets/icons/email.svg';
+import { ReactComponent as Error } from 'assets/icons/error.svg';
 import { ReactComponent as Menu } from 'assets/icons/menu.svg';
 import { ReactComponent as ArrowRight } from 'assets/icons/arrow-right.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
@@ -19,6 +20,7 @@ export const icons = {
   dribbble: Dribbble,
   github: Github,
   email: Email,
+  error: Error,
   menu: Menu,
   arrowRight: ArrowRight,
   chevronRight: ChevronRight,

@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-function TextArea(props) {
-  const { allowResize, value, onChange, minRows = 1, maxRows, ...restProps } = props;
+const TextArea = ({ allowResize, value, onChange, minRows = 1, maxRows, ...rest }) => {
   const [rows, setRows] = useState(minRows);
   const [textareaDimensions, setTextareaDimensions] = useState();
   const textareaRef = useRef();
@@ -37,14 +36,14 @@ function TextArea(props) {
 
   return (
     <textarea
-      {...restProps}
       ref={textareaRef}
       onChange={handleChange}
       style={{ resize: allowResize ? undefined : 'none' }}
       rows={rows}
       value={value}
+      {...rest}
     />
   );
-}
+};
 
 export default TextArea;

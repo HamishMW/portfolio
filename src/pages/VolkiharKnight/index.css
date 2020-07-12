@@ -1,7 +1,7 @@
 .volkihar__carousel {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 70px;
+  gap: 70px;
   margin: 0;
 }
 

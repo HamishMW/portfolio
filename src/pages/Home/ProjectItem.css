@@ -129,7 +129,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 90px 1fr;
-  grid-gap: var(--spaceM);
+  gap: var(--spaceM);
   align-items: center;
   margin-bottom: var(--spaceXL);
 }

@@ -1,8 +1,8 @@
 .contact {
   position: absolute;
   display: flex;
-  align-items: center;
   justify-content: center;
+  padding-top: 20vh;
   min-height: 100vh;
   width: 100%;
 }
@@ -23,12 +23,6 @@
     padding: var(--space5XL) 0 var(--space2XL);
     align-self: flex-start;
   }
-}
-
-.contact__fields {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-gap: var(--spaceXL);
 }
 
 .contact__title {
@@ -101,6 +95,10 @@
   opacity: 0;
 }
 
+.contact__input + .contact__input {
+  margin-top: var(--spaceXL);
+}
+
 .contact__input--entering,
 .contact__input--entered {
   transform: translate3d(0, 0, 0);
@@ -120,7 +118,7 @@
 }
 
 .contact__button {
-  margin-top: var(--spaceXL);
+  margin-top: calc(var(--spaceXL) * 2);
   transition-property: transform, opacity, box-shadow;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-delay: var(--delay);
@@ -158,14 +156,14 @@
   }
 }
 
-.contact__button--entering:hover {
-  transform: translate3d(0, 0, 0);
-}
-
 .contact__button--entering,
 .contact__button--entered {
   transform: translate3d(0, 0, 0);
   opacity: 1;
+}
+
+.contact__button--entering:hover {
+  transform: translate3d(0, 0, 0);
 }
 
 .contact__button--exiting {
@@ -236,4 +234,30 @@
 .contact__complete-button--entered {
   transform: translate3d(0, 0, 0);
   opacity: 1;
+}
+
+.contact__form-error {
+  color: rgb(var(--rgbError));
+  transition-property: height;
+  transition-duration: var(--durationM);
+  transition-timing-function: var(--bezierFastoutSlowin);
+  overflow: hidden;
+  height: var(--height);
+}
+
+.contact__form-error-content {
+  padding-top: var(--spaceXL);
+}
+
+.contact__form-error-message {
+  display: flex;
+  padding: var(--spaceM);
+  line-height: 24px;
+  background-color: rgb(var(--rgbError) / 0.1);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
+}
+
+.contact__form-error-icon {
+  flex: 0 0 auto;
+  margin-right: var(--spaceS);
 }

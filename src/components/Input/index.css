@@ -1,6 +1,18 @@
 .input {
   --inputFontSize: calc((16 / 16) * 1rem);
+  --inputFocusColor: rgb(var(--rgbPrimary));
+  --inputUnderlineColor: rgb(var(--rgbText) / 0.2);
 
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input--error {
+  --inputUnderlineColor: rgb(var(--rgbError));
+}
+
+.input__content {
   position: relative;
   display: flex;
 }
@@ -8,7 +20,7 @@
 .input__element {
   background: transparent;
   color: var(--colorTextBody);
-  box-shadow: inset 0 -2px 0 0 rgb(var(--rgbText) / 0.2);
+  box-shadow: inset 0 -2px 0 0 var(--inputUnderlineColor);
   transition: background-color 5000s linear 0s;
   width: 100%;
   font-family: inherit;
@@ -17,7 +29,6 @@
   margin: 0;
   border: 0;
   padding: var(--spaceL) 0 var(--spaceM);
-  z-index: 16;
   appearance: none;
   border-radius: 0;
   overflow-x: hidden;
@@ -49,7 +60,7 @@
 }
 
 .input__underline {
-  background: rgb(var(--rgbPrimary));
+  background: var(--inputFocusColor);
   transform: scale3d(0, 1, 1);
   width: 100%;
   height: 2px;
@@ -78,4 +89,26 @@
 .input__label--focused {
   color: rgb(var(--rgbText) / 0.54);
   transform: scale(0.8) translateY(calc(var(--spaceL) * -1));
+}
+
+.input__error {
+  transition-property: height, opacity;
+  transition-duration: var(--durationM);
+  transition-timing-function: var(--bezierFastoutSlowin);
+  height: var(--height);
+  opacity: 0;
+}
+
+.input__error--entering,
+.input__error--entered {
+  opacity: 1;
+}
+
+.input__error-message {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--spaceXS);
+  padding-top: var(--spaceS);
+  color: rgb(var(--rgbError));
 }

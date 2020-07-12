@@ -54,10 +54,19 @@
   transform: translate3d(0, -50%, 0);
   z-index: 32;
   cursor: pointer;
+  outline: none;
+}
+
+.carousel__button::-moz-focus-inner {
+  border: 0;
 }
 
 .carousel__button:focus {
-  outline: none;
+  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+}
+
+.carousel__button:active {
+  box-shadow: none;
 }
 
 .carousel__button::before {
@@ -75,18 +84,6 @@
 
 .carousel__button:hover::before {
   background: rgb(var(--rgbWhite) / 0.1);
-}
-
-.carousel__button::-moz-focus-inner {
-  border: 0;
-}
-
-.carousel__button:focus {
-  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
-}
-
-.carousel__button:active {
-  box-shadow: none;
 }
 
 .carousel__button svg {
