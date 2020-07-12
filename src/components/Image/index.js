@@ -181,7 +181,7 @@ function ImageElements(props) {
           className={classNames('image__placeholder', {
             'image__placeholder--loaded': loaded,
           })}
-          style={{ transitionDelay: `${delay}ms` }}
+          style={{ '--delay': `${delay}ms` }}
           ref={placeholderRef}
           src={placeholder}
           alt=""

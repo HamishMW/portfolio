@@ -1,6 +1,8 @@
 .loader {
   display: flex;
   justify-content: center;
+  width: var(--size);
+  height: var(--size);
 }
 
 .loader-text {
@@ -22,6 +24,8 @@
 
 .loader__content {
   display: grid;
+  grid-template-columns: repeat(3, var(--spanSize));
+  gap: var(--gapSize);
   align-items: center;
   justify-content: center;
   transform: skewX(22deg);

@@ -1,7 +1,7 @@
 import React, { Fragment, memo } from 'react';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
-import { Link } from 'react-router-dom';
+import { Link } from 'components/Link';
 import Section from 'components/Section';
 import { Button } from 'components/Button';
 import Image from 'components/Image';

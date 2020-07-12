@@ -1,6 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
+import classNames from 'classnames';
+import './index.css';
 
-const TextArea = ({ allowResize, value, onChange, minRows = 1, maxRows, ...rest }) => {
+const TextArea = ({
+  className,
+  resize = 'none',
+  value,
+  onChange,
+  minRows = 1,
+  maxRows,
+  ...rest
+}) => {
   const [rows, setRows] = useState(minRows);
   const [textareaDimensions, setTextareaDimensions] = useState();
   const textareaRef = useRef();
@@ -36,9 +46,10 @@ const TextArea = ({ allowResize, value, onChange, minRows = 1, maxRows, ...rest 
 
   return (
     <textarea
+      className={classNames('textarea', className)}
       ref={textareaRef}
       onChange={handleChange}
-      style={{ resize: allowResize ? undefined : 'none' }}
+      style={{ '--resize': resize }}
       rows={rows}
       value={value}
       {...rest}

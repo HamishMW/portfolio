@@ -31,16 +31,15 @@ const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) =
     <div
       className={classNames('loader', className)}
       aria-label={text}
-      style={{ width: size, height: size, ...style }}
+      style={{
+        '--size': `${size}px`,
+        '--spanSize': `${spanSize}px`,
+        '--gapSize': `${gapSize}px`,
+        ...style,
+      }}
       {...rest}
     >
-      <div
-        className="loader__content"
-        style={{
-          gridTemplateColumns: `repeat(3, ${spanSize}px)`,
-          gridGap: gapSize,
-        }}
-      >
+      <div className="loader__content">
         <div className="loader__span" />
         <div className="loader__span" />
         <div className="loader__span" />

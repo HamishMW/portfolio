@@ -3,11 +3,11 @@ import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
 import { Button } from 'components/Button';
+import { Link } from 'components/Link';
 import DecoderText from 'components/DecoderText';
 import Notfound from 'assets/notfound.mp4';
 import NotfoundPoster from 'assets/notfound.jpg';
 import { reflow } from 'utils/transition';
-import { Link } from 'react-router-dom';
 import './index.css';
 
 function NotFound() {

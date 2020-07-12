@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
-import { Link as RouterLink } from 'react-router-dom';
 import { Link } from 'components/Link';
 import Anchor from 'components/Anchor';
 import { Button } from 'components/Button';
@@ -35,7 +34,7 @@ const ProfileText = ({ status, titleId }) => (
     </p>
     <p className={classNames('profile__description', `profile__description--${status}`)}>
       In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
-      <Anchor as={RouterLink} to="/projects/volkihar-knight">
+      <Anchor as={Link} to="/projects/volkihar-knight">
         make mods
       </Anchor>
       . I’m always down for hearing about new projects, so feel free to drop me a line.
