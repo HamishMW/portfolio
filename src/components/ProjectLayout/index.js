@@ -105,7 +105,9 @@ export const ProjectBackground = ({ opacity = 0.7, className, entered, ...rest }
 };
 
 export const ProjectImage = ({ className, ...rest }) => (
-  <div className={classNames('project__image', className)} {...rest} />
+  <div className={classNames('project__image', className)}>
+    <Image reveal delay={300} {...rest} />
+  </div>
 );
 
 export const ProjectSectionContent = ({ className, ...rest }) => (

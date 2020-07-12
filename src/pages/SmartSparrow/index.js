@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Image from 'components/Image';
 import { useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
 import {
@@ -55,14 +54,11 @@ function ProjectSPR() {
         />
         <ProjectSection>
           <ProjectSectionContent>
-            <ProjectImage>
-              <Image
-                reveal
-                srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
-                placeholder={imageSprBuilderPlaceholder}
-                sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
-              />
-            </ProjectImage>
+            <ProjectImage
+              srcSet={`${imageSprBuilder} 800w, ${imageSprBuilderLarge} 1440w`}
+              placeholder={imageSprBuilderPlaceholder}
+              sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
+            />
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>

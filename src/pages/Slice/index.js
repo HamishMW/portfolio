@@ -69,15 +69,12 @@ function ProjectSlice(props) {
         />
         <ProjectSection>
           <ProjectSectionContent>
-            <ProjectImage>
-              <Image
-                reveal
-                srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1920w`}
-                placeholder={sliceAppPlaceholder}
-                alt="The Slice web appication showing a selected user annotation."
-                sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 90vw, 80vw`}
-              />
-            </ProjectImage>
+            <ProjectImage
+              srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1920w`}
+              placeholder={sliceAppPlaceholder}
+              alt="The Slice web appication showing a selected user annotation."
+              sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 90vw, 80vw`}
+            />
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
