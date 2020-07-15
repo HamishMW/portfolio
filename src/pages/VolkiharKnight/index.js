@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, Fragment } from 'react';
+import React, { lazy, Suspense, Fragment, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Image from 'components/Image';
 import { useScrollRestore, useRouteTransition } from 'hooks';
@@ -157,24 +157,27 @@ function ProjectVolkihar() {
             <Suspense fallback={null}>
               <Carousel
                 placeholder={volkiharSlidePlaceholder}
-                images={[
-                  {
-                    src: volkiharSlide1,
-                    srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
-                    alt: 'A female character wearing the black coloured armor set.',
-                  },
-                  {
-                    src: volkiharSlide2,
-                    srcset: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
-                    alt: 'A close up of the custom gauntlets design.',
-                  },
-                  {
-                    src: volkiharSlide3,
-                    srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
-                    alt:
-                      'A female character weilding a sword and wearing the red coloured armor.',
-                  },
-                ]}
+                images={useMemo(
+                  () => [
+                    {
+                      src: volkiharSlide1,
+                      srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
+                      alt: 'A female character wearing the black coloured armor set.',
+                    },
+                    {
+                      src: volkiharSlide2,
+                      srcset: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
+                      alt: 'A close up of the custom gauntlets design.',
+                    },
+                    {
+                      src: volkiharSlide3,
+                      srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
+                      alt:
+                        'A female character weilding a sword and wearing the red coloured armor.',
+                    },
+                  ],
+                  []
+                )}
                 width={1920}
                 height={1080}
               />

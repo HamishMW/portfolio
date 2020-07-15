@@ -29,8 +29,7 @@ function determineIndex(imageIndex, index, images, direction) {
   return finalIndex;
 }
 
-export default function Carousel(props) {
-  const { width, height, images, placeholder, ...rest } = props;
+const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const [imageIndex, setImageIndex] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [showPlaceholder, setShowPlaceholder] = useState(true);
@@ -413,4 +412,6 @@ export default function Carousel(props) {
       </div>
     </div>
   );
-}
+};
+
+export default Carousel;
