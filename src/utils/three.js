@@ -1,3 +1,6 @@
+/**
+ * Clean up a scene's materials and geometry
+ */
 export const clean = scene => {
   scene.traverse(object => {
     if (!object.isMesh) return;
@@ -7,18 +10,17 @@ export const clean = scene => {
     if (object.material.isMaterial) {
       cleanMaterial(object.material);
     } else {
-      // an array of materials
-      // eslint-disable-next-line no-restricted-syntax
       for (const material of object.material) cleanMaterial(material);
     }
   });
 };
 
+/**
+ * Clean up and dispose of a material
+ */
 export const cleanMaterial = material => {
   material.dispose();
 
-  // dispose textures
-  // eslint-disable-next-line no-restricted-syntax
   for (const key of Object.keys(material)) {
     const value = material[key];
     if (value && typeof value === 'object' && 'minFilter' in value) {
@@ -26,3 +28,20 @@ export const cleanMaterial = material => {
     }
   }
 };
+
+/**
+ * Returns a promise wrapping three's `TextureLoader` or `GLTFLoader`
+ */
+export async function loader(loader, url) {
+  return new Promise((resolve, reject) => {
+    loader.load(
+      url,
+      map => {
+        resolve(map);
+      },
+      () => {
+        reject(new Error('Could not load asset'));
+      }
+    );
+  });
+}

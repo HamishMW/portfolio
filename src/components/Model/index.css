@@ -4,6 +4,11 @@
   right: 0;
   bottom: 0;
   left: 0;
+  opacity: 0;
+}
+
+.model--loaded {
+  animation: fade-in 1s ease forwards;
 }
 
 .model__canvas {

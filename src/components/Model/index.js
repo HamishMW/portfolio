@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, memo } from 'react';
+import React, { useRef, useEffect, useCallback, memo, useState } from 'react';
 import {
   Scene,
   WebGLRenderer,
@@ -9,39 +9,45 @@ import {
   Color,
   TextureLoader,
   LinearFilter,
+  Vector3,
+  MathUtils,
 } from 'three';
+import classNames from 'classnames';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
-import { clean } from 'utils/three';
+import { spring, value, chain, delay } from 'popmotion';
+import { clean, loader } from 'utils/three';
+import { ModelAnimationType } from './deviceModels';
 import './index.css';
 
-const MeshTypes = {
-  frame: 'Frame',
-  logo: 'Logo',
-  screen: 'Screen',
+const MeshType = {
+  Frame: 'Frame',
+  Logo: 'Logo',
+  Screen: 'Screen',
 };
 
-const LightTypes = {
-  ambient: 'ambient',
-  key: 'key',
-  fill: 'fill',
+const LightType = {
+  Ambient: 'ambient',
+  Key: 'key',
+  Fill: 'fill',
 };
 
 const renderPixelRatio = Math.max(window.devicePixelRatio, 2);
 
 const Model = ({ models, enableControls, cameraPosition }) => {
+  const [loaded, setLoaded] = useState(false);
   const canvasRef = useRef();
   const containerRef = useRef();
 
   // Three js refs
-  const modelRef = useRef();
   const sceneRef = useRef();
   const cameraRef = useRef();
   const rendererRef = useRef();
   const controlsRef = useRef();
   const lightsRef = useRef();
   const animationFrameRef = useRef();
+  const textureLoaderRef = useRef();
+  const modelLoaderRef = useRef();
   const modelTweenRef = useRef();
   const cameraTweenRef = useRef();
 
@@ -52,13 +58,10 @@ const Model = ({ models, enableControls, cameraPosition }) => {
 
     // Loop animation
     animationFrameRef.current = requestAnimationFrame(render);
-    updateTween();
   }, []);
 
   // Handle threejs initialization and rendering
   useEffect(() => {
-    const loader = new GLTFLoader();
-
     // Initialize
     rendererRef.current = new WebGLRenderer({
       canvas: canvasRef.current,
@@ -82,6 +85,8 @@ const Model = ({ models, enableControls, cameraPosition }) => {
     cameraRef.current.position.set(...cameraPosition);
     sceneRef.current = new Scene();
     sceneRef.current.add(cameraRef.current);
+    textureLoaderRef.current = new TextureLoader();
+    modelLoaderRef.current = new GLTFLoader();
 
     // Orbit controls
     if (enableControls) {
@@ -104,47 +109,110 @@ const Model = ({ models, enableControls, cameraPosition }) => {
     const keyLight = new DirectionalLight(0xffffff, 1.1);
     const fillLight = new DirectionalLight(0xffffff, 0.8);
 
-    ambientLight.name = LightTypes.Ambient;
-    fillLight.name = LightTypes.Fill;
-    keyLight.name = LightTypes.Key;
+    ambientLight.name = LightType.Ambient;
+    fillLight.name = LightType.Fill;
+    keyLight.name = LightType.Key;
     fillLight.position.set(-6, 2, 2);
     keyLight.position.set(0.5, 0, 0.866);
     lightsRef.current = [ambientLight, keyLight, fillLight];
     lightsRef.current.forEach(light => cameraRef.current.add(light));
 
-    models.forEach(model => {
+    const applyTexture = (map, node) => {
+      map.encoding = sRGBEncoding;
+      map.minFilter = LinearFilter;
+      map.flipY = false;
+      map.anisotropy = rendererRef.current.capabilities.getMaxAnisotropy();
+      node.material.color = new Color(0xffffff);
+      node.material.transparent = false;
+      node.material.map = map;
+    };
+
+    const modelLoaders = models.map((model, index) => async () => {
       const { texture, position, url } = model;
-      const textureLoader = new TextureLoader();
+      const loadedModel = await loader(modelLoaderRef.current, url);
+      const placeholder = await loader(textureLoaderRef.current, texture.placeholder);
+      sceneRef.current.add(loadedModel.scene);
+      let loadFullResTexture;
 
-      loader.load(url, gltf => {
-        modelRef.current = gltf;
-        sceneRef.current.add(modelRef.current.scene);
+      loadedModel.scene.traverse(async node => {
+        if (node.material) {
+          node.material.color = new Color(0x1f2025);
+          node.material.color.convertSRGBToLinear();
+        }
 
-        modelRef.current.scene.traverse(node => {
-          console.log(node);
-          if (node.material) {
-            node.material.color = new Color(0x1f2025);
-            node.material.color.convertSRGBToLinear();
-          }
-
-          if (node.name === 'Screen') {
-            textureLoader.load(texture, map => {
-              map.encoding = sRGBEncoding;
-              map.minFilter = LinearFilter;
-              map.flipY = false;
-              map.anisotropy = rendererRef.current.capabilities.getMaxAnisotropy();
-              node.material.color = new Color(0xffffff);
-              node.material.transparent = false;
-              node.material.map = map;
-              console.log(node.material);
-            });
-          }
-        });
-
-        modelRef.current.scene.position.set(position.x, position.y, position.z);
-        animationFrameRef.current = requestAnimationFrame(render);
+        if (node.name === MeshType.Screen) {
+          applyTexture(placeholder, node);
+          loadFullResTexture = async () => {
+            const fullSize = await loader(textureLoaderRef.current, texture.large);
+            applyTexture(fullSize, node);
+          };
+        }
       });
+
+      if (model.animation === ModelAnimationType.SpringUp) {
+        const startPosition = new Vector3(position.x, position.y - 1, position.z);
+        const endPosition = new Vector3(position.x, position.y, position.z);
+        loadedModel.scene.position.set(startPosition.x, startPosition.y, startPosition.z);
+
+        const modelValue = value(loadedModel.scene.position, ({ x, y, z }) =>
+          loadedModel.scene.position.set(x, y, z)
+        );
+
+        const animation = chain(
+          delay(300 * index + 100),
+          spring({ from: startPosition, to: endPosition, stiffness: 160, damping: 18 })
+        );
+
+        return { animation, modelValue, loadFullResTexture };
+      }
+
+      if (model.animation === ModelAnimationType.LaptopOpen) {
+        const frameNode = loadedModel.scene.children.find(
+          node => node.name === MeshType.Frame
+        );
+
+        const startRotation = { x: MathUtils.degToRad(90), y: 0, z: 0 };
+        const endRotation = { x: 0, y: 0, z: 0 };
+        frameNode.rotation.set(startRotation.x, startRotation.y, startRotation.z);
+
+        const modelValue = value(frameNode.rotation, ({ x, y, z }) =>
+          frameNode.rotation.set(x, y, z)
+        );
+
+        const animation = chain(
+          delay(300 * index + 500),
+          spring({
+            from: startRotation,
+            to: endRotation,
+            stiffness: 100,
+            damping: 10,
+          })
+        );
+
+        return { animation, modelValue, loadFullResTexture };
+      }
+
+      return { loadFullResTexture };
     });
+
+    const loadScene = async () => {
+      const loadedModels = await Promise.all(
+        modelLoaders.map(async loader => await loader())
+      );
+
+      setLoaded(true);
+
+      animationFrameRef.current = requestAnimationFrame(render);
+
+      loadedModels.forEach(async model => {
+        if (model.animation) {
+          model.animation.start(model.modelValue);
+        }
+        await model.loadFullResTexture();
+      });
+    };
+
+    loadScene();
 
     return () => {
       cancelAnimationFrame(animationFrameRef.current);
@@ -158,7 +226,7 @@ const Model = ({ models, enableControls, cameraPosition }) => {
   }, [cameraPosition, enableControls, models, render]);
 
   return (
-    <div className="model" ref={containerRef}>
+    <div className={classNames('model', { 'model--loaded': loaded })} ref={containerRef}>
       <canvas className="model__canvas" ref={canvasRef} />
     </div>
   );

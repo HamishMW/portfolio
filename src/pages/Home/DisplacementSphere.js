@@ -11,7 +11,7 @@ import { UniformsLib } from 'three/src/renderers/shaders/UniformsLib';
 import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
 import { SphereBufferGeometry } from 'three/src/geometries/SphereGeometry';
 import { Mesh } from 'three/src/objects/Mesh';
-import { Easing, Tween, update as updateTween, remove as removeTween } from 'es6-tween';
+import { spring, value } from 'popmotion';
 import innerHeight from 'ios-inner-height';
 import vertShader from './sphereVertShader';
 import fragShader from './sphereFragShader';
@@ -40,6 +40,7 @@ function DisplacementSphere(props) {
   const geometry = useRef();
   const sphere = useRef();
   const tweenRef = useRef();
+  const sphereSpring = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
@@ -150,15 +151,27 @@ function DisplacementSphere(props) {
 
     const onMouseMove = event => {
       const animate = () => {
+        const { rotation } = sphere.current;
+
         const position = {
           x: event.clientX / window.innerWidth,
           y: event.clientY / window.innerHeight,
         };
 
-        tweenRef.current = new Tween(sphere.current.rotation)
-          .to({ x: position.y / 2, y: position.x / 2 }, 2000)
-          .easing(Easing.Quartic.Out)
-          .start();
+        if (!sphereSpring.current) {
+          sphereSpring.current = value(rotation.toArray(), values =>
+            rotation.set(values[0], values[1], sphere.current.rotation.z)
+          );
+        }
+
+        tweenRef.current = spring({
+          from: sphereSpring.current.get(),
+          to: [position.y / 2, position.x / 2],
+          stiffness: 30,
+          damping: 20,
+          velocity: sphereSpring.current.getVelocity(),
+          mass: 2,
+        }).start(sphereSpring.current);
 
         ticking = false;
       };
@@ -175,8 +188,11 @@ function DisplacementSphere(props) {
 
     return function cleanup() {
       window.removeEventListener('mousemove', onMouseMove);
-      removeTween(tweenRef.current);
       cancelAnimationFrame(animationFrame);
+
+      if (tweenRef.current) {
+        tweenRef.current.stop();
+      }
     };
   }, [prefersReducedMotion]);
 
@@ -189,8 +205,8 @@ function DisplacementSphere(props) {
         uniforms.current.time.value = 0.00005 * (Date.now() - start.current);
       }
       sphere.current.rotation.z += 0.001;
+
       renderer.current.render(scene.current, camera.current);
-      updateTween();
     };
 
     if (!prefersReducedMotion) {

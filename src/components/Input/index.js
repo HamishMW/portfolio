@@ -8,7 +8,7 @@ import { isVisible } from 'utils/transition';
 import { msToNum, tokens } from 'app/theme';
 import Icon from 'components/Icon';
 
-function Input({
+const Input = ({
   id,
   label,
   hasValue,
@@ -18,7 +18,7 @@ function Input({
   style,
   error,
   ...rest
-}) {
+}) => {
   const [focused, setFocused] = useState(false);
   const generatedId = useId();
   const errorRef = useRef();
@@ -84,6 +84,6 @@ function Input({
       </TransitionGroup>
     </div>
   );
-}
+};
 
 export default Input;

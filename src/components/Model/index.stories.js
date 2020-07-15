@@ -2,9 +2,15 @@ import React from 'react';
 import Model from 'components/Model';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 import deviceModels from './deviceModels';
-import phoneTexture from 'assets/gamestack-login-large.png';
-import phoneTexture2 from 'assets/gamestack-list-large.png';
+import phoneTexturePlaceholder from 'assets/gamestack-login-placeholder.png';
+import phoneTexture from 'assets/gamestack-login.png';
+import phoneTextureLarge from 'assets/gamestack-login-large.png';
+import phoneTexture2Placeholder from 'assets/gamestack-list-placeholder.png';
+import phoneTexture2 from 'assets/gamestack-list.png';
+import phoneTexture2Large from 'assets/gamestack-list-large.png';
+import laptopTexturePlaceholder from 'assets/spr-builder-large.png';
 import laptopTexture from 'assets/spr-builder-large.png';
+import laptopTextureLarge from 'assets/spr-builder-large.png';
 
 export default {
   title: 'Model',
@@ -19,12 +25,20 @@ export const phone = () => (
         {
           ...deviceModels.phone,
           position: { x: -0.6, y: 0.8, z: -0.2 },
-          texture: phoneTexture,
+          texture: {
+            large: phoneTextureLarge,
+            medium: phoneTexture,
+            placeholder: phoneTexturePlaceholder,
+          },
         },
         {
           ...deviceModels.phone,
           position: { x: 0.6, y: -0.8, z: 0.2 },
-          texture: phoneTexture2,
+          texture: {
+            large: phoneTexture2Large,
+            medium: phoneTexture2,
+            placeholder: phoneTexture2Placeholder,
+          },
         },
       ]}
     />
@@ -39,7 +53,11 @@ export const laptop = () => (
       models={[
         {
           ...deviceModels.laptop,
-          texture: laptopTexture,
+          texture: {
+            large: laptopTextureLarge,
+            medium: laptopTexture,
+            placeholder: laptopTexturePlaceholder,
+          },
         },
       ]}
     />

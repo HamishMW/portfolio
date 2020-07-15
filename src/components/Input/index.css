@@ -80,6 +80,7 @@
   top: var(--spaceL);
   left: 0;
   display: block;
+  cursor: text;
   transform-origin: top left;
   transition: transform var(--durationM) var(--bezierFastoutSlowin),
     color var(--durationM) ease;

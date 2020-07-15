@@ -9,8 +9,7 @@ import prerender from 'utils/prerender';
 import { msToNum, tokens } from 'app/theme';
 import './index.css';
 
-function ProgressiveImage(props) {
-  const { className, style, reveal, delay = 0, ...rest } = props;
+const Image = ({ className, style, reveal, delay = 0, ...rest }) => {
   const [loaded, setLoaded] = useState(false);
   const [intersect, setIntersect] = useState(false);
   const containerRef = useRef();
@@ -54,7 +53,7 @@ function ProgressiveImage(props) {
       />
     </div>
   );
-}
+};
 
 function ImageElements(props) {
   const {
@@ -192,4 +191,4 @@ function ImageElements(props) {
   );
 }
 
-export default ProgressiveImage;
+export default Image;
