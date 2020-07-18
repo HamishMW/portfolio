@@ -1,14 +1,10 @@
 .model {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: relative;
   opacity: 0;
 }
 
 .model--loaded {
-  animation: fade-in 1s ease forwards;
+  animation: fade-in 1s ease forwards var(--delay);
 }
 
 .model__canvas {

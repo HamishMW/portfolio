@@ -329,6 +329,10 @@
   margin: 0;
 }
 
+.project__section-columns--centered {
+  align-items: center;
+}
+
 @media (max-width: 1024px) {
   .project__section-columns {
     grid-template-columns: 1fr;

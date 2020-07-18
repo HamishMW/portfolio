@@ -161,17 +161,17 @@ function ProjectVolkihar() {
                   () => [
                     {
                       src: volkiharSlide1,
-                      srcset: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
+                      srcSet: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
                       alt: 'A female character wearing the black coloured armor set.',
                     },
                     {
                       src: volkiharSlide2,
-                      srcset: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
+                      srcSet: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
                       alt: 'A close up of the custom gauntlets design.',
                     },
                     {
                       src: volkiharSlide3,
-                      srcset: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
+                      srcSet: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
                       alt:
                         'A female character weilding a sword and wearing the red coloured armor.',
                     },

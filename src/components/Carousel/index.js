@@ -5,7 +5,6 @@ import { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
 import { Scene } from 'three/src/scenes/Scene';
 import { PlaneBufferGeometry } from 'three/src/geometries/PlaneGeometry';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
-import { LoadingManager } from 'three/src/loaders/LoadingManager';
 import { ShaderMaterial } from 'three/src/materials/ShaderMaterial';
 import { Mesh } from 'three/src/objects/Mesh';
 import { Color } from 'three/src/math/Color';
@@ -18,6 +17,8 @@ import { blurOnMouseUp } from 'utils/focus';
 import { ReactComponent as ArrowLeft } from 'assets/arrow-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
 import { vertex, fragment } from './carouselShader';
+import { cleanScene } from 'utils/three';
+import { getImageFromSrcSet } from 'utils/image';
 import './index.css';
 
 function determineIndex(imageIndex, index, images, direction) {
@@ -35,7 +36,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [sliderImages, setSliderImages] = useState();
   const [canvasWidth, setCanvasWidth] = useState();
-  const canvasRef = useRef();
+  const canvas = useRef();
   const imagePlane = useRef();
   const geometry = useRef();
   const material = useRef();
@@ -48,7 +49,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const scheduledAnimationFrame = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
   const placeholderRef = useRef();
-  const tweenRef = useRef();
+  const springTween = useRef();
   const springValue = useRef();
   const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${
     images[imageIndex].alt
@@ -76,7 +77,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
           if (value === 1) onComplete();
         });
 
-        tweenRef.current = spring({
+        springTween.current = spring({
           from: springValue.current.get(),
           to: 1,
           velocity: springValue.current.getVelocity(),
@@ -130,7 +131,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      const width = parseInt(getComputedStyle(canvasRef.current).width, 10);
+      const width = parseInt(getComputedStyle(canvas.current).width, 10);
       setCanvasWidth(width);
     };
 
@@ -144,7 +145,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
 
   useEffect(() => {
     const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
-    renderer.current = new WebGLRenderer({ antialias: false, canvas: canvasRef.current });
+    renderer.current = new WebGLRenderer({ antialias: false, canvas: canvas.current });
     camera.current = new OrthographicCamera(...cameraOptions);
     scene.current = new Scene();
     renderer.current.setPixelRatio(window.devicePixelRatio);
@@ -152,7 +153,6 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     renderer.current.setSize(width, height);
     renderer.current.domElement.style.width = '100%';
     renderer.current.domElement.style.height = 'auto';
-    renderer.current.domElement.setAttribute('aria-hidden', true);
     scene.current.background = new Color(0x111111);
     camera.current.position.z = 1;
 
@@ -177,40 +177,23 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     };
 
     const loadImages = async () => {
-      const manager = new LoadingManager();
+      const textureLoader = new TextureLoader();
 
-      manager.onLoad = () => {
-        setLoaded(true);
-        requestAnimationFrame(() => {
-          renderer.current.render(scene.current, camera.current);
-        });
-      };
-
-      const loader = new TextureLoader(manager);
-
-      const results = images.map(async item => {
-        return new Promise((resolve, reject) => {
-          const tempImage = new Image();
-          tempImage.src = item.src;
-
-          if (item.srcset) {
-            tempImage.srcset = item.srcset;
-          }
-
-          const onLoad = () => {
-            tempImage.removeEventListener('load', onLoad);
-            const source = tempImage.currentSrc;
-            const image = loader.load(source);
-            image.magFilter = image.minFilter = LinearFilter;
-            image.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
-            resolve(image);
-          };
-
-          tempImage.addEventListener('load', onLoad);
-        });
+      const results = images.map(async image => {
+        const imageSrc = await getImageFromSrcSet(image);
+        const imageTexture = await textureLoader.loadAsync(imageSrc);
+        imageTexture.magFilter = imageTexture.minFilter = LinearFilter;
+        imageTexture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
+        return imageTexture;
       });
 
       const imageResults = await Promise.all(results);
+
+      requestAnimationFrame(() => {
+        renderer.current.render(scene.current, camera.current);
+      });
+
+      setLoaded(true);
       setSliderImages(imageResults);
       addObjects(imageResults);
     };
@@ -222,29 +205,14 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       }
     });
 
-    observer.observe(canvasRef.current);
+    observer.observe(canvas.current);
 
     return function cleanUp() {
       animating.current = false;
       renderer.current.dispose();
       renderer.current.domElement = null;
       observer.disconnect();
-
-      if (imagePlane.current) {
-        scene.current.remove(imagePlane.current);
-        imagePlane.current.geometry.dispose();
-        imagePlane.current.material.dispose();
-      }
-
-      scene.current.dispose();
-
-      if (geometry.current) {
-        geometry.current.dispose();
-      }
-
-      if (material.current) {
-        material.current.dispose();
-      }
+      cleanScene(scene.current);
     };
   }, [height, images, width]);
 
@@ -262,7 +230,10 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
 
     return function cleanup() {
       cancelAnimationFrame(animation);
-      tweenRef.current.stop();
+
+      if (springTween.current) {
+        springTween.current.stop();
+      }
     };
   }, []);
 
@@ -365,7 +336,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
               aria-label={currentImageAlt}
               role="img"
             >
-              <canvas className="carousel__canvas" ref={canvasRef} />
+              <canvas aria-hidden className="carousel__canvas" ref={canvas} />
             </div>
             {showPlaceholder && placeholder && (
               <img

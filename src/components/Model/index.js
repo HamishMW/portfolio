@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, memo, useState } from 'react';
+import React, { useRef, useEffect, memo, useState } from 'react';
 import {
   Scene,
   WebGLRenderer,
@@ -11,13 +11,15 @@ import {
   LinearFilter,
   Vector3,
   MathUtils,
+  Group,
 } from 'three';
 import classNames from 'classnames';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { spring, value, chain, delay } from 'popmotion';
-import { clean, loader } from 'utils/three';
+import { cleanScene } from 'utils/three';
 import { ModelAnimationType } from './deviceModels';
+import { useInViewport } from 'hooks';
+import { getImageFromSrcSet } from 'utils/image';
 import './index.css';
 
 const MeshType = {
@@ -34,75 +36,55 @@ const LightType = {
 
 const renderPixelRatio = Math.max(window.devicePixelRatio, 2);
 
-const Model = ({ models, enableControls, cameraPosition }) => {
+const Model = ({
+  className,
+  style,
+  models,
+  alt,
+  cameraPosition,
+  show = true,
+  showDelay = 0,
+  ...rest
+}) => {
   const [loaded, setLoaded] = useState(false);
+  const [modelData, setModelData] = useState();
   const canvasRef = useRef();
   const containerRef = useRef();
+  const scene = useRef();
+  const camera = useRef();
+  const renderer = useRef();
+  const lights = useRef();
+  const textureLoader = useRef();
+  const modelLoader = useRef();
+  const modelGroup = useRef();
+  const rotationSpring = useRef();
+  const rotationSpringValue = useRef();
+  const isInViewport = useInViewport(containerRef);
 
-  // Three js refs
-  const sceneRef = useRef();
-  const cameraRef = useRef();
-  const rendererRef = useRef();
-  const controlsRef = useRef();
-  const lightsRef = useRef();
-  const animationFrameRef = useRef();
-  const textureLoaderRef = useRef();
-  const modelLoaderRef = useRef();
-  const modelTweenRef = useRef();
-  const cameraTweenRef = useRef();
-
-  const render = useCallback(() => {
-    rendererRef.current.render(sceneRef.current, cameraRef.current);
-
-    controlsRef.current.update();
-
-    // Loop animation
-    animationFrameRef.current = requestAnimationFrame(render);
-  }, []);
-
-  // Handle threejs initialization and rendering
+  // Handle loading and rendering
   useEffect(() => {
-    // Initialize
-    rendererRef.current = new WebGLRenderer({
+    const { clientWidth, clientHeight } = containerRef.current;
+
+    renderer.current = new WebGLRenderer({
       canvas: canvasRef.current,
       alpha: true,
       antialias: true,
       powerPreference: 'high-performance',
     });
-    rendererRef.current.setSize(
-      containerRef.current.clientWidth,
-      containerRef.current.clientHeight
-    );
-    rendererRef.current.setPixelRatio(renderPixelRatio);
-    rendererRef.current.outputEncoding = sRGBEncoding;
-    rendererRef.current.physicallyCorrectLights = true;
-    cameraRef.current = new PerspectiveCamera(
-      45,
-      containerRef.current.clientWidth / containerRef.current.clientHeight,
-      0.01,
-      1000
-    );
-    cameraRef.current.position.set(...cameraPosition);
-    sceneRef.current = new Scene();
-    sceneRef.current.add(cameraRef.current);
-    textureLoaderRef.current = new TextureLoader();
-    modelLoaderRef.current = new GLTFLoader();
+    renderer.current.setSize(clientWidth, clientHeight);
+    renderer.current.setPixelRatio(renderPixelRatio);
+    renderer.current.outputEncoding = sRGBEncoding;
+    renderer.current.physicallyCorrectLights = true;
 
-    // Orbit controls
-    if (enableControls) {
-      controlsRef.current = new OrbitControls(
-        cameraRef.current,
-        rendererRef.current.domElement
-      );
-      controlsRef.current.enableKeys = false;
-      controlsRef.current.enablePan = true;
-      controlsRef.current.enableZoom = true;
-      controlsRef.current.maxDistance = 16;
-      controlsRef.current.minDistance = 4;
-      controlsRef.current.enableRotate = true;
-      controlsRef.current.enableDamping = true;
-      controlsRef.current.dampingFactor = 0.1;
-    }
+    camera.current = new PerspectiveCamera(36, clientWidth / clientHeight, 0.01, 100);
+    camera.current.position.set(...cameraPosition);
+
+    scene.current = new Scene();
+    scene.current.add(camera.current);
+
+    textureLoader.current = new TextureLoader();
+    modelLoader.current = new GLTFLoader();
+    modelGroup.current = new Group();
 
     // Lighting
     const ambientLight = new AmbientLight(0xffffff, 1.2);
@@ -114,24 +96,26 @@ const Model = ({ models, enableControls, cameraPosition }) => {
     keyLight.name = LightType.Key;
     fillLight.position.set(-6, 2, 2);
     keyLight.position.set(0.5, 0, 0.866);
-    lightsRef.current = [ambientLight, keyLight, fillLight];
-    lightsRef.current.forEach(light => cameraRef.current.add(light));
+    lights.current = [ambientLight, keyLight, fillLight];
+    lights.current.forEach(light => camera.current.add(light));
 
-    const applyTexture = (map, node) => {
+    const applyScreenTexture = (map, node) => {
       map.encoding = sRGBEncoding;
       map.minFilter = LinearFilter;
       map.flipY = false;
-      map.anisotropy = rendererRef.current.capabilities.getMaxAnisotropy();
+      map.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
       node.material.color = new Color(0xffffff);
       node.material.transparent = false;
       node.material.map = map;
     };
 
-    const modelLoaders = models.map((model, index) => async () => {
+    const modelConfigs = models.map(async (model, index) => {
       const { texture, position, url } = model;
-      const loadedModel = await loader(modelLoaderRef.current, url);
-      const placeholder = await loader(textureLoaderRef.current, texture.placeholder);
-      sceneRef.current.add(loadedModel.scene);
+      const loadedModel = await modelLoader.current.loadAsync(url);
+      const placeholder = await textureLoader.current.loadAsync(texture.placeholder);
+
+      modelGroup.current.add(loadedModel.scene);
+
       let loadFullResTexture;
 
       loadedModel.scene.traverse(async node => {
@@ -141,10 +125,11 @@ const Model = ({ models, enableControls, cameraPosition }) => {
         }
 
         if (node.name === MeshType.Screen) {
-          applyTexture(placeholder, node);
+          applyScreenTexture(placeholder, node);
           loadFullResTexture = async () => {
-            const fullSize = await loader(textureLoaderRef.current, texture.large);
-            applyTexture(fullSize, node);
+            const image = await getImageFromSrcSet(texture);
+            const fullSize = await textureLoader.current.loadAsync(image);
+            applyScreenTexture(fullSize, node);
           };
         }
       });
@@ -154,13 +139,20 @@ const Model = ({ models, enableControls, cameraPosition }) => {
         const endPosition = new Vector3(position.x, position.y, position.z);
         loadedModel.scene.position.set(startPosition.x, startPosition.y, startPosition.z);
 
-        const modelValue = value(loadedModel.scene.position, ({ x, y, z }) =>
-          loadedModel.scene.position.set(x, y, z)
-        );
+        const modelValue = value(loadedModel.scene.position, ({ x, y, z }) => {
+          loadedModel.scene.position.set(x, y, z);
+          renderer.current.render(scene.current, camera.current);
+        });
 
         const animation = chain(
-          delay(300 * index + 100),
-          spring({ from: startPosition, to: endPosition, stiffness: 160, damping: 18 })
+          delay(300 * index + showDelay * 0.6),
+          spring({
+            from: startPosition,
+            to: endPosition,
+            stiffness: 60,
+            damping: 16,
+            restSpeed: 0.0001,
+          })
         );
 
         return { animation, modelValue, loadFullResTexture };
@@ -175,17 +167,19 @@ const Model = ({ models, enableControls, cameraPosition }) => {
         const endRotation = { x: 0, y: 0, z: 0 };
         frameNode.rotation.set(startRotation.x, startRotation.y, startRotation.z);
 
-        const modelValue = value(frameNode.rotation, ({ x, y, z }) =>
-          frameNode.rotation.set(x, y, z)
-        );
+        const modelValue = value(frameNode.rotation, ({ x, y, z }) => {
+          frameNode.rotation.set(x, y, z);
+          renderer.current.render(scene.current, camera.current);
+        });
 
         const animation = chain(
-          delay(300 * index + 500),
+          delay(300 * index + showDelay),
           spring({
             from: startRotation,
             to: endRotation,
-            stiffness: 100,
-            damping: 10,
+            stiffness: 50,
+            damping: 14,
+            restSpeed: 0.0001,
           })
         );
 
@@ -195,38 +189,125 @@ const Model = ({ models, enableControls, cameraPosition }) => {
       return { loadFullResTexture };
     });
 
+    scene.current.add(modelGroup.current);
+
+    setModelData(modelConfigs);
+
+    return () => {
+      lights.current.forEach(light => light.parent.remove(light));
+      cleanScene(scene.current);
+      renderer.current.dispose();
+      scene.current.dispose();
+      renderer.current.domElement = null;
+      renderer.current.forceContextLoss();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    let introSprings = [];
+
+    if (!show || !modelData) return;
+
     const loadScene = async () => {
-      const loadedModels = await Promise.all(
-        modelLoaders.map(async loader => await loader())
-      );
+      const loadedModels = await Promise.all(modelData);
 
       setLoaded(true);
 
-      animationFrameRef.current = requestAnimationFrame(render);
-
-      loadedModels.forEach(async model => {
+      const handleModelLoad = loadedModels.map(async model => {
+        // Start animation
         if (model.animation) {
-          model.animation.start(model.modelValue);
+          const modelAnimation = model.animation.start(model.modelValue);
+          introSprings.push(modelAnimation);
         }
+
+        // Load full res screen texture
         await model.loadFullResTexture();
       });
+
+      await Promise.all(handleModelLoad);
     };
 
     loadScene();
 
     return () => {
-      cancelAnimationFrame(animationFrameRef.current);
-      lightsRef.current.forEach(light => light.parent.remove(light));
-      clean(sceneRef.current);
-      rendererRef.current.dispose();
-      sceneRef.current.dispose();
-      rendererRef.current.domElement = null;
-      rendererRef.current.forceContextLoss();
+      for (const spring of introSprings) {
+        spring.stop();
+      }
     };
-  }, [cameraPosition, enableControls, models, render]);
+  }, [modelData, show]);
+
+  // Handle mouse move animation
+  useEffect(() => {
+    const onMouseMove = event => {
+      const { rotation } = modelGroup.current;
+      const { innerWidth, innerHeight } = window;
+
+      const position = {
+        x: (event.clientX - innerWidth / 2) / innerWidth,
+        y: (event.clientY - innerHeight / 2) / innerHeight,
+      };
+
+      if (!rotationSpringValue.current) {
+        rotationSpringValue.current = value(
+          { x: rotation.x, y: rotation.y },
+          ({ x, y }) => {
+            rotation.set(x, y, rotation.z);
+            renderer.current.render(scene.current, camera.current);
+          }
+        );
+      }
+
+      rotationSpring.current = spring({
+        from: rotationSpringValue.current.get(),
+        to: { x: position.y / 2, y: position.x / 2 },
+        stiffness: 40,
+        damping: 40,
+        velocity: rotationSpringValue.current.getVelocity(),
+        restSpeed: 0.0001,
+      }).start(rotationSpringValue.current);
+    };
+
+    if (isInViewport) {
+      window.addEventListener('mousemove', onMouseMove);
+    }
+
+    return function cleanup() {
+      window.removeEventListener('mousemove', onMouseMove);
+
+      if (rotationSpring.current) {
+        rotationSpring.current.stop();
+      }
+    };
+  }, [isInViewport]);
+
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const { clientWidth, clientHeight } = containerRef.current;
+      renderer.current.setSize(clientWidth, clientHeight);
+      camera.current.aspect = clientWidth / clientHeight;
+      camera.current.updateProjectionMatrix();
+      renderer.current.render(scene.current, camera.current);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return function cleanup() {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
-    <div className={classNames('model', { 'model--loaded': loaded })} ref={containerRef}>
+    <div
+      className={classNames('model', { 'model--loaded': loaded }, className)}
+      style={{ '--delay': `${showDelay}ms`, ...style }}
+      ref={containerRef}
+      role="img"
+      aria-label={alt}
+      {...rest}
+    >
       <canvas className="model__canvas" ref={canvasRef} />
     </div>
   );

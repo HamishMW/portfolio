@@ -45,7 +45,7 @@ const description =
   'This project involved designing a better way for biomedical educators and learners to annotate digital slides together.';
 const roles = ['User Research', 'UX Design', 'Interface Design'];
 
-function ProjectSlice(props) {
+const ProjectSlice = () => {
   useScrollRestore();
 
   return (
@@ -78,7 +78,7 @@ function ProjectSlice(props) {
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
-          <ProjectSectionColumns className="slice__columns">
+          <ProjectSectionColumns centered className="slice__columns">
             <div className="sidebar__images-text">
               <ProjectSectionHeading>Bringing it together</ProjectSectionHeading>
               <ProjectSectionText>
@@ -168,6 +168,6 @@ function ProjectSlice(props) {
       <Footer />
     </Fragment>
   );
-}
+};
 
 export default ProjectSlice;

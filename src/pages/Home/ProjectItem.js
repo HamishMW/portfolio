@@ -4,15 +4,13 @@ import { Transition } from 'react-transition-group';
 import { Link } from 'components/Link';
 import Section from 'components/Section';
 import { Button } from 'components/Button';
-import Image from 'components/Image';
+import Model from 'components/Model';
 import Divider from 'components/Divider';
 import { useWindowSize, useAppContext } from 'hooks';
-import phone from 'assets/phone.png';
-import phoneLarge from 'assets/phone-large.png';
-import phonePlaceholder from 'assets/phone-placeholder.png';
-import { reflow } from 'utils/transition';
+import { reflow, isVisible } from 'utils/transition';
 import { media } from 'utils/style';
 import { ReactComponent as KatakanaProject } from 'assets/katakana-project.svg';
+import deviceModels from 'components/Model/deviceModels';
 import './ProjectItem.css';
 
 const ProjectItem = ({
@@ -22,10 +20,7 @@ const ProjectItem = ({
   index,
   title,
   description,
-  imageSrc,
-  imageAlt,
-  imageType,
-  imagePlaceholder,
+  model,
   buttonText,
   buttonLink,
   buttonTo,
@@ -37,6 +32,9 @@ const ProjectItem = ({
   const titleId = `${id}-title`;
   const isMobile = width <= media.tablet;
   const svgOpacity = theme.themeId === 'light' ? 0.7 : 1;
+  const indexText = index < 10 ? `0${index}` : index;
+  const phoneSizes = `(max-width: ${media.tablet}px) 152px, 254px`;
+  const laptopSizes = `(max-width: ${media.tablet}px) 100vw, 50vw`;
 
   const renderDetails = status => (
     <div className="project-item__details">
@@ -53,7 +51,7 @@ const ProjectItem = ({
             `project-item__index-number--${status}`
           )}
         >
-          {index}
+          {indexText}
         </span>
       </div>
       <h2
@@ -95,18 +93,8 @@ const ProjectItem = ({
 
   const renderPreview = status => (
     <div className="project-item__preview">
-      {imageType === 'laptop' && (
-        <div className="project-item__preview-content-laptop">
-          <Image
-            className={classNames(
-              'project-item__image-laptop',
-              `project-item__image-laptop--${status}`
-            )}
-            srcSet={imageSrc[0]}
-            alt={imageAlt[0]}
-            placeholder={imagePlaceholder[0]}
-            sizes={`(max-width: ${media.mobile}px) 300px, (max-width: ${media.tablet}px) 420px, (max-width: ${media.desktop}px) 860px, 900px`}
-          />
+      {model.type === 'laptop' && visible && (
+        <Fragment>
           <KatakanaProject
             style={{ '--opacity': svgOpacity }}
             className={classNames(
@@ -118,10 +106,26 @@ const ProjectItem = ({
               }
             )}
           />
-        </div>
+          <Model
+            className="project-item__preview-model-laptop"
+            alt={model.alt}
+            cameraPosition={[0, 0, 9]}
+            showDelay={800}
+            show={isVisible(status)}
+            models={[
+              {
+                ...deviceModels.laptop,
+                texture: {
+                  ...model.textures[0],
+                  sizes: laptopSizes,
+                },
+              },
+            ]}
+          />
+        </Fragment>
       )}
-      {imageType === 'phone' && (
-        <div className="project-item__preview-content-phone">
+      {model.type === 'phone' && visible && (
+        <Fragment>
           <KatakanaProject
             style={{ '--opacity': svgOpacity }}
             className={classNames(
@@ -133,36 +137,32 @@ const ProjectItem = ({
               }
             )}
           />
-          {imageSrc &&
-            imageSrc.map((src, index) => (
-              <div
-                className={classNames(
-                  'project-item__phone',
-                  `project-item__phone--${status}`,
-                  { 'project-item__phone--first': index === 0 }
-                )}
-                key={`img_${index}`}
-              >
-                <div className="project-item__phone-frame">
-                  <Image
-                    srcSet={`${phone} 414w, ${phoneLarge} 828w`}
-                    sizes={`(max-width: ${media.tablet}px) 248px, 414px`}
-                    alt=""
-                    role="presentation"
-                    placeholder={phonePlaceholder}
-                  />
-                </div>
-                <div className="project-item__phone-image">
-                  <Image
-                    srcSet={imageSrc[index]}
-                    alt={imageAlt[index]}
-                    placeholder={imagePlaceholder[index]}
-                    sizes={`(max-width: ${media.tablet}px) 152px, 254px`}
-                  />
-                </div>
-              </div>
-            ))}
-        </div>
+          <Model
+            className="project-item__preview-model-phone"
+            alt={model.alt}
+            cameraPosition={[0, 0, 11]}
+            showDelay={500}
+            show={isVisible(status)}
+            models={[
+              {
+                ...deviceModels.phone,
+                position: { x: -0.6, y: 1.3, z: -0.2 },
+                texture: {
+                  ...model.textures[0],
+                  sizes: phoneSizes,
+                },
+              },
+              {
+                ...deviceModels.phone,
+                position: { x: 0.6, y: -0.3, z: 0.2 },
+                texture: {
+                  ...model.textures[1],
+                  sizes: phoneSizes,
+                },
+              },
+            ]}
+          />
+        </Fragment>
       )}
     </div>
   );

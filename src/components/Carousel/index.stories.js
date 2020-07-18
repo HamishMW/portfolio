@@ -4,7 +4,7 @@ import Carousel from 'components/Carousel';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {
-  title: 'Displacement carousel',
+  title: 'Carousel',
   decorators: [withKnobs],
 };
 
@@ -18,16 +18,16 @@ export const images = () => (
       placeholder={placeholderImg}
       images={[
         {
-          src: 'https://source.unsplash.com/EYmhcdGuYmI/1280x720',
+          src: 'https://source.unsplash.com/ANJHXftvvJ8/1280x720',
+          alt: 'A neon sign with kanji',
+        },
+        {
+          src: 'https://source.unsplash.com/qEWEz-U5p8Q/1280x720',
           alt: 'Tokyo at night',
         },
         {
-          src: 'https://source.unsplash.com/fs9hGJUevXY/1280x720',
-          alt: 'A cool cyberpunk cityscape',
-        },
-        {
-          src: 'https://source.unsplash.com/ANJHXftvvJ8/1280x720',
-          alt: 'A neon sign with kanji',
+          src: 'https://source.unsplash.com/lx9RWIg1Rdg/1280x720',
+          alt: 'A rad cyberpunk dude',
         },
       ]}
       width={1920}

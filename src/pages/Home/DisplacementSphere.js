@@ -16,10 +16,11 @@ import innerHeight from 'ios-inner-height';
 import vertShader from './sphereVertShader';
 import fragShader from './sphereFragShader';
 import { Transition } from 'react-transition-group';
-import { usePrefersReducedMotion, useAppContext } from 'hooks';
+import { usePrefersReducedMotion, useAppContext, useInViewport } from 'hooks';
 import { reflow } from 'utils/transition';
 import { media } from 'utils/style';
 import { rgbToThreeColor } from 'app/theme';
+import { cleanScene } from 'utils/three';
 import './DisplacementSphere.css';
 
 function DisplacementSphere(props) {
@@ -42,6 +43,7 @@ function DisplacementSphere(props) {
   const tweenRef = useRef();
   const sphereSpring = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const isInViewport = useInViewport(canvasRef);
 
   useEffect(() => {
     const rand = Math.random();
@@ -79,15 +81,9 @@ function DisplacementSphere(props) {
     sphere.current.modifier = rand;
 
     return function cleanUp() {
-      scene.current.remove(sphere.current);
-      sphere.current.geometry.dispose();
-      sphere.current.material.dispose();
-      geometry.current.dispose();
-      material.current.dispose();
       renderer.current.dispose();
-      scene.current.dispose();
+      cleanScene(scene.current);
       camera.current = null;
-      sphere.current = null;
       uniforms.current = null;
       renderer.current.domElement = null;
     };
@@ -146,55 +142,43 @@ function DisplacementSphere(props) {
   }, [prefersReducedMotion]);
 
   useEffect(() => {
-    let ticking = false;
-    let animationFrame = null;
-
     const onMouseMove = event => {
-      const animate = () => {
-        const { rotation } = sphere.current;
+      const { rotation } = sphere.current;
 
-        const position = {
-          x: event.clientX / window.innerWidth,
-          y: event.clientY / window.innerHeight,
-        };
-
-        if (!sphereSpring.current) {
-          sphereSpring.current = value(rotation.toArray(), values =>
-            rotation.set(values[0], values[1], sphere.current.rotation.z)
-          );
-        }
-
-        tweenRef.current = spring({
-          from: sphereSpring.current.get(),
-          to: [position.y / 2, position.x / 2],
-          stiffness: 30,
-          damping: 20,
-          velocity: sphereSpring.current.getVelocity(),
-          mass: 2,
-        }).start(sphereSpring.current);
-
-        ticking = false;
+      const position = {
+        x: event.clientX / window.innerWidth,
+        y: event.clientY / window.innerHeight,
       };
 
-      if (!ticking) {
-        animationFrame = requestAnimationFrame(animate);
-        ticking = true;
+      if (!sphereSpring.current) {
+        sphereSpring.current = value(rotation.toArray(), values =>
+          rotation.set(values[0], values[1], sphere.current.rotation.z)
+        );
       }
+
+      tweenRef.current = spring({
+        from: sphereSpring.current.get(),
+        to: [position.y / 2, position.x / 2],
+        stiffness: 30,
+        damping: 20,
+        velocity: sphereSpring.current.getVelocity(),
+        mass: 2,
+        restSpeed: 0.0001,
+      }).start(sphereSpring.current);
     };
 
-    if (!prefersReducedMotion) {
+    if (!prefersReducedMotion && isInViewport) {
       window.addEventListener('mousemove', onMouseMove);
     }
 
     return function cleanup() {
       window.removeEventListener('mousemove', onMouseMove);
-      cancelAnimationFrame(animationFrame);
 
       if (tweenRef.current) {
         tweenRef.current.stop();
       }
     };
-  }, [prefersReducedMotion]);
+  }, [isInViewport, prefersReducedMotion]);
 
   useEffect(() => {
     let animation;

@@ -6,18 +6,21 @@ import Profile from 'pages/Home/Profile';
 import Footer from 'components/Footer';
 import { usePrefersReducedMotion, useRouteTransition } from 'hooks';
 import { useLocation } from 'react-router-dom';
-import sprProject from 'assets/spr-project.png';
-import sprProjectLarge from 'assets/spr-project-large.png';
-import sprProjectPlaceholder from 'assets/spr-project-placeholder.png';
-import gamestackLogin from 'assets/gamestack-login.jpg';
-import gamestackLoginLarge from 'assets/gamestack-login-large.jpg';
-import gamestackLoginPlaceholder from 'assets/gamestack-login-placeholder.jpg';
-import gamestackList from 'assets/gamestack-list.jpg';
-import gamestackListLarge from 'assets/gamestack-list-large.jpg';
-import gamestackListPlaceholder from 'assets/gamestack-list-placeholder.jpg';
-import sliceProject from 'assets/slice-project.png';
-import sliceProjectLarge from 'assets/slice-project-large.png';
-import sliceProjectPlaceholder from 'assets/slice-project-placeholder.png';
+
+import sprTexturePlaceholder from 'assets/spr-builder-large.png';
+import sprTexture from 'assets/spr-builder.png';
+import sprTextureLarge from 'assets/spr-builder-large.png';
+import gamstackTexturePlaceholder from 'assets/gamestack-login-placeholder.png';
+import gamstackTexture from 'assets/gamestack-login.png';
+import gamstackTextureLarge from 'assets/gamestack-login-large.png';
+import gamstackTexture2Placeholder from 'assets/gamestack-list-placeholder.png';
+import gamstackTexture2 from 'assets/gamestack-list.png';
+import gamstackTexture2Large from 'assets/gamestack-list-large.png';
+import sliceTexture from 'assets/slice-app.jpg';
+import sliceTextureLarge from 'assets/slice-app-large.jpg';
+import sliceTexturePlaceholder from 'assets/slice-app-placeholder.jpg';
+import iphone11 from 'assets/iphone-11.glb';
+import macbookPro from 'assets/macbook-pro.glb';
 
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
@@ -143,7 +146,10 @@ export default function Home() {
               'Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design.',
           },
         ]}
-      />
+      >
+        <link rel="prefetch" href={iphone11} as="fetch" crossorigin="" />
+        <link rel="prefetch" href={macbookPro} as="fetch" crossorigin="" />
+      </Helmet>
       <Intro
         id="intro"
         sectionRef={intro}
@@ -154,53 +160,70 @@ export default function Home() {
         id="project-1"
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
-        index="01"
+        index={1}
         title="Designing the future of education"
         description="Designing a platfrom to help educators build better online courseware"
         buttonText="View Project"
         buttonTo="/projects/smart-sparrow"
-        imageSrc={useMemo(() => [`${sprProject} 980w, ${sprProjectLarge} 1376w`], [])}
-        imageAlt={useMemo(() => ['Smart Sparrow lesson builder'], [])}
-        imagePlaceholder={useMemo(() => [sprProjectPlaceholder], [])}
-        imageType="laptop"
+        model={{
+          type: 'laptop',
+          alt: 'Smart Sparrow lesson builder',
+          textures: [
+            {
+              src: sprTexture,
+              srcSet: `${sprTexture} 800w, ${sprTextureLarge} 1440w`,
+              placeholder: sprTexturePlaceholder,
+            },
+          ],
+        }}
       />
       <ProjectItem
         id="project-2"
         alternate
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
-        index="02"
+        index={2}
         title="Video game progress tracking"
         description="Design and development for a video game tracking app built in React Native"
         buttonText="View Website"
         buttonLink="https://gamestackapp.com"
-        imageSrc={useMemo(
-          () => [
-            `${gamestackLogin} 254w, ${gamestackLoginLarge} 508w`,
-            `${gamestackList} 254w, ${gamestackListLarge} 508w`,
+        model={{
+          type: 'phone',
+          alt: 'App login screen',
+          textures: [
+            {
+              src: gamstackTexture,
+              srcSet: `${gamstackTexture} 254w, ${gamstackTextureLarge} 508w`,
+              placeholder: gamstackTexturePlaceholder,
+            },
+            {
+              src: gamstackTexture2,
+              srcSet: `${gamstackTexture2} 254w, ${gamstackTexture2Large} 508w`,
+              placeholder: gamstackTexture2Placeholder,
+            },
           ],
-          []
-        )}
-        imageAlt={useMemo(() => ['App login screen', 'List of games being tracked'], [])}
-        imagePlaceholder={useMemo(
-          () => [gamestackLoginPlaceholder, gamestackListPlaceholder],
-          []
-        )}
-        imageType="phone"
+        }}
       />
       <ProjectItem
         id="project-3"
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
-        index="03"
+        index={3}
         title="Biomedical image collaboration"
         description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
         buttonText="View Project"
         buttonTo="/projects/slice"
-        imageSrc={useMemo(() => [`${sliceProject} 980w, ${sliceProjectLarge} 1376w`], [])}
-        imageAlt={useMemo(() => ['Annotating a biomedical image in the Slice app'], [])}
-        imagePlaceholder={useMemo(() => [sliceProjectPlaceholder], [])}
-        imageType="laptop"
+        model={{
+          type: 'laptop',
+          alt: 'Annotating a biomedical image in the Slice app',
+          textures: [
+            {
+              src: sliceTexture,
+              srcSet: `${sliceTexture} 980w, ${sliceTextureLarge} 1376w`,
+              placeholder: sliceTexturePlaceholder,
+            },
+          ],
+        }}
       />
       <Profile
         sectionRef={details}

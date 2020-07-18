@@ -1,7 +1,7 @@
 /**
  * Clean up a scene's materials and geometry
  */
-export const clean = scene => {
+export const cleanScene = scene => {
   scene.traverse(object => {
     if (!object.isMesh) return;
 
@@ -10,9 +10,13 @@ export const clean = scene => {
     if (object.material.isMaterial) {
       cleanMaterial(object.material);
     } else {
-      for (const material of object.material) cleanMaterial(material);
+      for (const material of object.material) {
+        cleanMaterial(material);
+      }
     }
   });
+
+  scene.dispose();
 };
 
 /**
@@ -28,20 +32,3 @@ export const cleanMaterial = material => {
     }
   }
 };
-
-/**
- * Returns a promise wrapping three's `TextureLoader` or `GLTFLoader`
- */
-export async function loader(loader, url) {
-  return new Promise((resolve, reject) => {
-    loader.load(
-      url,
-      map => {
-        resolve(map);
-      },
-      () => {
-        reject(new Error('Could not load asset'));
-      }
-    );
-  });
-}

@@ -99,7 +99,7 @@
   right: var(--spaceM);
 }
 
-@media (max-width: env(--test)) {
+@media (max-width: 696px) {
   .carousel__button {
     display: none;
   }
