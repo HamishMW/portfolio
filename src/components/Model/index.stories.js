@@ -23,6 +23,7 @@ export const phone = () => (
     <Model
       style={modelStyle}
       cameraPosition={[0, 0, 10]}
+      alt="Phone models"
       models={[
         {
           ...deviceModels.phone,
@@ -52,6 +53,7 @@ export const laptop = () => (
     <Model
       style={modelStyle}
       cameraPosition={[0, 0, 8]}
+      alt="Laptop model"
       models={[
         {
           ...deviceModels.laptop,

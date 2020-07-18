@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { usePrefersReducedMotion } from 'hooks';
+import { numToPx } from 'utils/style';
 import './index.css';
 
 const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) => {
@@ -32,9 +33,9 @@ const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) =
       className={classNames('loader', className)}
       aria-label={text}
       style={{
-        '--size': `${size}px`,
-        '--spanSize': `${spanSize}px`,
-        '--gapSize': `${gapSize}px`,
+        '--size': numToPx(size),
+        '--spanSize': numToPx(spanSize),
+        '--gapSize': numToPx(gapSize),
         ...style,
       }}
       {...rest}

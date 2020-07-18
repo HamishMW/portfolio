@@ -18,7 +18,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { spring, value, chain, delay } from 'popmotion';
 import { cleanScene } from 'utils/three';
 import { ModelAnimationType } from './deviceModels';
-import { useInViewport } from 'hooks';
+import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { getImageFromSrcSet } from 'utils/image';
 import './index.css';
 
@@ -60,6 +60,7 @@ const Model = ({
   const rotationSpring = useRef();
   const rotationSpringValue = useRef();
   const isInViewport = useInViewport(containerRef);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   // Handle loading and rendering
   useEffect(() => {
@@ -137,7 +138,9 @@ const Model = ({
       if (model.animation === ModelAnimationType.SpringUp) {
         const startPosition = new Vector3(position.x, position.y - 1, position.z);
         const endPosition = new Vector3(position.x, position.y, position.z);
-        loadedModel.scene.position.set(startPosition.x, startPosition.y, startPosition.z);
+        const initPosition = prefersReducedMotion ? endPosition : startPosition;
+
+        loadedModel.scene.position.set(initPosition.x, initPosition.y, initPosition.z);
 
         const modelValue = value(loadedModel.scene.position, ({ x, y, z }) => {
           loadedModel.scene.position.set(x, y, z);
@@ -155,7 +158,11 @@ const Model = ({
           })
         );
 
-        return { animation, modelValue, loadFullResTexture };
+        return {
+          animation: prefersReducedMotion ? undefined : animation,
+          modelValue,
+          loadFullResTexture,
+        };
       }
 
       if (model.animation === ModelAnimationType.LaptopOpen) {
@@ -165,7 +172,9 @@ const Model = ({
 
         const startRotation = { x: MathUtils.degToRad(90), y: 0, z: 0 };
         const endRotation = { x: 0, y: 0, z: 0 };
-        frameNode.rotation.set(startRotation.x, startRotation.y, startRotation.z);
+        const initRotation = prefersReducedMotion ? endRotation : startRotation;
+
+        frameNode.rotation.set(initRotation.x, initRotation.y, initRotation.z);
 
         const modelValue = value(frameNode.rotation, ({ x, y, z }) => {
           frameNode.rotation.set(x, y, z);
@@ -183,7 +192,11 @@ const Model = ({
           })
         );
 
-        return { animation, modelValue, loadFullResTexture };
+        return {
+          animation: prefersReducedMotion ? undefined : animation,
+          modelValue,
+          loadFullResTexture,
+        };
       }
 
       return { loadFullResTexture };
@@ -197,9 +210,6 @@ const Model = ({
       lights.current.forEach(light => light.parent.remove(light));
       cleanScene(scene.current);
       renderer.current.dispose();
-      scene.current.dispose();
-      renderer.current.domElement = null;
-      renderer.current.forceContextLoss();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -223,6 +233,10 @@ const Model = ({
 
         // Load full res screen texture
         await model.loadFullResTexture();
+
+        requestAnimationFrame(() => {
+          renderer.current.render(scene.current, camera.current);
+        });
       });
 
       await Promise.all(handleModelLoad);
@@ -264,11 +278,12 @@ const Model = ({
         stiffness: 40,
         damping: 40,
         velocity: rotationSpringValue.current.getVelocity(),
-        restSpeed: 0.0001,
+        restSpeed: 0.00001,
+        mass: 1.4,
       }).start(rotationSpringValue.current);
     };
 
-    if (isInViewport) {
+    if (isInViewport && !prefersReducedMotion) {
       window.addEventListener('mousemove', onMouseMove);
     }
 
@@ -279,7 +294,7 @@ const Model = ({
         rotationSpring.current.stop();
       }
     };
-  }, [isInViewport]);
+  }, [isInViewport, prefersReducedMotion]);
 
   // Handle window resize
   useEffect(() => {
@@ -288,7 +303,10 @@ const Model = ({
       renderer.current.setSize(clientWidth, clientHeight);
       camera.current.aspect = clientWidth / clientHeight;
       camera.current.updateProjectionMatrix();
-      renderer.current.render(scene.current, camera.current);
+
+      requestAnimationFrame(() => {
+        renderer.current.render(scene.current, camera.current);
+      });
     };
 
     window.addEventListener('resize', handleResize);

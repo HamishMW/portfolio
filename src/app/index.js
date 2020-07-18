@@ -15,8 +15,8 @@ import {
 import classNames from 'classnames';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from 'components/Header';
-import { theme, tokens, createThemeProperties, msToNum } from 'app/theme';
-import { media } from 'utils/style';
+import { theme, tokens, createThemeProperties } from 'app/theme';
+import { media, msToNum } from 'utils/style';
 import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
@@ -168,9 +168,9 @@ export const globalStyles = `
     }
   }
 
-  @media (max-width: ${media.mobileSmall}px) {
+  @media (max-width: ${media.mobileS}px) {
     :root {
-      ${createThemeProperties(tokens.mobileSmall)}
+      ${createThemeProperties(tokens.mobileS)}
     }
   }
 

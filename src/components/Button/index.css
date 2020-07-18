@@ -52,10 +52,6 @@
   transform: scale(1.05);
 }
 
-.button--icon-only:hover {
-  transform: none;
-}
-
 .button:active {
   box-shadow: none;
   transform: scale(1);
@@ -111,6 +107,10 @@
   align-items: center;
   justify-content: center;
   padding: 0;
+}
+
+.button--icon-only:hover {
+  transform: none;
 }
 
 .button--icon-only::after {

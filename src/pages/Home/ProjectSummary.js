@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from 'react';
+import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
 import { Link } from 'components/Link';
@@ -11,9 +11,9 @@ import { reflow, isVisible } from 'utils/transition';
 import { media } from 'utils/style';
 import { ReactComponent as KatakanaProject } from 'assets/katakana-project.svg';
 import deviceModels from 'components/Model/deviceModels';
-import './ProjectItem.css';
+import './ProjectSummary.css';
 
-const ProjectItem = ({
+const ProjectSummary = ({
   id,
   visible,
   sectionRef,
@@ -37,8 +37,8 @@ const ProjectItem = ({
   const laptopSizes = `(max-width: ${media.tablet}px) 100vw, 50vw`;
 
   const renderDetails = status => (
-    <div className="project-item__details">
-      <div aria-hidden className="project-item__index">
+    <div className="project-summary__details">
+      <div aria-hidden className="project-summary__index">
         <Divider
           notchWidth="64px"
           notchHeight="8px"
@@ -47,29 +47,35 @@ const ProjectItem = ({
         />
         <span
           className={classNames(
-            'project-item__index-number',
-            `project-item__index-number--${status}`
+            'project-summary__index-number',
+            `project-summary__index-number--${status}`
           )}
         >
           {indexText}
         </span>
       </div>
       <h2
-        className={classNames('project-item__title', `project-item__title--${status}`)}
+        className={classNames(
+          'project-summary__title',
+          `project-summary__title--${status}`
+        )}
         id={titleId}
       >
         {title}
       </h2>
       <p
         className={classNames(
-          'project-item__description',
-          `project-item__description--${status}`
+          'project-summary__description',
+          `project-summary__description--${status}`
         )}
       >
         {description}
       </p>
       <div
-        className={classNames('project-item__button', `project-item__button--${status}`)}
+        className={classNames(
+          'project-summary__button',
+          `project-summary__button--${status}`
+        )}
       >
         {buttonLink && (
           <Button
@@ -92,24 +98,24 @@ const ProjectItem = ({
   );
 
   const renderPreview = status => (
-    <div className="project-item__preview">
+    <div className="project-summary__preview">
       {model.type === 'laptop' && visible && (
         <Fragment>
           <KatakanaProject
             style={{ '--opacity': svgOpacity }}
             className={classNames(
-              'project-item__svg',
-              'project-item__svg--laptop',
-              `project-item__svg--${status}`,
+              'project-summary__svg',
+              'project-summary__svg--laptop',
+              `project-summary__svg--${status}`,
               {
-                'project-item__svg--light': theme.themeId === 'light',
+                'project-summary__svg--light': theme.themeId === 'light',
               }
             )}
           />
           <Model
-            className="project-item__preview-model-laptop"
+            className="project-summary__preview-model-laptop"
             alt={model.alt}
-            cameraPosition={[0, 0, 9]}
+            cameraPosition={[0, 0, 8.6]}
             showDelay={800}
             show={isVisible(status)}
             models={[
@@ -129,16 +135,16 @@ const ProjectItem = ({
           <KatakanaProject
             style={{ '--opacity': svgOpacity }}
             className={classNames(
-              'project-item__svg',
-              'project-item__svg--phone',
-              `project-item__svg--${status}`,
+              'project-summary__svg',
+              'project-summary__svg--phone',
+              `project-summary__svg--${status}`,
               {
-                'project-item__svg--light': theme.themeId === 'light',
+                'project-summary__svg--light': theme.themeId === 'light',
               }
             )}
           />
           <Model
-            className="project-item__preview-model-phone"
+            className="project-summary__preview-model-phone"
             alt={model.alt}
             cameraPosition={[0, 0, 11]}
             showDelay={500}
@@ -169,9 +175,9 @@ const ProjectItem = ({
 
   return (
     <Section
-      className={classNames('project-item', {
-        'project-item--alternate': alternate,
-        'project-item--first': index === '01',
+      className={classNames('project-summary', {
+        'project-summary--alternate': alternate,
+        'project-summary--first': index === '01',
       })}
       as="section"
       aria-labelledby={titleId}
@@ -180,7 +186,7 @@ const ProjectItem = ({
       tabIndex={-1}
       {...rest}
     >
-      <div className="project-item__content">
+      <div className="project-summary__content">
         <Transition in={visible} timeout={0} onEnter={reflow}>
           {status => (
             <Fragment>
@@ -204,4 +210,4 @@ const ProjectItem = ({
   );
 };
 
-export default memo(ProjectItem);
+export default ProjectSummary;

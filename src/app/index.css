@@ -83,6 +83,10 @@ body {
   z-index: 128;
 }
 
+.skip-to-main::-moz-focus-inner {
+  border: 0;
+}
+
 .skip-to-main:focus {
   padding: var(--spaceS) var(--spaceM);
   position: fixed;
@@ -108,8 +112,4 @@ body {
   background-color: rgb(var(--rgbPrimary));
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
   z-index: -1;
-}
-
-.skip-to-main::-moz-focus-inner {
-  border: 0;
 }

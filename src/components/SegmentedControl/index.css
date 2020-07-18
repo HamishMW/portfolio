@@ -1,0 +1,94 @@
+.segmented-control {
+  position: relative;
+  display: flex;
+}
+
+.segmented-control::before {
+  content: '';
+  background-color: var(--colorTextTitle);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  clip-path: polygon(
+    0% 0%,
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 13px),
+    calc(100% - 13px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    calc(100% - 11px) 100%,
+    100% calc(100% - 11px),
+    100% 0%
+  );
+}
+
+.segmented-control__button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--colorTextBody);
+  transition-property: color, background;
+  transition-duration: var(--durationM);
+  transition-timing-function: ease;
+  border: 0;
+  padding: 0 18px;
+  height: 56px;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: var(--fontWeightMedium);
+  cursor: pointer;
+  outline: none;
+}
+
+.segmented-control__button::-moz-focus-inner {
+  border: 0;
+}
+
+.segmented-control__button[aria-selected='true'] {
+  color: rgb(var(--rgbBackground));
+}
+
+.segmented-control__button::before {
+  content: '';
+  background: rgb(var(--rgbText) / 0.4);
+  opacity: 0;
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  bottom: -4px;
+  left: -4px;
+  transition: opacity var(--durationM) ease;
+}
+
+.segmented-control__button + .segmented-control__button {
+  box-shadow: inset 2px 0 0 var(--colorTextTitle);
+}
+
+.segmented-control__indicator {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 0;
+  background-color: var(--colorTextTitle);
+  transition-property: width, transform, clip-path;
+  transition-duration: var(--durationM);
+  transition-timing-function: var(--bezierFastoutSlowin);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
+  transform: translate3d(var(--left), 0, 0);
+  width: var(--width);
+}
+
+.segmented-control__indicator--last {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+.segmented-control__label {
+  position: relative;
+}

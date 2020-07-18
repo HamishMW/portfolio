@@ -63,6 +63,13 @@
   transform: translate3d(0, var(--offset), 0);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .project__background-image {
+    transform: none;
+    position: absolute;
+  }
+}
+
 .project__background-image--entered {
   animation: fade-in 2s ease forwards;
 }

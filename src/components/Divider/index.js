@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { numToMs } from 'utils/style';
 import './index.css';
 
 const Divider = ({
@@ -19,7 +20,7 @@ const Divider = ({
       '--lineHeight': lineHeight,
       '--notchWidth': notchWidth,
       '--notchHeight': notchHeight,
-      '--collapseDelay': `${collapseDelay}ms`,
+      '--collapseDelay': numToMs(collapseDelay),
       ...style,
     }}
   >
@@ -28,7 +29,7 @@ const Divider = ({
     />
     <div
       className={classNames('divider__notch', { 'divider__notch--collapsed': collapsed })}
-      style={{ '--collapseDelay': `${collapseDelay + 160}ms` }}
+      style={{ '--collapseDelay': numToMs(collapseDelay + 160) }}
     />
   </div>
 );

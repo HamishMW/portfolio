@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, memo } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { Vector2 } from 'three/src/math/Vector2';
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
@@ -18,12 +18,11 @@ import fragShader from './sphereFragShader';
 import { Transition } from 'react-transition-group';
 import { usePrefersReducedMotion, useAppContext, useInViewport } from 'hooks';
 import { reflow } from 'utils/transition';
-import { media } from 'utils/style';
-import { rgbToThreeColor } from 'app/theme';
+import { media, rgbToThreeColor } from 'utils/style';
 import { cleanScene } from 'utils/three';
 import './DisplacementSphere.css';
 
-function DisplacementSphere(props) {
+const DisplacementSphere = props => {
   const { theme } = useAppContext();
   const { rgbBackground, themeId, colorWhite } = theme;
   const width = useRef(window.innerWidth);
@@ -46,7 +45,6 @@ function DisplacementSphere(props) {
   const isInViewport = useInViewport(canvasRef);
 
   useEffect(() => {
-    const rand = Math.random();
     mouse.current = new Vector2(0.8, 0.5);
     renderer.current = new WebGLRenderer({
       canvas: canvasRef.current,
@@ -78,14 +76,11 @@ function DisplacementSphere(props) {
 
     scene.current.add(sphere.current);
     sphere.current.position.z = 0;
-    sphere.current.modifier = rand;
+    sphere.current.modifier = Math.random();
 
     return function cleanUp() {
       renderer.current.dispose();
       cleanScene(scene.current);
-      camera.current = null;
-      uniforms.current = null;
-      renderer.current.domElement = null;
     };
   }, []);
 
@@ -216,6 +211,6 @@ function DisplacementSphere(props) {
       )}
     </Transition>
   );
-}
+};
 
-export default memo(DisplacementSphere);
+export default DisplacementSphere;

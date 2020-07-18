@@ -5,7 +5,8 @@ import TextArea from 'components/TextArea';
 import { useId } from 'hooks';
 import './index.css';
 import { isVisible } from 'utils/transition';
-import { msToNum, tokens } from 'app/theme';
+import { tokens } from 'app/theme';
+import { msToNum, numToPx } from 'utils/style';
 import Icon from 'components/Icon';
 
 const Input = ({
@@ -69,7 +70,7 @@ const Input = ({
                 role="alert"
                 style={{
                   '--height': isVisible(status)
-                    ? `${errorRef.current?.getBoundingClientRect().height}px`
+                    ? numToPx(errorRef.current?.getBoundingClientRect().height)
                     : '0px',
                 }}
               >

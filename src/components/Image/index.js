@@ -6,7 +6,8 @@ import Icon from 'components/Icon';
 import { Transition } from 'react-transition-group';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
-import { msToNum, tokens } from 'app/theme';
+import { tokens } from 'app/theme';
+import { msToNum } from 'utils/style';
 import './index.css';
 
 const Image = ({ className, style, reveal, delay = 0, ...rest }) => {

@@ -1,5 +1,5 @@
 /**
- * Uses the browser's image loading to get the correct image from a srcSet
+ * Uses the browser's image loading to get the correct image src from a srcSet
  */
 export async function getImageFromSrcSet({ src, srcSet, sizes }) {
   return new Promise((resolve, reject) => {

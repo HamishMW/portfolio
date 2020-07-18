@@ -1,22 +1,4 @@
-import { Color } from 'three/src/math/Color';
-
-/**
- * Convert pixel values to rem for a11y
- */
-export const pxToRem = px => `${px / 16}rem`;
-
-/**
- * Convert ms token values to a raw numbers for ReactTransitionGroup
- * Transition delay props
- */
-export const msToNum = msString => Number(msString.replace('ms', ''));
-
-/**
- * Convert an rgb theme property (e.g. rgbBlack: '0 0 0')
- * to a ThreeJS Color class
- */
-export const rgbToThreeColor = rgb =>
-  new Color(...rgb.split(' ').map(value => Number(value) / 255));
+import { pxToRem } from 'utils/style';
 
 /**
  * Transform theme token objects into CSS custom properties
@@ -131,7 +113,7 @@ export const tokens = {
   laptop: tokensLaptop,
   tablet: tokensTablet,
   mobile: tokensMobile,
-  mobileSmall: tokensMobileSmall,
+  mobileS: tokensMobileSmall,
 };
 
 export const theme = { dark, light };

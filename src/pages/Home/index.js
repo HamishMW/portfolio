@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef, useMemo, Fragment } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Intro from 'pages/Home/Intro';
-import ProjectItem from 'pages/Home/ProjectItem';
+import ProjectSummary from 'pages/Home/ProjectSummary';
 import Profile from 'pages/Home/Profile';
 import Footer from 'components/Footer';
 import { usePrefersReducedMotion, useRouteTransition } from 'hooks';
@@ -156,7 +156,7 @@ export default function Home() {
         disciplines={disciplines}
         scrollIndicatorHidden={scrollIndicatorHidden}
       />
-      <ProjectItem
+      <ProjectSummary
         id="project-1"
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
@@ -177,7 +177,7 @@ export default function Home() {
           ],
         }}
       />
-      <ProjectItem
+      <ProjectSummary
         id="project-2"
         alternate
         sectionRef={projectTwo}
@@ -204,7 +204,7 @@ export default function Home() {
           ],
         }}
       />
-      <ProjectItem
+      <ProjectSummary
         id="project-3"
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}

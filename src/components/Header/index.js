@@ -8,8 +8,8 @@ import ThemeToggle from './ThemeToggle';
 import { useWindowSize, useAppContext } from 'hooks';
 import { navLinks, socialLinks } from './navData';
 import { reflow } from 'utils/transition';
-import { media } from 'utils/style';
-import { tokens, msToNum } from 'app/theme';
+import { media, msToNum } from 'utils/style';
+import { tokens } from 'app/theme';
 import { blurOnMouseUp } from 'utils/focus';
 import './index.css';
 

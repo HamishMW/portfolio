@@ -6,6 +6,7 @@ import { useParallax } from 'hooks';
 import prerender from 'utils/prerender';
 import Section from 'components/Section';
 import './index.css';
+import { numToPx, numToMs } from 'utils/style';
 
 const initDelay = 300;
 
@@ -96,8 +97,8 @@ export const ProjectBackground = ({ opacity = 0.7, className, entered, ...rest }
       role="presentation"
       style={{
         '--opacity': opacity,
-        '--offset': `${offset}px`,
-        '--initDelay': `${initDelay}ms`,
+        '--offset': numToPx(offset),
+        '--initDelay': numToMs(initDelay),
       }}
       {...rest}
     />
