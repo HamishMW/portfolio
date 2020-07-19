@@ -32,3 +32,8 @@ export const cleanMaterial = material => {
     }
   }
 };
+
+/**
+ * A reasonable default pixel ratio
+ */
+export const renderPixelRatio = 2;

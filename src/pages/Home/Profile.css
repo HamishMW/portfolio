@@ -132,6 +132,11 @@
   opacity: 1;
 }
 
+.profile__image-wrapper {
+  position: relative;
+  max-width: 100%;
+}
+
 .profile__image {
   max-width: 100%;
   width: 960px;

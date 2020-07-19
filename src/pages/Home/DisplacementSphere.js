@@ -72,6 +72,7 @@ const DisplacementSphere = props => {
     geometry.current = new SphereBufferGeometry(32, 128, 128);
     sphere.current = new Mesh(geometry.current, material.current);
     renderer.current.setSize(width.current, height.current);
+    renderer.current.setPixelRatio(1);
     camera.current.position.z = 52;
 
     scene.current.add(sphere.current);

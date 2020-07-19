@@ -16,7 +16,7 @@ import {
 import classNames from 'classnames';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { spring, value, chain, delay } from 'popmotion';
-import { cleanScene } from 'utils/three';
+import { cleanScene, renderPixelRatio } from 'utils/three';
 import { ModelAnimationType } from './deviceModels';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { getImageFromSrcSet } from 'utils/image';
@@ -33,8 +33,6 @@ const LightType = {
   Key: 'key',
   Fill: 'fill',
 };
-
-const renderPixelRatio = Math.max(window.devicePixelRatio, 2);
 
 const Model = ({
   className,
@@ -69,7 +67,6 @@ const Model = ({
     renderer.current = new WebGLRenderer({
       canvas: canvasRef.current,
       alpha: true,
-      antialias: true,
       powerPreference: 'high-performance',
     });
     renderer.current.setSize(clientWidth, clientHeight);
@@ -202,8 +199,6 @@ const Model = ({
       return { loadFullResTexture };
     });
 
-    scene.current.add(modelGroup.current);
-
     setModelData(modelConfigs);
 
     return () => {
@@ -221,6 +216,7 @@ const Model = ({
 
     const loadScene = async () => {
       const loadedModels = await Promise.all(modelData);
+      scene.current.add(modelGroup.current);
 
       setLoaded(true);
 

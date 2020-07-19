@@ -87,20 +87,22 @@ function Profile({ id, visible, sectionRef }) {
                   About Me
                 </div>
               </div>
-              <Image
-                reveal
-                className="profile__image"
-                delay={100}
-                placeholder={ProfileImgPlaceholder}
-                srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
-                sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
-                alt="Me at the Torii (gate) on Miyajima, an island off the coast of Hiroshima in Japan"
-                width={480}
-                height={560}
-              />
-              <KatakanaProfile
-                className={classNames('profile__svg', `profile__svg--${status}`)}
-              />
+              <div className="profile__image-wrapper">
+                <Image
+                  reveal
+                  className="profile__image"
+                  delay={100}
+                  placeholder={ProfileImgPlaceholder}
+                  srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
+                  sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
+                  alt="Me at the Torii (gate) on Miyajima, an island off the coast of Hiroshima in Japan"
+                  width={480}
+                  height={560}
+                />
+                <KatakanaProfile
+                  className={classNames('profile__svg', `profile__svg--${status}`)}
+                />
+              </div>
             </div>
           </div>
         )}
