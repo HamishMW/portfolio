@@ -1,5 +1,5 @@
 import React from 'react';
-import Model from 'components/Model';
+import Model from 'components/Model/index';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 import deviceModels from './deviceModels';
 import phoneTexturePlaceholder from 'assets/gamestack-login-placeholder.png';
@@ -22,12 +22,12 @@ export const phone = () => (
   <StoryContainer fullWidth padding={32}>
     <Model
       style={modelStyle}
-      cameraPosition={[0, 0, 10]}
+      cameraPosition={[0, 0, 11.5]}
       alt="Phone models"
       models={[
         {
           ...deviceModels.phone,
-          position: { x: -0.6, y: 0.8, z: -0.2 },
+          position: { x: -0.6, y: 0.8, z: 0.1 },
           texture: {
             src: phoneTexture,
             srcSet: `${phoneTexture} 800w, ${phoneTextureLarge} 1440w`,
@@ -36,7 +36,7 @@ export const phone = () => (
         },
         {
           ...deviceModels.phone,
-          position: { x: 0.6, y: -0.8, z: 0.2 },
+          position: { x: 0.6, y: -0.8, z: 0.4 },
           texture: {
             src: phoneTexture2,
             srcSet: `${phoneTexture2} 800w, ${phoneTexture2Large} 1440w`,
@@ -57,6 +57,7 @@ export const laptop = () => (
       models={[
         {
           ...deviceModels.laptop,
+          position: { x: 0, y: 0, z: 0 },
           texture: {
             src: laptopTexture,
             srcSet: `${laptopTexture} 800w, ${laptopTextureLarge} 1440w`,

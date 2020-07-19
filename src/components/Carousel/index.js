@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
-import { LinearFilter } from 'three/src/constants';
-import { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
-import { Scene } from 'three/src/scenes/Scene';
-import { PlaneBufferGeometry } from 'three/src/geometries/PlaneGeometry';
-import { TextureLoader } from 'three/src/loaders/TextureLoader';
-import { ShaderMaterial } from 'three/src/materials/ShaderMaterial';
-import { Mesh } from 'three/src/objects/Mesh';
-import { Color } from 'three/src/math/Color';
+import {
+  WebGLRenderer,
+  LinearFilter,
+  OrthographicCamera,
+  Scene,
+  PlaneBufferGeometry,
+  TextureLoader,
+  ShaderMaterial,
+  Mesh,
+  Color,
+} from 'three';
 import { spring, value } from 'popmotion';
 import classNames from 'classnames';
 import Swipe from 'react-easy-swipe';

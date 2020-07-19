@@ -1,16 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames';
-import { Vector2 } from 'three/src/math/Vector2';
-import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
-import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
-import { Scene } from 'three/src/scenes/Scene';
-import { DirectionalLight } from 'three/src/lights/DirectionalLight';
-import { AmbientLight } from 'three/src/lights/AmbientLight';
-import { UniformsUtils } from 'three/src/renderers/shaders/UniformsUtils';
-import { UniformsLib } from 'three/src/renderers/shaders/UniformsLib';
-import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
-import { SphereBufferGeometry } from 'three/src/geometries/SphereGeometry';
-import { Mesh } from 'three/src/objects/Mesh';
+import {
+  Vector2,
+  sRGBEncoding,
+  WebGLRenderer,
+  PerspectiveCamera,
+  Scene,
+  DirectionalLight,
+  AmbientLight,
+  UniformsUtils,
+  UniformsLib,
+  MeshPhongMaterial,
+  SphereBufferGeometry,
+  Mesh,
+} from 'three';
 import { spring, value } from 'popmotion';
 import innerHeight from 'ios-inner-height';
 import vertShader from './sphereVertShader';
@@ -73,6 +76,7 @@ const DisplacementSphere = props => {
     sphere.current = new Mesh(geometry.current, material.current);
     renderer.current.setSize(width.current, height.current);
     renderer.current.setPixelRatio(1);
+    renderer.current.outputEncoding = sRGBEncoding;
     camera.current.position.z = 52;
 
     scene.current.add(sphere.current);

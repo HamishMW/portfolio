@@ -131,10 +131,10 @@
 }
 
 .project-summary__model--phone {
-  --width: 240%;
+  --width: 260%;
   --aspectRatio: 10 / 16;
 
-  top: 6%;
+  top: 4%;
   left: -10%;
 }
 

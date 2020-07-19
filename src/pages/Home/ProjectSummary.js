@@ -118,7 +118,7 @@ const ProjectSummary = ({
               'project-summary__model--laptop'
             )}
             alt={model.alt}
-            cameraPosition={[0, 0, 8.6]}
+            cameraPosition={[0, 0, 8]}
             showDelay={800}
             show={isVisible(status)}
             models={[
@@ -152,13 +152,13 @@ const ProjectSummary = ({
               'project-summary__model--phone'
             )}
             alt={model.alt}
-            cameraPosition={[0, 0, 11]}
+            cameraPosition={[0, 0, 11.5]}
             showDelay={500}
             show={isVisible(status)}
             models={[
               {
                 ...deviceModels.phone,
-                position: { x: -0.6, y: 1.3, z: -0.2 },
+                position: { x: -0.6, y: 1.1, z: 0 },
                 texture: {
                   ...model.textures[0],
                   sizes: phoneSizes,
@@ -166,7 +166,7 @@ const ProjectSummary = ({
               },
               {
                 ...deviceModels.phone,
-                position: { x: 0.6, y: -0.3, z: 0.2 },
+                position: { x: 0.6, y: -0.5, z: 0.3 },
                 texture: {
                   ...model.textures[1],
                   sizes: phoneSizes,
