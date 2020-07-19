@@ -2,12 +2,7 @@ const path = require('path');
 
 module.exports = {
   webpackFinal: async config => {
-    config.module.rules.push({
-      test: /\.glb$/,
-      use: ['url-loader'],
-      include: path.resolve(__dirname, '../'),
-    });
-
+    config.module.rules[2].test = /\.(svg|ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf|glb)(\?.*)?$/;
     return config;
   },
 };

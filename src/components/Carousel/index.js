@@ -9,6 +9,7 @@ import {
   ShaderMaterial,
   Mesh,
   Color,
+  sRGBEncoding,
 } from 'three';
 import { spring, value } from 'popmotion';
 import classNames from 'classnames';
@@ -184,8 +185,12 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       const results = images.map(async image => {
         const imageSrc = await getImageFromSrcSet(image);
         const imageTexture = await textureLoader.loadAsync(imageSrc);
-        imageTexture.magFilter = imageTexture.minFilter = LinearFilter;
+        imageTexture.encoding = sRGBEncoding;
+        imageTexture.minFilter = LinearFilter;
+        imageTexture.magFilter = LinearFilter;
+        imageTexture.flipY = false;
         imageTexture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
+        imageTexture.generateMipmaps = false;
         return imageTexture;
       });
 

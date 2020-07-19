@@ -1,9 +1,5 @@
 import React, { useEffect, useCallback, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
-import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {
   sRGBEncoding,
   LinearFilter,
@@ -26,11 +22,15 @@ import {
   MeshDepthMaterial,
   ShaderMaterial,
 } from 'three';
-import { getImageFromSrcSet } from 'utils/image';
-import { ModelAnimationType } from './deviceModels';
-import { useInViewport, usePrefersReducedMotion } from 'hooks';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
+import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { delay, chain, spring, value } from 'popmotion';
+import { getImageFromSrcSet } from 'utils/image';
+import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { cleanScene, renderPixelRatio } from 'utils/three';
+import { ModelAnimationType } from './deviceModels';
 import './index.css';
 
 const MeshType = {
@@ -127,7 +127,7 @@ const Shadow = ({
     const planeWidth = 8;
     const planeHeight = 8;
     const cameraHeight = 1.5;
-    const shadowOpacity = 0.6;
+    const shadowOpacity = 0.8;
     const shadowDarkness = 3;
 
     // the render target that will show the shadows in the plane texture
@@ -212,8 +212,10 @@ const Shadow = ({
     const applyScreenTexture = (map, node) => {
       map.encoding = sRGBEncoding;
       map.minFilter = LinearFilter;
+      map.magFilter = LinearFilter;
       map.flipY = false;
       map.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
+      map.generateMipmaps = false;
       node.material.color = new Color(0xffffff);
       node.material.transparent = false;
       node.material.map = map;
@@ -469,13 +471,11 @@ const Shadow = ({
     const handleResize = () => {
       const { clientWidth, clientHeight } = containerRef.current;
 
-      if (renderer.current) {
-        renderer.current.setSize(clientWidth, clientHeight);
-        camera.current.aspect = clientWidth / clientHeight;
-        camera.current.updateProjectionMatrix();
+      renderer.current.setSize(clientWidth, clientHeight);
+      camera.current.aspect = clientWidth / clientHeight;
+      camera.current.updateProjectionMatrix();
 
-        renderFrame();
-      }
+      renderFrame();
     };
 
     window.addEventListener('resize', handleResize);

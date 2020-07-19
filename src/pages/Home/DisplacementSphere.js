@@ -193,7 +193,7 @@ const DisplacementSphere = props => {
       renderer.current.render(scene.current, camera.current);
     };
 
-    if (!prefersReducedMotion) {
+    if (!prefersReducedMotion && isInViewport) {
       animate();
     } else {
       renderer.current.render(scene.current, camera.current);
@@ -202,7 +202,7 @@ const DisplacementSphere = props => {
     return function cleanup() {
       cancelAnimationFrame(animation);
     };
-  }, [prefersReducedMotion]);
+  }, [isInViewport, prefersReducedMotion]);
 
   return (
     <Transition appear in onEnter={reflow} timeout={3000}>

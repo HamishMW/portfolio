@@ -117,7 +117,7 @@
 
 @media (max-width: 1600px) {
   .project-summary__model--laptop {
-    --width: 280%;
+    --width: 240%;
   }
 }
 
@@ -136,6 +136,14 @@
 
   top: 4%;
   left: -10%;
+}
+
+@media (max-width: 1600px) {
+  .project-summary__model--phone {
+    --width: 240%;
+
+    left: 0;
+  }
 }
 
 @media (max-width: 1024px) {
