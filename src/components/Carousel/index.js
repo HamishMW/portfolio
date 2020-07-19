@@ -84,7 +84,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
           from: springValue.current.get(),
           to: 1,
           velocity: springValue.current.getVelocity(),
-          stiffness: 80,
+          stiffness: 100,
           damping: 20,
         }).start(springValue.current);
       } else {
@@ -188,7 +188,6 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         imageTexture.encoding = sRGBEncoding;
         imageTexture.minFilter = LinearFilter;
         imageTexture.magFilter = LinearFilter;
-        imageTexture.flipY = false;
         imageTexture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
         imageTexture.generateMipmaps = false;
         return imageTexture;
