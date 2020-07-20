@@ -34,6 +34,24 @@ export const cleanMaterial = material => {
 };
 
 /**
+ * Clean up and dispose of a renderer
+ */
+export const cleanRenderer = renderer => {
+  renderer.dispose();
+  renderer.forceContextLoss();
+  renderer = null;
+};
+
+/**
+ * Clean up lights by removing them from their parent
+ */
+export const removeLights = lights => {
+  for (const light of lights) {
+    light.parent.remove(light);
+  }
+};
+
+/**
  * A reasonable default pixel ratio
  */
 export const renderPixelRatio = 2;

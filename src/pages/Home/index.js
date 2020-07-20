@@ -67,7 +67,7 @@ export default function Home() {
 
     indicatorObserver.observe(intro.current);
 
-    return function cleanUp() {
+    return () => {
       sectionObserver.disconnect();
       indicatorObserver.disconnect();
     };
@@ -137,16 +137,13 @@ export default function Home() {
 
   return (
     <Fragment>
-      <Helmet
-        title="Hamish Williams | Designer + Developer"
-        meta={[
-          {
-            name: 'description',
-            content:
-              'Portfolio of Hamish Williams – a digital designer working on web &amp; mobile apps with a focus on motion and user experience design.',
-          },
-        ]}
-      >
+      <Helmet>
+        <title>Hamish Williams | Designer + Developer</title>
+        <meta
+          name="description"
+          content="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile
+          apps with a focus on motion and user experience design."
+        />
         <link rel="prefetch" href={iphone11} as="fetch" crossorigin="" />
         <link rel="prefetch" href={macbookPro} as="fetch" crossorigin="" />
       </Helmet>

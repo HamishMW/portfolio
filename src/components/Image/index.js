@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, Fragment } from 'react';
 import classNames from 'classnames';
-import { usePrefersReducedMotion } from 'hooks';
+import { usePrefersReducedMotion, useInViewport } from 'hooks';
 import { Button } from 'components/Button';
 import Icon from 'components/Icon';
 import { Transition } from 'react-transition-group';
@@ -12,33 +12,17 @@ import './index.css';
 
 const Image = ({ className, style, reveal, delay = 0, ...rest }) => {
   const [loaded, setLoaded] = useState(false);
-  const [intersect, setIntersect] = useState(false);
   const containerRef = useRef();
+  const inViewport = useInViewport(containerRef, true);
 
   const onLoad = useCallback(() => {
     setLoaded(true);
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        const image = entry.target;
-        setIntersect(true);
-        observer.unobserve(image);
-      }
-    });
-
-    observer.observe(containerRef.current);
-
-    return function cleanUp() {
-      observer.disconnect();
-    };
-  }, []);
-
   return (
     <div
       className={classNames('image', className, {
-        'image--intersect': intersect,
+        'image--in-viewport': inViewport,
         'image--reveal': reveal,
       })}
       style={{ ...style, '--delay': `${delay}ms` }}
@@ -48,7 +32,7 @@ const Image = ({ className, style, reveal, delay = 0, ...rest }) => {
         delay={delay}
         onLoad={onLoad}
         loaded={loaded}
-        intersect={intersect}
+        inViewport={inViewport}
         reveal={reveal}
         {...rest}
       />
@@ -60,7 +44,7 @@ function ImageElements(props) {
   const {
     onLoad,
     loaded,
-    intersect,
+    inViewport,
     srcSet,
     placeholder,
     delay,
@@ -120,7 +104,7 @@ function ImageElements(props) {
     <div
       className={classNames('image__element-wrapper', {
         'image__element-wrapper--reveal': reveal,
-        'image__element-wrapper--intersect': intersect,
+        'image__element-wrapper--in-viewport': inViewport,
       })}
       onMouseOver={videoSrc ? handleShowPlayButton : undefined}
       onMouseOut={videoSrc ? () => setIsHovered(false) : undefined}
@@ -169,8 +153,8 @@ function ImageElements(props) {
           className={classNames('image__element', { 'image__element--loaded': loaded })}
           onLoad={onLoad}
           decoding="async"
-          src={!prerender && intersect ? srcSet.split(' ')[0] : ''}
-          srcSet={!prerender && intersect ? srcSet : ''}
+          src={!prerender && inViewport ? srcSet.split(' ')[0] : ''}
+          srcSet={!prerender && inViewport ? srcSet : ''}
           alt={alt}
           {...rest}
         />

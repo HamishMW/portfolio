@@ -22,7 +22,7 @@ import { Transition } from 'react-transition-group';
 import { usePrefersReducedMotion, useAppContext, useInViewport } from 'hooks';
 import { reflow } from 'utils/transition';
 import { media, rgbToThreeColor } from 'utils/style';
-import { cleanScene } from 'utils/three';
+import { cleanScene, removeLights, cleanRenderer } from 'utils/three';
 import './DisplacementSphere.css';
 
 const DisplacementSphere = props => {
@@ -36,8 +36,7 @@ const DisplacementSphere = props => {
   const renderer = useRef();
   const camera = useRef();
   const scene = useRef();
-  const light = useRef();
-  const ambientLight = useRef();
+  const lights = useRef();
   const uniforms = useRef();
   const material = useRef();
   const geometry = useRef();
@@ -83,27 +82,26 @@ const DisplacementSphere = props => {
     sphere.current.position.z = 0;
     sphere.current.modifier = Math.random();
 
-    return function cleanUp() {
-      renderer.current.dispose();
+    return () => {
       cleanScene(scene.current);
+      cleanRenderer(renderer.current);
     };
   }, []);
 
   useEffect(() => {
-    light.current = new DirectionalLight(colorWhite, 0.6);
-    light.current.position.z = 200;
-    light.current.position.x = 100;
-    light.current.position.y = 100;
-    ambientLight.current = new AmbientLight(colorWhite, themeId === 'light' ? 0.8 : 0.1);
-    scene.current.background = rgbToThreeColor(rgbBackground);
-    scene.current.add(light.current);
-    scene.current.add(ambientLight.current);
+    const dirLight = new DirectionalLight(colorWhite, 0.6);
+    const ambientLight = new AmbientLight(colorWhite, themeId === 'light' ? 0.8 : 0.1);
 
-    return function cleanup() {
-      scene.current.remove(light.current);
-      scene.current.remove(ambientLight.current);
-      light.current = null;
-      ambientLight.current = null;
+    dirLight.position.z = 200;
+    dirLight.position.x = 100;
+    dirLight.position.y = 100;
+
+    lights.current = [dirLight, ambientLight];
+    scene.current.background = rgbToThreeColor(rgbBackground);
+    lights.current.forEach(light => scene.current.add(light));
+
+    return () => {
+      removeLights(lights.current);
     };
   }, [rgbBackground, colorWhite, themeId]);
 
@@ -117,6 +115,7 @@ const DisplacementSphere = props => {
       camera.current.aspect = windowWidth / fullHeight;
       camera.current.updateProjectionMatrix();
 
+      // Render a single frame on resize when not animating
       if (prefersReducedMotion) {
         renderer.current.render(scene.current, camera.current);
       }
@@ -136,7 +135,7 @@ const DisplacementSphere = props => {
     window.addEventListener('resize', handleResize);
     handleResize();
 
-    return function cleanup() {
+    return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [prefersReducedMotion]);
@@ -171,7 +170,7 @@ const DisplacementSphere = props => {
       window.addEventListener('mousemove', onMouseMove);
     }
 
-    return function cleanup() {
+    return () => {
       window.removeEventListener('mousemove', onMouseMove);
 
       if (tweenRef.current) {
@@ -185,11 +184,12 @@ const DisplacementSphere = props => {
 
     const animate = () => {
       animation = requestAnimationFrame(animate);
+
       if (uniforms.current !== undefined) {
         uniforms.current.time.value = 0.00005 * (Date.now() - start.current);
       }
-      sphere.current.rotation.z += 0.001;
 
+      sphere.current.rotation.z += 0.001;
       renderer.current.render(scene.current, camera.current);
     };
 
@@ -199,7 +199,7 @@ const DisplacementSphere = props => {
       renderer.current.render(scene.current, camera.current);
     }
 
-    return function cleanup() {
+    return () => {
       cancelAnimationFrame(animation);
     };
   }, [isInViewport, prefersReducedMotion]);

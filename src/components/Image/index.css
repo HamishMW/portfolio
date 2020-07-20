@@ -37,7 +37,7 @@
   z-index: 16;
 }
 
-.image--reveal.image--intersect::before {
+.image--reveal.image--in-viewport::before {
   animation: image-reveal 1.8s var(--bezierFastoutSlowin) var(--delay);
 }
 
@@ -76,7 +76,7 @@
   transition: opacity var(--durationM) ease var(--delay);
 }
 
-.image__element-wrapper--intersect {
+.image__element-wrapper--in-viewport {
   opacity: 1;
 }
 

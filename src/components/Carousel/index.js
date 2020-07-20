@@ -14,13 +14,13 @@ import {
 import { spring, value } from 'popmotion';
 import classNames from 'classnames';
 import Swipe from 'react-easy-swipe';
-import { usePrefersReducedMotion } from 'hooks';
+import { usePrefersReducedMotion, useInViewport } from 'hooks';
 import prerender from 'utils/prerender';
 import { blurOnMouseUp } from 'utils/focus';
 import { ReactComponent as ArrowLeft } from 'assets/arrow-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
 import { vertex, fragment } from './carouselShader';
-import { cleanScene } from 'utils/three';
+import { cleanScene, cleanRenderer, renderPixelRatio } from 'utils/three';
 import { getImageFromSrcSet } from 'utils/image';
 import './index.css';
 
@@ -37,7 +37,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const [imageIndex, setImageIndex] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [showPlaceholder, setShowPlaceholder] = useState(true);
-  const [sliderImages, setSliderImages] = useState();
+  const [textures, setTextures] = useState();
   const [canvasWidth, setCanvasWidth] = useState();
   const canvas = useRef();
   const imagePlane = useRef();
@@ -51,23 +51,93 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const lastSwipePosition = useRef();
   const scheduledAnimationFrame = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const inViewport = useInViewport(canvas, true);
   const placeholderRef = useRef();
   const springTween = useRef();
   const springValue = useRef();
+
   const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${
     images[imageIndex].alt
   }`;
 
+  useEffect(() => {
+    const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
+    renderer.current = new WebGLRenderer({ canvas: canvas.current, antialias: false });
+    camera.current = new OrthographicCamera(...cameraOptions);
+    scene.current = new Scene();
+    renderer.current.setPixelRatio(renderPixelRatio);
+    renderer.current.setClearColor(0x111111, 1.0);
+    renderer.current.setSize(width, height);
+    renderer.current.domElement.style.width = '100%';
+    renderer.current.domElement.style.height = 'auto';
+    scene.current.background = new Color(0x111111);
+    camera.current.position.z = 1;
+
+    return () => {
+      animating.current = false;
+      cleanScene(scene.current);
+      cleanRenderer(renderer.current);
+    };
+  }, [height, width]);
+
+  useEffect(() => {
+    const loadImages = async () => {
+      const textureLoader = new TextureLoader();
+
+      const texturePromises = images.map(async image => {
+        const imageSrc = await getImageFromSrcSet(image);
+        const imageTexture = await textureLoader.loadAsync(imageSrc);
+        imageTexture.encoding = sRGBEncoding;
+        imageTexture.minFilter = LinearFilter;
+        imageTexture.magFilter = LinearFilter;
+        imageTexture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
+        imageTexture.generateMipmaps = false;
+        return imageTexture;
+      });
+
+      const textures = await Promise.all(texturePromises);
+
+      material.current = new ShaderMaterial({
+        uniforms: {
+          dispFactor: { type: 'f', value: 0 },
+          direction: { type: 'f', value: 1 },
+          currentImage: { type: 't', value: textures[0] },
+          nextImage: { type: 't', value: textures[1] },
+        },
+        vertexShader: vertex,
+        fragmentShader: fragment,
+        transparent: false,
+        opacity: 1,
+      });
+
+      geometry.current = new PlaneBufferGeometry(width, height, 1);
+      imagePlane.current = new Mesh(geometry.current, material.current);
+      imagePlane.current.position.set(0, 0, 0);
+      scene.current.add(imagePlane.current);
+
+      setLoaded(true);
+      setTextures(textures);
+
+      requestAnimationFrame(() => {
+        renderer.current.render(scene.current, camera.current);
+      });
+    };
+
+    if (inViewport && !loaded) {
+      loadImages();
+    }
+  }, [height, images, inViewport, loaded, width]);
+
   const goToIndex = useCallback(
     ({ index, direction = 1 }) => {
-      if (!sliderImages) return;
+      if (!textures) return;
       setImageIndex(index);
       const uniforms = material.current.uniforms;
-      uniforms.nextImage.value = sliderImages[index];
+      uniforms.nextImage.value = textures[index];
       uniforms.direction.value = direction;
 
       const onComplete = () => {
-        uniforms.currentImage.value = sliderImages[index];
+        uniforms.currentImage.value = textures[index];
         uniforms.dispFactor.value = 0;
         animating.current = false;
       };
@@ -94,7 +164,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         });
       }
     },
-    [prefersReducedMotion, sliderImages]
+    [prefersReducedMotion, textures]
   );
 
   const navigate = useCallback(
@@ -109,10 +179,10 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         return;
       }
 
-      const finalIndex = determineIndex(imageIndex, index, sliderImages, direction);
+      const finalIndex = determineIndex(imageIndex, index, textures, direction);
       goToIndex({ index: finalIndex, direction: direction, ...rest });
     },
-    [goToIndex, imageIndex, loaded, sliderImages]
+    [goToIndex, imageIndex, loaded, textures]
   );
 
   const onNavClick = useCallback(
@@ -125,12 +195,12 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   );
 
   useEffect(() => {
-    if (sliderImages && loaded) {
+    if (textures && loaded) {
       requestAnimationFrame(() => {
         renderer.current.render(scene.current, camera.current);
       });
     }
-  }, [goToIndex, loaded, sliderImages]);
+  }, [goToIndex, loaded, textures]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -141,86 +211,10 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     window.addEventListener('resize', handleResize);
     handleResize();
 
-    return function cleanup() {
+    return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  useEffect(() => {
-    const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
-    renderer.current = new WebGLRenderer({ antialias: false, canvas: canvas.current });
-    camera.current = new OrthographicCamera(...cameraOptions);
-    scene.current = new Scene();
-    renderer.current.setPixelRatio(window.devicePixelRatio);
-    renderer.current.setClearColor(0x111111, 1.0);
-    renderer.current.setSize(width, height);
-    renderer.current.domElement.style.width = '100%';
-    renderer.current.domElement.style.height = 'auto';
-    scene.current.background = new Color(0x111111);
-    camera.current.position.z = 1;
-
-    const addObjects = textures => {
-      material.current = new ShaderMaterial({
-        uniforms: {
-          dispFactor: { type: 'f', value: 0 },
-          direction: { type: 'f', value: 1 },
-          currentImage: { type: 't', value: textures[0] },
-          nextImage: { type: 't', value: textures[1] },
-        },
-        vertexShader: vertex,
-        fragmentShader: fragment,
-        transparent: false,
-        opacity: 1,
-      });
-
-      geometry.current = new PlaneBufferGeometry(width, height, 1);
-      imagePlane.current = new Mesh(geometry.current, material.current);
-      imagePlane.current.position.set(0, 0, 0);
-      scene.current.add(imagePlane.current);
-    };
-
-    const loadImages = async () => {
-      const textureLoader = new TextureLoader();
-
-      const results = images.map(async image => {
-        const imageSrc = await getImageFromSrcSet(image);
-        const imageTexture = await textureLoader.loadAsync(imageSrc);
-        imageTexture.encoding = sRGBEncoding;
-        imageTexture.minFilter = LinearFilter;
-        imageTexture.magFilter = LinearFilter;
-        imageTexture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
-        imageTexture.generateMipmaps = false;
-        return imageTexture;
-      });
-
-      const imageResults = await Promise.all(results);
-
-      requestAnimationFrame(() => {
-        renderer.current.render(scene.current, camera.current);
-      });
-
-      setLoaded(true);
-      setSliderImages(imageResults);
-      addObjects(imageResults);
-    };
-
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        loadImages();
-        observer.unobserve(entry.target);
-      }
-    });
-
-    observer.observe(canvas.current);
-
-    return function cleanUp() {
-      animating.current = false;
-      renderer.current.dispose();
-      renderer.current.domElement = null;
-      observer.disconnect();
-      cleanScene(scene.current);
-    };
-  }, [height, images, width]);
 
   useEffect(() => {
     let animation;
@@ -234,7 +228,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
 
     animation = requestAnimationFrame(animate);
 
-    return function cleanup() {
+    return () => {
       cancelAnimationFrame(animation);
 
       if (springTween.current) {
@@ -252,7 +246,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       const placeholderElement = placeholderRef.current;
       placeholderElement.addEventListener('transitionend', purgePlaceholder);
 
-      return function cleanUp() {
+      return () => {
         if (placeholderElement) {
           placeholderElement.removeEventListener('transitionend', purgePlaceholder);
         }
@@ -274,8 +268,8 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       const uniforms = material.current.uniforms;
       const displacementClamp = Math.min(Math.max(swipePercentage, 0), 1);
 
-      uniforms.currentImage.value = sliderImages[imageIndex];
-      uniforms.nextImage.value = sliderImages[nextIndex];
+      uniforms.currentImage.value = textures[imageIndex];
+      uniforms.nextImage.value = textures[nextIndex];
       uniforms.direction.value = swipeDirection.current;
 
       if (!prefersReducedMotion) {
@@ -286,7 +280,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         renderer.current.render(scene.current, camera.current);
       });
     },
-    [canvasWidth, imageIndex, images, prefersReducedMotion, sliderImages]
+    [canvasWidth, imageIndex, images, prefersReducedMotion, textures]
   );
 
   const onSwipeEnd = useCallback(() => {
@@ -348,7 +342,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
               <img
                 aria-hidden
                 className={classNames('carousel__placeholder', {
-                  'carousel__placeholder--loaded': !prerender && loaded && sliderImages,
+                  'carousel__placeholder--loaded': !prerender && loaded && textures,
                 })}
                 src={placeholder}
                 ref={placeholderRef}
