@@ -20,8 +20,8 @@ function NotFound() {
       <Transition appear in={true} timeout={0} onEnter={reflow}>
         {status => (
           <Fragment>
-            <div className="page-page-404__details">
-              <div className="page-page-404__text">
+            <div className="page-404__details">
+              <div className="page-404__text">
                 <h1
                   className={classNames('page-404__title', `page-404__title--${status}`)}
                 >
