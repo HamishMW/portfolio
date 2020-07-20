@@ -147,8 +147,8 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  transform: translate3d(50%, -80px, 0);
-  height: 620px;
+  transform: translate3d(50%, -20%, 0);
+  height: 100%;
   z-index: 32;
   opacity: 0;
   transition: opacity var(--durationM) ease var(--durationL);
@@ -157,18 +157,6 @@
 
 .profile__svg--entered {
   opacity: 1;
-}
-
-@media (max-width: 1024px) {
-  .profile__svg {
-    height: 460px;
-  }
-}
-
-@media (max-width: 696px) {
-  .profile__svg {
-    height: 400px;
-  }
 }
 
 .profile__button {
