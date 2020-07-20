@@ -12,9 +12,15 @@
   position: relative;
 }
 
+@media (max-width: 1600px) {
+  .contact {
+    padding-top: 16vh;
+  }
+}
+
 @media (max-width: 1024px) {
   .contact {
-    padding-top: 15vh;
+    padding-top: 18vh;
   }
 }
 

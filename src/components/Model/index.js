@@ -27,7 +27,7 @@ import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShade
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { delay, chain, spring, value } from 'popmotion';
 import { getImageFromSrcSet } from 'utils/image';
-import { useInViewport, usePrefersReducedMotion, useAppContext } from 'hooks';
+import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { cleanScene, renderPixelRatio, cleanRenderer, removeLights } from 'utils/three';
 import { ModelAnimationType } from './deviceModels';
 import { numToMs } from 'utils/style';
@@ -50,7 +50,6 @@ const Model = ({
   alt,
   ...rest
 }) => {
-  const { theme } = useAppContext();
   const [modelData, setModelData] = useState();
   const [loaded, setLoaded] = useState(false);
   const container = useRef();
@@ -267,17 +266,6 @@ const Model = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (!modelGroup.current || !loaded) return;
-
-    modelGroup.current.traverse(node => {
-      if (node.material && node.name !== MeshType.Screen) {
-        node.material.color = new Color(theme.themeId === 'dark' ? 0x1f2025 : 0xf2f2f2);
-        node.material.color.convertSRGBToLinear();
-      }
-    });
-  }, [loaded, theme.themeId]);
-
   const blurShadow = useCallback(amount => {
     blurPlane.current.visible = true;
 
@@ -459,6 +447,7 @@ function getModelAnimation({
 
   if (reduceMotion) {
     gltf.scene.position.set(positionVector);
+    return;
   }
 
   // Simple slide up animation
@@ -485,10 +474,7 @@ function getModelAnimation({
       })
     );
 
-    return {
-      animation: reduceMotion ? undefined : animation,
-      modelValue,
-    };
+    return { animation, modelValue };
   }
 
   // Laptop open animation
@@ -519,10 +505,7 @@ function getModelAnimation({
       })
     );
 
-    return {
-      animation: reduceMotion ? undefined : animation,
-      modelValue,
-    };
+    return { animation, modelValue };
   }
 }
 

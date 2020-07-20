@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Image from 'components/Image';
 import { Button } from 'components/Button';
-import { useParallax } from 'hooks';
+import { useParallax, usePrefersReducedMotion } from 'hooks';
 import prerender from 'utils/prerender';
 import Section from 'components/Section';
 import './index.css';
@@ -87,6 +87,7 @@ export const ProjectSection = ({ className, light, ...rest }) => (
 
 export const ProjectBackground = ({ opacity = 0.7, className, entered, ...rest }) => {
   const offset = useParallax(-0.6);
+  const reduceMotion = usePrefersReducedMotion();
 
   return (
     <Image
@@ -97,8 +98,8 @@ export const ProjectBackground = ({ opacity = 0.7, className, entered, ...rest }
       role="presentation"
       style={{
         '--opacity': opacity,
-        '--offset': numToPx(offset),
         '--initDelay': numToMs(initDelay),
+        transform: reduceMotion ? undefined : `translate3d(0, ${numToPx(offset)}, 0)`,
       }}
       {...rest}
     />

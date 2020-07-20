@@ -15,9 +15,9 @@ import {
 import backgroundSpr from 'assets/spr-background.jpg';
 import backgroundSprLarge from 'assets/spr-background-large.jpg';
 import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
-import imageSprBuilder from 'assets/spr-builder.png';
-import imageSprBuilderLarge from 'assets/spr-builder-large.png';
-import imageSprBuilderPlaceholder from 'assets/spr-builder-placeholder.png';
+import imageSprBuilder from 'assets/spr-builder.jpg';
+import imageSprBuilderLarge from 'assets/spr-builder-large.jpg';
+import imageSprBuilderPlaceholder from 'assets/spr-builder-placeholder.jpg';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
 
