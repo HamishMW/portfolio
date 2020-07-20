@@ -7,15 +7,15 @@ import Footer from 'components/Footer';
 import { usePrefersReducedMotion, useRouteTransition } from 'hooks';
 import { useLocation } from 'react-router-dom';
 
-import sprTexturePlaceholder from 'assets/spr-builder-large.png';
-import sprTexture from 'assets/spr-builder.png';
-import sprTextureLarge from 'assets/spr-builder-large.png';
-import gamstackTexturePlaceholder from 'assets/gamestack-login-placeholder.png';
-import gamstackTexture from 'assets/gamestack-login.png';
-import gamstackTextureLarge from 'assets/gamestack-login-large.png';
-import gamstackTexture2Placeholder from 'assets/gamestack-list-placeholder.png';
-import gamstackTexture2 from 'assets/gamestack-list.png';
-import gamstackTexture2Large from 'assets/gamestack-list-large.png';
+import sprTexturePlaceholder from 'assets/spr-builder-large.jpg';
+import sprTexture from 'assets/spr-builder.jpg';
+import sprTextureLarge from 'assets/spr-builder-large.jpg';
+import gamestackTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
+import gamestackTexture from 'assets/gamestack-login.jpg';
+import gamestackTextureLarge from 'assets/gamestack-login-large.jpg';
+import gamestackTexture2Placeholder from 'assets/gamestack-list-placeholder.jpg';
+import gamestackTexture2 from 'assets/gamestack-list.jpg';
+import gamestackTexture2Large from 'assets/gamestack-list-large.jpg';
 import sliceTexture from 'assets/slice-app.jpg';
 import sliceTextureLarge from 'assets/slice-app-large.jpg';
 import sliceTexturePlaceholder from 'assets/slice-app-placeholder.jpg';
@@ -189,14 +189,14 @@ export default function Home() {
           alt: 'App login screen',
           textures: [
             {
-              src: gamstackTexture,
-              srcSet: `${gamstackTexture} 254w, ${gamstackTextureLarge} 508w`,
-              placeholder: gamstackTexturePlaceholder,
+              src: gamestackTexture,
+              srcSet: `${gamestackTexture} 254w, ${gamestackTextureLarge} 508w`,
+              placeholder: gamestackTexturePlaceholder,
             },
             {
-              src: gamstackTexture2,
-              srcSet: `${gamstackTexture2} 254w, ${gamstackTexture2Large} 508w`,
-              placeholder: gamstackTexture2Placeholder,
+              src: gamestackTexture2,
+              srcSet: `${gamestackTexture2} 254w, ${gamestackTexture2Large} 508w`,
+              placeholder: gamestackTexture2Placeholder,
             },
           ],
         }}

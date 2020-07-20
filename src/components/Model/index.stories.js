@@ -2,15 +2,15 @@ import React from 'react';
 import Model from 'components/Model/index';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 import deviceModels from './deviceModels';
-import phoneTexturePlaceholder from 'assets/gamestack-login-placeholder.png';
-import phoneTexture from 'assets/gamestack-login.png';
-import phoneTextureLarge from 'assets/gamestack-login-large.png';
-import phoneTexture2Placeholder from 'assets/gamestack-list-placeholder.png';
-import phoneTexture2 from 'assets/gamestack-list.png';
-import phoneTexture2Large from 'assets/gamestack-list-large.png';
-import laptopTexturePlaceholder from 'assets/spr-builder-large.png';
-import laptopTexture from 'assets/spr-builder-large.png';
-import laptopTextureLarge from 'assets/spr-builder-large.png';
+import phoneTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
+import phoneTexture from 'assets/gamestack-login.jpg';
+import phoneTextureLarge from 'assets/gamestack-login-large.jpg';
+import phoneTexture2Placeholder from 'assets/gamestack-list-placeholder.jpg';
+import phoneTexture2 from 'assets/gamestack-list.jpg';
+import phoneTexture2Large from 'assets/gamestack-list-large.jpg';
+import laptopTexturePlaceholder from 'assets/spr-builder-large.jpg';
+import laptopTexture from 'assets/spr-builder-large.jpg';
+import laptopTextureLarge from 'assets/spr-builder-large.jpg';
 
 export default {
   title: 'Model',
