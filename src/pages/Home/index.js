@@ -7,7 +7,7 @@ import Footer from 'components/Footer';
 import { usePrefersReducedMotion, useRouteTransition } from 'hooks';
 import { useLocation } from 'react-router-dom';
 
-import sprTexturePlaceholder from 'assets/spr-builder-large.jpg';
+import sprTexturePlaceholder from 'assets/spr-builder-placeholder.jpg';
 import sprTexture from 'assets/spr-builder.jpg';
 import sprTextureLarge from 'assets/spr-builder-large.jpg';
 import gamestackTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
