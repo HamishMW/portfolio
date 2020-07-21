@@ -3,6 +3,7 @@ body {
   box-sizing: border-box;
   font-family: var(--fontStack);
   font-weight: var(--fontWeightRegular);
+  font-synthesis: none;
   background: rgb(var(--rgbBackground));
   color: var(--colorTextBody);
   border: 0;

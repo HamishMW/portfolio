@@ -70,7 +70,7 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
                 className={classNames('intro__name', `intro__name--${status}`)}
                 id={titleId}
               >
-                <DecoderText text="Hamish Williams" start={!prerender} offset={120} />
+                <DecoderText text="Hamish Williams" start={!prerender} delay={300} />
               </h1>
               <h2 className="intro__title">
                 <span className="intro__title-label">{`Designer + ${introLabel}`}</span>

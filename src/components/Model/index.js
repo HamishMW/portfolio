@@ -71,7 +71,7 @@ const Model = ({
   const lights = useRef();
   const blurPlane = useRef();
   const fillPlane = useRef();
-  const isInViewport = useInViewport(container);
+  const isInViewport = useInViewport(container, false, { threshold: 0.4 });
   const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
@@ -80,6 +80,7 @@ const Model = ({
     renderer.current = new WebGLRenderer({
       canvas: canvas.current,
       alpha: true,
+      antialias: false,
       powerPreference: 'high-performance',
     });
 
@@ -470,7 +471,7 @@ function getModelAnimation({
         to: endPosition,
         stiffness: 60,
         damping: 16,
-        restSpeed: 0.0001,
+        restSpeed: 0.001,
       })
     );
 
@@ -501,7 +502,7 @@ function getModelAnimation({
         to: endRotation,
         stiffness: 50,
         damping: 14,
-        restSpeed: 0.0001,
+        restSpeed: 0.001,
       })
     );
 

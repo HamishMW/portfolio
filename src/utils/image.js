@@ -10,9 +10,17 @@ export async function getImageFromSrcSet({ src, srcSet, sizes }) {
 
       const tempImage = new Image();
 
-      tempImage.src = src;
-      tempImage.srcset = srcSet;
-      tempImage.sizes = sizes;
+      if (src) {
+        tempImage.src = src;
+      }
+
+      if (srcSet) {
+        tempImage.srcset = srcSet;
+      }
+
+      if (sizes) {
+        tempImage.sizes = sizes;
+      }
 
       const onLoad = () => {
         tempImage.removeEventListener('load', onLoad);

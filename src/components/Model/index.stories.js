@@ -8,7 +8,7 @@ import phoneTextureLarge from 'assets/gamestack-login-large.jpg';
 import phoneTexture2Placeholder from 'assets/gamestack-list-placeholder.jpg';
 import phoneTexture2 from 'assets/gamestack-list.jpg';
 import phoneTexture2Large from 'assets/gamestack-list-large.jpg';
-import laptopTexturePlaceholder from 'assets/spr-builder-large.jpg';
+import laptopTexturePlaceholder from 'assets/spr-builder-placeholder.jpg';
 import laptopTexture from 'assets/spr-builder-large.jpg';
 import laptopTextureLarge from 'assets/spr-builder-large.jpg';
 

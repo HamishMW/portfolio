@@ -36,10 +36,10 @@ function ProjectSPR() {
 
   return (
     <Fragment>
-      <Helmet
-        title={`Projects | ${title}`}
-        meta={[{ name: 'description', content: description }]}
-      />
+      <Helmet>
+        <title>{`Projects | ${title}`}</title>
+        <meta name="description" content={description} />
+      </Helmet>
       <ProjectContainer className="smart-sparrow">
         <ProjectBackground
           srcSet={`${backgroundSpr} 1000w, ${backgroundSprLarge} 1920w`}

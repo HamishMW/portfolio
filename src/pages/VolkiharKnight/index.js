@@ -59,10 +59,10 @@ function ProjectVolkihar() {
 
   return (
     <Fragment>
-      <Helmet
-        title={`Projects | ${title}`}
-        meta={[{ name: 'description', content: description }]}
-      />
+      <Helmet>
+        <title>{`Projects | ${title}`}</title>
+        <meta name="description" content={description} />
+      </Helmet>
       {(status === 'entered' || status === 'exiting') && (
         <style>{`
           .dark {

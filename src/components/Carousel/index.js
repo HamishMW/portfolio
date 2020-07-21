@@ -81,21 +81,28 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   }, [height, width]);
 
   useEffect(() => {
+    let mounted = true;
+
     const loadImages = async () => {
       const textureLoader = new TextureLoader();
+      const anisotropy = renderer.current.capabilities.getMaxAnisotropy();
 
       const texturePromises = images.map(async image => {
         const imageSrc = await getImageFromSrcSet(image);
         const imageTexture = await textureLoader.loadAsync(imageSrc);
+        await renderer.current.initTexture(imageTexture);
         imageTexture.encoding = sRGBEncoding;
         imageTexture.minFilter = LinearFilter;
         imageTexture.magFilter = LinearFilter;
-        imageTexture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
+        imageTexture.anisotropy = anisotropy;
         imageTexture.generateMipmaps = false;
         return imageTexture;
       });
 
       const textures = await Promise.all(texturePromises);
+
+      // Cancel if the component has unmounted during async code
+      if (!mounted) return;
 
       material.current = new ShaderMaterial({
         uniforms: {
@@ -126,6 +133,10 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     if (inViewport && !loaded) {
       loadImages();
     }
+
+    return () => {
+      mounted = false;
+    };
   }, [height, images, inViewport, loaded, width]);
 
   const goToIndex = useCallback(

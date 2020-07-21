@@ -1,10 +1,11 @@
-import React, { useRef, useState, useEffect, memo } from 'react';
+import React, { useRef, useEffect, memo } from 'react';
 import classNames from 'classnames';
 import { usePrefersReducedMotion } from 'hooks';
+import { spring, chain, delay, value } from 'popmotion';
 import './index.css';
 
 // prettier-ignore
-const chars = [
+const glyphs = [
   'ア', 'イ', 'ウ', 'エ', 'オ',
   'カ', 'キ', 'ク', 'ケ', 'コ',
   'サ', 'シ', 'ス', 'セ', 'ソ',
@@ -22,98 +23,86 @@ const chars = [
   'パ', 'ピ', 'プ', 'ペ', 'ポ',
 ];
 
-function shuffle(content, chars, position) {
+const CharType = {
+  Glyph: 'glyph',
+  Value: 'value',
+};
+
+function shuffle(content, output, position) {
   return content.map((value, index) => {
     if (index < position) {
-      return { type: 'actual', value };
+      return { type: CharType.Value, value };
     }
 
-    const rand = Math.floor(Math.random() * chars.length);
-    return { type: 'code', value: chars[rand] };
+    if (position % 1 < 0.5) {
+      const rand = Math.floor(Math.random() * glyphs.length);
+      return { type: CharType.Glyph, value: glyphs[rand] };
+    }
+
+    return { type: CharType.Glyph, value: output[index].value };
   });
 }
 
-function DecoderText({ text, start, offset, delay, fps, className, ...rest }) {
-  const position = useRef(0);
-  const [started, setStarted] = useState(false);
-  const output = useRef([{ type: 'code', value: '' }]);
-  const content = useRef(text.split(''));
-  const contentRef = useRef();
-  const startTime = useRef(0);
-  const elapsedTime = useRef(0);
-  const prefersReducedMotion = usePrefersReducedMotion();
+const DecoderText = ({
+  text,
+  start = true,
+  delay: startDelay = 0,
+  className,
+  ...rest
+}) => {
+  const output = useRef([{ type: CharType.Glyph, value: '' }]);
+  const container = useRef();
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    let timeout;
-
-    if (start && !started && !prefersReducedMotion) {
-      timeout = setTimeout(() => {
-        startTime.current = Date.now();
-        elapsedTime.current = 0;
-        setStarted(true);
-      }, delay);
-    }
-
-    if (prefersReducedMotion) {
-      output.current = content.current.map((value, index) => ({
-        type: 'actual',
-        value: content.current[index],
-      }));
-      setStarted(true);
-    }
-
-    return function cleanUp() {
-      clearTimeout(timeout);
-    };
-  }, [delay, prefersReducedMotion, start, started]);
-
-  useEffect(() => {
+    const content = text.split('');
     let animation;
 
-    const animate = () => {
-      if (!started) return;
-      const elapsed = Date.now() - startTime.current;
-      const deltaTime = elapsed - elapsedTime.current;
-      const needsUpdate = 1000 / fps <= deltaTime;
+    const renderOutput = () => {
+      const characterMap = output.current.map(item => {
+        return `<span class="decoder-text__${item.type}">${item.value}</span>`;
+      });
 
-      if (needsUpdate) {
-        elapsedTime.current = elapsed;
-        position.current = elapsedTime.current / offset;
-        output.current = shuffle(content.current, chars, position.current);
-
-        const characterMap = output.current.map(item => {
-          const elementClass =
-            item.type === 'actual' ? 'decoder-text__value' : 'decoder-text__code';
-          return `<span aria-hidden="true" class="${elementClass}">${item.value}</span>`;
-        });
-
-        contentRef.current.innerHTML = characterMap.join('');
-      }
-
-      if (position.current <= content.current.length) {
-        animation = requestAnimationFrame(animate);
-      }
+      container.current.innerHTML = characterMap.join('');
     };
 
-    animation = requestAnimationFrame(animate);
+    const springValue = value(0, position => {
+      output.current = shuffle(content, output.current, position);
+      renderOutput();
+    });
 
-    return function cleanup() {
-      cancelAnimationFrame(animation);
+    if (start && !animation && !reduceMotion) {
+      animation = chain(
+        delay(startDelay),
+        spring({
+          from: 0,
+          to: content.length,
+          stiffness: 8,
+          damping: 5,
+        })
+      ).start(springValue);
+    }
+
+    if (reduceMotion) {
+      output.current = content.map((value, index) => ({
+        type: CharType.Value,
+        value: content[index],
+      }));
+      renderOutput();
+    }
+
+    return () => {
+      if (animation) {
+        animation.stop();
+      }
     };
-  }, [fps, offset, started]);
+  }, [reduceMotion, start, startDelay, text]);
 
   return (
-    <span className={classNames('decoder-text', className)} {...rest}>
-      <span className="decoder-text__label">{text}</span>
-      <span className="decoder-text__content" ref={contentRef} />
+    <span className={classNames('decoder-text', className)} aria-label={text} {...rest}>
+      <span aria-hidden className="decoder-text__content" ref={container} />
     </span>
   );
-}
-
-DecoderText.defaultProps = {
-  offset: 100,
-  delay: 300,
-  fps: 24,
 };
 
 export default memo(DecoderText);

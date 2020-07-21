@@ -101,16 +101,13 @@ const Contact = () => {
 
   return (
     <Section className={classNames('contact', `contact--${status}`)}>
-      <Helmet
-        title="Contact me"
-        meta={[
-          {
-            name: 'description',
-            content:
-              'Send me a message if you’re interested in discussing a project or if you just want to say hi',
-          },
-        ]}
-      />
+      <Helmet>
+        <title>Contact | Hamish Williams</title>
+        <meta
+          name="description"
+          content="Send me a message if you’re interested in discussing a project or if you just want to say hi"
+        />
+      </Helmet>
       <TransitionGroup component={null}>
         {!complete && (
           <Transition appear mountOnEnter unmountOnExit timeout={1600} onEnter={reflow}>
@@ -125,8 +122,7 @@ const Contact = () => {
                   <DecoderText
                     text="Say hello"
                     start={status !== 'exited' && !prerender}
-                    offset={140}
-                    delay={msToNum(tokens.base.durationS)}
+                    delay={300}
                   />
                 </h1>
                 <Divider

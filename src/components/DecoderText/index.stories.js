@@ -11,7 +11,7 @@ export default {
 export const text = () => (
   <StoryContainer padding={32}>
     <h2 style={{ fontWeight: 500, margin: 0 }}>
-      <DecoderText start text="Slick cyberpunk text" />
+      <DecoderText delay={0} text="Slick cyberpunk text" />
     </h2>
   </StoryContainer>
 );

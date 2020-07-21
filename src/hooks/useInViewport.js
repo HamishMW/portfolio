@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useInViewport(elementRef, unobserveOnIntersect) {
+function useInViewport(elementRef, unobserveOnIntersect, options = {}) {
   const [intersect, setIntersect] = useState(false);
 
   useEffect(() => {
@@ -14,12 +14,12 @@ function useInViewport(elementRef, unobserveOnIntersect) {
       if (isIntersecting && unobserveOnIntersect) {
         observer.unobserve(target);
       }
-    });
+    }, options);
 
     observer.observe(elementRef.current);
 
     return () => observer.disconnect();
-  }, [elementRef, unobserveOnIntersect]);
+  }, [elementRef, unobserveOnIntersect, options]);
 
   return intersect;
 }

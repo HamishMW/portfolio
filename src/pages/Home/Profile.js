@@ -22,7 +22,7 @@ const ProfileText = ({ status, titleId }) => (
       className={classNames('profile__title', `profile__title--${status}`)}
       id={titleId}
     >
-      <DecoderText text="Hi there" start={status !== 'exited'} offset={140} />
+      <DecoderText text="Hi there" start={status !== 'exited'} delay={500} />
     </h2>
     <p className={classNames('profile__description', `profile__description--${status}`)}>
       I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
@@ -42,7 +42,7 @@ const ProfileText = ({ status, titleId }) => (
   </Fragment>
 );
 
-function Profile({ id, visible, sectionRef }) {
+const Profile = ({ id, visible, sectionRef }) => {
   const titleId = `${id}-title`;
 
   return (
@@ -109,6 +109,6 @@ function Profile({ id, visible, sectionRef }) {
       </Transition>
     </Section>
   );
-}
+};
 
 export default Profile;

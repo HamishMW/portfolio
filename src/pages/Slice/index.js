@@ -50,10 +50,10 @@ const ProjectSlice = () => {
 
   return (
     <Fragment>
-      <Helmet
-        title={`Projects | ${title}`}
-        meta={[{ name: 'description', content: description }]}
-      />
+      <Helmet>
+        <title>{`Projects | ${title}`}</title>
+        <meta name="description" content={description} />
+      </Helmet>
       <ProjectContainer className="slice">
         <ProjectBackground
           srcSet={`${sliceBackground} 1280w, ${sliceBackgroundLarge} 2560w`}

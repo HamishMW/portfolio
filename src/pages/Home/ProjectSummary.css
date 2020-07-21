@@ -103,8 +103,8 @@
 }
 
 .project-summary__model {
-  --width: 240%;
-  --aspectRatio: 10 / 16;
+  --width: 180%;
+  --aspectRatio: 10 / 12;
 
   min-width: var(--width);
   padding-bottom: calc(var(--aspectRatio) * var(--width));
@@ -117,30 +117,30 @@
 
 @media (max-width: 1600px) {
   .project-summary__model--laptop {
-    --width: 240%;
+    --width: 180%;
   }
 }
 
 @media (max-width: 1024px) {
   .project-summary__model--laptop {
-    --width: 180%;
+    --width: 140%;
 
-    top: 20%;
+    top: 10%;
     left: 0;
   }
 }
 
 .project-summary__model--phone {
-  --width: 260%;
-  --aspectRatio: 10 / 16;
+  --width: 116%;
+  --aspectRatio: 10 / 7;
 
-  top: 4%;
+  top: 5%;
   left: -10%;
 }
 
 @media (max-width: 1600px) {
   .project-summary__model--phone {
-    --width: 240%;
+    --width: 108%;
 
     left: 0;
   }
@@ -148,7 +148,7 @@
 
 @media (max-width: 1024px) {
   .project-summary__model--phone {
-    --width: 200%;
+    --width: 108%;
 
     left: 0;
   }
@@ -174,9 +174,9 @@
 
 @media (max-width: 1024px) {
   .project-summary__svg--laptop {
-    width: 64%;
+    width: 80%;
     right: -10%;
-    bottom: 12%;
+    bottom: 18%;
   }
 }
 
