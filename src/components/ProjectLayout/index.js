@@ -22,7 +22,7 @@ export function ProjectHeader({
     <ProjectSection className={classNames('project__header', className)}>
       <div
         className="project__header-content"
-        style={{ '--initDelay': `${initDelay}ms` }}
+        style={{ '--initDelay': numToMs(initDelay) }}
       >
         <div className="project__details">
           <h1
@@ -59,7 +59,7 @@ export function ProjectHeader({
               className={classNames('project__meta-item', {
                 'project__meta-item--entered': !prerender,
               })}
-              style={{ '--delay': `${initDelay + 300 + index * 140}ms` }}
+              style={{ '--delay': numToMs(initDelay + 300 + index * 140) }}
               key={role}
             >
               {role}

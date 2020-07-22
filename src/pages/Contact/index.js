@@ -12,7 +12,7 @@ import Icon from 'components/Icon';
 import { useScrollRestore, useFormInput, useRouteTransition } from 'hooks';
 import { reflow, isVisible } from 'utils/transition';
 import prerender from 'utils/prerender';
-import { msToNum, numToPx } from 'utils/style';
+import { msToNum, numToPx, numToMs } from 'utils/style';
 import { tokens } from 'app/theme';
 import './index.css';
 
@@ -42,9 +42,9 @@ function getStatusError({
   return statuses[status] || fallback;
 }
 
-function getDelay(delayMs, initDelayMs = `0ms`, multiplier = 1) {
+function getDelay(delayMs, initDelayMs = numToMs(0), multiplier = 1) {
   const numDelay = msToNum(delayMs) * multiplier;
-  return { '--delay': `${(msToNum(initDelayMs) + numDelay).toFixed(0)}ms` };
+  return { '--delay': numToMs((msToNum(initDelayMs) + numDelay).toFixed(0)) };
 }
 
 const Contact = () => {

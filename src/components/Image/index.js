@@ -7,7 +7,7 @@ import { Transition } from 'react-transition-group';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { tokens } from 'app/theme';
-import { msToNum } from 'utils/style';
+import { msToNum, numToMs } from 'utils/style';
 import './index.css';
 
 const Image = ({ className, style, reveal, delay = 0, ...rest }) => {
@@ -25,7 +25,7 @@ const Image = ({ className, style, reveal, delay = 0, ...rest }) => {
         'image--in-viewport': inViewport,
         'image--reveal': reveal,
       })}
-      style={{ ...style, '--delay': `${delay}ms` }}
+      style={{ ...style, '--delay': numToMs(delay) }}
       ref={containerRef}
     >
       <ImageElements
@@ -40,20 +40,19 @@ const Image = ({ className, style, reveal, delay = 0, ...rest }) => {
   );
 };
 
-function ImageElements(props) {
-  const {
-    onLoad,
-    loaded,
-    inViewport,
-    srcSet,
-    placeholder,
-    delay,
-    videoSrc,
-    src,
-    alt,
-    reveal,
-    ...rest
-  } = props;
+const ImageElements = ({
+  onLoad,
+  loaded,
+  inViewport,
+  srcSet,
+  placeholder,
+  delay,
+  videoSrc,
+  src,
+  alt,
+  reveal,
+  ...rest
+}) => {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [playing, setPlaying] = useState(!prefersReducedMotion);
@@ -108,7 +107,7 @@ function ImageElements(props) {
       })}
       onMouseOver={videoSrc ? handleShowPlayButton : undefined}
       onMouseOut={videoSrc ? () => setIsHovered(false) : undefined}
-      style={{ '--delay': `${delay + 1000}ms` }}
+      style={{ '--delay': numToMs(delay + 1000) }}
     >
       {videoSrc && (
         <Fragment>
@@ -165,7 +164,7 @@ function ImageElements(props) {
           className={classNames('image__placeholder', {
             'image__placeholder--loaded': loaded,
           })}
-          style={{ '--delay': `${delay}ms` }}
+          style={{ '--delay': numToMs(delay) }}
           ref={placeholderRef}
           src={placeholder}
           alt=""
@@ -174,6 +173,6 @@ function ImageElements(props) {
       )}
     </div>
   );
-}
+};
 
 export default Image;

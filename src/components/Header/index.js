@@ -8,7 +8,7 @@ import ThemeToggle from './ThemeToggle';
 import { useWindowSize, useAppContext } from 'hooks';
 import { navLinks, socialLinks } from './navData';
 import { reflow } from 'utils/transition';
-import { media, msToNum } from 'utils/style';
+import { media, msToNum, numToMs } from 'utils/style';
 import { tokens } from 'app/theme';
 import { blurOnMouseUp } from 'utils/focus';
 import './index.css';
@@ -102,9 +102,9 @@ function Header(props) {
                 to={{ pathname, hash, state: hashKey }}
                 onMouseUp={blurOnMouseUp}
                 style={{
-                  transitionDelay: `${
-                    Number(tokens.base.durationS.replace('ms', '')) + index * 50
-                  }ms`,
+                  transitionDelay: numToMs(
+                    Number(msToNum(tokens.base.durationS)) + index * 50
+                  ),
                 }}
               >
                 {label}
