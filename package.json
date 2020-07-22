@@ -30,7 +30,6 @@
     "popmotion": "^8.7.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-easy-swipe": "^0.0.18",
     "react-helmet-async": "^1.0.6",
     "react-router-dom": "5.2.0",
     "react-transition-group": "^4.4.1",

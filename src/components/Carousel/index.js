@@ -11,9 +11,8 @@ import {
   Color,
   sRGBEncoding,
 } from 'three';
-import { spring, value } from 'popmotion';
+import { spring, value, listen, pointer } from 'popmotion';
 import classNames from 'classnames';
-import Swipe from 'react-easy-swipe';
 import { usePrefersReducedMotion, useInViewport } from 'hooks';
 import prerender from 'utils/prerender';
 import { blurOnMouseUp } from 'utils/focus';
@@ -38,7 +37,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const [loaded, setLoaded] = useState(false);
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [textures, setTextures] = useState();
-  const [canvasWidth, setCanvasWidth] = useState();
+  const [canvasRect, setCanvasRect] = useState();
   const canvas = useRef();
   const imagePlane = useRef();
   const geometry = useRef();
@@ -55,6 +54,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const placeholderRef = useRef();
   const springTween = useRef();
   const springValue = useRef();
+  const swipeElement = useRef();
 
   const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${
     images[imageIndex].alt
@@ -206,17 +206,9 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   );
 
   useEffect(() => {
-    if (textures && loaded) {
-      requestAnimationFrame(() => {
-        renderer.current.render(scene.current, camera.current);
-      });
-    }
-  }, [goToIndex, loaded, textures]);
-
-  useEffect(() => {
     const handleResize = () => {
-      const width = parseInt(getComputedStyle(canvas.current).width, 10);
-      setCanvasWidth(width);
+      const rect = canvas.current.getBoundingClientRect();
+      setCanvasRect(rect);
     };
 
     window.addEventListener('resize', handleResize);
@@ -266,13 +258,12 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   }, [placeholder]);
 
   const onSwipeMove = useCallback(
-    (position, event) => {
-      if (animating.current || !material.current) return;
+    position => {
+      if (animating.current || !material.current || !textures) return;
       const { x } = position;
-      const absoluteX = Math.abs(x);
-      const containerWidth = canvasWidth;
-      if (absoluteX > 20) event.preventDefault();
       lastSwipePosition.current = x;
+      const absoluteX = Math.abs(x);
+      const containerWidth = canvasRect.width;
       swipeDirection.current = x > 0 ? -1 : 1;
       const swipePercentage = 1 - ((absoluteX - containerWidth) / containerWidth) * -1;
       const nextIndex = determineIndex(imageIndex, null, images, swipeDirection.current);
@@ -291,7 +282,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         renderer.current.render(scene.current, camera.current);
       });
     },
-    [canvasWidth, imageIndex, images, prefersReducedMotion, textures]
+    [canvasRect, imageIndex, images, prefersReducedMotion, textures]
   );
 
   const onSwipeEnd = useCallback(() => {
@@ -299,7 +290,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     const uniforms = material.current.uniforms;
     const duration = (1 - uniforms.dispFactor.value) * 1000;
     const position = Math.abs(lastSwipePosition.current);
-    const minSwipeDistance = canvasWidth * 0.2;
+    const minSwipeDistance = canvasRect.width * 0.2;
     lastSwipePosition.current = 0;
 
     if (animating.current) return;
@@ -320,7 +311,38 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         index: imageIndex,
       });
     }
-  }, [canvasWidth, imageIndex, navigate]);
+  }, [canvasRect, imageIndex, navigate]);
+
+  useEffect(() => {
+    let pointerTracker;
+
+    const swipeXY = value({ x: 0, y: 0 }, position => {
+      onSwipeMove(position);
+    });
+
+    const swipeStart = listen(swipeElement.current, 'mousedown touchstart').start(
+      event => {
+        event.preventDefault();
+        pointerTracker = pointer({ x: 0, y: 0 }).start(swipeXY);
+      }
+    );
+
+    const swipeEnd = listen(document, 'mouseup touchend').start(() => {
+      if (pointerTracker) {
+        onSwipeEnd();
+        pointerTracker.stop();
+      }
+    });
+
+    return () => {
+      swipeStart.stop();
+      swipeEnd.stop();
+
+      if (pointerTracker) {
+        pointerTracker.stop();
+      }
+    };
+  }, [onSwipeEnd, onSwipeMove]);
 
   const handleKeyDown = event => {
     const actions = {
@@ -338,31 +360,29 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   return (
     <div className="carousel" onKeyDown={handleKeyDown} {...rest}>
       <div className="carousel__content">
-        <Swipe allowMouseEvents onSwipeEnd={onSwipeEnd} onSwipeMove={onSwipeMove}>
-          <div className="carousel__image-wrapper">
-            <div
-              aria-atomic
-              className="carousel__canvas-wrapper"
-              aria-live="polite"
-              aria-label={currentImageAlt}
-              role="img"
-            >
-              <canvas aria-hidden className="carousel__canvas" ref={canvas} />
-            </div>
-            {showPlaceholder && placeholder && (
-              <img
-                aria-hidden
-                className={classNames('carousel__placeholder', {
-                  'carousel__placeholder--loaded': !prerender && loaded && textures,
-                })}
-                src={placeholder}
-                ref={placeholderRef}
-                alt=""
-                role="presentation"
-              />
-            )}
+        <div className="carousel__image-wrapper" ref={swipeElement}>
+          <div
+            aria-atomic
+            className="carousel__canvas-wrapper"
+            aria-live="polite"
+            aria-label={currentImageAlt}
+            role="img"
+          >
+            <canvas aria-hidden className="carousel__canvas" ref={canvas} />
           </div>
-        </Swipe>
+          {showPlaceholder && placeholder && (
+            <img
+              aria-hidden
+              className={classNames('carousel__placeholder', {
+                'carousel__placeholder--loaded': !prerender && loaded && textures,
+              })}
+              src={placeholder}
+              ref={placeholderRef}
+              alt=""
+              role="presentation"
+            />
+          )}
+        </div>
         <button
           className="carousel__button carousel__button--prev"
           aria-label="Previous slide"
