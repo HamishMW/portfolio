@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
 import Footer from 'components/Footer';
@@ -16,8 +16,8 @@ import prerender from 'utils/prerender';
 import { media } from 'utils/style';
 import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
 import { tokens } from 'app/theme';
-import './index.css';
 import Section from 'components/Section';
+import './index.css';
 
 const PostWrapper = ({
   children,
@@ -29,7 +29,6 @@ const PostWrapper = ({
   bannerPlaceholder,
   bannerAlt,
   readTime,
-  ...rest
 }) => {
   const windowSize = useWindowSize();
   const contentRef = useRef();
@@ -46,7 +45,7 @@ const PostWrapper = ({
   };
 
   return (
-    <article className="post" {...rest}>
+    <article className="post">
       <Helmet>
         <title>{`Articles | ${title}`}</title>
         <meta name="description" content={description} />
@@ -117,8 +116,7 @@ const PostWrapper = ({
             reveal
             delay={600}
             className="post__banner-image"
-            srcSet={banner ? require(`posts/assets/${banner}`) : undefined}
-            videoSrc={bannerVideo ? require(`posts/assets/${bannerVideo}`) : undefined}
+            src={banner ? require(`posts/assets/${banner}`) : undefined}
             placeholder={require(`posts/assets/${bannerPlaceholder}`)}
             alt={bannerAlt}
           />
@@ -145,8 +143,37 @@ const PostParagraph = ({ children, ...rest }) => (
 );
 
 const PostImage = ({ src, alt, ...rest }) => {
+  const [size, setSize] = useState();
+  const imgRef = useRef();
   const imgSrc = src.startsWith('http') ? src : require(`posts/assets/${src}`);
-  return <img className="post__image" src={imgSrc} alt={alt} {...rest} />;
+
+  useEffect(() => {
+    const { width, height } = imgRef.current;
+
+    if (width && height) {
+      setSize({ width, height });
+    }
+  }, []);
+
+  const handleLoad = event => {
+    const { width, height } = event.target;
+    setSize({ width, height });
+  };
+
+  return (
+    <img
+      className="post__image"
+      ref={imgRef}
+      src={imgSrc}
+      onLoad={handleLoad}
+      loading="lazy"
+      decoding="async"
+      alt={alt}
+      width={size?.width}
+      height={size?.height}
+      {...rest}
+    />
+  );
 };
 
 const PostCode = ({ children, ...rest }) => (
@@ -161,7 +188,7 @@ const PostLink = ({ children, ...rest }) => (
   </Anchor>
 );
 
-const Post = ({ children }) => {
+const Post = ({ slug, content: PostContent, ...rest }) => {
   return (
     <MDXProvider
       components={{
@@ -174,7 +201,7 @@ const Post = ({ children }) => {
         inlineCode: PostCode,
       }}
     >
-      {children}
+      <PostContent slug={slug} {...rest} />
     </MDXProvider>
   );
 };

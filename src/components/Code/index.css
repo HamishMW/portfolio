@@ -29,24 +29,26 @@
 .code--light {
   --char: rgba(0 0 0 / 0.8);
   --comment: rgba(0 0 0 / 0.6);
-  --keyword: rgba(0 0 0 / 0.8);
+  --keyword: #803cce;
   --primitive: rgba(0 0 0 / 0.8);
-  --string: rgba(0 0 0 / 0.8);
+  --string: #1b8058;
   --variable: rgba(0 0 0 / 0.8);
-  --boolean: rgba(0 0 0 / 0.8);
+  --boolean: #c1480a;
   --punctuation: rgba(0 0 0 / 0.4);
-  --tag: rgba(0 0 0 / 0.8);
-  --function: rgba(0 0 0 / 0.8);
-  --className: rgba(0 0 0 / 1);
-  --method: rgba(0 0 0 / 0.8);
-  --operator: rgba(0 0 0 / 0.4);
+  --tag: #a8093f;
+  --function: rgb(4, 98, 108);
+  --className: #00378c;
+  --method: rgb(4, 98, 108);
+  --operator: #a8093f;
   --background: rgb(228 228 228);
 }
 
-/* @media (max-width: ${media.mobile}px) {
-  padding: var(--spaceL);
-  margin: var(--space2XL) calc(var(--spaceXL) * -1);
-} */
+@media (max-width: 696px) {
+  .code {
+    padding: var(--spaceL);
+    margin: var(--space2XL) calc(var(--spaceXL) * -1);
+  }
+}
 
 .code__content {
   margin: 0;

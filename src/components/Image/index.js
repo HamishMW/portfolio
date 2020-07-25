@@ -47,9 +47,9 @@ const ImageElements = ({
   srcSet,
   placeholder,
   delay,
-  videoSrc,
   src,
   alt,
+  play = true,
   reveal,
   ...rest
 }) => {
@@ -59,8 +59,12 @@ const ImageElements = ({
   const [showPlayButton, setShowPlayButton] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [placeholderSize, setPlaceholderSize] = useState();
   const placeholderRef = useRef();
   const videoRef = useRef();
+  const isVideo = src?.endsWith('.mp4');
+  const imgSrc = src || srcSet?.split(' ')[0];
+  const showFullRes = !prerender && inViewport;
 
   useEffect(() => {
     const purgePlaceholder = () => {
@@ -76,6 +80,31 @@ const ImageElements = ({
       }
     };
   }, []);
+
+  useEffect(() => {
+    const { width, height } = placeholderRef.current;
+
+    if (width && height) {
+      setPlaceholderSize({ width, height });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    if (!play) {
+      setPlaying(false);
+      videoRef.current.pause();
+    } else {
+      setPlaying(true);
+      videoRef.current.play();
+    }
+  }, [play]);
+
+  const handlePlaceholderLoad = event => {
+    const { width, height } = event.target;
+    setPlaceholderSize({ width, height });
+  };
 
   const togglePlaying = event => {
     event.preventDefault();
@@ -105,11 +134,11 @@ const ImageElements = ({
         'image__element-wrapper--reveal': reveal,
         'image__element-wrapper--in-viewport': inViewport,
       })}
-      onMouseOver={videoSrc ? handleShowPlayButton : undefined}
-      onMouseOut={videoSrc ? () => setIsHovered(false) : undefined}
+      onMouseOver={isVideo ? handleShowPlayButton : undefined}
+      onMouseOut={isVideo ? () => setIsHovered(false) : undefined}
       style={{ '--delay': numToMs(delay + 1000) }}
     >
-      {videoSrc && (
+      {isVideo && (
         <Fragment>
           <video
             muted
@@ -119,7 +148,7 @@ const ImageElements = ({
             autoPlay={!prefersReducedMotion}
             role="img"
             onLoadStart={onLoad}
-            src={videoSrc}
+            src={src}
             aria-label={alt}
             ref={videoRef}
             {...rest}
@@ -132,7 +161,6 @@ const ImageElements = ({
           >
             {status => (
               <Button
-                iconOnly
                 className={classNames('image__button', `image__button--${status}`, {
                   'image__button--visible': showPlayButton,
                 })}
@@ -147,13 +175,15 @@ const ImageElements = ({
           </Transition>
         </Fragment>
       )}
-      {!videoSrc && (
+      {!isVideo && (
         <img
           className={classNames('image__element', { 'image__element--loaded': loaded })}
           onLoad={onLoad}
           decoding="async"
-          src={!prerender && inViewport ? srcSet.split(' ')[0] : ''}
-          srcSet={!prerender && inViewport ? srcSet : ''}
+          src={showFullRes ? imgSrc : undefined}
+          srcSet={showFullRes ? srcSet : undefined}
+          width={placeholderSize?.width}
+          height={placeholderSize?.height}
           alt={alt}
           {...rest}
         />
@@ -167,6 +197,10 @@ const ImageElements = ({
           style={{ '--delay': numToMs(delay) }}
           ref={placeholderRef}
           src={placeholder}
+          onLoad={handlePlaceholderLoad}
+          width={placeholderSize?.width}
+          height={placeholderSize?.height}
+          decoding="async"
           alt=""
           role="presentation"
         />

@@ -90,7 +90,7 @@ const Model = ({
     renderer.current.physicallyCorrectLights = true;
 
     camera.current = new PerspectiveCamera(36, clientWidth / clientHeight, 0.1, 100);
-    camera.current.position.set(...cameraPosition);
+    camera.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
     scene.current = new Scene();
 
     textureLoader.current = new TextureLoader();
@@ -339,8 +339,16 @@ const Model = ({
           introSprings.push(modelAnimation);
         }
 
+        if (reduceMotion) {
+          renderFrame();
+        }
+
         // Load full res screen texture
         await model.loadFullResTexture();
+
+        if (reduceMotion) {
+          renderFrame();
+        }
       });
 
       await Promise.all(handleModelLoad);
@@ -353,7 +361,7 @@ const Model = ({
         spring.stop();
       }
     };
-  }, [modelData, renderFrame, show]);
+  }, [modelData, reduceMotion, renderFrame, show]);
 
   // Handle mouse move animation
   useEffect(() => {
@@ -435,29 +443,28 @@ const Model = ({
 };
 
 // Get custom model animation
-function getModelAnimation({
-  model,
-  gltf,
-  position,
-  reduceMotion,
-  renderFrame,
-  index,
-  showDelay,
-}) {
-  const positionVector = new Vector3(position.x, position.y, position.z);
+function getModelAnimation({ model, gltf, reduceMotion, renderFrame, index, showDelay }) {
+  const positionVector = new Vector3(
+    model.position.x,
+    model.position.y,
+    model.position.z
+  );
 
   if (reduceMotion) {
-    gltf.scene.position.set(positionVector);
+    gltf.scene.position.set(...positionVector.toArray());
     return;
   }
 
   // Simple slide up animation
   if (model.animation === ModelAnimationType.SpringUp) {
-    const startPosition = new Vector3(position.x, position.y - 1, position.z);
+    const startPosition = new Vector3(
+      positionVector.x,
+      positionVector.y - 1,
+      positionVector.z
+    );
     const endPosition = positionVector;
-    const initPosition = reduceMotion ? endPosition : startPosition;
 
-    gltf.scene.position.set(initPosition.x, initPosition.y, initPosition.z);
+    gltf.scene.position.set(...startPosition.toArray());
 
     const modelValue = value(gltf.scene.position, ({ x, y, z }) => {
       gltf.scene.position.set(x, y, z);
@@ -481,14 +488,11 @@ function getModelAnimation({
   // Laptop open animation
   if (model.animation === ModelAnimationType.LaptopOpen) {
     const frameNode = gltf.scene.children.find(node => node.name === MeshType.Frame);
+    const startRotation = new Vector3(MathUtils.degToRad(90), 0, 0);
+    const endRotation = new Vector3(0, 0, 0);
 
-    gltf.scene.position.set(model.position.x, model.position.y, model.position.z);
-
-    const startRotation = { x: MathUtils.degToRad(90), y: 0, z: 0 };
-    const endRotation = { x: 0, y: 0, z: 0 };
-    const initRotation = reduceMotion ? endRotation : startRotation;
-
-    frameNode.rotation.set(initRotation.x, initRotation.y, initRotation.z);
+    gltf.scene.position.set(...positionVector.toArray());
+    frameNode.rotation.set(...startRotation.toArray());
 
     const modelValue = value(frameNode.rotation, ({ x, y, z }) => {
       frameNode.rotation.set(x, y, z);

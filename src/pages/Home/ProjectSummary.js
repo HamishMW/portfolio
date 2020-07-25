@@ -118,7 +118,7 @@ const ProjectSummary = ({
               'project-summary__model--laptop'
             )}
             alt={model.alt}
-            cameraPosition={[0, 0, 8]}
+            cameraPosition={{ x: 0, y: 0, z: 8 }}
             showDelay={800}
             show={isVisible(status)}
             models={[
@@ -152,7 +152,7 @@ const ProjectSummary = ({
               'project-summary__model--phone'
             )}
             alt={model.alt}
-            cameraPosition={[0, 0, 11.5]}
+            cameraPosition={{ x: 0, y: 0, z: 11.5 }}
             showDelay={500}
             show={isVisible(status)}
             models={[

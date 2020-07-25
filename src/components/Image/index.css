@@ -127,7 +127,14 @@
   top: var(--spaceM);
   left: var(--spaceM);
   overflow: visible;
+  height: 32px;
   width: auto;
+  color: rgb(var(--rgbWhite));
+  padding: 0 8px 0 2px;
+}
+
+.image__button::after {
+  background-color: rgb(var(--rgbBlack) / 0.8);
 }
 
 .image__button--entered {

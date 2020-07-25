@@ -22,7 +22,7 @@ export const phone = () => (
   <StoryContainer fullWidth padding={32}>
     <Model
       style={modelStyle}
-      cameraPosition={[0, 0, 11.5]}
+      cameraPosition={{ x: 0, y: 0, z: 11.5 }}
       alt="Phone models"
       models={[
         {
@@ -52,7 +52,7 @@ export const laptop = () => (
   <StoryContainer fullWidth padding={32}>
     <Model
       style={modelStyle}
-      cameraPosition={[0, 0, 8]}
+      cameraPosition={{ x: 0, y: 0, z: 8 }}
       alt="Laptop model"
       models={[
         {
