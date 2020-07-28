@@ -18,6 +18,7 @@ const Input = ({
   className,
   style,
   error,
+  onBlur,
   ...rest
 }) => {
   const [focused, setFocused] = useState(false);
@@ -27,6 +28,14 @@ const Input = ({
   const labelId = `${inputId}-label`;
   const errorId = `${inputId}-error`;
   const InputElement = multiline ? TextArea : 'input';
+
+  const handleBlur = event => {
+    setFocused(false);
+
+    if (onBlur) {
+      onBlur(event);
+    }
+  };
 
   return (
     <div
@@ -50,7 +59,7 @@ const Input = ({
           aria-labelledby={labelId}
           aria-describedby={!!error ? errorId : undefined}
           onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onBlur={handleBlur}
           value={value}
           {...rest}
         />

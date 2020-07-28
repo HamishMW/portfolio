@@ -44,7 +44,6 @@ body {
 
 .app {
   width: 100%;
-  overflow-x: hidden;
   position: relative;
   background: rgb(var(--rgbBackground));
   transition: background var(--durationM) ease;
@@ -54,10 +53,10 @@ body {
 }
 
 .app__page {
-  overflow-x: hidden;
   opacity: 0;
   grid-area: 1 / 1;
   transition: opacity var(--durationS) ease;
+  min-height: 100vh;
 }
 
 .app__page--exiting,

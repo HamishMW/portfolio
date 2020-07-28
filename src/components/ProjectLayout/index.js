@@ -98,7 +98,6 @@ export const ProjectBackground = ({ opacity = 0.7, className, entered, ...rest }
       style={{
         '--opacity': opacity,
         '--offset': numToPx(offset),
-        '--initDelay': numToMs(initDelay),
       }}
       {...rest}
     />

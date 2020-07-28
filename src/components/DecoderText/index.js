@@ -99,7 +99,8 @@ const DecoderText = ({
   }, [reduceMotion, start, startDelay, text]);
 
   return (
-    <span className={classNames('decoder-text', className)} aria-label={text} {...rest}>
+    <span className={classNames('decoder-text', className)} {...rest}>
+      <span className="decoder-text__label">{text}</span>
       <span aria-hidden className="decoder-text__content" ref={container} />
     </span>
   );
