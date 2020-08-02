@@ -30,7 +30,7 @@ const Contact = lazy(() => import('pages/Contact'));
 const ProjectSPR = lazy(() => import('pages/SmartSparrow'));
 const ProjectSlice = lazy(() => import('pages/Slice'));
 const ProjectVolkihar = lazy(() => import('pages/VolkiharKnight'));
-// const Articles = lazy(() => import('pages/Articles'));
+const Articles = lazy(() => import('pages/Articles'));
 const Page404 = lazy(() => import('pages/404'));
 
 export const AppContext = createContext();
@@ -126,7 +126,7 @@ const AppRoutes = () => {
                     <Route path="/projects/smart-sparrow" component={ProjectSPR} />
                     <Route path="/projects/slice" component={ProjectSlice} />
                     <Route path="/projects/volkihar-knight" component={ProjectVolkihar} />
-                    {/* <Route path="/articles" component={Articles} /> */}
+                    <Route path="/articles" component={Articles} />
                     <Route component={Page404} />
                   </Switch>
                 </Suspense>

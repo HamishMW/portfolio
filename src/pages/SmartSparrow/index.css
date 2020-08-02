@@ -1,0 +1,8 @@
+.spr__earth-section {
+  color: var(--colorTextBody);
+}
+
+.spr__earth .earth__viewport {
+  position: sticky;
+  top: 0;
+}
