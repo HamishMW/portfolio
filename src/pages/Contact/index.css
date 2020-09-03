@@ -1,8 +1,10 @@
 .contact {
+  --form-height: 530px;
+
   position: absolute;
   display: flex;
   justify-content: center;
-  padding-top: 20vh;
+  padding-top: calc(50vh - var(--form-height) / 2);
   min-height: 100vh;
   width: 100%;
 }
@@ -10,18 +12,6 @@
 .contact--entered,
 .contact--exiting {
   position: relative;
-}
-
-@media (max-width: 1600px) {
-  .contact {
-    padding-top: 16vh;
-  }
-}
-
-@media (max-width: 1024px) {
-  .contact {
-    padding-top: 18vh;
-  }
 }
 
 @media (max-width: 696px) {

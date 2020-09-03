@@ -1370,10 +1370,10 @@
   resolved "https://registry.yarnpkg.com/@mdx-js/react/-/react-1.5.9.tgz#31873ab097fbe58c61c7585fc0be64e83182b6df"
   integrity sha512-rengdUSedIdIQbXPSeafItCacTYocARAjUA51b6R1KNHmz+59efz7UmyTKr73viJQZ98ouu7iRGmOTtjRrbbWA==
 
-"@mdx-js/react@^1.6.14":
-  version "1.6.14"
-  resolved "https://registry.yarnpkg.com/@mdx-js/react/-/react-1.6.14.tgz#20c64d6691a894227cd04006b620e5fff85f79b1"
-  integrity sha512-WN4OWXiSTN5x1Ee0ZeYQ9bjjSSgH3Mfx/ezcSV3T691C/PcHTNWwJa5qhcuq8V/NrVAeMc26aXuSdOAq6sRb1g==
+"@mdx-js/react@^1.6.16":
+  version "1.6.16"
+  resolved "https://registry.yarnpkg.com/@mdx-js/react/-/react-1.6.16.tgz#538eb14473194d0b3c54020cb230e426174315cd"
+  integrity sha512-+FhuSVOPo7+4fZaRwWuCSRUcZkJOkZu0rfAbBKvoCg1LWb1Td8Vzi0DTLORdSvgWNbU6+EL40HIgwTOs00x2Jw==
 
 "@mdx-js/util@^1.5.9":
   version "1.5.9"
@@ -10675,10 +10675,10 @@ polished@^3.3.1:
   dependencies:
     "@babel/runtime" "^7.8.7"
 
-popmotion@^8.7.3:
-  version "8.7.3"
-  resolved "https://registry.yarnpkg.com/popmotion/-/popmotion-8.7.3.tgz#330a77fd8b288f0e8f930e3d3f351d6eb4897860"
-  integrity sha512-OcpS/V9sCJjrKiVfp3JB5kp5SBqefZ4RvM9GBLYgv0YbULxv9S5METP9ueVJxSClR3yrfFEY2pLWTWKLn/EUfg==
+popmotion@^8.7.4:
+  version "8.7.4"
+  resolved "https://registry.yarnpkg.com/popmotion/-/popmotion-8.7.4.tgz#0c32f603c173a80b0ddd1c6a45a29cdaf1fe10a2"
+  integrity sha512-8SyTXWMpSDUIFgkU9Kgk6O/GCpcOhYBUChpBj5fstc2VY5qtsyuDHFBHvXpMfQWXSEpA7VULQo0EMMpkQ277DA==
   dependencies:
     "@popmotion/easing" "^1.0.1"
     "@popmotion/popcorn" "^0.4.4"
@@ -14169,10 +14169,10 @@ textr@^0.3.0:
   resolved "https://registry.yarnpkg.com/textr/-/textr-0.3.0.tgz#717361286962ac8df36b7a2619fb773a15b9b7f7"
   integrity sha1-cXNhKGlirI3za3omGft3OhW5t/c=
 
-three@^0.118.3:
-  version "0.118.3"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.118.3.tgz#c0bf8c10a68155478f12f4ccac2ff979526a4a0a"
-  integrity sha512-ijECXrNzDkHieoeh2H69kgawTGH8DiamhR4uBN8jEM7VHSKvfTdEvOoHsA8Aq7dh7PHAxhlqBsN5arBI3KixSw==
+three@^0.120.0:
+  version "0.120.1"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.120.1.tgz#dbd8894f8ab87c109f1602933e7c740c98137377"
+  integrity sha512-ktaCRFUR7JUZcKec+cBRz+oBex5pOVaJhrtxvFF2T7on53o9UkEux+/Nh1g/4zeb4t/pbxIFcADbn/ACu3LC1g==
 
 throat@^4.0.0:
   version "4.1.0"

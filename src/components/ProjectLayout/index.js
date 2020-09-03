@@ -5,8 +5,8 @@ import { Button } from 'components/Button';
 import { useParallax } from 'hooks';
 import prerender from 'utils/prerender';
 import Section from 'components/Section';
-import './index.css';
 import { numToPx, numToMs } from 'utils/style';
+import './index.css';
 
 const initDelay = 300;
 
