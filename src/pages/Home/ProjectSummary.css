@@ -1,7 +1,7 @@
 .project-summary {
-  min-height: 100vh;
   height: 100vh;
   width: 100vw;
+  max-height: 1080px;
   padding-bottom: var(--spaceL);
   margin: 120px 0;
   position: relative;
