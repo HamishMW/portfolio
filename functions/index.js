@@ -46,7 +46,7 @@ app.post('/functions/sendMessage', async (req, res) => {
     const mailOptions = {
       from: `Portfolio <${gmailEmail}>`,
       to: 'hello@hamishw.com',
-      subject: `New message from ${email}`,
+      subject: `New message from ${email}${IS_PROD ? '' : ' [DEV]'}`,
       text: `From: ${email}\n\n${message}`,
     };
 

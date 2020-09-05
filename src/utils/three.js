@@ -15,8 +15,6 @@ export const cleanScene = scene => {
       }
     }
   });
-
-  scene.dispose();
 };
 
 /**
