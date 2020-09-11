@@ -176,17 +176,18 @@ const ImageElements = ({
         </Fragment>
       )}
       {!isVideo && (
-        <img
-          className={classNames('image__element', { 'image__element--loaded': loaded })}
-          onLoad={onLoad}
-          decoding="async"
-          src={showFullRes ? imgSrc : undefined}
-          srcSet={showFullRes ? srcSet : undefined}
-          width={placeholderSize?.width}
-          height={placeholderSize?.height}
-          alt={alt}
-          {...rest}
-        />
+        <picture className={classNames('image__element', { 'image__element--loaded': loaded })}>
+          <img
+            onLoad={onLoad}
+            decoding="async"
+            src={showFullRes ? imgSrc : undefined}
+            srcSet={showFullRes ? srcSet : undefined}
+            width={placeholderSize?.width}
+            height={placeholderSize?.height}
+            alt={alt}
+            {...rest}
+          />
+        </picture>
       )}
       {showPlaceholder && (
         <img

@@ -51,7 +51,7 @@
   border: 0;
 }
 
-.segmented-control__button[aria-selected='true'] {
+.segmented-control__button[aria-checked='true'] {
   color: rgb(var(--rgbBackground));
 }
 
