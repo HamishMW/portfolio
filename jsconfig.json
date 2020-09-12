@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "module": "commonjs"
   },
   "include": ["src", ".storybook/StoryContainer.js"]
 }
