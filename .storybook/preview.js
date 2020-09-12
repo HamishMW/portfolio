@@ -9,6 +9,7 @@ import GothamBook from '../src/assets/fonts/gotham-book.woff2';
 import GothamMedium from '../src/assets/fonts/gotham-medium.woff2';
 import { fontStyles, globalStyles, AppContext } from '../src/app';
 import '../src/app/index.css';
+import './preview.css';
 
 addParameters({
   options: {
@@ -45,7 +46,7 @@ addDecorator(story => {
           <style>{globalStyles}</style>
         </Helmet>
         <AppContext.Provider state={{ theme: currentTheme }}>
-          <div id="storyRoot" key={themeKey}>
+          <div id="story-root" className="story-root" key={themeKey}>
             {content}
           </div>
         </AppContext.Provider>
@@ -57,3 +58,7 @@ addDecorator(story => {
 addDecorator(withKnobs);
 addDecorator(withA11y);
 configure(require.context('../src', true, /\.stories\.js$/), module);
+
+export const parameters = {
+  layout: 'fullscreen',
+};

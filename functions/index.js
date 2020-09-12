@@ -5,14 +5,15 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 const app = express();
-const gmailEmail = process.env.nodeMailerEmail;
-const gmailPassword = process.env.nodeMailerPassword;
+const { smtpHost, smtpUser, smtpPass } = process.env;
 
 const mailTransport = nodemailer.createTransport({
-  service: 'gmail',
+  host: smtpHost,
+  port: 465,
+  secure: true,
   auth: {
-    user: gmailEmail,
-    pass: gmailPassword,
+    user: smtpUser,
+    pass: smtpPass,
   },
 });
 
@@ -28,7 +29,9 @@ app.use(cors({ origin: ORIGIN }));
 app.post('/functions/sendMessage', async (req, res) => {
   try {
     const { email, message } = req.body;
+    const source = IS_PROD ? ORIGIN : 'DEV';
 
+    // Validate email request
     if (!email || !/(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
       return res.status(400).json({ error: 'Please enter a valid email address' });
     } else if (!message) {
@@ -43,10 +46,11 @@ app.post('/functions/sendMessage', async (req, res) => {
       });
     }
 
+    // Send email
     const mailOptions = {
-      from: `Portfolio <${gmailEmail}>`,
+      from: `Portfolio <portfolio@hamishw.com>`,
       to: 'hello@hamishw.com',
-      subject: `New message from ${email}${IS_PROD ? '' : ' [DEV]'}`,
+      subject: `New message from ${email} [${source}]`,
       text: `From: ${email}\n\n${message}`,
     };
 

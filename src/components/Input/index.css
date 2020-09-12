@@ -18,19 +18,14 @@
 }
 
 .input__element {
-  background: transparent;
+  all: unset;
   color: var(--colorTextBody);
   box-shadow: inset 0 -2px 0 0 var(--inputUnderlineColor);
   transition: background-color 5000s linear 0s;
   width: 100%;
-  font-family: inherit;
   font-size: var(--inputFontSize);
   line-height: var(--lineHeightBody);
-  margin: 0;
-  border: 0;
   padding: var(--spaceL) 0 var(--spaceM);
-  appearance: none;
-  border-radius: 0;
   overflow-x: hidden;
 }
 
