@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, forwardRef } from 'react';
 import classNames from 'classnames';
 import {
   Scene,
@@ -47,14 +47,6 @@ const getPositionValues = section => {
   if (!section || !section.camera) return nullTarget;
   const array = section.camera.split(', ');
 
-  console.log(
-    {
-      x: Number(array[0]),
-      y: Number(array[1]),
-      z: Number(array[2]),
-    },
-    nullTarget
-  );
   return {
     x: Number(array[0]),
     y: Number(array[1]),
@@ -65,6 +57,7 @@ const getPositionValues = section => {
 const Earth = ({ sections = [], labels = [], model, className, children }) => {
   const [loaded, setLoaded] = useState(false);
   const container = useRef();
+  const labelContrainer = useRef();
   const canvas = useRef();
   const scene = useRef();
   const renderer = useRef();
@@ -118,7 +111,6 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
   // }
 
   const animate = useCallback(() => {
-    console.log('tick');
     animationFrame.current = requestAnimationFrame(animate);
     const delta = clock.current.getDelta();
     mixer.current.update(delta);
@@ -296,8 +288,6 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
       renderer.current.setSize(innerWidth, innerHeight);
       camera.current.aspect = innerWidth / innerHeight;
       camera.current.updateProjectionMatrix();
-
-      console.log('resize');
     };
 
     handleResize();
@@ -343,8 +333,6 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
     const handleScroll = () => {
       const { innerHeight } = window;
       const currentScrollY = window.scrollY - container.current.offsetTop;
-      console.log(currentScrollY, window.scrollY);
-      console.log('top', container.current.offsetTop, container.current);
       let prevTarget;
 
       const updateMeshes = index => {
@@ -357,8 +345,6 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
             const isTransparent = material.opacity === 0;
             const isVisible = visibleMeshes && visibleMeshes.includes(name);
             const isHidden = model.hideMeshes.includes(name);
-
-            console.log(name, model.hideMeshes);
 
             const opacityValue = value(
               material.opacity,
@@ -382,11 +368,8 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
         const sectionAnimations = sections[index].animations.split(', ');
 
         animations.current.forEach((clip, index) => {
-          console.log(sectionAnimations, index, clip);
           if (!sectionAnimations.find(section => section.includes(index.toString()))) {
             const animation = mixer.current.clipAction(clip);
-            console.log('stop');
-
             animation.reset().stop();
           }
         });
@@ -401,8 +384,6 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
               animation.clampWhenFinished = true;
               animation.loop = LoopOnce;
             }
-
-            console.log('play');
             animation.play();
           });
         }
@@ -429,10 +410,8 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
       const update = () => {
         const indexRange = transform.clamp(0, sections.length - 1);
 
-        console.log(sections.length - 1);
         const currentSectionIndex = indexRange(Math.floor(currentScrollY / innerHeight));
 
-        console.log({ currentSectionIndex });
         const currentTarget =
           getPositionValues(sections[currentSectionIndex]) || nullTarget;
         const nextTarget =
@@ -440,7 +419,6 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
         const sectionScrolled =
           (currentScrollY - innerHeight * currentSectionIndex) / innerHeight;
 
-        console.log({ sectionScrolled });
         const scrollPercentRange = transform.clamp(0, 1);
         const scrollPercent = scrollPercentRange(sectionScrolled);
         const currentX = getIntertpolatedPosition(
@@ -520,7 +498,7 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
           ref={canvas}
           style={{ opacity: loaded && inViewport ? 1 : 0 }}
         />
-        <div className="earth__labels" aria-live="polite" ref={labels} />
+        <div className="earth__labels" aria-live="polite" ref={labelContrainer} />
         <div className="earth__vignette" />
       </div>
       <div className="earth__sections">{children}</div>
@@ -528,23 +506,16 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
   );
 };
 
-export const EarthSection = ({ children, scrim, className, ...rest }) => {
+export const EarthSection = ({ children, scrim, className }) => {
   return (
     <div
       className={classNames('earth__section', className, {
         'earth__section--scrim': scrim,
       })}
-      {...rest}
     >
       {children}
     </div>
   );
 };
-
-// export default React.forwardRef((props, ref) => (
-//   <AppContext.Consumer>
-//     {appContext => <ModelScene {...props} appContext={appContext} ref={ref} />}
-//   </AppContext.Consumer>
-// ));
 
 export default Earth;
