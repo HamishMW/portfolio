@@ -9,6 +9,7 @@
     "@storybook/addon-a11y": "^6.0.21",
     "@storybook/addon-actions": "^6.0.21",
     "@storybook/addon-knobs": "^6.0.21",
+    "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.0.21",
     "babel-loader": "^8.1.0",
     "enzyme": "^3.11.0",
@@ -24,7 +25,6 @@
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.16",
-    "@storybook/preset-create-react-app": "^3.1.4",
     "classnames": "^2.2.6",
     "ios-inner-height": "^1.1.1",
     "popmotion": "^8.7.5",

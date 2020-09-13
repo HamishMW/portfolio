@@ -1,4 +1,11 @@
-import React, { useEffect, useRef, useState, useCallback, forwardRef } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  createContext,
+  useContext,
+} from 'react';
 import classNames from 'classnames';
 import {
   Scene,
@@ -45,19 +52,27 @@ const positionToString = value =>
 
 const getPositionValues = section => {
   if (!section || !section.camera) return nullTarget;
-  const array = section.camera.split(', ');
 
   return {
-    x: Number(array[0]),
-    y: Number(array[1]),
-    z: Number(array[2]),
+    x: section.camera[0],
+    y: section.camera[1],
+    z: section.camera[2],
   };
 };
 
-const Earth = ({ sections = [], labels = [], model, className, children }) => {
+const EarthContext = createContext({});
+
+const Earth = ({
+  position = [0, 0, 0],
+  scale = 1,
+  hideMeshes = [],
+  className,
+  children,
+}) => {
   const [loaded, setLoaded] = useState(false);
+  const sectionRefs = useRef([]);
   const container = useRef();
-  const labelContrainer = useRef();
+  const labelContainer = useRef();
   const canvas = useRef();
   const scene = useRef();
   const renderer = useRef();
@@ -71,7 +86,7 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
   const fetching = useRef(false);
   const inViewport = useInViewport(canvas);
   const animationFrame = useRef();
-  const initCameraPosition = useRef(getPositionValues(sections[0]));
+  const initCameraPosition = useRef(getPositionValues(sectionRefs.current[0]));
   const labelElements = useRef([]);
   const cameraValue = useRef();
 
@@ -135,6 +150,7 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
     renderer.current.toneMapping = ACESFilmicToneMapping;
 
     camera.current = new PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 100);
+    console.log({ initCameraPosition });
     camera.current.position.x = initCameraPosition.current.x;
     camera.current.position.y = initCameraPosition.current.y;
     camera.current.position.z = initCameraPosition.current.z;
@@ -193,14 +209,13 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
         }
       });
 
-      const modelPosition = model.position.split(', ');
-      sceneModel.current.position.x = Number(modelPosition[0]);
-      sceneModel.current.position.y = Number(modelPosition[1]);
-      sceneModel.current.position.z = Number(modelPosition[2]);
+      sceneModel.current.position.x = position[0];
+      sceneModel.current.position.y = position[1];
+      sceneModel.current.position.z = position[2];
 
-      sceneModel.current.scale.x = model.scale;
-      sceneModel.current.scale.y = model.scale;
-      sceneModel.current.scale.z = model.scale;
+      sceneModel.current.scale.x = scale;
+      sceneModel.current.scale.y = scale;
+      sceneModel.current.scale.z = scale;
     };
 
     const loadEnv = async () => {
@@ -235,7 +250,7 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
 
     fetching.current = true;
     handleLoad();
-  }, [loaded, model.position, model.scale]);
+  }, [loaded, position, scale]);
 
   useEffect(() => {
     if (loaded && inViewport) {
@@ -336,7 +351,7 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
       let prevTarget;
 
       const updateMeshes = index => {
-        const visibleMeshes = sections[index].meshes.split(', ');
+        const visibleMeshes = sectionRefs.current[index].meshes;
 
         sceneModel.current.traverse(child => {
           const { isMesh, material, name } = child;
@@ -344,7 +359,7 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
           if (isMesh) {
             const isTransparent = material.opacity === 0;
             const isVisible = visibleMeshes && visibleMeshes.includes(name);
-            const isHidden = model.hideMeshes.includes(name);
+            const isHidden = hideMeshes.includes(name);
 
             const opacityValue = value(
               material.opacity,
@@ -365,7 +380,7 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
       };
 
       const updateAnimation = index => {
-        const sectionAnimations = sections[index].animations.split(', ');
+        const sectionAnimations = sectionRefs.current[index].animations;
 
         animations.current.forEach((clip, index) => {
           if (!sectionAnimations.find(section => section.includes(index.toString()))) {
@@ -374,7 +389,7 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
           }
         });
 
-        if (animations.current.length && sections[index].animations) {
+        if (animations.current.length && sectionRefs.current[index].animations) {
           sectionAnimations.forEach(animItem => {
             const values = animItem.split(':');
             const clip = animations.current[Number(values[0])];
@@ -396,8 +411,7 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
           }
         });
 
-        if (!sections[index].labels) return;
-        const labels = sections[index].labels.split(', ');
+        const labels = sectionRefs.current[index].labels;
 
         labels.forEach(label => {
           const matches = labelElements.current.filter(item => item.text === label);
@@ -408,14 +422,14 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
       };
 
       const update = () => {
-        const indexRange = transform.clamp(0, sections.length - 1);
+        const indexRange = transform.clamp(0, sectionRefs.current.length - 1);
 
         const currentSectionIndex = indexRange(Math.floor(currentScrollY / innerHeight));
 
         const currentTarget =
-          getPositionValues(sections[currentSectionIndex]) || nullTarget;
+          getPositionValues(sectionRefs.current[currentSectionIndex]) || nullTarget;
         const nextTarget =
-          getPositionValues(sections[currentSectionIndex + 1]) || nullTarget;
+          getPositionValues(sectionRefs.current[currentSectionIndex + 1]) || nullTarget;
         const sectionScrolled =
           (currentScrollY - innerHeight * currentSectionIndex) / innerHeight;
 
@@ -439,8 +453,8 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
 
         if (
           prevTarget !== currentTarget &&
-          sections.length &&
-          sections[currentSectionIndex]
+          sectionRefs.current.length &&
+          sectionRefs.current[currentSectionIndex]
         ) {
           updateMeshes(currentSectionIndex);
           updateAnimation(currentSectionIndex);
@@ -483,35 +497,76 @@ const Earth = ({ sections = [], labels = [], model, className, children }) => {
         cameraSpring.stop();
       }
     };
-  }, [inViewport, loaded, model, model.hideMeshes, sections]);
+  }, [hideMeshes, inViewport, loaded]);
+
+  const registerSection = useCallback(section => {
+    sectionRefs.current = [...sectionRefs.current, section];
+
+    console.log('register', sectionRefs.current);
+  }, []);
+
+  const unregisterSection = useCallback(section => {
+    console.log('unregister', section);
+    sectionRefs.current = sectionRefs.current.filter(item => item !== section);
+  }, []);
 
   return (
-    <div className={classNames('earth', className)} ref={container}>
-      <Helmet>
-        <link rel="prefetch" href={milkywayBg} as="fetch" />
-        <link rel="prefetch" href={milkywayHdr} as="fetch" />
-        <link rel="prefetch" href={earthModel} as="fetch" />
-      </Helmet>
-      <div className="earth__viewport">
-        <canvas
-          className="earth__canvas"
-          ref={canvas}
-          style={{ opacity: loaded && inViewport ? 1 : 0 }}
-        />
-        <div className="earth__labels" aria-live="polite" ref={labelContrainer} />
-        <div className="earth__vignette" />
+    <EarthContext.Provider value={{ registerSection, unregisterSection }}>
+      <div className={classNames('earth', className)} ref={container}>
+        <Helmet>
+          <link rel="prefetch" href={milkywayBg} as="fetch" />
+          <link rel="prefetch" href={milkywayHdr} as="fetch" />
+          <link rel="prefetch" href={earthModel} as="fetch" />
+        </Helmet>
+        <div className="earth__viewport">
+          <canvas
+            className="earth__canvas"
+            ref={canvas}
+            style={{ opacity: loaded && inViewport ? 1 : 0 }}
+          />
+          <div className="earth__labels" aria-live="polite" ref={labelContainer} />
+          <div className="earth__vignette" />
+        </div>
+        <div className="earth__sections">{children}</div>
       </div>
-      <div className="earth__sections">{children}</div>
-    </div>
+    </EarthContext.Provider>
   );
 };
 
-export const EarthSection = ({ children, scrim, className }) => {
+export const EarthSection = ({
+  children,
+  scrim,
+  className,
+  camera = [0, 0, 0],
+  animations = [],
+  meshes = [],
+  labels = [],
+}) => {
+  const { registerSection, unregisterSection } = useContext(EarthContext);
+  const sectionRef = useRef();
+
+  useEffect(() => {
+    const section = {
+      camera,
+      animations,
+      meshes,
+      labels,
+      sectionRef,
+    };
+
+    registerSection(section);
+
+    return () => {
+      unregisterSection(section);
+    };
+  }, [animations, camera, labels, meshes, registerSection, unregisterSection]);
+
   return (
     <div
       className={classNames('earth__section', className, {
         'earth__section--scrim': scrim,
       })}
+      ref={sectionRef}
     >
       {children}
     </div>

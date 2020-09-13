@@ -81,57 +81,65 @@ const ProjectSPR = () => {
         <div className="spr__earth-section" style={createThemeStyleObject(theme.dark)}>
           <Earth
             className="spr__earth"
-            viewerContext={{
-              readOnly: false,
-            }}
-            labels={[]}
-            sections={[
-              {
-                animations: '0:loop',
-                camera: '0, 0, 1.5',
-                meshes: 'Atmosphere',
-              },
-              {
-                animations: '0:loop',
-                camera: '0, 0, 2.4',
-                meshes: 'Atmosphere',
-              },
-              {
-                animations: '0:loop',
-                camera: '1.14, -1.39, 0.94',
-                meshes: 'Atmosphere',
-              },
-              {
-                animations: '0:loop',
-                camera: '1.17, 0.69, -1.47',
-                meshes: 'Atmosphere',
-              },
-              {
-                animations: '0:loop',
-                camera: '1.81, 0.51, 0.43',
-                meshes: 'Atmosphere',
-              },
-              {
-                animations: '0:loop, 1',
-                camera: '0.37, 1.02, 1.84',
-                meshes: '',
-              },
-            ]}
-            model={{
-              hideMeshes: 'Atmosphere',
-              labels: [],
-              position: '0, 0, 0',
-              scale: 0.6,
-            }}
+            hideMeshes={['Atmosphere']}
+            position={[0, 0, 0]}
+            scale={0.6}
           >
-            <EarthSection scrim className="spr__earth-section">
+            <EarthSection
+              scrim
+              animations={['0:loop']}
+              camera={[0, 0, 1.5]}
+              meshes={['Atmosphere']}
+              className="spr__earth-section"
+            >
               Section 1
             </EarthSection>
-            <EarthSection className="spr__earth-section">Section 2</EarthSection>
-            <EarthSection className="spr__earth-section">Section 3</EarthSection>
-            <EarthSection className="spr__earth-section">Section 4</EarthSection>
-            <EarthSection className="spr__earth-section">Section 5</EarthSection>
-            <EarthSection className="spr__earth-section">Section 6</EarthSection>
+            <EarthSection
+              animations={['0:loop']}
+              camera={[0, 0, 2.4]}
+              meshes={['Atmosphere']}
+              className="spr__earth-section"
+            >
+              Section 2
+            </EarthSection>
+            <EarthSection
+              animations={['0:loop']}
+              camera={[1.14, -1.39, 0.94]}
+              meshes={['Atmosphere']}
+              className="spr__earth-section"
+            >
+              Section 3
+            </EarthSection>
+            <EarthSection
+              animations={['0:loop']}
+              camera={[1.17, 0.69, -1.47]}
+              meshes={['Atmosphere']}
+              className="spr__earth-section"
+            >
+              Section 4
+            </EarthSection>
+            <EarthSection
+              animations={['0:loop']}
+              camera={[1.81, 0.51, 0.43]}
+              meshes={['Atmosphere']}
+              className="spr__earth-section"
+            >
+              Section 5
+            </EarthSection>
+            <EarthSection
+              animations={['0:loop', '1']}
+              camera={[0.37, 1.02, 1.84]}
+              className="spr__earth-section"
+            >
+              Section 6
+            </EarthSection>
+            <EarthSection
+              animations={['0:loop', '1']}
+              camera={[0.37, 1.02, 1.84]}
+              className="spr__earth-section"
+            >
+              Section 7
+            </EarthSection>
           </Earth>
         </div>
         <div style={{ height: '100vh' }} />
