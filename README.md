@@ -4,7 +4,7 @@
 
 A design portfolio to showcase a few projects. Check out a live version of the [component design system](https://storybook.hamishw.com).
 
-## Install & run
+## Install & run the amazing project
 
 Make sure you have nodejs and yarn installed. Install dependencies with:
 
