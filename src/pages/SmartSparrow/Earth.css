@@ -70,3 +70,11 @@
     transparent
   );
 }
+
+.earth__section--scrim-reverse {
+  background: linear-gradient(
+    transparent,
+    rgb(var(--rgbBackground) / 0.7),
+    rgb(var(--rgbBackground))
+  );
+}

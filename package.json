@@ -6,6 +6,7 @@
   "repository": "https://github.com/HamishMW/portfolio.git",
   "author": "Hamish Williams <hello@hamishw.com>",
   "devDependencies": {
+    "@babel/core": "^7.11.6",
     "@storybook/addon-a11y": "^6.0.21",
     "@storybook/addon-actions": "^6.0.21",
     "@storybook/addon-knobs": "^6.0.21",
@@ -13,27 +14,27 @@
     "@storybook/react": "^6.0.21",
     "babel-loader": "^8.1.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-adapter-react-16": "^1.15.4",
     "mdx-loader": "^3.0.2",
-    "prettier": "^2.0.5",
-    "react-scripts": "3.4.1",
+    "prettier": "^2.1.2",
+    "react-scripts": "3.4.3",
     "react-snap": "1.23.0",
     "react-test-renderer": "^16.13.1",
-    "source-map-explorer": "^2.4.2",
-    "stylelint": "^13.6.1",
+    "source-map-explorer": "^2.5.0",
+    "stylelint": "^13.7.1",
     "stylelint-config-recommended": "^3.0.0"
   },
   "dependencies": {
-    "@mdx-js/react": "^1.6.16",
+    "@mdx-js/react": "^1.6.18",
     "classnames": "^2.2.6",
     "ios-inner-height": "^1.1.1",
     "popmotion": "^8.7.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-helmet-async": "^1.0.6",
+    "react-helmet-async": "^1.0.7",
     "react-router-dom": "5.2.0",
     "react-transition-group": "^4.4.1",
-    "three": "^0.120.1"
+    "three": "^0.121.1"
   },
   "scripts": {
     "start": "react-scripts start",

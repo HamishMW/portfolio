@@ -134,6 +134,7 @@ const ProjectSPR = () => {
               Section 6
             </EarthSection>
             <EarthSection
+              scrimReverse
               animations={['0:loop', '1']}
               camera={[0.37, 1.02, 1.84]}
               className="spr__earth-section"

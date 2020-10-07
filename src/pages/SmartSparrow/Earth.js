@@ -536,6 +536,7 @@ const Earth = ({
 export const EarthSection = ({
   children,
   scrim,
+  scrimReverse,
   className,
   camera = [0, 0, 0],
   animations = [],
@@ -565,6 +566,7 @@ export const EarthSection = ({
     <div
       className={classNames('earth__section', className, {
         'earth__section--scrim': scrim,
+        'earth__section--scrim-reverse': scrimReverse,
       })}
       ref={sectionRef}
     >
