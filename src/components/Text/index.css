@@ -1,0 +1,41 @@
+.text {
+  margin-block: 0;
+  line-height: var(--lineHeightBody);
+  color: var(--colorTextBody);
+}
+
+.text--size-s {
+  font-size: var(--fontSizeBodyS);
+}
+
+.text--size-m {
+  font-size: var(--fontSizeBodyM);
+}
+
+.text--size-l {
+  font-size: var(--fontSizeBodyL);
+}
+
+.text--align-start {
+  text-align: start;
+}
+
+.text--align-center {
+  text-align: center;
+}
+
+.text--weight-regular {
+  font-weight: var(--fontWeightRegular);
+}
+
+.text--weight-medium {
+  font-weight: var(--fontWeightMedium);
+}
+
+.text--weight-bold {
+  font-weight: var(--fontWeightBold);
+}
+
+.text--secondary {
+  color: var(--colorTextLight);
+}

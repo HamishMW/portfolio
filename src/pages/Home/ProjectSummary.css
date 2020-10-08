@@ -228,12 +228,7 @@
 }
 
 .project-summary__title {
-  font-size: var(--fontSizeH2);
-  font-weight: var(--fontWeightMedium);
-  color: var(--colorTextTitle);
-  line-height: var(--lineHeightTitle);
-  margin: 0 0 var(--spaceL) 0;
-  padding: 0;
+  margin-bottom: var(--spaceL);
   transition-property: transform, opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
@@ -248,11 +243,7 @@
 }
 
 .project-summary__description {
-  font-size: var(--fontSizeBodyL);
-  line-height: var(--lineHeightBody);
-  color: var(--colorTextBody);
-  font-weight: var(--fontWeightRegular);
-  margin: 0 0 var(--spaceXL) 0;
+  margin-bottom: var(--spaceXL);
   transition-property: transform, opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);

@@ -362,29 +362,12 @@
 }
 
 .post__heading-two {
-  color: var(--colorTextTitle);
-  margin: 0;
-  font-size: 42px;
   grid-column: 3;
-  font-weight: var(--fontWeightMedium);
-}
-
-@media (max-width: 1280px) {
-  .post__heading-two {
-    font-size: 34px;
-  }
 }
 
 @media (max-width: 1024px) {
   .post__heading-two {
-    font-size: 24px;
     grid-column: 1;
-  }
-}
-
-@media (max-width: 696px) {
-  .post__heading-two {
-    font-size: 22px;
   }
 }
 
@@ -392,10 +375,6 @@
   --para-space: 26px;
   --heading-space: 34px;
 
-  color: rgb(var(--rgbText) / 0.8);
-  margin: 0;
-  font-size: 24px;
-  line-height: 1.5;
   grid-column: 3;
 }
 

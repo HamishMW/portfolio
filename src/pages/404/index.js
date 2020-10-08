@@ -9,6 +9,8 @@ import Notfound from 'assets/notfound.mp4';
 import NotfoundPoster from 'assets/notfound.jpg';
 import { reflow } from 'utils/transition';
 import './index.css';
+import Heading from 'components/Heading';
+import Text from 'components/Text';
 
 function NotFound() {
   return (
@@ -22,25 +24,29 @@ function NotFound() {
           <Fragment>
             <div className="page-404__details">
               <div className="page-404__text">
-                <h1
+                {/* TODO: Heading level zero? */}
+                <Heading
                   className={classNames('page-404__title', `page-404__title--${status}`)}
+                  level={1}
                 >
                   404
-                </h1>
-                <h2
+                </Heading>
+                <Heading
                   aria-hidden
                   className={classNames(
                     'page-404__subheading',
                     `page-404__subheading--${status}`
                   )}
+                  as="h2"
+                  level={3}
                 >
                   <DecoderText
                     text="Error: Redacted"
                     start={status !== 'exited'}
                     delay={300}
                   />
-                </h2>
-                <p
+                </Heading>
+                <Text
                   className={classNames(
                     'page-404__description',
                     `page-404__description--${status}`
@@ -48,7 +54,7 @@ function NotFound() {
                 >
                   This page could not be found. It either doesn’t exist or was deleted. Or
                   perhaps you don’t exist.
-                </p>
+                </Text>
                 <Button
                   secondary
                   iconHoverShift

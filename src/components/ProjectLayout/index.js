@@ -6,7 +6,9 @@ import { useParallax } from 'hooks';
 import prerender from 'utils/prerender';
 import Section from 'components/Section';
 import { numToPx, numToMs } from 'utils/style';
+import Heading from 'components/Heading';
 import './index.css';
+import Text from 'components/Text';
 
 const initDelay = 300;
 
@@ -25,20 +27,22 @@ export function ProjectHeader({
         style={{ '--initDelay': numToMs(initDelay) }}
       >
         <div className="project__details">
-          <h1
+          <Heading
             className={classNames('project__title', {
               'project__title--entered': !prerender,
             })}
+            level={1}
           >
             {title}
-          </h1>
-          <p
+          </Heading>
+          <Text
             className={classNames('project__description', {
               'project__description--entered': !prerender,
             })}
+            size="l"
           >
             {description}
-          </p>
+          </Text>
           <Button
             secondary
             iconHoverShift
@@ -62,7 +66,9 @@ export function ProjectHeader({
               style={{ '--delay': numToMs(initDelay + 300 + index * 140) }}
               key={role}
             >
-              {role}
+              <Text secondary as="span">
+                {role}
+              </Text>
             </li>
           ))}
         </ul>
@@ -114,14 +120,16 @@ export const ProjectSectionContent = ({ className, ...rest }) => (
   <div className={classNames('project__section-content', className)} {...rest} />
 );
 
-export const ProjectSectionHeading = ({ className, children, ...rest }) => (
-  <h2 className={classNames('project__section-heading', className)} {...rest}>
-    {children}
-  </h2>
+export const ProjectSectionHeading = ({ className, ...rest }) => (
+  <Heading
+    className={classNames('project__section-heading', className)}
+    level={2}
+    {...rest}
+  />
 );
 
 export const ProjectSectionText = ({ className, ...rest }) => (
-  <p className={classNames('project__section-text', className)} {...rest} />
+  <Text className={classNames('project__section-text', className)} size="l" {...rest} />
 );
 
 export const ProjectTextRow = ({

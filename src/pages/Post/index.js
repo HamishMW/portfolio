@@ -18,6 +18,8 @@ import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
 import { tokens } from 'app/theme';
 import Section from 'components/Section';
 import './index.css';
+import Heading from 'components/Heading';
+import Text from 'components/Text';
 
 const PostWrapper = ({
   children,
@@ -131,15 +133,15 @@ const PostWrapper = ({
 };
 
 const PostHeadingTwo = ({ children, ...rest }) => (
-  <h2 className="post__heading-two" {...rest}>
+  <Heading className="post__heading-two" level={2} {...rest}>
     {children}
-  </h2>
+  </Heading>
 );
 
 const PostParagraph = ({ children, ...rest }) => (
-  <p className="post__paragraph" {...rest}>
+  <Text className="post__paragraph" size="l" {...rest}>
     {children}
-  </p>
+  </Text>
 );
 
 const PostImage = ({ src, alt, ...rest }) => {

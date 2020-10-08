@@ -14,31 +14,40 @@ import ProfileImgPlaceholder from 'assets/profile-placeholder.jpg';
 import { reflow } from 'utils/transition';
 import { media } from 'utils/style';
 import { ReactComponent as KatakanaProfile } from 'assets/katakana-profile.svg';
+import Heading from 'components/Heading';
+import Text from 'components/Text';
 import './Profile.css';
 
 const ProfileText = ({ status, titleId }) => (
   <Fragment>
-    <h2
+    <Heading
       className={classNames('profile__title', `profile__title--${status}`)}
+      level={2}
       id={titleId}
     >
       <DecoderText text="Hi there" start={status !== 'exited'} delay={500} />
-    </h2>
-    <p className={classNames('profile__description', `profile__description--${status}`)}>
+    </Heading>
+    <Text
+      className={classNames('profile__description', `profile__description--${status}`)}
+      size="l"
+    >
       I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
       <Anchor href="https://www.qwilr.com" target="_blank">
         Qwilr
       </Anchor>
       . My projects include UX design, UI animations, and icon illustration. Being
       comfortable with code allows me to rapidly prototype and validate experiences.
-    </p>
-    <p className={classNames('profile__description', `profile__description--${status}`)}>
+    </Text>
+    <Text
+      className={classNames('profile__description', `profile__description--${status}`)}
+      size="l"
+    >
       In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
       <Anchor as={Link} to="/projects/volkihar-knight">
         make mods
       </Anchor>
       . I’m always down for hearing about new projects, so feel free to drop me a line.
-    </p>
+    </Text>
   </Fragment>
 );
 
@@ -62,9 +71,7 @@ const Profile = ({ id, visible, sectionRef }) => {
               <Button
                 secondary
                 className={classNames('profile__button', `profile__button--${status}`)}
-                as={Link}
-                status={status}
-                to="/contact"
+                href="/contact"
                 icon="send"
               >
                 Send me a message
@@ -95,7 +102,7 @@ const Profile = ({ id, visible, sectionRef }) => {
                   placeholder={ProfileImgPlaceholder}
                   srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
-                  alt="Me at the Torii (gate) on Miyajima, an island off the coast of Hiroshima in Japan"
+                  alt="Me standing in front of the Torii on Miyajima, an island off the coast of Hiroshima in Japan"
                 />
                 <KatakanaProfile
                   className={classNames('profile__svg', `profile__svg--${status}`)}

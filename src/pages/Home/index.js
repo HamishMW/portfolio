@@ -161,7 +161,7 @@ export default function Home() {
         title="Designing the future of education"
         description="Designing a platfrom to help educators build better online courseware"
         buttonText="View Project"
-        buttonTo="/projects/smart-sparrow"
+        buttonLink="/projects/smart-sparrow"
         model={{
           type: 'laptop',
           alt: 'Smart Sparrow lesson builder',
@@ -209,7 +209,7 @@ export default function Home() {
         title="Biomedical image collaboration"
         description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
         buttonText="View Project"
-        buttonTo="/projects/slice"
+        buttonLink="/projects/slice"
         model={{
           type: 'laptop',
           alt: 'Annotating a biomedical image in the Slice app',

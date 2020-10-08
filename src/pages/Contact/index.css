@@ -34,12 +34,7 @@
 }
 
 .contact__title {
-  font-size: var(--fontSizeH2);
-  font-weight: var(--fontWeightMedium);
-  margin-bottom: var(--space2XL);
-  line-height: var(--lineHeightTitle);
-  margin-top: 0;
-  color: var(--colorTextTitle);
+  padding-bottom: var(--space2XL);
   transition-property: transform, opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);

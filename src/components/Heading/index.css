@@ -1,0 +1,38 @@
+.heading {
+  display: block;
+  margin-block: 0;
+  line-height: var(--lineHeightTitle);
+  color: var(--colorTextTitle);
+}
+
+.heading--level-1 {
+  font-size: var(--fontSizeH1);
+}
+
+.heading--level-2 {
+  font-size: var(--fontSizeH2);
+}
+
+.heading--level-3 {
+  font-size: var(--fontSizeH3);
+}
+
+.heading--align-start {
+  text-align: start;
+}
+
+.heading--align-center {
+  text-align: center;
+}
+
+.heading--weight-regular {
+  font-weight: var(--fontWeightRegular);
+}
+
+.heading--weight-medium {
+  font-weight: var(--fontWeightMedium);
+}
+
+.heading--weight-bold {
+  font-weight: var(--fontWeightBold);
+}

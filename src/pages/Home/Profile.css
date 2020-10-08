@@ -75,11 +75,8 @@
 }
 
 .profile__title {
-  font-size: var(--fontSizeH2);
-  font-weight: var(--fontWeightMedium);
-  color: var(--colorTextTitle);
   white-space: nowrap;
-  margin: 0 0 var(--spaceL) 0;
+  margin-bottom: var(--spaceL);
   opacity: 0;
   transition: opacity var(--durationXL) ease var(--durationM);
 }
@@ -89,9 +86,7 @@
 }
 
 .profile__description {
-  font-size: var(--fontSizeBodyL);
-  line-height: var(--lineHeightBody);
-  margin: 0 0 var(--spaceXL) 0;
+  margin-bottom: var(--spaceXL);
   opacity: 0;
   transition: opacity var(--durationXL) ease var(--durationL);
 }
