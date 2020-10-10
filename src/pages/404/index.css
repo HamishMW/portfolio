@@ -142,7 +142,7 @@
 }
 
 .page-404__title {
-  padding-bottom: var(--spaceM);
+  margin-bottom: var(--spaceM);
   transition-property: transform, opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);

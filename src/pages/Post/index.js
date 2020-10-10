@@ -6,7 +6,6 @@ import Divider from 'components/Divider';
 import { numToMs, msToNum } from 'utils/style';
 import { useWindowSize, useScrollRestore } from 'hooks';
 import Image from 'components/Image';
-import GothamBold from 'assets/fonts/gotham-bold.woff2';
 import { Helmet } from 'react-helmet-async';
 import { MDXProvider } from '@mdx-js/react';
 import Anchor from 'components/Anchor';
@@ -51,17 +50,6 @@ const PostWrapper = ({
       <Helmet>
         <title>{`Articles | ${title}`}</title>
         <meta name="description" content={description} />
-        <link rel="preload" href={GothamBold} as="font" crossorigin="" />
-        <style>
-          {`
-            @font-face {
-              font-family: 'Gotham';
-              font-weight: 700;
-              src: url(${GothamBold}) format('woff2');
-              font-display: swap;
-            }
-          `}
-        </style>
       </Helmet>
       <header className="post__header">
         <div className="post__header-text">

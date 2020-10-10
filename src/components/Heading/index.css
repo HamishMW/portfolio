@@ -1,6 +1,12 @@
+h1,
+h2,
+h3,
+h4 {
+  margin-block: 0;
+}
+
 .heading {
   display: block;
-  margin-block: 0;
   line-height: var(--lineHeightTitle);
   color: var(--colorTextTitle);
 }

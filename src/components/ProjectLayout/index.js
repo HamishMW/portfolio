@@ -39,7 +39,7 @@ export function ProjectHeader({
             className={classNames('project__description', {
               'project__description--entered': !prerender,
             })}
-            size="l"
+            size="xl"
           >
             {description}
           </Text>

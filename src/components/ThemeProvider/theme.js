@@ -24,6 +24,7 @@ const baseTokens = {
   fontSizeH2: pxToRem(58),
   fontSizeH3: pxToRem(38),
   fontSizeH4: pxToRem(28),
+  fontSizeBodyXL: pxToRem(22),
   fontSizeBodyL: pxToRem(20),
   fontSizeBodyM: pxToRem(18),
   fontSizeBodyS: pxToRem(16),

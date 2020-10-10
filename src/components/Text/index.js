@@ -6,8 +6,8 @@ const Text = ({
   children,
   size = 'm',
   as: Component = 'p',
-  align = 'start',
-  weight = 'regular',
+  align = 'auto',
+  weight = 'auto',
   secondary,
   className,
   ...rest

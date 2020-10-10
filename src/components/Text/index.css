@@ -16,12 +16,24 @@
   font-size: var(--fontSizeBodyL);
 }
 
+.text--size-xl {
+  font-size: var(--fontSizeBodyXL);
+}
+
+.text--align-auto {
+  text-align: inherit;
+}
+
 .text--align-start {
   text-align: start;
 }
 
 .text--align-center {
   text-align: center;
+}
+
+.text--weight-auto {
+  font-weight: inherit;
 }
 
 .text--weight-regular {

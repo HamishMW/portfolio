@@ -8,6 +8,7 @@ export default {
 
 export const size = () => (
   <StoryContainer vertical padding={32} gutter={32}>
+    <Text size="xl">XLarge</Text>
     <Text size="l">Large</Text>
     <Text size="m">Medium</Text>
     <Text size="s">Small</Text>

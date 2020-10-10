@@ -34,7 +34,7 @@
 }
 
 .contact__title {
-  padding-bottom: var(--space2XL);
+  margin-bottom: var(--space2XL);
   transition-property: transform, opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);

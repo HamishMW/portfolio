@@ -19,8 +19,7 @@ import ThemeProvider from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { msToNum } from 'utils/style';
 import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
-import GothamBook from 'assets/fonts/gotham-book.woff2';
-import GothamMedium from 'assets/fonts/gotham-medium.woff2';
+
 import { initialState, reducer } from 'app/reducer';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
@@ -41,22 +40,6 @@ const repoPrompt = `
 __  __  __
 \u005C \u005C \u005C \u005C \u005C\u2215\n \u005C \u005C\u2215\u005C \u005C\n  \u005C\u2215  \u005C\u2215
 \n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio
-`;
-
-export const fontStyles = `
-  @font-face {
-    font-family: "Gotham";
-    font-weight: 400;
-    src: url(${GothamBook}) format("woff");
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "Gotham";
-    font-weight: 500;
-    src: url(${GothamMedium}) format("woff2");
-    font-display: swap;
-  }
 `;
 
 const App = () => {
@@ -104,9 +87,6 @@ const AppRoutes = () => {
     <Fragment>
       <Helmet>
         <link rel="canonical" href={`https://hamishw.com${pathname}`} />
-        <link rel="preload" href={GothamMedium} as="font" crossorigin="" />
-        <link rel="preload" href={GothamBook} as="font" crossorigin="" />
-        <style>{fontStyles}</style>
       </Helmet>
       <a className="skip-to-main" href="#MainContent">
         Skip to main content

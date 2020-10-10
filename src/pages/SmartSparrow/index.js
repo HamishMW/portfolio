@@ -78,7 +78,7 @@ const ProjectSPR = () => {
         </ProjectSection>
         <div style={{ height: '100vh' }} />
         <div style={{ height: '100vh' }} />
-        <ThemeProvider className="spr__earth-section" theme="dark">
+        <ThemeProvider className="spr__earth-section" themeId="dark">
           <Earth
             className="spr__earth"
             hideMeshes={['Atmosphere']}

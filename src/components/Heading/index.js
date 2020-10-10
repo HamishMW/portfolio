@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import classNames from 'classnames';
+import { Helmet } from 'react-helmet-async';
+import GothamBold from 'assets/fonts/gotham-bold.woff2';
 import './index.css';
 
 const Heading = ({
@@ -15,18 +17,36 @@ const Heading = ({
   const Component = as || `h${Math.max(clampedLevel, 1)}`;
 
   return (
-    <Component
-      className={classNames(
-        className,
-        'heading',
-        `heading--align-${align}`,
-        `heading--level-${clampedLevel}`,
-        `heading--weight-${weight}`
+    <Fragment>
+      {/* Conditionally load the bold font weight because we use it less frequently */}
+      {weight === 'bold' && (
+        <Helmet>
+          <link rel="preload" href={GothamBold} as="font" crossorigin="" />
+          <style>
+            {`
+              @font-face {
+                font-family: 'Gotham';
+                font-weight: 700;
+                src: url(${GothamBold}) format('woff2');
+                font-display: swap;
+              }
+            `}
+          </style>
+        </Helmet>
       )}
-      {...rest}
-    >
-      {children}
-    </Component>
+      <Component
+        className={classNames(
+          className,
+          'heading',
+          `heading--align-${align}`,
+          `heading--level-${clampedLevel}`,
+          `heading--weight-${weight}`
+        )}
+        {...rest}
+      >
+        {children}
+      </Component>
+    </Fragment>
   );
 };
 
