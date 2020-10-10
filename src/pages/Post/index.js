@@ -8,7 +8,7 @@ import { useWindowSize, useScrollRestore } from 'hooks';
 import Image from 'components/Image';
 import { Helmet } from 'react-helmet-async';
 import { MDXProvider } from '@mdx-js/react';
-import Anchor from 'components/Anchor';
+import Link from 'components/Link';
 import Code from 'components/Code';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
@@ -16,9 +16,9 @@ import { media } from 'utils/style';
 import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
 import { tokens } from 'components/ThemeProvider/theme';
 import Section from 'components/Section';
-import './index.css';
 import Heading from 'components/Heading';
 import Text from 'components/Text';
+import './index.css';
 
 const PostWrapper = ({
   children,
@@ -26,7 +26,6 @@ const PostWrapper = ({
   date,
   description,
   banner,
-  bannerVideo,
   bannerPlaceholder,
   bannerAlt,
   readTime,
@@ -172,11 +171,7 @@ const PostCode = ({ children, ...rest }) => (
   </code>
 );
 
-const PostLink = ({ children, ...rest }) => (
-  <Anchor target="_blank" {...rest}>
-    {children}
-  </Anchor>
-);
+const PostLink = ({ ...props }) => <Link {...props} />;
 
 const Post = ({ slug, content: PostContent, ...rest }) => {
   return (

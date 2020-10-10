@@ -27,8 +27,8 @@ export const Button = forwardRef(
     ref
   ) => {
     const isExternalLink = href?.includes('://');
-    const useAnchorTag = isExternalLink || href?.[0] === '#';
-    const linkComponent = useAnchorTag ? 'a' : Link;
+    const useLinkTag = isExternalLink || href?.[0] === '#';
+    const linkComponent = useLinkTag ? 'a' : Link;
     const defaultComponent = href ? linkComponent : 'button';
     const Component = as || defaultComponent;
 

@@ -2,7 +2,6 @@ import React, { useState, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'components/Link';
 import Input from 'components/Input';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
@@ -232,8 +231,7 @@ const Contact = () => {
                     `contact__complete-button--${status}`
                   )}
                   style={getDelay(tokens.base.durationM)}
-                  as={Link}
-                  to="/"
+                  href="/"
                   icon="chevronRight"
                 >
                   Back to homepage

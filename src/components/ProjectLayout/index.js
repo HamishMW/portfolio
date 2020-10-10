@@ -32,6 +32,7 @@ export function ProjectHeader({
               'project__title--entered': !prerender,
             })}
             level={2}
+            as="h1"
           >
             {title}
           </Heading>

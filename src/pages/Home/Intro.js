@@ -104,7 +104,7 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
                   })}
                   component="span"
                 >
-                  {currentDisciplines.map((item, index) => (
+                  {currentDisciplines.map(item => (
                     <Transition
                       appear
                       timeout={{ enter: 3000, exit: 2000 }}

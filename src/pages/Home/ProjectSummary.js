@@ -57,6 +57,7 @@ const ProjectSummary = ({
       </div>
       <Heading
         level={3}
+        as="h2"
         className={classNames(
           'project-summary__title',
           `project-summary__title--${status}`

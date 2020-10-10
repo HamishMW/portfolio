@@ -1,5 +1,5 @@
 import React, { useRef, useState, memo } from 'react';
-import { NavLink, Link } from 'components/Link';
+import { NavLink, Link as RouterLink } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from 'components/Monogram';
 import Icon from 'components/Icon';
@@ -55,7 +55,7 @@ function Header(props) {
 
   return (
     <header className="header" ref={headerRef}>
-      <Link
+      <RouterLink
         className="header__logo"
         to={{ pathname: '/', hash: '#intro', state: hashKey }}
         aria-label="Hamish Williams, Designer"
@@ -63,7 +63,7 @@ function Header(props) {
         onMouseUp={blurOnMouseUp}
       >
         <Monogram highlight />
-      </Link>
+      </RouterLink>
       <NavToggle onClick={() => dispatch({ type: 'toggleMenu' })} menuOpen={menuOpen} />
       <nav className="header__nav">
         <div className="header__nav-list">

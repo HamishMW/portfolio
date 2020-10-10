@@ -1,18 +1,18 @@
 import React from 'react';
-import Anchor from 'components/Anchor';
+import Link from 'components/Link';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {
   title: 'Link',
 };
 
-export const anchor = () => (
+export const Default = () => (
   <StoryContainer padding={32} gutter={32} style={{ fontSize: 18 }}>
-    <Anchor href="#" onClick={e => e.preventDefault()}>
-      I'm an anchor link
-    </Anchor>
-    <Anchor secondary href="#" onClick={e => e.preventDefault()}>
+    <Link href="#" onClick={e => e.preventDefault()}>
+      I'm an Link link
+    </Link>
+    <Link secondary href="#" onClick={e => e.preventDefault()}>
       Secondary link
-    </Anchor>
+    </Link>
   </StoryContainer>
 );

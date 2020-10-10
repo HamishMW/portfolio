@@ -1,10 +1,10 @@
 import React, { createContext, Fragment } from 'react';
+import { Helmet } from 'react-helmet-async';
 import useTheme from './useTheme';
 import { theme, tokens } from './theme';
 import { media } from 'utils/style';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
-import { Helmet } from 'react-helmet-async';
 
 export const fontStyles = `
   @font-face {
@@ -38,11 +38,7 @@ const ThemeProvider = ({
 
   return (
     <ThemeContext.Provider value={currentTheme}>
-      {!isRootProvider && (
-        <Component className={className} style={createThemeStyleObject(currentTheme)}>
-          {children}
-        </Component>
-      )}
+      {/* Add fonts and base tokens for the root privider */}
       {isRootProvider && (
         <Fragment>
           <Helmet>
@@ -53,6 +49,12 @@ const ThemeProvider = ({
           </Helmet>
           {children}
         </Fragment>
+      )}
+      {/* Nested providers need a div to override theme tokens */}
+      {!isRootProvider && (
+        <Component className={className} style={createThemeStyleObject(currentTheme)}>
+          {children}
+        </Component>
       )}
     </ThemeContext.Provider>
   );

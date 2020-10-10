@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
 import { Button } from 'components/Button';
-import { Link } from 'components/Link';
 import DecoderText from 'components/DecoderText';
 import Notfound from 'assets/notfound.mp4';
 import NotfoundPoster from 'assets/notfound.jpg';
@@ -61,8 +60,7 @@ function NotFound() {
                     'page-404__button',
                     `page-404__button--${status}`
                   )}
-                  as={Link}
-                  to="/"
+                  href="/"
                   icon="chevronRight"
                 >
                   Back to homepage

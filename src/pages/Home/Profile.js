@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
-import { Link } from 'components/Link';
-import Anchor from 'components/Anchor';
+import Link from 'components/Link';
 import { Button } from 'components/Button';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
@@ -32,9 +31,9 @@ const ProfileText = ({ status, titleId }) => (
       size="l"
     >
       I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
-      <Anchor href="https://www.qwilr.com" target="_blank">
+      <Link href="https://www.qwilr.com" target="_blank">
         Qwilr
-      </Anchor>
+      </Link>
       . My projects include UX design, UI animations, and icon illustration. Being
       comfortable with code allows me to rapidly prototype and validate experiences.
     </Text>
@@ -43,10 +42,8 @@ const ProfileText = ({ status, titleId }) => (
       size="l"
     >
       In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
-      <Anchor as={Link} to="/projects/volkihar-knight">
-        make mods
-      </Anchor>
-      . I’m always down for hearing about new projects, so feel free to drop me a line.
+      <Link href="/projects/volkihar-knight">make mods</Link>. I’m always down for hearing
+      about new projects, so feel free to drop me a line.
     </Text>
   </Fragment>
 );
