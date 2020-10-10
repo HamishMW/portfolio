@@ -1,11 +1,9 @@
 import React from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 import Text from 'components/Text';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {
   title: 'Text',
-  decorators: [withKnobs],
 };
 
 export const size = () => (

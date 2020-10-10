@@ -19,9 +19,9 @@ import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
 import imageSprBuilder from 'assets/spr-builder.jpg';
 import imageSprBuilderLarge from 'assets/spr-builder-large.jpg';
 import imageSprBuilderPlaceholder from 'assets/spr-builder-placeholder.jpg';
+import ThemeProvider from 'components/ThemeProvider';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
-import { theme, createThemeStyleObject } from 'app/theme';
 import Earth, { EarthSection } from './Earth';
 import './index.css';
 
@@ -78,7 +78,7 @@ const ProjectSPR = () => {
         </ProjectSection>
         <div style={{ height: '100vh' }} />
         <div style={{ height: '100vh' }} />
-        <div className="spr__earth-section" style={createThemeStyleObject(theme.dark)}>
+        <ThemeProvider className="spr__earth-section" theme="dark">
           <Earth
             className="spr__earth"
             hideMeshes={['Atmosphere']}
@@ -142,7 +142,7 @@ const ProjectSPR = () => {
               Section 7
             </EarthSection>
           </Earth>
-        </div>
+        </ThemeProvider>
         <div style={{ height: '100vh' }} />
         <div style={{ height: '100vh' }} />
       </ProjectContainer>

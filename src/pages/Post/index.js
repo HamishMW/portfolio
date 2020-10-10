@@ -15,7 +15,7 @@ import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
 import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
-import { tokens } from 'app/theme';
+import { tokens } from 'components/ThemeProvider/theme';
 import Section from 'components/Section';
 import './index.css';
 import Heading from 'components/Heading';
@@ -89,7 +89,7 @@ const PostWrapper = ({
               </div>
             )}
           </Transition>
-          <h1 className="post__title" aria-label={title}>
+          <Heading level={1} weight="bold" className="post__title" aria-label={title}>
             {title.split(' ').map((word, index) => (
               <span className="post__title-word-wrapper" key={`${word}-${index}`}>
                 <span
@@ -102,7 +102,7 @@ const PostWrapper = ({
                 </span>
               </span>
             ))}
-          </h1>
+          </Heading>
           <a
             className="post__banner-arrow"
             href="#postContent"
@@ -133,7 +133,7 @@ const PostWrapper = ({
 };
 
 const PostHeadingTwo = ({ children, ...rest }) => (
-  <Heading className="post__heading-two" level={2} {...rest}>
+  <Heading className="post__heading-two" level={3} {...rest}>
     {children}
   </Heading>
 );

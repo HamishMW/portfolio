@@ -130,7 +130,7 @@
   max-width: var(--maxWidthL);
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 2080px) {
   .project__header-content {
     grid-template-columns: 1fr 400px;
   }
@@ -278,7 +278,7 @@
 
 .project__section-text + a,
 .project__section-text + .project__section-text {
-  padding-top: var(--spaceL);
+  margin-top: var(--spaceL);
 }
 
 .project__text-row {

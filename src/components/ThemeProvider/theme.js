@@ -1,30 +1,5 @@
 import { pxToRem } from 'utils/style';
 
-/**
- * Transform theme token objects into CSS custom property strings
- */
-export function createThemeProperties(theme) {
-  return Object.keys(theme)
-    .filter(key => key !== 'themeId')
-    .map(key => `--${key}: ${theme[key]};`)
-    .join('\n');
-}
-
-/**
- * Transform theme tokens into a React CSSProperties object
- */
-export function createThemeStyleObject(theme) {
-  let style = {};
-
-  for (const key of Object.keys(theme)) {
-    if (key !== 'themeId') {
-      style[`--${key}`] = theme[key];
-    }
-  }
-
-  return style;
-}
-
 // Full list of tokens
 const baseTokens = {
   rgbBlack: '0 0 0',
@@ -44,9 +19,11 @@ const baseTokens = {
   fontWeightRegular: 400,
   fontWeightMedium: 500,
   fontWeightBold: 700,
-  fontSizeH1: pxToRem(58),
-  fontSizeH2: pxToRem(38),
-  fontSizeH3: pxToRem(26),
+  fontSizeH0: pxToRem(140),
+  fontSizeH1: pxToRem(100),
+  fontSizeH2: pxToRem(58),
+  fontSizeH3: pxToRem(38),
+  fontSizeH4: pxToRem(28),
   fontSizeBodyL: pxToRem(20),
   fontSizeBodyM: pxToRem(18),
   fontSizeBodyS: pxToRem(16),
@@ -68,23 +45,36 @@ const baseTokens = {
 };
 
 // Tokens that change based on viewport size
+const tokensDesktop = {
+  fontSizeH0: pxToRem(120),
+  fontSizeH1: pxToRem(80),
+};
+
 const tokensLaptop = {
   maxWidthL: '1000px',
-  fontSizeH2: pxToRem(36),
+  fontSizeH0: pxToRem(100),
+  fontSizeH1: pxToRem(70),
+  fontSizeH2: pxToRem(52),
+  fontSizeH3: pxToRem(36),
+  fontSizeH4: pxToRem(26),
 };
 
 const tokensTablet = {
   spaceOuter: '48px',
-  fontSizeH1: pxToRem(48),
-  fontSizeH2: pxToRem(32),
-  fontSizeH3: pxToRem(24),
+  fontSizeH0: pxToRem(80),
+  fontSizeH1: pxToRem(60),
+  fontSizeH2: pxToRem(48),
+  fontSizeH3: pxToRem(32),
+  fontSizeH4: pxToRem(24),
 };
 
 const tokensMobile = {
   spaceOuter: '24px',
-  fontSizeH1: pxToRem(34),
-  fontSizeH2: pxToRem(28),
-  fontSizeH3: pxToRem(22),
+  fontSizeH0: pxToRem(56),
+  fontSizeH1: pxToRem(40),
+  fontSizeH2: pxToRem(34),
+  fontSizeH3: pxToRem(28),
+  fontSizeH4: pxToRem(22),
   fontSizeBodyL: pxToRem(18),
   fontSizeBodyM: pxToRem(16),
   fontSizeBodyS: pxToRem(14),
@@ -92,9 +82,11 @@ const tokensMobile = {
 
 const tokensMobileSmall = {
   spaceOuter: '16px',
-  fontSizeH1: pxToRem(28),
-  fontSizeH2: pxToRem(24),
-  fontSizeH3: pxToRem(20),
+  fontSizeH0: pxToRem(42),
+  fontSizeH1: pxToRem(38),
+  fontSizeH2: pxToRem(28),
+  fontSizeH3: pxToRem(24),
+  fontSizeH4: pxToRem(20),
 };
 
 // Tokens that change based on theme
@@ -126,6 +118,7 @@ const light = {
 
 export const tokens = {
   base: baseTokens,
+  desktop: tokensDesktop,
   laptop: tokensLaptop,
   tablet: tokensTablet,
   mobile: tokensMobile,

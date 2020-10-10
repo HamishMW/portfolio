@@ -5,13 +5,14 @@ import Section from 'components/Section';
 import { Button } from 'components/Button';
 import Model from 'components/Model';
 import Divider from 'components/Divider';
-import { useWindowSize, useAppContext } from 'hooks';
+import { useWindowSize } from 'hooks';
 import { reflow, isVisible } from 'utils/transition';
 import { media } from 'utils/style';
 import { ReactComponent as KatakanaProject } from 'assets/katakana-project.svg';
 import deviceModels from 'components/Model/deviceModels';
 import Heading from 'components/Heading';
 import Text from 'components/Text';
+import { useTheme } from 'components/ThemeProvider';
 import './ProjectSummary.css';
 
 const ProjectSummary = ({
@@ -27,7 +28,7 @@ const ProjectSummary = ({
   alternate,
   ...rest
 }) => {
-  const { theme } = useAppContext();
+  const theme = useTheme();
   const { width } = useWindowSize();
   const titleId = `${id}-title`;
   const isMobile = width <= media.tablet;
@@ -55,7 +56,7 @@ const ProjectSummary = ({
         </span>
       </div>
       <Heading
-        level={2}
+        level={3}
         className={classNames(
           'project-summary__title',
           `project-summary__title--${status}`

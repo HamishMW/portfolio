@@ -2,19 +2,21 @@ import React, { Suspense, lazy, useEffect, useState, Fragment } from 'react';
 import classNames from 'classnames';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import DecoderText from 'components/DecoderText';
-import { useInterval, usePrevious, useWindowSize, useAppContext } from 'hooks';
+import { useInterval, usePrevious, useWindowSize } from 'hooks';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
 import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
-import { tokens } from 'app/theme';
+import { tokens } from 'components/ThemeProvider/theme';
+import Heading from 'components/Heading';
 import Section from 'components/Section';
+import { useTheme } from 'components/ThemeProvider';
 import './Intro.css';
 
 const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
 
 function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
-  const { theme } = useAppContext();
+  const theme = useTheme();
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const windowSize = useWindowSize();
   const prevTheme = usePrevious(theme);
@@ -72,7 +74,7 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
               >
                 <DecoderText text="Hamish Williams" start={!prerender} delay={300} />
               </h1>
-              <h2 className="intro__title">
+              <Heading level={0} as="h2" className="intro__title">
                 <span className="intro__title-label">{`Designer + ${introLabel}`}</span>
                 <span
                   aria-hidden
@@ -125,7 +127,7 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
                     </Transition>
                   ))}
                 </TransitionGroup>
-              </h2>
+              </Heading>
             </header>
             {windowSize.width > media.tablet && (
               <div

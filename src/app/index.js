@@ -15,8 +15,9 @@ import {
 import classNames from 'classnames';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from 'components/Header';
-import { theme, tokens, createThemeProperties } from 'app/theme';
-import { media, msToNum } from 'utils/style';
+import ThemeProvider from 'components/ThemeProvider';
+import { tokens } from 'components/ThemeProvider/theme';
+import { msToNum } from 'utils/style';
 import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
@@ -79,16 +80,18 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    dispatch({ type: 'setTheme', value: theme[storedTheme] });
+    dispatch({ type: 'setTheme', value: storedTheme });
   }, [storedTheme]);
 
   return (
     <HelmetProvider>
-      <AppContext.Provider value={{ ...state, dispatch }}>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </AppContext.Provider>
+      <ThemeProvider themeId={state.theme}>
+        <AppContext.Provider value={{ ...state, dispatch }}>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </AppContext.Provider>
+      </ThemeProvider>
     </HelmetProvider>
   );
 };
@@ -104,7 +107,6 @@ const AppRoutes = () => {
         <link rel="preload" href={GothamMedium} as="font" crossorigin="" />
         <link rel="preload" href={GothamBook} as="font" crossorigin="" />
         <style>{fontStyles}</style>
-        <style>{globalStyles}</style>
       </Helmet>
       <a className="skip-to-main" href="#MainContent">
         Skip to main content
@@ -138,43 +140,5 @@ const AppRoutes = () => {
     </Fragment>
   );
 };
-
-export const globalStyles = `
-  :root {
-    ${createThemeProperties(tokens.base)}
-  }
-
-  @media (max-width: ${media.laptop}px) {
-    :root {
-      ${createThemeProperties(tokens.laptop)}
-    }
-  }
-
-  @media (max-width: ${media.tablet}px) {
-    :root {
-      ${createThemeProperties(tokens.tablet)}
-    }
-  }
-
-  @media (max-width: ${media.mobile}px) {
-    :root {
-      ${createThemeProperties(tokens.mobile)}
-    }
-  }
-
-  @media (max-width: ${media.mobileS}px) {
-    :root {
-      ${createThemeProperties(tokens.mobileS)}
-    }
-  }
-
-  .dark {
-    ${createThemeProperties(theme.dark)}
-  }
-
-  .light {
-    ${createThemeProperties(theme.light)}
-  }
-`;
 
 export default App;

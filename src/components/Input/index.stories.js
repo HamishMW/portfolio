@@ -1,11 +1,9 @@
 import React from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 import Input from 'components/Input';
 import { useFormInput } from 'hooks';
 
 export default {
   title: 'Text input',
-  decorators: [withKnobs],
 };
 
 const ExampleInput = props => {

@@ -9,7 +9,7 @@ import { useWindowSize, useAppContext } from 'hooks';
 import { navLinks, socialLinks } from './navData';
 import { reflow } from 'utils/transition';
 import { media, msToNum, numToMs } from 'utils/style';
-import { tokens } from 'app/theme';
+import { tokens } from 'components/ThemeProvider/theme';
 import { blurOnMouseUp } from 'utils/focus';
 import './index.css';
 

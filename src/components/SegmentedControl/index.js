@@ -34,9 +34,18 @@ const SegmentedControl = ({ children, currentIndex, onChange, ...props }) => {
 
   useLayoutEffect(() => {
     const currentOption = optionRefs.current[currentIndex]?.current;
-    const rect = currentOption?.getBoundingClientRect();
-    const left = currentOption?.offsetLeft;
-    setIndicator({ width: rect?.width, left });
+
+    const resizeObserver = new ResizeObserver(() => {
+      const rect = currentOption?.getBoundingClientRect();
+      const left = currentOption?.offsetLeft;
+      setIndicator({ width: rect?.width, left });
+    });
+
+    resizeObserver.observe(currentOption);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
   }, [currentIndex]);
 
   return (

@@ -1,11 +1,9 @@
 import React from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 import Carousel from 'components/Carousel';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {
   title: 'Carousel',
-  decorators: [withKnobs],
 };
 
 const placeholderImg =

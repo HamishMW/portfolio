@@ -31,7 +31,7 @@ export function ProjectHeader({
             className={classNames('project__title', {
               'project__title--entered': !prerender,
             })}
-            level={1}
+            level={2}
           >
             {title}
           </Heading>
@@ -123,7 +123,7 @@ export const ProjectSectionContent = ({ className, ...rest }) => (
 export const ProjectSectionHeading = ({ className, ...rest }) => (
   <Heading
     className={classNames('project__section-heading', className)}
-    level={2}
+    level={3}
     {...rest}
   />
 );

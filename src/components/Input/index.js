@@ -5,7 +5,7 @@ import TextArea from 'components/TextArea';
 import { useId } from 'hooks';
 import './index.css';
 import { isVisible } from 'utils/transition';
-import { tokens } from 'app/theme';
+import { tokens } from 'components/ThemeProvider/theme';
 import { msToNum, numToPx } from 'utils/style';
 import Icon from 'components/Icon';
 

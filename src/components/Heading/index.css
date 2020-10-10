@@ -5,16 +5,27 @@
   color: var(--colorTextTitle);
 }
 
+.heading--level-0 {
+  letter-spacing: -0.006em;
+  font-size: var(--fontSizeH0);
+}
+
 .heading--level-1 {
+  letter-spacing: -0.005em;
   font-size: var(--fontSizeH1);
 }
 
 .heading--level-2 {
   font-size: var(--fontSizeH2);
+  letter-spacing: -0.003em;
 }
 
 .heading--level-3 {
   font-size: var(--fontSizeH3);
+}
+
+.heading--level-4 {
+  font-size: var(--fontSizeH4);
 }
 
 .heading--align-start {

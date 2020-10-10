@@ -24,10 +24,9 @@ function NotFound() {
           <Fragment>
             <div className="page-404__details">
               <div className="page-404__text">
-                {/* TODO: Heading level zero? */}
                 <Heading
                   className={classNames('page-404__title', `page-404__title--${status}`)}
-                  level={1}
+                  level={0}
                 >
                   404
                 </Heading>

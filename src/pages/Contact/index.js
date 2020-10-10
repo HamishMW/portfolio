@@ -13,7 +13,7 @@ import { useScrollRestore, useFormInput, useRouteTransition } from 'hooks';
 import { reflow, isVisible } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { msToNum, numToPx, numToMs } from 'utils/style';
-import { tokens } from 'app/theme';
+import { tokens } from 'components/ThemeProvider/theme';
 import Heading from 'components/Heading';
 import './index.css';
 
@@ -118,7 +118,7 @@ const Contact = () => {
                   className={classNames('contact__title', `contact__title--${status}`, {
                     'contact__title--hidden': prerender,
                   })}
-                  level={2}
+                  level={3}
                   as="h1"
                   style={getDelay(tokens.base.durationXS, initDelay, 0.3)}
                 >

@@ -1,11 +1,9 @@
 import React from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 import Anchor from 'components/Anchor';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {
   title: 'Link',
-  decorators: [withKnobs],
 };
 
 export const anchor = () => (

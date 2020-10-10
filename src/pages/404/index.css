@@ -142,7 +142,6 @@
 }
 
 .page-404__title {
-  font-size: calc((86 / 16) * 1rem);
   padding-bottom: var(--spaceM);
   transition-property: transform, opacity;
   transition-timing-function: var(--bezierFastoutSlowin);

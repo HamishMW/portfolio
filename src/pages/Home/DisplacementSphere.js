@@ -19,14 +19,15 @@ import innerHeight from 'ios-inner-height';
 import vertShader from './sphereVertShader';
 import fragShader from './sphereFragShader';
 import { Transition } from 'react-transition-group';
-import { usePrefersReducedMotion, useAppContext, useInViewport } from 'hooks';
+import { useTheme } from 'components/ThemeProvider';
+import { usePrefersReducedMotion, useInViewport } from 'hooks';
 import { reflow } from 'utils/transition';
 import { media, rgbToThreeColor } from 'utils/style';
 import { cleanScene, removeLights, cleanRenderer } from 'utils/three';
 import './DisplacementSphere.css';
 
 const DisplacementSphere = props => {
-  const { theme } = useAppContext();
+  const theme = useTheme();
   const { rgbBackground, themeId, colorWhite } = theme;
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);

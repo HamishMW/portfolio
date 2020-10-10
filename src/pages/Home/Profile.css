@@ -9,7 +9,7 @@
   justify-content: center;
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 2080px) {
   .profile {
     padding-left: 120px;
   }
@@ -52,8 +52,8 @@
 
 .profile__content {
   display: grid;
-  grid-template-columns: 44% 48%;
-  grid-column-gap: 8%;
+  grid-template-columns: 1fr 50%;
+  grid-column-gap: var(--space2XL);
   max-width: var(--maxWidthL);
   width: 100%;
 }
@@ -129,13 +129,7 @@
 
 .profile__image-wrapper {
   position: relative;
-  max-width: 100%;
-}
-
-.profile__image {
-  max-width: 100%;
-  width: 960px;
-  height: auto;
+  width: 100%;
 }
 
 .profile__svg {

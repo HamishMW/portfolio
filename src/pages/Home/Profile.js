@@ -22,7 +22,7 @@ const ProfileText = ({ status, titleId }) => (
   <Fragment>
     <Heading
       className={classNames('profile__title', `profile__title--${status}`)}
-      level={2}
+      level={3}
       id={titleId}
     >
       <DecoderText text="Hi there" start={status !== 'exited'} delay={500} />
@@ -97,7 +97,6 @@ const Profile = ({ id, visible, sectionRef }) => {
               <div className="profile__image-wrapper">
                 <Image
                   reveal
-                  className="profile__image"
                   delay={100}
                   placeholder={ProfileImgPlaceholder}
                   srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}

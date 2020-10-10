@@ -6,7 +6,7 @@ import Icon from 'components/Icon';
 import { Transition } from 'react-transition-group';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
-import { tokens } from 'app/theme';
+import { tokens } from 'components/ThemeProvider/theme';
 import { msToNum, numToMs } from 'utils/style';
 import './index.css';
 
@@ -176,18 +176,17 @@ const ImageElements = ({
         </Fragment>
       )}
       {!isVideo && (
-        <picture className={classNames('image__element', { 'image__element--loaded': loaded })}>
-          <img
-            onLoad={onLoad}
-            decoding="async"
-            src={showFullRes ? imgSrc : undefined}
-            srcSet={showFullRes ? srcSet : undefined}
-            width={placeholderSize?.width}
-            height={placeholderSize?.height}
-            alt={alt}
-            {...rest}
-          />
-        </picture>
+        <img
+          className={classNames('image__element', { 'image__element--loaded': loaded })}
+          onLoad={onLoad}
+          decoding="async"
+          src={showFullRes ? imgSrc : undefined}
+          srcSet={showFullRes ? srcSet : undefined}
+          width={placeholderSize?.width}
+          height={placeholderSize?.height}
+          alt={alt}
+          {...rest}
+        />
       )}
       {showPlaceholder && (
         <img

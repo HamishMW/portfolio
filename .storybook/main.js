@@ -1,8 +1,9 @@
 module.exports = {
   addons: [
     '@storybook/addon-actions',
-    '@storybook/addon-knobs',
+    '@storybook/addon-controls',
     '@storybook/addon-a11y',
     '@storybook/preset-create-react-app',
   ],
+  stories: ['../src/**/*.stories.js'],
 };

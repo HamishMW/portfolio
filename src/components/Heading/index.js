@@ -11,8 +11,8 @@ const Heading = ({
   className,
   ...rest
 }) => {
-  const clampedLevel = Math.min(Math.max(level, 0), 3);
-  const Component = as || `h${clampedLevel}`;
+  const clampedLevel = Math.min(Math.max(level, 0), 4);
+  const Component = as || `h${Math.max(clampedLevel, 1)}`;
 
   return (
     <Component

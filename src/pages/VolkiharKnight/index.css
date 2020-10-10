@@ -45,7 +45,7 @@
   padding: var(--space5XL) 0 calc(var(--space5XL) + var(--spaceL));
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1680px) {
   .volkihar__background-section .project__section-content {
     padding: var(--space2XL) 0 var(--space4XL);
   }
