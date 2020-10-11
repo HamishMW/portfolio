@@ -42,7 +42,7 @@ import './Earth.css';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
 
-const getIntertpolatedPosition = (value, nextValue, percent) =>
+const interpolatePosition = (value, nextValue, percent) =>
   value + percent * (nextValue - value);
 
 const positionToString = value =>
@@ -60,12 +60,21 @@ const getPositionValues = section => {
   };
 };
 
+const isEqualCameraPosition = (position1, position2) => {
+  return (
+    position1?.x === position2?.x &&
+    position1?.y === position2?.y &&
+    position1?.z === position2?.z
+  );
+};
+
 const EarthContext = createContext({});
 
 const Earth = ({
   position = [0, 0, 0],
   scale = 1,
   hideMeshes = [],
+  labels = [],
   className,
   children,
 }) => {
@@ -92,52 +101,38 @@ const Earth = ({
 
   const controls = useRef();
 
-  // componentWillUnmount() {
-  //   // const { viewportRef } = this.props;
-  //   this.scene.remove(this.model);
-  //   this.scene.remove(this.ambientLight);
-  //   this.scene.remove(this.dirLight);
-  //   this.scene.dispose();
-  //   this.renderer.dispose();
-  //   this.renderer.forceContextLoss();
-  //   this.renderer.context = null;
-  //   this.renderer.domElement = null;
-  //   this.controls = null;
-  //   this.camera = null;
-  //   this.animating = false;
-  //   // viewportRef.current.removeEventListener('scroll', this.handleScroll);
-  //   window.removeEventListener('resize', this.handleResize);
-  //   // viewportRef.current.removeEventListener('mouseup', this.handleMouseUp);
-  // }
-
-  // componentDidUpdate(prevProps) {
-  //   const { labels, model } = this.props;
-  //   const { labels: prevLabels, model: prevModel } = prevProps;
-
-  //   if (!isEqual(labels, prevLabels)) {
-  //     this.setLabels();
-  //     this.handleScroll();
-  //   }
-
-  //   if (!isEqual(model, prevModel)) {
-  //     this.setModelPosition();
-  //     this.handleScroll();
-  //   }
-  // }
-
   const animate = useCallback(() => {
     animationFrame.current = requestAnimationFrame(animate);
     const delta = clock.current.getDelta();
     mixer.current.update(delta);
     controls.current.update();
-    // renderLabels();
     renderer.current.render(scene.current, camera.current);
+
+    // Render labels
+    labelElements.current.forEach(label => {
+      const { element, position, sprite } = label;
+      const vector = new Vector3(...position);
+      const meshDistance = camera.current.position.distanceTo(
+        sceneModel.current.position
+      );
+      const spriteDistance = camera.current.position.distanceTo(sprite.position);
+      const spriteBehindObject = spriteDistance > meshDistance;
+
+      vector.project(camera.current);
+      vector.x = Math.round((0.5 + vector.x / 2) * window.innerWidth);
+      vector.y = Math.round((0.5 - vector.y / 2) * window.innerHeight);
+      element.style.transform = `translate3d(-50%, -50%, 0) translate3d(${vector.x}px, ${vector.y}px, 0)`;
+
+      if (spriteBehindObject) {
+        element.classList.add('earth__label--occluded');
+      } else {
+        element.classList.remove('earth__label--occluded');
+      }
+    });
   }, []);
 
   useEffect(() => {
     const { innerWidth, innerHeight } = window;
-
-    console.log('init');
 
     renderer.current = new WebGLRenderer({
       antialias: false,
@@ -150,7 +145,6 @@ const Earth = ({
     renderer.current.toneMapping = ACESFilmicToneMapping;
 
     camera.current = new PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 100);
-    console.log({ initCameraPosition });
     camera.current.position.x = initCameraPosition.current.x;
     camera.current.position.y = initCameraPosition.current.y;
     camera.current.position.z = initCameraPosition.current.z;
@@ -183,7 +177,6 @@ const Earth = ({
 
   useEffect(() => {
     if (loaded || fetching.current) return;
-    console.log('load');
 
     const gltfLoader = new GLTFLoader();
     const rgbeLoader = new RGBELoader();
@@ -262,40 +255,19 @@ const Earth = ({
     };
   }, [animate, inViewport, loaded]);
 
-  const setLabels = () => {
-    // const { labels } = this.props;
-    // labelElements.current.current.innerHTML = '';
-    // labelElements.current = labels.map(label => {
-    //   const element = document.createElement('div');
-    //   element.classList.add('earth__label');
-    //   element.textcontainer = label.text;
-    //   labelElements.current.current.appendChild(element);
-    //   const position = label.position.split(', ').map(value => Number(value));
-    //   const sprite = new Sprite();
-    //   sprite.position.set(...position);
-    //   sprite.scale.set(60, 60, 1);
-    //   return { element, ...label, position, sprite };
-    // });
-  };
-
-  const renderLabels = () => {
-    // labelElements.current.forEach(label => {
-    //   const { element, position, sprite } = label;
-    //   const vector = new Vector3(...position);
-    //   const meshDistance = this.camera.position.distanceTo(this.model.position);
-    //   const spriteDistance = this.camera.position.distanceTo(sprite.position);
-    //   const spriteBehindObject = spriteDistance > meshDistance;
-    //   vector.project(this.camera);
-    //   vector.x = Math.round((0.5 + vector.x / 2) * window.innerWidth);
-    //   vector.y = Math.round((0.5 - vector.y / 2) * window.innerHeight);
-    //   element.style.transform = `translate3d(-50%, -50%, 0) translate3d(${vector.x}px, ${vector.y}px, 0)`;
-    //   if (spriteBehindObject) {
-    //     element.classList.add('earth__label--occluded');
-    //   } else {
-    //     element.classList.remove('earth__label--occluded');
-    //   }
-    // });
-  };
+  useEffect(() => {
+    labelContainer.current.innerHTML = '';
+    labelElements.current = labels.map(label => {
+      const element = document.createElement('div');
+      element.classList.add('earth__label');
+      element.textContent = label.text;
+      labelContainer.current.appendChild(element);
+      const sprite = new Sprite();
+      sprite.position.set(...label.position);
+      sprite.scale.set(60, 60, 1);
+      return { element, ...label, sprite };
+    });
+  }, [labels]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -314,6 +286,8 @@ const Earth = ({
   }, []);
 
   useEffect(() => {
+    const currentCanvas = canvas.current;
+
     const handleMouseUp = event => {
       const { innerWidth, innerHeight } = window;
       // Set a camera position property to help with defining camera angles
@@ -334,46 +308,129 @@ const Earth = ({
       }
     };
 
-    document.addEventListener('mouseup', handleMouseUp);
+    currentCanvas.addEventListener('click', handleMouseUp);
 
     return () => {
-      document.removeEventListener('mouseup', handleMouseUp);
+      currentCanvas.removeEventListener('click', handleMouseUp);
     };
   }, []);
 
   useEffect(() => {
-    let opacitySpring;
     let cameraSpring;
+    let chunkSpring;
+    let chunkValue;
+    let chunkValueSubscription;
+    let opacitySpring;
+    let opacityValue;
 
     const handleScroll = () => {
       const { innerHeight } = window;
       const currentScrollY = window.scrollY - container.current.offsetTop;
       let prevTarget;
 
+      if (chunkValueSubscription) {
+        chunkValueSubscription.unsubscribe();
+      }
+
+      const getChild = name => {
+        let node;
+
+        sceneModel.current.traverse(child => {
+          if (child.name === name) {
+            node = child;
+          }
+        });
+
+        return node;
+      };
+
       const updateMeshes = index => {
         const visibleMeshes = sectionRefs.current[index].meshes;
 
         sceneModel.current.traverse(child => {
-          const { isMesh, material, name } = child;
+          const { name } = child;
+          const isVisible = visibleMeshes && visibleMeshes.includes(name);
+          const isHidden = hideMeshes.includes(name);
+          const chunk = getChild('Chunk');
+          const earthFull = getChild('EarthFull');
+          const earthPartial = getChild('EarthFull');
+          const atmosphere = getChild('Atmosphere');
 
-          if (isMesh) {
-            const isTransparent = material.opacity === 0;
-            const isVisible = visibleMeshes && visibleMeshes.includes(name);
-            const isHidden = hideMeshes.includes(name);
+          if (!opacityValue) {
+            opacityValue = value(atmosphere.material.opacity, opacity => {
+              atmosphere.material.opacity = opacity;
+            });
+          }
 
-            const opacityValue = value(
-              material.opacity,
-              opacity => (material.opacity = opacity)
-            );
+          if (!chunkValue) {
+            chunkValue = value(chunk.position, position => {
+              chunk.position.set(position.x, position.y, position.z);
+            });
+          }
 
-            const springConfig = { from: opacityValue.get(), stiffness: 32, damping: 26 };
+          const opacitySpringConfig = {
+            from: opacityValue?.get(),
+            velocity: opacityValue?.getVelocity(),
+            stiffness: 16,
+            damping: 32,
+          };
 
-            if (isVisible && isTransparent) {
-              opacitySpring = spring({ ...springConfig, to: 1 }).start(opacityValue);
-              child.renderOrder = 0;
-            } else if (isHidden && !isVisible) {
-              opacitySpring = spring({ ...springConfig, to: 0 }).start(opacityValue);
-              child.renderOrder = 9999;
+          const chunkSpringConfig = {
+            from: chunkValue?.get(),
+            velocity: chunkValue?.getVelocity(),
+            stiffness: 32,
+            damping: 26,
+            restSpeed: 0.001,
+          };
+
+          if (isVisible) {
+            if (name === 'Atmosphere') {
+              child.visible = true;
+              opacitySpring = spring({ ...opacitySpringConfig, to: 1 }).start(
+                opacityValue
+              );
+            } else if (name === 'Chunk') {
+              child.visible = true;
+              chunkValueSubscription = chunkValue.subscribe({
+                complete: () => {
+                  chunkValue = value(chunk.position, position => {
+                    chunk.position.set(position.x, position.y, position.z);
+                  });
+                },
+              });
+
+              chunkSpring = spring({
+                ...chunkSpringConfig,
+                to: new Vector3(-0.4, 0.4, 0.4),
+              }).start(chunkValue);
+            } else if (name === 'EarthFull' && chunk.visible) {
+              child.visible = false;
+            } else {
+              child.visible = true;
+            }
+          } else if (isHidden && !isVisible) {
+            if (name === 'Atmosphere') {
+              opacitySpring = spring({ ...opacitySpringConfig, to: 0 }).start(
+                opacityValue
+              );
+            } else if (name === 'Chunk') {
+              chunkValueSubscription = chunkValue.subscribe({
+                complete: () => {
+                  child.visible = false;
+                  earthPartial.visible = false;
+                  earthFull.visible = true;
+                  chunkValue = value(chunk.position, position => {
+                    chunk.position.set(position.x, position.y, position.z);
+                  });
+                },
+              });
+
+              chunkSpring = spring({
+                ...chunkSpringConfig,
+                to: new Vector3(0, 0, 0),
+              }).start(chunkValue);
+            } else if (name !== 'EarthPartial') {
+              child.visible = false;
             }
           }
         });
@@ -408,15 +465,17 @@ const Earth = ({
         labelElements.current.forEach(label => {
           if (label.hidden) {
             label.element.classList.add('earth__label--hidden');
+            label.element.setAttribute('aria-hidden', true);
           }
         });
 
-        const labels = sectionRefs.current[index].labels;
+        const sectionLabels = sectionRefs.current[index].labels;
 
-        labels.forEach(label => {
+        sectionLabels.forEach(label => {
           const matches = labelElements.current.filter(item => item.text === label);
           matches.forEach(match => {
             match.element.classList.remove('earth__label--hidden');
+            match.element.setAttribute('aria-hidden', false);
           });
         });
       };
@@ -435,17 +494,17 @@ const Earth = ({
 
         const scrollPercentRange = transform.clamp(0, 1);
         const scrollPercent = scrollPercentRange(sectionScrolled);
-        const currentX = getIntertpolatedPosition(
+        const currentX = interpolatePosition(
           currentTarget.x,
           nextTarget.x,
           scrollPercent
         );
-        const currentY = getIntertpolatedPosition(
+        const currentY = interpolatePosition(
           currentTarget.y,
           nextTarget.y,
           scrollPercent
         );
-        const currentZ = getIntertpolatedPosition(
+        const currentZ = interpolatePosition(
           currentTarget.z,
           nextTarget.z,
           scrollPercent
@@ -463,7 +522,7 @@ const Earth = ({
 
         prevTarget = currentTarget;
 
-        if (!cameraValue.current) {
+        if (!isEqualCameraPosition(cameraValue.current?.get(), camera.current.position)) {
           cameraValue.current = value(camera.current.position, ({ x, y, z }) =>
             camera.current.position.set(x, y, z)
           );
@@ -475,6 +534,7 @@ const Earth = ({
           velocity: cameraValue.current.getVelocity(),
           stiffness: 100,
           damping: 80,
+          restSpeed: 0.001,
         }).start(cameraValue.current);
       };
 
@@ -489,6 +549,10 @@ const Earth = ({
     return () => {
       window.removeEventListener('scroll', handleScroll);
 
+      if (chunkSpring) {
+        chunkSpring.stop();
+      }
+
       if (opacitySpring) {
         opacitySpring.stop();
       }
@@ -501,13 +565,12 @@ const Earth = ({
 
   const registerSection = useCallback(section => {
     sectionRefs.current = [...sectionRefs.current, section];
-
-    console.log('register', sectionRefs.current);
+    console.log('reg', section);
   }, []);
 
   const unregisterSection = useCallback(section => {
-    console.log('unregister', section);
     sectionRefs.current = sectionRefs.current.filter(item => item !== section);
+    console.log('unreg', section);
   }, []);
 
   return (
@@ -560,7 +623,8 @@ export const EarthSection = ({
     return () => {
       unregisterSection(section);
     };
-  }, [animations, camera, labels, meshes, registerSection, unregisterSection]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div

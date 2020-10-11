@@ -39,7 +39,7 @@
 }
 
 .earth__label--hidden {
-  display: none;
+  opacity: 0;
 }
 
 .earth__vignette {
@@ -59,8 +59,10 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-shadow: 0 0 6px rgb(var(--rgbBlack));
 }
 
 .earth__section--scrim {

@@ -13,13 +13,13 @@ import {
   ProjectBackground,
   ProjectHeader,
 } from 'components/ProjectLayout';
+import ThemeProvider from 'components/ThemeProvider';
 import backgroundSpr from 'assets/spr-background.jpg';
 import backgroundSprLarge from 'assets/spr-background-large.jpg';
 import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
 import imageSprBuilder from 'assets/spr-builder.jpg';
 import imageSprBuilderLarge from 'assets/spr-builder-large.jpg';
 import imageSprBuilderPlaceholder from 'assets/spr-builder-placeholder.jpg';
-import ThemeProvider from 'components/ThemeProvider';
 import prerender from 'utils/prerender';
 import { media } from 'utils/style';
 import Earth, { EarthSection } from './Earth';
@@ -78,66 +78,108 @@ const ProjectSPR = () => {
         </ProjectSection>
         <div style={{ height: '100vh' }} />
         <div style={{ height: '100vh' }} />
-        <ThemeProvider className="spr__earth-section" themeId="dark">
+        <ThemeProvider themeId="dark">
           <Earth
             className="spr__earth"
-            hideMeshes={['Atmosphere']}
+            hideMeshes={['Atmosphere', 'EarthPartial', 'Chunk', 'EarthFull']}
             position={[0, 0, 0]}
+            labels={[
+              {
+                position: [0.54, 0.19, 0.18],
+                text: 'Pacific ring of fire',
+                hidden: true,
+              },
+              {
+                position: [0.47, -0.38, 0.04],
+                text: 'Ruapehu',
+                hidden: true,
+              },
+              {
+                position: [0.22, 0.44, -0.35],
+                text: 'St. Helens',
+                hidden: true,
+              },
+            ]}
             scale={0.6}
           >
             <EarthSection
               scrim
               animations={['0:loop']}
               camera={[0, 0, 1.5]}
-              meshes={['Atmosphere']}
-              className="spr__earth-section"
+              meshes={['Atmosphere', 'EarthFull']}
             >
-              Section 1
+              <ProjectSection>
+                <ProjectSectionContent>
+                  <ProjectTextRow center>
+                    <ProjectSectionHeading>The result</ProjectSectionHeading>
+                    <ProjectSectionText>
+                      The flexibility of the product allowed for developers to create
+                      engaging interactive experiences as highly configurable plugins that
+                      could then be used and manipulated by learning designers.
+                    </ProjectSectionText>
+                  </ProjectTextRow>
+                </ProjectSectionContent>
+              </ProjectSection>
             </EarthSection>
             <EarthSection
               animations={['0:loop']}
               camera={[0, 0, 2.4]}
-              meshes={['Atmosphere']}
-              className="spr__earth-section"
-            >
-              Section 2
-            </EarthSection>
+              meshes={['Atmosphere', 'EarthFull']}
+            />
             <EarthSection
               animations={['0:loop']}
               camera={[1.14, -1.39, 0.94]}
-              meshes={['Atmosphere']}
-              className="spr__earth-section"
+              meshes={['Atmosphere', 'EarthFull']}
             >
-              Section 3
+              <ProjectSection>
+                <ProjectSectionContent>
+                  <ProjectSectionHeading level={4}>
+                    Bringing 3D into learning
+                  </ProjectSectionHeading>
+                  <ProjectSectionText>
+                    One really cool example is the 3D screen plugin. Learning desiners can
+                    load any model into it and then configure camera positions to animate
+                    to for each section.
+                  </ProjectSectionText>
+                </ProjectSectionContent>
+              </ProjectSection>
             </EarthSection>
             <EarthSection
               animations={['0:loop']}
               camera={[1.17, 0.69, -1.47]}
-              meshes={['Atmosphere']}
-              className="spr__earth-section"
+              meshes={['Atmosphere', 'EarthFull']}
             >
-              Section 4
+              <ProjectSection>
+                <ProjectSectionContent>
+                  <ProjectSectionHeading level={4}>Interactivity</ProjectSectionHeading>
+                  <ProjectSectionText>
+                    Learners can then be directed to specific parts of the model and shown
+                    labels. They're also able to click and drag to orbit around and freely
+                    explore at any time.
+                  </ProjectSectionText>
+                </ProjectSectionContent>
+              </ProjectSection>
             </EarthSection>
             <EarthSection
               animations={['0:loop']}
               camera={[1.81, 0.51, 0.43]}
-              meshes={['Atmosphere']}
-              className="spr__earth-section"
+              meshes={['Atmosphere', 'EarthFull']}
+              labels={['Pacific ring of fire', 'Ruapehu', 'St. Helens']}
             >
               Section 5
             </EarthSection>
             <EarthSection
-              animations={['0:loop', '1']}
+              animations={['0:loop']}
               camera={[0.37, 1.02, 1.84]}
-              className="spr__earth-section"
+              meshes={['EarthPartial', 'Chunk']}
             >
               Section 6
             </EarthSection>
             <EarthSection
               scrimReverse
-              animations={['0:loop', '1']}
+              animations={['0:loop']}
               camera={[0.37, 1.02, 1.84]}
-              className="spr__earth-section"
+              meshes={['EarthPartial', 'Chunk']}
             >
               Section 7
             </EarthSection>

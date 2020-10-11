@@ -267,7 +267,7 @@
 }
 
 .project__section-heading {
-  padding-bottom: var(--spaceL);
+  margin-bottom: var(--spaceL);
 }
 
 @media (max-width: 696px) {

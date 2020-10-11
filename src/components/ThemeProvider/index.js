@@ -1,5 +1,6 @@
 import React, { createContext, Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
+import classNames from 'classnames';
 import useTheme from './useTheme';
 import { theme, tokens } from './theme';
 import { media } from 'utils/style';
@@ -52,7 +53,10 @@ const ThemeProvider = ({
       )}
       {/* Nested providers need a div to override theme tokens */}
       {!isRootProvider && (
-        <Component className={className} style={createThemeStyleObject(currentTheme)}>
+        <Component
+          className={classNames('theme-provider', className)}
+          style={createThemeStyleObject(currentTheme)}
+        >
           {children}
         </Component>
       )}

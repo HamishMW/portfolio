@@ -121,10 +121,10 @@ export const ProjectSectionContent = ({ className, ...rest }) => (
   <div className={classNames('project__section-content', className)} {...rest} />
 );
 
-export const ProjectSectionHeading = ({ className, ...rest }) => (
+export const ProjectSectionHeading = ({ className, level = 3, ...rest }) => (
   <Heading
     className={classNames('project__section-heading', className)}
-    level={3}
+    level={level}
     {...rest}
   />
 );
