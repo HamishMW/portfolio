@@ -99,6 +99,39 @@ const ProjectSPR = () => {
                 text: 'St. Helens',
                 hidden: true,
               },
+              {
+                position: [0.16, -0.06, 0.58],
+                text: 'Krakatoa',
+                hidden: true,
+              },
+              {
+                position: [0.11, 0.2, -0.56],
+                text: 'Parícutin',
+                hidden: true,
+              },
+              {
+                position: [0.52, 0.2, -0.23],
+                text: 'Kīlauea',
+                hidden: true,
+              },
+              {
+                position: [-0.24, 0.75, 0.24],
+                text: 'Mantle',
+                delay: 800,
+                hidden: true,
+              },
+              {
+                position: [-0.24, 0.55, 0.24],
+                text: 'Outer core',
+                delay: 800,
+                hidden: true,
+              },
+              {
+                position: [-0.24, 0.35, 0.24],
+                text: 'Inner core',
+                delay: 800,
+                hidden: true,
+              },
             ]}
             scale={0.6}
           >
@@ -132,15 +165,17 @@ const ProjectSPR = () => {
               meshes={['Atmosphere', 'EarthFull']}
             >
               <ProjectSection>
-                <ProjectSectionContent>
-                  <ProjectSectionHeading level={4}>
-                    Bringing 3D into learning
-                  </ProjectSectionHeading>
-                  <ProjectSectionText>
-                    One really cool example is the 3D screen plugin. Learning desiners can
-                    load any model into it and then configure camera positions to animate
-                    to for each section.
-                  </ProjectSectionText>
+                <ProjectSectionContent wide>
+                  <ProjectTextRow justify="end">
+                    <ProjectSectionHeading level={4}>
+                      Bringing 3D into learning
+                    </ProjectSectionHeading>
+                    <ProjectSectionText>
+                      One really cool example is the 3D screen plugin. Learning desiners
+                      can load any model into it and then configure camera positions to
+                      animate to for each section.
+                    </ProjectSectionText>
+                  </ProjectTextRow>
                 </ProjectSectionContent>
               </ProjectSection>
             </EarthSection>
@@ -148,15 +183,25 @@ const ProjectSPR = () => {
               animations={['0:loop']}
               camera={[1.17, 0.69, -1.47]}
               meshes={['Atmosphere', 'EarthFull']}
+              labels={[
+                'Pacific ring of fire',
+                'Ruapehu',
+                'St. Helens',
+                'Krakatoa',
+                'Parícutin',
+                'Kīlauea',
+              ]}
             >
               <ProjectSection>
-                <ProjectSectionContent>
-                  <ProjectSectionHeading level={4}>Interactivity</ProjectSectionHeading>
-                  <ProjectSectionText>
-                    Learners can then be directed to specific parts of the model and shown
-                    labels. They're also able to click and drag to orbit around and freely
-                    explore at any time.
-                  </ProjectSectionText>
+                <ProjectSectionContent wide>
+                  <ProjectTextRow justify="start">
+                    <ProjectSectionHeading level={4}>Interactivity</ProjectSectionHeading>
+                    <ProjectSectionText>
+                      Learners can then be directed to specific parts of the model and
+                      shown labels. They're also able to click and drag to orbit around
+                      and freely explore at any time.
+                    </ProjectSectionText>
+                  </ProjectTextRow>
                 </ProjectSectionContent>
               </ProjectSection>
             </EarthSection>
@@ -164,25 +209,40 @@ const ProjectSPR = () => {
               animations={['0:loop']}
               camera={[1.81, 0.51, 0.43]}
               meshes={['Atmosphere', 'EarthFull']}
-              labels={['Pacific ring of fire', 'Ruapehu', 'St. Helens']}
-            >
-              Section 5
-            </EarthSection>
+              labels={[
+                'Pacific ring of fire',
+                'Ruapehu',
+                'St. Helens',
+                'Krakatoa',
+                'Parícutin',
+                'Kīlauea',
+              ]}
+            />
             <EarthSection
               animations={['0:loop']}
               camera={[0.37, 1.02, 1.84]}
               meshes={['EarthPartial', 'Chunk']}
+              labels={['Mantle', 'Outer core', 'Inner core']}
             >
-              Section 6
+              <ProjectSection>
+                <ProjectSectionContent wide>
+                  <ProjectTextRow justify="end">
+                    <ProjectSectionHeading level={4}>Animation</ProjectSectionHeading>
+                    <ProjectSectionText>
+                      Learning designers can pick an animation included in the model to
+                      play or loop for any section without having to use any complex
+                      animation tools.
+                    </ProjectSectionText>
+                  </ProjectTextRow>
+                </ProjectSectionContent>
+              </ProjectSection>
             </EarthSection>
             <EarthSection
               scrimReverse
               animations={['0:loop']}
               camera={[0.37, 1.02, 1.84]}
-              meshes={['EarthPartial', 'Chunk']}
-            >
-              Section 7
-            </EarthSection>
+              meshes={['Atmosphere', 'EarthFull']}
+            />
           </Earth>
         </ThemeProvider>
         <div style={{ height: '100vh' }} />

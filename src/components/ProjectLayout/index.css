@@ -266,6 +266,10 @@
   flex-direction: column;
 }
 
+.project__section-content--wide {
+  max-width: var(--maxWidthXL);
+}
+
 .project__section-heading {
   margin-bottom: var(--spaceL);
 }
@@ -299,6 +303,18 @@
 .project__text-row--center {
   align-items: center;
   text-align: center;
+}
+
+.project__text-row--justify-start {
+  align-self: flex-start;
+}
+
+.project__text-row--justify-center {
+  align-self: center;
+}
+
+.project__text-row--justify-end {
+  align-self: flex-end;
 }
 
 @media (max-width: 696px) {

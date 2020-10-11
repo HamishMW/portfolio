@@ -5,6 +5,7 @@ import React, {
   useCallback,
   createContext,
   useContext,
+  memo,
 } from 'react';
 import classNames from 'classnames';
 import {
@@ -18,7 +19,6 @@ import {
   UnsignedByteType,
   TextureLoader,
   sRGBEncoding,
-  Color,
   LoopOnce,
   Vector3,
   Vector2,
@@ -235,8 +235,6 @@ const Earth = ({
 
     const handleLoad = async () => {
       await Promise.all([loadBackground(), loadEnv(), loadModel()]);
-
-      // setLabels();
       setLoaded(true);
       fetching.current = false;
     };
@@ -246,6 +244,10 @@ const Earth = ({
   }, [loaded, position, scale]);
 
   useEffect(() => {
+    if (loaded && !inViewport) {
+      renderer.current.render(scene.current, camera.current);
+    }
+
     if (loaded && inViewport) {
       animate();
     }
@@ -256,18 +258,22 @@ const Earth = ({
   }, [animate, inViewport, loaded]);
 
   useEffect(() => {
-    labelContainer.current.innerHTML = '';
-    labelElements.current = labels.map(label => {
-      const element = document.createElement('div');
-      element.classList.add('earth__label');
-      element.textContent = label.text;
-      labelContainer.current.appendChild(element);
-      const sprite = new Sprite();
-      sprite.position.set(...label.position);
-      sprite.scale.set(60, 60, 1);
-      return { element, ...label, sprite };
-    });
-  }, [labels]);
+    if (loaded) {
+      labelContainer.current.innerHTML = '';
+      labelElements.current = labels.map(label => {
+        const element = document.createElement('div');
+        element.classList.add('earth__label');
+        element.classList.add('earth__label--hidden');
+        element.style.setProperty('--delay', `${label.delay || 0}ms`);
+        element.textContent = label.text;
+        labelContainer.current.appendChild(element);
+        const sprite = new Sprite();
+        sprite.position.set(...label.position);
+        sprite.scale.set(60, 60, 1);
+        return { element, ...label, sprite };
+      });
+    }
+  }, [labels, loaded]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -288,6 +294,7 @@ const Earth = ({
   useEffect(() => {
     const currentCanvas = canvas.current;
 
+    // Log readouts for dev in console
     const handleMouseUp = event => {
       const { innerWidth, innerHeight } = window;
       // Set a camera position property to help with defining camera angles
@@ -308,7 +315,9 @@ const Earth = ({
       }
     };
 
-    currentCanvas.addEventListener('click', handleMouseUp);
+    if (process.env.NODE_ENV === 'development') {
+      currentCanvas.addEventListener('click', handleMouseUp);
+    }
 
     return () => {
       currentCanvas.removeEventListener('click', handleMouseUp);
@@ -353,7 +362,7 @@ const Earth = ({
           const isHidden = hideMeshes.includes(name);
           const chunk = getChild('Chunk');
           const earthFull = getChild('EarthFull');
-          const earthPartial = getChild('EarthFull');
+          const earthPartial = getChild('EarthPartial');
           const atmosphere = getChild('Atmosphere');
 
           if (!opacityValue) {
@@ -362,10 +371,14 @@ const Earth = ({
             });
           }
 
-          if (!chunkValue) {
-            chunkValue = value(chunk.position, position => {
-              chunk.position.set(position.x, position.y, position.z);
+          const setChunkValue = () => {
+            chunkValue = value(chunk.position, ({ x, y, z }) => {
+              chunk.position.set(x, y, z);
             });
+          };
+
+          if (!chunkValue) {
+            setChunkValue();
           }
 
           const opacitySpringConfig = {
@@ -392,11 +405,7 @@ const Earth = ({
             } else if (name === 'Chunk') {
               child.visible = true;
               chunkValueSubscription = chunkValue.subscribe({
-                complete: () => {
-                  chunkValue = value(chunk.position, position => {
-                    chunk.position.set(position.x, position.y, position.z);
-                  });
-                },
+                complete: setChunkValue,
               });
 
               chunkSpring = spring({
@@ -416,12 +425,11 @@ const Earth = ({
             } else if (name === 'Chunk') {
               chunkValueSubscription = chunkValue.subscribe({
                 complete: () => {
-                  child.visible = false;
+                  chunk.visible = false;
                   earthPartial.visible = false;
                   earthFull.visible = true;
-                  chunkValue = value(chunk.position, position => {
-                    chunk.position.set(position.x, position.y, position.z);
-                  });
+
+                  setChunkValue();
                 },
               });
 
@@ -565,12 +573,10 @@ const Earth = ({
 
   const registerSection = useCallback(section => {
     sectionRefs.current = [...sectionRefs.current, section];
-    console.log('reg', section);
   }, []);
 
   const unregisterSection = useCallback(section => {
     sectionRefs.current = sectionRefs.current.filter(item => item !== section);
-    console.log('unreg', section);
   }, []);
 
   return (
@@ -583,9 +589,10 @@ const Earth = ({
         </Helmet>
         <div className="earth__viewport">
           <canvas
-            className="earth__canvas"
+            className={classNames('earth__canvas', {
+              'earth__canvas--visible': inViewport && loaded,
+            })}
             ref={canvas}
-            style={{ opacity: loaded && inViewport ? 1 : 0 }}
           />
           <div className="earth__labels" aria-live="polite" ref={labelContainer} />
           <div className="earth__vignette" />
@@ -596,47 +603,56 @@ const Earth = ({
   );
 };
 
-export const EarthSection = ({
-  children,
-  scrim,
-  scrimReverse,
-  className,
-  camera = [0, 0, 0],
-  animations = [],
-  meshes = [],
-  labels = [],
-}) => {
-  const { registerSection, unregisterSection } = useContext(EarthContext);
-  const sectionRef = useRef();
+export const EarthSection = memo(
+  ({
+    children,
+    scrim,
+    scrimReverse,
+    className,
+    camera = [0, 0, 0],
+    animations = [],
+    meshes = [],
+    labels = [],
+  }) => {
+    const { registerSection, unregisterSection } = useContext(EarthContext);
+    const sectionRef = useRef();
 
-  useEffect(() => {
-    const section = {
-      camera,
-      animations,
-      meshes,
-      labels,
-      sectionRef,
-    };
+    useEffect(() => {
+      const section = {
+        camera,
+        animations,
+        meshes,
+        labels,
+        sectionRef,
+      };
 
-    registerSection(section);
+      registerSection(section);
 
-    return () => {
-      unregisterSection(section);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      return () => {
+        unregisterSection(section);
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+      JSON.stringify(animations),
+      JSON.stringify(camera),
+      JSON.stringify(labels),
+      JSON.stringify(meshes),
+      registerSection,
+      unregisterSection,
+    ]);
 
-  return (
-    <div
-      className={classNames('earth__section', className, {
-        'earth__section--scrim': scrim,
-        'earth__section--scrim-reverse': scrimReverse,
-      })}
-      ref={sectionRef}
-    >
-      {children}
-    </div>
-  );
-};
+    return (
+      <div
+        className={classNames('earth__section', className, {
+          'earth__section--scrim': scrim,
+          'earth__section--scrim-reverse': scrimReverse,
+        })}
+        ref={sectionRef}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 export default Earth;

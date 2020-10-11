@@ -12,8 +12,13 @@
 
 .earth__canvas {
   grid-area: 1 / 1;
-  transition: opacity 1s var(--bezierFastoutSlowin);
+  transition: opacity 1.6s var(--bezierFastoutSlowin);
   outline: none;
+  opacity: 0;
+}
+
+.earth__canvas--visible {
+  opacity: 1;
 }
 
 .earth__labels {
@@ -31,6 +36,8 @@
   font-size: 14px;
   text-shadow: 0px 0px 3px #000, 0px 0px 5px #000, 0px 0px 20px #000;
   transition: opacity 0.4s ease;
+  transition-delay: var(--delay);
+  font-family: system-ui;
 }
 
 .earth__label--occluded {

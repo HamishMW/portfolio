@@ -31,11 +31,9 @@ const ProfileText = ({ status, titleId }) => (
       size="l"
     >
       I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
-      <Link href="https://www.qwilr.com" target="_blank">
-        Qwilr
-      </Link>
-      . My projects include UX design, UI animations, and icon illustration. Being
-      comfortable with code allows me to rapidly prototype and validate experiences.
+      <Link href="https://www.qwilr.com">Qwilr</Link>. My projects include UX design, UI
+      animations, and icon illustration. Being comfortable with code allows me to rapidly
+      prototype and validate experiences.
     </Text>
     <Text
       className={classNames('profile__description', `profile__description--${status}`)}

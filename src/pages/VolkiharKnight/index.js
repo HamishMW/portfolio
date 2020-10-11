@@ -212,9 +212,7 @@ function ProjectVolkihar() {
                 <Button
                   secondary
                   iconHoverShift
-                  as="a"
                   icon="chevronRight"
-                  target="_blank"
                   href="https://store.steampowered.com/app/933480/Enderal_Forgotten_Stories/"
                 >
                   View on Steam

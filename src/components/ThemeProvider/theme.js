@@ -33,6 +33,7 @@ const baseTokens = {
   maxWidthS: '480px',
   maxWidthM: '640px',
   maxWidthL: '1096px',
+  maxWidthXL: '1680px',
   spaceOuter: '64px',
   spaceXS: '4px',
   spaceS: '8px',
@@ -53,6 +54,7 @@ const tokensDesktop = {
 
 const tokensLaptop = {
   maxWidthL: '1000px',
+  maxWidthXL: '1100px',
   fontSizeH0: pxToRem(100),
   fontSizeH1: pxToRem(70),
   fontSizeH2: pxToRem(52),
