@@ -37,7 +37,7 @@
   text-shadow: 0px 0px 3px #000, 0px 0px 5px #000, 0px 0px 20px #000;
   transition: opacity 0.4s ease;
   transition-delay: var(--delay);
-  font-family: system-ui;
+  font-family: var(--systemFontStack);
 }
 
 .earth__label--occluded {
@@ -47,6 +47,7 @@
 
 .earth__label--hidden {
   opacity: 0;
+  transition-delay: 0ms;
 }
 
 .earth__vignette {

@@ -9,10 +9,14 @@ import React, {
 import classNames from 'classnames';
 import { numToPx } from 'utils/style';
 import './index.css';
+import { blurOnMouseUp } from 'utils/focus';
+import { useId } from 'hooks';
 
 const SegmentedControlContext = createContext({});
 
-const SegmentedControl = ({ children, currentIndex, onChange, ...props }) => {
+const SegmentedControl = ({ children, currentIndex, onChange, label, ...props }) => {
+  const id = useId();
+  const labelId = `segmented-control-label-${id}`;
   const optionRefs = useRef([]);
   const [indicator, setIndicator] = useState();
 
@@ -21,10 +25,12 @@ const SegmentedControl = ({ children, currentIndex, onChange, ...props }) => {
     const prevIndex = (currentIndex - 1 + length) % length;
     const nextIndex = (currentIndex + 1) % length;
 
-    if (event.key === 'ArrowLeft') {
+    if (['ArrowLeft', 'ArrowUp'].includes(event.key)) {
       onChange(prevIndex);
-    } else if (event.key === 'ArrowRight') {
+      optionRefs.current[prevIndex].current.focus();
+    } else if (['ArrowRight', 'ArrowDown'].includes(event.key)) {
       onChange(nextIndex);
+      optionRefs.current[nextIndex].current.focus();
     }
   };
 
@@ -55,22 +61,28 @@ const SegmentedControl = ({ children, currentIndex, onChange, ...props }) => {
       <div
         className="segmented-control"
         role="radiogroup"
+        aria-labelledby={labelId}
         onKeyDown={handleKeyDown}
         {...props}
       >
-        {!!indicator && (
-          <div
-            className={classNames('segmented-control__indicator', {
-              'segmented-control__indicator--last':
-                currentIndex === optionRefs.current.length - 1,
-            })}
-            style={{
-              '--left': numToPx(indicator.left + 2),
-              '--width': numToPx(indicator.width - 2),
-            }}
-          />
-        )}
-        {children}
+        <label className="segmented-control__label" id={labelId}>
+          {label}
+        </label>
+        <div className="segmented-control__options">
+          {!!indicator && (
+            <div
+              className={classNames('segmented-control__indicator', {
+                'segmented-control__indicator--last':
+                  currentIndex === optionRefs.current.length - 1,
+              })}
+              style={{
+                '--left': numToPx(indicator.left),
+                '--width': numToPx(indicator.width),
+              }}
+            />
+          )}
+          {children}
+        </div>
       </div>
     </SegmentedControlContext.Provider>
   );
@@ -90,15 +102,16 @@ export const SegmentedControlOption = ({ children, ...props }) => {
 
   return (
     <button
-      className={classNames('segmented-control__button')}
-      tabIndex={-1}
+      className="segmented-control__button"
+      tabIndex={isSelected ? 0 : -1}
       role="radio"
       aria-checked={isSelected}
       onClick={() => onChange(index)}
+      onMouseUp={blurOnMouseUp}
       ref={optionRef}
       {...props}
     >
-      <span className="segmented-control__label">{children}</span>
+      {children}
     </button>
   );
 };

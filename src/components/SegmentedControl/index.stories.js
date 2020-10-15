@@ -9,11 +9,11 @@ export default {
   },
 };
 
-function DemoSegmentedControl({ options }) {
+function DemoSegmentedControl({ options, ...rest }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <SegmentedControl currentIndex={currentIndex} onChange={setCurrentIndex}>
+    <SegmentedControl currentIndex={currentIndex} onChange={setCurrentIndex} {...rest}>
       {options?.map((option, index) => (
         <SegmentedControlOption key={`${option}-${index}`}>
           {option}

@@ -1,5 +1,8 @@
 import { pxToRem } from 'utils/style';
 
+const systemFontStack =
+  'system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif';
+
 // Full list of tokens
 const baseTokens = {
   rgbBlack: '0 0 0',
@@ -10,8 +13,8 @@ const baseTokens = {
   durationM: '400ms',
   durationL: '600ms',
   durationXL: '800ms',
-  fontStack:
-    'Gotham, system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif',
+  systemFontStack,
+  fontStack: `Gotham, ${systemFontStack}`,
   monoFontStack:
     'SFMono Regular, Roboto Mono, Consolas, Liberation Mono, Menlo, Courier, monospace',
   japaneseFontStack:

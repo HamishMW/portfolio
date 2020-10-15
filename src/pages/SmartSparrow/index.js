@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
@@ -13,15 +13,19 @@ import {
   ProjectBackground,
   ProjectHeader,
 } from 'components/ProjectLayout';
-import ThemeProvider from 'components/ThemeProvider';
+import ThemeProvider, { useTheme } from 'components/ThemeProvider';
+import Image from 'components/Image';
+import SegmentedControl, { SegmentedControlOption } from 'components/SegmentedControl';
+import prerender from 'utils/prerender';
+import { media } from 'utils/style';
 import backgroundSpr from 'assets/spr-background.jpg';
 import backgroundSprLarge from 'assets/spr-background-large.jpg';
 import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
 import imageSprBuilder from 'assets/spr-builder.jpg';
 import imageSprBuilderLarge from 'assets/spr-builder-large.jpg';
 import imageSprBuilderPlaceholder from 'assets/spr-builder-placeholder.jpg';
-import prerender from 'utils/prerender';
-import { media } from 'utils/style';
+import imageSprComponentsDark from 'assets/spr-components-dark.png';
+import imageSprComponentsDarkLarge from 'assets/spr-components-dark-large.png';
 import Earth, { EarthSection } from './Earth';
 import './index.css';
 
@@ -36,7 +40,17 @@ const roles = [
 ];
 
 const ProjectSPR = () => {
+  const { themeId } = useTheme();
+  const [componentSectionTheme, setComponentSectionTheme] = useState(themeId);
   useScrollRestore();
+
+  const handleThemeChange = index => {
+    if (index === 0) {
+      setComponentSectionTheme('dark');
+    } else {
+      setComponentSectionTheme('light');
+    }
+  };
 
   return (
     <Fragment>
@@ -67,15 +81,50 @@ const ProjectSPR = () => {
         </ProjectSection>
         <ProjectSection>
           <ProjectTextRow>
-            <ProjectSectionHeading>The Challenge</ProjectSectionHeading>
+            <ProjectSectionHeading>The problem</ProjectSectionHeading>
             <ProjectSectionText>
-              The goal of the new product design was to make creating online learning
-              better for teams. As part of my role as lead product designer, I worked to
-              create a consistent design system that allowed us to quickly design and
-              build prototypes for user testing.
+              In 2017, Smart Sparrow began a project to build an entirely new platform to
+              from the ground up to serve as the most powerful tool for educators to
+              create online learning experiences. The old platofrm was built in Flash, and
+              there were a number of user experience problems to solve in the process of
+              moving the platform to Javascript. The primary goals for the project were
+              reducing barriers to collaboration, and making the platform both easier for
+              new users, but with plenty of room to scale for advanced users.
             </ProjectSectionText>
           </ProjectTextRow>
         </ProjectSection>
+        <ThemeProvider themeId={componentSectionTheme}>
+          <ProjectSection light>
+            <ProjectSectionContent>
+              <Image
+                srcSet={`${imageSprComponentsDark} 300w, ${imageSprComponentsDarkLarge} 700w`}
+                placeholder={imageSprComponentsDark}
+                alt="Multiple user annotations on a shared layer."
+                sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
+              />
+              <ProjectTextRow>
+                <SegmentedControl
+                  currentIndex={componentSectionTheme === 'dark' ? 0 : 1}
+                  onChange={handleThemeChange}
+                >
+                  <SegmentedControlOption>Dark theme</SegmentedControlOption>
+                  <SegmentedControlOption>Light theme</SegmentedControlOption>
+                </SegmentedControl>
+              </ProjectTextRow>
+              <ProjectTextRow>
+                <ProjectSectionHeading>The aero design system</ProjectSectionHeading>
+                <ProjectSectionText>
+                  To streamline the design process across designers and engineers for such
+                  a large project, it was important to lay the foundations with a strong,
+                  flexible design system that could evolve during the product’s
+                  development cycle. This would inform both the aesthetics and user
+                  experience across the product itself as well as the website and
+                  marketing material.
+                </ProjectSectionText>
+              </ProjectTextRow>
+            </ProjectSectionContent>
+          </ProjectSection>
+        </ThemeProvider>
         <div style={{ height: '100vh' }} />
         <div style={{ height: '100vh' }} />
         <ThemeProvider themeId="dark">

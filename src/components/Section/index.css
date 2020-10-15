@@ -2,6 +2,8 @@
   padding-right: var(--space5XL);
   padding-left: calc(var(--space4XL) * 2);
   outline: none;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 100vh;
 }
 
 @media (min-width: 2080px) {

@@ -21,7 +21,7 @@
     "react-snap": "1.23.0",
     "react-test-renderer": "^16.13.1",
     "source-map-explorer": "^2.5.0",
-    "stylelint": "^13.7.1",
+    "stylelint": "^13.7.2",
     "stylelint-config-recommended": "^3.0.0"
   },
   "dependencies": {

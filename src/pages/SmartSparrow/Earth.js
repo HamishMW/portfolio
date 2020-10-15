@@ -102,6 +102,8 @@ const Earth = ({
   const controls = useRef();
 
   const animate = useCallback(() => {
+    if (!inViewport) return;
+
     animationFrame.current = requestAnimationFrame(animate);
     const delta = clock.current.getDelta();
     mixer.current.update(delta);
@@ -129,7 +131,7 @@ const Earth = ({
         element.classList.remove('earth__label--occluded');
       }
     });
-  }, []);
+  }, [inViewport]);
 
   useEffect(() => {
     const { innerWidth, innerHeight } = window;
@@ -331,10 +333,11 @@ const Earth = ({
     let chunkValueSubscription;
     let opacitySpring;
     let opacityValue;
+    const { offsetTop } = container.current;
+    const { innerHeight } = window;
 
     const handleScroll = () => {
-      const { innerHeight } = window;
-      const currentScrollY = window.scrollY - container.current.offsetTop;
+      const currentScrollY = window.scrollY - offsetTop;
       let prevTarget;
 
       if (chunkValueSubscription) {
@@ -393,6 +396,7 @@ const Earth = ({
             velocity: chunkValue?.getVelocity(),
             stiffness: 32,
             damping: 26,
+            mass: 1.8,
             restSpeed: 0.001,
           };
 
@@ -540,8 +544,9 @@ const Earth = ({
           from: cameraValue.current.get(),
           to: { x: currentX, y: currentY, z: currentZ },
           velocity: cameraValue.current.getVelocity(),
-          stiffness: 100,
-          damping: 80,
+          stiffness: 80,
+          damping: 70,
+          mass: 2,
           restSpeed: 0.001,
         }).start(cameraValue.current);
       };
