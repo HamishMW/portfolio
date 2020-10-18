@@ -33,10 +33,11 @@
   top: 0;
   left: 0;
   color: white;
-  font-weight: 600;
-  font-size: 14px;
-  text-shadow: 0px 0px 3px #000, 0px 0px 5px #000, 0px 0px 20px #000;
-  transition: opacity 0.4s ease;
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--fontSizeBodyXS);
+  text-shadow: 0px 0px 3px rgb(var(--rgbBlack)), 0px 0px 5px rgb(var(--rgbBlack)),
+    0px 0px 20px rgb(var(--rgbBlack));
+  transition: opacity var(--durationM) ease;
   transition-delay: var(--delay);
   font-family: var(--systemFontStack);
 }

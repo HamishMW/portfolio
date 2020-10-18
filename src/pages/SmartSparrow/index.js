@@ -122,8 +122,8 @@ const ProjectSPR = () => {
         <ProjectSection first>
           <ProjectSectionContent>
             <ProjectImage
+              raised
               key={themeId}
-              className={`spr__frame spr__frame--${themeId}`}
               srcSet={`${
                 isDark ? imageSprLessonBuilderDark : imageSprLessonBuilderLight
               } 800w, ${
@@ -194,8 +194,8 @@ const ProjectSPR = () => {
         <ProjectSection>
           <ProjectSectionContent>
             <Image
+              raised
               key={themeId}
-              className={`spr__frame spr__frame--${themeId}`}
               srcSet={`${
                 isDark ? imageSprDesignSystemDark : imageSprDesignSystemLight
               } 1280w, ${
@@ -246,8 +246,9 @@ const ProjectSPR = () => {
                 </ProjectTextRow>
               </ProjectSectionContent>
               <Image
+                raised
                 srcSet={`${videoSprMotion} 1280w, ${videoSprMotionLarge} 2560w`}
-                className="spr__video spr__frame"
+                className="spr__video"
                 src={videoSprMotionLarge}
                 placeholder={videoSprMotionPlaceholder}
                 alt="A learning designer building and deploying an interactive lesson on volcanism using the app."
@@ -269,8 +270,8 @@ const ProjectSPR = () => {
               </ProjectSectionText>
             </ProjectTextRow>
             <Image
+              raised
               key={themeId}
-              className={`spr__frame spr__frame--${themeId}`}
               srcSet={`${
                 isDark ? imageSprStoryboarderDark : imageSprStoryboarderLight
               } 1280w, ${

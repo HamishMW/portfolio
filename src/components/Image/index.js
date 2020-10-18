@@ -8,11 +8,13 @@ import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { tokens } from 'components/ThemeProvider/theme';
 import { msToNum, numToMs } from 'utils/style';
-import './index.css';
 import { resolveVideoSrcFromSrcSet } from 'utils/image';
+import { useTheme } from 'components/ThemeProvider';
+import './index.css';
 
-const Image = ({ className, style, reveal, delay = 0, src, ...rest }) => {
+const Image = ({ className, style, reveal, delay = 0, raised, src, ...rest }) => {
   const [loaded, setLoaded] = useState(false);
+  const { themeId } = useTheme();
   const containerRef = useRef();
   const inViewport = useInViewport(containerRef, !src?.endsWith('.mp4'));
 
@@ -22,9 +24,10 @@ const Image = ({ className, style, reveal, delay = 0, src, ...rest }) => {
 
   return (
     <div
-      className={classNames('image', className, {
+      className={classNames('image', className, `image--${themeId}`, {
         'image--in-viewport': inViewport,
         'image--reveal': reveal,
+        'image--raised': raised,
       })}
       style={{ ...style, '--delay': numToMs(delay) }}
       ref={containerRef}
