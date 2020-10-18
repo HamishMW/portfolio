@@ -6,7 +6,7 @@
   --buttonTextColor: rgb(var(--rgbBackground));
   --buttonTextVisibility: visible;
 
-  all: unset;
+  outline: none;
   height: var(--buttonSize);
   padding: var(--buttonPadding);
   cursor: pointer;

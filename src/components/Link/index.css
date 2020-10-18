@@ -8,7 +8,7 @@
     rgb(var(--linkColor) / var(--lineOpacity))
   );
 
-  all: unset;
+  outline: none;
   cursor: pointer;
   display: inline;
   color: rgb(var(--linkColor));

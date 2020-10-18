@@ -22,6 +22,7 @@ import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
 import { initialState, reducer } from 'app/reducer';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
+import './reset.css';
 import './index.css';
 
 const Home = lazy(() => import('pages/Home'));

@@ -1,5 +1,4 @@
 .text {
-  margin: 0;
   line-height: var(--lineHeightBody);
   color: var(--colorTextBody);
 }

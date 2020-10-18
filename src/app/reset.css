@@ -1,0 +1,29 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
+}
+
+input,
+textarea {
+  font: inherit;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  appearance: none;
+}
+
+button {
+  margin: 0;
+  border: 0;
+  font: inherit;
+  background-color: transparent;
+  appearance: none;
+}
+
+a {
+  text-decoration: none;
+}
