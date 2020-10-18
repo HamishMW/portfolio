@@ -212,12 +212,10 @@ const ProjectSPR = () => {
             <ProjectTextRow>
               <ProjectSectionHeading>Design system docs</ProjectSectionHeading>
               <ProjectSectionText>
-                TODO: Write copy --- To streamline the design process across designers and
-                engineers for such a large project, it was important to lay the
-                foundations with a strong, flexible design system that could evolve during
-                the product’s development cycle. This would inform both the aesthetics and
-                user experience across the product itself as well as the website and
-                marketing material.
+                A design system is useless if no one knows how to use it, so we put
+                together a comprehensive documentation website to cover principles, ux,
+                accessibility, and component guidelines for designers and engineers
+                working with the system.
               </ProjectSectionText>
             </ProjectTextRow>
           </ProjectSectionContent>

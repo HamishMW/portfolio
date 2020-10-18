@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
   useEffect,
   useRef,
@@ -651,7 +652,6 @@ export const EarthSection = memo(
       return () => {
         unregisterSection(section);
       };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
       JSON.stringify(animations),
       JSON.stringify(camera),
