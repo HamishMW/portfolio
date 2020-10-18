@@ -20,10 +20,6 @@
   z-index: 1;
 }
 
-.button::-moz-focus-inner {
-  border: 0;
-}
-
 .button:focus {
   box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
 }

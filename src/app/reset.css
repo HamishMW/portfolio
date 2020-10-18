@@ -9,8 +9,9 @@ p {
 
 input,
 textarea {
-  font: inherit;
+  font-family: inherit;
   border: 0;
+  margin: 0;
   padding: 0;
   background-color: transparent;
   appearance: none;
@@ -19,7 +20,7 @@ textarea {
 button {
   margin: 0;
   border: 0;
-  font: inherit;
+  font-family: inherit;
   background-color: transparent;
   appearance: none;
 }

@@ -82,10 +82,6 @@ body {
   z-index: 128;
 }
 
-.skip-to-main::-moz-focus-inner {
-  border: 0;
-}
-
 .skip-to-main:focus {
   padding: var(--spaceS) var(--spaceM);
   position: fixed;
