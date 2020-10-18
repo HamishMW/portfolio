@@ -1,27 +1,16 @@
 {
   "editor.formatOnSave": true,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact"
-  ],
-  "eslint.workingDirectories": [
-    "./src",
-    "./scripts",
-    "./functions"
-  ],
+  "eslint.validate": ["javascript", "javascriptreact"],
+  "eslint.workingDirectories": ["./src", "./scripts", "./functions"],
   "files.exclude": {
     "**/.DS_Store": true,
     "**/.git": true,
-    "**/node_modules": true,
-    "**/design": true,
-    "**/*.sketch": true,
-    "**/*.studio": true
+    "**/node_modules": true
   },
   "html.format.enable": false,
   "search.exclude": {
     "**/bower_components": true,
     "**/node_modules": true,
-    "**/build/*.js": true,
-    "index.*": true
+    "**/build/*.js": true
   }
 }

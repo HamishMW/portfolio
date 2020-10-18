@@ -7,10 +7,11 @@ import React, {
   useCallback,
 } from 'react';
 import classNames from 'classnames';
+import VisuallyHidden from 'components/VisuallyHidden';
 import { numToPx } from 'utils/style';
-import './index.css';
 import { blurOnMouseUp } from 'utils/focus';
 import { useId } from 'hooks';
+import './index.css';
 
 const SegmentedControlContext = createContext({});
 
@@ -65,9 +66,9 @@ const SegmentedControl = ({ children, currentIndex, onChange, label, ...props })
         onKeyDown={handleKeyDown}
         {...props}
       >
-        <label className="segmented-control__label" id={labelId}>
+        <VisuallyHidden as="label" className="segmented-control__label" id={labelId}>
           {label}
-        </label>
+        </VisuallyHidden>
         <div className="segmented-control__options">
           {!!indicator && (
             <div

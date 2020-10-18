@@ -17,11 +17,12 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from 'components/Header';
 import ThemeProvider from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
-import { msToNum } from 'utils/style';
+import VisuallyHidden from 'components/VisuallyHidden';
 import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
-import { initialState, reducer } from 'app/reducer';
+import { msToNum } from 'utils/style';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
+import { initialState, reducer } from 'app/reducer';
 import './reset.css';
 import './index.css';
 
@@ -88,9 +89,9 @@ const AppRoutes = () => {
       <Helmet>
         <link rel="canonical" href={`https://hamishw.com${pathname}`} />
       </Helmet>
-      <a className="skip-to-main" href="#MainContent">
+      <VisuallyHidden as="a" className="skip-to-main" href="#MainContent">
         Skip to main content
-      </a>
+      </VisuallyHidden>
       <Header location={location} />
       <TransitionGroup component="main" className="app" tabIndex={-1} id="MainContent">
         <Transition

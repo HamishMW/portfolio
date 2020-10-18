@@ -109,7 +109,7 @@ const ProjectSPR = () => {
       </Helmet>
       <ProjectContainer className="spr">
         <ProjectBackground
-          srcSet={`${backgroundSpr} 1000w, ${backgroundSprLarge} 1920w`}
+          srcSet={`${backgroundSpr} 1080w, ${backgroundSprLarge} 2160w`}
           placeholder={backgroundSprPlaceholder}
           entered={!prerender}
         />
@@ -126,15 +126,15 @@ const ProjectSPR = () => {
               key={themeId}
               srcSet={`${
                 isDark ? imageSprLessonBuilderDark : imageSprLessonBuilderLight
-              } 800w, ${
+              } 1280w, ${
                 isDark ? imageSprLessonBuilderDarkLarge : imageSprLessonBuilderLightLarge
-              } 1440w`}
+              } 2560w`}
               placeholder={
                 isDark
                   ? imageSprLessonBuilderDarkPlaceholder
                   : imageSprLessonBuilderLightPlaceholder
               }
-              sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
+              sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 800px, 1000px`}
               alt="The aero lesson builder app dragging an audio component into a screen about plant cells."
             />
           </ProjectSectionContent>
@@ -145,7 +145,7 @@ const ProjectSPR = () => {
             <ProjectSectionText>
               In 2017, Smart Sparrow began a project to build an entirely new platform to
               from the ground up to serve as the most powerful tool for educators to
-              create online learning experiences. The old platofrm was built in Flash, and
+              create online learning experiences. The old platform was built in Flash, and
               there were a number of user experience problems to solve in the process of
               moving the platform to Javascript. The primary goals for the project were
               reducing barriers to collaboration, and making the platform both easier for
@@ -299,7 +299,7 @@ const ProjectSPR = () => {
                   plugins for any content, whether it be a degree, course, lesson, screen,
                   or interactive component. Out of the box these can be made configurable
                   with minimal effort from developers. Learning designers can then edit
-                  everything using a common confuguration interface.
+                  everything using a common configuration interface.
                 </ProjectSectionText>
               </ProjectTextRow>
             </ProjectSectionContent>
@@ -314,7 +314,7 @@ const ProjectSPR = () => {
                     ? imageSprSchema2DarkPlaceholder
                     : imageSprSchema2LightPlaceholder
                 }
-                alt="Configuation options for a component."
+                alt="Configuration options for a component."
                 sizes={`(max-width: ${media.mobile}px) 50vw, 25vw`}
               />
               <Image
@@ -327,7 +327,7 @@ const ProjectSPR = () => {
                     ? imageSprSchema1DarkPlaceholder
                     : imageSprSchema1LightPlaceholder
                 }
-                alt="Configuation options for a component."
+                alt="Configuration options for text."
                 sizes={`(max-width: ${media.mobile}px) 50vw, 25vw`}
               />
             </div>
@@ -425,11 +425,11 @@ const ProjectSPR = () => {
               <ProjectSection>
                 <ProjectSectionContent width="xl">
                   <ProjectTextRow justify="end" width="s">
-                    <ProjectSectionHeading level={4}>
+                    <ProjectSectionHeading level={4} as="h3">
                       Bringing 3D into learning
                     </ProjectSectionHeading>
                     <ProjectSectionText>
-                      One really cool example is the 3D screen plugin. Learning desiners
+                      One really cool example is the 3D screen plugin. Learning designers
                       can load any model into it and then configure camera positions to
                       animate to for each section.
                     </ProjectSectionText>
@@ -453,7 +453,9 @@ const ProjectSPR = () => {
               <ProjectSection>
                 <ProjectSectionContent width="xl">
                   <ProjectTextRow justify="start" width="s">
-                    <ProjectSectionHeading level={4}>Interactivity</ProjectSectionHeading>
+                    <ProjectSectionHeading level={4} as="h3">
+                      Interactivity
+                    </ProjectSectionHeading>
                     <ProjectSectionText>
                       Learners can then be directed to specific parts of the model and
                       shown labels. They're also able to click and drag to orbit around
@@ -485,7 +487,9 @@ const ProjectSPR = () => {
               <ProjectSection>
                 <ProjectSectionContent width="xl">
                   <ProjectTextRow justify="end" width="s">
-                    <ProjectSectionHeading level={4}>Animation</ProjectSectionHeading>
+                    <ProjectSectionHeading level={4} as="h3">
+                      Animation
+                    </ProjectSectionHeading>
                     <ProjectSectionText>
                       Learning designers can pick an animation included in the model to
                       play or loop for any section without having to use any complex

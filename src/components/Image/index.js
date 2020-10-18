@@ -10,6 +10,7 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { msToNum, numToMs } from 'utils/style';
 import { resolveVideoSrcFromSrcSet } from 'utils/image';
 import { useTheme } from 'components/ThemeProvider';
+import VisuallyHidden from 'components/VisuallyHidden';
 import './index.css';
 
 const Image = ({ className, style, reveal, delay = 0, raised, src, ...rest }) => {
@@ -88,13 +89,13 @@ const ImageElements = ({
   }, []);
 
   useEffect(() => {
-    const reolveVideoSrc = async () => {
+    const resolveVideoSrc = async () => {
       const resolvedVideoSrc = await resolveVideoSrcFromSrcSet(srcSet);
       setVideoSrc(resolvedVideoSrc);
     };
 
     if (isVideo && srcSet) {
-      reolveVideoSrc();
+      resolveVideoSrc();
     } else if (isVideo) {
       setVideoSrc(src);
     }
@@ -179,17 +180,17 @@ const ImageElements = ({
             timeout={{ enter: 0, exit: msToNum(tokens.base.durationS) }}
           >
             {status => (
-              <Button
-                className={classNames('image__button', `image__button--${status}`, {
-                  'image__button--visible': showPlayButton,
-                })}
-                onFocus={handleFocusPlayButton}
-                onBlur={() => setIsFocused(false)}
-                onClick={togglePlaying}
-              >
-                <Icon icon={playing ? 'pause' : 'play'} />
-                {playing ? 'Pause' : 'Play'}
-              </Button>
+              <VisuallyHidden visible={showPlayButton}>
+                <Button
+                  className={classNames('image__button', `image__button--${status}`)}
+                  onFocus={handleFocusPlayButton}
+                  onBlur={() => setIsFocused(false)}
+                  onClick={togglePlaying}
+                >
+                  <Icon icon={playing ? 'pause' : 'play'} />
+                  {playing ? 'Pause' : 'Play'}
+                </Button>
+              </VisuallyHidden>
             )}
           </Transition>
         </Fragment>

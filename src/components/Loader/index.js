@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { usePrefersReducedMotion } from 'hooks';
 import { numToPx } from 'utils/style';
+import VisuallyHidden from 'components/VisuallyHidden';
 import './index.css';
 
 const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) => {
@@ -10,9 +11,9 @@ const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) =
 
   const renderScreenReaderTextPortal = () =>
     ReactDOM.createPortal(
-      <div className="loader-announcement" aria-live="assertive">
+      <VisuallyHidden className="loader-announcement" aria-live="assertive">
         {text}
-      </div>,
+      </VisuallyHidden>,
       document.body
     );
 

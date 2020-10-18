@@ -2,17 +2,6 @@
   --inset: 3px;
 }
 
-.segmented-control__label {
-  position: absolute;
-  opacity: 0;
-  padding: 0;
-  height: 1px;
-  width: 1px;
-  clip: rect(0 0 0 0);
-  margin: -1px;
-  overflow: hidden;
-}
-
 .segmented-control__options {
   position: relative;
   display: flex;

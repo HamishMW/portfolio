@@ -11,6 +11,7 @@ import { tokens } from 'components/ThemeProvider/theme';
 import Heading from 'components/Heading';
 import Section from 'components/Section';
 import { useTheme } from 'components/ThemeProvider';
+import VisuallyHidden from 'components/VisuallyHidden';
 import './Intro.css';
 
 const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
@@ -75,7 +76,7 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
                 <DecoderText text="Hamish Williams" start={!prerender} delay={300} />
               </h1>
               <Heading level={0} as="h2" className="intro__title">
-                <span className="intro__title-label">{`Designer + ${introLabel}`}</span>
+                <VisuallyHidden className="intro__title-label">{`Designer + ${introLabel}`}</VisuallyHidden>
                 <span
                   aria-hidden
                   className={classNames('intro__title-row', {

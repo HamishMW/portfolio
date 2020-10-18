@@ -127,24 +127,10 @@
 }
 
 .image__button {
-  position: absolute;
   opacity: 0;
-  padding: 0;
-  height: 1px;
-  width: 1px;
-  clip: rect(0 0 0 0);
-  margin: -1px;
-  overflow: hidden;
-}
-
-.image__button--visible {
-  clip: auto;
-  margin: 0;
   top: var(--spaceM);
   left: var(--spaceM);
-  overflow: visible;
   height: 32px;
-  width: auto;
   color: rgb(var(--rgbWhite));
   padding: 0 8px 0 2px;
 }

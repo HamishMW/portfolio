@@ -173,7 +173,7 @@ function ProjectVolkihar() {
                       src: volkiharSlide3,
                       srcSet: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
                       alt:
-                        'A female character weilding a sword and wearing the red coloured armor.',
+                        'A female character wielding a sword and wearing the red coloured armor.',
                     },
                   ],
                   []

@@ -2,6 +2,7 @@ import React, { useRef, useEffect, memo } from 'react';
 import classNames from 'classnames';
 import { usePrefersReducedMotion } from 'hooks';
 import { spring, chain, delay, value } from 'popmotion';
+import VisuallyHidden from 'components/VisuallyHidden';
 import './index.css';
 
 // prettier-ignore
@@ -100,7 +101,7 @@ const DecoderText = ({
 
   return (
     <span className={classNames('decoder-text', className)} {...rest}>
-      <span className="decoder-text__label">{text}</span>
+      <VisuallyHidden className="decoder-text__label">{text}</VisuallyHidden>
       <span aria-hidden className="decoder-text__content" ref={container} />
     </span>
   );

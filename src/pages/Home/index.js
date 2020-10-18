@@ -159,7 +159,7 @@ const Home = () => {
         visible={visibleSections.includes(projectOne.current)}
         index={1}
         title="Designing the future of education"
-        description="Designing a platfrom to help educators build better online courseware"
+        description="Designing a platform to help educators build better online courseware"
         buttonText="View Project"
         buttonLink="/projects/smart-sparrow"
         model={{

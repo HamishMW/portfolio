@@ -72,7 +72,7 @@ const ProjectSlice = () => {
             <ProjectImage
               srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1920w`}
               placeholder={sliceAppPlaceholder}
-              alt="The Slice web appication showing a selected user annotation."
+              alt="The Slice web application showing a selected user annotation."
               sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 90vw, 80vw`}
             />
           </ProjectSectionContent>
