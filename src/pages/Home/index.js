@@ -6,7 +6,6 @@ import Profile from 'pages/Home/Profile';
 import Footer from 'components/Footer';
 import { usePrefersReducedMotion, useRouteTransition } from 'hooks';
 import { useLocation } from 'react-router-dom';
-
 import sprTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
 import sprTexture from 'assets/spr-lesson-builder-dark.jpg';
 import sprTextureLarge from 'assets/spr-lesson-builder-dark-large.jpg';
@@ -21,6 +20,7 @@ import sliceTextureLarge from 'assets/slice-app-large.jpg';
 import sliceTexturePlaceholder from 'assets/slice-app-placeholder.jpg';
 import iphone11 from 'assets/iphone-11.glb';
 import macbookPro from 'assets/macbook-pro.glb';
+import './index.css';
 
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
@@ -136,7 +136,7 @@ const Home = () => {
   }, [hash, state, prefersReducedMotion, status]);
 
   return (
-    <Fragment>
+    <div className="home">
       <Helmet>
         <title>Hamish Williams | Designer + Developer</title>
         <meta
@@ -228,7 +228,7 @@ const Home = () => {
         id="details"
       />
       <Footer />
-    </Fragment>
+    </div>
   );
 };
 
