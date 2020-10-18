@@ -2,13 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { useAppContext, useId } from 'hooks';
-import { useTheme } from 'components/ThemeProvider';
 import './ThemeToggle.css';
 
 const ThemeToggle = ({ isMobile, ...rest }) => {
-  const { dispatch } = useAppContext();
-  const theme = useTheme();
-  const { themeId } = theme;
+  const { dispatch, theme: themeId } = useAppContext();
   const isDark = themeId === 'dark';
   const id = useId();
   const maskId = `theme-toggle-mask-${id}`;

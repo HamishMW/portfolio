@@ -9,11 +9,12 @@ import prerender from 'utils/prerender';
 import { tokens } from 'components/ThemeProvider/theme';
 import { msToNum, numToMs } from 'utils/style';
 import './index.css';
+import { resolveVideoSrcFromSrcSet } from 'utils/image';
 
-const Image = ({ className, style, reveal, delay = 0, ...rest }) => {
+const Image = ({ className, style, reveal, delay = 0, src, ...rest }) => {
   const [loaded, setLoaded] = useState(false);
   const containerRef = useRef();
-  const inViewport = useInViewport(containerRef, true);
+  const inViewport = useInViewport(containerRef, !src?.endsWith('.mp4'));
 
   const onLoad = useCallback(() => {
     setLoaded(true);
@@ -34,6 +35,7 @@ const Image = ({ className, style, reveal, delay = 0, ...rest }) => {
         loaded={loaded}
         inViewport={inViewport}
         reveal={reveal}
+        src={src}
         {...rest}
       />
     </div>
@@ -60,6 +62,7 @@ const ImageElements = ({
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [placeholderSize, setPlaceholderSize] = useState();
+  const [videoSrc, setVideoSrc] = useState();
   const placeholderRef = useRef();
   const videoRef = useRef();
   const isVideo = src?.endsWith('.mp4');
@@ -82,6 +85,19 @@ const ImageElements = ({
   }, []);
 
   useEffect(() => {
+    const reolveVideoSrc = async () => {
+      const resolvedVideoSrc = await resolveVideoSrcFromSrcSet(srcSet);
+      setVideoSrc(resolvedVideoSrc);
+    };
+
+    if (isVideo && srcSet) {
+      reolveVideoSrc();
+    } else if (isVideo) {
+      setVideoSrc(src);
+    }
+  }, [isVideo, src, srcSet]);
+
+  useEffect(() => {
     const { width, height } = placeholderRef.current;
 
     if (width && height) {
@@ -90,16 +106,16 @@ const ImageElements = ({
   }, []);
 
   useEffect(() => {
-    if (!videoRef.current) return;
+    if (!videoRef.current || !videoSrc) return;
 
-    if (!play) {
+    if (!play || !inViewport) {
       setPlaying(false);
       videoRef.current.pause();
-    } else {
+    } else if (inViewport && !prefersReducedMotion) {
       setPlaying(true);
       videoRef.current.play();
     }
-  }, [play]);
+  }, [inViewport, play, prefersReducedMotion, videoSrc]);
 
   const handlePlaceholderLoad = event => {
     const { width, height } = event.target;
@@ -148,7 +164,7 @@ const ImageElements = ({
             autoPlay={!prefersReducedMotion}
             role="img"
             onLoadStart={onLoad}
-            src={src}
+            src={videoSrc}
             aria-label={alt}
             ref={videoRef}
             {...rest}

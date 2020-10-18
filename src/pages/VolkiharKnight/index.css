@@ -61,32 +61,3 @@
     padding: var(--spaceL) 0 var(--space2XL);
   }
 }
-
-.volkihar__background-image {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.volkihar__background-image img {
-  object-fit: cover;
-  justify-self: stretch;
-  align-self: stretch;
-}
-
-.volkihar__background-image div::after {
-  content: '';
-  grid-column: 1;
-  grid-row: 1;
-  z-index: 1;
-  position: relative;
-  background: linear-gradient(
-      rgb(var(--rgbBackground) / 1) 0%,
-      rgb(var(--rgbBackground) / 0.9) 20%,
-      rgb(var(--rgbBackground) / 0) 100%
-    ),
-    linear-gradient(
-      rgb(var(--rgbBackground) / 0) 0%,
-      rgb(var(--rgbBackground) / 0.9) 80%,
-      rgb(var(--rgbBackground) / 1) 100%
-    );
-}

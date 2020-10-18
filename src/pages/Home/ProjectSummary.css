@@ -36,7 +36,6 @@
   .project-summary {
     padding-bottom: var(--space4XL);
     margin-bottom: 0;
-    overflow-x: hidden;
   }
 }
 

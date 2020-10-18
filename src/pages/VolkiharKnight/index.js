@@ -88,7 +88,7 @@ function ProjectVolkihar() {
           url="https://www.nexusmods.com/skyrimspecialedition/mods/4806/"
           roles={roles}
         />
-        <ProjectSection>
+        <ProjectSection first>
           <ProjectSectionContent>
             <ProjectImage
               srcSet={`${volkiharBanner} 800w, ${volkiharBannerLarge} 1100w`}
@@ -184,43 +184,43 @@ function ProjectVolkihar() {
             </Suspense>
           </ProjectSectionContent>
         </ProjectSection>
-        <section className="volkihar__background-section">
-          <Image
-            className="volkihar__background-image"
-            srcSet={`${volkiharEnderal} 1280w, ${volkiharEnderalLarge} 1920w`}
-            placeholder={volkiharEnderalPlaceholder}
-            alt="A promotional image from Enderal showing several characters in the game overlooking a distant city."
-            sizes={`100vw`}
-          />
-          <ProjectSection as="div">
-            <ProjectSectionContent>
-              <ProjectTextRow center centerMobile noMargin>
-                <Image
-                  srcSet={`${volkiharEnderalLogo} 180w, ${volkiharEnderalLogoLarge} 320w`}
-                  placeholder={volkiharEnderalLogoPlaceholder}
-                  alt="The Enderal game logo"
-                  sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 220px`}
-                  style={{ maxWidth: 220, width: '100%', marginBottom: 30 }}
-                />
-                <ProjectSectionHeading>Featured in Enderal</ProjectSectionHeading>
-                <ProjectSectionText>
-                  I was super stoked to have my work featured in the major standalone mod
-                  Enderal, which won best fan creation at the game awards in 2016. Within
-                  the game my armor design can be found being used for the Wandering Mage
-                  armor set.
-                </ProjectSectionText>
-                <Button
-                  secondary
-                  iconHoverShift
-                  icon="chevronRight"
-                  href="https://store.steampowered.com/app/933480/Enderal_Forgotten_Stories/"
-                >
-                  View on Steam
-                </Button>
-              </ProjectTextRow>
-            </ProjectSectionContent>
-          </ProjectSection>
-        </section>
+        <ProjectSection
+          backgroundElement={
+            <Image
+              srcSet={`${volkiharEnderal} 1280w, ${volkiharEnderalLarge} 1920w`}
+              placeholder={volkiharEnderalPlaceholder}
+              alt="A promotional image from Enderal showing several characters in the game overlooking a distant city."
+              sizes={`100vw`}
+            />
+          }
+        >
+          <ProjectSectionContent>
+            <ProjectTextRow center centerMobile noMargin>
+              <Image
+                srcSet={`${volkiharEnderalLogo} 180w, ${volkiharEnderalLogoLarge} 320w`}
+                placeholder={volkiharEnderalLogoPlaceholder}
+                alt="The Enderal game logo"
+                sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 220px`}
+                style={{ maxWidth: 220, width: '100%', marginBottom: 30 }}
+              />
+              <ProjectSectionHeading>Featured in Enderal</ProjectSectionHeading>
+              <ProjectSectionText>
+                I was super stoked to have my work featured in the major standalone mod
+                Enderal, which won best fan creation at the game awards in 2016. Within
+                the game my armor design can be found being used for the Wandering Mage
+                armor set.
+              </ProjectSectionText>
+              <Button
+                secondary
+                iconHoverShift
+                icon="chevronRight"
+                href="https://store.steampowered.com/app/933480/Enderal_Forgotten_Stories/"
+              >
+                View on Steam
+              </Button>
+            </ProjectTextRow>
+          </ProjectSectionContent>
+        </ProjectSection>
       </ProjectContainer>
       <Footer />
     </Fragment>

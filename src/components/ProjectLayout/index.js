@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import Image from 'components/Image';
 import { Button } from 'components/Button';
@@ -7,8 +7,8 @@ import prerender from 'utils/prerender';
 import Section from 'components/Section';
 import { numToPx, numToMs } from 'utils/style';
 import Heading from 'components/Heading';
-import './index.css';
 import Text from 'components/Text';
+import './index.css';
 
 const initDelay = 300;
 
@@ -21,7 +21,7 @@ export function ProjectHeader({
   className,
 }) {
   return (
-    <ProjectSection className={classNames('project__header', className)}>
+    <Section className={classNames('project__header', className)}>
       <div
         className="project__header-content"
         style={{ '--initDelay': numToMs(initDelay) }}
@@ -72,7 +72,7 @@ export function ProjectHeader({
           ))}
         </ul>
       </div>
-    </ProjectSection>
+    </Section>
   );
 }
 
@@ -80,32 +80,67 @@ export const ProjectContainer = ({ className, ...rest }) => (
   <article className={classNames('project', className)} {...rest} />
 );
 
-export const ProjectSection = ({ className, light, ...rest }) => (
-  <Section
-    className={classNames('project__section', className, {
-      'project__section--light': light,
-    })}
-    as="section"
-    {...rest}
-  />
+export const ProjectSection = forwardRef(
+  (
+    {
+      className,
+      light,
+      first,
+      fullHeight,
+      backgroundOverlayOpacity = 0.9,
+      backgroundElement,
+      children,
+      ...rest
+    },
+    ref
+  ) => (
+    <section
+      className={classNames('project__section', className, {
+        'project__section--light': light,
+        'project__section--full-height': fullHeight,
+      })}
+      ref={ref}
+      {...rest}
+    >
+      {!!backgroundElement && (
+        <div
+          className="project__section-background"
+          style={{ '--opacity': backgroundOverlayOpacity }}
+        >
+          {backgroundElement}
+        </div>
+      )}
+      <Section
+        className={classNames('project__section-inner', {
+          'project__section-inner--first': first,
+        })}
+      >
+        {children}
+      </Section>
+    </section>
+  )
 );
 
 export const ProjectBackground = ({ opacity = 0.7, className, entered, ...rest }) => {
   const offset = useParallax(-0.6);
 
   return (
-    <Image
+    <div
       className={classNames('project__background-image', className, {
         'project__background-image--entered': entered,
       })}
-      alt=""
-      role="presentation"
-      style={{
-        '--opacity': opacity,
-        '--offset': numToPx(offset),
-      }}
-      {...rest}
-    />
+    >
+      <Image
+        className="project__background-image-element"
+        alt=""
+        role="presentation"
+        style={{
+          '--opacity': opacity,
+          '--offset': numToPx(offset),
+        }}
+        {...rest}
+      />
+    </div>
   );
 };
 
@@ -115,11 +150,13 @@ export const ProjectImage = ({ className, ...rest }) => (
   </div>
 );
 
-export const ProjectSectionContent = ({ className, wide, ...rest }) => (
+export const ProjectSectionContent = ({ className, width = 'l', ...rest }) => (
   <div
-    className={classNames('project__section-content', className, {
-      'project__section-content--wide': wide,
-    })}
+    className={classNames(
+      'project__section-content',
+      `project__section-content--width-${width}`,
+      className
+    )}
     {...rest}
   />
 );
@@ -128,6 +165,7 @@ export const ProjectSectionHeading = ({ className, level = 3, ...rest }) => (
   <Heading
     className={classNames('project__section-heading', className)}
     level={level}
+    align="auto"
     {...rest}
   />
 );
@@ -139,6 +177,7 @@ export const ProjectSectionText = ({ className, ...rest }) => (
 export const ProjectTextRow = ({
   center,
   justify = 'center',
+  width = 'm',
   noMargin,
   className,
   centerMobile,
@@ -148,6 +187,7 @@ export const ProjectTextRow = ({
     className={classNames(
       'project__text-row',
       `project__text-row--justify-${justify}`,
+      `project__text-row--width-${width}`,
       className,
       {
         'project__text-row--center': center,

@@ -19,7 +19,6 @@ import ThemeProvider from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { msToNum } from 'utils/style';
 import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
-
 import { initialState, reducer } from 'app/reducer';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
@@ -68,13 +67,13 @@ const App = () => {
 
   return (
     <HelmetProvider>
-      <ThemeProvider themeId={state.theme}>
-        <AppContext.Provider value={{ ...state, dispatch }}>
+      <AppContext.Provider value={{ ...state, dispatch }}>
+        <ThemeProvider themeId={state.theme}>
           <BrowserRouter>
             <AppRoutes />
           </BrowserRouter>
-        </AppContext.Provider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </AppContext.Provider>
     </HelmetProvider>
   );
 };

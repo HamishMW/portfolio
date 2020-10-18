@@ -1,4 +1,4 @@
-import React, { createContext, Fragment } from 'react';
+import React, { createContext, Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import classNames from 'classnames';
 import useTheme from './useTheme';
@@ -34,12 +34,20 @@ const ThemeProvider = ({
 }) => {
   const currentTheme = { ...theme[themeId], ...themeOverrides };
   const parentTheme = useTheme();
-  const isRootProvider =
-    Object.keys(parentTheme).length === 0 && parentTheme.constructor === Object;
+  const isRootProvider = !parentTheme.themeId;
+
+  // Save root theme id to localstorage and apply class to body
+  useEffect(() => {
+    if (isRootProvider) {
+      window.localStorage.setItem('theme', JSON.stringify(themeId));
+      document.body.classList.remove('light', 'dark');
+      document.body.classList.add(themeId);
+    }
+  }, [themeId, isRootProvider]);
 
   return (
     <ThemeContext.Provider value={currentTheme}>
-      {/* Add fonts and base tokens for the root privider */}
+      {/* Add fonts and base tokens for the root provider */}
       {isRootProvider && (
         <Fragment>
           <Helmet>
@@ -89,40 +97,29 @@ function createThemeStyleObject(theme) {
   return style;
 }
 
+/**
+ * Generate media queries for tokens
+ */
+function createMediaTokenProperties() {
+  return Object.keys(media)
+    .map(key => {
+      return `
+        @media (max-width: ${media[key]}px) {
+          :root {
+            ${createThemeProperties(tokens[key])}
+          }
+        }
+      `;
+    })
+    .join('\n');
+}
+
 export const tokenStyles = `
   :root {
     ${createThemeProperties(tokens.base)}
   }
 
-  @media (max-width: ${media.desktop}px) {
-    :root {
-      ${createThemeProperties(tokens.desktop)}
-    }
-  }
-
-  @media (max-width: ${media.laptop}px) {
-    :root {
-      ${createThemeProperties(tokens.laptop)}
-    }
-  }
-
-  @media (max-width: ${media.tablet}px) {
-    :root {
-      ${createThemeProperties(tokens.tablet)}
-    }
-  }
-
-  @media (max-width: ${media.mobile}px) {
-    :root {
-      ${createThemeProperties(tokens.mobile)}
-    }
-  }
-
-  @media (max-width: ${media.mobileS}px) {
-    :root {
-      ${createThemeProperties(tokens.mobileS)}
-    }
-  }
+  ${createMediaTokenProperties()}
 
   .dark {
     ${createThemeProperties(theme.dark)}
@@ -133,6 +130,13 @@ export const tokenStyles = `
   }
 `;
 
-export { theme, useTheme, ThemeContext, createThemeProperties, createThemeStyleObject };
+export {
+  theme,
+  useTheme,
+  ThemeContext,
+  createThemeProperties,
+  createThemeStyleObject,
+  createMediaTokenProperties,
+};
 
 export default ThemeProvider;

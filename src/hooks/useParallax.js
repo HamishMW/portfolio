@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { usePrefersReducedMotion } from 'hooks';
 
-function useParallax(multiplier) {
+function useParallax(multiplier, clamp = true) {
   const [offset, setOffset] = useState();
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -10,7 +10,13 @@ function useParallax(multiplier) {
     let animationFrame = null;
 
     const animate = () => {
-      setOffset(Math.max(0, window.scrollY) * multiplier);
+      const { innerHeight } = window;
+      const offsetValue = Math.max(0, window.scrollY) * multiplier;
+      const clampedOffsetValue = Math.max(
+        -innerHeight,
+        Math.min(innerHeight, offsetValue)
+      );
+      setOffset(clamp ? clampedOffsetValue : offsetValue);
       ticking = false;
     };
 
@@ -25,11 +31,11 @@ function useParallax(multiplier) {
       window.addEventListener('scroll', handleScroll);
     }
 
-    return function cleanUp() {
+    return () => {
       window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(animationFrame);
     };
-  }, [multiplier, prefersReducedMotion]);
+  }, [clamp, multiplier, prefersReducedMotion]);
 
   return offset;
 }

@@ -7,9 +7,9 @@ import Footer from 'components/Footer';
 import { usePrefersReducedMotion, useRouteTransition } from 'hooks';
 import { useLocation } from 'react-router-dom';
 
-import sprTexturePlaceholder from 'assets/spr-builder-placeholder.jpg';
-import sprTexture from 'assets/spr-builder.jpg';
-import sprTextureLarge from 'assets/spr-builder-large.jpg';
+import sprTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
+import sprTexture from 'assets/spr-lesson-builder-dark.jpg';
+import sprTextureLarge from 'assets/spr-lesson-builder-dark-large.jpg';
 import gamestackTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
 import gamestackTexture from 'assets/gamestack-login.jpg';
 import gamestackTextureLarge from 'assets/gamestack-login-large.jpg';
@@ -24,7 +24,7 @@ import macbookPro from 'assets/macbook-pro.glb';
 
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
-export default function Home() {
+const Home = () => {
   const { status } = useRouteTransition();
   const { hash, state } = useLocation();
   const initHash = useRef(true);
@@ -230,4 +230,6 @@ export default function Home() {
       <Footer />
     </Fragment>
   );
-}
+};
+
+export default Home;

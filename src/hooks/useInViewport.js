@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 
-function useInViewport(elementRef, unobserveOnIntersect, options = {}) {
+function useInViewport(
+  elementRef,
+  unobserveOnIntersect,
+  options = {},
+  shouldObserve = true
+) {
   const [intersect, setIntersect] = useState(false);
   const [isUnobserved, setIsUnobserved] = useState(false);
 
@@ -18,12 +23,12 @@ function useInViewport(elementRef, unobserveOnIntersect, options = {}) {
       }
     }, options);
 
-    if (!isUnobserved) {
+    if (!isUnobserved && shouldObserve) {
       observer.observe(elementRef.current);
     }
 
     return () => observer.disconnect();
-  }, [elementRef, unobserveOnIntersect, options, isUnobserved]);
+  }, [elementRef, unobserveOnIntersect, options, isUnobserved, shouldObserve]);
 
   return intersect;
 }

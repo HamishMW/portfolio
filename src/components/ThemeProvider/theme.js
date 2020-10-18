@@ -34,7 +34,7 @@ const baseTokens = {
   lineHeightTitle: '1.1',
   lineHeightBody: '1.5',
   maxWidthS: '480px',
-  maxWidthM: '640px',
+  maxWidthM: '720px',
   maxWidthL: '1096px',
   maxWidthXL: '1680px',
   spaceOuter: '64px',
@@ -58,6 +58,7 @@ const tokensDesktop = {
 const tokensLaptop = {
   maxWidthL: '1000px',
   maxWidthXL: '1100px',
+  spaceOuter: '48px',
   fontSizeH0: pxToRem(100),
   fontSizeH1: pxToRem(70),
   fontSizeH2: pxToRem(52),
@@ -66,7 +67,6 @@ const tokensLaptop = {
 };
 
 const tokensTablet = {
-  spaceOuter: '48px',
   fontSizeH0: pxToRem(80),
   fontSizeH1: pxToRem(60),
   fontSizeH2: pxToRem(48),

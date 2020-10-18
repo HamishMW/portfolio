@@ -67,7 +67,7 @@ const ProjectSlice = () => {
           url="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
           roles={roles}
         />
-        <ProjectSection>
+        <ProjectSection first>
           <ProjectSectionContent>
             <ProjectImage
               srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1920w`}
