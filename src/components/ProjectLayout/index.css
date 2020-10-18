@@ -1,6 +1,6 @@
 .project {
   position: relative;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -226,7 +226,7 @@
 }
 
 .project__title {
-  padding-bottom: var(--spaceL);
+  margin-bottom: 0.5em;
   opacity: 0;
 }
 
@@ -346,13 +346,7 @@
 }
 
 .project__section-heading {
-  margin-bottom: var(--spaceL);
-}
-
-@media (max-width: 696px) {
-  .project__section-heading {
-    margin-bottom: var(--spaceM);
-  }
+  margin-bottom: 0.6em;
 }
 
 .project__section-text + a,

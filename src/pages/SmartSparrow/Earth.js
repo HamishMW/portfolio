@@ -38,9 +38,10 @@ import milkywayBg from 'assets/milkyway.jpg';
 import milkywayHdr from 'assets/milkyway.hdr';
 import earthModel from 'assets/earth.glb';
 import { cleanScene, removeLights, cleanRenderer } from 'utils/three';
-import { useInViewport } from 'hooks';
+import { useInViewport, useWindowSize } from 'hooks';
 import { Helmet } from 'react-helmet-async';
 import './Earth.css';
+import { media } from 'utils/style';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
 
@@ -108,6 +109,7 @@ const Earth = forwardRef(
     const labelElements = useRef([]);
     const cameraValue = useRef();
     const controls = useRef();
+    const { width: windowWidth } = useWindowSize();
 
     const animate = useCallback(() => {
       if (!inViewport) return;
@@ -184,6 +186,12 @@ const Earth = forwardRef(
         cleanRenderer(renderer.current);
       };
     }, []);
+
+    useEffect(() => {
+      if (windowWidth <= media.tablet) {
+        controls.current.enabled = false;
+      }
+    }, [windowWidth, media]);
 
     useEffect(() => {
       if (loaded || fetching.current) return;

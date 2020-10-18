@@ -2,7 +2,6 @@
   padding-right: var(--space5XL);
   padding-left: calc(var(--space4XL) * 2);
   outline: none;
-  overflow-x: hidden;
 }
 
 @media (min-width: 2080px) {
