@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import Image from 'components/Image';
 import { Button } from 'components/Button';
@@ -6,6 +6,8 @@ import { useParallax } from 'hooks';
 import prerender from 'utils/prerender';
 import Section from 'components/Section';
 import { numToPx, numToMs } from 'utils/style';
+import Heading from 'components/Heading';
+import Text from 'components/Text';
 import './index.css';
 
 const initDelay = 300;
@@ -19,36 +21,37 @@ export function ProjectHeader({
   className,
 }) {
   return (
-    <ProjectSection className={classNames('project__header', className)}>
+    <Section className={classNames('project__header', className)}>
       <div
         className="project__header-content"
         style={{ '--initDelay': numToMs(initDelay) }}
       >
         <div className="project__details">
-          <h1
+          <Heading
             className={classNames('project__title', {
               'project__title--entered': !prerender,
             })}
+            level={2}
+            as="h1"
           >
             {title}
-          </h1>
-          <p
+          </Heading>
+          <Text
             className={classNames('project__description', {
               'project__description--entered': !prerender,
             })}
+            size="xl"
           >
             {description}
-          </p>
+          </Text>
           <Button
             secondary
             iconHoverShift
             className={classNames('project__link-button', {
               'project__link-button--entered': !prerender,
             })}
-            as="a"
             icon="chevronRight"
             href={url}
-            target="_blank"
           >
             {linkLabel}
           </Button>
@@ -62,12 +65,14 @@ export function ProjectHeader({
               style={{ '--delay': numToMs(initDelay + 300 + index * 140) }}
               key={role}
             >
-              {role}
+              <Text secondary as="span">
+                {role}
+              </Text>
             </li>
           ))}
         </ul>
       </div>
-    </ProjectSection>
+    </Section>
   );
 }
 
@@ -75,32 +80,67 @@ export const ProjectContainer = ({ className, ...rest }) => (
   <article className={classNames('project', className)} {...rest} />
 );
 
-export const ProjectSection = ({ className, light, ...rest }) => (
-  <Section
-    className={classNames('project__section', className, {
-      'project__section--light': light,
-    })}
-    as="section"
-    {...rest}
-  />
+export const ProjectSection = forwardRef(
+  (
+    {
+      className,
+      light,
+      first,
+      fullHeight,
+      backgroundOverlayOpacity = 0.9,
+      backgroundElement,
+      children,
+      ...rest
+    },
+    ref
+  ) => (
+    <section
+      className={classNames('project__section', className, {
+        'project__section--light': light,
+        'project__section--full-height': fullHeight,
+      })}
+      ref={ref}
+      {...rest}
+    >
+      {!!backgroundElement && (
+        <div
+          className="project__section-background"
+          style={{ '--opacity': backgroundOverlayOpacity }}
+        >
+          {backgroundElement}
+        </div>
+      )}
+      <Section
+        className={classNames('project__section-inner', {
+          'project__section-inner--first': first,
+        })}
+      >
+        {children}
+      </Section>
+    </section>
+  )
 );
 
 export const ProjectBackground = ({ opacity = 0.7, className, entered, ...rest }) => {
   const offset = useParallax(-0.6);
 
   return (
-    <Image
+    <div
       className={classNames('project__background-image', className, {
         'project__background-image--entered': entered,
       })}
-      alt=""
-      role="presentation"
-      style={{
-        '--opacity': opacity,
-        '--offset': numToPx(offset),
-      }}
-      {...rest}
-    />
+    >
+      <Image
+        className="project__background-image-element"
+        alt=""
+        role="presentation"
+        style={{
+          '--opacity': opacity,
+          '--offset': numToPx(offset),
+        }}
+        {...rest}
+      />
+    </div>
   );
 };
 
@@ -110,33 +150,51 @@ export const ProjectImage = ({ className, ...rest }) => (
   </div>
 );
 
-export const ProjectSectionContent = ({ className, ...rest }) => (
-  <div className={classNames('project__section-content', className)} {...rest} />
+export const ProjectSectionContent = ({ className, width = 'l', ...rest }) => (
+  <div
+    className={classNames(
+      'project__section-content',
+      `project__section-content--width-${width}`,
+      className
+    )}
+    {...rest}
+  />
 );
 
-export const ProjectSectionHeading = ({ className, children, ...rest }) => (
-  <h2 className={classNames('project__section-heading', className)} {...rest}>
-    {children}
-  </h2>
+export const ProjectSectionHeading = ({ className, level = 3, ...rest }) => (
+  <Heading
+    className={classNames('project__section-heading', className)}
+    level={level}
+    align="auto"
+    {...rest}
+  />
 );
 
 export const ProjectSectionText = ({ className, ...rest }) => (
-  <p className={classNames('project__section-text', className)} {...rest} />
+  <Text className={classNames('project__section-text', className)} size="l" {...rest} />
 );
 
 export const ProjectTextRow = ({
   center,
+  justify = 'center',
+  width = 'm',
   noMargin,
   className,
   centerMobile,
   ...rest
 }) => (
   <div
-    className={classNames('project__text-row', className, {
-      'project__text-row--center': center,
-      'project__text-row--center-mobile': centerMobile,
-      'project__text-row--no-margin': noMargin,
-    })}
+    className={classNames(
+      'project__text-row',
+      `project__text-row--justify-${justify}`,
+      `project__text-row--width-${width}`,
+      className,
+      {
+        'project__text-row--center': center,
+        'project__text-row--center-mobile': centerMobile,
+        'project__text-row--no-margin': noMargin,
+      }
+    )}
     {...rest}
   />
 );

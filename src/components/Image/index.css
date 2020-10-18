@@ -34,6 +34,7 @@
   left: 0;
   transform: scale3d(0, 1, 1);
   transform-origin: left;
+  will-change: transform;
   z-index: 16;
 }
 

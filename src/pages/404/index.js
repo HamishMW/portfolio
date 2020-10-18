@@ -3,12 +3,13 @@ import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
 import { Button } from 'components/Button';
-import { Link } from 'components/Link';
 import DecoderText from 'components/DecoderText';
 import Notfound from 'assets/notfound.mp4';
 import NotfoundPoster from 'assets/notfound.jpg';
 import { reflow } from 'utils/transition';
 import './index.css';
+import Heading from 'components/Heading';
+import Text from 'components/Text';
 
 function NotFound() {
   return (
@@ -22,25 +23,28 @@ function NotFound() {
           <Fragment>
             <div className="page-404__details">
               <div className="page-404__text">
-                <h1
+                <Heading
                   className={classNames('page-404__title', `page-404__title--${status}`)}
+                  level={0}
                 >
                   404
-                </h1>
-                <h2
+                </Heading>
+                <Heading
                   aria-hidden
                   className={classNames(
                     'page-404__subheading',
                     `page-404__subheading--${status}`
                   )}
+                  as="h2"
+                  level={3}
                 >
                   <DecoderText
                     text="Error: Redacted"
                     start={status !== 'exited'}
                     delay={300}
                   />
-                </h2>
-                <p
+                </Heading>
+                <Text
                   className={classNames(
                     'page-404__description',
                     `page-404__description--${status}`
@@ -48,7 +52,7 @@ function NotFound() {
                 >
                   This page could not be found. It either doesn’t exist or was deleted. Or
                   perhaps you don’t exist.
-                </p>
+                </Text>
                 <Button
                   secondary
                   iconHoverShift
@@ -56,8 +60,7 @@ function NotFound() {
                     'page-404__button',
                     `page-404__button--${status}`
                   )}
-                  as={Link}
-                  to="/"
+                  href="/"
                   icon="chevronRight"
                 >
                   Back to homepage

@@ -1,9 +1,9 @@
 import React from 'react';
-import { useAppContext } from 'hooks';
+import { useTheme } from 'components/ThemeProvider';
 import './index.css';
 
 const Code = props => {
-  const { theme } = useAppContext();
+  const theme = useTheme();
 
   return (
     <pre className={`code code--${theme.themeId}`}>

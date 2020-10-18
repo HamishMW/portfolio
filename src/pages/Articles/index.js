@@ -7,7 +7,7 @@ import React, {
   lazy,
   Suspense,
 } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Post from 'pages/Post';
 import Image from 'components/Image';
@@ -39,7 +39,7 @@ const ArticlesPost = ({
 
   return (
     <article className="articles__post">
-      <Link
+      <RouterLink
         className="articles__post-content"
         to={`/articles/${slug}`}
         onMouseEnter={handleMouseEnter}
@@ -65,7 +65,7 @@ const ArticlesPost = ({
           <h2 className="articles__post-title">{title}</h2>
           <p className="articles__post-description">{description}</p>
         </div>
-      </Link>
+      </RouterLink>
     </article>
   );
 };

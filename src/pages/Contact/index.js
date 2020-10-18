@@ -2,7 +2,6 @@ import React, { useState, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'components/Link';
 import Input from 'components/Input';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
@@ -13,7 +12,8 @@ import { useScrollRestore, useFormInput, useRouteTransition } from 'hooks';
 import { reflow, isVisible } from 'utils/transition';
 import prerender from 'utils/prerender';
 import { msToNum, numToPx, numToMs } from 'utils/style';
-import { tokens } from 'app/theme';
+import { tokens } from 'components/ThemeProvider/theme';
+import Heading from 'components/Heading';
 import './index.css';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -113,10 +113,12 @@ const Contact = () => {
           <Transition appear mountOnEnter unmountOnExit timeout={1600} onEnter={reflow}>
             {status => (
               <form className="contact__form" method="post" onSubmit={onSubmit}>
-                <h1
+                <Heading
                   className={classNames('contact__title', `contact__title--${status}`, {
                     'contact__title--hidden': prerender,
                   })}
+                  level={3}
+                  as="h1"
                   style={getDelay(tokens.base.durationXS, initDelay, 0.3)}
                 >
                   <DecoderText
@@ -124,7 +126,7 @@ const Contact = () => {
                     start={status !== 'exited' && !prerender}
                     delay={300}
                   />
-                </h1>
+                </Heading>
                 <Divider
                   className={classNames(
                     'contact__divider',
@@ -229,8 +231,7 @@ const Contact = () => {
                     `contact__complete-button--${status}`
                   )}
                   style={getDelay(tokens.base.durationM)}
-                  as={Link}
-                  to="/"
+                  href="/"
                   icon="chevronRight"
                 >
                   Back to homepage

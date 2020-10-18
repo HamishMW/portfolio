@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs } from '@storybook/addon-knobs';
 import { Button } from 'components/Button';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {
   title: 'Button',
-  decorators: [withKnobs],
 };
 
 const LoadableButton = props => {
@@ -16,13 +14,11 @@ const LoadableButton = props => {
 
 export const primary = () => (
   <StoryContainer padding={32} gutter={32}>
-    <Button primary onClick={action('clicked')}>
-      Text only
-    </Button>
-    <Button primary icon="send" onClick={action('clicked')}>
+    <Button onClick={action('clicked')}>Text only</Button>
+    <Button icon="send" onClick={action('clicked')}>
       Icon left
     </Button>
-    <Button primary iconEnd="arrowRight" onClick={action('clicked')}>
+    <Button iconEnd="arrowRight" onClick={action('clicked')}>
       Icon right
     </Button>
   </StoryContainer>
@@ -57,6 +53,6 @@ export const iconOnly = () => (
 
 export const loader = () => (
   <StoryContainer padding={32}>
-    <LoadableButton primary>Click to load</LoadableButton>
+    <LoadableButton>Click to load</LoadableButton>
   </StoryContainer>
 );

@@ -1,16 +1,18 @@
 import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
-import { Link } from 'components/Link';
 import Section from 'components/Section';
 import { Button } from 'components/Button';
 import Model from 'components/Model';
 import Divider from 'components/Divider';
-import { useWindowSize, useAppContext } from 'hooks';
+import { useWindowSize } from 'hooks';
 import { reflow, isVisible } from 'utils/transition';
 import { media } from 'utils/style';
 import { ReactComponent as KatakanaProject } from 'assets/katakana-project.svg';
 import deviceModels from 'components/Model/deviceModels';
+import Heading from 'components/Heading';
+import Text from 'components/Text';
+import { useTheme } from 'components/ThemeProvider';
 import './ProjectSummary.css';
 
 const ProjectSummary = ({
@@ -23,11 +25,10 @@ const ProjectSummary = ({
   model,
   buttonText,
   buttonLink,
-  buttonTo,
   alternate,
   ...rest
 }) => {
-  const { theme } = useAppContext();
+  const theme = useTheme();
   const { width } = useWindowSize();
   const titleId = `${id}-title`;
   const isMobile = width <= media.tablet;
@@ -54,7 +55,9 @@ const ProjectSummary = ({
           {indexText}
         </span>
       </div>
-      <h2
+      <Heading
+        level={3}
+        as="h2"
         className={classNames(
           'project-summary__title',
           `project-summary__title--${status}`
@@ -62,37 +65,24 @@ const ProjectSummary = ({
         id={titleId}
       >
         {title}
-      </h2>
-      <p
+      </Heading>
+      <Text
         className={classNames(
           'project-summary__description',
           `project-summary__description--${status}`
         )}
       >
         {description}
-      </p>
+      </Text>
       <div
         className={classNames(
           'project-summary__button',
           `project-summary__button--${status}`
         )}
       >
-        {buttonLink && (
-          <Button
-            iconHoverShift
-            as="a"
-            href={buttonLink}
-            target="_blank"
-            iconEnd="arrowRight"
-          >
-            {buttonText}
-          </Button>
-        )}
-        {buttonTo && (
-          <Button iconHoverShift as={Link} to={buttonTo} iconEnd="arrowRight">
-            {buttonText}
-          </Button>
-        )}
+        <Button iconHoverShift href={buttonLink} iconEnd="arrowRight">
+          {buttonText}
+        </Button>
       </div>
     </div>
   );

@@ -1,30 +1,33 @@
 .segmented-control {
-  position: relative;
-  display: flex;
+  --inset: 3px;
 }
 
-.segmented-control::before {
+.segmented-control__label {
+  position: absolute;
+  opacity: 0;
+  padding: 0;
+  height: 1px;
+  width: 1px;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  overflow: hidden;
+}
+
+.segmented-control__options {
+  position: relative;
+  display: flex;
+  padding: var(--inset);
+}
+
+.segmented-control__options::before {
   content: '';
-  background-color: var(--colorTextTitle);
+  background-color: rgb(var(--rgbText) / 0.16);
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  clip-path: polygon(
-    0% 0%,
-    0% 100%,
-    2px 100%,
-    2px 2px,
-    calc(100% - 2px) 2px,
-    calc(100% - 2px) calc(100% - 13px),
-    calc(100% - 13px) calc(100% - 2px),
-    2px calc(100% - 2px),
-    2px 100%,
-    calc(100% - 11px) 100%,
-    100% calc(100% - 11px),
-    100% 0%
-  );
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
 }
 
 .segmented-control__button {
@@ -38,7 +41,7 @@
   transition-duration: var(--durationM);
   transition-timing-function: ease;
   border: 0;
-  padding: 0 18px;
+  padding: 0 24px;
   height: 56px;
   font-size: inherit;
   font-family: inherit;
@@ -51,30 +54,52 @@
   border: 0;
 }
 
+.segmented-control__button::after {
+  --offset: -3px;
+
+  content: '';
+  position: absolute;
+  top: var(--offset);
+  right: var(--offset);
+  bottom: var(--offset);
+  left: var(--offset);
+}
+
+.segmented-control__button:focus::after {
+  box-shadow: 0 0 0 3px rgb(var(--rgbText));
+}
+
+.segmented-control__button:active::after {
+  box-shadow: none;
+}
+
 .segmented-control__button[aria-checked='true'] {
   color: rgb(var(--rgbBackground));
 }
 
 .segmented-control__button::before {
+  --inset: 8px;
+
   content: '';
-  background: rgb(var(--rgbText) / 0.4);
-  opacity: 0;
   position: absolute;
-  top: -4px;
-  right: -6px;
-  bottom: -4px;
-  left: -4px;
-  transition: opacity var(--durationM) ease;
+  top: var(--inset);
+  bottom: var(--inset);
+  left: 0;
+  width: 1px;
+  background-color: rgb(var(--rgbText) / 0.2);
+  transition: opacity var(--durationM) var(--bezierFastoutSlowin);
+  opacity: 0;
 }
 
-.segmented-control__button + .segmented-control__button {
-  box-shadow: inset 2px 0 0 var(--colorTextTitle);
+.segmented-control__button:not([aria-checked='true'])
+  + .segmented-control__button:not([aria-checked='true'])::before {
+  opacity: 1;
 }
 
 .segmented-control__indicator {
   position: absolute;
-  top: 2px;
-  bottom: 2px;
+  top: var(--inset);
+  bottom: var(--inset);
   left: 0;
   background-color: var(--colorTextTitle);
   transition-property: width, transform, clip-path;
@@ -86,9 +111,5 @@
 }
 
 .segmented-control__indicator--last {
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
-}
-
-.segmented-control__label {
-  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%);
 }

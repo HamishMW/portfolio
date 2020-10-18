@@ -68,7 +68,7 @@
   padding-top: 80px;
 }
 
-@media (max-width: 1600px) {
+@media (max-width: 2080px) {
   .slice__grid-text {
     padding-top: 40px;
   }

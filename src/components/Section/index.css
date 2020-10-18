@@ -5,7 +5,7 @@
   overflow-x: hidden;
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 2080px) {
   .section {
     padding-left: var(--space5XL);
   }

@@ -1,0 +1,90 @@
+.earth {
+  position: relative;
+  background-color: rgb(var(--rgbBackground));
+}
+
+.earth__viewport {
+  display: grid;
+  grid-template: 100% / 100%;
+  width: 100vw;
+  height: 100vh;
+}
+
+.earth__canvas {
+  grid-area: 1 / 1;
+  transition: opacity 1.6s var(--bezierFastoutSlowin);
+  outline: none;
+  opacity: 0;
+}
+
+.earth__canvas--visible {
+  opacity: 1;
+}
+
+.earth__labels {
+  grid-area: 1 / 1;
+  pointer-events: none;
+}
+
+.earth__label {
+  pointer-events: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  text-shadow: 0px 0px 3px #000, 0px 0px 5px #000, 0px 0px 20px #000;
+  transition: opacity 0.4s ease;
+  transition-delay: var(--delay);
+  font-family: var(--systemFontStack);
+}
+
+.earth__label--occluded {
+  opacity: 0.2;
+  text-shadow: none;
+}
+
+.earth__label--hidden {
+  opacity: 0;
+  transition-delay: 0ms;
+}
+
+.earth__vignette {
+  grid-area: 1 / 1;
+  background: radial-gradient(transparent, rgb(var(--rgbBackground)));
+  position: relative;
+  pointer-events: none;
+}
+
+.earth__sections {
+  pointer-events: none;
+  position: relative;
+  margin-top: -100vh;
+}
+
+.earth__section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 0 6px rgb(var(--rgbBlack));
+}
+
+.earth__section--scrim {
+  background: linear-gradient(
+    rgb(var(--rgbBackground)),
+    rgb(var(--rgbBackground) / 0.7),
+    transparent
+  );
+}
+
+.earth__section--scrim-reverse {
+  background: linear-gradient(
+    transparent,
+    rgb(var(--rgbBackground) / 0.7),
+    rgb(var(--rgbBackground))
+  );
+}

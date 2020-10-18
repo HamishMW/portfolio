@@ -324,11 +324,12 @@ const Model = ({
   useEffect(() => {
     let introSprings = [];
 
-    if (!show || !modelData) return;
+    if (!modelData) return;
+
+    scene.current.add(modelGroup.current);
 
     const loadScene = async () => {
       const loadedModels = await Promise.all(modelData);
-      scene.current.add(modelGroup.current);
 
       setLoaded(true);
 
@@ -346,6 +347,7 @@ const Model = ({
         // Load full res screen texture
         await model.loadFullResTexture();
 
+        // Render the loaded texture
         if (reduceMotion) {
           renderFrame();
         }
@@ -354,7 +356,9 @@ const Model = ({
       await Promise.all(handleModelLoad);
     };
 
-    loadScene();
+    if (show) {
+      loadScene();
+    }
 
     return () => {
       for (const spring of introSprings) {

@@ -4,11 +4,11 @@ import { Color } from 'three/src/math/Color';
  * Media query breakpoints
  */
 export const media = {
-  desktop: 1600,
-  laptop: 1280,
+  desktop: 2080,
+  laptop: 1680,
   tablet: 1024,
   mobile: 696,
-  mobileS: 320,
+  mobileS: 400,
 };
 
 /**

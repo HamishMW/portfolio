@@ -19,14 +19,15 @@ import innerHeight from 'ios-inner-height';
 import vertShader from './sphereVertShader';
 import fragShader from './sphereFragShader';
 import { Transition } from 'react-transition-group';
-import { usePrefersReducedMotion, useAppContext, useInViewport } from 'hooks';
+import { useTheme } from 'components/ThemeProvider';
+import { usePrefersReducedMotion, useInViewport } from 'hooks';
 import { reflow } from 'utils/transition';
 import { media, rgbToThreeColor } from 'utils/style';
 import { cleanScene, removeLights, cleanRenderer } from 'utils/three';
 import './DisplacementSphere.css';
 
 const DisplacementSphere = props => {
-  const { theme } = useAppContext();
+  const theme = useTheme();
   const { rgbBackground, themeId, colorWhite } = theme;
   const width = useRef(window.innerWidth);
   const height = useRef(window.innerHeight);
@@ -52,11 +53,16 @@ const DisplacementSphere = props => {
       canvas: canvasRef.current,
       powerPreference: 'high-performance',
     });
+    renderer.current.setSize(width.current, height.current);
+    renderer.current.setPixelRatio(1);
+    renderer.current.outputEncoding = sRGBEncoding;
+
     camera.current = new PerspectiveCamera(55, width.current / height.current, 0.1, 200);
+    camera.current.position.z = 52;
+
     scene.current = new Scene();
 
     material.current = new MeshPhongMaterial();
-
     material.current.onBeforeCompile = shader => {
       uniforms.current = UniformsUtils.merge([
         UniformsLib['ambient'],
@@ -72,15 +78,11 @@ const DisplacementSphere = props => {
     };
 
     geometry.current = new SphereBufferGeometry(32, 128, 128);
-    sphere.current = new Mesh(geometry.current, material.current);
-    renderer.current.setSize(width.current, height.current);
-    renderer.current.setPixelRatio(1);
-    renderer.current.outputEncoding = sRGBEncoding;
-    camera.current.position.z = 52;
 
-    scene.current.add(sphere.current);
+    sphere.current = new Mesh(geometry.current, material.current);
     sphere.current.position.z = 0;
     sphere.current.modifier = Math.random();
+    scene.current.add(sphere.current);
 
     return () => {
       cleanScene(scene.current);

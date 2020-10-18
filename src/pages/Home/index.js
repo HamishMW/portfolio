@@ -7,9 +7,9 @@ import Footer from 'components/Footer';
 import { usePrefersReducedMotion, useRouteTransition } from 'hooks';
 import { useLocation } from 'react-router-dom';
 
-import sprTexturePlaceholder from 'assets/spr-builder-placeholder.jpg';
-import sprTexture from 'assets/spr-builder.jpg';
-import sprTextureLarge from 'assets/spr-builder-large.jpg';
+import sprTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
+import sprTexture from 'assets/spr-lesson-builder-dark.jpg';
+import sprTextureLarge from 'assets/spr-lesson-builder-dark-large.jpg';
 import gamestackTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
 import gamestackTexture from 'assets/gamestack-login.jpg';
 import gamestackTextureLarge from 'assets/gamestack-login-large.jpg';
@@ -24,7 +24,7 @@ import macbookPro from 'assets/macbook-pro.glb';
 
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
-export default function Home() {
+const Home = () => {
   const { status } = useRouteTransition();
   const { hash, state } = useLocation();
   const initHash = useRef(true);
@@ -161,7 +161,7 @@ export default function Home() {
         title="Designing the future of education"
         description="Designing a platfrom to help educators build better online courseware"
         buttonText="View Project"
-        buttonTo="/projects/smart-sparrow"
+        buttonLink="/projects/smart-sparrow"
         model={{
           type: 'laptop',
           alt: 'Smart Sparrow lesson builder',
@@ -209,7 +209,7 @@ export default function Home() {
         title="Biomedical image collaboration"
         description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
         buttonText="View Project"
-        buttonTo="/projects/slice"
+        buttonLink="/projects/slice"
         model={{
           type: 'laptop',
           alt: 'Annotating a biomedical image in the Slice app',
@@ -230,4 +230,6 @@ export default function Home() {
       <Footer />
     </Fragment>
   );
-}
+};
+
+export default Home;

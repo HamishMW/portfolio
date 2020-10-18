@@ -53,7 +53,6 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const inViewport = useInViewport(canvas, true);
   const placeholderRef = useRef();
   const springTween = useRef();
-  const springValue = useRef();
   const swipeElement = useRef();
 
   const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${
@@ -156,18 +155,18 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       if (!prefersReducedMotion && uniforms.dispFactor.value !== 1) {
         animating.current = true;
 
-        springValue.current = value(uniforms.dispFactor.value, value => {
+        const springValue = value(uniforms.dispFactor.value, value => {
           uniforms.dispFactor.value = value;
           if (value === 1) onComplete();
         });
 
         springTween.current = spring({
-          from: springValue.current.get(),
+          from: springValue.get(),
           to: 1,
-          velocity: springValue.current.getVelocity(),
+          velocity: springValue.getVelocity(),
           stiffness: 100,
           damping: 20,
-        }).start(springValue.current);
+        }).start(springValue);
       } else {
         onComplete();
         requestAnimationFrame(() => {
