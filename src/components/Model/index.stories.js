@@ -19,7 +19,7 @@ export default {
 const modelStyle = { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 };
 
 export const phone = () => (
-  <StoryContainer fullWidth padding={32}>
+  <StoryContainer padding={32}>
     <Model
       style={modelStyle}
       cameraPosition={{ x: 0, y: 0, z: 11.5 }}
@@ -49,7 +49,7 @@ export const phone = () => (
 );
 
 export const laptop = () => (
-  <StoryContainer fullWidth padding={32}>
+  <StoryContainer padding={32}>
     <Model
       style={modelStyle}
       cameraPosition={{ x: 0, y: 0, z: 8 }}

@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import Loader from 'components/Loader';
 import Icon from 'components/Icon';
 import { blurOnMouseUp } from 'utils/focus';
@@ -9,7 +10,7 @@ export const Button = forwardRef(
   (
     {
       className,
-      as: Component = 'button',
+      as,
       secondary,
       loading,
       loadingText = 'loading',
@@ -25,6 +26,12 @@ export const Button = forwardRef(
     },
     ref
   ) => {
+    const isExternalLink = href?.includes('://');
+    const useLinkTag = isExternalLink || href?.[0] === '#';
+    const linkComponent = useLinkTag ? 'a' : Link;
+    const defaultComponent = href ? linkComponent : 'button';
+    const Component = as || defaultComponent;
+
     return (
       <Component
         className={classNames('button', className, {
@@ -32,9 +39,10 @@ export const Button = forwardRef(
           'button--icon-only': iconOnly,
           'button--secondary': secondary,
         })}
-        href={href}
-        rel={rel || (target === '_blank' ? 'noopener noreferrer' : null)}
-        target={target}
+        href={href && isExternalLink ? href : undefined}
+        to={href && !isExternalLink ? href : undefined}
+        rel={rel || isExternalLink ? 'noopener noreferrer' : undefined}
+        target={target || isExternalLink ? '_blank' : undefined}
         onMouseUp={blurOnMouseUp}
         ref={ref}
         {...rest}
