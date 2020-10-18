@@ -12,7 +12,7 @@ const VisuallyHidden = ({
   return (
     <Component
       className={classNames('visually-hidden', className, {
-        'visually-hidden--visible': visible,
+        'visually-hidden--hidden': !visible,
       })}
       {...rest}
     >
