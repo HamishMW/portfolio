@@ -127,7 +127,12 @@
   transform: translate3d(0, var(--offset), 0);
   will-change: transform;
   display: grid;
-  place-content: center;
+}
+
+.project__background-image-element img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 @media (prefers-reduced-motion: reduce) {
