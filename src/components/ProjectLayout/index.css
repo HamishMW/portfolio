@@ -102,6 +102,7 @@
   left: 0;
   opacity: 0;
   height: var(--image-height);
+  overflow: hidden;
 }
 
 .project__background-image--entered {
@@ -116,7 +117,7 @@
 
 .project__background-image-element {
   z-index: 0;
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
@@ -134,11 +135,10 @@
   }
 }
 
-.project__background-image-element::after {
+.project__background-scrim {
   --background1: rgb(var(--rgbBackground) / var(--opacity));
   --background2: rgb(var(--rgbBackground));
 
-  content: '';
   position: absolute;
   top: 0;
   right: 0;

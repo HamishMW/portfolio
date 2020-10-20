@@ -235,7 +235,7 @@ const ProjectSPR = () => {
           >
             <ProjectSectionColumns width="full">
               <ProjectSectionContent width="full">
-                <ProjectTextRow>
+                <ProjectTextRow width="s">
                   <ProjectSectionHeading>Motion design</ProjectSectionHeading>
                   <ProjectSectionText>
                     Animation was a core principle in making the authoring experience a
