@@ -48,8 +48,3 @@ export const removeLights = lights => {
     light.parent.remove(light);
   }
 };
-
-/**
- * A reasonable default pixel ratio
- */
-export const renderPixelRatio = 2;

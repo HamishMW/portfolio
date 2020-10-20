@@ -29,8 +29,6 @@ import './DisplacementSphere.css';
 const DisplacementSphere = props => {
   const theme = useTheme();
   const { rgbBackground, themeId, colorWhite } = theme;
-  const width = useRef(window.innerWidth);
-  const height = useRef(window.innerHeight);
   const start = useRef(Date.now());
   const canvasRef = useRef();
   const mouse = useRef();
@@ -48,16 +46,18 @@ const DisplacementSphere = props => {
   const isInViewport = useInViewport(canvasRef);
 
   useEffect(() => {
+    const { innerWidth, innerHeight } = window;
     mouse.current = new Vector2(0.8, 0.5);
     renderer.current = new WebGLRenderer({
       canvas: canvasRef.current,
+      antialias: false,
       powerPreference: 'high-performance',
     });
-    renderer.current.setSize(width.current, height.current);
+    renderer.current.setSize(innerWidth, innerHeight);
     renderer.current.setPixelRatio(1);
     renderer.current.outputEncoding = sRGBEncoding;
 
-    camera.current = new PerspectiveCamera(55, width.current / height.current, 0.1, 200);
+    camera.current = new PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 100);
     camera.current.position.z = 52;
 
     scene.current = new Scene();

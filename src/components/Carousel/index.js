@@ -19,7 +19,7 @@ import { blurOnMouseUp } from 'utils/focus';
 import { ReactComponent as ArrowLeft } from 'assets/arrow-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
 import { vertex, fragment } from './carouselShader';
-import { cleanScene, cleanRenderer, renderPixelRatio } from 'utils/three';
+import { cleanScene, cleanRenderer } from 'utils/three';
 import { getImageFromSrcSet } from 'utils/image';
 import './index.css';
 
@@ -61,10 +61,14 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
 
   useEffect(() => {
     const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
-    renderer.current = new WebGLRenderer({ canvas: canvas.current, antialias: false });
+    renderer.current = new WebGLRenderer({
+      canvas: canvas.current,
+      antialias: false,
+      powerPreference: 'high-performance',
+    });
     camera.current = new OrthographicCamera(...cameraOptions);
     scene.current = new Scene();
-    renderer.current.setPixelRatio(renderPixelRatio);
+    renderer.current.setPixelRatio(2);
     renderer.current.setClearColor(0x111111, 1.0);
     renderer.current.setSize(width, height);
     renderer.current.domElement.style.width = '100%';

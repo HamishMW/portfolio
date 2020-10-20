@@ -159,22 +159,18 @@
 
 @keyframes intro-text-reveal-mask {
   0% {
-    opacity: 1;
     transform: scale3d(0, 1, 1);
     transform-origin: left;
   }
   50% {
-    opacity: 1;
     transform: scale3d(1, 1, 1);
     transform-origin: left;
   }
   51% {
-    opacity: 1;
     transform: scale3d(1, 1, 1);
     transform-origin: right;
   }
   100% {
-    opacity: 1;
     transform: scale3d(0, 1, 1);
     transform-origin: right;
   }
@@ -198,12 +194,12 @@
   width: 100%;
   height: 100%;
   background: rgb(var(--rgbAccent));
-  opacity: 0;
   animation-duration: 1.5s;
   animation-delay: var(--delay);
   animation-fill-mode: forwards;
   animation-timing-function: var(--bezierFastoutSlowin);
   transform-origin: left;
+  transform: scale3d(0, 1, 1);
   position: absolute;
   top: 0;
   right: 0;

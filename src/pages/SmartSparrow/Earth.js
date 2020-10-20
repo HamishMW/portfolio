@@ -39,9 +39,8 @@ import milkywayHdr from 'assets/milkyway.hdr';
 import earthModel from 'assets/earth.glb';
 import { cleanScene, removeLights, cleanRenderer } from 'utils/three';
 import { useInViewport, useWindowSize } from 'hooks';
-import { Helmet } from 'react-helmet-async';
-import './Earth.css';
 import { media } from 'utils/style';
+import './Earth.css';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
 
@@ -112,7 +111,10 @@ const Earth = forwardRef(
     const { width: windowWidth } = useWindowSize();
 
     const animate = useCallback(() => {
-      if (!inViewport) return;
+      if (!inViewport) {
+        cancelAnimationFrame(animationFrame.current);
+        return;
+      }
 
       animationFrame.current = requestAnimationFrame(animate);
       const delta = clock.current.getDelta();
@@ -147,8 +149,8 @@ const Earth = forwardRef(
       const { innerWidth, innerHeight } = window;
 
       renderer.current = new WebGLRenderer({
-        antialias: false,
         canvas: canvas.current,
+        antialias: false,
         powerPreference: 'high-performance',
       });
       renderer.current.setPixelRatio(1);
@@ -610,11 +612,6 @@ const Earth = forwardRef(
     return (
       <EarthContext.Provider value={{ registerSection, unregisterSection }}>
         <div className={classNames('earth', className)} ref={container}>
-          <Helmet>
-            <link rel="prefetch" href={milkywayBg} as="fetch" />
-            <link rel="prefetch" href={milkywayHdr} as="fetch" />
-            <link rel="prefetch" href={earthModel} as="fetch" />
-          </Helmet>
           <div className="earth__viewport">
             <canvas
               className={classNames('earth__canvas', {
