@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { usePrefersReducedMotion } from 'hooks';
 
 function useParallax(multiplier, clamp = true) {
-  const [offset, setOffset] = useState();
+  const [offset, setOffset] = useState(0);
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
