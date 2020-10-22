@@ -8,7 +8,7 @@ const Heading = ({
   children,
   level = 1,
   as,
-  align = 'start',
+  align = 'auto',
   weight = 'medium',
   className,
   ...rest

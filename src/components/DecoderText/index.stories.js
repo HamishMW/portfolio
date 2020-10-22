@@ -1,6 +1,7 @@
 import React from 'react';
 import DecoderText from 'components/DecoderText';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
+import Heading from 'components/Heading';
 
 export default {
   title: 'Decoder text',
@@ -11,8 +12,8 @@ export default {
 
 export const text = ({ text }) => (
   <StoryContainer padding={32}>
-    <h2 style={{ fontWeight: 500, margin: 0 }}>
+    <Heading level={3}>
       <DecoderText delay={0} text={text} />
-    </h2>
+    </Heading>
   </StoryContainer>
 );

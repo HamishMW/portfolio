@@ -14,6 +14,7 @@ import prerender from 'utils/prerender';
 import { msToNum, numToPx, numToMs } from 'utils/style';
 import { tokens } from 'components/ThemeProvider/theme';
 import Heading from 'components/Heading';
+import Text from 'components/Text';
 import './index.css';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -207,15 +208,18 @@ const Contact = () => {
           <Transition appear mountOnEnter unmountOnExit onEnter={reflow} timeout={0}>
             {status => (
               <div className="contact__complete" aria-live="polite">
-                <h1
+                <Heading
+                  level={3}
+                  as="h3"
                   className={classNames(
                     'contact__complete-title',
                     `contact__complete-title--${status}`
                   )}
                 >
                   Message Sent
-                </h1>
-                <p
+                </Heading>
+                <Text
+                  size="l"
                   className={classNames(
                     'contact__complete-text',
                     `contact__complete-text--${status}`
@@ -223,9 +227,10 @@ const Contact = () => {
                   style={getDelay(tokens.base.durationXS)}
                 >
                   I’ll get back to you within a couple days, sit tight
-                </p>
+                </Text>
                 <Button
                   secondary
+                  iconHoverShift
                   className={classNames(
                     'contact__complete-button',
                     `contact__complete-button--${status}`

@@ -20,6 +20,7 @@
   background: var(--logoBackground);
   padding: 0 80px;
   width: 100%;
+  overflow: hidden;
 }
 
 .volkihar__logo-container--light {
@@ -28,6 +29,7 @@
 
 .volkihar__logo-container svg {
   max-width: 400px;
+  height: auto;
 }
 
 .volkihar__background-section {

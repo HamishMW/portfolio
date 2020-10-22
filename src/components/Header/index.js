@@ -12,7 +12,6 @@ import { media, msToNum, numToMs } from 'utils/style';
 import { tokens } from 'components/ThemeProvider/theme';
 import { blurOnMouseUp } from 'utils/focus';
 import './index.css';
-import ThemeProvider, { useTheme } from 'components/ThemeProvider';
 
 const HeaderIcons = () => (
   <div className="header__nav-icons">
@@ -33,8 +32,7 @@ const HeaderIcons = () => (
 );
 
 function Header(props) {
-  const { menuOpen, headerTheme, dispatch } = useAppContext();
-  const { themeId } = useTheme();
+  const { menuOpen, dispatch } = useAppContext();
   const { location } = props;
   const [hashKey, setHashKey] = useState();
   const windowSize = useWindowSize();
@@ -57,69 +55,67 @@ function Header(props) {
 
   return (
     <header className="header" ref={headerRef}>
-      <ThemeProvider className="header__content" themeId={headerTheme || themeId}>
-        <RouterLink
-          className="header__logo"
-          to={{ pathname: '/', hash: '#intro', state: hashKey }}
-          aria-label="Hamish Williams, Designer"
-          onClick={handleMobileNavClick}
-          onMouseUp={blurOnMouseUp}
-        >
-          <Monogram highlight />
-        </RouterLink>
-        <NavToggle onClick={() => dispatch({ type: 'toggleMenu' })} menuOpen={menuOpen} />
-        <nav className="header__nav">
-          <div className="header__nav-list">
-            {navLinks.map(({ label, pathname, hash }) => (
+      <RouterLink
+        className="header__logo"
+        to={{ pathname: '/', hash: '#intro', state: hashKey }}
+        aria-label="Hamish Williams, Designer"
+        onClick={handleMobileNavClick}
+        onMouseUp={blurOnMouseUp}
+      >
+        <Monogram highlight />
+      </RouterLink>
+      <NavToggle onClick={() => dispatch({ type: 'toggleMenu' })} menuOpen={menuOpen} />
+      <nav className="header__nav">
+        <div className="header__nav-list">
+          {navLinks.map(({ label, pathname, hash }) => (
+            <NavLink
+              exact
+              className="header__nav-link"
+              activeClassName="header__nav-link--active"
+              isActive={match => isMatch({ match, hash })}
+              onClick={handleNavClick}
+              key={label}
+              to={{ pathname, hash, state: hashKey }}
+              onMouseUp={blurOnMouseUp}
+            >
+              {label}
+            </NavLink>
+          ))}
+        </div>
+        <HeaderIcons />
+      </nav>
+      <Transition
+        mountOnEnter
+        unmountOnExit
+        in={menuOpen}
+        timeout={{ enter: 0, exit: msToNum(tokens.base.durationL) }}
+        onEnter={reflow}
+      >
+        {status => (
+          <nav className={`header__mobile-nav header__mobile-nav--${status}`}>
+            {navLinks.map(({ label, pathname, hash }, index) => (
               <NavLink
-                exact
-                className="header__nav-link"
-                activeClassName="header__nav-link--active"
-                isActive={match => isMatch({ match, hash })}
-                onClick={handleNavClick}
+                className={`header__mobile-nav-link header__mobile-nav-link--${status}`}
+                activeClassName="header__mobile-nav-link--active"
                 key={label}
+                onClick={handleMobileNavClick}
                 to={{ pathname, hash, state: hashKey }}
                 onMouseUp={blurOnMouseUp}
+                style={{
+                  transitionDelay: numToMs(
+                    Number(msToNum(tokens.base.durationS)) + index * 50
+                  ),
+                }}
               >
                 {label}
               </NavLink>
             ))}
-          </div>
-          <HeaderIcons />
-        </nav>
-        <Transition
-          mountOnEnter
-          unmountOnExit
-          in={menuOpen}
-          timeout={{ enter: 0, exit: msToNum(tokens.base.durationL) }}
-          onEnter={reflow}
-        >
-          {status => (
-            <nav className={`header__mobile-nav header__mobile-nav--${status}`}>
-              {navLinks.map(({ label, pathname, hash }, index) => (
-                <NavLink
-                  className={`header__mobile-nav-link header__mobile-nav-link--${status}`}
-                  activeClassName="header__mobile-nav-link--active"
-                  key={label}
-                  onClick={handleMobileNavClick}
-                  to={{ pathname, hash, state: hashKey }}
-                  onMouseUp={blurOnMouseUp}
-                  style={{
-                    transitionDelay: numToMs(
-                      Number(msToNum(tokens.base.durationS)) + index * 50
-                    ),
-                  }}
-                >
-                  {label}
-                </NavLink>
-              ))}
-              <HeaderIcons />
-              <ThemeToggle isMobile />
-            </nav>
-          )}
-        </Transition>
-        {!isMobile && <ThemeToggle />}
-      </ThemeProvider>
+            <HeaderIcons />
+            <ThemeToggle isMobile />
+          </nav>
+        )}
+      </Transition>
+      {!isMobile && <ThemeToggle />}
     </header>
   );
 }

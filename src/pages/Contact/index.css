@@ -181,8 +181,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--spaceXL) 0;
+  padding: var(--spaceXL) var(--spaceM);
   position: fixed;
+  text-align: center;
   top: 0;
   right: 0;
   bottom: 0;
@@ -190,10 +191,6 @@
 }
 
 .contact__complete-title {
-  font-weight: var(--fontWeightMedium);
-  font-size: var(--fontSizeH3);
-  color: var(--colorTextTitle);
-  text-align: center;
   margin: 0;
   transition-property: transform, opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
@@ -209,8 +206,7 @@
 }
 
 .contact__complete-text {
-  font-size: var(--fontSizeBodyM);
-  text-align: center;
+  margin-top: var(--spaceM);
   transition-property: transform, opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
@@ -225,13 +221,13 @@
 }
 
 .contact__complete-button {
+  margin-top: var(--spaceL);
   transition-property: transform, opacity, box-shadow;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
   transition-delay: var(--delay);
   transform: translate3d(0, var(--space3XL), 0);
   opacity: 0;
-  padding-left: 3px;
 }
 
 .contact__complete-button--entered {

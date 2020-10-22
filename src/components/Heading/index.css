@@ -27,6 +27,10 @@
   font-size: var(--fontSizeH4);
 }
 
+.heading--align-auto {
+  text-align: inherit;
+}
+
 .heading--align-start {
   text-align: start;
 }
