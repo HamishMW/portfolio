@@ -108,7 +108,7 @@ const Earth = forwardRef(
     const labelElements = useRef([]);
     const cameraValue = useRef();
     const controls = useRef();
-    const { width: windowWidth } = useWindowSize();
+    const { width: windowWidth, height: windowHeight } = useWindowSize();
 
     const animate = useCallback(() => {
       if (!inViewport) {
@@ -296,20 +296,10 @@ const Earth = forwardRef(
     }, [labels, loaded]);
 
     useEffect(() => {
-      const handleResize = () => {
-        const { innerWidth, innerHeight } = window;
-        renderer.current.setSize(innerWidth, innerHeight);
-        camera.current.aspect = innerWidth / innerHeight;
-        camera.current.updateProjectionMatrix();
-      };
-
-      handleResize();
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, []);
+      renderer.current.setSize(windowWidth, windowHeight);
+      camera.current.aspect = windowWidth / windowHeight;
+      camera.current.updateProjectionMatrix();
+    }, [windowWidth, windowHeight]);
 
     useEffect(() => {
       const currentCanvas = canvas.current;

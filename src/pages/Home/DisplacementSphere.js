@@ -15,12 +15,11 @@ import {
   Mesh,
 } from 'three';
 import { spring, value } from 'popmotion';
-import innerHeight from 'ios-inner-height';
 import vertShader from './sphereVertShader';
 import fragShader from './sphereFragShader';
 import { Transition } from 'react-transition-group';
 import { useTheme } from 'components/ThemeProvider';
-import { usePrefersReducedMotion, useInViewport } from 'hooks';
+import { usePrefersReducedMotion, useInViewport, useWindowSize } from 'hooks';
 import { reflow } from 'utils/transition';
 import { media, rgbToThreeColor } from 'utils/style';
 import { cleanScene, removeLights, cleanRenderer } from 'utils/three';
@@ -44,6 +43,7 @@ const DisplacementSphere = props => {
   const sphereSpring = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
   const isInViewport = useInViewport(canvasRef);
+  const windowSize = useWindowSize();
 
   useEffect(() => {
     const { innerWidth, innerHeight } = window;
@@ -108,39 +108,29 @@ const DisplacementSphere = props => {
   }, [rgbBackground, colorWhite, themeId]);
 
   useEffect(() => {
-    const handleResize = () => {
-      const canvasHeight = innerHeight();
-      const windowWidth = window.innerWidth;
-      const fullHeight = canvasHeight + canvasHeight * 0.3;
-      canvasRef.current.style.height = fullHeight;
-      renderer.current.setSize(windowWidth, fullHeight);
-      camera.current.aspect = windowWidth / fullHeight;
-      camera.current.updateProjectionMatrix();
+    const { width, height } = windowSize;
 
-      // Render a single frame on resize when not animating
-      if (prefersReducedMotion) {
-        renderer.current.render(scene.current, camera.current);
-      }
+    const adjustedHeight = height + height * 0.3;
+    renderer.current.setSize(width, adjustedHeight);
+    camera.current.aspect = width / adjustedHeight;
+    camera.current.updateProjectionMatrix();
 
-      if (windowWidth <= media.mobile) {
-        sphere.current.position.x = 14;
-        sphere.current.position.y = 10;
-      } else if (windowWidth <= media.tablet) {
-        sphere.current.position.x = 18;
-        sphere.current.position.y = 14;
-      } else {
-        sphere.current.position.x = 22;
-        sphere.current.position.y = 16;
-      }
-    };
+    // Render a single frame on resize when not animating
+    if (prefersReducedMotion) {
+      renderer.current.render(scene.current, camera.current);
+    }
 
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [prefersReducedMotion]);
+    if (width <= media.mobile) {
+      sphere.current.position.x = 14;
+      sphere.current.position.y = 10;
+    } else if (width <= media.tablet) {
+      sphere.current.position.x = 18;
+      sphere.current.position.y = 14;
+    } else {
+      sphere.current.position.x = 22;
+      sphere.current.position.y = 16;
+    }
+  }, [prefersReducedMotion, windowSize]);
 
   useEffect(() => {
     const onMouseMove = event => {

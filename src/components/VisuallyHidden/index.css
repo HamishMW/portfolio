@@ -2,7 +2,8 @@
   position: absolute;
 }
 
-.visually-hidden--hidden {
+.visually-hidden--hidden,
+.visually-hidden--show-on-focus:not(:focus) {
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;

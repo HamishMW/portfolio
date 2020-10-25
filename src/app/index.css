@@ -1,5 +1,4 @@
 body {
-  box-sizing: border-box;
   font-family: var(--fontStack);
   font-weight: var(--fontWeightRegular);
   font-synthesis: none;
@@ -9,12 +8,6 @@ body {
   margin: 0;
   width: 100vw;
   overflow-x: hidden;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
 }
 
 ::selection {
@@ -80,9 +73,6 @@ body {
   position: fixed;
   top: var(--spaceM);
   left: var(--spaceM);
-  clip: auto;
-  width: auto;
-  height: auto;
   text-decoration: none;
   font-weight: var(--fontWeightMedium);
   line-height: 1;

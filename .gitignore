@@ -59,7 +59,4 @@ typings/
 
 build/
 build-storybook/
-config.json
-*-temp.studio
-.firebase
 .serverless

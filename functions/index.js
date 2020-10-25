@@ -17,8 +17,7 @@ const mailTransport = nodemailer.createTransport({
   },
 });
 
-const IS_PROD = process.env.ENV === 'production';
-const ORIGIN = IS_PROD ? 'https://hamishw.com' : '*';
+const ORIGIN = 'https://hamishw.com';
 const MAX_EMAIL_LENGTH = 512;
 const MAX_MESSAGE_LENGTH = 4096;
 
@@ -29,7 +28,6 @@ app.use(cors({ origin: ORIGIN }));
 app.post('/functions/sendMessage', async (req, res) => {
   try {
     const { email, message } = req.body;
-    const source = IS_PROD ? ORIGIN : 'DEV';
 
     // Validate email request
     if (!email || !/(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
@@ -50,7 +48,7 @@ app.post('/functions/sendMessage', async (req, res) => {
     const mailOptions = {
       from: `Portfolio <portfolio@hamishw.com>`,
       to: 'hello@hamishw.com',
-      subject: `New message from ${email} [${source}]`,
+      subject: `New message from ${email}`,
       text: `From: ${email}\n\n${message}`,
     };
 

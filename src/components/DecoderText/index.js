@@ -56,6 +56,7 @@ const DecoderText = ({
   const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    const containerInstance = container.current;
     const content = text.split('');
     let animation;
 
@@ -64,7 +65,7 @@ const DecoderText = ({
         return `<span class="decoder-text__${item.type}">${item.value}</span>`;
       });
 
-      container.current.innerHTML = characterMap.join('');
+      containerInstance.innerHTML = characterMap.join('');
     };
 
     const springValue = value(0, position => {

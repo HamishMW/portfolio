@@ -8,6 +8,12 @@ provider:
   memorySize: 128
 
 functions:
+  headers:
+    handler: headers.handler
+    events:
+      - cloudFront:
+          eventType: origin-response
+          origin: https://d39w4n5rrkxzvy.cloudfront.net
   app:
     handler: index.handler
     events:

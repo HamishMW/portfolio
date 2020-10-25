@@ -17,12 +17,8 @@ import Heading from 'components/Heading';
 import Text from 'components/Text';
 import './index.css';
 
-const isProd = process.env.NODE_ENV === 'production';
 const initDelay = tokens.base.durationS;
-const functionsRegion = 'us-east-1';
-const functionsEnv = isProd ? 'production' : 'dev';
-const functionsEndpoint = isProd ? 'klcyd10c76' : '5h36icx3yj';
-const functionsUrl = `https://${functionsEndpoint}.execute-api.${functionsRegion}.amazonaws.com/${functionsEnv}`;
+const functionsUrl = `https://klcyd10c76.execute-api.us-east-1.amazonaws.com/production`;
 
 function getStatusError({
   status,
