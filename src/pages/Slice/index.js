@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Image from 'components/Image';
 import { useScrollRestore } from 'hooks';

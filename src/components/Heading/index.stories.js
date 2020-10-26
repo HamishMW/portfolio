@@ -1,4 +1,3 @@
-import React from 'react';
 import Heading from 'components/Heading';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 

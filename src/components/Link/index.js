@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import classNames from 'classnames';
 import { blurOnMouseUp } from 'utils/focus';

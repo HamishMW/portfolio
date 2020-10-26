@@ -1,11 +1,4 @@
-import React, {
-  lazy,
-  Suspense,
-  useEffect,
-  createContext,
-  useReducer,
-  Fragment,
-} from 'react';
+import { lazy, Suspense, useEffect, createContext, useReducer, Fragment } from 'react';
 import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 import {
   Transition,

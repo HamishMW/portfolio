@@ -1,4 +1,3 @@
-import React from 'react';
 import DecoderText from 'components/DecoderText';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 import Heading from 'components/Heading';

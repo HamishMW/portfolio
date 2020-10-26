@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, memo } from 'react';
+import { useRef, useEffect, memo } from 'react';
 import classNames from 'classnames';
 import { usePrefersReducedMotion } from 'hooks';
 import { spring, chain, delay, value } from 'popmotion';

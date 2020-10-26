@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import classNames from 'classnames';
 import { usePrefersReducedMotion } from 'hooks';
 import { numToPx } from 'utils/style';
@@ -10,7 +9,7 @@ const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) =
   const prefersReducedMotion = usePrefersReducedMotion();
 
   const renderScreenReaderTextPortal = () =>
-    ReactDOM.createPortal(
+    createPortal(
       <VisuallyHidden className="loader-announcement" aria-live="assertive">
         {text}
       </VisuallyHidden>,

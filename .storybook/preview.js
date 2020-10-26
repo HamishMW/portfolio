@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import ThemeProvider from '../src/components/ThemeProvider';
 import '../src/app/index.css';

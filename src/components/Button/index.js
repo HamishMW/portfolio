@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import Loader from 'components/Loader';

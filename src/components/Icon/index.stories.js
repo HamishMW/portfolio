@@ -1,4 +1,3 @@
-import React from 'react';
 import Icon, { icons } from 'components/Icon';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 

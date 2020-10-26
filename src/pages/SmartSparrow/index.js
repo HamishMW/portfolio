@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppContext, useInViewport, useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';

@@ -1,4 +1,3 @@
-import React from 'react';
 import Model from 'components/Model/index';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 import deviceModels from './deviceModels';

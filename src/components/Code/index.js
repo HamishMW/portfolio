@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTheme } from 'components/ThemeProvider';
 import './index.css';
 

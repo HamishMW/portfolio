@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { Helmet } from 'react-helmet-async';
@@ -18,7 +18,7 @@ import Text from 'components/Text';
 import './index.css';
 
 const initDelay = tokens.base.durationS;
-const functionsUrl = `https://klcyd10c76.execute-api.us-east-1.amazonaws.com/production`;
+const functionsUrl = `https://0qyg9o1duc.execute-api.us-east-1.amazonaws.com/production`;
 
 function getStatusError({
   status,

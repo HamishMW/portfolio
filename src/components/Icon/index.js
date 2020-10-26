@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 import { ReactComponent as Twitter } from 'assets/icons/twitter.svg';
 import { ReactComponent as Dribbble } from 'assets/icons/dribbble.svg';

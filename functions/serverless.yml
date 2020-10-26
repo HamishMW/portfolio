@@ -14,7 +14,7 @@ functions:
       - cloudFront:
           eventType: origin-response
           origin: https://d39w4n5rrkxzvy.cloudfront.net
-  app:
+  api:
     handler: index.handler
     events:
       - http:

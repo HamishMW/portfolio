@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import classNames from 'classnames';
 import Image from 'components/Image';
 import { Button } from 'components/Button';

@@ -1,4 +1,4 @@
-import React, { createContext, Fragment, useEffect } from 'react';
+import { createContext, Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import classNames from 'classnames';
 import useTheme from './useTheme';

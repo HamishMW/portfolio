@@ -1,4 +1,4 @@
-import React, { useRef, useState, memo } from 'react';
+import { useRef, useState, memo } from 'react';
 import { NavLink, Link as RouterLink } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import Monogram from 'components/Monogram';

@@ -1,4 +1,3 @@
-import React from 'react';
 import './StoryContainer.css';
 
 export const StoryContainer = ({ padding, stretch, gutter, vertical, children }) => (
