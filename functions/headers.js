@@ -82,13 +82,5 @@ exports.handler = async (event, context, callback) => {
     },
   ];
 
-  headers['Feature-Policy'] = [
-    {
-      key: 'Feature-Policy',
-      value:
-        'geolocation none; midi none; notifications none; push none; sync-xhr none; microphone none; camera none; magnetometer none; gyroscope none; speaker self; vibrate none; fullscreen self; payment none;',
-    },
-  ];
-
   callback(null, response);
 };

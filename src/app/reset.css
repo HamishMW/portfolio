@@ -25,6 +25,8 @@ textarea {
   padding: 0;
   background-color: transparent;
   appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 button {
