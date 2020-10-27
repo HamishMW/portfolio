@@ -18,7 +18,6 @@ import Text from 'components/Text';
 import './index.css';
 
 const initDelay = tokens.base.durationS;
-const functionsUrl = `https://0qyg9o1duc.execute-api.us-east-1.amazonaws.com/production`;
 
 function getStatusError({
   status,
@@ -64,7 +63,7 @@ const Contact = () => {
       try {
         setSending(true);
 
-        const response = await fetch(`${functionsUrl}/functions/sendMessage`, {
+        const response = await fetch('https://api.hamishw.com/message', {
           method: 'POST',
           mode: 'cors',
           headers: {

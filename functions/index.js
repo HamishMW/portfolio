@@ -25,7 +25,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cors({ origin: ORIGIN }));
 
-app.post('/functions/sendMessage', async (req, res) => {
+app.post('/message', async (req, res) => {
   try {
     const { email, message } = req.body;
 
