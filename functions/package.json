@@ -2,8 +2,9 @@
   "name": "functions",
   "description": "Serverless functions for hamishw.com using AWS lambda",
   "scripts": {
-    "lint": "eslint .",
-    "deploy": "serverless deploy --stage production"
+    "deploy": "serverless deploy --stage production",
+    "deploy:api": "serverless deploy --function api --stage production",
+    "deploy:headers": "serverless deploy --function headers --stage production"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -13,7 +14,7 @@
     "serverless-http": "^2.6.0"
   },
   "devDependencies": {
-    "eslint": "^7.11.0",
+    "eslint": "^7.12.1",
     "eslint-plugin-promise": "^4.2.1"
   },
   "engines": {
