@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 function useWindowSize() {
   const isClient = typeof window === 'object';
-  const isIOS = !navigator.userAgent.match(/iphone|ipod|ipad/i);
+  const isIOS = navigator.userAgent.match(/iphone|ipod|ipad/i);
   const axis = useRef(() => ({ w: 0, h: 0 }));
   const dimensions = useRef(() => Math.abs(window.orientation));
 
