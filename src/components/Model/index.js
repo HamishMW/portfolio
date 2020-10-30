@@ -412,6 +412,8 @@ const Model = ({
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
+      if (!container.current) return;
+
       const { clientWidth, clientHeight } = container.current;
 
       renderer.current.setSize(clientWidth, clientHeight);

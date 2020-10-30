@@ -8,7 +8,7 @@ export default {
 export const Default = () => (
   <StoryContainer padding={32} gutter={32} style={{ fontSize: 18 }}>
     <Link href="#" onClick={e => e.preventDefault()}>
-      I'm an Link link
+      Primary link
     </Link>
     <Link secondary href="#" onClick={e => e.preventDefault()}>
       Secondary link

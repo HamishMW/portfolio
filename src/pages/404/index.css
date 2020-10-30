@@ -1,6 +1,6 @@
 .page-404 {
   display: grid;
-  grid-template-columns: 45% 55%;
+  grid-template-columns: 1fr 1fr;
   height: 100vh;
   padding-left: 140px;
 }

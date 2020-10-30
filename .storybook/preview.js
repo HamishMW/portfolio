@@ -16,7 +16,7 @@ export const decorators = [
     return (
       <HelmetProvider>
         <ThemeProvider themeId={theme}>
-          <div id="story-root" className="story-root" key={theme}>
+          <div id="story-root" className="story-root">
             <Story />
           </div>
         </ThemeProvider>

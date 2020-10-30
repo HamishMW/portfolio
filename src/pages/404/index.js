@@ -7,9 +7,9 @@ import DecoderText from 'components/DecoderText';
 import Notfound from 'assets/notfound.mp4';
 import NotfoundPoster from 'assets/notfound.jpg';
 import { reflow } from 'utils/transition';
-import './index.css';
 import Heading from 'components/Heading';
 import Text from 'components/Text';
+import './index.css';
 
 function NotFound() {
   return (

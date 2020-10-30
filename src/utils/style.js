@@ -37,6 +37,6 @@ export const numToMs = num => `${num}ms`;
 
 /**
  * Convert an rgb theme property (e.g. rgbBlack: '0 0 0')
- * to a ThreeJS Color class
+ * to values that can be spread into a ThreeJS Color class
  */
 export const rgbToThreeColor = rgb => rgb.split(' ').map(value => Number(value) / 255);
