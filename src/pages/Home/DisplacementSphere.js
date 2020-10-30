@@ -13,6 +13,7 @@ import {
   MeshPhongMaterial,
   SphereBufferGeometry,
   Mesh,
+  Color,
 } from 'three';
 import { spring, value } from 'popmotion';
 import vertShader from './sphereVertShader';
@@ -99,7 +100,7 @@ const DisplacementSphere = props => {
     dirLight.position.y = 100;
 
     lights.current = [dirLight, ambientLight];
-    scene.current.background = rgbToThreeColor(rgbBackground);
+    scene.current.background = new Color(...rgbToThreeColor(rgbBackground));
     lights.current.forEach(light => scene.current.add(light));
 
     return () => {
@@ -164,10 +165,7 @@ const DisplacementSphere = props => {
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-
-      if (tweenRef.current) {
-        tweenRef.current.stop();
-      }
+      tweenRef.current?.stop();
     };
   }, [isInViewport, prefersReducedMotion]);
 

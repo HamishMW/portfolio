@@ -236,10 +236,7 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
 
     return () => {
       cancelAnimationFrame(animation);
-
-      if (springTween.current) {
-        springTween.current.stop();
-      }
+      springTween.current?.stop();
     };
   }, []);
 
@@ -331,19 +328,14 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     );
 
     const swipeEnd = listen(document, 'mouseup touchend').start(() => {
-      if (pointerTracker) {
-        onSwipeEnd();
-        pointerTracker.stop();
-      }
+      onSwipeEnd();
+      pointerTracker?.stop();
     });
 
     return () => {
       swipeStart.stop();
       swipeEnd.stop();
-
-      if (pointerTracker) {
-        pointerTracker.stop();
-      }
+      pointerTracker?.stop();
     };
   }, [onSwipeEnd, onSwipeMove]);
 

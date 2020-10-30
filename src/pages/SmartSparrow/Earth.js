@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {
   useEffect,
   useRef,
@@ -108,6 +107,10 @@ const Earth = forwardRef(
     const labelElements = useRef([]);
     const cameraValue = useRef();
     const controls = useRef();
+    const envMap = useRef();
+    const skyBox = useRef();
+    const contentAdded = useRef();
+    const mounted = useRef();
     const { width: windowWidth, height: windowHeight } = useWindowSize();
 
     const animate = useCallback(() => {
@@ -146,6 +149,7 @@ const Earth = forwardRef(
     }, [inViewport]);
 
     useEffect(() => {
+      mounted.current = true;
       const { innerWidth, innerHeight } = window;
 
       renderer.current = new WebGLRenderer({
@@ -182,6 +186,7 @@ const Earth = forwardRef(
       lights.forEach(light => scene.current.add(light));
 
       return () => {
+        mounted.current = false;
         cancelAnimationFrame(animationFrame.current);
         removeLights(lights);
         cleanScene(scene.current);
@@ -193,7 +198,7 @@ const Earth = forwardRef(
       if (windowWidth <= media.tablet) {
         controls.current.enabled = false;
       }
-    }, [windowWidth, media]);
+    }, [windowWidth]);
 
     useEffect(() => {
       if (loaded || fetching.current) return;
@@ -209,8 +214,6 @@ const Earth = forwardRef(
 
         sceneModel.current = gltf.scene;
         animations.current = gltf.animations;
-
-        scene.current.add(sceneModel.current);
         mixer.current = new AnimationMixer(sceneModel.current);
         mixer.current.timeScale = 0.1;
 
@@ -236,8 +239,7 @@ const Earth = forwardRef(
           .setDataType(UnsignedByteType)
           .loadAsync(milkywayHdr);
 
-        const envMap = pmremGenerator.fromEquirectangular(hdrTexture).texture;
-        scene.current.environment = envMap;
+        envMap.current = pmremGenerator.fromEquirectangular(hdrTexture).texture;
         pmremGenerator.dispose();
       };
 
@@ -246,16 +248,19 @@ const Earth = forwardRef(
         backgroundTexture.encoding = sRGBEncoding;
 
         const cubeTarget = new WebGLCubeRenderTarget(4096);
-        const cubeMap = cubeTarget.fromEquirectangularTexture(
+        skyBox.current = cubeTarget.fromEquirectangularTexture(
           renderer.current,
           backgroundTexture
         );
-        scene.current.background = cubeMap;
       };
 
       const handleLoad = async () => {
         await Promise.all([loadBackground(), loadEnv(), loadModel()]);
-        setLoaded(true);
+
+        if (mounted.current) {
+          setLoaded(true);
+        }
+
         fetching.current = false;
       };
 
@@ -264,17 +269,18 @@ const Earth = forwardRef(
     }, [loaded, position, scale]);
 
     useEffect(() => {
-      if (loaded && !inViewport) {
-        renderer.current.render(scene.current, camera.current);
+      // Add models and textures once visible
+      if (loaded && inViewport && !contentAdded.current) {
+        scene.current.add(sceneModel.current);
+        scene.current.environment = envMap.current;
+        scene.current.background = skyBox.current;
+        contentAdded.current = true;
       }
 
+      // Only animate while visible
       if (loaded && inViewport) {
         animate();
       }
-
-      return () => {
-        cancelAnimationFrame(animationFrame.current);
-      };
     }, [animate, inViewport, loaded]);
 
     useEffect(() => {
@@ -576,18 +582,9 @@ const Earth = forwardRef(
 
       return () => {
         window.removeEventListener('scroll', handleScroll);
-
-        if (chunkSpring) {
-          chunkSpring.stop();
-        }
-
-        if (opacitySpring) {
-          opacitySpring.stop();
-        }
-
-        if (cameraSpring) {
-          cameraSpring.stop();
-        }
+        chunkSpring?.stop();
+        opacitySpring?.stop();
+        cameraSpring?.stop();
       };
     }, [container, hideMeshes, inViewport, loaded]);
 
@@ -632,6 +629,11 @@ export const EarthSection = memo(
   }) => {
     const { registerSection, unregisterSection } = useContext(EarthContext);
     const sectionRef = useRef();
+    const stringifiedDeps =
+      JSON.stringify(animations) +
+      JSON.stringify(camera) +
+      JSON.stringify(labels) +
+      JSON.stringify(meshes);
 
     useEffect(() => {
       const section = {
@@ -647,14 +649,8 @@ export const EarthSection = memo(
       return () => {
         unregisterSection(section);
       };
-    }, [
-      JSON.stringify(animations),
-      JSON.stringify(camera),
-      JSON.stringify(labels),
-      JSON.stringify(meshes),
-      registerSection,
-      unregisterSection,
-    ]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [stringifiedDeps, registerSection, unregisterSection]);
 
     return (
       <div

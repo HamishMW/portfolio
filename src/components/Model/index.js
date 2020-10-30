@@ -403,12 +403,9 @@ const Model = ({
       window.addEventListener('mousemove', onMouseMove);
     }
 
-    return function cleanup() {
+    return () => {
       window.removeEventListener('mousemove', onMouseMove);
-
-      if (rotationSpring) {
-        rotationSpring.stop();
-      }
+      rotationSpring?.stop();
     };
   }, [isInViewport, reduceMotion, renderFrame]);
 
@@ -427,7 +424,7 @@ const Model = ({
     window.addEventListener('resize', handleResize);
     handleResize();
 
-    return function cleanup() {
+    return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [renderFrame]);
