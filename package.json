@@ -13,6 +13,9 @@
     "@storybook/addon-toolbars": "^6.1.0-alpha.31",
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.1.0-alpha.31",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "babel-loader": "^8.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
@@ -20,7 +23,6 @@
     "prettier": "^2.1.2",
     "react-scripts": "4.0.0",
     "react-snap": "1.23.0",
-    "react-test-renderer": "^17.0.1",
     "source-map-explorer": "^2.5.0",
     "stylelint": "^13.7.2",
     "stylelint-config-recommended": "^3.0.0"
@@ -34,7 +36,7 @@
     "react-helmet-async": "^1.0.7",
     "react-router-dom": "5.2.0",
     "react-transition-group": "^4.4.1",
-    "three": "^0.121.1"
+    "three": "^0.122.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,7 +45,7 @@
     "postbuild": "react-snap",
     "deploy": "aws s3 sync --delete build/ s3://hamish-portfolio-site",
     "deploy:storybook": "aws s3 sync --delete build-storybook s3://hamish-portfolio-storybook",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "analyze": "source-map-explorer 'build/static/js/*.js'"

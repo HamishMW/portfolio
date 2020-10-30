@@ -1,4 +1,4 @@
-import { Color } from 'three/src/math/Color';
+import { Color } from 'three';
 
 /**
  * Media query breakpoints

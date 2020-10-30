@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 function usePrefersReducedMotion() {
   const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const [reduceMotion, setReduceMotion] = useState(mediaQuery.matches);
+  const [reduceMotion, setReduceMotion] = useState(mediaQuery?.matches);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -13,10 +13,10 @@ function usePrefersReducedMotion() {
       }
     };
 
-    mediaQuery.addListener(handleMediaChange);
+    mediaQuery?.addListener(handleMediaChange);
 
     return () => {
-      mediaQuery.removeListener(handleMediaChange);
+      mediaQuery?.removeListener(handleMediaChange);
     };
   }, []);
 
