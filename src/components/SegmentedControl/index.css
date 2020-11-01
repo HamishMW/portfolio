@@ -6,17 +6,23 @@
   position: relative;
   display: flex;
   padding: var(--inset);
-}
 
-.segmented-control__options::before {
-  content: '';
-  background-color: rgb(var(--rgbText) / 0.16);
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+  &::before {
+    content: '';
+    background-color: rgb(var(--rgbText) / 0.16);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 10px),
+      calc(100% - 10px) 100%,
+      0 100%
+    );
+  }
 }
 
 .segmented-control__button {
@@ -37,48 +43,47 @@
   font-weight: var(--fontWeightMedium);
   cursor: pointer;
   outline: none;
-}
 
-.segmented-control__button::after {
-  --offset: -3px;
+  &::after {
+    --offset: -3px;
 
-  content: '';
-  position: absolute;
-  top: var(--offset);
-  right: var(--offset);
-  bottom: var(--offset);
-  left: var(--offset);
-}
+    content: '';
+    position: absolute;
+    top: var(--offset);
+    right: var(--offset);
+    bottom: var(--offset);
+    left: var(--offset);
+  }
 
-.segmented-control__button:focus::after {
-  box-shadow: 0 0 0 3px rgb(var(--rgbText));
-}
+  &:focus::after {
+    box-shadow: 0 0 0 3px rgb(var(--rgbText));
+  }
 
-.segmented-control__button:active::after {
-  box-shadow: none;
-}
+  &:active::after {
+    box-shadow: none;
+  }
 
-.segmented-control__button[aria-checked='true'] {
-  color: rgb(var(--rgbBackground));
-}
+  &[aria-checked='true'] {
+    color: rgb(var(--rgbBackground));
+  }
 
-.segmented-control__button::before {
-  --inset: 8px;
+  &::before {
+    --inset: 8px;
 
-  content: '';
-  position: absolute;
-  top: var(--inset);
-  bottom: var(--inset);
-  left: 0;
-  width: 1px;
-  background-color: rgb(var(--rgbText) / 0.2);
-  transition: opacity var(--durationM) var(--bezierFastoutSlowin);
-  opacity: 0;
-}
+    content: '';
+    position: absolute;
+    top: var(--inset);
+    bottom: var(--inset);
+    left: 0;
+    width: 1px;
+    background-color: rgb(var(--rgbText) / 0.2);
+    transition: opacity var(--durationM) var(--bezierFastoutSlowin);
+    opacity: 0;
+  }
 
-.segmented-control__button:not([aria-checked='true'])
-  + .segmented-control__button:not([aria-checked='true'])::before {
-  opacity: 1;
+  &:not([aria-checked='true']) + &:not([aria-checked='true'])::before {
+    opacity: 1;
+  }
 }
 
 .segmented-control__indicator {

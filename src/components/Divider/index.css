@@ -11,12 +11,18 @@
   height: 100%;
   background-color: rgb(var(--rgbPrimary));
   opacity: 1;
-  transition-property: transform, opacity;
+  transition-property: opacity;
   transition-duration: var(--durationL);
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-delay: var(--collapseDelay);
-  transform: scaleX(1);
   transform-origin: left center;
+  transform: scaleX(1);
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: transform, opacity;
+    }
+  }
 }
 
 .divider__line--collapsed {
@@ -28,7 +34,7 @@
   content: '';
   background-color: rgb(var(--rgbPrimary));
   position: absolute;
-  transition-property: clip-path, opacity;
+  transition-property: opacity;
   transition-duration: var(--durationL);
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-delay: var(--collapseDelay);
@@ -37,6 +43,12 @@
   width: var(--notchWidth);
   height: var(--notchHeight);
   top: var(--lineHeight);
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: clip-path, opacity;
+    }
+  }
 }
 
 .divider__notch--collapsed {

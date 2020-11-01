@@ -1,13 +1,13 @@
 import { useState, useRef } from 'react';
 import classNames from 'classnames';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import TextArea from 'components/TextArea';
+import TextArea from './TextArea';
 import { useId } from 'hooks';
-import './index.css';
 import { isVisible } from 'utils/transition';
 import { tokens } from 'components/ThemeProvider/theme';
 import { msToNum, numToPx } from 'utils/style';
 import Icon from 'components/Icon';
+import './index.css';
 
 const Input = ({
   id,

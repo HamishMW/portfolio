@@ -11,10 +11,10 @@
   display: grid;
   grid-template-columns: 100%;
   cursor: grab;
-}
 
-.carousel__image-wrapper:active {
-  cursor: grabbing;
+  &:active {
+    cursor: grabbing;
+  }
 }
 
 .carousel__canvas-wrapper {
@@ -55,36 +55,48 @@
   z-index: 32;
   cursor: pointer;
   outline: none;
-}
 
-.carousel__button:focus {
-  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
-}
+  &:focus {
+    box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+  }
 
-.carousel__button:active {
-  box-shadow: none;
-}
+  &:active {
+    box-shadow: none;
+  }
 
-.carousel__button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transition-property: background, box-shadow;
-  transition-duration: var(--durationM);
-  transition-timing-function: var(--bezierFastoutSlowin);
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
-}
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition-property: background, box-shadow;
+    transition-duration: var(--durationM);
+    transition-timing-function: var(--bezierFastoutSlowin);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      0 100%
+    );
+  }
 
-.carousel__button:hover::before {
-  background: rgb(var(--rgbWhite) / 0.1);
-}
+  &:hover::before {
+    background: rgb(var(--rgbWhite) / 0.1);
+  }
 
-.carousel__button svg {
-  fill: rgb(var(--rgbWhite));
-  display: block;
+  & svg {
+    fill: rgb(var(--rgbWhite));
+    display: block;
+  }
+
+  @media (--mediaMobile) {
+    & {
+      display: none;
+    }
+  }
 }
 
 .carousel__button--prev {
@@ -93,12 +105,6 @@
 
 .carousel__button--next {
   right: var(--spaceM);
-}
-
-@media (max-width: 696px) {
-  .carousel__button {
-    display: none;
-  }
 }
 
 .carousel__nav {
@@ -118,28 +124,28 @@
   padding: var(--spaceM);
   cursor: pointer;
   outline: none;
-}
 
-.carousel__nav-button[aria-pressed='true'] {
-  --buttonColor: var(--colorTextBody);
-}
+  &[aria-pressed='true'] {
+    --buttonColor: var(--colorTextBody);
+  }
 
-.carousel__nav-button::after {
-  content: '';
-  border-radius: 50%;
-  display: block;
-  width: var(--navButtonSize);
-  height: var(--navButtonSize);
-  background: var(--buttonColor);
-  transition-property: background, box-shadow;
-  transition-duration: var(--durationL);
-  transition-timing-function: var(--bezierFastoutSlowin);
-}
+  &::after {
+    content: '';
+    border-radius: 50%;
+    display: block;
+    width: var(--navButtonSize);
+    height: var(--navButtonSize);
+    background: var(--buttonColor);
+    transition-property: background, box-shadow;
+    transition-duration: var(--durationL);
+    transition-timing-function: var(--bezierFastoutSlowin);
+  }
 
-.carousel__nav-button:focus {
-  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
-}
+  &:focus {
+    box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+  }
 
-.carousel__nav-button:active {
-  box-shadow: none;
+  &:active {
+    box-shadow: none;
+  }
 }

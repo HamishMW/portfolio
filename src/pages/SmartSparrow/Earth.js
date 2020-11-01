@@ -37,7 +37,7 @@ import milkywayBg from 'assets/milkyway.jpg';
 import milkywayHdr from 'assets/milkyway.hdr';
 import earthModel from 'assets/earth.glb';
 import { cleanScene, removeLights, cleanRenderer } from 'utils/three';
-import { useInViewport, useWindowSize } from 'hooks';
+import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
 import { media } from 'utils/style';
 import './Earth.css';
 
@@ -112,6 +112,7 @@ const Earth = forwardRef(
     const contentAdded = useRef();
     const mounted = useRef();
     const { width: windowWidth, height: windowHeight } = useWindowSize();
+    const reduceMotion = usePrefersReducedMotion();
 
     const animate = useCallback(() => {
       if (!inViewport) {
@@ -424,15 +425,20 @@ const Earth = forwardRef(
                   opacityValue
                 );
               } else if (name === 'Chunk') {
+                const chunkPosition = new Vector3(-0.4, 0.4, 0.4);
                 child.visible = true;
                 chunkValueSubscription = chunkValue.subscribe({
                   complete: setChunkValue,
                 });
 
-                chunkSpring = spring({
-                  ...chunkSpringConfig,
-                  to: new Vector3(-0.4, 0.4, 0.4),
-                }).start(chunkValue);
+                if (reduceMotion) {
+                  chunk.position.set(...chunkPosition.toArray());
+                } else {
+                  chunkSpring = spring({
+                    ...chunkSpringConfig,
+                    to: chunkPosition,
+                  }).start(chunkValue);
+                }
               } else if (name === 'EarthFull' && chunk.visible) {
                 child.visible = false;
               } else {
@@ -561,15 +567,19 @@ const Earth = forwardRef(
             );
           }
 
-          cameraSpring = spring({
-            from: cameraValue.current.get(),
-            to: { x: currentX, y: currentY, z: currentZ },
-            velocity: cameraValue.current.getVelocity(),
-            stiffness: 80,
-            damping: 70,
-            mass: 2,
-            restSpeed: 0.001,
-          }).start(cameraValue.current);
+          if (reduceMotion) {
+            camera.current.position.set(currentX, currentY, currentZ);
+          } else {
+            cameraSpring = spring({
+              from: cameraValue.current.get(),
+              to: { x: currentX, y: currentY, z: currentZ },
+              velocity: cameraValue.current.getVelocity(),
+              stiffness: 80,
+              damping: 70,
+              mass: 2,
+              restSpeed: 0.001,
+            }).start(cameraValue.current);
+          }
         };
 
         requestAnimationFrame(update);
@@ -586,7 +596,7 @@ const Earth = forwardRef(
         opacitySpring?.stop();
         cameraSpring?.stop();
       };
-    }, [container, hideMeshes, inViewport, loaded]);
+    }, [container, hideMeshes, inViewport, loaded, reduceMotion]);
 
     const registerSection = useCallback(section => {
       sectionRefs.current = [...sectionRefs.current, section];

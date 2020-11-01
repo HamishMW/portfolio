@@ -21,15 +21,15 @@
   padding: 0 80px;
   width: 100%;
   overflow: hidden;
+
+  & svg {
+    max-width: 400px;
+    height: auto;
+  }
 }
 
 .volkihar__logo-container--light {
   padding: 60px 80px;
-}
-
-.volkihar__logo-container svg {
-  max-width: 400px;
-  height: auto;
 }
 
 .volkihar__background-section {
@@ -44,22 +44,22 @@
 
 .volkihar__background-section .project__section-content {
   padding: var(--space5XL) 0 calc(var(--space5XL) + var(--spaceL));
-}
 
-@media (max-width: 1680px) {
-  .volkihar__background-section .project__section-content {
-    padding: var(--space2XL) 0 var(--space4XL);
+  @media (--mediaLaptop) {
+    & {
+      padding: var(--space2XL) 0 var(--space4XL);
+    }
   }
-}
 
-@media (max-width: 1024px) {
-  .volkihar__background-section .project__section-content {
-    padding: var(--spaceXL) 0 var(--space2XL);
+  @media (--mediaTablet) {
+    & {
+      padding: var(--spaceXL) 0 var(--space2XL);
+    }
   }
-}
 
-@media (max-width: 696px) {
-  .volkihar__background-section .project__section-content {
-    padding: var(--spaceL) 0 var(--space2XL);
+  @media (--mediaMobile) {
+    & {
+      padding: var(--spaceL) 0 var(--space2XL);
+    }
   }
 }

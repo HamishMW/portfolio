@@ -27,31 +27,31 @@
   line-height: var(--lineHeightBody);
   padding: var(--spaceL) 0 var(--spaceM);
   overflow-x: hidden;
-}
 
-@media (prefers-reduced-motion: reduce) {
-  #root .input__element {
-    transition: background-color 5000s linear 0s;
+  &:-internal-autofill-selected {
+    -webkit-text-fill-color: var(--colorTextBody);
+    box-shadow: 0 0 0px 1000px rgb(var(--rgbText) / 0.1) inset;
   }
-}
 
-.input__element:-internal-autofill-selected {
-  -webkit-text-fill-color: var(--colorTextBody);
-  box-shadow: 0 0 0px 1000px rgb(var(--rgbText) / 0.1) inset;
-}
+  /* Needs to be a single selector to work in safari */
+  &:-webkit-autofill {
+    -webkit-text-fill-color: var(--colorTextBody);
+    box-shadow: 0 0 0px 1000px rgb(var(--rgbText) / 0.1) inset;
+  }
 
-/* Needs to be a single selector to work in safari */
-.input__element:-webkit-autofill {
-  -webkit-text-fill-color: var(--colorTextBody);
-  box-shadow: 0 0 0px 1000px rgb(var(--rgbText) / 0.1) inset;
-}
+  &:focus {
+    outline: none;
+  }
 
-.input__element:focus {
-  outline: none;
-}
+  &::-webkit-contacts-auto-fill-button:hover {
+    background-color: rgb(var(--rgbPrimary));
+  }
 
-.input__element::-webkit-contacts-auto-fill-button:hover {
-  background-color: rgb(var(--rgbPrimary));
+  @media (--mediaReduceMotion) {
+    @nest #root & {
+      transition: background-color 5000s linear 0s;
+    }
+  }
 }
 
 .input__underline {
@@ -61,8 +61,14 @@
   height: 2px;
   position: absolute;
   bottom: 0;
-  transition: transform var(--durationM) var(--bezierFastoutSlowin);
+
   transform-origin: left;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition: transform var(--durationM) var(--bezierFastoutSlowin);
+    }
+  }
 }
 
 .input__underline--focused {
@@ -77,8 +83,14 @@
   display: block;
   cursor: text;
   transform-origin: top left;
-  transition: transform var(--durationM) var(--bezierFastoutSlowin),
-    color var(--durationM) ease;
+  transition: color var(--durationM) ease;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition: transform var(--durationM) var(--bezierFastoutSlowin),
+        color var(--durationM) ease;
+    }
+  }
 }
 
 .input__label--has-value,
@@ -88,11 +100,17 @@
 }
 
 .input__error {
-  transition-property: height, opacity;
+  transition-property: opacity;
   transition-duration: var(--durationM);
   transition-timing-function: var(--bezierFastoutSlowin);
   height: var(--height);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: height, opacity;
+    }
+  }
 }
 
 .input__error--entering,

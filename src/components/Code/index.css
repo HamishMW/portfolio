@@ -5,6 +5,13 @@
   clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
   color: var(--colorTextBody);
   overflow-x: auto;
+
+  @media (--mediaMobile) {
+    & {
+      padding: var(--spaceL);
+      margin: var(--space2XL) calc(var(--spaceXL) * -1);
+    }
+  }
 }
 
 /* Netrunner theme by Hamish Williams */
@@ -43,111 +50,104 @@
   --background: rgb(228 228 228);
 }
 
-@media (max-width: 696px) {
-  .code {
-    padding: var(--spaceL);
-    margin: var(--space2XL) calc(var(--spaceXL) * -1);
-  }
-}
-
 .code__content {
   margin: 0;
-}
 
-.code__content code,
-.code__content pre,
-.code__content pre.prism-code {
-  height: auto;
-  font-size: var(--fontSizeBodyS);
-  line-height: var(--lineHeightBody);
-  white-space: pre;
-  font-family: var(--monoFontStack);
-}
+  & code,
+  & pre,
+  & pre.prism-code {
+    height: auto;
+    font-size: var(--fontSizeBodyS);
+    line-height: var(--lineHeightBody);
+    white-space: pre;
+    font-family: var(--monoFontStack);
+  }
 
-.code__content .token.attr-name {
-  color: var(--keyword);
-}
+  & .token.attr-name {
+    color: var(--keyword);
+  }
 
-.code__content .token.comment,
-.code__content .token.block-comment,
-.code__content .token.prolog,
-.code__content .token.doctype,
-.code__content .token.cdata {
-  color: var(--comment);
-}
+  & .token.comment,
+  & .token.block-comment,
+  & .token.prolog,
+  & .token.doctype,
+  & .token.cdata {
+    color: var(--comment);
+  }
 
-.code__content .token.property,
-.code__content .token.number,
-.code__content .token.function-name,
-.code__content .token.constant,
-.code__content .token.symbol,
-.code__content .token.deleted {
-  color: var(--primitive);
-}
+  & .token.property,
+  & .token.number,
+  & .token.function-name,
+  & .token.constant,
+  & .token.symbol,
+  & .token.deleted {
+    color: var(--primitive);
+  }
 
-.code__content .token.boolean {
-  color: var(--boolean);
-}
+  & .token.boolean {
+    color: var(--boolean);
+  }
 
-.code__content .token.tag {
-  color: var(--tag);
-}
+  & .token.tag {
+    color: var(--tag);
+  }
 
-.code__content .token.string {
-  color: var(--string);
-}
+  & .token.string {
+    color: var(--string);
+  }
 
-.code__content .token.punctuation {
-  color: var(--punctuation);
-}
+  & .token.punctuation {
+    color: var(--punctuation);
+  }
 
-.code__content .token.selector,
-.code__content .token.char,
-.code__content .token.builtin,
-.code__content .token.inserted {
-  color: var(--char);
-}
+  & .token.selector,
+  & .token.char,
+  & .token.builtin,
+  & .token.inserted {
+    color: var(--char);
+  }
 
-.code__content .token.function {
-  color: var(--function);
-}
+  & .token.function {
+    color: var(--function);
+  }
 
-.code__content .token.operator,
-.code__content .token.entity,
-.code__content .token.url,
-.code__content .token.variable {
-  color: var(--variable);
-}
+  & .token.operator,
+  & .token.entity,
+  & .token.url,
+  & .token.variable {
+    color: var(--variable);
+  }
 
-.code__content .token.attr-value {
-  color: var(--string);
-}
+  & .token.attr-value {
+    color: var(--string);
+  }
 
-.code__content .token.keyword {
-  color: var(--keyword);
-}
+  & .token.keyword {
+    color: var(--keyword);
+  }
 
-.code__content .token.atrule,
-.code__content .token.class-name {
-  color: var(--className);
-}
+  & .token.atrule,
+  & .token.class-name {
+    color: var(--className);
+  }
 
-.code__content .token.important {
-  font-weight: var(--fontWeightRegular);
-}
+  & .token.important {
+    font-weight: var(--fontWeightRegular);
+  }
 
-.code__content .token.bold {
-  font-weight: var(--fontWeightBold);
-}
+  & .token.bold {
+    font-weight: var(--fontWeightBold);
+  }
 
-.code__content .token.italic {
-  font-style: italic;
-}
+  & .token.italic {
+    font-style: italic;
+  }
 
-.code__content .token.entity {
-  cursor: help;
-}
+  & .token.entity {
+    cursor: help;
+  }
 
-.code__content .namespace {
-  opacity: 0.7;
+  & .namespace {
+    opacity: 0.7;
+  }
 }

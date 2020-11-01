@@ -7,6 +7,12 @@
   padding-top: calc(50vh - var(--form-height) / 2);
   min-height: 100vh;
   width: 100%;
+
+  @media (--mediaMobile) {
+    & {
+      padding-top: 0;
+    }
+  }
 }
 
 .contact--entered,
@@ -14,88 +20,120 @@
   position: relative;
 }
 
-@media (max-width: 696px) {
-  .contact {
-    padding-top: 0;
-  }
-}
-
 .contact__form {
   max-width: var(--maxWidthS);
   width: 100%;
   padding: var(--space2XL) 0;
-}
 
-@media (max-width: 696px) {
-  .contact__form {
-    padding: var(--space5XL) 0 var(--space2XL);
-    align-self: flex-start;
+  @media (--mediaMobile) {
+    & {
+      padding: var(--space5XL) 0 var(--space2XL);
+      align-self: flex-start;
+    }
   }
 }
 
 .contact__title {
   margin-bottom: var(--space2XL);
-  transition-property: transform, opacity;
+  transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
   transition-delay: var(--delay);
-  transform: translate3d(0, var(--space5XL), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: transform, opacity;
+      transform: translate3d(0, var(--space5XL), 0);
+    }
+  }
 }
 
 .contact__title--entering,
 .contact__title--entered {
-  transform: translate3d(0, 0, 0);
+  transform: none;
   opacity: 1;
 }
 
 .contact__title--exiting {
   transition-duration: var(--durationM);
   transition-delay: 0s;
-  transform: translate3d(0, calc(var(--space2XL) * -1), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    }
+  }
 }
 
 .contact__title--hidden {
-  transform: translate3d(0, var(--space5XL), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transform: translate3d(0, var(--space5XL), 0);
+    }
+  }
 }
 
 .contact__divider {
   margin-bottom: var(--space3XL);
-  transition-property: transform, opacity;
+  transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
   transition-delay: var(--delay);
-  transform: translate3d(0, var(--space5XL), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: transform, opacity;
+      transform: translate3d(0, var(--space5XL), 0);
+    }
+  }
 }
 
 .contact__divider--entering,
 .contact__divider--entered {
-  transform: translate3d(0, 0, 0);
+  transform: none;
   opacity: 1;
 }
 
 .contact__divider--hidden {
-  transform: translate3d(0, var(--space5XL), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transform: translate3d(0, var(--space5XL), 0);
+    }
+  }
 }
 
 .contact__divider--exiting {
   transition-duration: var(--durationM);
   transition-delay: 0s;
-  transform: translate3d(0, calc(var(--space2XL) * -1), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    }
+  }
 }
 
 .contact__input {
-  transition-property: transform, opacity;
+  transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
   transition-delay: var(--delay);
-  transform: translate3d(0, var(--space3XL), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: transform, opacity;
+      transform: translate3d(0, var(--space3XL), 0);
+    }
+  }
 }
 
 .contact__input + .contact__input {
@@ -104,31 +142,48 @@
 
 .contact__input--entering,
 .contact__input--entered {
-  transform: translate3d(0, 0, 0);
+  transform: none;
   opacity: 1;
 }
 
 .contact__input--hidden {
-  transform: translate3d(0, var(--space3XL), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transform: translate3d(0, var(--space3XL), 0);
+      transform: none;
+    }
+  }
 }
 
 .contact__input--exiting {
   transition-duration: var(--durationM);
   transition-delay: 0s;
-  transform: translate3d(0, calc(var(--space2XL) * -1), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    }
+  }
 }
 
 .contact__button {
   margin-top: calc(var(--spaceXL) * 2);
-  transition-property: transform, opacity, box-shadow;
+  transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-delay: var(--delay);
   transition-duration: var(--durationXL);
-  transform: translate3d(0, var(--space3XL), 0);
   opacity: 0;
   justify-self: flex-start;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: transform, opacity;
+      transform: translate3d(0, var(--space3XL), 0);
+    }
+  }
 }
 
 .contact__button--entered {
@@ -137,43 +192,56 @@
 }
 
 .contact__button--hidden {
-  transform: translate3d(0, var(--space3XL), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transform: translate3d(0, var(--space3XL), 0);
+    }
+  }
 }
 
-.contact__button--sending svg {
-  transition: transform var(--bezierFastoutSlowin) var(--durationXL),
-    opacity var(--durationS) ease var(--durationS);
-  transform: translate3d(var(--space5XL), 0, 0);
-  opacity: 0;
-}
+.contact__button--sending {
+  & svg {
+    transition: transform var(--bezierFastoutSlowin) var(--durationXL),
+      opacity var(--durationS) ease var(--durationS);
+    transform: translate3d(var(--space5XL), 0, 0);
+    opacity: 0;
+  }
 
-.contact__button--sending .loader {
-  animation: fade-in var(--durationM) ease var(--durationL) forwards;
-  opacity: 0;
-}
+  @media (--mediaReduceMotion) {
+    & svg {
+      transition-property: opacity;
+      transform: none;
+    }
+  }
 
-@media (prefers-reduced-motion: reduce) {
-  .contact__button--sending .loader {
-    opacity: 1;
+  & .loader {
+    opacity: 0;
+    animation: fade-in var(--durationM) ease var(--durationL) forwards;
   }
 }
 
 .contact__button--entering,
 .contact__button--entered {
-  transform: translate3d(0, 0, 0);
+  transform: none;
   opacity: 1;
 }
 
 .contact__button--entering:hover {
-  transform: translate3d(0, 0, 0);
+  transform: none;
 }
 
 .contact__button--exiting {
   transition-duration: var(--durationM);
   transition-delay: 0s;
-  transform: translate3d(0, calc(var(--space2XL) * -1), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    }
+  }
 }
 
 .contact__complete {
@@ -192,56 +260,79 @@
 
 .contact__complete-title {
   margin: 0;
-  transition-property: transform, opacity;
+  transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
   transition-delay: var(--delay);
-  transform: translate3d(0, var(--space3XL), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: transform, opacity;
+      transform: translate3d(0, var(--space3XL), 0);
+    }
+  }
 }
 
 .contact__complete-title--entered {
-  transform: translate3d(0, 0, 0);
+  transform: none;
   opacity: 1;
 }
 
 .contact__complete-text {
   margin-top: var(--spaceM);
-  transition-property: transform, opacity;
+  transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
   transition-delay: var(--delay);
-  transform: translate3d(0, var(--space3XL), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: transform, opacity;
+      transform: translate3d(0, var(--space3XL), 0);
+    }
+  }
 }
 
 .contact__complete-text--entered {
-  transform: translate3d(0, 0, 0);
+  transform: none;
   opacity: 1;
 }
 
 .contact__complete-button {
   margin-top: var(--spaceL);
-  transition-property: transform, opacity, box-shadow;
+  transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
   transition-delay: var(--delay);
-  transform: translate3d(0, var(--space3XL), 0);
   opacity: 0;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: transform, opacity;
+      transform: translate3d(0, var(--space3XL), 0);
+    }
+  }
 }
 
 .contact__complete-button--entered {
-  transform: translate3d(0, 0, 0);
+  transform: none;
   opacity: 1;
 }
 
 .contact__form-error {
   color: rgb(var(--rgbError));
-  transition-property: height;
-  transition-duration: var(--durationM);
-  transition-timing-function: var(--bezierFastoutSlowin);
   overflow: hidden;
   height: var(--height);
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: height;
+      transition-duration: var(--durationM);
+      transition-timing-function: var(--bezierFastoutSlowin);
+    }
+  }
 }
 
 .contact__form-error-content {

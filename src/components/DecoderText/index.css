@@ -1,6 +1,8 @@
-.decoder-text::after {
-  content: '_';
-  visibility: hidden;
+.decoder-text {
+  &::after {
+    content: '_';
+    visibility: hidden;
+  }
 }
 
 .decoder-text__glyph {

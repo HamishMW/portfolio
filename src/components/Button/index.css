@@ -10,7 +10,7 @@
   height: var(--buttonSize);
   padding: var(--buttonPadding);
   cursor: pointer;
-  transition-property: transform, opacity, color, background;
+  transition-property: opacity, color, background;
   transition-duration: var(--durationS);
   transition-timing-function: var(--bezierFastoutSlowin);
   display: inline-flex;
@@ -18,35 +18,44 @@
   color: var(--buttonTextColor);
   position: relative;
   z-index: 1;
-}
 
-.button:focus {
-  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
-}
+  &:focus {
+    box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+  }
 
-.button::after {
-  content: '';
-  transition-property: transform, opacity, background;
-  transition-duration: var(--durationM);
-  transition-timing-function: var(--bezierFastoutSlowin);
-  background: rgb(var(--rgbPrimary));
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
-}
+  &::after {
+    content: '';
+    transition-property: opacity;
+    transition-duration: var(--durationM);
+    transition-timing-function: var(--bezierFastoutSlowin);
+    background: rgb(var(--rgbPrimary));
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  }
 
-.button:hover {
-  transform: scale(1.05);
-}
+  &:active {
+    box-shadow: none;
+    transition-duration: calc(var(--durationXS) / 2);
+  }
 
-.button:active {
-  box-shadow: none;
-  transform: scale(1);
-  transition-duration: calc(var(--durationXS) / 2);
+  @media (--mediaUseMotion) {
+    &::after {
+      transition-property: transform, opacity, color, background;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(1);
+    }
+  }
 }
 
 .button--secondary {
@@ -59,31 +68,36 @@
   position: relative;
   left: calc(var(--buttonSpace) * -1);
   height: calc((32 / 16) * 1rem);
-}
 
-.button--secondary::after {
-  content: '';
-  height: calc((32 / 16) * 1rem);
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgb(var(--rgbPrimary) / 0.2);
-  transform: scale3d(0, 1, 1);
-  transform-origin: right;
-  transition: transform var(--durationM) var(--bezierFastoutSlowin);
-  clip-path: none;
-}
+  &::after {
+    content: '';
+    height: calc((32 / 16) * 1rem);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(var(--rgbPrimary) / 0.2);
+    transform: scale3d(0, 1, 1);
+    transform-origin: right;
+    clip-path: none;
+  }
 
-.button--secondary:hover {
-  transform: none;
-  background: transparent;
-}
+  &:hover {
+    transform: none;
+    background: transparent;
+  }
 
-.button--secondary:hover::after {
-  transform: scale3d(1, 1, 1);
-  transform-origin: left;
+  &:hover::after {
+    transform: scale3d(1, 1, 1);
+    transform-origin: left;
+  }
+
+  @media (--mediaUseMotion) {
+    &::after {
+      transition: transform var(--durationM) var(--bezierFastoutSlowin);
+    }
+  }
 }
 
 .button--loading {
@@ -98,18 +112,18 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-}
 
-.button--icon-only:hover {
-  transform: none;
-}
+  &:hover {
+    transform: none;
+  }
 
-.button--icon-only::after {
-  background: rgb(var(--rgbText) / 0);
-}
+  &::after {
+    background: rgb(var(--rgbText) / 0);
+  }
 
-.button--icon-only:hover::after {
-  background: rgb(var(--rgbText) / 0.1);
+  &:hover::after {
+    background: rgb(var(--rgbText) / 0.1);
+  }
 }
 
 .button__text {
@@ -132,9 +146,15 @@
 }
 
 .button__icon {
-  transition-property: transform, opacity, fill;
+  transition-property: opacity, fill;
   transition-duration: var(--durationS);
   transition-timing-function: var(--bezierFastoutSlowin);
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: transform, opacity, fill;
+    }
+  }
 }
 
 .button__icon--start {
@@ -145,8 +165,10 @@
   margin-left: var(--spaceS);
 }
 
-.button:hover .button__icon--shift {
-  transform: translate3d(var(--spaceXS), 0, 0);
+@media (--mediaUseMotion) {
+  .button:hover .button__icon--shift {
+    transform: translate3d(var(--spaceXS), 0, 0);
+  }
 }
 
 .button--loading .button__icon {

@@ -42,14 +42,6 @@ const App = () => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      transitionConfig.disabled = true;
-    } else {
-      transitionConfig.disabled = false;
-    }
-  }, [prefersReducedMotion]);
-
-  useEffect(() => {
     if (!prerender) {
       console.info(`${repoPrompt}\n\n`);
     }

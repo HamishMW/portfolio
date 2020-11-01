@@ -8,8 +8,14 @@
   opacity: 0;
   transform: scale3d(1, 0, 1);
   transform-origin: top;
-  transition: transform var(--durationM) var(--bezierFastoutSlowin),
-    opacity 0.1s ease var(--durationM);
+  transition: opacity 0.1s ease var(--durationM);
+
+  @media (--mediaUseMotion) {
+    & {
+      transition: transform var(--durationM) var(--bezierFastoutSlowin),
+        opacity 0.1s ease var(--durationM);
+    }
+  }
 }
 
 a:focus .monogram__highlight,
@@ -18,5 +24,11 @@ a:hover .monogram__highlight,
   opacity: 1;
   transform: scale3d(1, 1, 1);
   transform-origin: bottom;
-  transition: transform var(--durationM) var(--bezierFastoutSlowin), opacity 0.1s ease;
+  transition: opacity 0.1s ease;
+
+  @media (--mediaUseMotion) {
+    & {
+      transition: transform var(--durationM) var(--bezierFastoutSlowin), opacity 0.1s ease;
+    }
+  }
 }

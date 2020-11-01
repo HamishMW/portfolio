@@ -1,4 +1,5 @@
 import { lazy, Suspense, Fragment, useMemo } from 'react';
+import classNames from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import Image from 'components/Image';
 import { useScrollRestore, useRouteTransition } from 'hooks';
@@ -16,6 +17,7 @@ import {
   ProjectTextRow,
   ProjectSectionColumns,
 } from 'components/ProjectLayout';
+import { useTheme } from 'components/ThemeProvider';
 import volkiharBackground from 'assets/volkihar-background.jpg';
 import volkiharBackgroundLarge from 'assets/volkihar-background-large.jpg';
 import volkiharBackgroundPlaceholder from 'assets/volkihar-background-placeholder.jpg';
@@ -54,6 +56,7 @@ const description =
 const roles = ['3D Modelling', 'Texturing', 'Graphic Design'];
 
 function ProjectVolkihar() {
+  const { themeId } = useTheme();
   const { status } = useRouteTransition();
   useScrollRestore();
 
@@ -136,7 +139,11 @@ function ProjectVolkihar() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionContent>
-            <div className="volkihar__logo-container">
+            <div
+              className={classNames('volkihar__logo-container', {
+                'volkihar__logo-container--light': themeId === 'light',
+              })}
+            >
               <VolkiharKnightLogo
                 role="img"
                 aria-label="The Volkihar Knight logo, a monogram using the letters 'V' and 'K"

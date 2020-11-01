@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import classNames from 'classnames';
-import './index.css';
+import './TextArea.css';
 
 const TextArea = ({
   className,

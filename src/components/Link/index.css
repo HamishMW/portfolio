@@ -14,26 +14,31 @@
   color: rgb(var(--linkColor));
   background: var(--filledLineGradient) no-repeat 100% 100% / 0 var(--lineStrokeWidth),
     var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
-  transition-property: background-size;
-  transition-duration: var(--durationM);
-  transition-timing-function: var(--bezierFastoutSlowin);
   padding-bottom: var(--lineStrokeWidth);
-}
 
-.link:hover,
-.link:focus {
-  background: var(--filledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth),
-    var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
+  &:hover,
+  &:focus {
+    background: var(--filledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth),
+      var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+  }
+
+  &:active {
+    box-shadow: none;
+  }
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-duration: var(--durationM);
+      transition-timing-function: var(--bezierFastoutSlowin);
+      transition-property: background-size;
+    }
+  }
 }
 
 .link--secondary {
   --linkColor: var(--rgbText);
-}
-
-.link:focus {
-  box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
-}
-
-.link:active {
-  box-shadow: none;
 }
