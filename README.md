@@ -18,7 +18,7 @@ Once it's done start up a local server with:
 yarn start
 ```
 
-To view the components and style guide:
+To view the components storybook:
 
 ```bash
 yarn storybook
