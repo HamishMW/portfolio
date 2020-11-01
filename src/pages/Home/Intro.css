@@ -8,7 +8,7 @@
 }
 
 .intro__text {
-  max-width: 780px;
+  max-width: 1024px;
   width: 100%;
   position: relative;
   top: calc(var(--spaceL) * -1);
@@ -19,9 +19,9 @@
     }
   }
 
-  @media (min-width: 2400px) {
+  @media (--mediaLaptop) {
     & {
-      max-width: 1024px;
+      max-width: 780px;
     }
   }
 
