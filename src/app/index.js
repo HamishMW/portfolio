@@ -1,17 +1,13 @@
 import { lazy, Suspense, useEffect, createContext, useReducer, Fragment } from 'react';
 import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
-import {
-  Transition,
-  TransitionGroup,
-  config as transitionConfig,
-} from 'react-transition-group';
+import { Transition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from 'components/Header';
 import ThemeProvider from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import VisuallyHidden from 'components/VisuallyHidden';
-import { useLocalStorage, usePrefersReducedMotion } from 'hooks';
+import { useLocalStorage } from 'hooks';
 import { msToNum } from 'utils/style';
 import { reflow } from 'utils/transition';
 import prerender from 'utils/prerender';
@@ -39,7 +35,6 @@ __  __  __
 const App = () => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
-  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     if (!prerender) {
