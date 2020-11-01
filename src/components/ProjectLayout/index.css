@@ -332,11 +332,11 @@
   max-width: var(--maxWidthL);
   width: 100%;
   display: grid;
-  grid-gap: var(--space4XL);
+  gap: var(--space4XL);
 
   @media (--mediaLaptop) {
     & {
-      grid-gap: var(--space3XL);
+      gap: var(--space3XL);
     }
   }
 }

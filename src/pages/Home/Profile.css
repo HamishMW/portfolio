@@ -8,12 +8,6 @@
   display: flex;
   justify-content: center;
 
-  @media (--mediaDesktop) {
-    & {
-      padding-left: 120px;
-    }
-  }
-
   @media (--mediaTablet) {
     & {
       padding-top: 50px;
