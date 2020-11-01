@@ -2,7 +2,7 @@
 
 [![Site preview](/public/social-image.png)](https://hamishw.com)
 
-A design portfolio to showcase a few projects. Check out a live version of the [component design system](https://storybook.hamishw.com).
+A design portfolio to showcase a few projects. View the [live site](https://hamishw.com) or check out a live version of the [components storybook](https://storybook.hamishw.com).
 
 ## Install & run
 
@@ -18,7 +18,7 @@ Once it's done start up a local server with:
 yarn start
 ```
 
-To view the components and style guide:
+To view the components storybook:
 
 ```bash
 yarn storybook
