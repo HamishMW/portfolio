@@ -25,7 +25,7 @@
 
   &::after {
     content: '';
-    transition-property: opacity;
+    transition-property: opacity, color, background;
     transition-duration: var(--durationM);
     transition-timing-function: var(--bezierFastoutSlowin);
     background: rgb(var(--rgbPrimary));

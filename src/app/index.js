@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import Header from 'components/Header';
+import Navbar from 'components/Navbar';
 import ThemeProvider from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import VisuallyHidden from 'components/VisuallyHidden';
@@ -72,7 +72,7 @@ const AppRoutes = () => {
       <VisuallyHidden showOnFocus as="a" className="skip-to-main" href="#MainContent">
         Skip to main content
       </VisuallyHidden>
-      <Header location={location} />
+      <Navbar location={location} />
       <TransitionGroup component="main" className="app" tabIndex={-1} id="MainContent">
         <Transition
           key={pathname}
