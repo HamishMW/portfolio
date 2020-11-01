@@ -191,7 +191,7 @@
   left: 0;
   background: rgb(var(--rgbBackground) / 0.9);
   transform: translate3d(0, -100%, 0);
-  transition-property: transform, background;
+  transition-property: background;
   transition-duration: var(--durationL);
   transition-timing-function: var(--bezierFastoutSlowin);
   display: none;
@@ -203,6 +203,13 @@
   @media (--mediaMobile), (max-height: 696px) {
     & {
       display: flex;
+    }
+  }
+
+  @media (--mediaUseMotion) {
+    & {
+      transition-property: transform, background;
+      transform: translate3d(0, -100%, 0);
     }
   }
 }

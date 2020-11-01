@@ -269,15 +269,13 @@
   opacity: 0;
 }
 
-@media (--mediaUseMotion) {
-  .intro__title-line--entering {
-    animation-name: intro-line;
-  }
-}
+.intro__title-line--entering {
+  animation-name: fade-in;
 
-@media (--mediaReduceMotion) {
-  .intro__title-line--entering {
-    animation-name: fade-in;
+  @media (--mediaUseMotion) {
+    & {
+      animation-name: intro-line;
+    }
   }
 }
 

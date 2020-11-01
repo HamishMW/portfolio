@@ -44,7 +44,7 @@
   }
 
   @media (--mediaUseMotion) {
-    &::after {
+    & {
       transition-property: transform, opacity, color, background;
     }
 

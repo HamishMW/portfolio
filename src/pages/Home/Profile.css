@@ -121,8 +121,10 @@
   transition-delay: 1.3s;
 
   @media (--mediaUseMotion) {
-    transition-property: opacity, transform;
-    transform: translate3d(calc(var(--spaceM) * -1), 0, 0);
+    & {
+      transition-property: opacity, transform;
+      transform: translate3d(calc(var(--spaceM) * -1), 0, 0);
+    }
   }
 }
 
