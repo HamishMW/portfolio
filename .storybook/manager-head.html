@@ -1,43 +1,10 @@
-<script>
-  if (navigator.doNotTrack !== '1') {
-    var script = document.createElement('script');
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=UA-38720984-1';
-    script.async = true;
-    document.head.appendChild(script);
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'UA-38720984-1');
-  }
-</script>
-
-<script>
-  var titleTag = document.createElement('title');
-  titleTag.text = 'Hamish Williams | Storybook';
-  var firstMeta = document.head.querySelector('meta[charset="utf-8"]');
-  document.head.insertBefore(titleTag, firstMeta.nextSibling);
-
-  var callback = function (mutationsList, observer) {
-    for (var mutation of mutationsList) {
-      if (mutation.type == 'childList') {
-        observer.disconnect();
-        titleTag.text = 'Hamish Williams | Storybook';
-      }
-    }
-  };
-
-  var observer = new MutationObserver(callback);
-  observer.observe(titleTag, { childList: true });
-</script>
-
 <style>
   .sidebar-header img {
     width: 32px;
   }
 </style>
 
+<title>Hamish Williams | Storybook</title>
 <meta
   name="description"
   content="My custom design component system created from the ground up used in building my portfolio. Built with the help of storybook and styled-components"

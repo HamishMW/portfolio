@@ -110,6 +110,7 @@ const Earth = forwardRef(
     const envMap = useRef();
     const skyBox = useRef();
     const contentAdded = useRef();
+    const cameraSpring = useRef();
     const mounted = useRef();
     const { width: windowWidth, height: windowHeight } = useWindowSize();
     const reduceMotion = usePrefersReducedMotion();
@@ -169,12 +170,15 @@ const Earth = forwardRef(
       camera.current.position.z = initCameraPosition.current.z;
       camera.current.lookAt(0, 0, 0);
 
+      const handleControlStart = () => cameraSpring.current?.stop();
+
       controls.current = new OrbitControls(camera.current, canvas.current);
       controls.current.enableZoom = false;
       controls.current.enablePan = false;
       controls.current.enableDamping = true;
       controls.current.dampingFactor = 0.1;
       controls.current.rotateSpeed = 0.5;
+      controls.current.addEventListener('start', handleControlStart);
 
       scene.current = new Scene();
       clock.current = new Clock();
@@ -189,6 +193,7 @@ const Earth = forwardRef(
       return () => {
         mounted.current = false;
         cancelAnimationFrame(animationFrame.current);
+        controls.current.removeEventListener('start', handleControlStart);
         removeLights(lights);
         cleanScene(scene.current);
         cleanRenderer(renderer.current);
@@ -282,6 +287,10 @@ const Earth = forwardRef(
       if (loaded && inViewport) {
         animate();
       }
+
+      return () => {
+        cancelAnimationFrame(animationFrame.current);
+      };
     }, [animate, inViewport, loaded]);
 
     useEffect(() => {
@@ -345,7 +354,6 @@ const Earth = forwardRef(
     }, []);
 
     useEffect(() => {
-      let cameraSpring;
       let chunkSpring;
       let chunkValue;
       let chunkValueSubscription;
@@ -570,7 +578,7 @@ const Earth = forwardRef(
           if (reduceMotion) {
             camera.current.position.set(currentX, currentY, currentZ);
           } else {
-            cameraSpring = spring({
+            cameraSpring.current = spring({
               from: cameraValue.current.get(),
               to: { x: currentX, y: currentY, z: currentZ },
               velocity: cameraValue.current.getVelocity(),
@@ -594,7 +602,7 @@ const Earth = forwardRef(
         window.removeEventListener('scroll', handleScroll);
         chunkSpring?.stop();
         opacitySpring?.stop();
-        cameraSpring?.stop();
+        cameraSpring.current?.stop();
       };
     }, [container, hideMeshes, inViewport, loaded, reduceMotion]);
 

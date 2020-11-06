@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment, useEffect, useMemo, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { useAppContext, useInViewport, useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
@@ -103,12 +103,13 @@ const ProjectSPR = () => {
 
   return (
     <Fragment>
-      <Helmet>
-        <title>{`Projects | ${title}`}</title>
-        <meta name="description" content={description} />
-      </Helmet>
       <ProjectContainer className="spr">
+        <Helmet>
+          <title>{`Projects | ${title}`}</title>
+          <meta name="description" content={description} />
+        </Helmet>
         <ProjectBackground
+          opacity={isDark ? 0.5 : 0.8}
           srcSet={`${backgroundSpr} 1080w, ${backgroundSprLarge} 2160w`}
           placeholder={backgroundSprPlaceholder}
           entered={!prerender}
@@ -336,59 +337,65 @@ const ProjectSPR = () => {
         <ThemeProvider themeId="dark">
           <Earth
             className="spr__earth"
-            hideMeshes={['Atmosphere', 'EarthPartial', 'Chunk', 'EarthFull']}
-            position={[0, 0, 0]}
+            hideMeshes={useMemo(
+              () => ['Atmosphere', 'EarthPartial', 'Chunk', 'EarthFull'],
+              []
+            )}
+            position={useMemo(() => [0, 0, 0], [])}
             ref={earthSectionRef}
-            labels={[
-              {
-                position: [0.54, 0.19, 0.18],
-                text: 'Pacific ring of fire',
-                hidden: true,
-              },
-              {
-                position: [0.47, -0.38, 0.04],
-                text: 'Ruapehu',
-                hidden: true,
-              },
-              {
-                position: [0.22, 0.44, -0.35],
-                text: 'St. Helens',
-                hidden: true,
-              },
-              {
-                position: [0.16, -0.06, 0.58],
-                text: 'Krakatoa',
-                hidden: true,
-              },
-              {
-                position: [0.11, 0.2, -0.56],
-                text: 'Parícutin',
-                hidden: true,
-              },
-              {
-                position: [0.52, 0.2, -0.23],
-                text: 'Kīlauea',
-                hidden: true,
-              },
-              {
-                position: [-0.24, 0.75, 0.24],
-                text: 'Mantle',
-                delay: 800,
-                hidden: true,
-              },
-              {
-                position: [-0.24, 0.55, 0.24],
-                text: 'Outer core',
-                delay: 800,
-                hidden: true,
-              },
-              {
-                position: [-0.24, 0.35, 0.24],
-                text: 'Inner core',
-                delay: 800,
-                hidden: true,
-              },
-            ]}
+            labels={useMemo(
+              () => [
+                {
+                  position: [0.54, 0.19, 0.18],
+                  text: 'Pacific ring of fire',
+                  hidden: true,
+                },
+                {
+                  position: [0.47, -0.38, 0.04],
+                  text: 'Ruapehu',
+                  hidden: true,
+                },
+                {
+                  position: [0.22, 0.44, -0.35],
+                  text: 'St. Helens',
+                  hidden: true,
+                },
+                {
+                  position: [0.16, -0.06, 0.58],
+                  text: 'Krakatoa',
+                  hidden: true,
+                },
+                {
+                  position: [0.11, 0.2, -0.56],
+                  text: 'Parícutin',
+                  hidden: true,
+                },
+                {
+                  position: [0.52, 0.2, -0.23],
+                  text: 'Kīlauea',
+                  hidden: true,
+                },
+                {
+                  position: [-0.24, 0.75, 0.24],
+                  text: 'Mantle',
+                  delay: 800,
+                  hidden: true,
+                },
+                {
+                  position: [-0.24, 0.55, 0.24],
+                  text: 'Outer core',
+                  delay: 800,
+                  hidden: true,
+                },
+                {
+                  position: [-0.24, 0.35, 0.24],
+                  text: 'Inner core',
+                  delay: 800,
+                  hidden: true,
+                },
+              ],
+              []
+            )}
             scale={0.6}
           >
             <EarthSection
