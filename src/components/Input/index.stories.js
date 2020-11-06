@@ -2,7 +2,7 @@ import Input from 'components/Input';
 import { useFormInput } from 'hooks';
 
 export default {
-  title: 'Text input',
+  title: 'Input',
 };
 
 const ExampleInput = props => {

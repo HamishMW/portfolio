@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import { useAppContext, useInViewport, useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
 import {

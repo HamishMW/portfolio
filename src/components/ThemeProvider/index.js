@@ -1,5 +1,5 @@
 import { createContext, Fragment, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
 import useTheme from './useTheme';
 import { theme, tokens } from './theme';

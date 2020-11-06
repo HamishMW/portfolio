@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import { TransitionGroup, Transition } from 'react-transition-group';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import Input from 'components/Input';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';

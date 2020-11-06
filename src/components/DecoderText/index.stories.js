@@ -3,7 +3,7 @@ import { StoryContainer } from '../../../.storybook/StoryContainer';
 import Heading from 'components/Heading';
 
 export default {
-  title: 'Decoder text',
+  title: 'DecoderText',
   args: {
     text: 'Slick cyberpunk text',
   },

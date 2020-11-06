@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import classNames from 'classnames';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import GothamBold from 'assets/fonts/gotham-bold.woff2';
 import './index.css';
 

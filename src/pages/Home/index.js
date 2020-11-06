@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import Intro from 'pages/Home/Intro';
 import ProjectSummary from 'pages/Home/ProjectSummary';
 import Profile from 'pages/Home/Profile';

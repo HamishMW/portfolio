@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { HelmetProvider } from 'react-helmet-async';
 import ThemeProvider from '../src/components/ThemeProvider';
 import '../src/app/reset.css';
 import '../src/app/index.css';
@@ -14,13 +13,11 @@ export const decorators = [
     }, [theme]);
 
     return (
-      <HelmetProvider>
-        <ThemeProvider themeId={theme}>
-          <div id="story-root" className="story-root">
-            <Story />
-          </div>
-        </ThemeProvider>
-      </HelmetProvider>
+      <ThemeProvider themeId={theme}>
+        <div id="story-root" className="story-root">
+          <Story />
+        </div>
+      </ThemeProvider>
     );
   },
 ];

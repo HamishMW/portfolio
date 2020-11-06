@@ -1,6 +1,6 @@
 import { lazy, Suspense, Fragment, useMemo } from 'react';
 import classNames from 'classnames';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import Image from 'components/Image';
 import { useScrollRestore, useRouteTransition } from 'hooks';
 import { Button } from 'components/Button';

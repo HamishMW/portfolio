@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, createContext, useReducer, Fragment } from '
 import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import classNames from 'classnames';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import Navbar from 'components/Navbar';
 import ThemeProvider from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
@@ -48,15 +48,13 @@ const App = () => {
   }, [storedTheme]);
 
   return (
-    <HelmetProvider>
-      <AppContext.Provider value={{ ...state, dispatch }}>
-        <ThemeProvider themeId={state.theme}>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-        </ThemeProvider>
-      </AppContext.Provider>
-    </HelmetProvider>
+    <AppContext.Provider value={{ ...state, dispatch }}>
+      <ThemeProvider themeId={state.theme}>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </ThemeProvider>
+    </AppContext.Provider>
   );
 };
 

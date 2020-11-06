@@ -80,10 +80,11 @@
     transition: opacity var(--durationM) var(--bezierFastoutSlowin);
     opacity: 0;
   }
+}
 
-  &:not([aria-checked='true']) + &:not([aria-checked='true'])::before {
-    opacity: 1;
-  }
+.segmented-control__button:not([aria-checked='true'])
+  + .segmented-control__button:not([aria-checked='true'])::before {
+  opacity: 1;
 }
 
 .segmented-control__indicator {

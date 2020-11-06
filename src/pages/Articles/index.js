@@ -8,7 +8,7 @@ import {
   Suspense,
 } from 'react';
 import { Route, Switch, Link as RouterLink } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import Post from 'pages/Post';
 import Image from 'components/Image';
 import { useScrollRestore } from 'hooks';

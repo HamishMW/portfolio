@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { usePrefersReducedMotion } from 'hooks';
 import { spring, chain, delay, value } from 'popmotion';
 import VisuallyHidden from 'components/VisuallyHidden';
+import prerender from 'utils/prerender';
 import './index.css';
 
 // prettier-ignore
@@ -73,7 +74,7 @@ const DecoderText = ({
       renderOutput();
     });
 
-    if (start && !animation && !reduceMotion) {
+    if (start && !animation && !reduceMotion && !prerender) {
       animation = chain(
         delay(startDelay),
         spring({

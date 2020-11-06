@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import classNames from 'classnames';
 import { Transition } from 'react-transition-group';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import { Button } from 'components/Button';
 import DecoderText from 'components/DecoderText';
 import Notfound from 'assets/notfound.mp4';

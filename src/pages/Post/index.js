@@ -6,7 +6,7 @@ import Divider from 'components/Divider';
 import { numToMs, msToNum } from 'utils/style';
 import { useWindowSize, useScrollRestore } from 'hooks';
 import Image from 'components/Image';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import { MDXProvider } from '@mdx-js/react';
 import Link from 'components/Link';
 import Code from 'components/Code';
