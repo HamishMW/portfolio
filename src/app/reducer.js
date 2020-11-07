@@ -9,8 +9,6 @@ export function reducer(state, action) {
   switch (type) {
     case 'setTheme':
       return { ...state, theme: value };
-    case 'setHeaderTheme':
-      return { ...state, headerTheme: value };
     case 'toggleTheme': {
       const newThemeId = state.theme === 'dark' ? 'light' : 'dark';
       return { ...state, theme: newThemeId };

@@ -424,6 +424,10 @@
   gap: var(--space3XL);
   margin: 0;
 
+  & p {
+    hyphens: auto;
+  }
+
   @media (--mediaTablet) {
     & {
       grid-template-columns: 1fr;

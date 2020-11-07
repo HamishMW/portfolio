@@ -1,6 +1,6 @@
-import { Fragment, useEffect, useMemo, useRef } from 'react';
+import { Fragment, useMemo, useRef } from 'react';
 import { Helmet } from 'react-helmet';
-import { useAppContext, useInViewport, useScrollRestore } from 'hooks';
+import { useAppContext, useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
 import {
   ProjectContainer,
@@ -82,8 +82,6 @@ const ProjectSPR = () => {
   const { dispatch } = useAppContext();
   const motionSectionRef = useRef();
   const earthSectionRef = useRef();
-  const motionSectionInViewport = useInViewport(motionSectionRef);
-  const earthSectionInViewport = useInViewport(earthSectionRef);
   useScrollRestore();
 
   const isDark = themeId === 'dark';
@@ -93,15 +91,8 @@ const ProjectSPR = () => {
     dispatch({ type: 'setTheme', value: themes[index] });
   };
 
-  useEffect(() => {
-    if (motionSectionInViewport || earthSectionInViewport) {
-      dispatch({ type: 'setHeaderTheme', value: 'dark' });
-    } else {
-      dispatch({ type: 'setHeaderTheme' });
-    }
-  }, [dispatch, earthSectionInViewport, motionSectionInViewport]);
-
   return (
+
     <Fragment>
       <ProjectContainer className="spr">
         <Helmet>
@@ -117,7 +108,7 @@ const ProjectSPR = () => {
         <ProjectHeader
           title={title}
           description={description}
-          url="https://www.smartsparrow.com/aero/"
+          url="https://www.smartsparrow.com/"
           roles={roles}
         />
         <ProjectSection first>
