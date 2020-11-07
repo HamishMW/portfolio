@@ -40,3 +40,8 @@ button {
 a {
   text-decoration: none;
 }
+
+ul {
+  margin: 0;
+  padding-left: 1em;
+}

@@ -105,8 +105,8 @@ const PostWrapper = ({
             reveal
             delay={600}
             className="post__banner-image"
-            src={banner ? require(`posts/assets/${banner}`) : undefined}
-            placeholder={require(`posts/assets/${bannerPlaceholder}`)}
+            src={banner ? require(`posts/assets/${banner}`).default : undefined}
+            placeholder={require(`posts/assets/${bannerPlaceholder}`).default}
             alt={bannerAlt}
           />
         </div>

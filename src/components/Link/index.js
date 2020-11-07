@@ -3,8 +3,12 @@ import classNames from 'classnames';
 import { blurOnMouseUp } from 'utils/focus';
 import './index.css';
 
+// File extensions that can be linked to
+const VALID_EXT = ['txt', 'png', 'jpg'];
+
 const Link = ({ rel, target, children, secondary, className, href, as, ...rest }) => {
-  const isAnchor = href?.includes('://') || href?.[0] === '#';
+  const isValidExtension = VALID_EXT.includes(href?.split('.').pop());
+  const isAnchor = href?.includes('://') || href?.[0] === '#' || isValidExtension;
   const relValue = rel || isAnchor ? 'noreferrer noopener' : undefined;
   const targetValue = target || isAnchor ? '_blank' : undefined;
   const Component = as || isAnchor ? 'a' : RouterLink;

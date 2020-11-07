@@ -1,0 +1,18 @@
+.uses {
+  --maxWidthL: var(--maxWidthM);
+
+  & ul {
+    padding-left: 1.4em;
+  }
+
+  & li {
+    margin-bottom: 0.6em;
+    list-style-type: square;
+    padding-left: 0.4em;
+  }
+}
+
+.uses__section {
+  opacity: 0;
+  animation: fade-in 1s ease 1s forwards;
+}

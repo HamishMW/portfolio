@@ -44,33 +44,37 @@ export function ProjectHeader({
           >
             {description}
           </Text>
-          <Button
-            secondary
-            iconHoverShift
-            className={classNames('project__link-button', {
-              'project__link-button--entered': !prerender,
-            })}
-            icon="chevronRight"
-            href={url}
-          >
-            {linkLabel}
-          </Button>
-        </div>
-        <ul className="project__meta">
-          {roles?.map((role, index) => (
-            <li
-              className={classNames('project__meta-item', {
-                'project__meta-item--entered': !prerender,
+          {!!url && (
+            <Button
+              secondary
+              iconHoverShift
+              className={classNames('project__link-button', {
+                'project__link-button--entered': !prerender,
               })}
-              style={{ '--delay': numToMs(initDelay + 300 + index * 140) }}
-              key={role}
+              icon="chevronRight"
+              href={url}
             >
-              <Text secondary as="span">
-                {role}
-              </Text>
-            </li>
-          ))}
-        </ul>
+              {linkLabel}
+            </Button>
+          )}
+        </div>
+        {!!roles?.length && (
+          <ul className="project__meta">
+            {roles?.map((role, index) => (
+              <li
+                className={classNames('project__meta-item', {
+                  'project__meta-item--entered': !prerender,
+                })}
+                style={{ '--delay': numToMs(initDelay + 300 + index * 140) }}
+                key={role}
+              >
+                <Text secondary as="span">
+                  {role}
+                </Text>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </Section>
   );

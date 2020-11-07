@@ -49,8 +49,8 @@ const ArticlesPost = ({
           <Image
             play={hovered}
             className="articles__post-image"
-            src={banner ? require(`posts/assets/${banner}`) : undefined}
-            placeholder={require(`posts/assets/${bannerPlaceholder}`)}
+            src={banner ? require(`posts/assets/${banner}`).default : undefined}
+            placeholder={require(`posts/assets/${bannerPlaceholder}`).default}
             alt={bannerAlt}
           />
           <div className="articles__post-image-tag">K256</div>
