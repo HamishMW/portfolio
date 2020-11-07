@@ -24,7 +24,7 @@ function DemoSegmentedControl({ options, ...rest }) {
 }
 
 export const segmentedControl = ({ options }) => (
-  <StoryContainer padding={32} gutter={32}>
+  <StoryContainer>
     <DemoSegmentedControl options={options} />
   </StoryContainer>
 );

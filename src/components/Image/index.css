@@ -25,14 +25,8 @@
 }
 
 .image--raised {
-  box-shadow: 0px 2px 6px rgba(var(--rgbBlack) / 0.2),
-    0px 26px 28px rgba(var(--rgbBlack) / 0.16);
-  transition: box-shadow var(--durationM) ease var(--durationL);
-}
-
-.image--raised.image--light {
-  box-shadow: 0px 2px 6px rgba(var(--rgbBlack) / 0.06),
-    0px 26px 28px rgba(var(--rgbBlack) / 0.08);
+  box-shadow: 0 50px 100px -20px rgb(var(--rgbBlack) / 0.25),
+    0 30px 60px -30px rgb(var(--rgbBlack) / 0.3);
 }
 
 .image--reveal {

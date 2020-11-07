@@ -10,7 +10,7 @@ export default {
 };
 
 export const text = ({ text }) => (
-  <StoryContainer padding={32}>
+  <StoryContainer>
     <Heading level={3}>
       <DecoderText delay={0} text={text} />
     </Heading>

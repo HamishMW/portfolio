@@ -6,7 +6,7 @@ export default {
 };
 
 export const Default = () => (
-  <StoryContainer padding={32} gutter={32} style={{ fontSize: 18 }}>
+  <StoryContainer style={{ fontSize: 18 }}>
     <Link href="#" onClick={e => e.preventDefault()}>
       Primary link
     </Link>

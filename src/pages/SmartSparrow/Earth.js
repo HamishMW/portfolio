@@ -86,6 +86,7 @@ const Earth = forwardRef(
     ref
   ) => {
     const [loaded, setLoaded] = useState(false);
+    const [grabbing, setGrabbing] = useState(false);
     const sectionRefs = useRef([]);
     const defaultContainer = useRef();
     const container = ref || defaultContainer;
@@ -170,7 +171,11 @@ const Earth = forwardRef(
       camera.current.position.z = initCameraPosition.current.z;
       camera.current.lookAt(0, 0, 0);
 
-      const handleControlStart = () => cameraSpring.current?.stop();
+      const handleControlStart = () => {
+        cameraSpring.current?.stop();
+        setGrabbing(true);
+      };
+      const handleControlEnd = () => setGrabbing(false);
 
       controls.current = new OrbitControls(camera.current, canvas.current);
       controls.current.enableZoom = false;
@@ -179,6 +184,7 @@ const Earth = forwardRef(
       controls.current.dampingFactor = 0.1;
       controls.current.rotateSpeed = 0.5;
       controls.current.addEventListener('start', handleControlStart);
+      controls.current.addEventListener('end', handleControlEnd);
 
       scene.current = new Scene();
       clock.current = new Clock();
@@ -194,6 +200,7 @@ const Earth = forwardRef(
         mounted.current = false;
         cancelAnimationFrame(animationFrame.current);
         controls.current.removeEventListener('start', handleControlStart);
+        controls.current.removeEventListener('end', handleControlEnd);
         removeLights(lights);
         cleanScene(scene.current);
         cleanRenderer(renderer.current);
@@ -621,6 +628,7 @@ const Earth = forwardRef(
             <canvas
               className={classNames('earth__canvas', {
                 'earth__canvas--visible': inViewport && loaded,
+                'earth__canvas--grabbing': grabbing,
               })}
               ref={canvas}
             />

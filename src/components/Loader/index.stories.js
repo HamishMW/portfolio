@@ -6,7 +6,7 @@ export default {
 };
 
 export const loader = () => (
-  <StoryContainer padding={32}>
+  <StoryContainer>
     <Loader size={48} />
   </StoryContainer>
 );

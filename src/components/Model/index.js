@@ -21,7 +21,6 @@ import {
   MeshDepthMaterial,
   ShaderMaterial,
 } from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -254,10 +253,6 @@ const Model = ({
     });
 
     setModelData(modelConfigPromises);
-
-    if (enableControls) {
-      new OrbitControls(camera.current, renderer.current.domElement);
-    }
 
     return () => {
       removeLights(lights.current);

@@ -6,7 +6,7 @@ export default {
 };
 
 export const size = () => (
-  <StoryContainer vertical padding={32} gutter={32}>
+  <StoryContainer vertical>
     <Text size="xl">XLarge</Text>
     <Text size="l">Large</Text>
     <Text size="m">Medium</Text>
@@ -15,7 +15,7 @@ export const size = () => (
 );
 
 export const weight = () => (
-  <StoryContainer vertical padding={32} gutter={32}>
+  <StoryContainer vertical>
     <Text weight="regular">Regular</Text>
     <Text weight="medium">Medium</Text>
     <Text weight="bold">Bold</Text>
@@ -23,7 +23,7 @@ export const weight = () => (
 );
 
 export const align = () => (
-  <StoryContainer vertical stretch padding={32} gutter={32}>
+  <StoryContainer vertical stretch>
     <Text align="start">Start</Text>
     <Text align="center">Center</Text>
   </StoryContainer>

@@ -7,7 +7,7 @@ export default {
 
 export const Icons = () => {
   return (
-    <StoryContainer padding={32} gutter={32}>
+    <StoryContainer>
       {Object.keys(icons).map(key => (
         <Icon key={key} icon={key} />
       ))}

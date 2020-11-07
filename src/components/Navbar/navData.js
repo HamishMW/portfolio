@@ -26,9 +26,9 @@ export const socialLinks = [
     icon: 'twitter',
   },
   {
-    label: 'Dribbble',
-    url: 'https://dribbble.com/hamishw',
-    icon: 'dribbble',
+    label: 'Figma',
+    url: 'https://www.figma.com/@Hamish',
+    icon: 'figma',
   },
   {
     label: 'Github',

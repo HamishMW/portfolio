@@ -75,7 +75,6 @@ const DisplacementSphere = props => {
       shader.uniforms = uniforms.current;
       shader.vertexShader = vertShader;
       shader.fragmentShader = fragShader;
-      shader.lights = true;
     };
 
     geometry.current = new SphereBufferGeometry(32, 128, 128);

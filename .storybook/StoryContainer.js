@@ -1,6 +1,12 @@
 import './StoryContainer.css';
 
-export const StoryContainer = ({ padding, stretch, gutter, vertical, children }) => (
+export const StoryContainer = ({
+  padding = 32,
+  stretch,
+  gutter = 32,
+  vertical,
+  children,
+}) => (
   <div
     className="story-container"
     style={{

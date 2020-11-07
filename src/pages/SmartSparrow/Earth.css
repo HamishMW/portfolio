@@ -16,6 +16,11 @@
   transition: opacity 1.6s var(--bezierFastoutSlowin);
   outline: none;
   opacity: 0;
+  cursor: grab;
+}
+
+.earth__canvas--grabbing {
+  cursor: grabbing;
 }
 
 .earth__canvas--visible {
@@ -28,7 +33,7 @@
 }
 
 .earth__label {
-  pointer-events: auto;
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;
