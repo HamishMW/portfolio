@@ -115,7 +115,7 @@ const ImageElements = ({
     if (!play || !inViewport) {
       setPlaying(false);
       videoRef.current.pause();
-    } else if (inViewport && !prefersReducedMotion) {
+    } else if (inViewport && !prefersReducedMotion && !prerender) {
       setPlaying(true);
       videoRef.current.play();
     }

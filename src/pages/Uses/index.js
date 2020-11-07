@@ -24,7 +24,7 @@ const Uses = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>{`Uses | Hamish Williams`}</title>
+        <title>Uses | Hamish Williams</title>
         <meta
           name="description"
           content="A list of hardware and software I use to do my thing"
