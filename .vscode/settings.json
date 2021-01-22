@@ -1,7 +1,7 @@
 {
   "editor.formatOnSave": true,
   "eslint.validate": ["javascript", "javascriptreact"],
-  "eslint.workingDirectories": ["./src", "./scripts", "./functions"],
+  "eslint.workingDirectories": ["./src", "./functions"],
   "files.exclude": {
     "**/.DS_Store": true,
     "**/.git": true,
@@ -9,8 +9,8 @@
   },
   "html.format.enable": false,
   "search.exclude": {
-    "**/bower_components": true,
     "**/node_modules": true,
-    "**/build/*.js": true
-  }
+    "**/build": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
