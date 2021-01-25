@@ -6,26 +6,26 @@ A design portfolio to showcase a few projects. View the [live site](https://hami
 
 ## Install & run
 
-Make sure you have nodejs and yarn installed. Install dependencies with:
+Make sure you have nodejs and npm installed. Install dependencies with:
 
 ```bash
-yarn
+npm
 ```
 
 Once it's done start up a local server with:
 
 ```bash
-yarn start
+npm start
 ```
 
 To view the components storybook:
 
 ```bash
-yarn storybook
+npm run storybook
 ```
 
-To run tests:
+To create a production build:
 
 ```bash
-yarn test
+npm run build
 ```
