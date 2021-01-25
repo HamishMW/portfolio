@@ -17,6 +17,7 @@ import prerender from 'utils/prerender';
 import { useScrollRestore } from 'hooks';
 import Footer from 'components/Footer';
 import './index.css';
+import { Table, TableCell, TableRow } from 'components/Table';
 
 const Uses = () => {
   useScrollRestore();
@@ -128,24 +129,68 @@ const Uses = () => {
           <ProjectSectionContent>
             <ProjectTextRow width="m">
               <ProjectSectionHeading>Hardware</ProjectSectionHeading>
-              <ProjectSectionText>
-                <ul>
-                  <li>My laptop is a trusty 2015 Macbook Pro.</li>
-                  <li>
-                    My Windows PC is a custom built GTX 780ti, i7 4770k, ASRock Z97
-                    Extreme4 build with a 1Tb NVME SSD and a Cooler Master 850w power
-                    supply.
-                  </li>
-                  <li>I use a Logitech MX keys wireless keyboard.</li>
-                  <li>My mouse is a Logitech G403.</li>
-                  <li>My monitor is a 1440p IPS 144hz LG 27GL850.</li>
-                  <li>I use a Blue Yeti microphone for audio recording.</li>
-                  <li>
-                    I use Audio Technica ATH-M50x headphones at my workstation and Apple
-                    Airpods while AFK.
-                  </li>
-                </ul>
-              </ProjectSectionText>
+              <Table>
+                <TableRow>
+                  <TableCell>
+                    <strong>CPU</strong>
+                  </TableCell>
+                  <TableCell>AMD Ryzen 5800x</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <strong>GPU</strong>
+                  </TableCell>
+                  <TableCell>MSI Gaming X Trio RTX 3080</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <strong>Memory</strong>
+                  </TableCell>
+                  <TableCell>GSkill 32GB DDR4 3600mhz CAS 18</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <strong>Motherboard</strong>
+                  </TableCell>
+                  <TableCell>MSI B550 Tomahawk</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <strong>Monitor</strong>
+                  </TableCell>
+                  <TableCell>1440p IPS 144hz LG 27GL850</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <strong>Keyboard</strong>
+                  </TableCell>
+                  <TableCell>Logitech MX Keys</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <strong>Mouse</strong>
+                  </TableCell>
+                  <TableCell>Logitech G403</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <strong>Laptop</strong>
+                  </TableCell>
+                  <TableCell>2015 Macbook Pro</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <strong>Headphones</strong>
+                  </TableCell>
+                  <TableCell>Audio Technica ATH-M50x/Apple Airpods</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <strong>Microphone</strong>
+                  </TableCell>
+                  <TableCell>Blue Yeti</TableCell>
+                </TableRow>
+              </Table>
             </ProjectTextRow>
           </ProjectSectionContent>
         </ProjectSection>

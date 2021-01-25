@@ -1,0 +1,24 @@
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table__row {
+  --rowBorder: 1px solid rgb(var(--rgbText) / 0.2);
+
+  border-top: var(--rowBorder);
+
+  &:last-child {
+    border-bottom: var(--rowBorder);
+  }
+}
+
+.table__cell {
+  padding-right: var(--spaceXL);
+  padding-top: var(--spaceM);
+  padding-bottom: var(--spaceM);
+
+  &:last-child {
+    padding-right: 0;
+  }
+}
