@@ -180,6 +180,7 @@ export const ProjectSectionText = ({ className, ...rest }) => (
 
 export const ProjectTextRow = ({
   center,
+  stretch,
   justify = 'center',
   width = 'm',
   noMargin,
@@ -195,6 +196,7 @@ export const ProjectTextRow = ({
       className,
       {
         'project__text-row--center': center,
+        'project__text-row--stretch': stretch,
         'project__text-row--center-mobile': centerMobile,
         'project__text-row--no-margin': noMargin,
       }

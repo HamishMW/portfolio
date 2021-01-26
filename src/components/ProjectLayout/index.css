@@ -404,6 +404,10 @@
   margin-bottom: 0;
 }
 
+.project__text-row--stretch {
+  width: 100%;
+}
+
 .project__text-row--center {
   align-items: center;
   text-align: center;

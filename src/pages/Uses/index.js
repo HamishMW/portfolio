@@ -127,7 +127,7 @@ const Uses = () => {
         </ProjectSection>
         <ProjectSection className="uses__section">
           <ProjectSectionContent>
-            <ProjectTextRow width="m">
+            <ProjectTextRow stretch width="m">
               <ProjectSectionHeading>Hardware</ProjectSectionHeading>
               <Table>
                 <TableRow>
