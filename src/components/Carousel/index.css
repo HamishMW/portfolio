@@ -11,10 +11,10 @@
   display: grid;
   grid-template-columns: 100%;
   cursor: grab;
+}
 
-  &:active {
-    cursor: grabbing;
-  }
+.carousel__image-wrapper--dragging {
+  cursor: inherit;
 }
 
 .carousel__canvas-wrapper {

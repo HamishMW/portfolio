@@ -33,6 +33,7 @@ function determineIndex(imageIndex, index, images, direction) {
 }
 
 const Carousel = ({ width, height, images, placeholder, ...rest }) => {
+  const [dragging, setDragging] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [showPlaceholder, setShowPlaceholder] = useState(true);
@@ -58,6 +59,16 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${
     images[imageIndex].alt
   }`;
+
+  useEffect(() => {
+    if (dragging) {
+      document.body.style.cursor = 'grabbing';
+    }
+
+    return () => {
+      document.body.style.cursor = '';
+    };
+  }, [dragging]);
 
   useEffect(() => {
     const cameraOptions = [width / -2, width / 2, height / 2, height / -2, 1, 1000];
@@ -322,12 +333,14 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
 
     const swipeStart = listen(swipeElement.current, 'mousedown touchstart').start(
       event => {
+        setDragging(true);
         event.preventDefault();
         pointerTracker = pointer({ x: 0, y: 0 }).start(swipeXY);
       }
     );
 
     const swipeEnd = listen(document, 'mouseup touchend').start(() => {
+      setDragging(false);
       onSwipeEnd();
       pointerTracker?.stop();
     });
@@ -355,7 +368,12 @@ const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   return (
     <div className="carousel" onKeyDown={handleKeyDown} {...rest}>
       <div className="carousel__content">
-        <div className="carousel__image-wrapper" ref={swipeElement}>
+        <div
+          className={classNames('carousel__image-wrapper', {
+            'carousel__image-wrapper--dragging': dragging,
+          })}
+          ref={swipeElement}
+        >
           <div
             aria-atomic
             className="carousel__canvas-wrapper"
