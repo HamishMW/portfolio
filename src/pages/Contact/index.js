@@ -1,21 +1,22 @@
-import { useState, useCallback, useRef } from 'react';
+import './index.css';
+
 import classNames from 'classnames';
-import { TransitionGroup, Transition } from 'react-transition-group';
-import { Helmet } from 'react-helmet';
-import Input from 'components/Input';
+import { Button } from 'components/Button';
 import DecoderText from 'components/DecoderText';
 import Divider from 'components/Divider';
-import { Button } from 'components/Button';
-import Section from 'components/Section';
-import Icon from 'components/Icon';
-import { useScrollRestore, useFormInput, useRouteTransition } from 'hooks';
-import { reflow, isVisible } from 'utils/transition';
-import prerender from 'utils/prerender';
-import { msToNum, numToPx, numToMs } from 'utils/style';
-import { tokens } from 'components/ThemeProvider/theme';
 import Heading from 'components/Heading';
+import Icon from 'components/Icon';
+import Input from 'components/Input';
+import Section from 'components/Section';
 import Text from 'components/Text';
-import './index.css';
+import { tokens } from 'components/ThemeProvider/theme';
+import { useFormInput, useRouteTransition, useScrollRestore } from 'hooks';
+import { useCallback, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { Transition, TransitionGroup } from 'react-transition-group';
+import prerender from 'utils/prerender';
+import { msToNum, numToMs, numToPx } from 'utils/style';
+import { isVisible, reflow } from 'utils/transition';
 
 const initDelay = tokens.base.durationS;
 
