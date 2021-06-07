@@ -55,10 +55,7 @@
     animation-duration: 1.8s;
     animation-timing-function: var(--bezierFastoutSlowin);
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     transform: scale3d(0, 1, 1);
     transform-origin: left;
     z-index: 16;

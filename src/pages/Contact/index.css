@@ -252,10 +252,7 @@
   padding: var(--spaceXL) var(--spaceM);
   position: fixed;
   text-align: center;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
 }
 
 .contact__complete-title {

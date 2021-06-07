@@ -30,10 +30,7 @@
     transition-timing-function: var(--bezierFastoutSlowin);
     background: rgb(var(--rgbPrimary));
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     z-index: -1;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
   }
@@ -73,10 +70,7 @@
     content: '';
     height: calc((32 / 16) * 1rem);
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     background-color: rgb(var(--rgbPrimary) / 0.2);
     transform: scale3d(0, 1, 1);
     transform-origin: right;

@@ -185,10 +185,7 @@
 
 .navbar__mobile-nav {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   background: rgb(var(--rgbBackground) / 0.9);
   transform: translate3d(0, -100%, 0);
   transition-property: background;
