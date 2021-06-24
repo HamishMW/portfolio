@@ -9,7 +9,7 @@ A design portfolio to showcase a few projects. View the [live site](https://hami
 Make sure you have nodejs and npm installed. Install dependencies with:
 
 ```bash
-npm
+npm install
 ```
 
 Once it's done start up a local server with:
