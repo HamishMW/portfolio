@@ -1,24 +1,17 @@
 const serverless = require('serverless-http');
-const nodemailer = require('nodemailer');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const createDOMPurify = require('dompurify');
 const { JSDOM } = require('jsdom');
+const aws = require('@aws-sdk/client-ses');
 
 const app = express();
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window);
-const { smtpHost, smtpUser, smtpPass } = process.env;
 
-const mailTransport = nodemailer.createTransport({
-  host: smtpHost,
-  port: 465,
-  secure: true,
-  auth: {
-    user: smtpUser,
-    pass: smtpPass,
-  },
+const ses = new aws.SES({
+  region: 'us-east-1',
 });
 
 const ORIGIN = 'https://hamishw.com';
@@ -54,15 +47,19 @@ app.post('/message', async (req, res) => {
       });
     }
 
-    // Send email
-    const mailOptions = {
-      from: `Portfolio <mailbot@hamishw.com>`,
-      to: 'hello@hamishw.com',
-      subject: `New message from ${email}`,
-      text: `From: ${email}\n\n${message}`,
-    };
-
-    await mailTransport.sendMail(mailOptions);
+    // Send email using AWS SES
+    await ses.sendEmail({
+      Source: 'Portfolio <mailbot@hamishw.com>',
+      Destination: {
+        ToAddresses: ['hello@hamishw.com'],
+      },
+      Message: {
+        Subject: { Data: `New message from ${email}` },
+        Body: {
+          Text: { Data: `From: ${email}\n\n${message}` },
+        },
+      },
+    });
 
     return res.status(200).json({ message: 'Message sent successfully' });
   } catch (error) {
