@@ -23,7 +23,7 @@
     "prettier": "^2.2.1",
     "react-snap": "1.23.0",
     "source-map-explorer": "^2.5.1",
-    "stylelint": "^13.8.0",
+    "stylelint": "^14.0.0",
     "stylelint-config-recommended": "^3.0.0"
   },
   "dependencies": {
