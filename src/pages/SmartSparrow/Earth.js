@@ -1,45 +1,46 @@
+import './Earth.css';
+
+import earthModel from 'assets/earth.glb';
+import milkywayHdr from 'assets/milkyway.hdr';
+import milkywayBg from 'assets/milkyway.jpg';
+import classNames from 'classnames';
+import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
+import { spring, transform, value } from 'popmotion';
 import {
+  createContext,
+  forwardRef,
+  memo,
+  useCallback,
+  useContext,
   useEffect,
   useRef,
   useState,
-  useCallback,
-  createContext,
-  useContext,
-  memo,
-  forwardRef,
 } from 'react';
-import classNames from 'classnames';
 import {
-  Scene,
-  PerspectiveCamera,
-  WebGLRenderer,
+  ACESFilmicToneMapping,
   AmbientLight,
-  DirectionalLight,
   AnimationMixer,
   Clock,
-  UnsignedByteType,
-  TextureLoader,
-  sRGBEncoding,
+  DirectionalLight,
   LoopOnce,
-  Vector3,
-  Vector2,
-  Sprite,
-  Raycaster,
   PMREMGenerator,
+  PerspectiveCamera,
+  Raycaster,
+  Scene,
+  Sprite,
+  TextureLoader,
+  UnsignedByteType,
+  Vector2,
+  Vector3,
   WebGLCubeRenderTarget,
-  ACESFilmicToneMapping,
+  WebGLRenderer,
+  sRGBEncoding,
 } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { spring, value, transform } from 'popmotion';
-import milkywayBg from 'assets/milkyway.jpg';
-import milkywayHdr from 'assets/milkyway.hdr';
-import earthModel from 'assets/earth.glb';
-import { cleanScene, removeLights, cleanRenderer } from 'utils/three';
-import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
 import { media } from 'utils/style';
-import './Earth.css';
+import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
 
