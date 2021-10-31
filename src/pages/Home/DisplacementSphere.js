@@ -1,30 +1,31 @@
-import { useEffect, useRef } from 'react';
+import './DisplacementSphere.css';
+
 import classNames from 'classnames';
+import { useTheme } from 'components/ThemeProvider';
+import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
+import { spring, value } from 'popmotion';
+import { useEffect, useRef } from 'react';
+import { Transition } from 'react-transition-group';
 import {
-  Vector2,
-  sRGBEncoding,
-  WebGLRenderer,
+  AmbientLight,
+  Color,
+  DirectionalLight,
+  Mesh,
+  MeshPhongMaterial,
   PerspectiveCamera,
   Scene,
-  DirectionalLight,
-  AmbientLight,
-  UniformsUtils,
-  UniformsLib,
-  MeshPhongMaterial,
   SphereBufferGeometry,
-  Mesh,
-  Color,
+  UniformsLib,
+  UniformsUtils,
+  Vector2,
+  WebGLRenderer,
+  sRGBEncoding,
 } from 'three';
-import { spring, value } from 'popmotion';
-import vertShader from './sphereVertShader';
-import fragShader from './sphereFragShader';
-import { Transition } from 'react-transition-group';
-import { useTheme } from 'components/ThemeProvider';
-import { usePrefersReducedMotion, useInViewport, useWindowSize } from 'hooks';
-import { reflow } from 'utils/transition';
 import { media, rgbToThreeColor } from 'utils/style';
-import { cleanScene, removeLights, cleanRenderer } from 'utils/three';
-import './DisplacementSphere.css';
+import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
+import { reflow } from 'utils/transition';
+import fragShader from './sphereFragShader';
+import vertShader from './sphereVertShader';
 
 const DisplacementSphere = props => {
   const theme = useTheme();
