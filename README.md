@@ -30,6 +30,26 @@ To create a production build:
 npm run build
 ```
 
+## Deployment
+
+I've set up the site using AWS for hosting and serverless functions. You'll need an AWS account and the AWS CLI installed in order to deploy.
+
+Deploy the site to s3:
+
+```bash
+npm run deploy
+```
+
+Deploy serverless functions:
+
+```bash
+cd functions
+```
+
+```bash
+npm run deploy:api
+```
+
 ## Permissions
 
 I'm cool with anyone using the code or parts of the code for their own site, it is open source so people can learn from it and adapt it. However, I would encourage you to modify the theme and components it to make it your own. If you are using the site's design largely unmodified, I'd appreciate being credited as the designer of the website. 
