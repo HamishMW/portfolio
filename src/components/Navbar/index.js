@@ -1,17 +1,19 @@
-import { useRef, useState, memo } from 'react';
-import { NavLink, Link as RouterLink } from 'react-router-dom';
-import { Transition } from 'react-transition-group';
-import Monogram from 'components/Monogram';
+import './index.css';
+
+import classNames from 'classnames';
 import Icon from 'components/Icon';
+import Monogram from 'components/Monogram';
+import { tokens } from 'components/ThemeProvider/theme';
+import { useAppContext, useWindowSize } from 'hooks';
+import { memo, useRef, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { Transition } from 'react-transition-group';
+import { blurOnMouseUp } from 'utils/focus';
+import { media, msToNum, numToMs } from 'utils/style';
+import { reflow } from 'utils/transition';
 import NavToggle from './NavToggle';
 import ThemeToggle from './ThemeToggle';
-import { useWindowSize, useAppContext } from 'hooks';
 import { navLinks, socialLinks } from './navData';
-import { reflow } from 'utils/transition';
-import { media, msToNum, numToMs } from 'utils/style';
-import { tokens } from 'components/ThemeProvider/theme';
-import { blurOnMouseUp } from 'utils/focus';
-import './index.css';
 
 const NavbarIcons = () => (
   <div className="navbar__nav-icons">
@@ -48,9 +50,9 @@ function Header(props) {
     if (menuOpen) dispatch({ type: 'toggleMenu' });
   };
 
-  const isMatch = ({ match, hash = '' }) => {
-    if (!match) return false;
-    return `${match.url}${hash}` === `${location.pathname}${location.hash}`;
+  const isMatch = (url = '', hash = '') => {
+    if (!url) return false;
+    return `${url}${hash}` === `${location.pathname}${location.hash}`;
   };
 
   return (
@@ -68,18 +70,16 @@ function Header(props) {
       <nav className="navbar__nav">
         <div className="navbar__nav-list">
           {navLinks.map(({ label, pathname, hash }) => (
-            <NavLink
-              exact
+            <RouterLink
               className="navbar__nav-link"
-              activeClassName="navbar__nav-link--active"
-              isActive={match => isMatch({ match, hash })}
+              aria-current={isMatch(pathname, hash) ? 'page' : undefined}
               onClick={handleNavClick}
               key={label}
               to={{ pathname, hash, state: hashKey }}
               onMouseUp={blurOnMouseUp}
             >
               {label}
-            </NavLink>
+            </RouterLink>
           ))}
         </div>
         <NavbarIcons />
@@ -94,9 +94,12 @@ function Header(props) {
         {status => (
           <nav className={`navbar__mobile-nav navbar__mobile-nav--${status}`}>
             {navLinks.map(({ label, pathname, hash }, index) => (
-              <NavLink
-                className={`navbar__mobile-nav-link navbar__mobile-nav-link--${status}`}
-                activeClassName="navbar__mobile-nav-link--active"
+              <RouterLink
+                className={classNames(
+                  'navbar__mobile-nav-link',
+                  `navbar__mobile-nav-link--${status}`
+                )}
+                aria-current={isMatch(pathname, hash) ? 'page' : undefined}
                 key={label}
                 onClick={handleMobileNavClick}
                 to={{ pathname, hash, state: hashKey }}
@@ -108,7 +111,7 @@ function Header(props) {
                 }}
               >
                 {label}
-              </NavLink>
+              </RouterLink>
             ))}
             <NavbarIcons />
             <ThemeToggle isMobile />

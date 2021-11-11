@@ -1,19 +1,20 @@
-import { lazy, Suspense, useEffect, createContext, useReducer, Fragment } from 'react';
-import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
-import { Transition, TransitionGroup } from 'react-transition-group';
+import './reset.css';
+import './index.css';
+
+import { initialState, reducer } from 'app/reducer';
 import classNames from 'classnames';
-import { Helmet } from 'react-helmet';
 import Navbar from 'components/Navbar';
 import ThemeProvider from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import VisuallyHidden from 'components/VisuallyHidden';
 import { useLocalStorage } from 'hooks';
+import { Fragment, Suspense, createContext, lazy, useEffect, useReducer } from 'react';
+import { Helmet } from 'react-helmet';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { Transition, TransitionGroup } from 'react-transition-group';
+import prerender from 'utils/prerender';
 import { msToNum } from 'utils/style';
 import { reflow } from 'utils/transition';
-import prerender from 'utils/prerender';
-import { initialState, reducer } from 'app/reducer';
-import './reset.css';
-import './index.css';
 
 const Home = lazy(() => import('pages/Home'));
 const Contact = lazy(() => import('pages/Contact'));
@@ -82,16 +83,19 @@ const AppRoutes = () => {
             <TransitionContext.Provider value={{ status }}>
               <div className={classNames('app__page', `app__page--${status}`)}>
                 <Suspense fallback={<Fragment />}>
-                  <Switch location={location}>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/contact" component={Contact} />
-                    <Route path="/projects/smart-sparrow" component={ProjectSPR} />
-                    <Route path="/projects/slice" component={ProjectSlice} />
-                    <Route path="/projects/volkihar-knight" component={ProjectVolkihar} />
-                    {/* <Route path="/articles" component={Articles} /> */}
-                    <Route path="/uses" component={Uses} />
-                    <Route component={Page404} />
-                  </Switch>
+                  <Routes location={location} key={pathname}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/projects/smart-sparrow" element={<ProjectSPR />} />
+                    <Route path="/projects/slice" element={<ProjectSlice />} />
+                    <Route
+                      path="/projects/volkihar-knight"
+                      element={<ProjectVolkihar />}
+                    />
+                    {/* <Route path="/articles" element={<Articles} /> /> */}
+                    <Route path="/uses" element={<Uses />} />
+                    <Route path="*" element={<Page404 />} />
+                  </Routes>
                 </Suspense>
               </div>
             </TransitionContext.Provider>
