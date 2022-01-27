@@ -36,7 +36,7 @@
     "react-helmet": "^6.1.0",
     "react-router-dom": "6.0.2",
     "react-transition-group": "^4.4.2",
-    "three": "^0.125.0"
+    "three": "^0.137.0"
   },
   "scripts": {
     "start": "react-scripts start",
