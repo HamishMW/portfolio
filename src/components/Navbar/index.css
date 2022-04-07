@@ -106,10 +106,10 @@
     }
   }
 
-  &:hover:after,
-  &:active:after,
-  &:focus:after,
-  &[aria-current='page']:after {
+  &:hover::after,
+  &:active::after,
+  &:focus::after,
+  &[aria-current='page']::after {
     transform: scaleX(1) translateY(-2px);
     transform-origin: left;
   }
@@ -266,9 +266,9 @@
     }
   }
 
-  &:hover:after,
-  &:active:after,
-  &:focus:after {
+  &:hover::after,
+  &:active::after,
+  &:focus::after {
     transform: scaleX(1) translateY(-1px);
     transform-origin: left;
   }

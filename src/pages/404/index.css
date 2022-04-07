@@ -28,14 +28,17 @@
     transform: scale3d(0, 1, 1);
     transform-origin: left;
   }
+
   49% {
     transform: scale3d(1, 1, 1);
     transform-origin: left;
   }
+
   50% {
     transform: scale3d(1, 1, 1);
     transform-origin: right;
   }
+
   100% {
     transform: scale3d(0, 1, 1);
     transform-origin: right;

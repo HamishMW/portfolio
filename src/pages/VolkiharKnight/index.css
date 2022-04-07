@@ -12,7 +12,7 @@
 }
 
 .volkihar__logo-container {
-  --logoBackground: #111111;
+  --logoBackground: #111;
 
   display: flex;
   justify-content: center;

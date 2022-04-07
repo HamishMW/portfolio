@@ -1,5 +1,17 @@
 {
   "extends": [
-    "stylelint-config-recommended"
-  ]
+    "stylelint-config-standard"
+  ],
+  "rules": {
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "string-quotes": "single",
+    "declaration-block-no-redundant-longhand-properties": null,
+    "value-keyword-case": null,
+    "alpha-value-notation": "number",
+    "declaration-colon-newline-after": null,
+    "indentation": null,
+    "selector-combinator-space-before": null,
+    "value-list-comma-newline-after": null
+  }
 }

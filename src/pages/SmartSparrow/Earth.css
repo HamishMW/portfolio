@@ -40,8 +40,8 @@
   color: white;
   font-weight: var(--fontWeightMedium);
   font-size: var(--fontSizeBodyXS);
-  text-shadow: 0px 0px 3px rgb(var(--rgbBlack)), 0px 0px 5px rgb(var(--rgbBlack)),
-    0px 0px 20px rgb(var(--rgbBlack));
+  text-shadow: 0 0 3px rgb(var(--rgbBlack)), 0 0 5px rgb(var(--rgbBlack)),
+    0 0 20px rgb(var(--rgbBlack));
   transition: opacity var(--durationM) ease;
   transition-delay: var(--delay);
   font-family: var(--systemFontStack);

@@ -43,6 +43,7 @@
   @media (--mediaTablet) {
     & {
       --section-padding: var(--space3XL);
+
       height: auto;
     }
   }
@@ -201,6 +202,7 @@
     opacity: 0;
     transform: translate3d(0, var(--space3XL), 0);
   }
+
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);

@@ -30,13 +30,13 @@
 
   &:-internal-autofill-selected {
     -webkit-text-fill-color: var(--colorTextBody);
-    box-shadow: 0 0 0px 1000px rgb(var(--rgbText) / 0.1) inset;
+    box-shadow: 0 0 0 1000px rgb(var(--rgbText) / 0.1) inset;
   }
 
   /* Needs to be a single selector to work in safari */
   &:-webkit-autofill {
     -webkit-text-fill-color: var(--colorTextBody);
-    box-shadow: 0 0 0px 1000px rgb(var(--rgbText) / 0.1) inset;
+    box-shadow: 0 0 0 1000px rgb(var(--rgbText) / 0.1) inset;
   }
 
   &:focus {
@@ -61,7 +61,6 @@
   height: 2px;
   position: absolute;
   bottom: 0;
-
   transform-origin: left;
 
   @media (--mediaUseMotion) {

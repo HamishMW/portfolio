@@ -26,16 +26,19 @@
     opacity: 0.5;
     transform-origin: top;
   }
+
   40% {
     transform: scaleY(1);
     opacity: 1;
     transform-origin: top;
   }
+
   60% {
     transform: scaleY(1);
     opacity: 1;
     transform-origin: bottom;
   }
+
   100% {
     transform: scaleY(0);
     opacity: 0.5;
