@@ -1,71 +1,72 @@
-import { Fragment, useMemo, useRef } from 'react';
-import { Helmet } from 'react-helmet';
-import { useAppContext, useScrollRestore } from 'hooks';
-import Footer from 'components/Footer';
-import {
-  ProjectContainer,
-  ProjectSection,
-  ProjectSectionContent,
-  ProjectTextRow,
-  ProjectImage,
-  ProjectSectionHeading,
-  ProjectSectionText,
-  ProjectBackground,
-  ProjectHeader,
-  ProjectSectionColumns,
-} from 'components/ProjectLayout';
-import ThemeProvider, { useTheme } from 'components/ThemeProvider';
-import Image from 'components/Image';
-import SegmentedControl, { SegmentedControlOption } from 'components/SegmentedControl';
-import prerender from 'utils/prerender';
-import { media } from 'utils/style';
-import backgroundSpr from 'assets/spr-background.jpg';
+import './index.css';
+
 import backgroundSprLarge from 'assets/spr-background-large.jpg';
 import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
-import imageSprLessonBuilderLight from 'assets/spr-lesson-builder-light.jpg';
-import imageSprLessonBuilderLightLarge from 'assets/spr-lesson-builder-light-large.jpg';
-import imageSprLessonBuilderLightPlaceholder from 'assets/spr-lesson-builder-light-placeholder.jpg';
-import imageSprLessonBuilderDark from 'assets/spr-lesson-builder-dark.jpg';
-import imageSprLessonBuilderDarkLarge from 'assets/spr-lesson-builder-dark-large.jpg';
-import imageSprLessonBuilderDarkPlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
-import imageSprComponentsDark from 'assets/spr-components-dark.png';
-import imageSprComponentsDarkLarge from 'assets/spr-components-dark-large.png';
-import imageSprComponentsDarkPlaceholder from 'assets/spr-components-dark-placeholder.png';
-import imageSprComponentsLight from 'assets/spr-components-light.png';
-import imageSprComponentsLightLarge from 'assets/spr-components-light-large.png';
-import imageSprComponentsLightPlaceholder from 'assets/spr-components-light-placeholder.png';
-import imageSprDesignSystemDark from 'assets/spr-design-system-dark.png';
-import imageSprDesignSystemDarkLarge from 'assets/spr-design-system-dark-large.png';
-import imageSprDesignSystemDarkPlaceholder from 'assets/spr-design-system-dark-placeholder.png';
-import imageSprDesignSystemLight from 'assets/spr-design-system-light.png';
-import imageSprDesignSystemLightLarge from 'assets/spr-design-system-light-large.png';
-import imageSprDesignSystemLightPlaceholder from 'assets/spr-design-system-light-placeholder.png';
-import imageSprStoryboarderDark from 'assets/spr-storyboarder-dark.png';
-import imageSprStoryboarderDarkLarge from 'assets/spr-storyboarder-dark-large.png';
-import imageSprStoryboarderDarkPlaceholder from 'assets/spr-storyboarder-dark-placeholder.png';
-import imageSprStoryboarderLight from 'assets/spr-storyboarder-light.png';
-import imageSprStoryboarderLightLarge from 'assets/spr-storyboarder-light-large.png';
-import imageSprStoryboarderLightPlaceholder from 'assets/spr-storyboarder-light-placeholder.png';
-import imageSprBackgroundVolcanism from 'assets/spr-background-volcanism.jpg';
 import imageSprBackgroundVolcanismLarge from 'assets/spr-background-volcanism-large.jpg';
 import imageSprBackgroundVolcanismPlaceholder from 'assets/spr-background-volcanism-placeholder.jpg';
-import imageSprSchema1Light from 'assets/spr-schema-1-light.png';
-import imageSprSchema1LightLarge from 'assets/spr-schema-1-light-large.png';
-import imageSprSchema1LightPlaceholder from 'assets/spr-schema-1-light-placeholder.png';
-import imageSprSchema1Dark from 'assets/spr-schema-1-dark.png';
-import imageSprSchema1DarkLarge from 'assets/spr-schema-1-dark-large.png';
-import imageSprSchema1DarkPlaceholder from 'assets/spr-schema-1-dark-placeholder.png';
-import imageSprSchema2Light from 'assets/spr-schema-2-light.png';
-import imageSprSchema2LightLarge from 'assets/spr-schema-2-light-large.png';
-import imageSprSchema2LightPlaceholder from 'assets/spr-schema-2-light-placeholder.png';
-import imageSprSchema2Dark from 'assets/spr-schema-2-dark.png';
-import imageSprSchema2DarkLarge from 'assets/spr-schema-2-dark-large.png';
-import imageSprSchema2DarkPlaceholder from 'assets/spr-schema-2-dark-placeholder.png';
-import videoSprMotion from 'assets/spr-motion.mp4';
+import imageSprBackgroundVolcanism from 'assets/spr-background-volcanism.jpg';
+import backgroundSpr from 'assets/spr-background.jpg';
+import imageSprComponentsDarkLarge from 'assets/spr-components-dark-large.png';
+import imageSprComponentsDarkPlaceholder from 'assets/spr-components-dark-placeholder.png';
+import imageSprComponentsDark from 'assets/spr-components-dark.png';
+import imageSprComponentsLightLarge from 'assets/spr-components-light-large.png';
+import imageSprComponentsLightPlaceholder from 'assets/spr-components-light-placeholder.png';
+import imageSprComponentsLight from 'assets/spr-components-light.png';
+import imageSprDesignSystemDarkLarge from 'assets/spr-design-system-dark-large.png';
+import imageSprDesignSystemDarkPlaceholder from 'assets/spr-design-system-dark-placeholder.png';
+import imageSprDesignSystemDark from 'assets/spr-design-system-dark.png';
+import imageSprDesignSystemLightLarge from 'assets/spr-design-system-light-large.png';
+import imageSprDesignSystemLightPlaceholder from 'assets/spr-design-system-light-placeholder.png';
+import imageSprDesignSystemLight from 'assets/spr-design-system-light.png';
+import imageSprLessonBuilderDarkLarge from 'assets/spr-lesson-builder-dark-large.jpg';
+import imageSprLessonBuilderDarkPlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
+import imageSprLessonBuilderDark from 'assets/spr-lesson-builder-dark.jpg';
+import imageSprLessonBuilderLightLarge from 'assets/spr-lesson-builder-light-large.jpg';
+import imageSprLessonBuilderLightPlaceholder from 'assets/spr-lesson-builder-light-placeholder.jpg';
+import imageSprLessonBuilderLight from 'assets/spr-lesson-builder-light.jpg';
 import videoSprMotionLarge from 'assets/spr-motion-large.mp4';
 import videoSprMotionPlaceholder from 'assets/spr-motion-placeholder.jpg';
+import videoSprMotion from 'assets/spr-motion.mp4';
+import imageSprSchema1DarkLarge from 'assets/spr-schema-1-dark-large.png';
+import imageSprSchema1DarkPlaceholder from 'assets/spr-schema-1-dark-placeholder.png';
+import imageSprSchema1Dark from 'assets/spr-schema-1-dark.png';
+import imageSprSchema1LightLarge from 'assets/spr-schema-1-light-large.png';
+import imageSprSchema1LightPlaceholder from 'assets/spr-schema-1-light-placeholder.png';
+import imageSprSchema1Light from 'assets/spr-schema-1-light.png';
+import imageSprSchema2DarkLarge from 'assets/spr-schema-2-dark-large.png';
+import imageSprSchema2DarkPlaceholder from 'assets/spr-schema-2-dark-placeholder.png';
+import imageSprSchema2Dark from 'assets/spr-schema-2-dark.png';
+import imageSprSchema2LightLarge from 'assets/spr-schema-2-light-large.png';
+import imageSprSchema2LightPlaceholder from 'assets/spr-schema-2-light-placeholder.png';
+import imageSprSchema2Light from 'assets/spr-schema-2-light.png';
+import imageSprStoryboarderDarkLarge from 'assets/spr-storyboarder-dark-large.png';
+import imageSprStoryboarderDarkPlaceholder from 'assets/spr-storyboarder-dark-placeholder.png';
+import imageSprStoryboarderDark from 'assets/spr-storyboarder-dark.png';
+import imageSprStoryboarderLightLarge from 'assets/spr-storyboarder-light-large.png';
+import imageSprStoryboarderLightPlaceholder from 'assets/spr-storyboarder-light-placeholder.png';
+import imageSprStoryboarderLight from 'assets/spr-storyboarder-light.png';
+import Footer from 'components/Footer';
+import Image from 'components/Image';
+import {
+  ProjectBackground,
+  ProjectContainer,
+  ProjectHeader,
+  ProjectImage,
+  ProjectSection,
+  ProjectSectionColumns,
+  ProjectSectionContent,
+  ProjectSectionHeading,
+  ProjectSectionText,
+  ProjectTextRow,
+} from 'components/ProjectLayout';
+import SegmentedControl, { SegmentedControlOption } from 'components/SegmentedControl';
+import ThemeProvider, { useTheme } from 'components/ThemeProvider';
+import { useAppContext, useScrollRestore } from 'hooks';
+import { Fragment, useMemo, useRef } from 'react';
+import { Helmet } from 'react-helmet';
+import prerender from 'utils/prerender';
+import { media } from 'utils/style';
 import Earth, { EarthSection } from './Earth';
-import './index.css';
 
 const title = 'Designing the future of education';
 const description =
@@ -92,7 +93,6 @@ const ProjectSPR = () => {
   };
 
   return (
-
     <Fragment>
       <ProjectContainer className="spr">
         <Helmet>
@@ -505,6 +505,18 @@ const ProjectSPR = () => {
             />
           </Earth>
         </ThemeProvider>
+        <ProjectSection>
+          <ProjectSectionContent>
+            <ProjectTextRow center centerMobile noMargin>
+              <ProjectSectionHeading>Outcomes</ProjectSectionHeading>
+              <ProjectSectionText>
+                Ultimately the project was successful after Smart Sparrow and the aero
+                platform were acquired by Pearson in 2019 to become a foundation for their
+                next generation learning platform.
+              </ProjectSectionText>
+            </ProjectTextRow>
+          </ProjectSectionContent>
+        </ProjectSection>
       </ProjectContainer>
       <Footer />
     </Fragment>

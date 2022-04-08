@@ -1,8 +1,13 @@
 import './Earth.css';
 
 import earthModel from 'assets/earth.glb';
-import milkywayHdr from 'assets/milkyway.hdr';
 import milkywayBg from 'assets/milkyway.jpg';
+import mwnx from 'assets/milkyway/nx.hdr';
+import mwny from 'assets/milkyway/ny.hdr';
+import mwnz from 'assets/milkyway/nz.hdr';
+import mwpx from 'assets/milkyway/px.hdr';
+import mwpy from 'assets/milkyway/py.hdr';
+import mwpz from 'assets/milkyway/pz.hdr';
 import classNames from 'classnames';
 import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
 import { spring, transform, value } from 'popmotion';
@@ -29,16 +34,16 @@ import {
   Scene,
   Sprite,
   TextureLoader,
-  UnsignedByteType,
   Vector2,
   Vector3,
-  WebGLCubeRenderTarget,
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
+import { LinearFilter } from 'three';
+import { EquirectangularReflectionMapping } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader.js';
 import { media } from 'utils/style';
 import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
 
@@ -110,7 +115,7 @@ const Earth = forwardRef(
     const cameraValue = useRef();
     const controls = useRef();
     const envMap = useRef();
-    const skyBox = useRef();
+    const renderTarget = useRef();
     const contentAdded = useRef();
     const cameraSpring = useRef();
     const mounted = useRef();
@@ -218,7 +223,7 @@ const Earth = forwardRef(
       if (loaded || fetching.current) return;
 
       const gltfLoader = new GLTFLoader();
-      const rgbeLoader = new RGBELoader();
+      const hdrLoader = new HDRCubeTextureLoader();
       const textureLoader = new TextureLoader();
       const pmremGenerator = new PMREMGenerator(renderer.current);
       pmremGenerator.compileEquirectangularShader();
@@ -249,27 +254,42 @@ const Earth = forwardRef(
       };
 
       const loadEnv = async () => {
-        const hdrTexture = await rgbeLoader
-          .setDataType(UnsignedByteType)
-          .loadAsync(milkywayHdr);
+        const hdrTexture = await hdrLoader.loadAsync([
+          mwnx,
+          mwny,
+          mwnz,
+          mwpx,
+          mwpy,
+          mwpz,
+        ]);
 
-        envMap.current = pmremGenerator.fromEquirectangular(hdrTexture).texture;
-        pmremGenerator.dispose();
+        console.log({ hdrTexture });
+
+        // envMap.current = pmremGenerator.fromEquirectangular(hdrTexture).texture;
+        renderTarget.current = pmremGenerator.fromCubemap(hdrTexture);
+        envMap.current = hdrTexture;
+        envMap.current.magFilter = LinearFilter;
+        envMap.current.needsUpdate = true;
+        // pmremGenerator.dispose();
       };
 
       const loadBackground = async () => {
         const backgroundTexture = await textureLoader.loadAsync(milkywayBg);
+        backgroundTexture.mapping = EquirectangularReflectionMapping;
         backgroundTexture.encoding = sRGBEncoding;
-
-        const cubeTarget = new WebGLCubeRenderTarget(4096);
-        skyBox.current = cubeTarget.fromEquirectangularTexture(
-          renderer.current,
-          backgroundTexture
-        );
+        scene.current.background = backgroundTexture;
       };
 
       const handleLoad = async () => {
         await Promise.all([loadBackground(), loadEnv(), loadModel()]);
+
+        sceneModel.current.traverse(({ material }) => {
+          if (material) {
+            material.envMap = renderTarget.current.texture;
+            material.needsUpdate = true;
+            console.log(material);
+          }
+        });
 
         if (mounted.current) {
           setLoaded(true);
@@ -286,8 +306,6 @@ const Earth = forwardRef(
       // Add models and textures once visible
       if (loaded && inViewport && !contentAdded.current) {
         scene.current.add(sceneModel.current);
-        scene.current.environment = envMap.current;
-        scene.current.background = skyBox.current;
         contentAdded.current = true;
       }
 
