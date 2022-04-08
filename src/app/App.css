@@ -1,0 +1,85 @@
+@custom-media --mediaDesktop (max-width: 2080px);
+@custom-media --mediaLaptop (max-width: 1680px);
+@custom-media --mediaTablet (max-width: 1024px);
+@custom-media --mediaMobile (max-width: 696px);
+@custom-media --mediaMobileS (max-width: 400px);
+@custom-media --mediaUseMotion (prefers-reduced-motion: no-preference);
+@custom-media --mediaReduceMotion (prefers-reduced-motion: reduce);
+
+body {
+  font-family: var(--fontStack);
+  font-weight: var(--fontWeightRegular);
+  background: rgb(var(--rgbBackground));
+  color: var(--colorTextBody);
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgb(var(--rgbAccent));
+  color: rgb(var(--rgbBlack));
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.app {
+  width: 100%;
+  position: relative;
+  background: rgb(var(--rgbBackground));
+  transition: background var(--durationM) ease;
+  outline: none;
+  display: grid;
+  grid-template: 100% / 100%;
+}
+
+.app__page {
+  opacity: 0;
+  grid-area: 1 / 1;
+  transition: opacity var(--durationS) ease;
+  min-height: 100vh;
+}
+
+.app__page--exiting,
+.app__page--entering {
+  opacity: 0;
+}
+
+.app__page--entered {
+  transition-duration: var(--durationL);
+  transition-delay: var(--durationXS);
+  opacity: 1;
+}
+
+.skip-to-main {
+  color: rgb(var(--rgbBackground));
+  z-index: 128;
+
+  &:focus {
+    padding: var(--spaceS) var(--spaceM);
+    position: fixed;
+    top: var(--spaceM);
+    left: var(--spaceM);
+    text-decoration: none;
+    font-weight: var(--fontWeightMedium);
+    line-height: 1;
+    box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+    outline: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgb(var(--rgbPrimary));
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+    z-index: -1;
+  }
+}
