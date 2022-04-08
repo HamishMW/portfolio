@@ -263,14 +263,11 @@ const Earth = forwardRef(
           mwpz,
         ]);
 
-        console.log({ hdrTexture });
-
-        // envMap.current = pmremGenerator.fromEquirectangular(hdrTexture).texture;
         renderTarget.current = pmremGenerator.fromCubemap(hdrTexture);
         envMap.current = hdrTexture;
         envMap.current.magFilter = LinearFilter;
         envMap.current.needsUpdate = true;
-        // pmremGenerator.dispose();
+        pmremGenerator.dispose();
       };
 
       const loadBackground = async () => {
@@ -287,7 +284,6 @@ const Earth = forwardRef(
           if (material) {
             material.envMap = renderTarget.current.texture;
             material.needsUpdate = true;
-            console.log(material);
           }
         });
 
@@ -351,7 +347,7 @@ const Earth = forwardRef(
         const { innerWidth, innerHeight } = window;
         // Set a camera position property to help with defining camera angles
         const cameraPosition = positionToString(camera.current.position);
-        console.log({ cameraPosition });
+        console.info({ cameraPosition });
 
         // Set a surface position to help with defining annotations
         mouse.current = new Vector2(
@@ -366,7 +362,7 @@ const Earth = forwardRef(
 
         if (intersects.length > 0) {
           const clickPosition = positionToString(intersects[0].point);
-          console.log({ clickPosition });
+          console.info({ clickPosition });
         }
       };
 

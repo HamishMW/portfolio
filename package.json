@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "https://hamishw.com",
   "description": "Portfolio site for Hamish Williams",
   "repository": "https://github.com/HamishMW/portfolio.git",
@@ -24,14 +24,13 @@
   "dependencies": {
     "@mdx-js/react": "^2.1.1",
     "classnames": "^2.3.1",
-    "history": "^5.3.0",
     "popmotion": "^8.7.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
-    "react-router-dom": "6.3.0",
+    "react-router-dom": "^6.3.0",
     "react-transition-group": "^4.4.2",
-    "three": "^0.127.0"
+    "three": "^0.131.0"
   },
   "scripts": {
     "start": "react-scripts start",
