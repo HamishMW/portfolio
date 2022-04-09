@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-import { usePrevious, usePrefersReducedMotion } from '.';
 import { useRouteTransition } from 'hooks';
+import { useEffect } from 'react';
+import { usePrefersReducedMotion, usePrevious } from '.';
 
-function useScrollRestore() {
+export function useScrollRestore() {
   const { status } = useRouteTransition();
   const prevStatus = usePrevious(status);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -17,5 +17,3 @@ function useScrollRestore() {
     }
   }, [prefersReducedMotion, prevStatus, status]);
 }
-
-export default useScrollRestore;

@@ -1,35 +1,3 @@
-@custom-media --mediaDesktop (max-width: 2080px);
-@custom-media --mediaLaptop (max-width: 1680px);
-@custom-media --mediaTablet (max-width: 1024px);
-@custom-media --mediaMobile (max-width: 696px);
-@custom-media --mediaMobileS (max-width: 400px);
-@custom-media --mediaUseMotion (prefers-reduced-motion: no-preference);
-@custom-media --mediaReduceMotion (prefers-reduced-motion: reduce);
-
-body {
-  font-family: var(--fontStack);
-  font-weight: var(--fontWeightRegular);
-  background: rgb(var(--rgbBackground));
-  color: var(--colorTextBody);
-  width: 100vw;
-  overflow-x: hidden;
-}
-
-::selection {
-  background: rgb(var(--rgbAccent));
-  color: rgb(var(--rgbBlack));
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
 .app {
   width: 100%;
   position: relative;

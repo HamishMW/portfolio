@@ -1,8 +1,6 @@
-import { useContext } from 'react';
 import { TransitionContext } from 'app';
+import { useContext } from 'react';
 
-function useRouteTransition() {
+export function useRouteTransition() {
   return useContext(TransitionContext);
 }
-
-export default useRouteTransition;

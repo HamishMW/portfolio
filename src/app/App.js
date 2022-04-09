@@ -1,6 +1,6 @@
 import './reset.css';
+import './global.css';
 import './App.css';
-import './index.css';
 
 import { initialState, reducer } from 'app/reducer';
 import classNames from 'classnames';

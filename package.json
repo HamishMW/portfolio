@@ -7,7 +7,7 @@
   "author": "Hamish Williams <hello@hamishw.com>",
   "devDependencies": {
     "@babel/core": "^7.12.3",
-    "@hamishmw/react-scripts-postcss": "4.0.0-mod1",
+    "@hamishmw/react-scripts-postcss": "5.0.0-mod1",
     "@storybook/addon-a11y": "^6.1.10",
     "@storybook/addon-actions": "^6.1.10",
     "@storybook/addon-controls": "^6.1.10",
@@ -15,6 +15,7 @@
     "@storybook/preset-create-react-app": "^3.1.5",
     "@storybook/react": "^6.4.20",
     "mdx-loader": "^3.0.2",
+    "postcss": "^8.4.12",
     "prettier": "^2.2.1",
     "react-snap": "1.23.0",
     "source-map-explorer": "^2.5.1",

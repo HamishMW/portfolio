@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function useFormInput(initialValue = '') {
+export function useFormInput(initialValue = '') {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState();
   const [isDirty, setIsDirty] = useState(false);
@@ -36,5 +36,3 @@ function useFormInput(initialValue = '') {
     onInvalid: handleInvalid,
   };
 }
-
-export default useFormInput;
