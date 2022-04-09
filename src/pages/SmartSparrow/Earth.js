@@ -1,13 +1,13 @@
 import './Earth.css';
 
 import earthModel from 'assets/earth.glb';
+import mwnx from 'assets/milkyway-nx.hdr';
+import mwny from 'assets/milkyway-ny.hdr';
+import mwnz from 'assets/milkyway-nz.hdr';
+import mwpx from 'assets/milkyway-px.hdr';
+import mwpy from 'assets/milkyway-py.hdr';
+import mwpz from 'assets/milkyway-pz.hdr';
 import milkywayBg from 'assets/milkyway.jpg';
-import mwnx from 'assets/milkyway/nx.hdr';
-import mwny from 'assets/milkyway/ny.hdr';
-import mwnz from 'assets/milkyway/nz.hdr';
-import mwpx from 'assets/milkyway/px.hdr';
-import mwpy from 'assets/milkyway/py.hdr';
-import mwpz from 'assets/milkyway/pz.hdr';
 import classNames from 'classnames';
 import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
 import { spring, transform, value } from 'popmotion';
