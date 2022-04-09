@@ -45,8 +45,8 @@ import imageSprStoryboarderDark from 'assets/spr-storyboarder-dark.png';
 import imageSprStoryboarderLightLarge from 'assets/spr-storyboarder-light-large.png';
 import imageSprStoryboarderLightPlaceholder from 'assets/spr-storyboarder-light-placeholder.png';
 import imageSprStoryboarderLight from 'assets/spr-storyboarder-light.png';
-import Footer from 'components/Footer';
-import Image from 'components/Image';
+import { Footer } from 'components/Footer';
+import { Image } from 'components/Image';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -59,14 +59,14 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from 'components/ProjectLayout';
-import SegmentedControl, { SegmentedControlOption } from 'components/SegmentedControl';
-import ThemeProvider, { useTheme } from 'components/ThemeProvider';
+import { SegmentedControl, SegmentedControlOption } from 'components/SegmentedControl';
+import { ThemeProvider, useTheme } from 'components/ThemeProvider';
 import { useAppContext, useScrollRestore } from 'hooks';
 import { Fragment, useMemo, useRef } from 'react';
 import { Helmet } from 'react-helmet';
-import prerender from 'utils/prerender';
+import { prerender } from 'utils/prerender';
 import { media } from 'utils/style';
-import Earth, { EarthSection } from './Earth';
+import { Earth, EarthSection } from './Earth';
 
 const title = 'Designing the future of education';
 const description =

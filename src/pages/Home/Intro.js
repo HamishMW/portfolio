@@ -1,22 +1,23 @@
-import { Suspense, lazy, useEffect, useState, Fragment } from 'react';
-import classNames from 'classnames';
-import { TransitionGroup, Transition } from 'react-transition-group';
-import DecoderText from 'components/DecoderText';
-import { useInterval, usePrevious, useWindowSize } from 'hooks';
-import { reflow } from 'utils/transition';
-import prerender from 'utils/prerender';
-import { media } from 'utils/style';
-import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
-import { tokens } from 'components/ThemeProvider/theme';
-import Heading from 'components/Heading';
-import Section from 'components/Section';
-import { useTheme } from 'components/ThemeProvider';
-import VisuallyHidden from 'components/VisuallyHidden';
 import './Intro.css';
+
+import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
+import classNames from 'classnames';
+import { DecoderText } from 'components/DecoderText';
+import { Heading } from 'components/Heading';
+import { Section } from 'components/Section';
+import { useTheme } from 'components/ThemeProvider';
+import { tokens } from 'components/ThemeProvider/theme';
+import { VisuallyHidden } from 'components/VisuallyHidden';
+import { useInterval, usePrevious, useWindowSize } from 'hooks';
+import { Fragment, Suspense, lazy, useEffect, useState } from 'react';
+import { Transition, TransitionGroup } from 'react-transition-group';
+import { prerender } from 'utils/prerender';
+import { media } from 'utils/style';
+import { reflow } from 'utils/transition';
 
 const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
 
-function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
+export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
   const theme = useTheme();
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const windowSize = useWindowSize();
@@ -157,5 +158,3 @@ function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) 
     </Section>
   );
 }
-
-export default Intro;

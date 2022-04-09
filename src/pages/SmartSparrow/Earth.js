@@ -79,7 +79,7 @@ const isEqualCameraPosition = (position1, position2) => {
 
 const EarthContext = createContext({});
 
-const Earth = forwardRef(
+export const Earth = forwardRef(
   (
     {
       position = [0, 0, 0],
@@ -706,5 +706,3 @@ export const EarthSection = memo(
     );
   }
 );
-
-export default Earth;

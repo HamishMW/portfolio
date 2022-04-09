@@ -2,8 +2,8 @@ import './Uses.css';
 
 import usesBackgroundPlaceholder from 'assets/uses-background-placeholder.jpg';
 import usesBackground from 'assets/uses-background.mp4';
-import Footer from 'components/Footer';
-import Link from 'components/Link';
+import { Footer } from 'components/Footer';
+import { Link } from 'components/Link';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -18,7 +18,7 @@ import { Table, TableCell, TableRow } from 'components/Table';
 import { useScrollRestore } from 'hooks';
 import { Fragment } from 'react';
 import { Helmet } from 'react-helmet';
-import prerender from 'utils/prerender';
+import { prerender } from 'utils/prerender';
 
 export const Uses = () => {
   useScrollRestore();

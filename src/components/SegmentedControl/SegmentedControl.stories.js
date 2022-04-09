@@ -1,6 +1,6 @@
+import { SegmentedControl, SegmentedControlOption } from 'components/SegmentedControl';
 import { useState } from 'react';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
-import SegmentedControl, { SegmentedControlOption } from 'components/SegmentedControl';
 
 export default {
   title: 'SegmentedControl',

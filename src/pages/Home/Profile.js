@@ -1,21 +1,22 @@
-import { Fragment } from 'react';
-import classNames from 'classnames';
-import { Transition } from 'react-transition-group';
-import Link from 'components/Link';
-import { Button } from 'components/Button';
-import DecoderText from 'components/DecoderText';
-import Divider from 'components/Divider';
-import Image from 'components/Image';
-import Section from 'components/Section';
-import ProfileImg from 'assets/profile.jpg';
+import './Profile.css';
+
+import { ReactComponent as KatakanaProfile } from 'assets/katakana-profile.svg';
 import ProfileImgLarge from 'assets/profile-large.jpg';
 import ProfileImgPlaceholder from 'assets/profile-placeholder.jpg';
-import { reflow } from 'utils/transition';
+import ProfileImg from 'assets/profile.jpg';
+import classNames from 'classnames';
+import { Button } from 'components/Button';
+import { DecoderText } from 'components/DecoderText';
+import { Divider } from 'components/Divider';
+import { Heading } from 'components/Heading';
+import { Image } from 'components/Image';
+import { Link } from 'components/Link';
+import { Section } from 'components/Section';
+import { Text } from 'components/Text';
+import { Fragment } from 'react';
+import { Transition } from 'react-transition-group';
 import { media } from 'utils/style';
-import { ReactComponent as KatakanaProfile } from 'assets/katakana-profile.svg';
-import Heading from 'components/Heading';
-import Text from 'components/Text';
-import './Profile.css';
+import { reflow } from 'utils/transition';
 
 const ProfileText = ({ status, titleId }) => (
   <Fragment>
@@ -47,7 +48,7 @@ const ProfileText = ({ status, titleId }) => (
   </Fragment>
 );
 
-const Profile = ({ id, visible, sectionRef }) => {
+export const Profile = ({ id, visible, sectionRef }) => {
   const titleId = `${id}-title`;
 
   return (
@@ -110,5 +111,3 @@ const Profile = ({ id, visible, sectionRef }) => {
     </Section>
   );
 };
-
-export default Profile;

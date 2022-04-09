@@ -1,21 +1,22 @@
-import { Fragment } from 'react';
-import classNames from 'classnames';
-import { Transition } from 'react-transition-group';
-import Section from 'components/Section';
-import { Button } from 'components/Button';
-import Model from 'components/Model';
-import Divider from 'components/Divider';
-import { useWindowSize } from 'hooks';
-import { reflow, isVisible } from 'utils/transition';
-import { media } from 'utils/style';
-import { ReactComponent as KatakanaProject } from 'assets/katakana-project.svg';
-import deviceModels from 'components/Model/deviceModels';
-import Heading from 'components/Heading';
-import Text from 'components/Text';
-import { useTheme } from 'components/ThemeProvider';
 import './ProjectSummary.css';
 
-const ProjectSummary = ({
+import { ReactComponent as KatakanaProject } from 'assets/katakana-project.svg';
+import classNames from 'classnames';
+import { Button } from 'components/Button';
+import { Divider } from 'components/Divider';
+import { Heading } from 'components/Heading';
+import { Model } from 'components/Model/Model';
+import { deviceModels } from 'components/Model/deviceModels';
+import { Section } from 'components/Section';
+import { Text } from 'components/Text';
+import { useTheme } from 'components/ThemeProvider';
+import { useWindowSize } from 'hooks';
+import { Fragment } from 'react';
+import { Transition } from 'react-transition-group';
+import { media } from 'utils/style';
+import { isVisible, reflow } from 'utils/transition';
+
+export const ProjectSummary = ({
   id,
   visible,
   sectionRef,
@@ -205,5 +206,3 @@ const ProjectSummary = ({
     </Section>
   );
 };
-
-export default ProjectSummary;

@@ -1,15 +1,15 @@
-import Model from 'components/Model/index';
-import { StoryContainer } from '../../../.storybook/StoryContainer';
-import deviceModels from './deviceModels';
-import phoneTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
-import phoneTexture from 'assets/gamestack-login.jpg';
-import phoneTextureLarge from 'assets/gamestack-login-large.jpg';
+import phoneTexture2Large from 'assets/gamestack-list-large.jpg';
 import phoneTexture2Placeholder from 'assets/gamestack-list-placeholder.jpg';
 import phoneTexture2 from 'assets/gamestack-list.jpg';
-import phoneTexture2Large from 'assets/gamestack-list-large.jpg';
-import laptopTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
+import phoneTextureLarge from 'assets/gamestack-login-large.jpg';
+import phoneTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
+import phoneTexture from 'assets/gamestack-login.jpg';
 import laptopTexture from 'assets/spr-lesson-builder-dark-large.jpg';
 import laptopTextureLarge from 'assets/spr-lesson-builder-dark-large.jpg';
+import laptopTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
+import { Model } from 'components/Model/Model';
+import { StoryContainer } from '../../../.storybook/StoryContainer';
+import { deviceModels } from './deviceModels';
 
 export default {
   title: 'Model',

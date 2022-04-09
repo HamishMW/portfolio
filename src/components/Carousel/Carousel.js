@@ -20,7 +20,7 @@ import {
 } from 'three';
 import { blurOnMouseUp } from 'utils/focus';
 import { getImageFromSrcSet } from 'utils/image';
-import prerender from 'utils/prerender';
+import { prerender } from 'utils/prerender';
 import { cleanRenderer, cleanScene } from 'utils/three';
 import { fragment, vertex } from './carouselShader';
 

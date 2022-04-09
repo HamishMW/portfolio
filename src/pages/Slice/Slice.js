@@ -21,8 +21,8 @@ import sliceSidebarLayers from 'assets/slice-sidebar-layers.png';
 import sliceSlidesLarge from 'assets/slice-slides-large.jpg';
 import sliceSlidesPlaceholder from 'assets/slice-slides-placeholder.jpg';
 import sliceSlides from 'assets/slice-slides.jpg';
-import Footer from 'components/Footer';
-import Image from 'components/Image';
+import { Footer } from 'components/Footer';
+import { Image } from 'components/Image';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -38,7 +38,7 @@ import {
 import { useScrollRestore } from 'hooks';
 import { Fragment } from 'react';
 import { Helmet } from 'react-helmet';
-import prerender from 'utils/prerender';
+import { prerender } from 'utils/prerender';
 import { media } from 'utils/style';
 
 const title = 'Biomedical image collaboration';

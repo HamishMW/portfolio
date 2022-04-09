@@ -4,16 +4,16 @@ import './App.css';
 
 import { initialState, reducer } from 'app/reducer';
 import classNames from 'classnames';
-import Navbar from 'components/Navbar';
-import ThemeProvider from 'components/ThemeProvider';
+import { Navbar } from 'components/Navbar';
+import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
-import VisuallyHidden from 'components/VisuallyHidden';
+import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useLocalStorage } from 'hooks';
 import { Fragment, Suspense, createContext, lazy, useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { Transition, TransitionGroup } from 'react-transition-group';
-import prerender from 'utils/prerender';
+import { prerender } from 'utils/prerender';
 import { msToNum } from 'utils/style';
 import { reflow } from 'utils/transition';
 

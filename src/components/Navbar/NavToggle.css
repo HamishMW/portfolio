@@ -1,4 +1,4 @@
-.nav-toggle {
+button.nav-toggle {
   --buttonSize: var(--space2XL);
 
   position: fixed;

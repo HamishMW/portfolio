@@ -1,10 +1,10 @@
 import './Articles.css';
 
-import Image from 'components/Image';
-import Section from 'components/Section';
+import { Image } from 'components/Image';
+import { Section } from 'components/Section';
 import { useScrollRestore } from 'hooks';
-import Post from 'pages/Post';
-import fetchPosts from 'posts';
+import { Post } from 'pages/Post';
+import { fetchPosts } from 'posts';
 import {
   Fragment,
   Suspense,

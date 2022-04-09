@@ -1,9 +1,10 @@
-import classNames from 'classnames';
-import Icon from 'components/Icon';
-import { Button } from 'components/Button';
 import './NavToggle.css';
 
-const NavToggle = ({ menuOpen, ...rest }) => {
+import classNames from 'classnames';
+import { Button } from 'components/Button';
+import { Icon } from 'components/Icon';
+
+export const NavToggle = ({ menuOpen, ...rest }) => {
   const iconClass = classNames('nav-toggle__icon', {
     'nav-toggle__icon--open': menuOpen,
   });
@@ -31,5 +32,3 @@ const NavToggle = ({ menuOpen, ...rest }) => {
     </Button>
   );
 };
-
-export default NavToggle;

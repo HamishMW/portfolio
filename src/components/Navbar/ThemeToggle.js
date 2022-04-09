@@ -1,9 +1,10 @@
+import './ThemeToggle.css';
+
 import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { useAppContext, useId } from 'hooks';
-import './ThemeToggle.css';
 
-const ThemeToggle = ({ isMobile, ...rest }) => {
+export const ThemeToggle = ({ isMobile, ...rest }) => {
   const { dispatch, theme: themeId } = useAppContext();
   const isDark = themeId === 'dark';
   const id = useId();
@@ -71,5 +72,3 @@ const ThemeToggle = ({ isMobile, ...rest }) => {
     </Button>
   );
 };
-
-export default ThemeToggle;

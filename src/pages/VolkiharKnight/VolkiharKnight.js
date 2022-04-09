@@ -28,8 +28,8 @@ import volkiharSlide3 from 'assets/volkihar-slide-3.jpg';
 import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
 import classNames from 'classnames';
 import { Button } from 'components/Button';
-import Footer from 'components/Footer';
-import Image from 'components/Image';
+import { Footer } from 'components/Footer';
+import { Image } from 'components/Image';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -46,7 +46,7 @@ import { useTheme } from 'components/ThemeProvider';
 import { useRouteTransition, useScrollRestore } from 'hooks';
 import { Fragment, Suspense, lazy, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
-import prerender from 'utils/prerender';
+import { prerender } from 'utils/prerender';
 import { media } from 'utils/style';
 
 const Carousel = lazy(() => import('components/Carousel'));

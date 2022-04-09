@@ -43,9 +43,9 @@
   --boolean: #c1480a;
   --punctuation: rgba(0 0 0 / 0.4);
   --tag: #a8093f;
-  --function: rgb(4, 98, 108);
+  --function: rgb(4 98 108);
   --className: #00378c;
-  --method: rgb(4, 98, 108);
+  --method: rgb(4 98 108);
   --operator: #a8093f;
   --background: rgb(228 228 228);
 }
