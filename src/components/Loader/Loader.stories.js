@@ -1,12 +1,12 @@
-import Monogram from 'components/Monogram';
+import { Loader } from 'components/Loader';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {
-  title: 'Monogram',
+  title: 'Loader',
 };
 
-export const monogram = () => (
+export const loader = () => (
   <StoryContainer>
-    <Monogram highlight />
+    <Loader size={48} />
   </StoryContainer>
 );

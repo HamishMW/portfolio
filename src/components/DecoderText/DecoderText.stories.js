@@ -1,6 +1,6 @@
-import DecoderText from 'components/DecoderText';
+import { DecoderText } from 'components/DecoderText';
+import { Heading } from 'components/Heading';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
-import Heading from 'components/Heading';
 
 export default {
   title: 'DecoderText',

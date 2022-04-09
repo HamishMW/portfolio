@@ -5,7 +5,7 @@ const allPosts = require.context(
   'lazy'
 );
 
-const posts = allPosts.keys().map(async filePath => {
+export const fetchPosts = allPosts.keys().map(async filePath => {
   const module = await allPosts(filePath);
 
   return {
@@ -13,5 +13,3 @@ const posts = allPosts.keys().map(async filePath => {
     ...module.frontMatter,
   };
 });
-
-export default posts;

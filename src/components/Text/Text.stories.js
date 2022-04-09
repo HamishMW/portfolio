@@ -1,4 +1,4 @@
-import Text from 'components/Text';
+import { Text } from 'components/Text';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {

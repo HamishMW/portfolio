@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-function useWindowSize() {
+export function useWindowSize() {
   const isClient = typeof window === 'object';
   const isIOS = navigator.userAgent.match(/iphone|ipod|ipad/i);
   const axis = useRef(() => ({ w: 0, h: 0 }));
@@ -65,5 +65,3 @@ function useWindowSize() {
 
   return windowSize;
 }
-
-export default useWindowSize;

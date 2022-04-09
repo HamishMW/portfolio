@@ -6,7 +6,7 @@ export const ModelAnimationType = {
   LaptopOpen: 'laptop-open',
 };
 
-const models = {
+export const deviceModels = {
   phone: {
     url: iphone11,
     width: 374,
@@ -22,5 +22,3 @@ const models = {
     animation: ModelAnimationType.LaptopOpen,
   },
 };
-
-export default models;

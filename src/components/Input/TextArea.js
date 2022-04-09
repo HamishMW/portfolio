@@ -1,8 +1,9 @@
-import { useRef, useState, useEffect } from 'react';
-import classNames from 'classnames';
 import './TextArea.css';
 
-const TextArea = ({
+import classNames from 'classnames';
+import { useEffect, useRef, useState } from 'react';
+
+export const TextArea = ({
   className,
   resize = 'none',
   value,
@@ -56,5 +57,3 @@ const TextArea = ({
     />
   );
 };
-
-export default TextArea;

@@ -4,7 +4,15 @@ module.exports = {
     '@storybook/addon-controls',
     '@storybook/addon-a11y',
     '@storybook/addon-toolbars',
-    '@storybook/preset-create-react-app',
+    {
+      name: '@storybook/preset-create-react-app',
+      options: {
+        scriptsPackageName: '@hamishmw/react-scripts-postcss',
+      },
+    },
   ],
   stories: ['../src/**/*.stories.js'],
+  core: {
+    builder: 'webpack5',
+  },
 };

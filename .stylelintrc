@@ -12,6 +12,7 @@
     "declaration-colon-newline-after": null,
     "indentation": null,
     "selector-combinator-space-before": null,
-    "value-list-comma-newline-after": null
+    "value-list-comma-newline-after": null,
+    "custom-media-pattern": null
   }
 }

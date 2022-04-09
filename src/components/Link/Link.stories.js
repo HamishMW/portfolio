@@ -1,4 +1,4 @@
-import Link from 'components/Link';
+import { Link } from 'components/Link';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {
