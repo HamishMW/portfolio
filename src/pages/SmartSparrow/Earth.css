@@ -17,6 +17,12 @@
   outline: none;
   opacity: 0;
   cursor: grab;
+
+  @media (pointer: coarse) {
+    & {
+      pointer-events: none;
+    }
+  }
 }
 
 .earth__canvas--grabbing {

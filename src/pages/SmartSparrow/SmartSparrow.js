@@ -511,7 +511,7 @@ export const SmartSparrow = () => {
               <ProjectSectionHeading>Outcomes</ProjectSectionHeading>
               <ProjectSectionText>
                 Ultimately the project was successful after Smart Sparrow and the aero
-                platform were acquired by Pearson in 2019 to become a foundation for their
+                platform were acquired by Pearson in 2020 to become a foundation for their
                 next generation learning platform.
               </ProjectSectionText>
             </ProjectTextRow>

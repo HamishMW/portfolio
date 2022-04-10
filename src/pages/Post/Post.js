@@ -1,4 +1,4 @@
-import './index.css';
+import './Post.css';
 
 import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
 import classNames from 'classnames';
@@ -15,7 +15,7 @@ import { useScrollRestore, useWindowSize } from 'hooks';
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Transition } from 'react-transition-group';
-import prerender from 'utils/prerender';
+import { prerender } from 'utils/prerender';
 import { msToNum, numToMs } from 'utils/style';
 import { media } from 'utils/style';
 import { reflow } from 'utils/transition';

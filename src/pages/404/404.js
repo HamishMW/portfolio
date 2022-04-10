@@ -87,11 +87,11 @@ export function Page404() {
               </video>
               <a
                 className={classNames('page-404__credit', `page-404__credit--${status}`)}
-                href="https://twitter.com/ruinergame"
+                href="https://www.imdb.com/title/tt0113568/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Animation from Ruiner
+                Animation from Ghost in the Shell (1995)
               </a>
             </div>
           </Fragment>

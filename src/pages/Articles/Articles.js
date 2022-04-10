@@ -15,7 +15,7 @@ import {
   useState,
 } from 'react';
 import { Helmet } from 'react-helmet';
-import { Route, Link as RouterLink, Switch } from 'react-router-dom';
+import { Route, Link as RouterLink, Routes } from 'react-router-dom';
 
 const Page404 = lazy(() => import('pages/404'));
 
@@ -88,6 +88,7 @@ const ArticlesLayout = () => {
         <div className="articles__column">
           {posts.map(({ slug, ...post }, index) => (
             <Fragment key={slug}>
+              {console.log({ slug })}
               {index !== 0 && <hr className="articles__divider" />}
               <ArticlesPost slug={slug} {...post} />
             </Fragment>
@@ -106,6 +107,7 @@ export const Articles = () => {
   useEffect(() => {
     const grabPosts = async () => {
       const postData = await Promise.all(fetchPosts);
+      console.log({ postData });
       setPosts(postData);
     };
 
@@ -115,7 +117,8 @@ export const Articles = () => {
   return (
     <ArticlesContext.Provider value={{ posts }}>
       <Suspense>
-        <Switch>
+        <Routes>
+          <Route path="/" element={<ArticlesLayout />} />
           {posts?.map(({ slug, ...rest }) => (
             <Route
               exact
@@ -124,9 +127,8 @@ export const Articles = () => {
               render={() => <Post slug={slug} {...rest} />}
             />
           ))}
-          <Route exact component={ArticlesLayout} path="/articles" />
-          <Route component={Page404} />
-        </Switch>
+          <Route path="*" element={<Page404 />} />
+        </Routes>
       </Suspense>
     </ArticlesContext.Provider>
   );
