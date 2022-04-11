@@ -39,25 +39,14 @@
   font-family: inherit;
   font-weight: var(--fontWeightMedium);
   cursor: pointer;
-  outline: none;
 
-  &::after {
-    --offset: -3px;
-
-    content: '';
-    position: absolute;
-    top: var(--offset);
-    right: var(--offset);
-    bottom: var(--offset);
-    left: var(--offset);
+  &:focus {
+    outline: 4px solid rgb(var(--rgbText));
+    outline-offset: 4px;
   }
 
-  &:focus::after {
-    box-shadow: 0 0 0 3px rgb(var(--rgbText));
-  }
-
-  &:active::after {
-    box-shadow: none;
+  &:focus:not(:focus-visible) {
+    outline: none;
   }
 
   &[aria-checked='true'] {

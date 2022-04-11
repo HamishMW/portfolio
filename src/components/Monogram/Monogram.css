@@ -17,7 +17,7 @@
     }
   }
 
-  @nest a:focus &, @nest a:hover &, @nest .monogram:hover & {
+  @nest :is(a:focus, a:hover, .monogram:hover) & {
     opacity: 1;
     transform: scale3d(1, 1, 1);
     transform-origin: bottom;
