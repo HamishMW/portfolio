@@ -17,6 +17,7 @@ exports.handler = async (event, context, callback) => {
     '.svg',
     '.glb',
     '.gltf',
+    '.hdr',
     '.mp4',
   ];
 

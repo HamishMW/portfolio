@@ -7,17 +7,17 @@
     "deploy:headers": "serverless deploy --function headers --stage production"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.38.0",
+    "@aws-sdk/client-ses": "^3.67.0",
     "cors": "^2.8.5",
-    "dompurify": "^2.3.3",
-    "express": "^4.17.1",
-    "helmet": "^4.6.0",
-    "jsdom": "^18.0.0",
-    "serverless-http": "^2.7.0"
+    "dompurify": "^2.3.6",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "jsdom": "^19.0.0",
+    "serverless-http": "^3.0.1"
   },
   "devDependencies": {
-    "eslint": "^8.1.0",
-    "eslint-plugin-promise": "^5.1.1"
+    "eslint": "^8.13.0",
+    "eslint-plugin-promise": "^6.0.0"
   },
   "engines": {
     "node": "12.10.0"
