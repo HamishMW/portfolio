@@ -12,12 +12,9 @@
 }
 
 .volkihar__logo-container {
-  --logoBackground: #111;
-
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--logoBackground);
   padding: 0 80px;
   width: 100%;
   overflow: hidden;
@@ -26,10 +23,6 @@
     max-width: 400px;
     height: auto;
   }
-}
-
-.volkihar__logo-container--light {
-  padding: 60px 80px;
 }
 
 .volkihar__background-section {

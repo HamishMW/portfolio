@@ -25,6 +25,7 @@ import {
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
@@ -32,6 +33,11 @@ import { getImageFromSrcSet } from 'utils/image';
 import { numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
 import { ModelAnimationType } from './deviceModels';
+
+const dracoLoader = new DRACOLoader();
+const modelLoader = new GLTFLoader();
+dracoLoader.setDecoderPath('/draco/');
+modelLoader.setDRACOLoader(dracoLoader);
 
 const MeshType = {
   Frame: 'Frame',
@@ -56,7 +62,6 @@ export const Model = ({
   const canvas = useRef();
   const camera = useRef();
   const textureLoader = useRef();
-  const modelLoader = useRef();
   const modelGroup = useRef();
   const scene = useRef();
   const renderer = useRef();
@@ -94,7 +99,6 @@ export const Model = ({
     scene.current = new Scene();
 
     textureLoader.current = new TextureLoader();
-    modelLoader.current = new GLTFLoader();
     modelGroup.current = new Group();
 
     // Lighting
@@ -218,7 +222,7 @@ export const Model = ({
       let loadFullResTexture;
 
       const [gltf, placeholder] = await Promise.all([
-        await modelLoader.current.loadAsync(url),
+        await modelLoader.loadAsync(url),
         await textureLoader.current.loadAsync(texture.placeholder),
       ]);
 

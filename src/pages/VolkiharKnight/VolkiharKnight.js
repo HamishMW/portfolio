@@ -1,8 +1,5 @@
 import './VolkiharKnight.css';
 
-import volkiharArmorLarge from 'assets/volkihar-armor-large.png';
-import volkiharArmorPlaceholder from 'assets/volkihar-armor-placeholder.png';
-import volkiharArmor from 'assets/volkihar-armor.png';
 import volkiharBackgroundLarge from 'assets/volkihar-background-large.jpg';
 import volkiharBackgroundPlaceholder from 'assets/volkihar-background-placeholder.jpg';
 import volkiharBackground from 'assets/volkihar-background.jpg';
@@ -26,7 +23,6 @@ import volkiharSlide2 from 'assets/volkihar-slide-2.jpg';
 import volkiharSlide3Large from 'assets/volkihar-slide-3-large.jpg';
 import volkiharSlide3 from 'assets/volkihar-slide-3.jpg';
 import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
-import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
@@ -42,22 +38,21 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from 'components/ProjectLayout';
-import { useTheme } from 'components/ThemeProvider';
 import { useRouteTransition, useScrollRestore } from 'hooks';
 import { Fragment, Suspense, lazy, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import { prerender } from 'utils/prerender';
 import { media } from 'utils/style';
+import { Armor } from './Armor';
 
 const Carousel = lazy(() => import('components/Carousel'));
 
 const title = 'Volkihar Knight';
 const description =
-  'A lore-friendly armor mod for The Elder Scrolls V: Skyrim. Released on PC and Xbox One with over 700,000 downloads across both platforms.';
+  'A lore-friendly armor mod for The Elder Scrolls V: Skyrim. Released on PC and Xbox One with over one million downloads across both platforms.';
 const roles = ['3D Modelling', 'Texturing', 'Graphic Design'];
 
 export function VolkiharKnight() {
-  const { themeId } = useTheme();
   const { status } = useRouteTransition();
   useScrollRestore();
 
@@ -74,6 +69,7 @@ export function VolkiharKnight() {
             --rgbAccent: 240 211 150;
           }
           .light {
+            --rgbPrimary: 142 117 1;
             --rgbAccent: 240 211 150;
           }
         `}</style>
@@ -114,12 +110,7 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionColumns>
-            <Image
-              srcSet={`${volkiharArmor} 400w, ${volkiharArmorLarge} 800w`}
-              placeholder={volkiharArmorPlaceholder}
-              alt="A 3D render of the full suit of armor."
-              sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 50vw`}
-            />
+            <Armor />
             <div className="volkihar__text-section">
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>
@@ -140,11 +131,7 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionContent>
-            <div
-              className={classNames('volkihar__logo-container', {
-                'volkihar__logo-container--light': themeId === 'light',
-              })}
-            >
+            <div className="volkihar__logo-container">
               <VolkiharKnightLogo
                 role="img"
                 aria-label="The Volkihar Knight logo, a monogram using the letters 'V' and 'K"
@@ -180,8 +167,7 @@ export function VolkiharKnight() {
                     {
                       src: volkiharSlide3,
                       srcSet: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
-                      alt:
-                        'A female character wielding a sword and wearing the red coloured armor.',
+                      alt: 'A female character wielding a sword and wearing the red coloured armor.',
                     },
                   ],
                   []

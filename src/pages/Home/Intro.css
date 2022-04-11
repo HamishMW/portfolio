@@ -192,7 +192,7 @@
   animation-fill-mode: forwards;
   animation-timing-function: var(--bezierFastoutSlowin);
   color: rgb(var(--rgbText) / 0);
-  transition: opacity 0.5s ease 0.4s;
+  transition: opacity 0.5s ease var(--durationM);
 
   &::after {
     content: '';

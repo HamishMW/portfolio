@@ -55,7 +55,7 @@
   }
 
   @media (--mediaLaptop) {
-    .project-summary__content {
+    & {
       grid-template-columns: 1fr 1fr;
     }
   }

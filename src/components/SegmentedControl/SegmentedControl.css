@@ -9,7 +9,7 @@
 
   &::before {
     content: '';
-    background-color: rgb(var(--rgbText) / 0.05);
+    background-color: rgb(var(--rgbText) / 0.08);
     position: absolute;
     inset: 0;
     clip-path: polygon(
@@ -99,5 +99,5 @@
 }
 
 .segmented-control__indicator--last {
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
 }

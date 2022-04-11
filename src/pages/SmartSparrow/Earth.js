@@ -42,6 +42,7 @@ import {
 import { LinearFilter } from 'three';
 import { EquirectangularReflectionMapping } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader.js';
 import { media } from 'utils/style';
@@ -223,6 +224,10 @@ export const Earth = forwardRef(
       if (loaded || fetching.current) return;
 
       const gltfLoader = new GLTFLoader();
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath('/draco/');
+      gltfLoader.setDRACOLoader(dracoLoader);
+
       const hdrLoader = new HDRCubeTextureLoader();
       const textureLoader = new TextureLoader();
       const pmremGenerator = new PMREMGenerator(renderer.current);

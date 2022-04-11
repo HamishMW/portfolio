@@ -416,12 +416,12 @@
 
 .project__text-row--justify-end {
   justify-self: flex-end;
-}
 
-@media (--mediaMobile) {
-  & {
-    align-items: center;
-    text-align: center;
+  @media (--mediaMobile) {
+    & {
+      align-items: center;
+      text-align: center;
+    }
   }
 }
 
