@@ -1,5 +1,5 @@
 .segmented-control {
-  --inset: 3px;
+  --inset: 4px;
 }
 
 .segmented-control__options {
@@ -9,7 +9,7 @@
 
   &::before {
     content: '';
-    background-color: rgb(var(--rgbText) / 0.16);
+    background-color: rgb(var(--rgbText) / 0.05);
     position: absolute;
     inset: 0;
     clip-path: polygon(
@@ -28,7 +28,7 @@
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  color: var(--colorTextBody);
+  color: var(--colorTextLight);
   transition-property: color, background;
   transition-duration: var(--durationM);
   transition-timing-function: ease;
@@ -61,7 +61,7 @@
   }
 
   &[aria-checked='true'] {
-    color: rgb(var(--rgbBackground));
+    color: var(--colorTextBody);
   }
 
   &::before {
@@ -89,7 +89,7 @@
   top: var(--inset);
   bottom: var(--inset);
   left: 0;
-  background-color: var(--colorTextTitle);
+  background-color: rgb(var(--rgbBackgroundLight));
   transition-property: width, transform, clip-path;
   transition-duration: var(--durationM);
   transition-timing-function: var(--bezierFastoutSlowin);
