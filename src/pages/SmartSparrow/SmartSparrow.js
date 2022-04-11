@@ -1,6 +1,5 @@
 import './SmartSparrow.css';
 
-import { ReactComponent as PearsonLogo } from 'assets/pearson.svg';
 import backgroundSprLarge from 'assets/spr-background-large.jpg';
 import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
 import imageSprBackgroundVolcanismLarge from 'assets/spr-background-volcanism-large.jpg';
@@ -509,7 +508,6 @@ export const SmartSparrow = () => {
         <ProjectSection>
           <ProjectSectionContent>
             <ProjectTextRow center centerMobile noMargin>
-              <PearsonLogo className="spr__pearson-logo" />
               <ProjectSectionHeading>Project outcomes</ProjectSectionHeading>
               <ProjectSectionText>
                 Ultimately the project was successful after Smart Sparrow and the aero

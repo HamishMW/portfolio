@@ -7,10 +7,13 @@ import vkpx from 'assets/volkihar-cube-px.jpg';
 import vkpy from 'assets/volkihar-cube-py.jpg';
 import vkpz from 'assets/volkihar-cube-pz.jpg';
 import armor from 'assets/volkihar-knight.glb';
+import { Loader } from 'components/Loader';
+import { tokens } from 'components/ThemeProvider/theme';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Helmet from 'react-helmet';
+import { Transition } from 'react-transition-group';
 import {
   ACESFilmicToneMapping,
   AmbientLight,
@@ -28,7 +31,7 @@ import {
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { degToRad } from 'three/src/math/MathUtils';
-import { classes, cssProps, numToMs } from 'utils/style';
+import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
 
 const Armor = ({
@@ -42,7 +45,8 @@ const Armor = ({
   ...rest
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const loading = useRef(false);
+  const [visible, setVisible] = useState(false);
+  const [loaderVisible, setLoaderVisible] = useState(false);
   const container = useRef();
   const canvas = useRef();
   const camera = useRef();
@@ -55,7 +59,6 @@ const Armor = ({
   const renderTarget = useRef();
   const isInViewport = useInViewport(container, false, { threshold: 0.4 });
   const reduceMotion = usePrefersReducedMotion();
-  const loadModel = useRef();
 
   useEffect(() => {
     const { clientWidth, clientHeight } = container.current;
@@ -118,7 +121,7 @@ const Armor = ({
       });
     };
 
-    loadModel.current = async () => {
+    const load = async () => {
       const dracoLoader = new DRACOLoader();
       const modelLoader = new GLTFLoader();
       dracoLoader.setDecoderPath('/draco/');
@@ -134,6 +137,11 @@ const Armor = ({
       setLoaded(true);
       renderFrame();
     };
+
+    setTimeout(load, 1000);
+    setTimeout(() => {
+      setLoaderVisible(true);
+    }, 2000);
 
     return () => {
       removeLights(lights.current);
@@ -182,6 +190,7 @@ const Armor = ({
 
     if (isInViewport && !reduceMotion) {
       window.addEventListener('mousemove', onMouseMove);
+      setVisible(true);
     }
 
     return () => {
@@ -189,13 +198,6 @@ const Armor = ({
       rotationSpring?.stop();
     };
   }, [isInViewport, reduceMotion, renderFrame]);
-
-  useEffect(() => {
-    if (!loading.current && !loaded && isInViewport) {
-      loading.current = true;
-      loadModel.current();
-    }
-  }, [isInViewport, loaded]);
 
   // Handle window resize
   useEffect(() => {
@@ -226,14 +228,23 @@ const Armor = ({
       </Helmet>
       <div
         className={classes('armor', className)}
-        data-loaded={loaded}
-        style={cssProps({ delay: numToMs(showDelay) })}
         ref={container}
         role="img"
         aria-label={alt}
         {...rest}
       >
-        <canvas className="armor__canvas" ref={canvas} />
+        <Transition
+          in={!loaded && loaderVisible}
+          timeout={msToNum(tokens.base.durationL)}
+        >
+          {status => <Loader className="armor__loader" data-status={status} />}
+        </Transition>
+        <canvas
+          className="armor__canvas"
+          ref={canvas}
+          data-loaded={loaded && visible}
+          style={cssProps({ delay: numToMs(showDelay) })}
+        />
       </div>
     </>
   );

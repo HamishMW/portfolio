@@ -1,9 +1,27 @@
 .earth {
   position: relative;
   background-color: rgb(var(--rgbBackground));
+  display: grid;
+  place-content: center;
+}
+
+.earth__loader {
+  transition: opacity var(--durationL) var(--bezierFastoutSlowin);
+  opacity: 0;
+  grid-area: 1 / 1;
+  place-self: center;
+  margin-top: 40vh;
+  position: sticky;
+  top: 50vh;
+
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    opacity: 1;
+  }
 }
 
 .earth__viewport {
+  grid-area: 1 / 1;
   display: grid;
   grid-template: 100% / 100%;
   width: 100vw;
@@ -13,7 +31,7 @@
 
 .earth__canvas {
   grid-area: 1 / 1;
-  transition: opacity 1.6s var(--bezierFastoutSlowin);
+  transition: opacity 1.6s var(--bezierFastoutSlowin) 1.6s;
   outline: none;
   opacity: 0;
   cursor: grab;
@@ -65,7 +83,6 @@
 
 .earth__vignette {
   grid-area: 1 / 1;
-  background: radial-gradient(transparent, rgb(var(--rgbBackground)));
   position: relative;
   pointer-events: none;
 }

@@ -8,6 +8,9 @@ import mwpx from 'assets/milkyway-px.hdr';
 import mwpy from 'assets/milkyway-py.hdr';
 import mwpz from 'assets/milkyway-pz.hdr';
 import milkywayBg from 'assets/milkyway.jpg';
+import { Loader } from 'components/Loader';
+import { Section } from 'components/Section';
+import { tokens } from 'components/ThemeProvider/theme';
 import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
 import { spring, transform, value } from 'popmotion';
 import {
@@ -20,6 +23,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { Transition } from 'react-transition-group';
 import {
   ACESFilmicToneMapping,
   AmbientLight,
@@ -44,8 +48,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader.js';
-import { classes, media } from 'utils/style';
+import { classes, media, msToNum } from 'utils/style';
 import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
+import { reflow } from 'utils/transition';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
 
@@ -93,6 +98,8 @@ export const Earth = forwardRef(
   ) => {
     const [loaded, setLoaded] = useState(false);
     const [grabbing, setGrabbing] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [loaderVisible, setLoaderVisible] = useState(false);
     const sectionRefs = useRef([]);
     const defaultContainer = useRef();
     const container = ref || defaultContainer;
@@ -299,18 +306,23 @@ export const Earth = forwardRef(
       };
 
       fetching.current = true;
-      handleLoad();
+
+      setTimeout(handleLoad, 2000);
+      setTimeout(() => {
+        setLoaderVisible(true);
+      }, 3000);
     }, [loaded, position, scale]);
 
     useEffect(() => {
       // Add models and textures once visible
-      if (loaded && inViewport && !contentAdded.current) {
+      if (loaded && !contentAdded.current) {
         scene.current.add(sceneModel.current);
         contentAdded.current = true;
       }
 
       // Only animate while visible
       if (loaded && inViewport) {
+        setVisible(true);
         animate();
       }
 
@@ -646,7 +658,7 @@ export const Earth = forwardRef(
           <div className="earth__viewport">
             <canvas
               className="earth__canvas"
-              data-visible={inViewport && loaded}
+              data-visible={loaded && visible}
               data-grabbing={grabbing}
               ref={canvas}
             />
@@ -654,6 +666,19 @@ export const Earth = forwardRef(
             <div className="earth__vignette" />
           </div>
           <div className="earth__sections">{children}</div>
+          <Transition
+            mountOnEnter
+            unmountOnExit
+            onEnter={reflow}
+            in={!loaded && loaderVisible}
+            timeout={msToNum(tokens.base.durationL)}
+          >
+            {status => (
+              <Section className="earth__loader" data-status={status}>
+                <Loader />
+              </Section>
+            )}
+          </Transition>
         </div>
       </EarthContext.Provider>
     );

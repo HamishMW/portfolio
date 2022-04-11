@@ -55,8 +55,3 @@
     top: -5%;
   }
 }
-
-.spr__pearson-logo {
-  color: rgb(var(--rgbText) / 0.6);
-  margin-bottom: var(--space2XL);
-}

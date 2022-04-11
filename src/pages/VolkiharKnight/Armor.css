@@ -1,15 +1,27 @@
 .armor {
   position: relative;
-  opacity: 0;
-  transition: opacity var(--durationM) var(--bezierFastoutSlowin);
   aspect-ratio: 1 / 2;
+  display: grid;
+  place-content: center;
+}
 
-  &[data-loaded='true'] {
+.armor__loader {
+  transition: opacity var(--durationL) var(--bezierFastoutSlowin);
+  opacity: 0;
+
+  &[data-status='entering'],
+  &[data-status='entered'] {
     opacity: 1;
   }
 }
 
 .armor__canvas {
+  transition: opacity var(--durationXL) var(--bezierFastoutSlowin);
   position: absolute;
+  opacity: 0;
   inset: 0;
+
+  &[data-loaded='true'] {
+    opacity: 1;
+  }
 }
