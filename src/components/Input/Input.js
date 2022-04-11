@@ -1,12 +1,11 @@
 import './Input.css';
 
-import classNames from 'classnames';
 import { Icon } from 'components/Icon';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useId } from 'hooks';
 import { useRef, useState } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
-import { msToNum, numToPx } from 'utils/style';
+import { classes, cssProps, msToNum } from 'utils/style';
 import { isVisible } from 'utils/transition';
 import { TextArea } from './TextArea';
 
@@ -20,6 +19,11 @@ export const Input = ({
   style,
   error,
   onBlur,
+  autoComplete,
+  required,
+  maxLength,
+  type,
+  onChange,
   ...rest
 }) => {
   const [focused, setFocused] = useState(false);
@@ -40,15 +44,16 @@ export const Input = ({
 
   return (
     <div
-      className={classNames('input', className, { 'input--error': !!error })}
+      className={classes('input', className)}
+      data-error={!!error}
       style={style}
+      {...rest}
     >
       <div className="input__content">
         <label
-          className={classNames('input__label', {
-            'input__label--focused': focused,
-            'input__label--has-value': !!value,
-          })}
+          className="input__label"
+          data-focused={focused}
+          data-filled={!!value}
           id={labelId}
           htmlFor={inputId}
         >
@@ -62,27 +67,28 @@ export const Input = ({
           onFocus={() => setFocused(true)}
           onBlur={handleBlur}
           value={value}
-          {...rest}
+          onChange={onChange}
+          autoComplete={autoComplete}
+          required={required}
+          maxLength={maxLength}
+          type={type}
         />
-        <div
-          className={classNames('input__underline', {
-            'input__underline--focused': focused,
-          })}
-        />
+        <div className="input__underline" data-focused={focused} />
       </div>
       <TransitionGroup component={null}>
         {!!error && (
           <Transition timeout={msToNum(tokens.base.durationM)}>
             {status => (
               <div
-                className={classNames('input__error', `input__error--${status}`)}
+                className="input__error"
+                data-status={status}
                 id={errorId}
                 role="alert"
-                style={{
-                  '--height': isVisible(status)
-                    ? numToPx(errorRef.current?.getBoundingClientRect().height)
-                    : '0px',
-                }}
+                style={cssProps({
+                  height: isVisible(status)
+                    ? errorRef.current?.getBoundingClientRect().height
+                    : 0,
+                })}
               >
                 <div className="input__error-message" ref={errorRef}>
                   <Icon icon="error" />

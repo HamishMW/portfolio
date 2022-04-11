@@ -1,14 +1,9 @@
 import './NavToggle.css';
 
-import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { Icon } from 'components/Icon';
 
 export const NavToggle = ({ menuOpen, ...rest }) => {
-  const iconClass = classNames('nav-toggle__icon', {
-    'nav-toggle__icon--open': menuOpen,
-  });
-
   return (
     <Button
       iconOnly
@@ -19,13 +14,15 @@ export const NavToggle = ({ menuOpen, ...rest }) => {
     >
       <div className="nav-toggle__inner">
         <Icon
-          className={classNames(iconClass, 'nav-toggle__icon--menu')}
-          open={menuOpen}
+          className="nav-toggle__icon"
+          data-menu={true}
+          data-open={menuOpen}
           icon="menu"
         />
         <Icon
-          className={classNames(iconClass, 'nav-toggle__icon--close')}
-          open={menuOpen}
+          className="nav-toggle__icon"
+          data-close={true}
+          data-open={menuOpen}
           icon="close"
         />
       </div>

@@ -43,9 +43,9 @@ import { Fragment, Suspense, lazy, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import { prerender } from 'utils/prerender';
 import { media } from 'utils/style';
-import { Armor } from './Armor';
 
 const Carousel = lazy(() => import('components/Carousel'));
+const Armor = lazy(() => import('./Armor'));
 
 const title = 'Volkihar Knight';
 const description =
@@ -70,7 +70,7 @@ export function VolkiharKnight() {
           }
           .light {
             --rgbPrimary: 142 117 1;
-            --rgbAccent: 240 211 150;
+            --rgbAccent: 142 117 1;
           }
         `}</style>
       )}
@@ -110,7 +110,9 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionColumns>
-            <Armor />
+            <Suspense fallback={null}>
+              <Armor alt="3D model of the Volkihar Knight armor" />
+            </Suspense>
             <div className="volkihar__text-section">
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>

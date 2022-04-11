@@ -8,7 +8,6 @@ import mwpx from 'assets/milkyway-px.hdr';
 import mwpy from 'assets/milkyway-py.hdr';
 import mwpz from 'assets/milkyway-pz.hdr';
 import milkywayBg from 'assets/milkyway.jpg';
-import classNames from 'classnames';
 import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
 import { spring, transform, value } from 'popmotion';
 import {
@@ -45,7 +44,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader.js';
-import { media } from 'utils/style';
+import { classes, media } from 'utils/style';
 import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
@@ -151,9 +150,9 @@ export const Earth = forwardRef(
         element.style.transform = `translate3d(-50%, -50%, 0) translate3d(${vector.x}px, ${vector.y}px, 0)`;
 
         if (spriteBehindObject) {
-          element.classList.add('earth__label--occluded');
+          element.dataset.occluded = true;
         } else {
-          element.classList.remove('earth__label--occluded');
+          element.dataset.occluded = false;
         }
       });
     }, [inViewport]);
@@ -326,7 +325,7 @@ export const Earth = forwardRef(
         labelElements.current = labels.map(label => {
           const element = document.createElement('div');
           element.classList.add('earth__label');
-          element.classList.add('earth__label--hidden');
+          element.dataset.hidden = true;
           element.style.setProperty('--delay', `${label.delay || 0}ms`);
           element.textContent = label.text;
           labelContainer.current.appendChild(element);
@@ -534,7 +533,7 @@ export const Earth = forwardRef(
         const updateLabels = index => {
           labelElements.current.forEach(label => {
             if (label.hidden) {
-              label.element.classList.add('earth__label--hidden');
+              label.element.dataset.hidden = true;
               label.element.setAttribute('aria-hidden', true);
             }
           });
@@ -544,7 +543,7 @@ export const Earth = forwardRef(
           sectionLabels.forEach(label => {
             const matches = labelElements.current.filter(item => item.text === label);
             matches.forEach(match => {
-              match.element.classList.remove('earth__label--hidden');
+              match.element.dataset.hidden = false;
               match.element.setAttribute('aria-hidden', false);
             });
           });
@@ -643,13 +642,12 @@ export const Earth = forwardRef(
 
     return (
       <EarthContext.Provider value={{ registerSection, unregisterSection }}>
-        <div className={classNames('earth', className)} ref={container}>
+        <div className={classes('earth', className)} ref={container}>
           <div className="earth__viewport">
             <canvas
-              className={classNames('earth__canvas', {
-                'earth__canvas--visible': inViewport && loaded,
-                'earth__canvas--grabbing': grabbing,
-              })}
+              className="earth__canvas"
+              data-visible={inViewport && loaded}
+              data-grabbing={grabbing}
               ref={canvas}
             />
             <div className="earth__labels" aria-live="polite" ref={labelContainer} />
@@ -700,10 +698,9 @@ export const EarthSection = memo(
 
     return (
       <div
-        className={classNames('earth__section', className, {
-          'earth__section--scrim': scrim,
-          'earth__section--scrim-reverse': scrimReverse,
-        })}
+        className={classes('earth__section', className)}
+        data-scrim={scrim}
+        data-scrim-reverse={scrimReverse}
         ref={sectionRef}
       >
         {children}

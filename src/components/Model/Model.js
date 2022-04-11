@@ -1,6 +1,5 @@
 import './Model.css';
 
-import classNames from 'classnames';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { chain, delay, spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -30,7 +29,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
 import { getImageFromSrcSet } from 'utils/image';
-import { numToMs } from 'utils/style';
+import { classes, cssProps, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
 import { ModelAnimationType } from './deviceModels';
 
@@ -433,8 +432,9 @@ export const Model = ({
 
   return (
     <div
-      className={classNames('model', { 'model--loaded': loaded }, className)}
-      style={{ '--delay': numToMs(showDelay), ...style }}
+      className={classes('model', className)}
+      data-loaded={loaded}
+      style={cssProps({ delay: numToMs(showDelay) }, style)}
       ref={container}
       role="img"
       aria-label={alt}

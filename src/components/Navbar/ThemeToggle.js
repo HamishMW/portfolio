@@ -1,6 +1,5 @@
 import './ThemeToggle.css';
 
-import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { useAppContext, useId } from 'hooks';
 
@@ -17,7 +16,8 @@ export const ThemeToggle = ({ isMobile, ...rest }) => {
   return (
     <Button
       iconOnly
-      className={classNames('theme-toggle', { 'theme-toggle--mobile': isMobile })}
+      className="theme-toggle"
+      data-mobile={isMobile}
       aria-label="Toggle theme"
       onClick={handleClick}
       {...rest}
@@ -32,21 +32,16 @@ export const ThemeToggle = ({ isMobile, ...rest }) => {
         <defs>
           <mask id={maskId}>
             <circle
-              className={classNames(
-                'theme-toggle__circle',
-                'theme-toggle__circle--mask',
-                {
-                  'theme-toggle__circle--dark': isDark,
-                }
-              )}
+              className="theme-toggle__circle"
+              data-mask={true}
+              data-dark={isDark}
               cx="19"
               cy="19"
               r="13"
             />
             <circle
-              className={classNames('theme-toggle__mask', {
-                'theme-toggle__mask--dark': isDark,
-              })}
+              className="theme-toggle__mask"
+              data-dark={isDark}
               cx="25"
               cy="14"
               r="9"
@@ -54,15 +49,13 @@ export const ThemeToggle = ({ isMobile, ...rest }) => {
           </mask>
         </defs>
         <path
-          className={classNames('theme-toggle__path', {
-            'theme-toggle__path--dark': isDark,
-          })}
+          className="theme-toggle__path"
+          data-dark={isDark}
           d="M19 3v7M19 35v-7M32.856 11l-6.062 3.5M5.144 27l6.062-3.5M5.144 11l6.062 3.5M32.856 27l-6.062-3.5"
         />
         <circle
-          className={classNames('theme-toggle__circle', {
-            'theme-toggle__circle--dark': isDark,
-          })}
+          className="theme-toggle__circle"
+          data-dark={isDark}
           mask={`url(#${maskId})`}
           cx="19"
           cy="19"

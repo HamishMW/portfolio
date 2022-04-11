@@ -6,10 +6,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-}
 
-.input--error {
-  --inputUnderlineColor: rgb(var(--rgbError));
+  &[data-error='true'] {
+    --inputUnderlineColor: rgb(var(--rgbError));
+  }
 }
 
 .input__content {
@@ -68,10 +68,10 @@
       transition: transform var(--durationM) var(--bezierFastoutSlowin);
     }
   }
-}
 
-.input__underline--focused {
-  transform: scale3d(1, 1, 1);
+  &[data-focused='true'] {
+    transform: scale3d(1, 1, 1);
+  }
 }
 
 .input__label {
@@ -90,12 +90,12 @@
         color var(--durationM) ease;
     }
   }
-}
 
-.input__label--has-value,
-.input__label--focused {
-  color: rgb(var(--rgbText) / 0.54);
-  transform: scale(0.8) translateY(calc(var(--spaceL) * -1));
+  &[data-filled='true'],
+  &[data-focused='true'] {
+    color: rgb(var(--rgbText) / 0.54);
+    transform: scale(0.8) translateY(calc(var(--spaceL) * -1));
+  }
 }
 
 .input__error {
@@ -110,11 +110,11 @@
       transition-property: height, opacity;
     }
   }
-}
 
-.input__error--entering,
-.input__error--entered {
-  opacity: 1;
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    opacity: 1;
+  }
 }
 
 .input__error-message {

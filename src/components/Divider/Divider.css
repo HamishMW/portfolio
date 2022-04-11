@@ -23,11 +23,11 @@
       transition-property: transform, opacity;
     }
   }
-}
 
-.divider__line--collapsed {
-  opacity: 0;
-  transform: scaleX(0);
+  &[data-collapsed='true'] {
+    opacity: 0;
+    transform: scaleX(0);
+  }
 }
 
 .divider__notch {
@@ -49,9 +49,9 @@
       transition-property: clip-path, opacity;
     }
   }
-}
 
-.divider__notch--collapsed {
-  opacity: 0;
-  clip-path: polygon(0 0, 0 0, 10px 100%, 10px 100%);
+  &[data-collapsed='true'] {
+    opacity: 0;
+    clip-path: polygon(0 0, 0 0, 10px 100%, 10px 100%);
+  }
 }

@@ -3,7 +3,6 @@ import './global.css';
 import './App.css';
 
 import { initialState, reducer } from 'app/reducer';
-import classNames from 'classnames';
 import { Navbar } from 'components/Navbar';
 import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
@@ -82,7 +81,7 @@ const AppRoutes = () => {
         >
           {status => (
             <TransitionContext.Provider value={{ status }}>
-              <div className={classNames('app__page', `app__page--${status}`)}>
+              <div className="app__page" data-status={status}>
                 <Suspense fallback={<Fragment />}>
                   <Routes location={location} key={pathname}>
                     <Route path="/" element={<Home />} />

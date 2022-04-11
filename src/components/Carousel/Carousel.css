@@ -11,10 +11,10 @@
   display: grid;
   grid-template-columns: 100%;
   cursor: grab;
-}
 
-.carousel__image-wrapper--dragging {
-  cursor: inherit;
+  &[data-dragging='true'] {
+    cursor: grabbing;
+  }
 }
 
 .carousel__canvas-wrapper {
@@ -38,10 +38,10 @@
   pointer-events: none;
   position: relative;
   z-index: 1;
-}
 
-.carousel__placeholder--loaded {
-  opacity: 0;
+  &[data-loaded='true'] {
+    opacity: 0;
+  }
 }
 
 .carousel__button {
@@ -54,14 +54,14 @@
   transform: translate3d(0, -50%, 0);
   z-index: 32;
   cursor: pointer;
-  outline: none;
 
   &:focus {
-    box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+    outline: 4px solid rgb(var(--rgbText));
+    outline-offset: 4px;
   }
 
-  &:active {
-    box-shadow: none;
+  &:focus:not(:focus-visible) {
+    outline: none;
   }
 
   &::before {
@@ -94,14 +94,14 @@
       display: none;
     }
   }
-}
 
-.carousel__button--prev {
-  left: var(--spaceM);
-}
+  &[data-prev='true'] {
+    left: var(--spaceM);
+  }
 
-.carousel__button--next {
-  right: var(--spaceM);
+  &[data-next='true'] {
+    right: var(--spaceM);
+  }
 }
 
 .carousel__nav {
@@ -139,10 +139,11 @@
   }
 
   &:focus {
-    box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+    outline: 4px solid rgb(var(--rgbText));
+    outline-offset: 4px;
   }
 
-  &:active {
-    box-shadow: none;
+  &:focus:not(:focus-visible) {
+    outline: none;
   }
 }

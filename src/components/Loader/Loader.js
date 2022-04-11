@@ -1,10 +1,9 @@
 import './Loader.css';
 
-import classNames from 'classnames';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { usePrefersReducedMotion } from 'hooks';
 import { createPortal } from 'react-dom';
-import { numToPx } from 'utils/style';
+import { classes, cssProps } from 'utils/style';
 
 export const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -31,14 +30,9 @@ export const Loader = ({ className, style, size = 32, text = 'Loading...', ...re
 
   return (
     <div
-      className={classNames('loader', className)}
+      className={classes('loader', className)}
       aria-label={text}
-      style={{
-        '--size': numToPx(size),
-        '--spanSize': numToPx(spanSize),
-        '--gapSize': numToPx(gapSize),
-        ...style,
-      }}
+      style={cssProps({ size, spanSize, gapSize }, style)}
       {...rest}
     >
       <div className="loader__content">

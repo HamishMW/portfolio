@@ -12,7 +12,7 @@ import { ReactComponent as Pause } from 'assets/icons/pause.svg';
 import { ReactComponent as Play } from 'assets/icons/play.svg';
 import { ReactComponent as Send } from 'assets/icons/send.svg';
 import { ReactComponent as Twitter } from 'assets/icons/twitter.svg';
-import classNames from 'classnames';
+import { classes } from 'utils/style';
 
 export const icons = {
   arrowRight: ArrowRight,
@@ -32,7 +32,5 @@ export const icons = {
 export const Icon = ({ icon, style, className, ...rest }) => {
   const IconComponent = icons[icon];
 
-  return (
-    <IconComponent aria-hidden className={classNames('icon', className)} {...rest} />
-  );
+  return <IconComponent aria-hidden className={classes('icon', className)} {...rest} />;
 };

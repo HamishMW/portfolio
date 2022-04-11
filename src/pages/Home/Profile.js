@@ -4,7 +4,6 @@ import { ReactComponent as KatakanaProfile } from 'assets/katakana-profile.svg';
 import ProfileImgLarge from 'assets/profile-large.jpg';
 import ProfileImgPlaceholder from 'assets/profile-placeholder.jpg';
 import ProfileImg from 'assets/profile.jpg';
-import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Divider } from 'components/Divider';
@@ -20,27 +19,17 @@ import { reflow } from 'utils/transition';
 
 const ProfileText = ({ status, titleId }) => (
   <Fragment>
-    <Heading
-      className={classNames('profile__title', `profile__title--${status}`)}
-      level={3}
-      id={titleId}
-    >
+    <Heading className="profile__title" data-status={status} level={3} id={titleId}>
       <DecoderText text="Hi there" start={status !== 'exited'} delay={500} />
     </Heading>
-    <Text
-      className={classNames('profile__description', `profile__description--${status}`)}
-      size="l"
-    >
+    <Text className="profile__description" data-status={status} size="l">
       I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
       <Link href="https://www.qwilr.com">Qwilr</Link>. My projects include UX design, UI
       animations, and icon illustration. Being comfortable with code allows me to rapidly
       prototype and validate experiences. If you're interested in the tools and software I
       use check out my <Link href="/uses">uses page</Link>.
     </Text>
-    <Text
-      className={classNames('profile__description', `profile__description--${status}`)}
-      size="l"
-    >
+    <Text className="profile__description" data-status={status} size="l">
       In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
       <Link href="/projects/volkihar-knight">make mods</Link>. I’m always down for hearing
       about new projects, so feel free to drop me a line.
@@ -67,7 +56,8 @@ export const Profile = ({ id, visible, sectionRef }) => {
               <ProfileText status={status} titleId={titleId} />
               <Button
                 secondary
-                className={classNames('profile__button', `profile__button--${status}`)}
+                className="profile__button"
+                data-status={status}
                 href="/contact"
                 icon="send"
               >
@@ -82,12 +72,7 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   collapsed={status !== 'entered'}
                   collapseDelay={1000}
                 />
-                <div
-                  className={classNames(
-                    'profile__tag-text',
-                    `profile__tag-text--${status}`
-                  )}
-                >
+                <div className="profile__tag-text" data-status={status}>
                   About Me
                 </div>
               </div>
@@ -100,9 +85,7 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
                   alt="Me standing in front of the Torii on Miyajima, an island off the coast of Hiroshima in Japan"
                 />
-                <KatakanaProfile
-                  className={classNames('profile__svg', `profile__svg--${status}`)}
-                />
+                <KatakanaProfile className="profile__svg" data-status={status} />
               </div>
             </div>
           </div>

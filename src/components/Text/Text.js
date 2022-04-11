@@ -1,6 +1,6 @@
 import './Text.css';
 
-import classNames from 'classnames';
+import { classes } from 'utils/style';
 
 export const Text = ({
   children,
@@ -14,16 +14,11 @@ export const Text = ({
 }) => {
   return (
     <Component
-      className={classNames(
-        className,
-        'text',
-        `text--align-${align}`,
-        `text--size-${size}`,
-        `text--weight-${weight}`,
-        {
-          'text--secondary': secondary,
-        }
-      )}
+      className={classes('text', className)}
+      data-align={align}
+      data-size={size}
+      data-weight={weight}
+      data-secondary={secondary}
       {...rest}
     >
       {children}

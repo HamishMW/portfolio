@@ -1,6 +1,5 @@
 import './DisplacementSphere.css';
 
-import classNames from 'classnames';
 import { useTheme } from 'components/ThemeProvider';
 import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
 import { spring, value } from 'popmotion';
@@ -199,7 +198,8 @@ const DisplacementSphere = props => {
       {status => (
         <canvas
           aria-hidden
-          className={classNames('displacement-sphere', `displacement-sphere--${status}`)}
+          className="displacement-sphere"
+          data-status={status}
           ref={canvasRef}
           {...props}
         />

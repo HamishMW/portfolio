@@ -1,6 +1,5 @@
 import './ProjectLayout.css';
 
-import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { Heading } from 'components/Heading';
 import { Image } from 'components/Image';
@@ -9,7 +8,7 @@ import { Text } from 'components/Text';
 import { useParallax } from 'hooks';
 import { forwardRef } from 'react';
 import { prerender } from 'utils/prerender';
-import { numToMs, numToPx } from 'utils/style';
+import { classes, cssProps, numToMs } from 'utils/style';
 
 const initDelay = 300;
 
@@ -22,36 +21,24 @@ export function ProjectHeader({
   className,
 }) {
   return (
-    <Section className={classNames('project__header', className)}>
+    <Section className={classes('project__header', className)}>
       <div
         className="project__header-content"
-        style={{ '--initDelay': numToMs(initDelay) }}
+        style={cssProps({ initDelay: numToMs(initDelay) })}
       >
         <div className="project__details">
-          <Heading
-            className={classNames('project__title', {
-              'project__title--entered': !prerender,
-            })}
-            level={2}
-            as="h1"
-          >
+          <Heading className="project__title" data-entered={!prerender} level={2} as="h1">
             {title}
           </Heading>
-          <Text
-            className={classNames('project__description', {
-              'project__description--entered': !prerender,
-            })}
-            size="xl"
-          >
+          <Text className="project__description" data-entered={!prerender} size="xl">
             {description}
           </Text>
           {!!url && (
             <Button
               secondary
               iconHoverShift
-              className={classNames('project__link-button', {
-                'project__link-button--entered': !prerender,
-              })}
+              className="project__link-button"
+              data-entered={!prerender}
               icon="chevronRight"
               href={url}
             >
@@ -63,10 +50,9 @@ export function ProjectHeader({
           <ul className="project__meta">
             {roles?.map((role, index) => (
               <li
-                className={classNames('project__meta-item', {
-                  'project__meta-item--entered': !prerender,
-                })}
-                style={{ '--delay': numToMs(initDelay + 300 + index * 140) }}
+                className="project__meta-item"
+                data-entered={!prerender}
+                style={cssProps({ delay: numToMs(initDelay + 300 + index * 140) })}
                 key={role}
               >
                 <Text secondary as="span">
@@ -82,7 +68,7 @@ export function ProjectHeader({
 }
 
 export const ProjectContainer = ({ className, ...rest }) => (
-  <article className={classNames('project', className)} {...rest} />
+  <article className={classes('project', className)} {...rest} />
 );
 
 export const ProjectSection = forwardRef(
@@ -100,26 +86,21 @@ export const ProjectSection = forwardRef(
     ref
   ) => (
     <section
-      className={classNames('project__section', className, {
-        'project__section--light': light,
-        'project__section--full-height': fullHeight,
-      })}
+      className={classes('project__section', className)}
+      data-light={light}
+      data-full-height={fullHeight}
       ref={ref}
       {...rest}
     >
       {!!backgroundElement && (
         <div
           className="project__section-background"
-          style={{ '--opacity': backgroundOverlayOpacity }}
+          style={cssProps({ opacity: backgroundOverlayOpacity })}
         >
           {backgroundElement}
         </div>
       )}
-      <Section
-        className={classNames('project__section-inner', {
-          'project__section-inner--first': first,
-        })}
-      >
+      <Section className="project__section-inner" data-first={first}>
         {children}
       </Section>
     </section>
@@ -130,44 +111,32 @@ export const ProjectBackground = ({ opacity = 0.7, className, entered, ...rest }
   const offset = useParallax(0.6);
 
   return (
-    <div
-      className={classNames('project__background-image', className, {
-        'project__background-image--entered': entered,
-      })}
-    >
-      <div
-        className="project__background-image-element"
-        style={{
-          '--offset': numToPx(offset),
-        }}
-      >
+    <div className="project__background-image" data-entered={entered}>
+      <div className="project__background-image-element" style={cssProps({ offset })}>
         <Image alt="" role="presentation" {...rest} />
       </div>
-      <div className="project__background-scrim" style={{ '--opacity': opacity }} />
+      <div className="project__background-scrim" style={cssProps({ opacity })} />
     </div>
   );
 };
 
 export const ProjectImage = ({ className, ...rest }) => (
-  <div className={classNames('project__image', className)}>
+  <div className={classes('project__image', className)}>
     <Image reveal delay={300} {...rest} />
   </div>
 );
 
 export const ProjectSectionContent = ({ className, width = 'l', ...rest }) => (
   <div
-    className={classNames(
-      'project__section-content',
-      `project__section-content--width-${width}`,
-      className
-    )}
+    className={classes('project__section-content', className)}
+    data-width={width}
     {...rest}
   />
 );
 
 export const ProjectSectionHeading = ({ className, level = 3, as = 'h2', ...rest }) => (
   <Heading
-    className={classNames('project__section-heading', className)}
+    className={classes('project__section-heading', className)}
     as={as}
     level={level}
     align="auto"
@@ -176,7 +145,7 @@ export const ProjectSectionHeading = ({ className, level = 3, as = 'h2', ...rest
 );
 
 export const ProjectSectionText = ({ className, ...rest }) => (
-  <Text className={classNames('project__section-text', className)} size="l" {...rest} />
+  <Text className={classes('project__section-text', className)} size="l" {...rest} />
 );
 
 export const ProjectTextRow = ({
@@ -190,29 +159,21 @@ export const ProjectTextRow = ({
   ...rest
 }) => (
   <div
-    className={classNames(
-      'project__text-row',
-      `project__text-row--justify-${justify}`,
-      `project__text-row--width-${width}`,
-      className,
-      {
-        'project__text-row--center': center,
-        'project__text-row--stretch': stretch,
-        'project__text-row--center-mobile': centerMobile,
-        'project__text-row--no-margin': noMargin,
-      }
-    )}
+    className={classes('project__text-row', className)}
+    data-center={center}
+    data-stretch={stretch}
+    data-center-mobile={centerMobile}
+    data-no-margin={noMargin}
+    data-width={width}
+    data-justify={justify}
     {...rest}
   />
 );
 
 export const ProjectSectionColumns = ({ className, centered, ...rest }) => (
   <ProjectSectionContent
-    className={classNames(
-      'project__section-columns',
-      { 'project__section-columns--centered': centered },
-      className
-    )}
+    className={classes('project__section-columns', className)}
+    data-centered={centered}
     {...rest}
   />
 );

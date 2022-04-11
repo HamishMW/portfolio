@@ -13,17 +13,17 @@
   grid-area: 1 / 1;
   transition: opacity var(--durationS) ease;
   min-height: 100vh;
-}
 
-.app__page--exiting,
-.app__page--entering {
-  opacity: 0;
-}
+  &[data-status='exiting'],
+  &[data-status='entering'] {
+    opacity: 0;
+  }
 
-.app__page--entered {
-  transition-duration: var(--durationL);
-  transition-delay: var(--durationXS);
-  opacity: 1;
+  &[data-status='entered'] {
+    transition-duration: var(--durationL);
+    transition-delay: var(--durationXS);
+    opacity: 1;
+  }
 }
 
 .skip-to-main {

@@ -1,6 +1,5 @@
 import './Image.css';
 
-import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { Icon } from 'components/Icon';
 import { useTheme } from 'components/ThemeProvider';
@@ -11,7 +10,7 @@ import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { resolveVideoSrcFromSrcSet } from 'utils/image';
 import { prerender } from 'utils/prerender';
-import { msToNum, numToMs } from 'utils/style';
+import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { reflow } from 'utils/transition';
 
 export const Image = ({ className, style, reveal, delay = 0, raised, src, ...rest }) => {
@@ -26,12 +25,12 @@ export const Image = ({ className, style, reveal, delay = 0, raised, src, ...res
 
   return (
     <div
-      className={classNames('image', className, `image--${themeId}`, {
-        'image--in-viewport': inViewport,
-        'image--reveal': reveal,
-        'image--raised': raised,
-      })}
-      style={{ ...style, '--delay': numToMs(delay) }}
+      className={classes('image', className)}
+      data-visible={inViewport}
+      data-reveal={reveal}
+      data-raised={raised}
+      data-theme={themeId}
+      style={cssProps({ delay: numToMs(delay) }, style)}
       ref={containerRef}
     >
       <ImageElements
@@ -151,13 +150,12 @@ const ImageElements = ({
 
   return (
     <div
-      className={classNames('image__element-wrapper', {
-        'image__element-wrapper--reveal': reveal,
-        'image__element-wrapper--in-viewport': inViewport,
-      })}
+      className="image__element-wrapper"
+      data-reveal={reveal}
+      data-visible={inViewport}
       onMouseOver={isVideo ? handleShowPlayButton : undefined}
       onMouseOut={isVideo ? () => setIsHovered(false) : undefined}
-      style={{ '--delay': numToMs(delay + 1000) }}
+      style={cssProps({ delay: numToMs(delay + 1000) })}
     >
       {isVideo && (
         <Fragment>
@@ -165,7 +163,8 @@ const ImageElements = ({
             muted
             loop
             playsInline
-            className={classNames('image__element', { 'image__element--loaded': loaded })}
+            className="image__element"
+            data-loaded={loaded}
             autoPlay={!prefersReducedMotion}
             role="img"
             onLoadStart={onLoad}
@@ -183,7 +182,8 @@ const ImageElements = ({
             {status => (
               <VisuallyHidden visible={showPlayButton}>
                 <Button
-                  className={classNames('image__button', `image__button--${status}`)}
+                  className="image__button"
+                  data-status={status}
                   onFocus={handleFocusPlayButton}
                   onBlur={() => setIsFocused(false)}
                   onClick={togglePlaying}
@@ -198,7 +198,8 @@ const ImageElements = ({
       )}
       {!isVideo && (
         <img
-          className={classNames('image__element', { 'image__element--loaded': loaded })}
+          className="image__element"
+          data-loaded={loaded}
           onLoad={onLoad}
           decoding="async"
           src={showFullRes ? imgSrc : undefined}
@@ -212,10 +213,9 @@ const ImageElements = ({
       {showPlaceholder && (
         <img
           aria-hidden
-          className={classNames('image__placeholder', {
-            'image__placeholder--loaded': loaded,
-          })}
-          style={{ '--delay': numToMs(delay) }}
+          className="image__placeholder"
+          data-loaded={loaded}
+          style={cssProps({ delay: numToMs(delay) })}
           ref={placeholderRef}
           src={placeholder}
           onLoad={handlePlaceholderLoad}

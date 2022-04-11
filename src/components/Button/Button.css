@@ -6,7 +6,6 @@
   --buttonTextColor: rgb(var(--rgbBackground));
   --buttonTextVisibility: visible;
 
-  outline: none;
   height: var(--buttonSize);
   padding: var(--buttonPadding);
   cursor: pointer;
@@ -19,8 +18,17 @@
   position: relative;
   z-index: 1;
 
+  &:active {
+    transition-duration: calc(var(--durationXS) / 2);
+  }
+
   &:focus {
-    box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+    outline: 4px solid rgb(var(--rgbText));
+    outline-offset: 4px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
   }
 
   &::after {
@@ -33,11 +41,6 @@
     inset: 0;
     z-index: -1;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
-  }
-
-  &:active {
-    box-shadow: none;
-    transition-duration: calc(var(--durationXS) / 2);
   }
 
   @media (--mediaUseMotion) {
@@ -53,70 +56,70 @@
       transform: scale(1);
     }
   }
-}
 
-.button--secondary {
-  --buttonSpace: 10px;
-  --buttonTextColor: rgb(var(--rgbPrimary));
+  &[data-secondary='true'] {
+    --buttonSpace: 10px;
+    --buttonTextColor: rgb(var(--rgbPrimary));
 
-  background: none;
-  padding-left: var(--buttonSpace);
-  padding-right: var(--buttonSpace);
-  position: relative;
-  left: calc(var(--buttonSpace) * -1);
-  height: calc((32 / 16) * 1rem);
-
-  &::after {
-    content: '';
+    background: none;
+    padding-left: var(--buttonSpace);
+    padding-right: var(--buttonSpace);
+    position: relative;
+    left: calc(var(--buttonSpace) * -1);
     height: calc((32 / 16) * 1rem);
-    position: absolute;
-    inset: 0;
-    background-color: rgb(var(--rgbPrimary) / 0.2);
-    transform: scale3d(0, 1, 1);
-    transform-origin: right;
-    clip-path: none;
-  }
 
-  &:hover {
-    transform: none;
-    background: transparent;
-  }
-
-  &:hover::after {
-    transform: scale3d(1, 1, 1);
-    transform-origin: left;
-  }
-
-  @media (--mediaUseMotion) {
     &::after {
-      transition: transform var(--durationM) var(--bezierFastoutSlowin);
+      content: '';
+      height: calc((32 / 16) * 1rem);
+      position: absolute;
+      inset: 0;
+      background-color: rgb(var(--rgbPrimary) / 0.2);
+      transform: scale3d(0, 1, 1);
+      transform-origin: right;
+      clip-path: none;
+    }
+
+    &:hover {
+      transform: none;
+      background: transparent;
+    }
+
+    &:hover::after {
+      transform: scale3d(1, 1, 1);
+      transform-origin: left;
+    }
+
+    @media (--mediaUseMotion) {
+      &::after {
+        transition: transform var(--durationM) var(--bezierFastoutSlowin);
+      }
     }
   }
-}
 
-.button--loading {
-  --buttonTextVisibility: hidden;
-}
-
-.button--icon-only {
-  --buttonPadding: 0;
-  --buttonTextColor: var(--colorTextBody);
-
-  width: var(--buttonSize);
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-
-  &:hover {
-    transform: none;
+  &[data-loading='true'] {
+    --buttonTextVisibility: hidden;
   }
 
-  &::after {
-    background: rgb(var(--rgbText) / 0);
-  }
+  &[data-icon-only='true'] {
+    --buttonPadding: 0;
+    --buttonTextColor: var(--colorTextBody);
 
-  &:hover::after {
-    background: rgb(var(--rgbText) / 0.1);
+    width: var(--buttonSize);
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    &:hover {
+      transform: none;
+    }
+
+    &::after {
+      background: rgb(var(--rgbText) / 0);
+    }
+
+    &:hover::after {
+      background: rgb(var(--rgbText) / 0.1);
+    }
   }
 }
 
@@ -149,22 +152,22 @@
       transition-property: transform, opacity, fill;
     }
   }
-}
 
-.button__icon--start {
-  margin-right: var(--spaceS);
-}
+  &[data-start='true'] {
+    margin-right: var(--spaceS);
+  }
 
-.button__icon--end {
-  margin-left: var(--spaceS);
+  &[data-end='true'] {
+    margin-left: var(--spaceS);
+  }
 }
 
 @media (--mediaUseMotion) {
-  .button:hover .button__icon--shift {
+  .button:hover .button__icon[data-shift='true'] {
     transform: translate3d(var(--spaceXS), 0, 0);
   }
 }
 
-.button--loading .button__icon {
+.button[data-loading='true'] .button__icon {
   opacity: 0;
 }

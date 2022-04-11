@@ -42,24 +42,25 @@ export const numToMs = num => `${num}ms`;
 export const rgbToThreeColor = rgb => rgb.split(' ').map(value => Number(value) / 255);
 
 /**
- * Convert a JS object into `--` prefixed css custom properties
+ * Convert a JS object into `--` prefixed css custom properties.
+ * Optionally pass a second param for normal styles
  */
-export function cssProps(props) {
-  let style = {};
+export function cssProps(props, style = {}) {
+  let result = {};
 
   const keys = Object.keys(props);
 
   for (const key of keys) {
     let value = props[key];
 
-    if (typeof value === 'number') {
+    if (typeof value === 'number' && key !== 'opacity') {
       value = numToPx(value);
     }
 
-    style[`--${key}`] = value;
+    result[`--${key}`] = value;
   }
 
-  return style;
+  return { ...result, ...style };
 }
 
 /**

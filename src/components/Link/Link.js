@@ -1,8 +1,7 @@
 import './Link.css';
 
-import classNames from 'classnames';
 import { Link as RouterLink } from 'react-router-dom';
-import { blurOnMouseUp } from 'utils/focus';
+import { classes } from 'utils/style';
 
 // File extensions that can be linked to
 const VALID_EXT = ['txt', 'png', 'jpg'];
@@ -25,12 +24,12 @@ export const Link = ({
 
   return (
     <Component
-      className={classNames('link', className, { 'link--secondary': secondary })}
+      className={classes('link', className)}
+      data-secondary={secondary}
       rel={relValue}
       href={isAnchor ? href : undefined}
       to={!isAnchor ? href : undefined}
       target={targetValue}
-      onMouseUp={blurOnMouseUp}
       {...rest}
     >
       {children}

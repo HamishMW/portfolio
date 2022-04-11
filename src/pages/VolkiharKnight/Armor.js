@@ -1,15 +1,16 @@
 import './Armor.css';
 
-import vknx from 'assets/volkihar-cube-nx.png';
-import vkny from 'assets/volkihar-cube-ny.png';
-import vknz from 'assets/volkihar-cube-nz.png';
-import vkpx from 'assets/volkihar-cube-px.png';
-import vkpy from 'assets/volkihar-cube-py.png';
-import vkpz from 'assets/volkihar-cube-pz.png';
+import vknx from 'assets/volkihar-cube-nx.jpg';
+import vkny from 'assets/volkihar-cube-ny.jpg';
+import vknz from 'assets/volkihar-cube-nz.jpg';
+import vkpx from 'assets/volkihar-cube-px.jpg';
+import vkpy from 'assets/volkihar-cube-py.jpg';
+import vkpz from 'assets/volkihar-cube-pz.jpg';
 import armor from 'assets/volkihar-knight.glb';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Helmet from 'react-helmet';
 import {
   ACESFilmicToneMapping,
   AmbientLight,
@@ -30,7 +31,7 @@ import { degToRad } from 'three/src/math/MathUtils';
 import { classes, cssProps, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
 
-export const Armor = ({
+const Armor = ({
   models,
   show = true,
   showDelay = 0,
@@ -109,15 +110,15 @@ export const Armor = ({
       envMap.current.needsUpdate = true;
       pmremGenerator.dispose();
 
-      scene.current.traverse(({ material }) => {
-        if (material) {
-          material.envMap = renderTarget.current.texture;
-          material.needsUpdate = true;
+      scene.current.traverse(object => {
+        if (object.material) {
+          object.material.envMap = renderTarget.current.texture;
+          object.material.needsUpdate = true;
         }
       });
     };
 
-    const load = async () => {
+    loadModel.current = async () => {
       const dracoLoader = new DRACOLoader();
       const modelLoader = new GLTFLoader();
       dracoLoader.setDecoderPath('/draco/');
@@ -133,8 +134,6 @@ export const Armor = ({
       setLoaded(true);
       renderFrame();
     };
-
-    loadModel.current = load;
 
     return () => {
       removeLights(lights.current);
@@ -221,16 +220,23 @@ export const Armor = ({
   }, [renderFrame]);
 
   return (
-    <div
-      className={classes('armor', className)}
-      data-loaded={loaded}
-      style={cssProps({ delay: numToMs(showDelay) })}
-      ref={container}
-      role="img"
-      aria-label={alt}
-      {...rest}
-    >
-      <canvas className="armor__canvas" ref={canvas} />
-    </div>
+    <>
+      <Helmet>
+        <link rel="prefetch" href={armor} as="fetch" crossorigin="" />
+      </Helmet>
+      <div
+        className={classes('armor', className)}
+        data-loaded={loaded}
+        style={cssProps({ delay: numToMs(showDelay) })}
+        ref={container}
+        role="img"
+        aria-label={alt}
+        {...rest}
+      >
+        <canvas className="armor__canvas" ref={canvas} />
+      </div>
+    </>
   );
 };
+
+export default Armor;

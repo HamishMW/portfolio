@@ -1,9 +1,7 @@
 import './Heading.css';
 
-import GothamBold from 'assets/fonts/gotham-bold.woff2';
-import classNames from 'classnames';
 import { Fragment } from 'react';
-import { Helmet } from 'react-helmet';
+import { classes } from 'utils/style';
 
 export const Heading = ({
   children,
@@ -19,30 +17,11 @@ export const Heading = ({
 
   return (
     <Fragment>
-      {/* Conditionally load the bold font weight because we use it less frequently */}
-      {weight === 'bold' && (
-        <Helmet>
-          <link rel="preload" href={GothamBold} as="font" crossorigin="" />
-          <style>
-            {`
-              @font-face {
-                font-family: 'Gotham';
-                font-weight: 700;
-                src: url(${GothamBold}) format('woff2');
-                font-display: swap;
-              }
-            `}
-          </style>
-        </Helmet>
-      )}
       <Component
-        className={classNames(
-          className,
-          'heading',
-          `heading--align-${align}`,
-          `heading--level-${clampedLevel}`,
-          `heading--weight-${weight}`
-        )}
+        className={classes('heading', className)}
+        data-align={align}
+        data-weight={weight}
+        data-level={clampedLevel}
         {...rest}
       >
         {children}

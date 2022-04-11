@@ -77,11 +77,10 @@
     transition: opacity var(--durationM) var(--bezierFastoutSlowin);
     opacity: 0;
   }
-}
 
-.segmented-control__button:not([aria-checked='true'])
-  + .segmented-control__button:not([aria-checked='true'])::before {
-  opacity: 1;
+  &:not([aria-checked='true']) + &:not([aria-checked='true'])::before {
+    opacity: 1;
+  }
 }
 
 .segmented-control__indicator {
@@ -96,8 +95,8 @@
   clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
   transform: translate3d(var(--left), 0, 0);
   width: var(--width);
-}
 
-.segmented-control__indicator--last {
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  &[data-last='true'] {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  }
 }

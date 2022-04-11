@@ -1,11 +1,11 @@
 import './Section.css';
 
-import classNames from 'classnames';
 import { forwardRef } from 'react';
+import { classes } from 'utils/style';
 
 export const Section = forwardRef(
   ({ as: Component = 'div', children, className, ...rest }, ref) => (
-    <Component className={classNames('section', className)} ref={ref} {...rest}>
+    <Component className={classes('section', className)} ref={ref} {...rest}>
       {children}
     </Component>
   )

@@ -1,6 +1,6 @@
 import './VisuallyHidden.css';
 
-import classNames from 'classnames';
+import { classes } from 'utils/style';
 
 export const VisuallyHidden = ({
   className,
@@ -12,10 +12,9 @@ export const VisuallyHidden = ({
 }) => {
   return (
     <Component
-      className={classNames('visually-hidden', className, {
-        'visually-hidden--hidden': !visible && !showOnFocus,
-        'visually-hidden--show-on-focus': showOnFocus,
-      })}
+      className={classes('visually-hidden', className)}
+      data-hidden={!visible && !showOnFocus}
+      data-show-on-focus={showOnFocus}
       {...rest}
     >
       {children}

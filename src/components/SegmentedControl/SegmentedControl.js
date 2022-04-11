@@ -1,6 +1,5 @@
 import './SegmentedControl.css';
 
-import classNames from 'classnames';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useId } from 'hooks';
 import {
@@ -11,8 +10,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { blurOnMouseUp } from 'utils/focus';
-import { numToPx } from 'utils/style';
+import { cssProps } from 'utils/style';
 
 const SegmentedControlContext = createContext({});
 
@@ -79,14 +77,9 @@ export const SegmentedControl = ({
         <div className="segmented-control__options">
           {!!indicator && (
             <div
-              className={classNames('segmented-control__indicator', {
-                'segmented-control__indicator--last':
-                  currentIndex === optionRefs.current.length - 1,
-              })}
-              style={{
-                '--left': numToPx(indicator.left),
-                '--width': numToPx(indicator.width),
-              }}
+              className="segmented-control__indicator"
+              data-last={currentIndex === optionRefs.current.length - 1}
+              style={cssProps(indicator)}
             />
           )}
           {children}
@@ -115,7 +108,6 @@ export const SegmentedControlOption = ({ children, ...props }) => {
       role="radio"
       aria-checked={isSelected}
       onClick={() => onChange(index)}
-      onMouseUp={blurOnMouseUp}
       ref={optionRef}
       {...props}
     >

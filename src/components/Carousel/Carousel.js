@@ -2,7 +2,6 @@ import './Carousel.css';
 
 import { ReactComponent as ArrowLeft } from 'assets/arrow-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
-import classNames from 'classnames';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { listen, pointer, spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -18,7 +17,6 @@ import {
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
-import { blurOnMouseUp } from 'utils/focus';
 import { getImageFromSrcSet } from 'utils/image';
 import { prerender } from 'utils/prerender';
 import { cleanRenderer, cleanScene } from 'utils/three';
@@ -370,9 +368,8 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     <div className="carousel" onKeyDown={handleKeyDown} {...rest}>
       <div className="carousel__content">
         <div
-          className={classNames('carousel__image-wrapper', {
-            'carousel__image-wrapper--dragging': dragging,
-          })}
+          className="carousel__image-wrapper"
+          data-dragging={dragging}
           ref={swipeElement}
         >
           <div
@@ -387,9 +384,8 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
           {showPlaceholder && placeholder && (
             <img
               aria-hidden
-              className={classNames('carousel__placeholder', {
-                'carousel__placeholder--loaded': !prerender && loaded && textures,
-              })}
+              className="carousel__placeholder"
+              data-loaded={!prerender && loaded && !!textures}
               src={placeholder}
               ref={placeholderRef}
               alt=""
@@ -398,18 +394,18 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
           )}
         </div>
         <button
-          className="carousel__button carousel__button--prev"
+          className="carousel__button"
+          data-prev={true}
           aria-label="Previous slide"
           onClick={() => navigate({ direction: -1 })}
-          onMouseUp={blurOnMouseUp}
         >
           <ArrowLeft />
         </button>
         <button
-          className="carousel__button carousel__button--next"
+          className="carousel__button"
+          data-next={true}
           aria-label="Next slide"
           onClick={() => navigate({ direction: 1 })}
-          onMouseUp={blurOnMouseUp}
         >
           <ArrowRight />
         </button>
@@ -420,7 +416,6 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
             className="carousel__nav-button"
             key={image.alt}
             onClick={() => onNavClick(index)}
-            onMouseUp={blurOnMouseUp}
             aria-label={`Jump to slide ${index + 1}`}
             aria-pressed={index === imageIndex}
           />

@@ -13,11 +13,11 @@
       padding-top: 0;
     }
   }
-}
 
-.contact--entered,
-.contact--exiting {
-  position: relative;
+  &[data-status='entered'],
+  &[data-status='exiting'] {
+    position: relative;
+  }
 }
 
 .contact__form {
@@ -47,32 +47,32 @@
       transform: translate3d(0, var(--space5XL), 0);
     }
   }
-}
 
-.contact__title--entering,
-.contact__title--entered {
-  transform: none;
-  opacity: 1;
-}
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 
-.contact__title--exiting {
-  transition-duration: var(--durationM);
-  transition-delay: 0s;
-  opacity: 0;
+  &[data-status='exiting'] {
+    transition-duration: var(--durationM);
+    transition-delay: 0s;
+    opacity: 0;
 
-  @media (--mediaUseMotion) {
-    & {
-      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    @media (--mediaUseMotion) {
+      & {
+        transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+      }
     }
   }
-}
 
-.contact__title--hidden {
-  opacity: 0;
+  &[data-hidden='true'] {
+    opacity: 0;
 
-  @media (--mediaUseMotion) {
-    & {
-      transform: translate3d(0, var(--space5XL), 0);
+    @media (--mediaUseMotion) {
+      & {
+        transform: translate3d(0, var(--space5XL), 0);
+      }
     }
   }
 }
@@ -91,32 +91,32 @@
       transform: translate3d(0, var(--space5XL), 0);
     }
   }
-}
 
-.contact__divider--entering,
-.contact__divider--entered {
-  transform: none;
-  opacity: 1;
-}
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 
-.contact__divider--hidden {
-  opacity: 0;
+  &[data-hidden='true'] {
+    opacity: 0;
 
-  @media (--mediaUseMotion) {
-    & {
-      transform: translate3d(0, var(--space5XL), 0);
+    @media (--mediaUseMotion) {
+      & {
+        transform: translate3d(0, var(--space5XL), 0);
+      }
     }
   }
-}
 
-.contact__divider--exiting {
-  transition-duration: var(--durationM);
-  transition-delay: 0s;
-  opacity: 0;
+  &[data-status='exiting'] {
+    transition-duration: var(--durationM);
+    transition-delay: 0s;
+    opacity: 0;
 
-  @media (--mediaUseMotion) {
-    & {
-      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    @media (--mediaUseMotion) {
+      & {
+        transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+      }
     }
   }
 }
@@ -134,37 +134,37 @@
       transform: translate3d(0, var(--space3XL), 0);
     }
   }
-}
 
-.contact__input + .contact__input {
-  margin-top: var(--spaceXL);
-}
+  & + & {
+    margin-top: var(--spaceXL);
+  }
 
-.contact__input--entering,
-.contact__input--entered {
-  transform: none;
-  opacity: 1;
-}
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 
-.contact__input--hidden {
-  opacity: 0;
+  &[data-hidden='true'] {
+    opacity: 0;
 
-  @media (--mediaUseMotion) {
-    & {
-      transform: translate3d(0, var(--space3XL), 0);
-      transform: none;
+    @media (--mediaUseMotion) {
+      & {
+        transform: translate3d(0, var(--space3XL), 0);
+        transform: none;
+      }
     }
   }
-}
 
-.contact__input--exiting {
-  transition-duration: var(--durationM);
-  transition-delay: 0s;
-  opacity: 0;
+  &[data-status='exiting'] {
+    transition-duration: var(--durationM);
+    transition-delay: 0s;
+    opacity: 0;
 
-  @media (--mediaUseMotion) {
-    & {
-      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    @media (--mediaUseMotion) {
+      & {
+        transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+      }
     }
   }
 }
@@ -184,62 +184,63 @@
       transform: translate3d(0, var(--space3XL), 0);
     }
   }
-}
 
-.contact__button--entered {
-  transition-delay: 0ms;
-  transition-duration: var(--durationM);
-}
+  &[data-status='entered'] {
+    transition-delay: 0ms;
+    transition-duration: var(--durationM);
+  }
 
-.contact__button--hidden {
-  opacity: 0;
+  &[data-hidden='true'] {
+    opacity: 0;
 
-  @media (--mediaUseMotion) {
-    & {
-      transform: translate3d(0, var(--space3XL), 0);
+    @media (--mediaUseMotion) {
+      & {
+        transform: translate3d(0, var(--space3XL), 0);
+      }
     }
   }
-}
 
-.contact__button--sending {
-  & svg {
-    transition: transform var(--bezierFastoutSlowin) var(--durationXL),
-      opacity var(--durationS) ease var(--durationS);
-    transform: translate3d(var(--space5XL), 0, 0);
-    opacity: 0;
-  }
-
-  @media (--mediaReduceMotion) {
+  &[data-sending='true'] {
     & svg {
-      transition-property: opacity;
-      transform: none;
+      transition: transform var(--bezierFastoutSlowin) var(--durationXL),
+        opacity var(--durationS) ease var(--durationS);
+      transform: translate3d(var(--space5XL), 0, 0);
+      opacity: 0;
+    }
+
+    @media (--mediaReduceMotion) {
+      & svg {
+        transition-property: opacity;
+        transform: none;
+      }
+    }
+
+    & .loader {
+      opacity: 0;
+      animation: fade-in var(--durationM) ease var(--durationL) forwards;
     }
   }
 
-  & .loader {
-    opacity: 0;
-    animation: fade-in var(--durationM) ease var(--durationL) forwards;
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    opacity: 1;
   }
-}
 
-.contact__button--entering,
-.contact__button--entered {
-  transform: none;
-  opacity: 1;
-}
+  &[data-status='entering']:not(:hover),
+  &[data-status='entered']:not(:hover),
+  &[data-status='entering']:hover {
+    transform: none;
+  }
 
-.contact__button--entering:hover {
-  transform: none;
-}
+  &[data-status='exiting'] {
+    transition-duration: var(--durationM);
+    transition-delay: 0s;
+    opacity: 0;
 
-.contact__button--exiting {
-  transition-duration: var(--durationM);
-  transition-delay: 0s;
-  opacity: 0;
-
-  @media (--mediaUseMotion) {
-    & {
-      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    @media (--mediaUseMotion) {
+      & {
+        transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+      }
     }
   }
 }
@@ -269,11 +270,11 @@
       transform: translate3d(0, var(--space3XL), 0);
     }
   }
-}
 
-.contact__complete-title--entered {
-  transform: none;
-  opacity: 1;
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .contact__complete-text {
@@ -290,11 +291,11 @@
       transform: translate3d(0, var(--space3XL), 0);
     }
   }
-}
 
-.contact__complete-text--entered {
-  transform: none;
-  opacity: 1;
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .contact__complete-button {
@@ -311,11 +312,11 @@
       transform: translate3d(0, var(--space3XL), 0);
     }
   }
-}
 
-.contact__complete-button--entered {
-  transform: none;
-  opacity: 1;
+  &[data-status='entered']:not(:hover) {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .contact__form-error {

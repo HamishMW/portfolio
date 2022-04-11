@@ -1,7 +1,6 @@
 import './Divider.css';
 
-import classNames from 'classnames';
-import { numToMs } from 'utils/style';
+import { classes, cssProps, numToMs } from 'utils/style';
 
 export const Divider = ({
   lineWidth,
@@ -12,24 +11,27 @@ export const Divider = ({
   collapsed,
   className,
   style,
+  ...rest
 }) => (
   <div
-    className={classNames('divider', className)}
-    style={{
-      '--lineWidth': lineWidth,
-      '--lineHeight': lineHeight,
-      '--notchWidth': notchWidth,
-      '--notchHeight': notchHeight,
-      '--collapseDelay': numToMs(collapseDelay),
-      ...style,
-    }}
+    className={classes('divider', className)}
+    style={cssProps(
+      {
+        lineWidth: lineWidth,
+        lineHeight: lineHeight,
+        notchWidth: notchWidth,
+        notchHeight: notchHeight,
+        collapseDelay: numToMs(collapseDelay),
+      },
+      style
+    )}
+    {...rest}
   >
+    <div className="divider__line" data-collapsed={collapsed} />
     <div
-      className={classNames('divider__line', { 'divider__line--collapsed': collapsed })}
-    />
-    <div
-      className={classNames('divider__notch', { 'divider__notch--collapsed': collapsed })}
-      style={{ '--collapseDelay': numToMs(collapseDelay + 160) }}
+      className="divider__notch"
+      data-collapsed={collapsed}
+      style={cssProps({ collapseDelay: numToMs(collapseDelay + 160) })}
     />
   </div>
 );

@@ -12,14 +12,14 @@
 
   @media (--mediaDesktop) {
     & {
-      margin: 40px 0;
+      margin: var(--space2XL) 0;
     }
   }
 
   @media (--mediaTablet) {
     & {
       height: auto;
-      margin: 60px 0;
+      margin: var(--space3XL) 0;
     }
   }
 
@@ -50,7 +50,7 @@
   grid-template-columns: 40% 1fr;
   grid-column-gap: var(--space2XL);
 
-  @nest .project-summary--alternate & {
+  @nest .project-summary[data-alternate='true'] & {
     grid-template-columns: 1fr 40%;
   }
 
@@ -61,7 +61,7 @@
   }
 
   @media (--mediaTablet) {
-    @nest .project-summary--alternate & {
+    @nest .project-summary[data-alternate='true'] & {
       grid-template-columns: 100%;
     }
   }
@@ -107,48 +107,48 @@
 
   min-width: var(--width);
   padding-bottom: calc(var(--aspectRatio) * var(--width));
-}
 
-.project-summary__model--laptop {
-  top: 6%;
-  left: 14%;
+  &[data-device='laptop'] {
+    top: 6%;
+    left: 14%;
 
-  @media (--mediaDesktop) {
-    & {
-      --width: 180%;
+    @media (--mediaDesktop) {
+      & {
+        --width: 180%;
+      }
+    }
+
+    @media (--mediaTablet) {
+      & {
+        --width: 140%;
+
+        top: 10%;
+        left: 0;
+      }
     }
   }
 
-  @media (--mediaTablet) {
-    & {
-      --width: 140%;
+  &[data-device='phone'] {
+    --width: 116%;
+    --aspectRatio: 10 / 7;
 
-      top: 10%;
-      left: 0;
+    top: 5%;
+    left: -10%;
+
+    @media (--mediaDesktop) {
+      & {
+        --width: 108%;
+
+        left: 0;
+      }
     }
-  }
-}
 
-.project-summary__model--phone {
-  --width: 116%;
-  --aspectRatio: 10 / 7;
+    @media (--mediaTablet) {
+      & {
+        --width: 108%;
 
-  top: 5%;
-  left: -10%;
-
-  @media (--mediaDesktop) {
-    & {
-      --width: 108%;
-
-      left: 0;
-    }
-  }
-
-  @media (--mediaTablet) {
-    & {
-      --width: 108%;
-
-      left: 0;
+        left: 0;
+      }
     }
   }
 }
@@ -157,45 +157,45 @@
   opacity: 0;
   transition: opacity 1200ms ease 1400ms;
   fill: var(--colorTextTitle);
-}
 
-.project-summary__svg--entered {
-  opacity: var(--opacity);
-}
+  &[data-status='entered'] {
+    opacity: var(--opacity);
+  }
 
-.project-summary__svg--laptop {
-  position: absolute;
-  width: 100%;
-  right: -36%;
-  bottom: 24%;
-  transform: translateY(50%);
+  &[data-device='laptop'] {
+    position: absolute;
+    width: 100%;
+    right: -36%;
+    bottom: 24%;
+    transform: translateY(50%);
 
-  @media (--mediaTablet) {
-    & {
-      width: 80%;
-      right: -10%;
-      bottom: 18%;
+    @media (--mediaTablet) {
+      & {
+        width: 80%;
+        right: -10%;
+        bottom: 18%;
+      }
+    }
+
+    @media (--mediaMobile) {
+      & {
+        right: 0;
+      }
     }
   }
 
-  @media (--mediaMobile) {
-    & {
-      right: 0;
-    }
-  }
-}
+  &[data-device='phone'] {
+    position: absolute;
+    bottom: 23%;
+    transform: translateY(50%);
+    width: 100%;
+    transition-delay: 800ms;
 
-.project-summary__svg--phone {
-  position: absolute;
-  bottom: 23%;
-  transform: translateY(50%);
-  width: 100%;
-  transition-delay: 800ms;
-
-  @media (--mediaTablet) {
-    & {
-      width: 80%;
-      bottom: 23%;
+    @media (--mediaTablet) {
+      & {
+        width: 80%;
+        bottom: 23%;
+      }
     }
   }
 }
@@ -225,11 +225,11 @@
       transform: translateX(calc(var(--spaceM) * -1));
     }
   }
-}
 
-.project-summary__index-number--entered {
-  transform: translateX(0);
-  opacity: 1;
+  &[data-status='entered'] {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .project-summary__title {
@@ -246,11 +246,11 @@
       transform: translate3d(0, var(--spaceL), 0);
     }
   }
-}
 
-.project-summary__title--entered {
-  transform: none;
-  opacity: 1;
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .project-summary__description {
@@ -267,11 +267,11 @@
       transform: translate3d(0, var(--spaceL), 0);
     }
   }
-}
 
-.project-summary__description--entered {
-  transform: none;
-  opacity: 1;
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .project-summary__button {
@@ -288,9 +288,9 @@
       transform: translate3d(0, var(--spaceL), 0);
     }
   }
-}
 
-.project-summary__button--entered {
-  transform: none;
-  opacity: 1;
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 }

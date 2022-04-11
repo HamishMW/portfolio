@@ -1,7 +1,6 @@
 import './Intro.css';
 
 import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
-import classNames from 'classnames';
 import { DecoderText } from 'components/DecoderText';
 import { Heading } from 'components/Heading';
 import { Section } from 'components/Section';
@@ -12,7 +11,7 @@ import { useInterval, usePrevious, useWindowSize } from 'hooks';
 import { Fragment, Suspense, lazy, useEffect, useState } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { prerender } from 'utils/prerender';
-import { media } from 'utils/style';
+import { cssProps, media } from 'utils/style';
 import { reflow } from 'utils/transition';
 
 const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
@@ -70,40 +69,24 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
               </Suspense>
             )}
             <header className="intro__text">
-              <h1
-                className={classNames('intro__name', `intro__name--${status}`)}
-                id={titleId}
-              >
+              <h1 className="intro__name" data-status={status} id={titleId}>
                 <DecoderText text="Hamish Williams" start={!prerender} delay={300} />
               </h1>
               <Heading level={0} as="h2" className="intro__title">
                 <VisuallyHidden className="intro__title-label">{`Designer + ${introLabel}`}</VisuallyHidden>
-                <span
-                  aria-hidden
-                  className={classNames('intro__title-row', {
-                    'intro__title-row--hidden': prerender,
-                  })}
-                >
+                <span aria-hidden className="intro__title-row" data-hidden={prerender}>
                   <span
-                    className={classNames(
-                      'intro__title-word',
-                      `intro__title-word--${status}`
-                    )}
-                    style={{ '--delay': tokens.base.durationXS }}
+                    className="intro__title-word"
+                    data-status={status}
+                    style={cssProps({ delay: tokens.base.durationXS })}
                   >
                     Designer
                   </span>
-                  <span
-                    className={classNames(
-                      'intro__title-line',
-                      `intro__title-line--${status}`
-                    )}
-                  />
+                  <span className="intro__title-line" data-status={status} />
                 </span>
                 <TransitionGroup
-                  className={classNames('intro__title-row', {
-                    'intro__title-row--hidden': prerender,
-                  })}
+                  className="intro__title-row"
+                  data-hidden={prerender}
                   component="span"
                 >
                   {currentDisciplines.map(item => (
@@ -116,12 +99,10 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                       {wordStatus => (
                         <span
                           aria-hidden
-                          className={classNames(
-                            'intro__title-word',
-                            'intro__title-word--plus',
-                            `intro__title-word--${wordStatus}`
-                          )}
-                          style={{ '--delay': tokens.base.durationL }}
+                          className="intro__title-word"
+                          data-plus={true}
+                          data-status={wordStatus}
+                          style={cssProps({ delay: tokens.base.durationL })}
                         >
                           {item}
                         </span>
@@ -133,21 +114,16 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
             </header>
             {windowSize.width > media.tablet && (
               <div
-                className={classNames(
-                  'intro__scroll-indicator',
-                  `intro__scroll-indicator--${status}`,
-                  { 'intro__scroll-indicator--hidden': scrollIndicatorHidden }
-                )}
-                status={status}
+                className="intro__scroll-indicator"
+                data-status={status}
+                data-hidden={scrollIndicatorHidden}
               />
             )}
             {windowSize.width <= media.tablet && (
               <div
-                className={classNames(
-                  'intro__mobile-scroll-indicator',
-                  `intro__mobile-scroll-indicator--${status}`,
-                  { 'intro__mobile-scroll-indicator--hidden': scrollIndicatorHidden }
-                )}
+                className="intro__mobile-scroll-indicator"
+                data-status={status}
+                data-hidden={scrollIndicatorHidden}
               >
                 <ArrowDown aria-hidden />
               </div>

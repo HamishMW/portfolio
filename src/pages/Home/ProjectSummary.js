@@ -1,7 +1,6 @@
 import './ProjectSummary.css';
 
 import { ReactComponent as KatakanaProject } from 'assets/katakana-project.svg';
-import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { Divider } from 'components/Divider';
 import { Heading } from 'components/Heading';
@@ -11,9 +10,8 @@ import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { useTheme } from 'components/ThemeProvider';
 import { useWindowSize } from 'hooks';
-import { Fragment } from 'react';
 import { Transition } from 'react-transition-group';
-import { media } from 'utils/style';
+import { cssProps, media } from 'utils/style';
 import { isVisible, reflow } from 'utils/transition';
 
 export const ProjectSummary = ({
@@ -47,40 +45,23 @@ export const ProjectSummary = ({
           collapsed={status !== 'entered'}
           collapseDelay={1000}
         />
-        <span
-          className={classNames(
-            'project-summary__index-number',
-            `project-summary__index-number--${status}`
-          )}
-        >
+        <span className="project-summary__index-number" data-status={status}>
           {indexText}
         </span>
       </div>
       <Heading
         level={3}
         as="h2"
-        className={classNames(
-          'project-summary__title',
-          `project-summary__title--${status}`
-        )}
+        className="project-summary__title"
+        data-status={status}
         id={titleId}
       >
         {title}
       </Heading>
-      <Text
-        className={classNames(
-          'project-summary__description',
-          `project-summary__description--${status}`
-        )}
-      >
+      <Text className="project-summary__description" data-status={status}>
         {description}
       </Text>
-      <div
-        className={classNames(
-          'project-summary__button',
-          `project-summary__button--${status}`
-        )}
-      >
+      <div className="project-summary__button" data-status={status}>
         <Button iconHoverShift href={buttonLink} iconEnd="arrowRight">
           {buttonText}
         </Button>
@@ -91,23 +72,17 @@ export const ProjectSummary = ({
   const renderPreview = status => (
     <div className="project-summary__preview">
       {model.type === 'laptop' && (
-        <Fragment>
+        <>
           <KatakanaProject
-            style={{ '--opacity': svgOpacity }}
-            className={classNames(
-              'project-summary__svg',
-              'project-summary__svg--laptop',
-              `project-summary__svg--${status}`,
-              {
-                'project-summary__svg--light': theme.themeId === 'light',
-              }
-            )}
+            className="project-summary__svg"
+            style={cssProps({ opacity: svgOpacity })}
+            data-device="laptop"
+            data-status={status}
+            data-light={theme.themeId === 'light'}
           />
           <Model
-            className={classNames(
-              'project-summary__model',
-              'project-summary__model--laptop'
-            )}
+            className="project-summary__model"
+            data-device="laptop"
             alt={model.alt}
             cameraPosition={{ x: 0, y: 0, z: 8 }}
             showDelay={800}
@@ -122,26 +97,20 @@ export const ProjectSummary = ({
               },
             ]}
           />
-        </Fragment>
+        </>
       )}
       {model.type === 'phone' && (
-        <Fragment>
+        <>
           <KatakanaProject
-            style={{ '--opacity': svgOpacity }}
-            className={classNames(
-              'project-summary__svg',
-              'project-summary__svg--phone',
-              `project-summary__svg--${status}`,
-              {
-                'project-summary__svg--light': theme.themeId === 'light',
-              }
-            )}
+            data-status={status}
+            data-light={theme.themeId === 'light'}
+            style={cssProps({ opacity: svgOpacity })}
+            className="project-summary__svg"
+            data-device="phone"
           />
           <Model
-            className={classNames(
-              'project-summary__model',
-              'project-summary__model--phone'
-            )}
+            className="project-summary__model"
+            data-device="phone"
             alt={model.alt}
             cameraPosition={{ x: 0, y: 0, z: 11.5 }}
             showDelay={500}
@@ -165,17 +134,16 @@ export const ProjectSummary = ({
               },
             ]}
           />
-        </Fragment>
+        </>
       )}
     </div>
   );
 
   return (
     <Section
-      className={classNames('project-summary', {
-        'project-summary--alternate': alternate,
-        'project-summary--first': index === '01',
-      })}
+      className="project-summary"
+      data-alternate={alternate}
+      data-first={index === '01'}
       as="section"
       aria-labelledby={titleId}
       ref={sectionRef}
@@ -186,20 +154,20 @@ export const ProjectSummary = ({
       <div className="project-summary__content">
         <Transition in={visible} timeout={0} onEnter={reflow}>
           {status => (
-            <Fragment>
+            <>
               {!alternate && !isMobile && (
-                <Fragment>
+                <>
                   {renderDetails(status)}
                   {renderPreview(status)}
-                </Fragment>
+                </>
               )}
               {(alternate || isMobile) && (
-                <Fragment>
+                <>
                   {renderPreview(status)}
                   {renderDetails(status)}
-                </Fragment>
+                </>
               )}
-            </Fragment>
+            </>
           )}
         </Transition>
       </div>

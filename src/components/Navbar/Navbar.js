@@ -1,6 +1,5 @@
 import './Navbar.css';
 
-import classNames from 'classnames';
 import { Icon } from 'components/Icon';
 import { Monogram } from 'components/Monogram';
 import { tokens } from 'components/ThemeProvider/theme';
@@ -8,7 +7,6 @@ import { useAppContext, useWindowSize } from 'hooks';
 import { useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
-import { blurOnMouseUp } from 'utils/focus';
 import { media, msToNum, numToMs } from 'utils/style';
 import { reflow } from 'utils/transition';
 import { NavToggle } from './NavToggle';
@@ -23,7 +21,6 @@ const NavbarIcons = () => (
         className="navbar__nav-icon-link"
         aria-label={label}
         href={url}
-        onMouseUp={blurOnMouseUp}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -62,7 +59,6 @@ export function Navbar(props) {
         to={{ pathname: '/', hash: '#intro', state: hashKey }}
         aria-label="Hamish Williams, Designer"
         onClick={handleMobileNavClick}
-        onMouseUp={blurOnMouseUp}
       >
         <Monogram highlight />
       </RouterLink>
@@ -76,7 +72,6 @@ export function Navbar(props) {
               onClick={handleNavClick}
               key={label}
               to={{ pathname, hash, state: hashKey }}
-              onMouseUp={blurOnMouseUp}
             >
               {label}
             </RouterLink>
@@ -92,18 +87,15 @@ export function Navbar(props) {
         onEnter={reflow}
       >
         {status => (
-          <nav className={`navbar__mobile-nav navbar__mobile-nav--${status}`}>
+          <nav className="navbar__mobile-nav" data-status={status}>
             {navLinks.map(({ label, pathname, hash }, index) => (
               <RouterLink
-                className={classNames(
-                  'navbar__mobile-nav-link',
-                  `navbar__mobile-nav-link--${status}`
-                )}
+                className="navbar__mobile-nav-link"
+                data-status={status}
                 aria-current={isMatch(pathname, hash) ? 'page' : undefined}
                 key={label}
                 onClick={handleMobileNavClick}
                 to={{ pathname, hash, state: hashKey }}
-                onMouseUp={blurOnMouseUp}
                 style={{
                   transitionDelay: numToMs(
                     Number(msToNum(tokens.base.durationS)) + index * 50

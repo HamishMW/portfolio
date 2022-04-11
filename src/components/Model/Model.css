@@ -1,10 +1,10 @@
 .model {
   position: relative;
   opacity: 0;
-}
 
-.model--loaded {
-  animation: fade-in 1s ease forwards var(--delay);
+  &[data-loaded='true'] {
+    animation: fade-in 1s ease forwards var(--delay);
+  }
 }
 
 .model__canvas {

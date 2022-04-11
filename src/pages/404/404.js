@@ -2,7 +2,6 @@ import './404.css';
 
 import NotfoundPoster from 'assets/notfound.jpg';
 import Notfound from 'assets/notfound.mp4';
-import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Heading } from 'components/Heading';
@@ -24,18 +23,13 @@ export function Page404() {
           <Fragment>
             <div className="page-404__details">
               <div className="page-404__text">
-                <Heading
-                  className={classNames('page-404__title', `page-404__title--${status}`)}
-                  level={0}
-                >
+                <Heading className="page-404__title" data-status={status} level={0}>
                   404
                 </Heading>
                 <Heading
                   aria-hidden
-                  className={classNames(
-                    'page-404__subheading',
-                    `page-404__subheading--${status}`
-                  )}
+                  className="page-404__subheading"
+                  data-status={status}
                   as="h2"
                   level={3}
                 >
@@ -45,22 +39,15 @@ export function Page404() {
                     delay={300}
                   />
                 </Heading>
-                <Text
-                  className={classNames(
-                    'page-404__description',
-                    `page-404__description--${status}`
-                  )}
-                >
+                <Text className="page-404__description" data-status={status}>
                   This page could not be found. It either doesn’t exist or was deleted. Or
                   perhaps you don’t exist.
                 </Text>
                 <Button
                   secondary
                   iconHoverShift
-                  className={classNames(
-                    'page-404__button',
-                    `page-404__button--${status}`
-                  )}
+                  className="page-404__button"
+                  data-status={status}
                   href="/"
                   icon="chevronRight"
                 >
@@ -69,24 +56,21 @@ export function Page404() {
               </div>
             </div>
 
-            <div
-              className={classNames(
-                'page-404__video-container',
-                `page-404__video-container--${status}`
-              )}
-            >
+            <div className="page-404__video-container" data-status={status}>
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
-                className={classNames('page-404__video', `page-404__video--${status}`)}
+                className="page-404__video"
+                data-status={status}
                 poster={NotfoundPoster}
               >
                 <source src={Notfound} type="video/mp4" />
               </video>
               <a
-                className={classNames('page-404__credit', `page-404__credit--${status}`)}
+                className="page-404__credit"
+                data-status={status}
                 href="https://www.imdb.com/title/tt0113568/"
                 target="_blank"
                 rel="noopener noreferrer"

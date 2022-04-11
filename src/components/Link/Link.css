@@ -23,11 +23,12 @@
   }
 
   &:focus {
-    box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
+    outline: 4px solid rgb(var(--rgbText));
+    outline-offset: 4px;
   }
 
-  &:active {
-    box-shadow: none;
+  &:focus:not(:focus-visible) {
+    outline: none;
   }
 
   @media (--mediaUseMotion) {
@@ -37,8 +38,8 @@
       transition-property: background-size;
     }
   }
-}
 
-.link--secondary {
-  --linkColor: var(--rgbText);
+  &[data-secondary='true'] {
+    --linkColor: var(--rgbText);
+  }
 }

@@ -110,11 +110,11 @@
   transform: translate3d(-5%, 0, 0);
   transition: opacity var(--durationXL) ease,
     transform var(--durationXL) var(--bezierFastoutSlowin);
-}
 
-.post__date-text--entered {
-  opacity: 1;
-  transform: none;
+  &[data-status='entered'] {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes post-title-word {

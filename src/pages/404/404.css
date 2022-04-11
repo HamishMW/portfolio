@@ -93,10 +93,10 @@
       left: 0;
     }
   }
-}
 
-.page-404__video--entered {
-  opacity: 1;
+  &[data-status='entered'] {
+    opacity: 1;
+  }
 }
 
 .page-404__credit {
@@ -116,10 +116,10 @@
   &:focus {
     color: rgb(var(--rgbWhite));
   }
-}
 
-.page-404__credit--entered {
-  opacity: 1;
+  &[data-status='entered'] {
+    opacity: 1;
+  }
 }
 
 .page-404__details {
@@ -157,11 +157,11 @@
       transform: translate3d(0, var(--spaceL), 0);
     }
   }
-}
 
-.page-404__title--entered {
-  transform: none;
-  opacity: 1;
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .page-404__subheading {
@@ -190,11 +190,11 @@
       transform: translate3d(0, var(--spaceL), 0);
     }
   }
-}
 
-.page-404__subheading--entered {
-  transform: none;
-  opacity: 1;
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .page-404__description {
@@ -211,11 +211,11 @@
       transform: translate3d(0, var(--spaceL), 0);
     }
   }
-}
 
-.page-404__description--entered {
-  transform: none;
-  opacity: 1;
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .page-404__button {
@@ -233,9 +233,9 @@
       transform: translate3d(0, var(--spaceL), 0);
     }
   }
-}
 
-.page-404__button--entered {
-  transform: none;
-  opacity: 1;
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
 }

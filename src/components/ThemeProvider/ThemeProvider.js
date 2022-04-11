@@ -1,9 +1,9 @@
+import GothamBold from 'assets/fonts/gotham-bold.woff2';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
-import classNames from 'classnames';
 import { Fragment, createContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { media } from 'utils/style';
+import { classes, media } from 'utils/style';
 import { theme, tokens } from './theme';
 import useTheme from './useTheme';
 
@@ -19,6 +19,13 @@ export const fontStyles = `
     font-family: "Gotham";
     font-weight: 500;
     src: url(${GothamMedium}) format("woff2");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Gotham';
+    font-weight: 700;
+    src: url(${GothamBold}) format('woff2');
     font-display: swap;
   }
 `;
@@ -51,8 +58,8 @@ const ThemeProvider = ({
       {isRootProvider && (
         <Fragment>
           <Helmet>
-            <link rel="preload" href={GothamMedium} as="font" crossorigin="" />
-            <link rel="preload" href={GothamBook} as="font" crossorigin="" />
+            <link rel="prefetch" href={GothamMedium} as="font" crossorigin="" />
+            <link rel="prefetch" href={GothamBook} as="font" crossorigin="" />
             <style>{fontStyles}</style>
             <style>{tokenStyles}</style>
           </Helmet>
@@ -62,7 +69,7 @@ const ThemeProvider = ({
       {/* Nested providers need a div to override theme tokens */}
       {!isRootProvider && (
         <Component
-          className={classNames('theme-provider', className)}
+          className={classes('theme-provider', className)}
           style={createThemeStyleObject(currentTheme)}
         >
           {children}

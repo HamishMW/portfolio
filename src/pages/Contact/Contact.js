@@ -1,6 +1,5 @@
 import './Contact.css';
 
-import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Divider } from 'components/Divider';
@@ -15,7 +14,7 @@ import { useCallback, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { prerender } from 'utils/prerender';
-import { msToNum, numToMs, numToPx } from 'utils/style';
+import { cssProps, msToNum, numToMs } from 'utils/style';
 import { isVisible, reflow } from 'utils/transition';
 
 const initDelay = tokens.base.durationS;
@@ -41,7 +40,7 @@ function getStatusError({
 
 function getDelay(delayMs, initDelayMs = numToMs(0), multiplier = 1) {
   const numDelay = msToNum(delayMs) * multiplier;
-  return { '--delay': numToMs((msToNum(initDelayMs) + numDelay).toFixed(0)) };
+  return cssProps({ delay: numToMs((msToNum(initDelayMs) + numDelay).toFixed(0)) });
 }
 
 export const Contact = () => {
@@ -97,7 +96,7 @@ export const Contact = () => {
   );
 
   return (
-    <Section className={classNames('contact', `contact--${status}`)}>
+    <Section className="contact" data-status={status}>
       <Helmet>
         <title>Contact | Hamish Williams</title>
         <meta
@@ -111,9 +110,9 @@ export const Contact = () => {
             {status => (
               <form className="contact__form" method="post" onSubmit={onSubmit}>
                 <Heading
-                  className={classNames('contact__title', `contact__title--${status}`, {
-                    'contact__title--hidden': prerender,
-                  })}
+                  className="contact__title"
+                  data-status={status}
+                  data-hidden={prerender}
                   level={3}
                   as="h1"
                   style={getDelay(tokens.base.durationXS, initDelay, 0.3)}
@@ -125,18 +124,16 @@ export const Contact = () => {
                   />
                 </Heading>
                 <Divider
-                  className={classNames(
-                    'contact__divider',
-                    `contact__divider--${status}`,
-                    { 'contact__divider--hidden': prerender }
-                  )}
+                  className="contact__divider"
+                  data-status={status}
+                  data-hidden={prerender}
                   style={getDelay(tokens.base.durationXS, initDelay, 0.4)}
                 />
                 <Input
                   required
-                  className={classNames('contact__input', `contact__input--${status}`, {
-                    'contact__input--hidden': prerender,
-                  })}
+                  className="contact__input"
+                  data-status={status}
+                  data-hidden={prerender}
                   style={getDelay(tokens.base.durationXS, initDelay)}
                   autoComplete="email"
                   label="Your Email"
@@ -147,9 +144,9 @@ export const Contact = () => {
                 <Input
                   required
                   multiline
-                  className={classNames('contact__input', `contact__input--${status}`, {
-                    'contact__input--hidden': prerender,
-                  })}
+                  className="contact__input"
+                  data-status={status}
+                  data-hidden={prerender}
                   style={getDelay(tokens.base.durationS, initDelay)}
                   autoComplete="off"
                   label="Message"
@@ -161,15 +158,13 @@ export const Contact = () => {
                     <Transition timeout={msToNum(tokens.base.durationM)}>
                       {errorStatus => (
                         <div
-                          className={classNames(
-                            'contact__form-error',
-                            `contact__form-error--${errorStatus}`
-                          )}
-                          style={{
-                            '--height': isVisible(errorStatus)
-                              ? numToPx(errorRef.current?.getBoundingClientRect().height)
-                              : '0px',
-                          }}
+                          className="contact__form-error"
+                          data-status={errorStatus}
+                          style={cssProps({
+                            height: isVisible(errorStatus)
+                              ? errorRef.current?.getBoundingClientRect().height
+                              : 0,
+                          })}
                         >
                           <div className="contact__form-error-content" ref={errorRef}>
                             <div className="contact__form-error-message">
@@ -183,10 +178,10 @@ export const Contact = () => {
                   )}
                 </TransitionGroup>
                 <Button
-                  className={classNames('contact__button', `contact__button--${status}`, {
-                    'contact__button--hidden': prerender,
-                    'contact__button--sending': sending,
-                  })}
+                  className="contact__button"
+                  data-status={status}
+                  data-hidden={prerender}
+                  data-sending={sending}
                   style={getDelay(tokens.base.durationM, initDelay)}
                   disabled={sending}
                   loading={sending}
@@ -207,19 +202,15 @@ export const Contact = () => {
                 <Heading
                   level={3}
                   as="h3"
-                  className={classNames(
-                    'contact__complete-title',
-                    `contact__complete-title--${status}`
-                  )}
+                  className="contact__complete-title"
+                  data-status={status}
                 >
                   Message Sent
                 </Heading>
                 <Text
                   size="l"
-                  className={classNames(
-                    'contact__complete-text',
-                    `contact__complete-text--${status}`
-                  )}
+                  className="contact__complete-text"
+                  data-status={status}
                   style={getDelay(tokens.base.durationXS)}
                 >
                   I’ll get back to you within a couple days, sit tight
@@ -227,10 +218,8 @@ export const Contact = () => {
                 <Button
                   secondary
                   iconHoverShift
-                  className={classNames(
-                    'contact__complete-button',
-                    `contact__complete-button--${status}`
-                  )}
+                  className="contact__complete-button"
+                  data-status={status}
                   style={getDelay(tokens.base.durationM)}
                   href="/"
                   icon="chevronRight"

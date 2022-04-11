@@ -1,7 +1,7 @@
 import './Monogram.css';
 
-import classNames from 'classnames';
 import { useId } from 'hooks';
+import { classes } from 'utils/style';
 
 export function Monogram({ highlight, className, ...props }) {
   const id = useId();
@@ -10,7 +10,7 @@ export function Monogram({ highlight, className, ...props }) {
   return (
     <svg
       aria-hidden
-      className={classNames('monogram', className)}
+      className={classes('monogram', className)}
       width="46"
       height="29"
       viewBox="0 0 46 29"

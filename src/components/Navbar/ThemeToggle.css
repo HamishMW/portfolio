@@ -12,18 +12,18 @@
   transform: translate3d(0, 0, 0);
 
   @media (--mediaMobile), (max-height: 696px) {
-    &:not(.theme-toggle--mobile) {
+    &:not([data-mobile='true']) {
       display: none;
     }
   }
-}
 
-.theme-toggle--mobile {
-  top: unset;
-  bottom: var(--spaceXL);
-  right: var(--spaceXL);
-  margin-top: 0;
-  margin-right: 0;
+  &[data-mobile='true'] {
+    top: unset;
+    bottom: var(--spaceXL);
+    right: var(--spaceXL);
+    margin-top: 0;
+    margin-right: 0;
+  }
 }
 
 .theme-toggle__svg {
@@ -43,15 +43,15 @@
       transition-timing-function: var(--bezierFastoutSlowin);
     }
   }
-}
 
-.theme-toggle__circle--mask {
-  fill: white;
-}
+  &[data-mask='true'] {
+    fill: white;
+  }
 
-.theme-toggle__circle--dark {
-  transform: none;
-  transition-delay: 0.3s;
+  &[data-dark='true'] {
+    transform: none;
+    transition-delay: 0.3s;
+  }
 }
 
 .theme-toggle__mask {
@@ -64,11 +64,11 @@
       transition-delay: 0s;
     }
   }
-}
 
-.theme-toggle__mask--dark {
-  transform: none;
-  transition-delay: 0.3s;
+  &[data-dark='true'] {
+    transform: none;
+    transition-delay: 0.3s;
+  }
 }
 
 .theme-toggle__path {
@@ -88,10 +88,10 @@
       transition-delay: 0.3s;
     }
   }
-}
 
-.theme-toggle__path--dark {
-  stroke-dashoffset: 7;
-  transition-delay: 0s;
-  opacity: 0;
+  &[data-dark='true'] {
+    stroke-dashoffset: 7;
+    transition-delay: 0s;
+    opacity: 0;
+  }
 }

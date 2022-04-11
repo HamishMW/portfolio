@@ -1,7 +1,6 @@
 import './Post.css';
 
 import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
-import classNames from 'classnames';
 import { Code } from 'components/Code';
 import { Divider } from 'components/Divider';
 import { Footer } from 'components/Footer';
@@ -16,7 +15,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Transition } from 'react-transition-group';
 import { prerender } from 'utils/prerender';
-import { msToNum, numToMs } from 'utils/style';
+import { cssProps, msToNum, numToMs } from 'utils/style';
 import { media } from 'utils/style';
 import { reflow } from 'utils/transition';
 import { MDXProvider } from '@mdx-js/react';
@@ -66,9 +65,7 @@ const PostWrapper = ({
                   notchHeight={windowSize.width > media.mobile ? '10px' : '8px'}
                   collapsed={status !== 'entered'}
                 />
-                <span
-                  className={classNames('post__date-text', `post__date-text--${status}`)}
-                >
+                <span className="post__date-text" data-status={status}>
                   {new Date(date).toLocaleDateString('default', {
                     year: 'numeric',
                     month: 'long',
@@ -82,7 +79,7 @@ const PostWrapper = ({
               <span className="post__title-word-wrapper" key={`${word}-${index}`}>
                 <span
                   className="post__title-word"
-                  style={{ '--delay': numToMs(index * 120 + 200) }}
+                  style={cssProps({ delay: numToMs(index * 120 + 200) })}
                   index={index}
                 >
                   {word}
