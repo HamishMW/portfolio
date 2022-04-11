@@ -110,9 +110,11 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionColumns>
-            <Suspense fallback={null}>
-              <Armor alt="3D model of the Volkihar Knight armor" />
-            </Suspense>
+            {!prerender && (
+              <Suspense fallback={null}>
+                <Armor alt="3D model of the Volkihar Knight armor" />
+              </Suspense>
+            )}
             <div className="volkihar__text-section">
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>
