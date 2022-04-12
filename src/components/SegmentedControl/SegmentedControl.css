@@ -40,15 +40,6 @@
   font-weight: var(--fontWeightMedium);
   cursor: pointer;
 
-  &:focus {
-    outline: 4px solid rgb(var(--rgbText));
-    outline-offset: 4px;
-  }
-
-  &:focus:not(:focus-visible) {
-    outline: none;
-  }
-
   &[aria-checked='true'] {
     color: var(--colorTextBody);
   }

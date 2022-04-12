@@ -24,19 +24,12 @@ import {
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
 import { getImageFromSrcSet } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
-import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
+import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
 import { ModelAnimationType } from './deviceModels';
-
-const dracoLoader = new DRACOLoader();
-const modelLoader = new GLTFLoader();
-dracoLoader.setDecoderPath('/draco/');
-modelLoader.setDRACOLoader(dracoLoader);
 
 const MeshType = {
   Frame: 'Frame',

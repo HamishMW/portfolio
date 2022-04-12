@@ -16,23 +16,18 @@ import Helmet from 'react-helmet';
 import { Transition } from 'react-transition-group';
 import {
   ACESFilmicToneMapping,
-  AmbientLight,
   CubeTextureLoader,
   DirectionalLight,
   Group,
-  LinearFilter,
   PMREMGenerator,
   PerspectiveCamera,
   Scene,
-  TextureLoader,
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { degToRad } from 'three/src/math/MathUtils';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
-import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
+import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
 
 const Armor = ({
   models,
@@ -50,13 +45,10 @@ const Armor = ({
   const container = useRef();
   const canvas = useRef();
   const camera = useRef();
-  const textureLoader = useRef();
   const modelGroup = useRef();
   const scene = useRef();
   const renderer = useRef();
   const lights = useRef();
-  const envMap = useRef();
-  const renderTarget = useRef();
   const isInViewport = useInViewport(container, false, { threshold: 0.4 });
   const reduceMotion = usePrefersReducedMotion();
 
@@ -81,59 +73,37 @@ const Armor = ({
     scene.current = new Scene();
 
     const cubeTextureLoader = new CubeTextureLoader();
-    textureLoader.current = new TextureLoader();
     modelGroup.current = new Group();
+    scene.current.add(modelGroup.current);
 
     const pmremGenerator = new PMREMGenerator(renderer.current);
-    pmremGenerator.compileEquirectangularShader();
+    pmremGenerator.compileCubemapShader();
 
     // Lighting
-    const ambientLight = new AmbientLight(0xffffff, 1.2);
-    const keyLight = new DirectionalLight(0xffffff, 2.4);
-    const fillLight = new DirectionalLight(0xffffff, 2.1);
+    const keyLight = new DirectionalLight(0xffffff, 3.2);
+    const fillLight = new DirectionalLight(0xffffff, 1.0);
+    const backLight = new DirectionalLight(0xffffff, 1.0);
 
-    fillLight.position.set(-6, 2, 2);
-    keyLight.position.set(0.5, 0, 0.866);
-    lights.current = [ambientLight, keyLight, fillLight];
+    keyLight.position.set(1, 0.1, 2);
+    fillLight.position.set(-1, 0.1, 8);
+    backLight.position.set(-2, 2, -3);
+    lights.current = [backLight, keyLight, fillLight];
     lights.current.forEach(light => scene.current.add(light));
 
-    const loadEnv = async () => {
-      const hdrTexture = await cubeTextureLoader.loadAsync([
-        vknx,
-        vkny,
-        vknz,
-        vkpx,
-        vkpy,
-        vkpz,
-      ]);
-
-      renderTarget.current = pmremGenerator.fromCubemap(hdrTexture);
-      envMap.current = hdrTexture;
-      envMap.current.magFilter = LinearFilter;
-      envMap.current.needsUpdate = true;
-      pmremGenerator.dispose();
-
-      scene.current.traverse(object => {
-        if (object.material) {
-          object.material.envMap = renderTarget.current.texture;
-          object.material.needsUpdate = true;
-        }
-      });
-    };
-
     const load = async () => {
-      const dracoLoader = new DRACOLoader();
-      const modelLoader = new GLTFLoader();
-      dracoLoader.setDecoderPath('/draco/');
-      modelLoader.setDRACOLoader(dracoLoader);
+      const loadGltf = modelLoader.loadAsync(armor);
+      const loadEnv = cubeTextureLoader.loadAsync([vknx, vkny, vknz, vkpx, vkpy, vkpz]);
 
-      const gltf = await modelLoader.loadAsync(armor);
+      const [gltf, envTexture] = await Promise.all([loadGltf, loadEnv]);
+
       modelGroup.current.add(gltf.scene);
       gltf.scene.rotation.y = degToRad(180);
       gltf.scene.position.y = -1.6;
-      scene.current.add(modelGroup.current);
 
-      await loadEnv();
+      const { texture } = pmremGenerator.fromCubemap(envTexture);
+      scene.current.environment = texture;
+      pmremGenerator.dispose();
+
       setLoaded(true);
       renderFrame();
     };

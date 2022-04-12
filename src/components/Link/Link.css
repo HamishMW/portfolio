@@ -22,15 +22,6 @@
       var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
   }
 
-  &:focus {
-    outline: 4px solid rgb(var(--rgbText));
-    outline-offset: 4px;
-  }
-
-  &:focus:not(:focus-visible) {
-    outline: none;
-  }
-
   @media (--mediaUseMotion) {
     & {
       transition-duration: var(--durationM);

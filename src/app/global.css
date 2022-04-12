@@ -9,12 +9,17 @@
 @custom-media --mediaNoTouch (pointer: fine);
 
 body {
+  color-scheme: dark light;
   font-family: var(--fontStack);
   font-weight: var(--fontWeightRegular);
   background: rgb(var(--rgbBackground));
   color: var(--colorTextBody);
   width: 100vw;
   overflow-x: hidden;
+}
+
+code {
+  font-family: var(--monoFontStack);
 }
 
 ::selection {

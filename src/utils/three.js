@@ -1,3 +1,16 @@
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+const dracoLoader = new DRACOLoader();
+const gltfLoader = new GLTFLoader();
+dracoLoader.setDecoderPath('/draco/');
+gltfLoader.setDRACOLoader(dracoLoader);
+
+/**
+ * GLTF model loader configured with draco decoder
+ */
+export const modelLoader = gltfLoader;
+
 /**
  * Clean up a scene's materials and geometry
  */

@@ -22,15 +22,6 @@
     transition-duration: calc(var(--durationXS) / 2);
   }
 
-  &:focus {
-    outline: 4px solid rgb(var(--rgbText));
-    outline-offset: 4px;
-  }
-
-  &:focus:not(:focus-visible) {
-    outline: none;
-  }
-
   &::after {
     content: '';
     transition-property: opacity, color, background;

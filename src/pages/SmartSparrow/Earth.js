@@ -45,11 +45,9 @@ import {
 import { LinearFilter } from 'three';
 import { EquirectangularReflectionMapping } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader.js';
 import { classes, media, msToNum } from 'utils/style';
-import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
+import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
 import { reflow } from 'utils/transition';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
@@ -122,7 +120,6 @@ export const Earth = forwardRef(
     const cameraValue = useRef();
     const controls = useRef();
     const envMap = useRef();
-    const renderTarget = useRef();
     const contentAdded = useRef();
     const cameraSpring = useRef();
     const mounted = useRef();
@@ -229,18 +226,13 @@ export const Earth = forwardRef(
     useEffect(() => {
       if (loaded || fetching.current) return;
 
-      const gltfLoader = new GLTFLoader();
-      const dracoLoader = new DRACOLoader();
-      dracoLoader.setDecoderPath('/draco/');
-      gltfLoader.setDRACOLoader(dracoLoader);
-
       const hdrLoader = new HDRCubeTextureLoader();
       const textureLoader = new TextureLoader();
       const pmremGenerator = new PMREMGenerator(renderer.current);
-      pmremGenerator.compileEquirectangularShader();
+      pmremGenerator.compileCubemapShader();
 
       const loadModel = async () => {
-        const gltf = await gltfLoader.loadAsync(earthModel);
+        const gltf = await modelLoader.loadAsync(earthModel);
 
         sceneModel.current = gltf.scene;
         animations.current = gltf.animations;
@@ -274,10 +266,8 @@ export const Earth = forwardRef(
           mwpz,
         ]);
 
-        renderTarget.current = pmremGenerator.fromCubemap(hdrTexture);
-        envMap.current = hdrTexture;
-        envMap.current.magFilter = LinearFilter;
-        envMap.current.needsUpdate = true;
+        hdrTexture.magFilter = LinearFilter;
+        envMap.current = pmremGenerator.fromCubemap(hdrTexture);
         pmremGenerator.dispose();
       };
 
@@ -293,7 +283,7 @@ export const Earth = forwardRef(
 
         sceneModel.current.traverse(({ material }) => {
           if (material) {
-            material.envMap = renderTarget.current.texture;
+            material.envMap = envMap.current.texture;
             material.needsUpdate = true;
           }
         });

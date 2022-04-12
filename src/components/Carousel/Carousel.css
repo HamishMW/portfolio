@@ -59,15 +59,6 @@
   display: grid;
   place-items: center;
 
-  &:focus {
-    outline: 4px solid rgb(var(--rgbText));
-    outline-offset: 4px;
-  }
-
-  &:focus:not(:focus-visible) {
-    outline: none;
-  }
-
   &::before {
     content: '';
     position: absolute;
@@ -146,14 +137,5 @@
     transition-property: background, box-shadow;
     transition-duration: var(--durationL);
     transition-timing-function: var(--bezierFastoutSlowin);
-  }
-
-  &:focus {
-    outline: 4px solid rgb(var(--rgbText));
-    outline-offset: 4px;
-  }
-
-  &:focus:not(:focus-visible) {
-    outline: none;
   }
 }
