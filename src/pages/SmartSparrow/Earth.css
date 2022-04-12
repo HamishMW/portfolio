@@ -36,7 +36,7 @@
   opacity: 0;
   cursor: grab;
 
-  @media (pointer: coarse) {
+  @media (--mediaTouch) {
     & {
       pointer-events: none;
     }

@@ -1,8 +1,10 @@
 import './Icon.css';
 
+import { ReactComponent as ArrowLeft } from 'assets/icons/arrow-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/icons/arrow-right.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
 import { ReactComponent as Close } from 'assets/icons/close.svg';
+import { ReactComponent as Copy } from 'assets/icons/copy.svg';
 import { ReactComponent as Dribbble } from 'assets/icons/dribbble.svg';
 import { ReactComponent as Error } from 'assets/icons/error.svg';
 import { ReactComponent as Figma } from 'assets/icons/figma.svg';
@@ -15,9 +17,11 @@ import { ReactComponent as Twitter } from 'assets/icons/twitter.svg';
 import { classes } from 'utils/style';
 
 export const icons = {
+  arrowLeft: ArrowLeft,
   arrowRight: ArrowRight,
   chevronRight: ChevronRight,
   close: Close,
+  copy: Copy,
   dribbble: Dribbble,
   error: Error,
   figma: Figma,

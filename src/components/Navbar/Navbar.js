@@ -39,7 +39,7 @@ export function Navbar(props) {
   const isMobile = windowSize.width <= media.mobile || windowSize.height <= 696;
 
   const handleNavClick = () => {
-    setHashKey(Math.random().toString(32).substr(2, 8));
+    setHashKey(Math.random().toString(32).substring(2, 8));
   };
 
   const handleMobileNavClick = () => {

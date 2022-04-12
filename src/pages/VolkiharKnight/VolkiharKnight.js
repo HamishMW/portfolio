@@ -152,7 +152,7 @@ export function VolkiharKnight() {
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
-          <ProjectSectionContent className="volkihar__carousel">
+          <ProjectSectionContent>
             <Suspense fallback={null}>
               <Carousel
                 placeholder={volkiharSlidePlaceholder}

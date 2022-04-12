@@ -5,6 +5,8 @@
 @custom-media --mediaMobileS (max-width: 400px);
 @custom-media --mediaUseMotion (prefers-reduced-motion: no-preference);
 @custom-media --mediaReduceMotion (prefers-reduced-motion: reduce);
+@custom-media --mediaTouch (pointer: coarse);
+@custom-media --mediaNoTouch (pointer: fine);
 
 body {
   font-family: var(--fontStack);

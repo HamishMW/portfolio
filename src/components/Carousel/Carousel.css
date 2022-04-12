@@ -4,6 +4,8 @@
 
 .carousel__content {
   position: relative;
+  display: grid;
+  align-items: center;
 }
 
 .carousel__image-wrapper {
@@ -48,12 +50,14 @@
   border: 0;
   margin: 0;
   background: none;
-  padding: var(--spaceM) var(--spaceL);
+  width: 70px;
+  aspect-ratio: 1 / 1;
+  grid-area: 1 / 1;
   position: absolute;
-  top: 50%;
-  transform: translate3d(0, -50%, 0);
   z-index: 32;
   cursor: pointer;
+  display: grid;
+  place-items: center;
 
   &:focus {
     outline: 4px solid rgb(var(--rgbText));
@@ -85,6 +89,8 @@
   }
 
   & svg {
+    position: relative;
+    left: var(--offset);
     fill: rgb(var(--rgbWhite));
     display: block;
   }
@@ -96,10 +102,14 @@
   }
 
   &[data-prev='true'] {
+    --offset: -2px;
+
     left: var(--spaceM);
   }
 
   &[data-next='true'] {
+    --offset: 2px;
+
     right: var(--spaceM);
   }
 }

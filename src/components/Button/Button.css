@@ -16,7 +16,7 @@
   align-items: center;
   color: var(--buttonTextColor);
   position: relative;
-  z-index: 1;
+  isolation: isolate;
 
   &:active {
     transition-duration: calc(var(--durationXS) / 2);

@@ -47,7 +47,7 @@ export const Uses = () => {
           <ProjectSectionContent>
             <ProjectTextRow width="m">
               <ProjectSectionHeading>Design</ProjectSectionHeading>
-              <ProjectSectionText>
+              <ProjectSectionText as="div">
                 <ul>
                   <li>
                     <Link href="https://www.figma.com">Figma</Link> is my primary tool for
@@ -76,7 +76,7 @@ export const Uses = () => {
           <ProjectSectionContent>
             <ProjectTextRow width="m">
               <ProjectSectionHeading>Development</ProjectSectionHeading>
-              <ProjectSectionText>
+              <ProjectSectionText as="div">
                 <ul>
                   <li>
                     I use{' '}

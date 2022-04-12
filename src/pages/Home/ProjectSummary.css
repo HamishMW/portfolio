@@ -103,10 +103,10 @@
 
 .project-summary__model {
   --width: 180%;
-  --aspectRatio: 10 / 12;
+  --aspectRatio: 12 / 10;
 
   min-width: var(--width);
-  padding-bottom: calc(var(--aspectRatio) * var(--width));
+  aspect-ratio: var(--aspectRatio);
 
   &[data-device='laptop'] {
     top: 6%;
@@ -130,7 +130,7 @@
 
   &[data-device='phone'] {
     --width: 116%;
-    --aspectRatio: 10 / 7;
+    --aspectRatio: 7 / 10;
 
     top: 5%;
     left: -10%;

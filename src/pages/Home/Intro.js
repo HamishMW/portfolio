@@ -7,11 +7,12 @@ import { Section } from 'components/Section';
 import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { useInterval, usePrevious, useWindowSize } from 'hooks';
+import { useInterval, usePrevious } from 'hooks';
 import { Fragment, Suspense, lazy, useEffect, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { prerender } from 'utils/prerender';
-import { cssProps, media } from 'utils/style';
+import { cssProps } from 'utils/style';
 import { reflow } from 'utils/transition';
 
 const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
@@ -19,7 +20,6 @@ const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
 export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
   const theme = useTheme();
   const [disciplineIndex, setDisciplineIndex] = useState(0);
-  const windowSize = useWindowSize();
   const prevTheme = usePrevious(theme);
   const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(
     ', and '
@@ -112,22 +112,23 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                 </TransitionGroup>
               </Heading>
             </header>
-            {windowSize.width > media.tablet && (
-              <div
-                className="intro__scroll-indicator"
-                data-status={status}
-                data-hidden={scrollIndicatorHidden}
-              />
-            )}
-            {windowSize.width <= media.tablet && (
-              <div
-                className="intro__mobile-scroll-indicator"
-                data-status={status}
-                data-hidden={scrollIndicatorHidden}
-              >
-                <ArrowDown aria-hidden />
-              </div>
-            )}
+            <RouterLink
+              to="/#project-1"
+              className="intro__scroll-indicator"
+              data-status={status}
+              data-hidden={scrollIndicatorHidden}
+            >
+              <VisuallyHidden>Scroll to projects</VisuallyHidden>
+            </RouterLink>
+            <RouterLink
+              to="/#project-1"
+              className="intro__mobile-scroll-indicator"
+              data-status={status}
+              data-hidden={scrollIndicatorHidden}
+            >
+              <VisuallyHidden>Scroll to projects</VisuallyHidden>
+              <ArrowDown aria-hidden />
+            </RouterLink>
           </Fragment>
         )}
       </Transition>
