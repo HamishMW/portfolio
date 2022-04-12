@@ -52,13 +52,13 @@ export const Uses = () => {
                   <li>
                     <Link href="https://www.figma.com">Figma</Link> is my primary tool for
                     UI design these days. Made the switch from Sketch in 2020 and haven't
-                    looked back. I've also created{' '}
+                    looked back. I’ve also created{' '}
                     <Link href="https://www.figma.com/@hamish">a few plugins</Link> that
                     you can install.
                   </li>
                   <li>
                     Any motion graphics I create are created in Adobe After Effects. So
-                    far I haven't found a non-Adobe product that's as good. If anyone has
+                    far I haven’t found a non-Adobe product that's as good. If anyone has
                     suggestions please <Link href="/contact">message me</Link>.
                   </li>
                   <li>
@@ -98,8 +98,8 @@ export const Uses = () => {
                     learning curve but you can do some really powerful stuff with it.
                   </li>
                   <li>
-                    For CSS I've used a myriad pre-processors and css-in-js solutions like
-                    styled-components, but these days I'm using vanilla CSS with{' '}
+                    For CSS I’ve used a myriad pre-processors and css-in-js solutions like
+                    styled-components, but these days I’m using vanilla CSS with{' '}
                     <Link href="https://postcss.org/">PostCSS</Link> to get upcoming CSS
                     features today.
                   </li>

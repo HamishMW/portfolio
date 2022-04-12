@@ -47,6 +47,7 @@ import imageSprStoryboarderLightPlaceholder from 'assets/spr-storyboarder-light-
 import imageSprStoryboarderLight from 'assets/spr-storyboarder-light.png';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
+import { Link } from 'components/Link';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -456,7 +457,7 @@ export const SmartSparrow = () => {
                     </ProjectSectionHeading>
                     <ProjectSectionText>
                       Learners can then be directed to specific parts of the model and
-                      shown labels. They're also able to click and drag to orbit around
+                      shown labels. They’re also able to click and drag to orbit around
                       and freely explore at any time.
                     </ProjectSectionText>
                   </ProjectTextRow>
@@ -511,8 +512,11 @@ export const SmartSparrow = () => {
               <ProjectSectionHeading>Project outcomes</ProjectSectionHeading>
               <ProjectSectionText>
                 Ultimately the project was successful after Smart Sparrow and the aero
-                platform were acquired by Pearson in 2020 to become a foundation for their
-                next generation learning platform.
+                platform were{' '}
+                <Link href="https://www.prnewswire.com/news-releases/pearson-acquires-interactive-learning-technology-from-smart-sparrow-300987673.html">
+                  acquired by Pearson in 2020
+                </Link>{' '}
+                to become a foundation for their next generation learning platform.
               </ProjectSectionText>
             </ProjectTextRow>
           </ProjectSectionContent>

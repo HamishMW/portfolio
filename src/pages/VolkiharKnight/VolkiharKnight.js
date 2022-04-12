@@ -146,7 +146,7 @@ export function VolkiharKnight() {
               <ProjectSectionText>
                 The monogram uses custom designed typography to get the right balance of
                 weight and angularity. I combined this with Trajan for the text, which is
-                also used for Skyrim's game title wordmark.
+                also used for Skyrim’s game title wordmark.
               </ProjectSectionText>
             </ProjectTextRow>
           </ProjectSectionContent>
