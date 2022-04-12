@@ -88,9 +88,9 @@ const Armor = ({
     pmremGenerator.compileEquirectangularShader();
 
     // Lighting
-    const ambientLight = new AmbientLight(0xffffff, 1.8);
-    const keyLight = new DirectionalLight(0xffffff, 1.9);
-    const fillLight = new DirectionalLight(0xffffff, 1.6);
+    const ambientLight = new AmbientLight(0xffffff, 1.2);
+    const keyLight = new DirectionalLight(0xffffff, 2.4);
+    const fillLight = new DirectionalLight(0xffffff, 2.1);
 
     fillLight.position.set(-6, 2, 2);
     keyLight.position.set(0.5, 0, 0.866);
@@ -234,6 +234,8 @@ const Armor = ({
         {...rest}
       >
         <Transition
+          mountOnEnter
+          unmountOnExit
           in={!loaded && loaderVisible}
           timeout={msToNum(tokens.base.durationL)}
         >

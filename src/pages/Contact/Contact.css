@@ -313,9 +313,12 @@
     }
   }
 
-  &[data-status='entered']:not(:hover) {
-    transform: none;
+  &[data-status='entered'] {
     opacity: 1;
+
+    &:not(:hover) {
+      transform: none;
+    }
   }
 }
 

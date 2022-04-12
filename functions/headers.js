@@ -19,6 +19,7 @@ exports.handler = async (event, context, callback) => {
     '.gltf',
     '.hdr',
     '.mp4',
+    '.wasm',
   ];
 
   // Asset caching headers

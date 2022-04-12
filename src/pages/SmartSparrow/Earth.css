@@ -31,7 +31,7 @@
 
 .earth__canvas {
   grid-area: 1 / 1;
-  transition: opacity 1.6s var(--bezierFastoutSlowin) 1.6s;
+  transition: opacity 1.6s var(--bezierFastoutSlowin);
   outline: none;
   opacity: 0;
   cursor: grab;
@@ -83,6 +83,7 @@
 
 .earth__vignette {
   grid-area: 1 / 1;
+  background-image: radial-gradient(transparent, rgb(var(--rgbBackground)));
   position: relative;
   pointer-events: none;
 }

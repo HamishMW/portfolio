@@ -1,8 +1,5 @@
 import { pxToRem } from 'utils/style';
 
-const systemFontStack =
-  'system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif';
-
 // Full list of tokens
 const baseTokens = {
   rgbBlack: '0 0 0',
@@ -13,8 +10,9 @@ const baseTokens = {
   durationM: '400ms',
   durationL: '600ms',
   durationXL: '800ms',
-  systemFontStack,
-  fontStack: `Gotham, ${systemFontStack}`,
+  systemFontStack:
+    'system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif',
+  fontStack: `Gotham, var(--systemFontStack)`,
   monoFontStack:
     'SFMono Regular, Roboto Mono, Consolas, Liberation Mono, Menlo, Courier, monospace',
   japaneseFontStack:
@@ -106,7 +104,7 @@ const dark = {
   rgbPrimary: '0 229 255',
   rgbAccent: '0 229 255',
   rgbText: '255 255 255',
-  rgbError: '255 0 60',
+  rgbError: '255 55 102',
   colorTextTitle: 'rgb(var(--rgbText) / 1)',
   colorTextBody: 'rgb(var(--rgbText) / 0.8)',
   colorTextLight: 'rgb(var(--rgbText) / 0.6)',
@@ -119,7 +117,7 @@ const light = {
   rgbPrimary: '0 0 0',
   rgbAccent: '0 229 255',
   rgbText: '0 0 0',
-  rgbError: '210 14 60',
+  rgbError: '255 0 60',
   colorTextTitle: 'rgb(var(--rgbText) / 1)',
   colorTextBody: 'rgb(var(--rgbText) / 0.7)',
   colorTextLight: 'rgb(var(--rgbText) / 0.6)',
