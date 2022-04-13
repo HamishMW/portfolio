@@ -1,14 +1,11 @@
 .theme-toggle {
-  --buttonSize: var(--space2XL);
+  --offset: 6px;
+  --inset: calc(var(--spaceOuter) - var(--offset));
 
   position: fixed;
   z-index: 2048;
-  width: var(--buttonSize);
-  height: var(--buttonSize);
-  top: var(--spaceOuter);
-  right: var(--spaceOuter);
-  margin-top: calc(var(--spaceS) * -1);
-  margin-right: calc(var(--spaceS) * -1);
+  top: var(--inset);
+  right: var(--inset);
   transform: translate3d(0, 0, 0);
 
   @media (--mediaMobile), (max-height: 696px) {
@@ -18,9 +15,11 @@
   }
 
   &[data-mobile='true'] {
+    --offset: var(--spaceXS);
+    --inset: calc(var(--spaceXL) - var(--offset));
+
     top: unset;
-    bottom: var(--spaceXL);
-    right: var(--spaceXL);
+    bottom: var(--inset);
     margin-top: 0;
     margin-right: 0;
   }

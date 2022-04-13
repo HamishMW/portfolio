@@ -69,8 +69,8 @@ export function VolkiharKnight() {
             --rgbAccent: 240 211 150;
           }
           .light {
-            --rgbPrimary: 142 117 1;
-            --rgbAccent: 142 117 1;
+            --rgbPrimary: 134 99 23;
+            --rgbAccent: 134 99 23;
           }
         `}</style>
       )}
