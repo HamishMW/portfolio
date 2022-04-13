@@ -1,6 +1,6 @@
-import './ProjectSummary.css';
+// import './ProjectSummary.css';
 
-import { ReactComponent as KatakanaProject } from 'assets/katakana-project.svg';
+import KatakanaProject from 'assets/katakana-project.svg';
 import { Button } from 'components/Button';
 import { Divider } from 'components/Divider';
 import { Heading } from 'components/Heading';

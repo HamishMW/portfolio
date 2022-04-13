@@ -1,28 +1,6 @@
-import './VolkiharKnight.css';
+// import './VolkiharKnight.css';
 
-import volkiharBackgroundLarge from 'assets/volkihar-background-large.jpg';
-import volkiharBackgroundPlaceholder from 'assets/volkihar-background-placeholder.jpg';
-import volkiharBackground from 'assets/volkihar-background.jpg';
-import volkiharBannerLarge from 'assets/volkihar-banner-large.jpg';
-import volkiharBannerPlaceholder from 'assets/volkihar-banner-placeholder.jpg';
-import volkiharBanner from 'assets/volkihar-banner.jpg';
-import volkiharBookLarge from 'assets/volkihar-book-large.png';
-import volkiharBookPlaceholder from 'assets/volkihar-book-placeholder.png';
-import volkiharBook from 'assets/volkihar-book.png';
-import volkiharEnderalLarge from 'assets/volkihar-enderal-large.jpg';
-import volkiharEnderalLogoLarge from 'assets/volkihar-enderal-logo-large.png';
-import volkiharEnderalLogoPlaceholder from 'assets/volkihar-enderal-logo-placeholder.png';
-import volkiharEnderalLogo from 'assets/volkihar-enderal-logo.png';
-import volkiharEnderalPlaceholder from 'assets/volkihar-enderal-placeholder.jpg';
-import volkiharEnderal from 'assets/volkihar-enderal.jpg';
-import { ReactComponent as VolkiharKnightLogo } from 'assets/volkihar-logo.svg';
-import volkiharSlide1Large from 'assets/volkihar-slide-1-large.jpg';
-import volkiharSlide1 from 'assets/volkihar-slide-1.jpg';
-import volkiharSlide2Large from 'assets/volkihar-slide-2-large.jpg';
-import volkiharSlide2 from 'assets/volkihar-slide-2.jpg';
-import volkiharSlide3Large from 'assets/volkihar-slide-3-large.jpg';
-import volkiharSlide3 from 'assets/volkihar-slide-3.jpg';
-import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
+import VolkiharKnightLogo from '/assets/volkihar-logo.svg';
 import { Button } from 'components/Button';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
@@ -38,11 +16,34 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from 'components/ProjectLayout';
-import { useRouteTransition, useScrollRestore } from 'hooks';
+import { useRouteTransition } from 'hooks';
+import Head from 'next/head';
 import { Fragment, Suspense, lazy, useMemo } from 'react';
-import { Helmet } from 'react-helmet';
-import { prerender } from 'utils/prerender';
+import { ssr } from 'utils/ssr';
 import { media } from 'utils/style';
+
+const volkiharBackgroundLarge = '/assets/volkihar-background-large.jpg';
+const volkiharBackgroundPlaceholder = '/assets/volkihar-background-placeholder.jpg';
+const volkiharBackground = '/assets/volkihar-background.jpg';
+const volkiharBannerLarge = '/assets/volkihar-banner-large.jpg';
+const volkiharBannerPlaceholder = '/assets/volkihar-banner-placeholder.jpg';
+const volkiharBanner = '/assets/volkihar-banner.jpg';
+const volkiharBookLarge = '/assets/volkihar-book-large.png';
+const volkiharBookPlaceholder = '/assets/volkihar-book-placeholder.png';
+const volkiharBook = '/assets/volkihar-book.png';
+const volkiharEnderalLarge = '/assets/volkihar-enderal-large.jpg';
+const volkiharEnderalLogoLarge = '/assets/volkihar-enderal-logo-large.png';
+const volkiharEnderalLogoPlaceholder = '/assets/volkihar-enderal-logo-placeholder.png';
+const volkiharEnderalLogo = '/assets/volkihar-enderal-logo.png';
+const volkiharEnderalPlaceholder = '/assets/volkihar-enderal-placeholder.jpg';
+const volkiharEnderal = '/assets/volkihar-enderal.jpg';
+const volkiharSlide1Large = '/assets/volkihar-slide-1-large.jpg';
+const volkiharSlide1 = '/assets/volkihar-slide-1.jpg';
+const volkiharSlide2Large = '/assets/volkihar-slide-2-large.jpg';
+const volkiharSlide2 = '/assets/volkihar-slide-2.jpg';
+const volkiharSlide3Large = '/assets/volkihar-slide-3-large.jpg';
+const volkiharSlide3 = '/assets/volkihar-slide-3.jpg';
+const volkiharSlidePlaceholder = '/assets/volkihar-slide-placeholder.jpg';
 
 const Carousel = lazy(() => import('components/Carousel'));
 const Armor = lazy(() => import('./Armor'));
@@ -54,14 +55,13 @@ const roles = ['3D Modelling', 'Texturing', 'Graphic Design'];
 
 export function VolkiharKnight() {
   const { status } = useRouteTransition();
-  useScrollRestore();
 
   return (
     <Fragment>
-      <Helmet>
+      <Head>
         <title>{`Projects | ${title}`}</title>
         <meta name="description" content={description} />
-      </Helmet>
+      </Head>
       {(status === 'entered' || status === 'exiting') && (
         <style>{`
           .dark {
@@ -79,7 +79,7 @@ export function VolkiharKnight() {
           srcSet={`${volkiharBackground} 1000w, ${volkiharBackgroundLarge} 1600w`}
           placeholder={volkiharBackgroundPlaceholder}
           opacity={0.5}
-          entered={!prerender}
+          entered={!ssr}
         />
         <ProjectHeader
           title={title}
@@ -110,11 +110,9 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionColumns>
-            {!prerender && (
-              <Suspense fallback={null}>
-                <Armor alt="3D model of the Volkihar Knight armor" />
-              </Suspense>
-            )}
+            <Suspense fallback={null}>
+              <Armor alt="3D model of the Volkihar Knight armor" />
+            </Suspense>
             <div className="volkihar__text-section">
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>

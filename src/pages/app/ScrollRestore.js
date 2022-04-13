@@ -1,8 +1,8 @@
-import { useRouteTransition } from 'hooks';
+import { usePrefersReducedMotion, usePrevious, useRouteTransition } from 'hooks';
 import { useEffect } from 'react';
-import { usePrefersReducedMotion, usePrevious } from '.';
 
-export function useScrollRestore() {
+// Custom scroll restoration to avoid jank during page transitions
+export const ScrollRestore = () => {
   const { status } = useRouteTransition();
   const prevStatus = usePrevious(status);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -16,4 +16,4 @@ export function useScrollRestore() {
       document.getElementById('MainContent').focus();
     }
   }, [prefersReducedMotion, prevStatus, status]);
-}
+};

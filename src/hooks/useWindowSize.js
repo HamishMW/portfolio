@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSsr } from './useSsr';
 
 export function useWindowSize() {
-  const isClient = typeof window === 'object';
-  const isIOS = navigator.userAgent.match(/iphone|ipod|ipad/i);
   const axis = useRef(() => ({ w: 0, h: 0 }));
   const dimensions = useRef(() => Math.abs(window.orientation));
+  const ssr = useSsr();
 
   const createRuler = useCallback(() => {
     let ruler = document.createElement('div');
@@ -27,7 +27,9 @@ export function useWindowSize() {
 
   // Get the actual height on iOS Safari
   const getHeight = useCallback(() => {
-    if (!isClient) return 0;
+    if (ssr) return 0;
+
+    const isIOS = navigator?.userAgent.match(/iphone|ipod|ipad/i);
 
     if (isIOS) {
       createRuler();
@@ -40,14 +42,14 @@ export function useWindowSize() {
     }
 
     return window.innerHeight;
-  }, [createRuler, isClient, isIOS]);
+  }, [createRuler]);
 
   const getSize = useCallback(() => {
     return {
-      width: isClient ? window.innerWidth : 0,
+      width: ssr ? 0 : window.innerWidth,
       height: getHeight(),
     };
-  }, [getHeight, isClient]);
+  }, [getHeight]);
 
   const [windowSize, setWindowSize] = useState(() => getSize());
 
@@ -61,7 +63,7 @@ export function useWindowSize() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [getSize, isClient]);
+  }, [getSize]);
 
   return windowSize;
 }

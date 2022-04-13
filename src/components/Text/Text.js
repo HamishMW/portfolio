@@ -1,4 +1,4 @@
-import './Text.css';
+// import './Text.css';
 
 import { classes } from 'utils/style';
 

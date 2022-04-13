@@ -1,11 +1,11 @@
-import './Navbar.css';
+// import './Navbar.css';
 
 import { Icon } from 'components/Icon';
 import { Monogram } from 'components/Monogram';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useAppContext, useWindowSize } from 'hooks';
+import RouterLink from 'next/link';
 import { useRef, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import { media, msToNum, numToMs } from 'utils/style';
 import { reflow } from 'utils/transition';
@@ -54,14 +54,14 @@ export function Navbar(props) {
 
   return (
     <header className="navbar" ref={headerRef}>
-      <RouterLink
+      {/* <RouterLink
         className="navbar__logo"
-        to={{ pathname: '/', hash: '#intro', state: hashKey }}
+        href="/#intro"
         aria-label="Hamish Williams, Designer"
         onClick={handleMobileNavClick}
       >
         <Monogram highlight />
-      </RouterLink>
+      </RouterLink> */}
       <NavToggle onClick={() => dispatch({ type: 'toggleMenu' })} menuOpen={menuOpen} />
       <nav className="navbar__nav">
         <div className="navbar__nav-list">
@@ -71,7 +71,7 @@ export function Navbar(props) {
               aria-current={isMatch(pathname, hash) ? 'page' : undefined}
               onClick={handleNavClick}
               key={label}
-              to={{ pathname, hash, state: hashKey }}
+              href={`${pathname}${hash || ''}`}
             >
               {label}
             </RouterLink>
@@ -95,7 +95,7 @@ export function Navbar(props) {
                 aria-current={isMatch(pathname, hash) ? 'page' : undefined}
                 key={label}
                 onClick={handleMobileNavClick}
-                to={{ pathname, hash, state: hashKey }}
+                href={{ pathname, hash, state: hashKey }}
                 style={{
                   transitionDelay: numToMs(
                     Number(msToNum(tokens.base.durationS)) + index * 50

@@ -1,4 +1,4 @@
-import './Footer.css';
+// import './Footer.css';
 
 import { Link } from 'components/Link';
 

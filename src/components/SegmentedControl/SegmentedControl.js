@@ -1,4 +1,4 @@
-import './SegmentedControl.css';
+// import './SegmentedControl.css';
 
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useId } from 'hooks';
@@ -6,7 +6,7 @@ import {
   createContext,
   useCallback,
   useContext,
-  useLayoutEffect,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -44,7 +44,7 @@ export const SegmentedControl = ({
     optionRefs.current = [...optionRefs.current, optionRef];
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const currentOption = optionRefs.current[currentIndex]?.current;
 
     const resizeObserver = new ResizeObserver(() => {
@@ -97,7 +97,7 @@ export const SegmentedControlOption = ({ children, ...props }) => {
   const index = optionRefs.current.indexOf(optionRef);
   const isSelected = currentIndex === index;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     registerOption(optionRef);
   }, [registerOption]);
 

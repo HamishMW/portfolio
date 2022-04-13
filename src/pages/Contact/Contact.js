@@ -1,4 +1,4 @@
-import './Contact.css';
+// import './Contact.css';
 
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
@@ -9,11 +9,10 @@ import { Input } from 'components/Input';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
-import { useFormInput, useRouteTransition, useScrollRestore } from 'hooks';
+import { useFormInput, useRouteTransition, useSsr } from 'hooks';
+import Head from 'next/head';
 import { useCallback, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { Transition, TransitionGroup } from 'react-transition-group';
-import { prerender } from 'utils/prerender';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import { isVisible, reflow } from 'utils/transition';
 
@@ -51,7 +50,7 @@ export const Contact = () => {
   const [sending, setSending] = useState(false);
   const [complete, setComplete] = useState(false);
   const [statusError, setStatusError] = useState('');
-  useScrollRestore();
+  const ssr = useSsr();
 
   const onSubmit = useCallback(
     async event => {
@@ -97,13 +96,13 @@ export const Contact = () => {
 
   return (
     <Section className="contact" data-status={status}>
-      <Helmet>
+      <Head>
         <title>Contact | Hamish Williams</title>
         <meta
           name="description"
           content="Send me a message if you’re interested in discussing a project or if you just want to say hi"
         />
-      </Helmet>
+      </Head>
       <TransitionGroup component={null}>
         {!complete && (
           <Transition appear mountOnEnter unmountOnExit timeout={1600} onEnter={reflow}>
@@ -112,28 +111,28 @@ export const Contact = () => {
                 <Heading
                   className="contact__title"
                   data-status={status}
-                  data-hidden={prerender}
+                  data-hidden={ssr}
                   level={3}
                   as="h1"
                   style={getDelay(tokens.base.durationXS, initDelay, 0.3)}
                 >
                   <DecoderText
                     text="Say hello"
-                    start={status !== 'exited' && !prerender}
+                    start={status !== 'exited' && !ssr}
                     delay={300}
                   />
                 </Heading>
                 <Divider
                   className="contact__divider"
                   data-status={status}
-                  data-hidden={prerender}
+                  data-hidden={ssr}
                   style={getDelay(tokens.base.durationXS, initDelay, 0.4)}
                 />
                 <Input
                   required
                   className="contact__input"
                   data-status={status}
-                  data-hidden={prerender}
+                  data-hidden={ssr}
                   style={getDelay(tokens.base.durationXS, initDelay)}
                   autoComplete="email"
                   label="Your Email"
@@ -146,7 +145,7 @@ export const Contact = () => {
                   multiline
                   className="contact__input"
                   data-status={status}
-                  data-hidden={prerender}
+                  data-hidden={ssr}
                   style={getDelay(tokens.base.durationS, initDelay)}
                   autoComplete="off"
                   label="Message"
@@ -180,7 +179,7 @@ export const Contact = () => {
                 <Button
                   className="contact__button"
                   data-status={status}
-                  data-hidden={prerender}
+                  data-hidden={ssr}
                   data-sending={sending}
                   style={getDelay(tokens.base.durationM, initDelay)}
                   disabled={sending}

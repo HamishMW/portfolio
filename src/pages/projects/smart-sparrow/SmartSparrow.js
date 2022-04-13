@@ -1,50 +1,5 @@
-import './SmartSparrow.css';
+// import './SmartSparrow.css';
 
-import backgroundSprLarge from 'assets/spr-background-large.jpg';
-import backgroundSprPlaceholder from 'assets/spr-background-placeholder.jpg';
-import imageSprBackgroundVolcanismLarge from 'assets/spr-background-volcanism-large.jpg';
-import imageSprBackgroundVolcanismPlaceholder from 'assets/spr-background-volcanism-placeholder.jpg';
-import imageSprBackgroundVolcanism from 'assets/spr-background-volcanism.jpg';
-import backgroundSpr from 'assets/spr-background.jpg';
-import imageSprComponentsDarkLarge from 'assets/spr-components-dark-large.png';
-import imageSprComponentsDarkPlaceholder from 'assets/spr-components-dark-placeholder.png';
-import imageSprComponentsDark from 'assets/spr-components-dark.png';
-import imageSprComponentsLightLarge from 'assets/spr-components-light-large.png';
-import imageSprComponentsLightPlaceholder from 'assets/spr-components-light-placeholder.png';
-import imageSprComponentsLight from 'assets/spr-components-light.png';
-import imageSprDesignSystemDarkLarge from 'assets/spr-design-system-dark-large.png';
-import imageSprDesignSystemDarkPlaceholder from 'assets/spr-design-system-dark-placeholder.png';
-import imageSprDesignSystemDark from 'assets/spr-design-system-dark.png';
-import imageSprDesignSystemLightLarge from 'assets/spr-design-system-light-large.png';
-import imageSprDesignSystemLightPlaceholder from 'assets/spr-design-system-light-placeholder.png';
-import imageSprDesignSystemLight from 'assets/spr-design-system-light.png';
-import imageSprLessonBuilderDarkLarge from 'assets/spr-lesson-builder-dark-large.jpg';
-import imageSprLessonBuilderDarkPlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
-import imageSprLessonBuilderDark from 'assets/spr-lesson-builder-dark.jpg';
-import imageSprLessonBuilderLightLarge from 'assets/spr-lesson-builder-light-large.jpg';
-import imageSprLessonBuilderLightPlaceholder from 'assets/spr-lesson-builder-light-placeholder.jpg';
-import imageSprLessonBuilderLight from 'assets/spr-lesson-builder-light.jpg';
-import videoSprMotionLarge from 'assets/spr-motion-large.mp4';
-import videoSprMotionPlaceholder from 'assets/spr-motion-placeholder.jpg';
-import videoSprMotion from 'assets/spr-motion.mp4';
-import imageSprSchema1DarkLarge from 'assets/spr-schema-1-dark-large.png';
-import imageSprSchema1DarkPlaceholder from 'assets/spr-schema-1-dark-placeholder.png';
-import imageSprSchema1Dark from 'assets/spr-schema-1-dark.png';
-import imageSprSchema1LightLarge from 'assets/spr-schema-1-light-large.png';
-import imageSprSchema1LightPlaceholder from 'assets/spr-schema-1-light-placeholder.png';
-import imageSprSchema1Light from 'assets/spr-schema-1-light.png';
-import imageSprSchema2DarkLarge from 'assets/spr-schema-2-dark-large.png';
-import imageSprSchema2DarkPlaceholder from 'assets/spr-schema-2-dark-placeholder.png';
-import imageSprSchema2Dark from 'assets/spr-schema-2-dark.png';
-import imageSprSchema2LightLarge from 'assets/spr-schema-2-light-large.png';
-import imageSprSchema2LightPlaceholder from 'assets/spr-schema-2-light-placeholder.png';
-import imageSprSchema2Light from 'assets/spr-schema-2-light.png';
-import imageSprStoryboarderDarkLarge from 'assets/spr-storyboarder-dark-large.png';
-import imageSprStoryboarderDarkPlaceholder from 'assets/spr-storyboarder-dark-placeholder.png';
-import imageSprStoryboarderDark from 'assets/spr-storyboarder-dark.png';
-import imageSprStoryboarderLightLarge from 'assets/spr-storyboarder-light-large.png';
-import imageSprStoryboarderLightPlaceholder from 'assets/spr-storyboarder-light-placeholder.png';
-import imageSprStoryboarderLight from 'assets/spr-storyboarder-light.png';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
 import { Link } from 'components/Link';
@@ -62,12 +17,64 @@ import {
 } from 'components/ProjectLayout';
 import { SegmentedControl, SegmentedControlOption } from 'components/SegmentedControl';
 import { ThemeProvider, useTheme } from 'components/ThemeProvider';
-import { useAppContext, useScrollRestore } from 'hooks';
+import { useAppContext, useSsr } from 'hooks';
+import Head from 'next/head';
 import { Fragment, useMemo, useRef } from 'react';
-import { Helmet } from 'react-helmet';
-import { prerender } from 'utils/prerender';
 import { media } from 'utils/style';
 import { Earth, EarthSection } from './Earth';
+
+const backgroundSprLarge = '/assets/spr-background-large.jpg';
+const backgroundSprPlaceholder = '/assets/spr-background-placeholder.jpg';
+const imageSprBackgroundVolcanismLarge = '/assets/spr-background-volcanism-large.jpg';
+const imageSprBackgroundVolcanismPlaceholder =
+  '/assets/spr-background-volcanism-placeholder.jpg';
+const imageSprBackgroundVolcanism = '/assets/spr-background-volcanism.jpg';
+const backgroundSpr = '/assets/spr-background.jpg';
+const imageSprComponentsDarkLarge = '/assets/spr-components-dark-large.png';
+const imageSprComponentsDarkPlaceholder = '/assets/spr-components-dark-placeholder.png';
+const imageSprComponentsDark = '/assets/spr-components-dark.png';
+const imageSprComponentsLightLarge = '/assets/spr-components-light-large.png';
+const imageSprComponentsLightPlaceholder = '/assets/spr-components-light-placeholder.png';
+const imageSprComponentsLight = '/assets/spr-components-light.png';
+const imageSprDesignSystemDarkLarge = '/assets/spr-design-system-dark-large.png';
+const imageSprDesignSystemDarkPlaceholder =
+  '/assets/spr-design-system-dark-placeholder.png';
+const imageSprDesignSystemDark = '/assets/spr-design-system-dark.png';
+const imageSprDesignSystemLightLarge = '/assets/spr-design-system-light-large.png';
+const imageSprDesignSystemLightPlaceholder =
+  '/assets/spr-design-system-light-placeholder.png';
+const imageSprDesignSystemLight = '/assets/spr-design-system-light.png';
+const imageSprLessonBuilderDarkLarge = '/assets/spr-lesson-builder-dark-large.jpg';
+const imageSprLessonBuilderDarkPlaceholder =
+  '/assets/spr-lesson-builder-dark-placeholder.jpg';
+const imageSprLessonBuilderDark = '/assets/spr-lesson-builder-dark.jpg';
+const imageSprLessonBuilderLightLarge = '/assets/spr-lesson-builder-light-large.jpg';
+const imageSprLessonBuilderLightPlaceholder =
+  '/assets/spr-lesson-builder-light-placeholder.jpg';
+const imageSprLessonBuilderLight = '/assets/spr-lesson-builder-light.jpg';
+const videoSprMotionLarge = '/assets/spr-motion-large.mp4';
+const videoSprMotionPlaceholder = '/assets/spr-motion-placeholder.jpg';
+const videoSprMotion = '/assets/spr-motion.mp4';
+const imageSprSchema1DarkLarge = '/assets/spr-schema-1-dark-large.png';
+const imageSprSchema1DarkPlaceholder = '/assets/spr-schema-1-dark-placeholder.png';
+const imageSprSchema1Dark = '/assets/spr-schema-1-dark.png';
+const imageSprSchema1LightLarge = '/assets/spr-schema-1-light-large.png';
+const imageSprSchema1LightPlaceholder = '/assets/spr-schema-1-light-placeholder.png';
+const imageSprSchema1Light = '/assets/spr-schema-1-light.png';
+const imageSprSchema2DarkLarge = '/assets/spr-schema-2-dark-large.png';
+const imageSprSchema2DarkPlaceholder = '/assets/spr-schema-2-dark-placeholder.png';
+const imageSprSchema2Dark = '/assets/spr-schema-2-dark.png';
+const imageSprSchema2LightLarge = '/assets/spr-schema-2-light-large.png';
+const imageSprSchema2LightPlaceholder = '/assets/spr-schema-2-light-placeholder.png';
+const imageSprSchema2Light = '/assets/spr-schema-2-light.png';
+const imageSprStoryboarderDarkLarge = '/assets/spr-storyboarder-dark-large.png';
+const imageSprStoryboarderDarkPlaceholder =
+  '/assets/spr-storyboarder-dark-placeholder.png';
+const imageSprStoryboarderDark = '/assets/spr-storyboarder-dark.png';
+const imageSprStoryboarderLightLarge = '/assets/spr-storyboarder-light-large.png';
+const imageSprStoryboarderLightPlaceholder =
+  '/assets/spr-storyboarder-light-placeholder.png';
+const imageSprStoryboarderLight = '/assets/spr-storyboarder-light.png';
 
 const title = 'Designing the future of education';
 const description =
@@ -84,7 +91,7 @@ export const SmartSparrow = () => {
   const { dispatch } = useAppContext();
   const motionSectionRef = useRef();
   const earthSectionRef = useRef();
-  useScrollRestore();
+  const ssr = useSsr();
 
   const isDark = themeId === 'dark';
   const themes = ['dark', 'light'];
@@ -96,15 +103,15 @@ export const SmartSparrow = () => {
   return (
     <Fragment>
       <ProjectContainer className="spr">
-        <Helmet>
+        <Head>
           <title>{`Projects | ${title}`}</title>
           <meta name="description" content={description} />
-        </Helmet>
+        </Head>
         <ProjectBackground
           opacity={isDark ? 0.5 : 0.8}
           srcSet={`${backgroundSpr} 1080w, ${backgroundSprLarge} 2160w`}
           placeholder={backgroundSprPlaceholder}
-          entered={!prerender}
+          entered={!ssr}
         />
         <ProjectHeader
           title={title}

@@ -1,4 +1,4 @@
-import './Heading.css';
+// import './Heading.css';
 
 import { Fragment } from 'react';
 import { classes } from 'utils/style';

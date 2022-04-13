@@ -1,9 +1,6 @@
-import './Profile.css';
+// import './Profile.css';
 
-import { ReactComponent as KatakanaProfile } from 'assets/katakana-profile.svg';
-import ProfileImgLarge from 'assets/profile-large.jpg';
-import ProfileImgPlaceholder from 'assets/profile-placeholder.jpg';
-import ProfileImg from 'assets/profile.jpg';
+import KatakanaProfile from 'assets/katakana-profile.svg';
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Divider } from 'components/Divider';
@@ -16,6 +13,10 @@ import { Fragment } from 'react';
 import { Transition } from 'react-transition-group';
 import { media } from 'utils/style';
 import { reflow } from 'utils/transition';
+
+const ProfileImgLarge = '/assets/profile-large.jpg';
+const ProfileImgPlaceholder = '/assets/profile-placeholder.jpg';
+const ProfileImg = '/assets/profile.jpg';
 
 const ProfileText = ({ status, titleId }) => (
   <Fragment>

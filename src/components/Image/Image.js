@@ -1,15 +1,14 @@
-import './Image.css';
+// import './Image.css';
 
 import { Button } from 'components/Button';
 import { Icon } from 'components/Icon';
 import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { useInViewport, usePrefersReducedMotion } from 'hooks';
+import { useInViewport, usePrefersReducedMotion, useSsr } from 'hooks';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { resolveVideoSrcFromSrcSet } from 'utils/image';
-import { prerender } from 'utils/prerender';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { reflow } from 'utils/transition';
 
@@ -71,7 +70,8 @@ const ImageElements = ({
   const videoRef = useRef();
   const isVideo = src?.endsWith('.mp4');
   const imgSrc = src || srcSet?.split(' ')[0];
-  const showFullRes = !prerender && inViewport;
+  const ssr = useSsr();
+  const showFullRes = !ssr && inViewport;
 
   useEffect(() => {
     const purgePlaceholder = () => {
@@ -115,7 +115,7 @@ const ImageElements = ({
     if (!play || !inViewport) {
       setPlaying(false);
       videoRef.current.pause();
-    } else if (inViewport && !prefersReducedMotion && !prerender) {
+    } else if (inViewport && !prefersReducedMotion && !ssr) {
       setPlaying(true);
       videoRef.current.play();
     }

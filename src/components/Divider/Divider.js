@@ -1,4 +1,4 @@
-import './Divider.css';
+// import './Divider.css';
 
 import { classes, cssProps, numToMs } from 'utils/style';
 

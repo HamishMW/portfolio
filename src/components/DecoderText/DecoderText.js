@@ -1,10 +1,9 @@
-import './DecoderText.css';
+// import './DecoderText.css';
 
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { usePrefersReducedMotion } from 'hooks';
+import { usePrefersReducedMotion, useSsr } from 'hooks';
 import { chain, delay, spring, value } from 'popmotion';
 import { memo, useEffect, useRef } from 'react';
-import { prerender } from 'utils/prerender';
 import { classes } from 'utils/style';
 
 // prettier-ignore
@@ -51,6 +50,7 @@ export const DecoderText = memo(
     const output = useRef([{ type: CharType.Glyph, value: '' }]);
     const container = useRef();
     const reduceMotion = usePrefersReducedMotion();
+    const ssr = useSsr();
 
     useEffect(() => {
       const containerInstance = container.current;
@@ -70,7 +70,7 @@ export const DecoderText = memo(
         renderOutput();
       });
 
-      if (start && !animation && !reduceMotion && !prerender) {
+      if (start && !animation && !reduceMotion && !ssr) {
         animation = chain(
           delay(startDelay),
           spring({

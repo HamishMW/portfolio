@@ -1,8 +1,8 @@
-import './Carousel.css';
+// import './Carousel.css';
 
-import { ReactComponent as ArrowLeft } from 'assets/arrow-left.svg';
-import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
-import { useInViewport, usePrefersReducedMotion } from 'hooks';
+import ArrowLeft from '/assets/arrow-left.svg';
+import ArrowRight from '/assets/arrow-right.svg';
+import { useInViewport, usePrefersReducedMotion, useSsr } from 'hooks';
 import { listen, pointer, spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -18,7 +18,6 @@ import {
   sRGBEncoding,
 } from 'three';
 import { getImageFromSrcSet } from 'utils/image';
-import { prerender } from 'utils/prerender';
 import { cleanRenderer, cleanScene } from 'utils/three';
 import { fragment, vertex } from './carouselShader';
 
@@ -54,6 +53,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const placeholderRef = useRef();
   const springTween = useRef();
   const swipeElement = useRef();
+  const ssr = useSsr();
 
   const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${
     images[imageIndex].alt
@@ -385,7 +385,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
             <img
               aria-hidden
               className="carousel__placeholder"
-              data-loaded={!prerender && loaded && !!textures}
+              data-loaded={!ssr && loaded && !!textures}
               src={placeholder}
               ref={placeholderRef}
               alt=""

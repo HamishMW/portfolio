@@ -1,18 +1,11 @@
-import './Armor.css';
+// import './Armor.css';
 
-import vknx from 'assets/volkihar-cube-nx.jpg';
-import vkny from 'assets/volkihar-cube-ny.jpg';
-import vknz from 'assets/volkihar-cube-nz.jpg';
-import vkpx from 'assets/volkihar-cube-px.jpg';
-import vkpy from 'assets/volkihar-cube-py.jpg';
-import vkpz from 'assets/volkihar-cube-pz.jpg';
-import armor from 'assets/volkihar-knight.glb';
 import { Loader } from 'components/Loader';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
+import Head from 'next/head';
 import { spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Helmet from 'react-helmet';
 import { Transition } from 'react-transition-group';
 import {
   ACESFilmicToneMapping,
@@ -28,6 +21,14 @@ import {
 import { degToRad } from 'three/src/math/MathUtils';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
+
+const vknx = '/assets/volkihar-cube-nx.jpg';
+const vkny = '/assets/volkihar-cube-ny.jpg';
+const vknz = '/assets/volkihar-cube-nz.jpg';
+const vkpx = '/assets/volkihar-cube-px.jpg';
+const vkpy = '/assets/volkihar-cube-py.jpg';
+const vkpz = '/assets/volkihar-cube-pz.jpg';
+const armor = '/assets/volkihar-knight.glb';
 
 const Armor = ({
   models,
@@ -193,9 +194,9 @@ const Armor = ({
 
   return (
     <>
-      <Helmet>
-        <link rel="prefetch" href={armor} as="fetch" crossorigin="" />
-      </Helmet>
+      <Head>
+        <link rel="prefetch" href={armor} as="fetch" crossOrigin="" />
+      </Head>
       <div
         className={classes('armor', className)}
         ref={container}

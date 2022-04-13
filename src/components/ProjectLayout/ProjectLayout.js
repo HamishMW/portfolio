@@ -1,13 +1,12 @@
-import './ProjectLayout.css';
+// import './ProjectLayout.css';
 
 import { Button } from 'components/Button';
 import { Heading } from 'components/Heading';
 import { Image } from 'components/Image';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
-import { useParallax } from 'hooks';
+import { useParallax, useSsr } from 'hooks';
 import { forwardRef } from 'react';
-import { prerender } from 'utils/prerender';
 import { classes, cssProps, numToMs } from 'utils/style';
 
 const initDelay = 300;
@@ -20,6 +19,8 @@ export function ProjectHeader({
   roles,
   className,
 }) {
+  const ssr = useSsr();
+
   return (
     <Section className={classes('project__header', className)}>
       <div
@@ -27,10 +28,10 @@ export function ProjectHeader({
         style={cssProps({ initDelay: numToMs(initDelay) })}
       >
         <div className="project__details">
-          <Heading className="project__title" data-entered={!prerender} level={2} as="h1">
+          <Heading className="project__title" data-entered={!ssr} level={2} as="h1">
             {title}
           </Heading>
-          <Text className="project__description" data-entered={!prerender} size="xl">
+          <Text className="project__description" data-entered={!ssr} size="xl">
             {description}
           </Text>
           {!!url && (
@@ -38,7 +39,7 @@ export function ProjectHeader({
               secondary
               iconHoverShift
               className="project__link-button"
-              data-entered={!prerender}
+              data-entered={!ssr}
               icon="chevronRight"
               href={url}
             >
@@ -51,7 +52,7 @@ export function ProjectHeader({
             {roles?.map((role, index) => (
               <li
                 className="project__meta-item"
-                data-entered={!prerender}
+                data-entered={!ssr}
                 style={cssProps({ delay: numToMs(initDelay + 300 + index * 140) })}
                 key={role}
               >

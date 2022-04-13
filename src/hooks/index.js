@@ -8,5 +8,5 @@ export { useParallax } from './useParallax';
 export { usePrefersReducedMotion } from './usePrefersReducedMotion';
 export { usePrevious } from './usePrevious';
 export { useRouteTransition } from './useRouteTransition';
-export { useScrollRestore } from './useScrollRestore';
 export { useWindowSize } from './useWindowSize';
+export { useSsr } from './useSsr';

@@ -2,7 +2,7 @@ import './Articles.css';
 
 import { Image } from 'components/Image';
 import { Section } from 'components/Section';
-import { useScrollRestore } from 'hooks';
+import Head from 'next/head';
 import { Post } from 'pages/Post';
 import { fetchPosts } from 'posts';
 import {
@@ -14,7 +14,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { Helmet } from 'react-helmet';
 import { Route, Link as RouterLink, Routes } from 'react-router-dom';
 
 const Page404 = lazy(() => import('pages/404'));
@@ -73,17 +72,16 @@ const ArticlesPost = ({
 
 const ArticlesLayout = () => {
   const { posts } = useContext(ArticlesContext);
-  useScrollRestore();
 
   return (
     <div className="articles">
-      <Helmet>
+      <Head>
         <title>{`Articles | Hamish Williams Designer`}</title>
         <meta
           name="description"
           content="A collection of technical design and development articles."
         />
-      </Helmet>
+      </Head>
       <Section className="articles__content">
         <div className="articles__column">
           {posts.map(({ slug, ...post }, index) => (

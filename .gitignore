@@ -60,3 +60,4 @@ typings/
 build/
 build-storybook/
 .serverless
+.next

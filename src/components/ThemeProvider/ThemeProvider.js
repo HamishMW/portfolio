@@ -1,11 +1,12 @@
-import GothamBold from 'assets/fonts/gotham-bold.woff2';
-import GothamBook from 'assets/fonts/gotham-book.woff2';
-import GothamMedium from 'assets/fonts/gotham-medium.woff2';
+import Head from 'next/head';
 import { Fragment, createContext, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { classes, media } from 'utils/style';
 import { theme, tokens } from './theme';
 import useTheme from './useTheme';
+
+const GothamBold = '/assets/fonts/gotham-bold.woff2';
+const GothamBook = '/assets/fonts/gotham-book.woff2';
+const GothamMedium = '/assets/fonts/gotham-medium.woff2';
 
 export const fontStyles = `
   @font-face {
@@ -57,12 +58,12 @@ const ThemeProvider = ({
       {/* Add fonts and base tokens for the root provider */}
       {isRootProvider && (
         <Fragment>
-          <Helmet>
-            <link rel="prefetch" href={GothamMedium} as="font" crossorigin="" />
-            <link rel="prefetch" href={GothamBook} as="font" crossorigin="" />
+          <Head>
+            <link rel="prefetch" href={GothamMedium} as="font" crossOrigin="" />
+            <link rel="prefetch" href={GothamBook} as="font" crossOrigin="" />
             <style>{fontStyles}</style>
             <style>{tokenStyles}</style>
-          </Helmet>
+          </Head>
           {children}
         </Fragment>
       )}

@@ -1,9 +1,10 @@
-import './Monogram.css';
+// import './Monogram.css';
 
 import { useId } from 'hooks';
+import { forwardRef } from 'react';
 import { classes } from 'utils/style';
 
-export function Monogram({ highlight, className, ...props }) {
+export const Monogram = forwardRef(({ highlight, className, ...props }, ref) => {
   const id = useId();
   const clipId = `monogram-clip-${id}`;
 
@@ -14,6 +15,7 @@ export function Monogram({ highlight, className, ...props }) {
       width="46"
       height="29"
       viewBox="0 0 46 29"
+      ref={ref}
       {...props}
     >
       <defs>
@@ -29,4 +31,4 @@ export function Monogram({ highlight, className, ...props }) {
       )}
     </svg>
   );
-}
+});

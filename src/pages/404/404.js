@@ -1,23 +1,21 @@
-import './404.css';
+// import './404.css';
 
-import NotfoundPoster from 'assets/notfound.jpg';
-import Notfound from 'assets/notfound.mp4';
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Heading } from 'components/Heading';
 import { Text } from 'components/Text';
+import Head from 'next/head';
 import { Fragment } from 'react';
-import { Helmet } from 'react-helmet';
 import { Transition } from 'react-transition-group';
 import { reflow } from 'utils/transition';
 
 export function Page404() {
   return (
     <section className="page-404">
-      <Helmet>
+      <Head>
         <title tag="title">404 | Not Found</title>
         <meta name="description" content="404 page not found. This page doesn't exist" />
-      </Helmet>
+      </Head>
       <Transition appear in={true} timeout={0} onEnter={reflow}>
         {status => (
           <Fragment>
@@ -64,9 +62,9 @@ export function Page404() {
                 playsInline
                 className="page-404__video"
                 data-status={status}
-                poster={NotfoundPoster}
+                poster="assets/notfound.jpg"
               >
-                <source src={Notfound} type="video/mp4" />
+                <source src="assets/notfound.mp4" type="video/mp4" />
               </video>
               <a
                 className="page-404__credit"

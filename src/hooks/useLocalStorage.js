@@ -1,7 +1,12 @@
 import { useState } from 'react';
+import { useSsr } from './useSsr';
 
 export function useLocalStorage(key, initialValue) {
+  const ssr = useSsr();
+
   const [storedValue, setStoredValue] = useState(() => {
+    if (ssr) return;
+
     try {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;

@@ -1,17 +1,16 @@
-import './Intro.css';
+// import './Intro.css';
 
-import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
+import ArrowDown from 'assets/arrow-down.svg';
 import { DecoderText } from 'components/DecoderText';
 import { Heading } from 'components/Heading';
 import { Section } from 'components/Section';
 import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { useInterval, usePrevious } from 'hooks';
+import { useInterval, usePrevious, useSsr } from 'hooks';
+import RouterLink from 'next/link';
 import { Fragment, Suspense, lazy, useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import { Transition, TransitionGroup } from 'react-transition-group';
-import { prerender } from 'utils/prerender';
 import { cssProps } from 'utils/style';
 import { reflow } from 'utils/transition';
 
@@ -19,6 +18,7 @@ const DisplacementSphere = lazy(() => import('pages/Home/DisplacementSphere'));
 
 export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
   const theme = useTheme();
+  const ssr = useSsr();
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const prevTheme = usePrevious(theme);
   const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(
@@ -56,25 +56,26 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
     >
       <Transition
         key={theme.themeId}
-        appear={!prerender}
-        in={!prerender}
+        appear={!ssr}
+        in={!ssr}
         timeout={3000}
         onEnter={reflow}
       >
         {status => (
           <Fragment>
-            {!prerender && (
+            {!ssr && (
               <Suspense fallback={null}>
                 <DisplacementSphere />
               </Suspense>
             )}
+
             <header className="intro__text">
               <h1 className="intro__name" data-status={status} id={titleId}>
-                <DecoderText text="Hamish Williams" start={!prerender} delay={300} />
+                <DecoderText text="Hamish Williams" start={!ssr} delay={300} />
               </h1>
               <Heading level={0} as="h2" className="intro__title">
                 <VisuallyHidden className="intro__title-label">{`Designer + ${introLabel}`}</VisuallyHidden>
-                <span aria-hidden className="intro__title-row" data-hidden={prerender}>
+                <span aria-hidden className="intro__title-row" data-hidden={ssr}>
                   <span
                     className="intro__title-word"
                     data-status={status}
@@ -86,7 +87,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                 </span>
                 <TransitionGroup
                   className="intro__title-row"
-                  data-hidden={prerender}
+                  data-hidden={ssr}
                   component="span"
                 >
                   {currentDisciplines.map(item => (
@@ -113,7 +114,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
               </Heading>
             </header>
             <RouterLink
-              to="/#project-1"
+              href="/#project-1"
               className="intro__scroll-indicator"
               data-status={status}
               data-hidden={scrollIndicatorHidden}
@@ -121,13 +122,15 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
               <VisuallyHidden>Scroll to projects</VisuallyHidden>
             </RouterLink>
             <RouterLink
-              to="/#project-1"
+              href="/#project-1"
               className="intro__mobile-scroll-indicator"
               data-status={status}
               data-hidden={scrollIndicatorHidden}
             >
-              <VisuallyHidden>Scroll to projects</VisuallyHidden>
-              <ArrowDown aria-hidden />
+              <>
+                <VisuallyHidden>Scroll to projects</VisuallyHidden>
+                <ArrowDown aria-hidden />
+              </>
             </RouterLink>
           </Fragment>
         )}

@@ -1,33 +1,36 @@
-import './Home.css';
+// import './Home.css';
 
-import gamestackTexture2Large from 'assets/gamestack-list-large.jpg';
-import gamestackTexture2Placeholder from 'assets/gamestack-list-placeholder.jpg';
-import gamestackTexture2 from 'assets/gamestack-list.jpg';
-import gamestackTextureLarge from 'assets/gamestack-login-large.jpg';
-import gamestackTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
-import gamestackTexture from 'assets/gamestack-login.jpg';
-import iphone11 from 'assets/iphone-11.glb';
-import macbookPro from 'assets/macbook-pro.glb';
-import sliceTextureLarge from 'assets/slice-app-large.jpg';
-import sliceTexturePlaceholder from 'assets/slice-app-placeholder.jpg';
-import sliceTexture from 'assets/slice-app.jpg';
-import sprTextureLarge from 'assets/spr-lesson-builder-dark-large.jpg';
-import sprTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
-import sprTexture from 'assets/spr-lesson-builder-dark.jpg';
 import { Footer } from 'components/Footer';
 import { usePrefersReducedMotion, useRouteTransition } from 'hooks';
+import Head from 'next/head';
 import { Intro } from 'pages/Home/Intro';
 import { Profile } from 'pages/Home/Profile';
 import { ProjectSummary } from 'pages/Home/ProjectSummary';
 import { useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
+
+const gamestackTexture2Large = '/assets/gamestack-list-large.jpg';
+const gamestackTexture2Placeholder = '/assets/gamestack-list-placeholder.jpg';
+const gamestackTexture2 = '/assets/gamestack-list.jpg';
+const gamestackTextureLarge = '/assets/gamestack-login-large.jpg';
+const gamestackTexturePlaceholder = '/assets/gamestack-login-placeholder.jpg';
+const gamestackTexture = '/assets/gamestack-login.jpg';
+const iphone11 = '/assets/iphone-11.glb';
+const macbookPro = '/assets/macbook-pro.glb';
+const sliceTextureLarge = '/assets/slice-app-large.jpg';
+const sliceTexturePlaceholder = '/assets/slice-app-placeholder.jpg';
+const sliceTexture = '/assets/slice-app.jpg';
+const sprTextureLarge = '/assets/spr-lesson-builder-dark-large.jpg';
+const sprTexturePlaceholder = '/assets/spr-lesson-builder-dark-placeholder.jpg';
+const sprTexture = '/assets/spr-lesson-builder-dark.jpg';
 
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
 export const Home = () => {
   const { status } = useRouteTransition();
-  const { hash, state } = useLocation();
+  // const { hash, state } = useLocation();
+  const hash = '';
+  const state = '';
+
   const initHash = useRef(true);
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
@@ -138,16 +141,16 @@ export const Home = () => {
 
   return (
     <div className="home">
-      <Helmet>
+      <Head>
         <title>Hamish Williams | Designer + Developer</title>
         <meta
           name="description"
           content="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile
           apps with a focus on motion and user experience design."
         />
-        <link rel="prefetch" href={iphone11} as="fetch" crossorigin="" />
-        <link rel="prefetch" href={macbookPro} as="fetch" crossorigin="" />
-      </Helmet>
+        <link rel="prefetch" href={iphone11} as="fetch" crossOrigin="" />
+        <link rel="prefetch" href={macbookPro} as="fetch" crossOrigin="" />
+      </Head>
       <Intro
         id="intro"
         sectionRef={intro}

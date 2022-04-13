@@ -1,4 +1,4 @@
-import './Model.css';
+// import './Model.css';
 
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { chain, delay, spring, value } from 'popmotion';

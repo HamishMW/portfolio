@@ -1,7 +1,5 @@
-import './Uses.css';
+// import './Uses.css';
 
-import usesBackgroundPlaceholder from 'assets/uses-background-placeholder.jpg';
-import usesBackground from 'assets/uses-background.mp4';
 import { Footer } from 'components/Footer';
 import { Link } from 'components/Link';
 import {
@@ -15,29 +13,31 @@ import {
   ProjectTextRow,
 } from 'components/ProjectLayout';
 import { Table, TableCell, TableRow } from 'components/Table';
-import { useScrollRestore } from 'hooks';
+import { useSsr } from 'hooks';
+import Head from 'next/head';
 import { Fragment } from 'react';
-import { Helmet } from 'react-helmet';
-import { prerender } from 'utils/prerender';
+
+const usesBackgroundPlaceholder = '/assets/uses-background-placeholder.jpg';
+const usesBackground = '/assets/uses-background.mp4';
 
 export const Uses = () => {
-  useScrollRestore();
+  const ssr = useSsr();
 
   return (
     <Fragment>
-      <Helmet>
+      <Head>
         <title>Uses | Hamish Williams</title>
         <meta
           name="description"
           content="A list of hardware and software I use to do my thing"
         />
-      </Helmet>
+      </Head>
       <ProjectContainer className="uses">
         <ProjectBackground
           src={usesBackground}
           placeholder={usesBackgroundPlaceholder}
           opacity={0.7}
-          entered={!prerender}
+          entered={!ssr}
         />
         <ProjectHeader
           title="Uses"

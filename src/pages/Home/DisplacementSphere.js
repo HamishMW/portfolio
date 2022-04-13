@@ -1,4 +1,4 @@
-import './DisplacementSphere.css';
+// import './DisplacementSphere.css';
 
 import { useTheme } from 'components/ThemeProvider';
 import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';

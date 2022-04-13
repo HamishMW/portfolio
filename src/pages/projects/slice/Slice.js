@@ -1,26 +1,5 @@
-import './Slice.css';
+// import './Slice.css';
 
-import sliceAnnotationLarge from 'assets/slice-annotation-large.png';
-import sliceAnnotationPlaceholder from 'assets/slice-annotation-placeholder.png';
-import sliceAnnotation from 'assets/slice-annotation.png';
-import sliceAppLarge from 'assets/slice-app-large.jpg';
-import sliceAppPlaceholder from 'assets/slice-app-placeholder.jpg';
-import sliceApp from 'assets/slice-app.jpg';
-import sliceBackgroundBarLarge from 'assets/slice-background-bar-large.jpg';
-import sliceBackgroundBarPlaceholder from 'assets/slice-background-bar-placeholder.jpg';
-import sliceBackgroundBar from 'assets/slice-background-bar.jpg';
-import sliceBackgroundLarge from 'assets/slice-background-large.jpg';
-import sliceBackgroundPlaceholder from 'assets/slice-background-placeholder.jpg';
-import sliceBackground from 'assets/slice-background.jpg';
-import sliceSidebarAnnotationsLarge from 'assets/slice-sidebar-annotations-large.png';
-import sliceSidebarAnnotationsPlaceholder from 'assets/slice-sidebar-annotations-placeholder.png';
-import sliceSidebarAnnotations from 'assets/slice-sidebar-annotations.png';
-import sliceSidebarLayersLarge from 'assets/slice-sidebar-layers-large.png';
-import sliceSidebarLayersPlaceholder from 'assets/slice-sidebar-layers-placeholder.png';
-import sliceSidebarLayers from 'assets/slice-sidebar-layers.png';
-import sliceSlidesLarge from 'assets/slice-slides-large.jpg';
-import sliceSlidesPlaceholder from 'assets/slice-slides-placeholder.jpg';
-import sliceSlides from 'assets/slice-slides.jpg';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
 import {
@@ -35,11 +14,33 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from 'components/ProjectLayout';
-import { useScrollRestore } from 'hooks';
+import { useSsr } from 'hooks';
+import Head from 'next/head';
 import { Fragment } from 'react';
-import { Helmet } from 'react-helmet';
-import { prerender } from 'utils/prerender';
 import { media } from 'utils/style';
+
+const sliceAnnotationLarge = '/assets/slice-annotation-large.png';
+const sliceAnnotationPlaceholder = '/assets/slice-annotation-placeholder.png';
+const sliceAnnotation = '/assets/slice-annotation.png';
+const sliceAppLarge = '/assets/slice-app-large.jpg';
+const sliceAppPlaceholder = '/assets/slice-app-placeholder.jpg';
+const sliceApp = '/assets/slice-app.jpg';
+const sliceBackgroundBarLarge = '/assets/slice-background-bar-large.jpg';
+const sliceBackgroundBarPlaceholder = '/assets/slice-background-bar-placeholder.jpg';
+const sliceBackgroundBar = '/assets/slice-background-bar.jpg';
+const sliceBackgroundLarge = '/assets/slice-background-large.jpg';
+const sliceBackgroundPlaceholder = '/assets/slice-background-placeholder.jpg';
+const sliceBackground = '/assets/slice-background.jpg';
+const sliceSidebarAnnotationsLarge = '/assets/slice-sidebar-annotations-large.png';
+const sliceSidebarAnnotationsPlaceholder =
+  '/assets/slice-sidebar-annotations-placeholder.png';
+const sliceSidebarAnnotations = '/assets/slice-sidebar-annotations.png';
+const sliceSidebarLayersLarge = '/assets/slice-sidebar-layers-large.png';
+const sliceSidebarLayersPlaceholder = '/assets/slice-sidebar-layers-placeholder.png';
+const sliceSidebarLayers = '/assets/slice-sidebar-layers.png';
+const sliceSlidesLarge = '/assets/slice-slides-large.jpg';
+const sliceSlidesPlaceholder = '/assets/slice-slides-placeholder.jpg';
+const sliceSlides = '/assets/slice-slides.jpg';
 
 const title = 'Biomedical image collaboration';
 const description =
@@ -47,20 +48,20 @@ const description =
 const roles = ['User Research', 'UX Design', 'Interface Design'];
 
 export const Slice = () => {
-  useScrollRestore();
+  const ssr = useSsr();
 
   return (
     <Fragment>
-      <Helmet>
+      <Head>
         <title>{`Projects | ${title}`}</title>
         <meta name="description" content={description} />
-      </Helmet>
+      </Head>
       <ProjectContainer className="slice">
         <ProjectBackground
           srcSet={`${sliceBackground} 1280w, ${sliceBackgroundLarge} 2560w`}
           placeholder={sliceBackgroundPlaceholder}
           opacity={0.8}
-          entered={!prerender}
+          entered={!ssr}
         />
         <ProjectHeader
           title={title}

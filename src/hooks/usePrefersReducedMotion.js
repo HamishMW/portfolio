@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useSsr } from './useSsr';
 
 export function usePrefersReducedMotion() {
-  const [reduceMotion, setReduceMotion] = useState(
-    () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  const ssr = useSsr();
+
+  const [reduceMotion, setReduceMotion] = useState(() =>
+    !ssr ? window.matchMedia?.('(prefers-reduced-motion: reduce)').matches : false
   );
 
   useEffect(() => {
+    if (ssr) return;
+
     const mediaQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
 
     const handleMediaChange = () => {

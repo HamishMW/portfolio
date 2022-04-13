@@ -1,4 +1,4 @@
-import './Loader.css';
+// import './Loader.css';
 
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { usePrefersReducedMotion } from 'hooks';

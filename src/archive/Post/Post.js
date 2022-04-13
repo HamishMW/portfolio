@@ -1,6 +1,6 @@
 import './Post.css';
 
-import { ReactComponent as ArrowDown } from 'assets/arrow-down.svg';
+import ArrowDown from '/assets/arrow-down.svg';
 import { Code } from 'components/Code';
 import { Divider } from 'components/Divider';
 import { Footer } from 'components/Footer';
@@ -10,11 +10,10 @@ import { Link } from 'components/Link';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
-import { useScrollRestore, useWindowSize } from 'hooks';
+import { useSsr, useWindowSize } from 'hooks';
+import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { Transition } from 'react-transition-group';
-import { prerender } from 'utils/prerender';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import { media } from 'utils/style';
 import { reflow } from 'utils/transition';
@@ -32,7 +31,7 @@ const PostWrapper = ({
 }) => {
   const windowSize = useWindowSize();
   const contentRef = useRef();
-  useScrollRestore();
+  const ssr = useSsr();
 
   const handleScrollIndicatorClick = event => {
     event.preventDefault();
@@ -46,15 +45,15 @@ const PostWrapper = ({
 
   return (
     <article className="post">
-      <Helmet>
+      <Head>
         <title>{`Articles | ${title}`}</title>
         <meta name="description" content={description} />
-      </Helmet>
+      </Head>
       <header className="post__header">
         <div className="post__header-text">
           <Transition
             appear
-            in={!prerender}
+            in={!ssr}
             timeout={msToNum(tokens.base.durationM)}
             onEnter={reflow}
           >

@@ -1,4 +1,4 @@
-import './Section.css';
+// import './Section.css';
 
 import { forwardRef } from 'react';
 import { classes } from 'utils/style';

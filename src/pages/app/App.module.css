@@ -8,7 +8,7 @@
   grid-template: 100% / 100%;
 }
 
-.app__page {
+.page {
   opacity: 0;
   grid-area: 1 / 1;
   transition: opacity var(--durationS) ease;
@@ -26,7 +26,7 @@
   }
 }
 
-.skip-to-main {
+.skip {
   isolation: isolate;
   color: rgb(var(--rgbBackground));
   z-index: 128;

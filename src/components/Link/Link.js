@@ -1,38 +1,49 @@
-import './Link.css';
+// import './Link.css';
 
-import { Link as RouterLink } from 'react-router-dom';
+import RouterLink from 'next/link';
+import { forwardRef } from 'react';
 import { classes } from 'utils/style';
 
 // File extensions that can be linked to
 const VALID_EXT = ['txt', 'png', 'jpg'];
 
-export const Link = ({
-  rel,
-  target,
-  children,
-  secondary,
-  className,
-  href,
-  as,
-  ...rest
-}) => {
+export const Link = forwardRef(({ href, ...rest }, ref) => {
   const isValidExtension = VALID_EXT.includes(href?.split('.').pop());
   const isAnchor = href?.includes('://') || href?.[0] === '#' || isValidExtension;
-  const relValue = rel || (isAnchor ? 'noreferrer noopener' : undefined);
-  const targetValue = target || (isAnchor ? '_blank' : undefined);
-  const Component = as || (isAnchor ? 'a' : RouterLink);
+
+  if (isAnchor) {
+    return <LinkContent {...rest} />;
+  }
 
   return (
-    <Component
-      className={classes('link', className)}
-      data-secondary={secondary}
-      rel={relValue}
-      href={isAnchor ? href : undefined}
-      to={!isAnchor ? href : undefined}
-      target={targetValue}
-      {...rest}
-    >
-      {children}
-    </Component>
+    <RouterLink passHref href={href} scroll={false}>
+      <LinkContent href={href} {...rest} />
+    </RouterLink>
   );
-};
+});
+
+export const LinkContent = forwardRef(
+  (
+    { rel, target, children, secondary, className, href, as: Component = 'a', ...rest },
+    ref
+  ) => {
+    const isValidExtension = VALID_EXT.includes(href?.split('.').pop());
+    const isAnchor = href?.includes('://') || href?.[0] === '#' || isValidExtension;
+    const relValue = rel || (isAnchor ? 'noreferrer noopener' : undefined);
+    const targetValue = target || (isAnchor ? '_blank' : undefined);
+
+    return (
+      <Component
+        className={classes('link', className)}
+        data-secondary={secondary}
+        rel={relValue}
+        href={isAnchor ? href : undefined}
+        target={targetValue}
+        ref={ref}
+        {...rest}
+      >
+        {children}
+      </Component>
+    );
+  }
+);
