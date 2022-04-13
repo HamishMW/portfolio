@@ -1,6 +1,6 @@
 // import './VolkiharKnight.css';
 
-import VolkiharKnightLogo from '/assets/volkihar-logo.svg';
+import VolkiharKnightLogo from 'assets/volkihar-logo.svg';
 import { Button } from 'components/Button';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';

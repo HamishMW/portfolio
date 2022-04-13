@@ -1,7 +1,7 @@
 // import './Carousel.css';
 
-import ArrowLeft from '/assets/arrow-left.svg';
-import ArrowRight from '/assets/arrow-right.svg';
+import ArrowLeft from 'assets/arrow-left.svg';
+import ArrowRight from 'assets/arrow-right.svg';
 import { useInViewport, usePrefersReducedMotion, useSsr } from 'hooks';
 import { listen, pointer, spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';

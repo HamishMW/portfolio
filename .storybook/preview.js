@@ -1,6 +1,5 @@
-import '../src/app/reset.css';
-import '../src/app/global.css';
-import '../src/app/App.css';
+import '../src/pages/app/reset.css';
+import '../src/pages/app/global.css';
 import './preview.css';
 
 import { useEffect } from 'react';

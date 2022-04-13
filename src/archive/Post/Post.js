@@ -1,6 +1,6 @@
 import './Post.css';
 
-import ArrowDown from '/assets/arrow-down.svg';
+import ArrowDown from 'assets/arrow-down.svg';
 import { Code } from 'components/Code';
 import { Divider } from 'components/Divider';
 import { Footer } from 'components/Footer';
