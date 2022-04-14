@@ -6,39 +6,19 @@ module.exports = {
     '@storybook/addon-controls',
     '@storybook/addon-a11y',
     '@storybook/addon-toolbars',
-    {
-      name: '@storybook/addon-postcss',
-      options: {
-        postcssLoaderOptions: {
-          implementation: require('postcss'),
-        },
-      },
-    },
+    'storybook-addon-next',
   ],
-  stories: ['../src/**/*.stories.js'],
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   core: {
     builder: 'webpack5',
   },
   webpackFinal: async (config, { configType }) => {
     config.resolve.modules = [path.resolve(__dirname, '../src'), 'node_modules'];
 
-    config.module.rules = config.module.rules.map(rule => {
-      if (
-        String(rule.test) ===
-        String(
-          /\.(svg|ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/
-        )
-      ) {
-        return {
-          ...rule,
-          test: /\.(ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/,
-        };
-      }
+    const imageRule = config.module.rules.find(rule => rule.test.test('.svg'));
+    imageRule.exclude = /\.svg$/;
 
-      return rule;
-    });
-
-    config.module.rules.unshift({
+    config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });

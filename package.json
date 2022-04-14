@@ -42,11 +42,6 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public"
   },
-  "reactSnap": {
-    "skipThirdPartyRequests": true,
-    "headless": true,
-    "crawl": true
-  },
   "browserslist": {
     "production": [
       ">10%",

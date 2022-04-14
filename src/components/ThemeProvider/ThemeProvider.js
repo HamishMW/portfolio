@@ -33,6 +33,15 @@ export const fontStyles = `
 
 const ThemeContext = createContext({});
 
+export const ThemeHead = () => (
+  <>
+    <link rel="prefetch" href={GothamMedium} as="font" crossOrigin="" />
+    <link rel="prefetch" href={GothamBook} as="font" crossOrigin="" />
+    <style>{fontStyles}</style>
+    <style>{tokenStyles}</style>
+  </>
+);
+
 const ThemeProvider = ({
   themeId = 'dark',
   theme: themeOverrides,
@@ -58,12 +67,7 @@ const ThemeProvider = ({
       {/* Add fonts and base tokens for the root provider */}
       {isRootProvider && (
         <Fragment>
-          <Head>
-            <link rel="prefetch" href={GothamMedium} as="font" crossOrigin="" />
-            <link rel="prefetch" href={GothamBook} as="font" crossOrigin="" />
-            <style>{fontStyles}</style>
-            <style>{tokenStyles}</style>
-          </Head>
+          <Head></Head>
           {children}
         </Fragment>
       )}

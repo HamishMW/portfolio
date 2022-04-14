@@ -3,7 +3,7 @@ import '../src/pages/app/global.css';
 import './preview.css';
 
 import { useEffect } from 'react';
-import { ThemeProvider } from '../src/components/ThemeProvider';
+import { ThemeProvider, fontStyles, tokenStyles } from '../src/components/ThemeProvider';
 
 export const decorators = [
   (Story, context) => {
@@ -15,6 +15,8 @@ export const decorators = [
 
     return (
       <ThemeProvider themeId={theme}>
+        <style>{fontStyles}</style>
+        <style>{tokenStyles}</style>
         <div id="story-root" className="story-root">
           <Story />
         </div>
