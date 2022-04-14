@@ -1,5 +1,3 @@
-// import './Earth.css';
-
 import { Loader } from 'components/Loader';
 import { Section } from 'components/Section';
 import { tokens } from 'components/ThemeProvider/theme';
@@ -41,6 +39,7 @@ import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureL
 import { classes, media, msToNum } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
 import { reflow } from 'utils/transition';
+import styles from './Earth.module.css';
 
 const mwnx = '/assets/milkyway-nx.hdr';
 const mwny = '/assets/milkyway-ny.hdr';
@@ -327,7 +326,7 @@ export const Earth = forwardRef(
         labelContainer.current.innerHTML = '';
         labelElements.current = labels.map(label => {
           const element = document.createElement('div');
-          element.classList.add('earth__label');
+          element.classList.add(styles.label);
           element.dataset.hidden = true;
           element.style.setProperty('--delay', `${label.delay || 0}ms`);
           element.textContent = label.text;
@@ -645,18 +644,18 @@ export const Earth = forwardRef(
 
     return (
       <EarthContext.Provider value={{ registerSection, unregisterSection }}>
-        <div className={classes('earth', className)} ref={container}>
-          <div className="earth__viewport">
+        <div className={classes(styles.earth, className)} ref={container}>
+          <div className={styles.viewport}>
             <canvas
-              className="earth__canvas"
+              className={styles.canvas}
               data-visible={loaded && visible}
               data-grabbing={grabbing}
               ref={canvas}
             />
-            <div className="earth__labels" aria-live="polite" ref={labelContainer} />
-            <div className="earth__vignette" />
+            <div className={styles.labels} aria-live="polite" ref={labelContainer} />
+            <div className={styles.vignette} />
           </div>
-          <div className="earth__sections">{children}</div>
+          <div className={styles.sections}>{children}</div>
           <Transition
             mountOnEnter
             unmountOnExit
@@ -665,7 +664,7 @@ export const Earth = forwardRef(
             timeout={msToNum(tokens.base.durationL)}
           >
             {status => (
-              <Section className="earth__loader" data-status={status}>
+              <Section className={styles.loader} data-status={status}>
                 <Loader />
               </Section>
             )}
@@ -714,7 +713,7 @@ export const EarthSection = memo(
 
     return (
       <div
-        className={classes('earth__section', className)}
+        className={classes(styles.section, className)}
         data-scrim={scrim}
         data-scrim-reverse={scrimReverse}
         ref={sectionRef}

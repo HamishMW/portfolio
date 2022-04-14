@@ -17,6 +17,7 @@
     "@storybook/manager-webpack5": "^6.4.21",
     "@storybook/react": "^6.4.20",
     "@svgr/webpack": "^6.2.1",
+    "eslint-config-next": "^12.1.5",
     "prettier": "^2.2.1",
     "storybook-addon-next": "^1.6.2",
     "stylelint": "^14.6.1",

@@ -114,7 +114,7 @@ export const Articles = () => {
 
   return (
     <ArticlesContext.Provider value={{ posts }}>
-      <Suspense>
+      {/* <Suspense>
         <Routes>
           <Route path="/" element={<ArticlesLayout />} />
           {posts?.map(({ slug, ...rest }) => (
@@ -127,7 +127,7 @@ export const Articles = () => {
           ))}
           <Route path="*" element={<Page404 />} />
         </Routes>
-      </Suspense>
+      </Suspense> */}
     </ArticlesContext.Provider>
   );
 };

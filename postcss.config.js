@@ -8,7 +8,7 @@ module.exports = {
       features: {
         'nesting-rules': true,
         'custom-media-queries': {
-          importFrom: 'src/pages/app/global.css',
+          importFrom: 'src/layouts/App/global.css',
         },
       },
     },

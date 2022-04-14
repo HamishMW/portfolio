@@ -1,5 +1,3 @@
-// import './Slice.css';
-
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
 import {
@@ -13,11 +11,11 @@ import {
   ProjectSectionHeading,
   ProjectSectionText,
   ProjectTextRow,
-} from 'components/ProjectLayout';
-import { useSsr } from 'hooks';
+} from 'layouts/Project';
 import Head from 'next/head';
 import { Fragment } from 'react';
 import { media } from 'utils/style';
+import styles from './Slice.module.css';
 
 const sliceAnnotationLarge = '/assets/slice-annotation-large.png';
 const sliceAnnotationPlaceholder = '/assets/slice-annotation-placeholder.png';
@@ -48,20 +46,17 @@ const description =
 const roles = ['User Research', 'UX Design', 'Interface Design'];
 
 export const Slice = () => {
-  const ssr = useSsr();
-
   return (
     <Fragment>
       <Head>
         <title>{`Projects | ${title}`}</title>
         <meta name="description" content={description} />
       </Head>
-      <ProjectContainer className="slice">
+      <ProjectContainer className={styles.slice}>
         <ProjectBackground
           srcSet={`${sliceBackground} 1280w, ${sliceBackgroundLarge} 2560w`}
           placeholder={sliceBackgroundPlaceholder}
           opacity={0.8}
-          entered={!ssr}
         />
         <ProjectHeader
           title={title}
@@ -80,8 +75,8 @@ export const Slice = () => {
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
-          <ProjectSectionColumns centered className="slice__columns">
-            <div className="sidebar__images-text">
+          <ProjectSectionColumns centered className={styles.columns}>
+            <div className={styles.imagesText}>
               <ProjectSectionHeading>Bringing it together</ProjectSectionHeading>
               <ProjectSectionText>
                 Teachers needed a better way to create collaborative group activities by
@@ -94,16 +89,16 @@ export const Slice = () => {
                 see others’ annotations and make their own.
               </ProjectSectionText>
             </div>
-            <div className="slice__sidebar-images">
+            <div className={styles.sidebarImages}>
               <Image
-                className="slice__sidebar-image"
+                className={styles.sidebarImage}
                 srcSet={`${sliceSidebarLayers} 300w, ${sliceSidebarLayersLarge} 700w`}
                 placeholder={sliceSidebarLayersPlaceholder}
                 alt="The layers sidebar design, now with user profiles."
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
               />
               <Image
-                className="slice__sidebar-image"
+                className={styles.sidebarImage}
                 srcSet={`${sliceSidebarAnnotations} 300w, ${sliceSidebarAnnotationsLarge} 700w`}
                 placeholder={sliceSidebarAnnotationsPlaceholder}
                 alt="Multiple user annotations on a shared layer."
@@ -134,9 +129,9 @@ export const Slice = () => {
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
-          <ProjectSectionContent className="slice__grid">
-            <div className="slice__grid-image">
-              <div className="slice__grid-background">
+          <ProjectSectionContent className={styles.grid}>
+            <div className={styles.gridImage}>
+              <div className={styles.gridBackground}>
                 <Image
                   srcSet={`${sliceBackgroundBar} 400w, ${sliceBackgroundBarLarge} 898w`}
                   placeholder={sliceBackgroundBarPlaceholder}
@@ -145,7 +140,7 @@ export const Slice = () => {
                   sizes={`(max-width: ${media.mobile}px) 312px, (max-width: ${media.tablet}px) 408px, 514px`}
                 />
               </div>
-              <div className="slice__grid-foreground">
+              <div className={styles.gridForeground}>
                 <Image
                   srcSet={`${sliceAnnotation} 440w, ${sliceAnnotationLarge} 880w`}
                   placeholder={sliceAnnotationPlaceholder}
@@ -154,7 +149,7 @@ export const Slice = () => {
                 />
               </div>
             </div>
-            <div className="slice__grid-text">
+            <div className={styles.gridText}>
               <ProjectSectionHeading>Meaningful details</ProjectSectionHeading>
               <ProjectSectionText>
                 Marking and annotating areas on high resolution biomedical images is the

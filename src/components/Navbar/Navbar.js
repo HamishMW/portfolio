@@ -1,79 +1,71 @@
-// import './Navbar.css';
-
 import { Icon } from 'components/Icon';
 import { Monogram } from 'components/Monogram';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useAppContext, useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
-import { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useRef } from 'react';
 import { Transition } from 'react-transition-group';
-import { media, msToNum, numToMs } from 'utils/style';
+import { cssProps, media, msToNum, numToMs } from 'utils/style';
 import { reflow } from 'utils/transition';
 import { NavToggle } from './NavToggle';
+import styles from './Navbar.module.css';
 import { ThemeToggle } from './ThemeToggle';
 import { navLinks, socialLinks } from './navData';
 
 const NavbarIcons = () => (
-  <div className="navbar__nav-icons">
+  <div className={styles.navIcons}>
     {socialLinks.map(({ label, url, icon }) => (
       <a
         key={label}
-        className="navbar__nav-icon-link"
+        className={styles.navIconLink}
         aria-label={label}
         href={url}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Icon className="navbar__nav-icon" icon={icon} />
+        <Icon className={styles.navIcon} icon={icon} />
       </a>
     ))}
   </div>
 );
 
-export function Navbar(props) {
+export function Navbar() {
   const { menuOpen, dispatch } = useAppContext();
-  const { location } = props;
-  const [hashKey, setHashKey] = useState();
+  const { asPath } = useRouter();
   const windowSize = useWindowSize();
   const headerRef = useRef();
   const isMobile = windowSize.width <= media.mobile || windowSize.height <= 696;
 
-  const handleNavClick = () => {
-    setHashKey(Math.random().toString(32).substring(2, 8));
-  };
-
   const handleMobileNavClick = () => {
-    handleNavClick();
     if (menuOpen) dispatch({ type: 'toggleMenu' });
   };
 
-  const isMatch = (url = '', hash = '') => {
-    if (!url) return false;
-    return `${url}${hash}` === `${location.pathname}${location.hash}`;
+  const getCurrent = (url = '') => {
+    if (url === asPath) {
+      return 'page';
+    }
   };
 
   return (
-    <header className="navbar" ref={headerRef}>
-      {/* <RouterLink
-        className="navbar__logo"
-        href="/#intro"
-        aria-label="Hamish Williams, Designer"
-        onClick={handleMobileNavClick}
-      >
-        <Monogram highlight />
-      </RouterLink> */}
+    <header className={styles.navbar} ref={headerRef}>
+      <RouterLink href="/#intro" scroll={false}>
+        <a
+          className={styles.logo}
+          aria-label="Hamish Williams, Designer"
+          onClick={handleMobileNavClick}
+        >
+          <Monogram highlight />
+        </a>
+      </RouterLink>
       <NavToggle onClick={() => dispatch({ type: 'toggleMenu' })} menuOpen={menuOpen} />
-      <nav className="navbar__nav">
-        <div className="navbar__nav-list">
-          {navLinks.map(({ label, pathname, hash }) => (
-            <RouterLink
-              className="navbar__nav-link"
-              aria-current={isMatch(pathname, hash) ? 'page' : undefined}
-              onClick={handleNavClick}
-              key={label}
-              href={`${pathname}${hash || ''}`}
-            >
-              {label}
+      <nav className={styles.nav}>
+        <div className={styles.navList}>
+          {navLinks.map(({ label, pathname }) => (
+            <RouterLink href={pathname} scroll={false} key={label}>
+              <a className={styles.navLink} aria-current={getCurrent(pathname)}>
+                {label}
+              </a>
             </RouterLink>
           ))}
         </div>
@@ -87,22 +79,22 @@ export function Navbar(props) {
         onEnter={reflow}
       >
         {status => (
-          <nav className="navbar__mobile-nav" data-status={status}>
-            {navLinks.map(({ label, pathname, hash }, index) => (
-              <RouterLink
-                className="navbar__mobile-nav-link"
-                data-status={status}
-                aria-current={isMatch(pathname, hash) ? 'page' : undefined}
-                key={label}
-                onClick={handleMobileNavClick}
-                href={{ pathname, hash, state: hashKey }}
-                style={{
-                  transitionDelay: numToMs(
-                    Number(msToNum(tokens.base.durationS)) + index * 50
-                  ),
-                }}
-              >
-                {label}
+          <nav className={styles.mobileNav} data-status={status}>
+            {navLinks.map(({ label, pathname }, index) => (
+              <RouterLink href={pathname} scroll={false} key={label}>
+                <a
+                  className={styles.mobileNavLink}
+                  data-status={status}
+                  aria-current={getCurrent(pathname)}
+                  onClick={handleMobileNavClick}
+                  style={cssProps({
+                    transitionDelay: numToMs(
+                      Number(msToNum(tokens.base.durationS)) + index * 50
+                    ),
+                  })}
+                >
+                  {label}
+                </a>
               </RouterLink>
             ))}
             <NavbarIcons />

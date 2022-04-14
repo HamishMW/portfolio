@@ -1,5 +1,4 @@
 import { Head, Html, Main, NextScript } from 'next/document';
-import Script from 'next/script';
 
 export default function Document() {
   return (
@@ -31,12 +30,10 @@ export default function Document() {
         <meta name="twitter:site" content="@hamishMW" />
         <meta name="twitter:image" content="https://hamishw.com/social-image.png" />
       </Head>
-      <body>
-        <Script
+      <body className="dark">
+        <script
           dangerouslySetInnerHTML={{
-            __html: `
-                document.body.className = JSON.parse(localStorage.getItem('theme')) || 'dark';
-              `,
+            __html: `document.body.className = JSON.parse(localStorage.getItem('theme')) || 'dark';`,
           }}
         />
         <Main />

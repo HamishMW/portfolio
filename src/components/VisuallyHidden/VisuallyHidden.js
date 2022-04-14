@@ -1,7 +1,6 @@
-// import './VisuallyHidden.css';
-
 import { forwardRef } from 'react';
 import { classes } from 'utils/style';
+import styles from './VisuallyHidden.module.css';
 
 export const VisuallyHidden = forwardRef(
   (
@@ -10,7 +9,7 @@ export const VisuallyHidden = forwardRef(
   ) => {
     return (
       <Component
-        className={classes('visually-hidden', className)}
+        className={classes(styles.hidden, className)}
         data-hidden={!visible && !showOnFocus}
         data-show-on-focus={showOnFocus}
         ref={ref}

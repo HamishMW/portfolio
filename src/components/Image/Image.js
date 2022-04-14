@@ -1,16 +1,15 @@
-// import './Image.css';
-
 import { Button } from 'components/Button';
 import { Icon } from 'components/Icon';
 import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { useInViewport, usePrefersReducedMotion, useSsr } from 'hooks';
+import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { resolveVideoSrcFromSrcSet } from 'utils/image';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { reflow } from 'utils/transition';
+import styles from './Image.module.css';
 
 export const Image = ({ className, style, reveal, delay = 0, raised, src, ...rest }) => {
   const [loaded, setLoaded] = useState(false);
@@ -24,7 +23,7 @@ export const Image = ({ className, style, reveal, delay = 0, raised, src, ...res
 
   return (
     <div
-      className={classes('image', className)}
+      className={classes(styles.image, className)}
       data-visible={inViewport}
       data-reveal={reveal}
       data-raised={raised}
@@ -70,8 +69,7 @@ const ImageElements = ({
   const videoRef = useRef();
   const isVideo = src?.endsWith('.mp4');
   const imgSrc = src || srcSet?.split(' ')[0];
-  const ssr = useSsr();
-  const showFullRes = !ssr && inViewport;
+  const showFullRes = inViewport;
 
   useEffect(() => {
     const purgePlaceholder = () => {
@@ -115,7 +113,7 @@ const ImageElements = ({
     if (!play || !inViewport) {
       setPlaying(false);
       videoRef.current.pause();
-    } else if (inViewport && !prefersReducedMotion && !ssr) {
+    } else if (inViewport && !prefersReducedMotion) {
       setPlaying(true);
       videoRef.current.play();
     }
@@ -150,7 +148,7 @@ const ImageElements = ({
 
   return (
     <div
-      className="image__element-wrapper"
+      className={styles.elementWrapper}
       data-reveal={reveal}
       data-visible={inViewport}
       onMouseOver={isVideo ? handleShowPlayButton : undefined}
@@ -163,7 +161,7 @@ const ImageElements = ({
             muted
             loop
             playsInline
-            className="image__element"
+            className={styles.element}
             data-loaded={loaded}
             autoPlay={!prefersReducedMotion}
             role="img"
@@ -182,7 +180,7 @@ const ImageElements = ({
             {status => (
               <VisuallyHidden visible={showPlayButton}>
                 <Button
-                  className="image__button"
+                  className={styles.button}
                   data-status={status}
                   onFocus={handleFocusPlayButton}
                   onBlur={() => setIsFocused(false)}
@@ -198,7 +196,7 @@ const ImageElements = ({
       )}
       {!isVideo && (
         <img
-          className="image__element"
+          className={styles.element}
           data-loaded={loaded}
           onLoad={onLoad}
           decoding="async"
@@ -213,7 +211,7 @@ const ImageElements = ({
       {showPlaceholder && (
         <img
           aria-hidden
-          className="image__placeholder"
+          className={styles.placeholder}
           data-loaded={loaded}
           style={cssProps({ delay: numToMs(delay) })}
           ref={placeholderRef}

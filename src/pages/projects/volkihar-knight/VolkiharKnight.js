@@ -1,9 +1,8 @@
-// import './VolkiharKnight.css';
-
 import VolkiharKnightLogo from 'assets/volkihar-logo.svg';
 import { Button } from 'components/Button';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
+import { useRouteTransition } from 'hooks';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -15,12 +14,11 @@ import {
   ProjectSectionHeading,
   ProjectSectionText,
   ProjectTextRow,
-} from 'components/ProjectLayout';
-import { useRouteTransition } from 'hooks';
+} from 'layouts/Project';
 import Head from 'next/head';
-import { Fragment, Suspense, lazy, useMemo } from 'react';
-import { ssr } from 'utils/ssr';
+import { Fragment, Suspense, lazy } from 'react';
 import { media } from 'utils/style';
+import styles from './VolkiharKnight.module.css';
 
 const volkiharBackgroundLarge = '/assets/volkihar-background-large.jpg';
 const volkiharBackgroundPlaceholder = '/assets/volkihar-background-placeholder.jpg';
@@ -74,12 +72,11 @@ export function VolkiharKnight() {
           }
         `}</style>
       )}
-      <ProjectContainer className="volkihar">
+      <ProjectContainer>
         <ProjectBackground
           srcSet={`${volkiharBackground} 1000w, ${volkiharBackgroundLarge} 1600w`}
           placeholder={volkiharBackgroundPlaceholder}
           opacity={0.5}
-          entered={!ssr}
         />
         <ProjectHeader
           title={title}
@@ -110,10 +107,12 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionColumns>
-            <Suspense fallback={null}>
-              <Armor alt="3D model of the Volkihar Knight armor" />
-            </Suspense>
-            <div className="volkihar__text-section">
+            {/* {!ssr && (
+              <Suspense fallback={null}>
+                <Armor alt="3D model of the Volkihar Knight armor" />
+              </Suspense>
+            )} */}
+            <div className={styles.textSection}>
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>
                 As a player I noticed there weren’t any heavy armor options for the
@@ -133,7 +132,7 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionContent>
-            <div className="volkihar__logo-container">
+            <div className={styles.logoContainer}>
               <VolkiharKnightLogo
                 role="img"
                 aria-label="The Volkihar Knight logo, a monogram using the letters 'V' and 'K"
@@ -151,11 +150,11 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionContent>
-            <Suspense fallback={null}>
-              <Carousel
-                placeholder={volkiharSlidePlaceholder}
-                images={useMemo(
-                  () => [
+            {/* {!ssr && (
+              <Suspense fallback={null}>
+                <Carousel
+                  placeholder={volkiharSlidePlaceholder}
+                  images={[
                     {
                       src: volkiharSlide1,
                       srcSet: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
@@ -171,13 +170,12 @@ export function VolkiharKnight() {
                       srcSet: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
                       alt: 'A female character wielding a sword and wearing the red coloured armor.',
                     },
-                  ],
-                  []
-                )}
-                width={1920}
-                height={1080}
-              />
-            </Suspense>
+                  ]}
+                  width={1920}
+                  height={1080}
+                />
+              </Suspense>
+            )} */}
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection

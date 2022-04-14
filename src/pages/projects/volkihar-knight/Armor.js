@@ -1,5 +1,3 @@
-// import './Armor.css';
-
 import { Loader } from 'components/Loader';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
@@ -21,6 +19,7 @@ import {
 import { degToRad } from 'three/src/math/MathUtils';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
+import styles from './Armor.module.css';
 
 const vknx = '/assets/volkihar-cube-nx.jpg';
 const vkny = '/assets/volkihar-cube-ny.jpg';
@@ -31,11 +30,8 @@ const vkpz = '/assets/volkihar-cube-pz.jpg';
 const armor = '/assets/volkihar-knight.glb';
 
 const Armor = ({
-  models,
-  show = true,
   showDelay = 0,
   cameraPosition = { x: 0, y: 0, z: 6 },
-  enableControls,
   className,
   alt,
   ...rest
@@ -198,7 +194,7 @@ const Armor = ({
         <link rel="prefetch" href={armor} as="fetch" crossOrigin="" />
       </Head>
       <div
-        className={classes('armor', className)}
+        className={classes(styles.armor, className)}
         ref={container}
         role="img"
         aria-label={alt}
@@ -210,10 +206,10 @@ const Armor = ({
           in={!loaded && loaderVisible}
           timeout={msToNum(tokens.base.durationL)}
         >
-          {status => <Loader className="armor__loader" data-status={status} />}
+          {status => <Loader className={styles.loader} data-status={status} />}
         </Transition>
         <canvas
-          className="armor__canvas"
+          className={styles.canvas}
           ref={canvas}
           data-loaded={loaded && visible}
           style={cssProps({ delay: numToMs(showDelay) })}

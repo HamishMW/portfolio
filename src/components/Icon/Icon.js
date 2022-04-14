@@ -32,7 +32,7 @@ export const icons = {
   twitter: Twitter,
 };
 
-export const Icon = ({ icon, style, className, ...rest }) => {
+export const Icon = ({ icon, className, ...rest }) => {
   const IconComponent = icons[icon];
 
   return (

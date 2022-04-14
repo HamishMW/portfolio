@@ -1,0 +1,14 @@
+.canvas {
+  position: absolute;
+  width: 100vw;
+  inset: 0;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 3s;
+  transition-timing-function: var(--bezierFastoutSlowin);
+
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    opacity: 1;
+  }
+}

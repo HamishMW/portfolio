@@ -1,8 +1,7 @@
-// import './Link.css';
-
 import RouterLink from 'next/link';
 import { forwardRef } from 'react';
 import { classes } from 'utils/style';
+import styles from './Link.module.css';
 
 // File extensions that can be linked to
 const VALID_EXT = ['txt', 'png', 'jpg'];
@@ -12,12 +11,12 @@ export const Link = forwardRef(({ href, ...rest }, ref) => {
   const isAnchor = href?.includes('://') || href?.[0] === '#' || isValidExtension;
 
   if (isAnchor) {
-    return <LinkContent {...rest} />;
+    return <LinkContent ref={ref} {...rest} />;
   }
 
   return (
     <RouterLink passHref href={href} scroll={false}>
-      <LinkContent href={href} {...rest} />
+      <LinkContent ref={ref} {...rest} />
     </RouterLink>
   );
 });
@@ -34,7 +33,7 @@ export const LinkContent = forwardRef(
 
     return (
       <Component
-        className={classes('link', className)}
+        className={classes(styles.link, className)}
         data-secondary={secondary}
         rel={relValue}
         href={isAnchor ? href : undefined}

@@ -1,8 +1,6 @@
-// import './Carousel.css';
-
 import ArrowLeft from 'assets/arrow-left.svg';
 import ArrowRight from 'assets/arrow-right.svg';
-import { useInViewport, usePrefersReducedMotion, useSsr } from 'hooks';
+import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { listen, pointer, spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -19,6 +17,7 @@ import {
 } from 'three';
 import { getImageFromSrcSet } from 'utils/image';
 import { cleanRenderer, cleanScene } from 'utils/three';
+import styles from './Carousel.module.css';
 import { fragment, vertex } from './carouselShader';
 
 function determineIndex(imageIndex, index, images, direction) {
@@ -53,7 +52,6 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const placeholderRef = useRef();
   const springTween = useRef();
   const swipeElement = useRef();
-  const ssr = useSsr();
 
   const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${
     images[imageIndex].alt
@@ -359,33 +357,29 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
 
     const selectedAction = actions[event.key];
 
-    if (!!selectedAction) {
+    if (selectedAction) {
       selectedAction();
     }
   };
 
   return (
-    <div className="carousel" onKeyDown={handleKeyDown} {...rest}>
-      <div className="carousel__content">
-        <div
-          className="carousel__image-wrapper"
-          data-dragging={dragging}
-          ref={swipeElement}
-        >
+    <div className={styles.carousel} onKeyDown={handleKeyDown} {...rest}>
+      <div className={styles.content}>
+        <div className={styles.imageWrapper} data-dragging={dragging} ref={swipeElement}>
           <div
             aria-atomic
-            className="carousel__canvas-wrapper"
+            className={styles.canvasWrapper}
             aria-live="polite"
             aria-label={currentImageAlt}
             role="img"
           >
-            <canvas aria-hidden className="carousel__canvas" ref={canvas} />
+            <canvas aria-hidden className={styles.canvas} ref={canvas} />
           </div>
           {showPlaceholder && placeholder && (
             <img
               aria-hidden
-              className="carousel__placeholder"
-              data-loaded={!ssr && loaded && !!textures}
+              className={styles.placeholder}
+              data-loaded={loaded && !!textures}
               src={placeholder}
               ref={placeholderRef}
               alt=""
@@ -394,7 +388,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
           )}
         </div>
         <button
-          className="carousel__button"
+          className={styles.button}
           data-prev={true}
           aria-label="Previous slide"
           onClick={() => navigate({ direction: -1 })}
@@ -402,7 +396,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
           <ArrowLeft />
         </button>
         <button
-          className="carousel__button"
+          className={styles.button}
           data-next={true}
           aria-label="Next slide"
           onClick={() => navigate({ direction: 1 })}
@@ -410,10 +404,10 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
           <ArrowRight />
         </button>
       </div>
-      <div className="carousel__nav">
+      <div className={styles.nav}>
         {images.map((image, index) => (
           <button
-            className="carousel__nav-button"
+            className={styles.navButton}
             key={image.alt}
             onClick={() => onNavClick(index)}
             aria-label={`Jump to slide ${index + 1}`}

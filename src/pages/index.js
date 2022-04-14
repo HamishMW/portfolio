@@ -1,1 +1,1 @@
-export { Home as default } from './home/Home';
+export { Home as default } from '../layouts/Home/Home';

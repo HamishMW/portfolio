@@ -1,8 +1,9 @@
-// import './SmartSparrow.css';
-
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
 import { Link } from 'components/Link';
+import { SegmentedControl, SegmentedControlOption } from 'components/SegmentedControl';
+import { ThemeProvider, useTheme } from 'components/ThemeProvider';
+import { useAppContext } from 'hooks';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -14,14 +15,12 @@ import {
   ProjectSectionHeading,
   ProjectSectionText,
   ProjectTextRow,
-} from 'components/ProjectLayout';
-import { SegmentedControl, SegmentedControlOption } from 'components/SegmentedControl';
-import { ThemeProvider, useTheme } from 'components/ThemeProvider';
-import { useAppContext, useSsr } from 'hooks';
+} from 'layouts/Project';
 import Head from 'next/head';
 import { Fragment, useMemo, useRef } from 'react';
 import { media } from 'utils/style';
 import { Earth, EarthSection } from './Earth';
+import styles from './SmartSparrow.module.css';
 
 const backgroundSprLarge = '/assets/spr-background-large.jpg';
 const backgroundSprPlaceholder = '/assets/spr-background-placeholder.jpg';
@@ -91,7 +90,6 @@ export const SmartSparrow = () => {
   const { dispatch } = useAppContext();
   const motionSectionRef = useRef();
   const earthSectionRef = useRef();
-  const ssr = useSsr();
 
   const isDark = themeId === 'dark';
   const themes = ['dark', 'light'];
@@ -111,7 +109,6 @@ export const SmartSparrow = () => {
           opacity={isDark ? 0.5 : 0.8}
           srcSet={`${backgroundSpr} 1080w, ${backgroundSprLarge} 2160w`}
           placeholder={backgroundSprPlaceholder}
-          entered={!ssr}
         />
         <ProjectHeader
           title={title}
@@ -248,7 +245,7 @@ export const SmartSparrow = () => {
               <Image
                 raised
                 srcSet={`${videoSprMotion} 1280w, ${videoSprMotionLarge} 2560w`}
-                className="spr__video"
+                className={styles.video}
                 src={videoSprMotionLarge}
                 placeholder={videoSprMotionPlaceholder}
                 alt="A learning designer building and deploying an interactive lesson on volcanism using the app."
@@ -303,9 +300,9 @@ export const SmartSparrow = () => {
                 </ProjectSectionText>
               </ProjectTextRow>
             </ProjectSectionContent>
-            <div className="spr__sidebar-images">
+            <div className={styles.sidebarImages}>
               <Image
-                className="spr__sidebar-image"
+                className={styles.sidebarImage}
                 srcSet={`${isDark ? imageSprSchema2Dark : imageSprSchema2Light} 260w, ${
                   isDark ? imageSprSchema2DarkLarge : imageSprSchema2LightLarge
                 } 520w`}
@@ -318,7 +315,7 @@ export const SmartSparrow = () => {
                 sizes={`(max-width: ${media.mobile}px) 50vw, 25vw`}
               />
               <Image
-                className="spr__sidebar-image"
+                className={styles.sidebarImage}
                 srcSet={`${isDark ? imageSprSchema1Dark : imageSprSchema1Light} 260w, ${
                   isDark ? imageSprSchema1DarkLarge : imageSprSchema1LightLarge
                 } 520w`}
@@ -335,7 +332,7 @@ export const SmartSparrow = () => {
         </ProjectSection>
         <ThemeProvider themeId="dark">
           <Earth
-            className="spr__earth"
+            className={styles.earth}
             hideMeshes={useMemo(
               () => ['Atmosphere', 'EarthPartial', 'Chunk', 'EarthFull'],
               []

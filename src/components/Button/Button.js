@@ -9,12 +9,12 @@ export const Button = forwardRef(({ href, ...rest }, ref) => {
   const isExternalLink = href?.includes('://');
 
   if (isExternalLink || !href) {
-    return <ButtonContent {...rest} />;
+    return <ButtonContent href={href} ref={ref} {...rest} />;
   }
 
   return (
     <RouterLink passHref href={href} scroll={false}>
-      <ButtonContent href={href} {...rest} />
+      <ButtonContent ref={ref} {...rest} />
     </RouterLink>
   );
 });
