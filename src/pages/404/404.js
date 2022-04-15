@@ -1,34 +1,38 @@
-import './404.css';
-
-import NotfoundPoster from 'assets/notfound.jpg';
-import Notfound from 'assets/notfound.mp4';
+import notFoundPoster from 'assets/notfound.jpg';
+import notFoundVideo from 'assets/notfound.mp4';
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Heading } from 'components/Heading';
+import { Meta } from 'components/Meta';
 import { Text } from 'components/Text';
 import { Fragment } from 'react';
-import { Helmet } from 'react-helmet';
 import { Transition } from 'react-transition-group';
 import { reflow } from 'utils/transition';
+import styles from './404.module.css';
 
 export function Page404() {
   return (
-    <section className="page-404">
-      <Helmet>
-        <title tag="title">404 | Not Found</title>
-        <meta name="description" content="404 page not found. This page doesn't exist" />
-      </Helmet>
+    <section className={styles.page}>
+      <Meta
+        title="404 | Not Found"
+        description="404 page not found. This page doesn't exist"
+      />
       <Transition appear in={true} timeout={0} onEnter={reflow}>
         {status => (
           <Fragment>
-            <div className="page-404__details">
-              <div className="page-404__text">
-                <Heading className="page-404__title" data-status={status} level={0}>
+            <div className={styles.details}>
+              <div className={styles.text}>
+                <Heading
+                  className={styles.title}
+                  data-status={status}
+                  level={0}
+                  weight="bold"
+                >
                   404
                 </Heading>
                 <Heading
                   aria-hidden
-                  className="page-404__subheading"
+                  className={styles.subheading}
                   data-status={status}
                   as="h2"
                   level={3}
@@ -39,14 +43,14 @@ export function Page404() {
                     delay={300}
                   />
                 </Heading>
-                <Text className="page-404__description" data-status={status}>
+                <Text className={styles.description} data-status={status}>
                   This page could not be found. It either doesn’t exist or was deleted. Or
                   perhaps you don’t exist.
                 </Text>
                 <Button
                   secondary
                   iconHoverShift
-                  className="page-404__button"
+                  className={styles.button}
                   data-status={status}
                   href="/"
                   icon="chevronRight"
@@ -56,20 +60,20 @@ export function Page404() {
               </div>
             </div>
 
-            <div className="page-404__video-container" data-status={status}>
+            <div className={styles.videoContainer} data-status={status}>
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
-                className="page-404__video"
+                className={styles.video}
                 data-status={status}
-                poster={NotfoundPoster}
+                poster={notFoundPoster.src}
               >
-                <source src={Notfound} type="video/mp4" />
+                <source src={notFoundVideo} type="video/mp4" />
               </video>
               <a
-                className="page-404__credit"
+                className={styles.credit}
                 data-status={status}
                 href="https://www.imdb.com/title/tt0113568/"
                 target="_blank"

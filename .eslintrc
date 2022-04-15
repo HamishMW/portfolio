@@ -1,10 +1,13 @@
 {
-  "extends": "react-app",
-  "plugins": ["react-hooks"],
+  "env": {
+    "es6": true
+  },
+  "extends": ["eslint:recommended", "next/core-web-vitals"],
   "rules": {
-    "import/no-anonymous-default-export": 0,
-    "react-hooks/exhaustive-deps": "warn",
-    "react-hooks/rules-of-hooks": "error",
-    "semi": "error"
+    "semi": "error",
+    "no-unused-vars": "warn",
+    "import/no-anonymous-default-export": "off",
+    "react/display-name": "off",
+    "@next/next/no-img-element": "off"
   }
 }

@@ -1,0 +1,149 @@
+.code {
+  padding: var(--spaceXL);
+  margin: var(--space3XL) calc(var(--spaceL) * -1);
+  background: var(--background);
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
+  color: var(--colorTextBody);
+  overflow-x: auto;
+
+  @media (--mediaMobile) {
+    & {
+      padding: var(--spaceL);
+      margin: var(--space2XL) calc(var(--spaceXL) * -1);
+    }
+  }
+
+  /* Netrunner theme by Hamish Williams */
+  &[data-theme='dark'] {
+    --char: #d8dee9;
+    --comment: #b2b2b2;
+    --keyword: #c592ff;
+    --primitive: rgba(0 229 255 / 1);
+    --string: #00ff9c;
+    --variable: #d7deea;
+    --boolean: #ff8b50;
+    --punctuation: #88c6be;
+    --tag: #ff4081;
+    --function: rgba(0 229 255 / 1);
+    --className: #fcee0a;
+    --method: rgba(0 229 255 / 1);
+    --operator: #ff4081;
+    --background: rgb(29 29 35);
+  }
+
+  /* Legible light theme by Hamish Williams */
+  &[data-theme='light'] {
+    --char: rgba(0 0 0 / 0.8);
+    --comment: rgba(0 0 0 / 0.6);
+    --keyword: #803cce;
+    --primitive: rgba(0 0 0 / 0.8);
+    --string: #1b8058;
+    --variable: rgba(0 0 0 / 0.8);
+    --boolean: #c1480a;
+    --punctuation: rgba(0 0 0 / 0.4);
+    --tag: #a8093f;
+    --function: rgb(4 98 108);
+    --className: #00378c;
+    --method: rgb(4 98 108);
+    --operator: #a8093f;
+    --background: rgb(228 228 228);
+  }
+
+  /* stylelint-disable selector-class-pattern */
+  & :global(code),
+  & :global(pre) {
+    height: auto;
+    font-size: var(--fontSizeBodyS);
+    line-height: var(--lineHeightBody);
+    white-space: pre;
+    font-family: var(--monoFontStack);
+  }
+
+  & :global(.namespace) {
+    opacity: 0.7;
+  }
+
+  & :global(.token.attr-name) {
+    color: var(--keyword);
+  }
+
+  & :global(.token.comment),
+  & :global(.token.block-comment),
+  & :global(.token.prolog),
+  & :global(.token.doctype),
+  & :global(.token.cdata) {
+    color: var(--comment);
+  }
+
+  & :global(.token.property),
+  & :global(.token.number),
+  & :global(.token.function-name),
+  & :global(.token.constant),
+  & :global(.token.symbol),
+  & :global(.token.deleted) {
+    color: var(--primitive);
+  }
+
+  & :global(.token.boolean) {
+    color: var(--boolean);
+  }
+
+  & :global(.token.tag) {
+    color: var(--tag);
+  }
+
+  & :global(.token.string) {
+    color: var(--string);
+  }
+
+  & :global(.token.punctuation) {
+    color: var(--punctuation);
+  }
+
+  & :global(.token.selector),
+  & :global(.token.char),
+  & :global(.token.builtin),
+  & :global(.token.inserted) {
+    color: var(--char);
+  }
+
+  & :global(.token.function) {
+    color: var(--function);
+  }
+
+  & :global(.token.operator),
+  & :global(.token.entity),
+  & :global(.token.url),
+  & :global(.token.variable) {
+    color: var(--variable);
+  }
+
+  & :global(.token.attr-value) {
+    color: var(--string);
+  }
+
+  & :global(.token.keyword) {
+    color: var(--keyword);
+  }
+
+  & :global(.token.atrule),
+  & :global(.token.class-name) {
+    color: var(--className);
+  }
+
+  & :global(.token.important) {
+    font-weight: var(--fontWeightRegular);
+  }
+
+  & :global(.token.bold) {
+    font-weight: var(--fontWeightBold);
+  }
+
+  & :global(.token.italic) {
+    font-style: italic;
+  }
+
+  & :global(.token.entity) {
+    cursor: help;
+  }
+}

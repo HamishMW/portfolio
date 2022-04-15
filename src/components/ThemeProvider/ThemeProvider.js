@@ -1,13 +1,12 @@
 import GothamBold from 'assets/fonts/gotham-bold.woff2';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
-import { Fragment, createContext, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { createContext, useEffect } from 'react';
 import { classes, media } from 'utils/style';
 import { theme, tokens } from './theme';
 import useTheme from './useTheme';
 
-export const fontStyles = `
+export const fontStyles = squish(`
   @font-face {
     font-family: "Gotham";
     font-weight: 400;
@@ -28,7 +27,7 @@ export const fontStyles = `
     src: url(${GothamBold}) format('woff2');
     font-display: swap;
   }
-`;
+`);
 
 const ThemeContext = createContext({});
 
@@ -38,6 +37,7 @@ const ThemeProvider = ({
   children,
   className,
   as: Component = 'div',
+  ...rest
 }) => {
   const currentTheme = { ...theme[themeId], ...themeOverrides };
   const parentTheme = useTheme();
@@ -47,30 +47,19 @@ const ThemeProvider = ({
   useEffect(() => {
     if (isRootProvider) {
       window.localStorage.setItem('theme', JSON.stringify(themeId));
-      document.body.classList.remove('light', 'dark');
-      document.body.classList.add(themeId);
+      document.body.dataset.theme = themeId;
     }
   }, [themeId, isRootProvider]);
 
   return (
     <ThemeContext.Provider value={currentTheme}>
-      {/* Add fonts and base tokens for the root provider */}
-      {isRootProvider && (
-        <Fragment>
-          <Helmet>
-            <link rel="prefetch" href={GothamMedium} as="font" crossorigin="" />
-            <link rel="prefetch" href={GothamBook} as="font" crossorigin="" />
-            <style>{fontStyles}</style>
-            <style>{tokenStyles}</style>
-          </Helmet>
-          {children}
-        </Fragment>
-      )}
+      {isRootProvider && children}
       {/* Nested providers need a div to override theme tokens */}
       {!isRootProvider && (
         <Component
           className={classes('theme-provider', className)}
-          style={createThemeStyleObject(currentTheme)}
+          data-theme={themeId}
+          {...rest}
         >
           {children}
         </Component>
@@ -80,13 +69,22 @@ const ThemeProvider = ({
 };
 
 /**
+ * Squeeze out spaces and newlines
+ */
+function squish(styles) {
+  return styles.replace(/\s\s+/g, ' ');
+}
+
+/**
  * Transform theme token objects into CSS custom property strings
  */
 function createThemeProperties(theme) {
-  return Object.keys(theme)
-    .filter(key => key !== 'themeId')
-    .map(key => `--${key}: ${theme[key]};`)
-    .join('\n');
+  return squish(
+    Object.keys(theme)
+      .filter(key => key !== 'themeId')
+      .map(key => `--${key}: ${theme[key]};`)
+      .join('\n\n')
+  );
 }
 
 /**
@@ -108,34 +106,36 @@ function createThemeStyleObject(theme) {
  * Generate media queries for tokens
  */
 function createMediaTokenProperties() {
-  return Object.keys(media)
-    .map(key => {
-      return `
+  return squish(
+    Object.keys(media)
+      .map(key => {
+        return `
         @media (max-width: ${media[key]}px) {
           :root {
             ${createThemeProperties(tokens[key])}
           }
         }
       `;
-    })
-    .join('\n');
+      })
+      .join('\n')
+  );
 }
 
-export const tokenStyles = `
+export const tokenStyles = squish(`
   :root {
     ${createThemeProperties(tokens.base)}
   }
 
   ${createMediaTokenProperties()}
 
-  .dark {
+  [data-theme='dark'] {
     ${createThemeProperties(theme.dark)}
   }
 
-  .light {
+  [data-theme='light'] {
     ${createThemeProperties(theme.light)}
   }
-`;
+`);
 
 export {
   theme,

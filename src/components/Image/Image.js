@@ -1,5 +1,3 @@
-import './Image.css';
-
 import { Button } from 'components/Button';
 import { Icon } from 'components/Icon';
 import { useTheme } from 'components/ThemeProvider';
@@ -9,15 +7,24 @@ import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { resolveVideoSrcFromSrcSet } from 'utils/image';
-import { prerender } from 'utils/prerender';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { reflow } from 'utils/transition';
+import styles from './Image.module.css';
 
-export const Image = ({ className, style, reveal, delay = 0, raised, src, ...rest }) => {
+export const Image = ({
+  className,
+  style,
+  reveal,
+  delay = 0,
+  raised,
+  src,
+  placeholder,
+  ...rest
+}) => {
   const [loaded, setLoaded] = useState(false);
   const { themeId } = useTheme();
   const containerRef = useRef();
-  const inViewport = useInViewport(containerRef, !src?.endsWith('.mp4'));
+  const inViewport = useInViewport(containerRef, !getIsVideo(src));
 
   const onLoad = useCallback(() => {
     setLoaded(true);
@@ -25,8 +32,8 @@ export const Image = ({ className, style, reveal, delay = 0, raised, src, ...res
 
   return (
     <div
-      className={classes('image', className)}
-      data-visible={inViewport}
+      className={classes(styles.image, className)}
+      data-visible={inViewport || loaded}
       data-reveal={reveal}
       data-raised={raised}
       data-theme={themeId}
@@ -40,6 +47,7 @@ export const Image = ({ className, style, reveal, delay = 0, raised, src, ...res
         inViewport={inViewport}
         reveal={reveal}
         src={src}
+        placeholder={placeholder}
         {...rest}
       />
     </div>
@@ -65,28 +73,12 @@ const ImageElements = ({
   const [showPlayButton, setShowPlayButton] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const [placeholderSize, setPlaceholderSize] = useState();
   const [videoSrc, setVideoSrc] = useState();
+  const [videoInteracted, setVideoInteracted] = useState(false);
   const placeholderRef = useRef();
   const videoRef = useRef();
-  const isVideo = src?.endsWith('.mp4');
-  const imgSrc = src || srcSet?.split(' ')[0];
-  const showFullRes = !prerender && inViewport;
-
-  useEffect(() => {
-    const purgePlaceholder = () => {
-      setShowPlaceholder(false);
-    };
-
-    const placeholderElement = placeholderRef.current;
-    placeholderElement.addEventListener('transitionend', purgePlaceholder);
-
-    return function cleanUp() {
-      if (placeholderElement) {
-        placeholderElement.removeEventListener('transitionend', purgePlaceholder);
-      }
-    };
-  }, []);
+  const isVideo = getIsVideo(src);
+  const showFullRes = inViewport;
 
   useEffect(() => {
     const resolveVideoSrc = async () => {
@@ -102,32 +94,21 @@ const ImageElements = ({
   }, [isVideo, src, srcSet]);
 
   useEffect(() => {
-    const { width, height } = placeholderRef.current;
-
-    if (width && height) {
-      setPlaceholderSize({ width, height });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!videoRef.current || !videoSrc) return;
+    if (!videoRef.current || !videoSrc || videoInteracted) return;
 
     if (!play || !inViewport) {
       setPlaying(false);
       videoRef.current.pause();
-    } else if (inViewport && !prefersReducedMotion && !prerender) {
+    } else if (inViewport && !prefersReducedMotion) {
       setPlaying(true);
       videoRef.current.play();
     }
-  }, [inViewport, play, prefersReducedMotion, videoSrc]);
-
-  const handlePlaceholderLoad = event => {
-    const { width, height } = event.target;
-    setPlaceholderSize({ width, height });
-  };
+  }, [inViewport, play, prefersReducedMotion, videoInteracted, videoSrc]);
 
   const togglePlaying = event => {
     event.preventDefault();
+
+    setVideoInteracted(true);
 
     if (videoRef.current.paused) {
       setPlaying(true);
@@ -150,9 +131,9 @@ const ImageElements = ({
 
   return (
     <div
-      className="image__element-wrapper"
+      className={styles.elementWrapper}
       data-reveal={reveal}
-      data-visible={inViewport}
+      data-visible={inViewport || loaded}
       onMouseOver={isVideo ? handleShowPlayButton : undefined}
       onMouseOut={isVideo ? () => setIsHovered(false) : undefined}
       style={cssProps({ delay: numToMs(delay + 1000) })}
@@ -163,7 +144,7 @@ const ImageElements = ({
             muted
             loop
             playsInline
-            className="image__element"
+            className={styles.element}
             data-loaded={loaded}
             autoPlay={!prefersReducedMotion}
             role="img"
@@ -182,7 +163,7 @@ const ImageElements = ({
             {status => (
               <VisuallyHidden visible={showPlayButton}>
                 <Button
-                  className="image__button"
+                  className={styles.button}
                   data-status={status}
                   onFocus={handleFocusPlayButton}
                   onBlur={() => setIsFocused(false)}
@@ -198,14 +179,14 @@ const ImageElements = ({
       )}
       {!isVideo && (
         <img
-          className="image__element"
+          className={styles.element}
           data-loaded={loaded}
           onLoad={onLoad}
           decoding="async"
-          src={showFullRes ? imgSrc : undefined}
+          src={showFullRes ? src.src : undefined}
           srcSet={showFullRes ? srcSet : undefined}
-          width={placeholderSize?.width}
-          height={placeholderSize?.height}
+          width={src.width}
+          height={src.height}
           alt={alt}
           {...rest}
         />
@@ -213,14 +194,14 @@ const ImageElements = ({
       {showPlaceholder && (
         <img
           aria-hidden
-          className="image__placeholder"
+          className={styles.placeholder}
           data-loaded={loaded}
           style={cssProps({ delay: numToMs(delay) })}
           ref={placeholderRef}
-          src={placeholder}
-          onLoad={handlePlaceholderLoad}
-          width={placeholderSize?.width}
-          height={placeholderSize?.height}
+          src={placeholder.src}
+          width={placeholder.width}
+          height={placeholder.height}
+          onTransitionEnd={() => setShowPlaceholder(false)}
           decoding="async"
           alt=""
           role="presentation"
@@ -229,3 +210,7 @@ const ImageElements = ({
     </div>
   );
 };
+
+function getIsVideo(src) {
+  return typeof src === 'string' && src.endsWith('.mp4');
+}

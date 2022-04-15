@@ -1,21 +1,19 @@
-import './Contact.css';
-
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Divider } from 'components/Divider';
 import { Heading } from 'components/Heading';
 import { Icon } from 'components/Icon';
 import { Input } from 'components/Input';
+import { Meta } from 'components/Meta';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
-import { useFormInput, useRouteTransition, useScrollRestore } from 'hooks';
+import { useFormInput, useRouteTransition } from 'hooks';
 import { useCallback, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { Transition, TransitionGroup } from 'react-transition-group';
-import { prerender } from 'utils/prerender';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import { isVisible, reflow } from 'utils/transition';
+import styles from './Contact.module.css';
 
 const initDelay = tokens.base.durationS;
 
@@ -51,7 +49,6 @@ export const Contact = () => {
   const [sending, setSending] = useState(false);
   const [complete, setComplete] = useState(false);
   const [statusError, setStatusError] = useState('');
-  useScrollRestore();
 
   const onSubmit = useCallback(
     async event => {
@@ -96,44 +93,34 @@ export const Contact = () => {
   );
 
   return (
-    <Section className="contact" data-status={status}>
-      <Helmet>
-        <title>Contact | Hamish Williams</title>
-        <meta
-          name="description"
-          content="Send me a message if you’re interested in discussing a project or if you just want to say hi"
-        />
-      </Helmet>
+    <Section className={styles.contact} data-status={status}>
+      <Meta
+        title="Contact"
+        description="Send me a message if you’re interested in discussing a project or if you just want to say hi"
+      />
       <TransitionGroup component={null}>
         {!complete && (
           <Transition appear mountOnEnter unmountOnExit timeout={1600} onEnter={reflow}>
             {status => (
-              <form className="contact__form" method="post" onSubmit={onSubmit}>
+              <form className={styles.form} method="post" onSubmit={onSubmit}>
                 <Heading
-                  className="contact__title"
+                  className={styles.title}
                   data-status={status}
-                  data-hidden={prerender}
                   level={3}
                   as="h1"
                   style={getDelay(tokens.base.durationXS, initDelay, 0.3)}
                 >
-                  <DecoderText
-                    text="Say hello"
-                    start={status !== 'exited' && !prerender}
-                    delay={300}
-                  />
+                  <DecoderText text="Say hello" start={status !== 'exited'} delay={300} />
                 </Heading>
                 <Divider
-                  className="contact__divider"
+                  className={styles.divider}
                   data-status={status}
-                  data-hidden={prerender}
                   style={getDelay(tokens.base.durationXS, initDelay, 0.4)}
                 />
                 <Input
                   required
-                  className="contact__input"
+                  className={styles.input}
                   data-status={status}
-                  data-hidden={prerender}
                   style={getDelay(tokens.base.durationXS, initDelay)}
                   autoComplete="email"
                   label="Your Email"
@@ -144,9 +131,8 @@ export const Contact = () => {
                 <Input
                   required
                   multiline
-                  className="contact__input"
+                  className={styles.input}
                   data-status={status}
-                  data-hidden={prerender}
                   style={getDelay(tokens.base.durationS, initDelay)}
                   autoComplete="off"
                   label="Message"
@@ -158,7 +144,7 @@ export const Contact = () => {
                     <Transition timeout={msToNum(tokens.base.durationM)}>
                       {errorStatus => (
                         <div
-                          className="contact__form-error"
+                          className={styles.formError}
                           data-status={errorStatus}
                           style={cssProps({
                             height: isVisible(errorStatus)
@@ -166,9 +152,9 @@ export const Contact = () => {
                               : 0,
                           })}
                         >
-                          <div className="contact__form-error-content" ref={errorRef}>
-                            <div className="contact__form-error-message">
-                              <Icon className="contact__form-error-icon" icon="error" />
+                          <div className={styles.formErrorContent} ref={errorRef}>
+                            <div className={styles.formErrorMessage}>
+                              <Icon className={styles.formErrorIcon} icon="error" />
                               {statusError}
                             </div>
                           </div>
@@ -178,9 +164,8 @@ export const Contact = () => {
                   )}
                 </TransitionGroup>
                 <Button
-                  className="contact__button"
+                  className={styles.button}
                   data-status={status}
-                  data-hidden={prerender}
                   data-sending={sending}
                   style={getDelay(tokens.base.durationM, initDelay)}
                   disabled={sending}
@@ -198,18 +183,18 @@ export const Contact = () => {
         {complete && (
           <Transition appear mountOnEnter unmountOnExit onEnter={reflow} timeout={0}>
             {status => (
-              <div className="contact__complete" aria-live="polite">
+              <div className={styles.complete} aria-live="polite">
                 <Heading
                   level={3}
                   as="h3"
-                  className="contact__complete-title"
+                  className={styles.completeTitle}
                   data-status={status}
                 >
                   Message Sent
                 </Heading>
                 <Text
                   size="l"
-                  className="contact__complete-text"
+                  className={styles.completeText}
                   data-status={status}
                   style={getDelay(tokens.base.durationXS)}
                 >
@@ -218,7 +203,7 @@ export const Contact = () => {
                 <Button
                   secondary
                   iconHoverShift
-                  className="contact__complete-button"
+                  className={styles.completeButton}
                   data-status={status}
                   style={getDelay(tokens.base.durationM)}
                   href="/"

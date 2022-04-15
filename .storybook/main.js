@@ -1,18 +1,33 @@
+const path = require('path');
+
 module.exports = {
   addons: [
     '@storybook/addon-actions',
     '@storybook/addon-controls',
     '@storybook/addon-a11y',
     '@storybook/addon-toolbars',
-    {
-      name: '@storybook/preset-create-react-app',
-      options: {
-        scriptsPackageName: '@hamishmw/react-scripts-postcss',
-      },
-    },
+    'storybook-addon-next',
   ],
-  stories: ['../src/**/*.stories.js'],
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   core: {
     builder: 'webpack5',
+  },
+  webpackFinal: async (config, { configType }) => {
+    config.resolve.modules = [path.resolve(__dirname, '../src'), 'node_modules'];
+
+    const imageRule = config.module.rules.find(rule => rule.test.test('.svg'));
+    imageRule.exclude = /\.svg$/;
+
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+
+    config.module.rules.push({
+      test: /\.(mp4|hdr|glb|woff2)$/i,
+      type: 'asset/resource',
+    });
+
+    return config;
   },
 };

@@ -1,19 +1,19 @@
-import './Monogram.css';
-
-import { useId } from 'hooks';
+import { forwardRef, useId } from 'react';
 import { classes } from 'utils/style';
+import styles from './Monogram.module.css';
 
-export function Monogram({ highlight, className, ...props }) {
+export const Monogram = forwardRef(({ highlight, className, ...props }, ref) => {
   const id = useId();
-  const clipId = `monogram-clip-${id}`;
+  const clipId = `${id}monogram-clip`;
 
   return (
     <svg
       aria-hidden
-      className={classes('monogram', className)}
+      className={classes(styles.monogram, className)}
       width="46"
       height="29"
       viewBox="0 0 46 29"
+      ref={ref}
       {...props}
     >
       <defs>
@@ -24,9 +24,9 @@ export function Monogram({ highlight, className, ...props }) {
       <rect clipPath={`url(#${clipId})`} width="100%" height="100%" />
       {highlight && (
         <g clipPath={`url(#${clipId})`}>
-          <rect className="monogram__highlight" width="100%" height="100%" />
+          <rect className={styles.highlight} width="100%" height="100%" />
         </g>
       )}
     </svg>
   );
-}
+});

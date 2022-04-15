@@ -1,22 +1,23 @@
-import '../src/app/reset.css';
-import '../src/app/global.css';
-import '../src/app/App.css';
+import '../src/layouts/App/reset.css';
+import '../src/layouts/App/global.css';
 import './preview.css';
 
 import { useEffect } from 'react';
-import { ThemeProvider } from '../src/components/ThemeProvider';
+import { ThemeProvider, fontStyles, tokenStyles } from '../src/components/ThemeProvider';
 
 export const decorators = [
   (Story, context) => {
     const theme = context.globals.theme;
 
     useEffect(() => {
-      document.body.setAttribute('class', theme);
+      document.body.dataset.theme = theme;
     }, [theme]);
 
     return (
       <ThemeProvider themeId={theme}>
-        <div id="story-root" className="story-root">
+        <style>{fontStyles}</style>
+        <style>{tokenStyles}</style>
+        <div id="story-root" className="storyRoot">
           <Story />
         </div>
       </ThemeProvider>

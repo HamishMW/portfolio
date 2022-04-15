@@ -1,4 +1,4 @@
-import { AppContext } from 'app';
+import { AppContext } from 'pages/_app.page';
 import { useContext } from 'react';
 
 export function useAppContext() {

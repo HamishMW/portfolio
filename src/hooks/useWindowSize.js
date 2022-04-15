@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useWindowSize() {
-  const isClient = typeof window === 'object';
-  const isIOS = navigator.userAgent.match(/iphone|ipod|ipad/i);
-  const axis = useRef(() => ({ w: 0, h: 0 }));
-  const dimensions = useRef(() => Math.abs(window.orientation));
+  const dimensions = useRef(() => ({ w: 1280, h: 800 }));
 
   const createRuler = useCallback(() => {
     let ruler = document.createElement('div');
@@ -17,8 +14,8 @@ export function useWindowSize() {
     document.documentElement.appendChild(ruler);
 
     // Set cache conscientious of device orientation
-    dimensions.current.w = axis.current === 90 ? ruler.offsetHeight : window.innerWidth;
-    dimensions.current.h = axis.current === 90 ? window.innerWidth : ruler.offsetHeight;
+    dimensions.current.w = window.innerWidth;
+    dimensions.current.h = ruler.offsetHeight;
 
     // Clean up after ourselves
     document.documentElement.removeChild(ruler);
@@ -27,29 +24,24 @@ export function useWindowSize() {
 
   // Get the actual height on iOS Safari
   const getHeight = useCallback(() => {
-    if (!isClient) return 0;
+    const isIOS = navigator?.userAgent.match(/iphone|ipod|ipad/i);
 
     if (isIOS) {
       createRuler();
-
-      if (Math.abs(window.orientation) !== 90) {
-        return dimensions.current.h;
-      }
-
-      return dimensions.current.w;
+      return dimensions.current.h;
     }
 
     return window.innerHeight;
-  }, [createRuler, isClient, isIOS]);
+  }, [createRuler]);
 
   const getSize = useCallback(() => {
     return {
-      width: isClient ? window.innerWidth : 0,
+      width: window.innerWidth,
       height: getHeight(),
     };
-  }, [getHeight, isClient]);
+  }, [getHeight]);
 
-  const [windowSize, setWindowSize] = useState(() => getSize());
+  const [windowSize, setWindowSize] = useState(dimensions.current);
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,11 +49,12 @@ export function useWindowSize() {
     };
 
     window.addEventListener('resize', handleResize);
+    handleResize();
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [getSize, isClient]);
+  }, [getSize]);
 
   return windowSize;
 }

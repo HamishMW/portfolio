@@ -1,5 +1,3 @@
-import './Model.css';
-
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { chain, delay, spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -29,6 +27,7 @@ import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShade
 import { getImageFromSrcSet } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
+import styles from './Model.module.css';
 import { ModelAnimationType } from './deviceModels';
 
 const MeshType = {
@@ -42,7 +41,6 @@ export const Model = ({
   show = true,
   showDelay = 0,
   cameraPosition = { x: 0, y: 0, z: 8 },
-  enableControls,
   style,
   className,
   alt,
@@ -425,7 +423,7 @@ export const Model = ({
 
   return (
     <div
-      className={classes('model', className)}
+      className={classes(styles.model, className)}
       data-loaded={loaded}
       style={cssProps({ delay: numToMs(showDelay) }, style)}
       ref={container}
@@ -433,7 +431,7 @@ export const Model = ({
       aria-label={alt}
       {...rest}
     >
-      <canvas className="model__canvas" ref={canvas} />
+      <canvas className={styles.canvas} ref={canvas} />
     </div>
   );
 };

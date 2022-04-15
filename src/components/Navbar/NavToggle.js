@@ -1,26 +1,20 @@
-import './NavToggle.css';
-
 import { Button } from 'components/Button';
 import { Icon } from 'components/Icon';
+import styles from './NavToggle.module.css';
 
 export const NavToggle = ({ menuOpen, ...rest }) => {
   return (
     <Button
       iconOnly
-      className="nav-toggle"
+      className={styles.toggle}
       aria-label="Menu"
       aria-expanded={menuOpen}
       {...rest}
     >
-      <div className="nav-toggle__inner">
+      <div className={styles.inner}>
+        <Icon className={styles.icon} data-menu={true} data-open={menuOpen} icon="menu" />
         <Icon
-          className="nav-toggle__icon"
-          data-menu={true}
-          data-open={menuOpen}
-          icon="menu"
-        />
-        <Icon
-          className="nav-toggle__icon"
+          className={styles.icon}
           data-close={true}
           data-open={menuOpen}
           icon="close"

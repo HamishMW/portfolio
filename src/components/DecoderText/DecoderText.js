@@ -1,11 +1,9 @@
-import './DecoderText.css';
-
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { usePrefersReducedMotion } from 'hooks';
 import { chain, delay, spring, value } from 'popmotion';
 import { memo, useEffect, useRef } from 'react';
-import { prerender } from 'utils/prerender';
 import { classes } from 'utils/style';
+import styles from './DecoderText.module.css';
 
 // prettier-ignore
 const glyphs = [
@@ -59,7 +57,7 @@ export const DecoderText = memo(
 
       const renderOutput = () => {
         const characterMap = output.current.map(item => {
-          return `<span class="decoder-text__${item.type}">${item.value}</span>`;
+          return `<span class="${styles[item.type]}">${item.value}</span>`;
         });
 
         containerInstance.innerHTML = characterMap.join('');
@@ -70,7 +68,7 @@ export const DecoderText = memo(
         renderOutput();
       });
 
-      if (start && !animation && !reduceMotion && !prerender) {
+      if (start && !animation && !reduceMotion) {
         animation = chain(
           delay(startDelay),
           spring({
@@ -98,9 +96,9 @@ export const DecoderText = memo(
     }, [reduceMotion, start, startDelay, text]);
 
     return (
-      <span className={classes('decoder-text', className)} {...rest}>
-        <VisuallyHidden className="decoder-text__label">{text}</VisuallyHidden>
-        <span aria-hidden className="decoder-text__content" ref={container} />
+      <span className={classes(styles.text, className)} {...rest}>
+        <VisuallyHidden className={styles.label}>{text}</VisuallyHidden>
+        <span aria-hidden className={styles.content} ref={container} />
       </span>
     );
   }

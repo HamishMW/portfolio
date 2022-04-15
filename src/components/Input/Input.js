@@ -1,18 +1,15 @@
-import './Input.css';
-
 import { Icon } from 'components/Icon';
 import { tokens } from 'components/ThemeProvider/theme';
-import { useId } from 'hooks';
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { classes, cssProps, msToNum } from 'utils/style';
 import { isVisible } from 'utils/transition';
+import styles from './Input.module.css';
 import { TextArea } from './TextArea';
 
 export const Input = ({
   id,
   label,
-  hasValue,
   value,
   multiline,
   className,
@@ -29,7 +26,7 @@ export const Input = ({
   const [focused, setFocused] = useState(false);
   const generatedId = useId();
   const errorRef = useRef();
-  const inputId = id || `input-${generatedId}`;
+  const inputId = id || `${generatedId}input`;
   const labelId = `${inputId}-label`;
   const errorId = `${inputId}-error`;
   const InputElement = multiline ? TextArea : 'input';
@@ -44,14 +41,14 @@ export const Input = ({
 
   return (
     <div
-      className={classes('input', className)}
+      className={classes(styles.container, className)}
       data-error={!!error}
       style={style}
       {...rest}
     >
-      <div className="input__content">
+      <div className={styles.content}>
         <label
-          className="input__label"
+          className={styles.label}
           data-focused={focused}
           data-filled={!!value}
           id={labelId}
@@ -60,10 +57,10 @@ export const Input = ({
           {label}
         </label>
         <InputElement
-          className="input__element"
+          className={styles.input}
           id={inputId}
           aria-labelledby={labelId}
-          aria-describedby={!!error ? errorId : undefined}
+          aria-describedby={error ? errorId : undefined}
           onFocus={() => setFocused(true)}
           onBlur={handleBlur}
           value={value}
@@ -73,14 +70,14 @@ export const Input = ({
           maxLength={maxLength}
           type={type}
         />
-        <div className="input__underline" data-focused={focused} />
+        <div className={styles.underline} data-focused={focused} />
       </div>
       <TransitionGroup component={null}>
         {!!error && (
           <Transition timeout={msToNum(tokens.base.durationM)}>
             {status => (
               <div
-                className="input__error"
+                className={styles.error}
                 data-status={status}
                 id={errorId}
                 role="alert"
@@ -90,7 +87,7 @@ export const Input = ({
                     : 0,
                 })}
               >
-                <div className="input__error-message" ref={errorRef}>
+                <div className={styles.errorMessage} ref={errorRef}>
                   <Icon icon="error" />
                   {error}
                 </div>

@@ -1,20 +1,19 @@
-import './Icon.css';
-
-import { ReactComponent as ArrowLeft } from 'assets/icons/arrow-left.svg';
-import { ReactComponent as ArrowRight } from 'assets/icons/arrow-right.svg';
-import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
-import { ReactComponent as Close } from 'assets/icons/close.svg';
-import { ReactComponent as Copy } from 'assets/icons/copy.svg';
-import { ReactComponent as Dribbble } from 'assets/icons/dribbble.svg';
-import { ReactComponent as Error } from 'assets/icons/error.svg';
-import { ReactComponent as Figma } from 'assets/icons/figma.svg';
-import { ReactComponent as Github } from 'assets/icons/github.svg';
-import { ReactComponent as Menu } from 'assets/icons/menu.svg';
-import { ReactComponent as Pause } from 'assets/icons/pause.svg';
-import { ReactComponent as Play } from 'assets/icons/play.svg';
-import { ReactComponent as Send } from 'assets/icons/send.svg';
-import { ReactComponent as Twitter } from 'assets/icons/twitter.svg';
 import { classes } from 'utils/style';
+import styles from './Icon.module.css';
+import ArrowLeft from './svg/arrow-left.svg';
+import ArrowRight from './svg/arrow-right.svg';
+import ChevronRight from './svg/chevron-right.svg';
+import Close from './svg/close.svg';
+import Copy from './svg/copy.svg';
+import Dribbble from './svg/dribbble.svg';
+import Error from './svg/error.svg';
+import Figma from './svg/figma.svg';
+import Github from './svg/github.svg';
+import Menu from './svg/menu.svg';
+import Pause from './svg/pause.svg';
+import Play from './svg/play.svg';
+import Send from './svg/send.svg';
+import Twitter from './svg/twitter.svg';
 
 export const icons = {
   arrowLeft: ArrowLeft,
@@ -33,8 +32,10 @@ export const icons = {
   twitter: Twitter,
 };
 
-export const Icon = ({ icon, style, className, ...rest }) => {
+export const Icon = ({ icon, className, ...rest }) => {
   const IconComponent = icons[icon];
 
-  return <IconComponent aria-hidden className={classes('icon', className)} {...rest} />;
+  return (
+    <IconComponent aria-hidden className={classes(styles.icon, className)} {...rest} />
+  );
 };

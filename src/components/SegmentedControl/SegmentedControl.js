@@ -1,16 +1,15 @@
-import './SegmentedControl.css';
-
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { useId } from 'hooks';
 import {
   createContext,
   useCallback,
   useContext,
-  useLayoutEffect,
+  useEffect,
+  useId,
   useRef,
   useState,
 } from 'react';
 import { cssProps } from 'utils/style';
+import styles from './SegmentedControl.module.css';
 
 const SegmentedControlContext = createContext({});
 
@@ -22,7 +21,7 @@ export const SegmentedControl = ({
   ...props
 }) => {
   const id = useId();
-  const labelId = `segmented-control-label-${id}`;
+  const labelId = `${id}segmented-control-label`;
   const optionRefs = useRef([]);
   const [indicator, setIndicator] = useState();
 
@@ -44,7 +43,7 @@ export const SegmentedControl = ({
     optionRefs.current = [...optionRefs.current, optionRef];
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const currentOption = optionRefs.current[currentIndex]?.current;
 
     const resizeObserver = new ResizeObserver(() => {
@@ -65,19 +64,19 @@ export const SegmentedControl = ({
       value={{ optionRefs, currentIndex, onChange, registerOption }}
     >
       <div
-        className="segmented-control"
+        className={styles.container}
         role="radiogroup"
         aria-labelledby={labelId}
         onKeyDown={handleKeyDown}
         {...props}
       >
-        <VisuallyHidden as="label" className="segmented-control__label" id={labelId}>
+        <VisuallyHidden as="label" id={labelId}>
           {label}
         </VisuallyHidden>
-        <div className="segmented-control__options">
+        <div className={styles.options}>
           {!!indicator && (
             <div
-              className="segmented-control__indicator"
+              className={styles.indicator}
               data-last={currentIndex === optionRefs.current.length - 1}
               style={cssProps(indicator)}
             />
@@ -97,13 +96,13 @@ export const SegmentedControlOption = ({ children, ...props }) => {
   const index = optionRefs.current.indexOf(optionRef);
   const isSelected = currentIndex === index;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     registerOption(optionRef);
   }, [registerOption]);
 
   return (
     <button
-      className="segmented-control__button"
+      className={styles.button}
       tabIndex={isSelected ? 0 : -1}
       role="radio"
       aria-checked={isSelected}

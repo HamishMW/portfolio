@@ -1,12 +1,27 @@
-import './Button.css';
-
 import { Icon } from 'components/Icon';
 import { Loader } from 'components/Loader';
+import RouterLink from 'next/link';
 import { forwardRef } from 'react';
-import { Link } from 'react-router-dom';
 import { classes } from 'utils/style';
+import styles from './Button.module.css';
 
-export const Button = forwardRef(
+function isExternalLink(href) {
+  return href?.includes('://');
+}
+
+export const Button = forwardRef(({ href, ...rest }, ref) => {
+  if (isExternalLink(href) || !href) {
+    return <ButtonContent href={href} ref={ref} {...rest} />;
+  }
+
+  return (
+    <RouterLink passHref href={href} scroll={false}>
+      <ButtonContent href={href} ref={ref} {...rest} />
+    </RouterLink>
+  );
+});
+
+const ButtonContent = forwardRef(
   (
     {
       className,
@@ -26,43 +41,40 @@ export const Button = forwardRef(
     },
     ref
   ) => {
-    const isExternalLink = href?.includes('://');
-    const useLinkTag = isExternalLink || href?.[0] === '#';
-    const linkComponent = useLinkTag ? 'a' : Link;
-    const defaultComponent = href ? linkComponent : 'button';
+    const isExternal = isExternalLink(href);
+    const defaultComponent = href ? 'a' : 'button';
     const Component = as || defaultComponent;
 
     return (
       <Component
-        className={classes('button', className)}
+        className={classes(styles.button, className)}
         data-loading={loading}
         data-icon-only={iconOnly}
         data-secondary={secondary}
-        href={href && isExternalLink ? href : undefined}
-        to={href && !isExternalLink ? href : undefined}
-        rel={rel || isExternalLink ? 'noopener noreferrer' : undefined}
-        target={target || isExternalLink ? '_blank' : undefined}
+        href={href}
+        rel={rel || isExternal ? 'noopener noreferrer' : undefined}
+        target={target || isExternal ? '_blank' : undefined}
         ref={ref}
         {...rest}
       >
         {!!icon && (
           <Icon
-            className="button__icon"
+            className={styles.icon}
             data-start={!iconOnly}
             data-shift={iconHoverShift}
             icon={icon}
           />
         )}
-        {!!children && <span className="button__text">{children}</span>}
+        {!!children && <span className={styles.text}>{children}</span>}
         {!!iconEnd && (
           <Icon
-            className="button__icon"
+            className={styles.icon}
             data-end={!iconOnly}
             data-shift={iconHoverShift}
             icon={iconEnd}
           />
         )}
-        {loading && <Loader className="button__loader" size={32} text={loadingText} />}
+        {loading && <Loader className={styles.loader} size={32} text={loadingText} />}
       </Component>
     );
   }

@@ -1,9 +1,9 @@
-import './Uses.css';
-
 import usesBackgroundPlaceholder from 'assets/uses-background-placeholder.jpg';
 import usesBackground from 'assets/uses-background.mp4';
 import { Footer } from 'components/Footer';
 import { Link } from 'components/Link';
+import { Meta } from 'components/Meta';
+import { Table, TableCell, TableRow } from 'components/Table';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -13,37 +13,28 @@ import {
   ProjectSectionHeading,
   ProjectSectionText,
   ProjectTextRow,
-} from 'components/ProjectLayout';
-import { Table, TableCell, TableRow } from 'components/Table';
-import { useScrollRestore } from 'hooks';
+} from 'layouts/Project';
 import { Fragment } from 'react';
-import { Helmet } from 'react-helmet';
-import { prerender } from 'utils/prerender';
+import styles from './Uses.module.css';
 
 export const Uses = () => {
-  useScrollRestore();
-
   return (
     <Fragment>
-      <Helmet>
-        <title>Uses | Hamish Williams</title>
-        <meta
-          name="description"
-          content="A list of hardware and software I use to do my thing"
-        />
-      </Helmet>
-      <ProjectContainer className="uses">
+      <Meta
+        title="Uses"
+        description="A list of hardware and software I use to do my thing"
+      />
+      <ProjectContainer className={styles.uses}>
         <ProjectBackground
           src={usesBackground}
           placeholder={usesBackgroundPlaceholder}
           opacity={0.7}
-          entered={!prerender}
         />
         <ProjectHeader
           title="Uses"
           description="A somewhat comprehensive list of tools, apps, hardware, and more that I use on a daily basis to design and code things. And yeah, that is a Johnny Mnemonic GIF in the background."
         />
-        <ProjectSection first className="uses__section">
+        <ProjectSection first className={styles.section}>
           <ProjectSectionContent>
             <ProjectTextRow width="m">
               <ProjectSectionHeading>Design</ProjectSectionHeading>
@@ -51,19 +42,19 @@ export const Uses = () => {
                 <ul>
                   <li>
                     <Link href="https://www.figma.com">Figma</Link> is my primary tool for
-                    UI design these days. Made the switch from Sketch in 2020 and haven't
+                    UI design these days. Made the switch from Sketch in 2020 and haven’t
                     looked back. I’ve also created{' '}
                     <Link href="https://www.figma.com/@hamish">a few plugins</Link> that
                     you can install.
                   </li>
                   <li>
                     Any motion graphics I create are created in Adobe After Effects. So
-                    far I haven’t found a non-Adobe product that's as good. If anyone has
+                    far I haven’t found a non-Adobe product that’s as good. If anyone has
                     suggestions please <Link href="/contact">message me</Link>.
                   </li>
                   <li>
                     For any 3D models I use{' '}
-                    <Link href="https://www.blender.org/">Blender</Link>. Since 2.8 it's
+                    <Link href="https://www.blender.org/">Blender</Link>. Since 2.8 it’s
                     become way simpler to use and in a lot of ways better than expensive
                     paid tools like 3DS Max or Maya.
                   </li>
@@ -72,7 +63,7 @@ export const Uses = () => {
             </ProjectTextRow>
           </ProjectSectionContent>
         </ProjectSection>
-        <ProjectSection first className="uses__section">
+        <ProjectSection first className={styles.section}>
           <ProjectSectionContent>
             <ProjectTextRow width="m">
               <ProjectSectionHeading>Development</ProjectSectionHeading>
@@ -105,7 +96,7 @@ export const Uses = () => {
                   </li>
                   <li>
                     For Javascript animations I use{' '}
-                    <Link href="https://popmotion.io/api/">Popmotion Pure 8</Link>, it's a
+                    <Link href="https://popmotion.io/api/">Popmotion Pure 8</Link>, it’s a
                     great way to add spring animations to three.js. All other animations
                     are CSS with{' '}
                     <Link href="https://reactcommunity.org/react-transition-group/">
@@ -126,7 +117,7 @@ export const Uses = () => {
             </ProjectTextRow>
           </ProjectSectionContent>
         </ProjectSection>
-        <ProjectSection className="uses__section">
+        <ProjectSection className={styles.section}>
           <ProjectSectionContent>
             <ProjectTextRow stretch width="m">
               <ProjectSectionHeading>Hardware</ProjectSectionHeading>

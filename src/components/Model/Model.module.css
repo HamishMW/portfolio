@@ -1,0 +1,13 @@
+.model {
+  position: relative;
+  opacity: 0;
+
+  &[data-loaded='true']:global {
+    animation: fade-in 1s ease forwards var(--delay);
+  }
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+}

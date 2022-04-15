@@ -1,9 +1,8 @@
-import './Loader.css';
-
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { usePrefersReducedMotion } from 'hooks';
 import { createPortal } from 'react-dom';
 import { classes, cssProps } from 'utils/style';
+import styles from './Loader.module.css';
 
 export const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -30,15 +29,15 @@ export const Loader = ({ className, style, size = 32, text = 'Loading...', ...re
 
   return (
     <div
-      className={classes('loader', className)}
+      className={classes(styles.loader, className)}
       aria-label={text}
       style={cssProps({ size, spanSize, gapSize }, style)}
       {...rest}
     >
-      <div className="loader__content">
-        <div className="loader__span" />
-        <div className="loader__span" />
-        <div className="loader__span" />
+      <div className={styles.content}>
+        <div className={styles.span} />
+        <div className={styles.span} />
+        <div className={styles.span} />
       </div>
       {renderScreenReaderTextPortal()}
     </div>
