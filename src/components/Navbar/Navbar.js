@@ -119,7 +119,7 @@ export function Navbar() {
   }, [themeId, windowSize]);
 
   const getCurrent = (url = '') => {
-    const nonTrailing = current.endsWith('/') ? current.slice(0, -1) : current;
+    const nonTrailing = current?.endsWith('/') ? current?.slice(0, -1) : current;
 
     if (url === nonTrailing) {
       return 'page';
