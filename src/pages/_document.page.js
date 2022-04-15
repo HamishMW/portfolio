@@ -1,3 +1,6 @@
+import GothamBook from 'assets/fonts/gotham-book.woff2';
+import GothamMedium from 'assets/fonts/gotham-medium.woff2';
+import { fontStyles, tokenStyles } from 'components/ThemeProvider';
 import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {
@@ -29,11 +32,16 @@ export default function Document() {
         <meta name="twitter:title" content="Design portfolio of Hamish Williams" />
         <meta name="twitter:site" content="@hamishMW" />
         <meta name="twitter:image" content="https://hamishw.com/social-image.png" />
+
+        <link rel="prefetch" href={GothamMedium} as="font" crossOrigin="" />
+        <link rel="prefetch" href={GothamBook} as="font" crossOrigin="" />
+        <style dangerouslySetInnerHTML={{ __html: fontStyles }} />
+        <style dangerouslySetInnerHTML={{ __html: tokenStyles }} />
       </Head>
-      <body className="dark">
+      <body data-theme="dark">
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.body.className = JSON.parse(localStorage.getItem('theme')) || 'dark';`,
+            __html: `document.body.dataset.theme = JSON.parse(localStorage.getItem('theme')) || 'dark';`,
           }}
         />
         <Main />

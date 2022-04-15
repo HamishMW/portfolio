@@ -1,10 +1,10 @@
 import './Articles.css';
 
+import { fetchPosts } from 'archive/posts';
 import { Image } from 'components/Image';
 import { Section } from 'components/Section';
 import Head from 'next/head';
 import { Post } from 'pages/Post';
-import { fetchPosts } from 'posts';
 import {
   Fragment,
   Suspense,
@@ -16,7 +16,7 @@ import {
 } from 'react';
 import { Route, Link as RouterLink, Routes } from 'react-router-dom';
 
-const Page404 = lazy(() => import('pages/404'));
+const Page404 = lazy(() => import('pages/404/index.page'));
 
 const ArticlesPost = ({
   slug,

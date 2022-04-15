@@ -10,14 +10,14 @@ export const decorators = [
     const theme = context.globals.theme;
 
     useEffect(() => {
-      document.body.setAttribute('class', theme);
+      document.body.dataset.theme = theme;
     }, [theme]);
 
     return (
       <ThemeProvider themeId={theme}>
         <style>{fontStyles}</style>
         <style>{tokenStyles}</style>
-        <div id="story-root" className="story-root">
+        <div id="story-root" className="storyRoot">
           <Story />
         </div>
       </ThemeProvider>

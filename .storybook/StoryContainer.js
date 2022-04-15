@@ -8,7 +8,7 @@ export const StoryContainer = ({
   children,
 }) => (
   <div
-    className="story-container"
+    className="storyContainer"
     style={{
       padding,
       gap: gutter,

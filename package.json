@@ -34,7 +34,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export -o build/",
     "start": "next start",
     "build:storybook": "build-storybook -o build-storybook",
     "deploy": "aws s3 sync --delete build/ s3://hamish-portfolio-site",

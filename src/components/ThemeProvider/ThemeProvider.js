@@ -1,8 +1,7 @@
 import GothamBold from 'assets/fonts/gotham-bold.woff2';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
-import Head from 'next/head';
-import { Fragment, createContext, useEffect } from 'react';
+import { createContext, useEffect } from 'react';
 import { classes, media } from 'utils/style';
 import { theme, tokens } from './theme';
 import useTheme from './useTheme';
@@ -48,25 +47,13 @@ const ThemeProvider = ({
   useEffect(() => {
     if (isRootProvider) {
       window.localStorage.setItem('theme', JSON.stringify(themeId));
-      document.body.classList.remove('light', 'dark');
-      document.body.classList.add(themeId);
+      document.body.dataset.theme = themeId;
     }
   }, [themeId, isRootProvider]);
 
   return (
     <ThemeContext.Provider value={currentTheme}>
-      {/* Add fonts and base tokens for the root provider */}
-      {isRootProvider && (
-        <Fragment>
-          <Head>
-            <link rel="prefetch" href={GothamMedium} as="font" crossOrigin="" />
-            <link rel="prefetch" href={GothamBook} as="font" crossOrigin="" />
-            <style>{fontStyles}</style>
-            <style>{tokenStyles}</style>
-          </Head>
-          {children}
-        </Fragment>
-      )}
+      {isRootProvider && children}
       {/* Nested providers need a div to override theme tokens */}
       {!isRootProvider && (
         <Component
@@ -130,12 +117,10 @@ export const tokenStyles = `
 
   ${createMediaTokenProperties()}
 
-  .dark,
   [data-theme='dark'] {
     ${createThemeProperties(theme.dark)}
   }
 
-  .light,
   [data-theme='light'] {
     ${createThemeProperties(theme.light)}
   }
