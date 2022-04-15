@@ -114,6 +114,8 @@
   opacity: 0;
   grid-column: 1;
   grid-row: 1;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  image-rendering: -webkit-optimize-contrast;
 
   &[data-loaded='true'] {
     opacity: 1;
