@@ -1,5 +1,3 @@
-import './Post.css';
-
 import ArrowDown from 'assets/arrow-down.svg';
 import { Code } from 'components/Code';
 import { Divider } from 'components/Divider';
@@ -12,14 +10,15 @@ import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useWindowSize } from 'hooks';
 import Head from 'next/head';
+import RouterLink from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import { media } from 'utils/style';
 import { reflow } from 'utils/transition';
-import { MDXProvider } from '@mdx-js/react';
+import styles from './Post.module.css';
 
-const PostWrapper = ({
+export const Post = ({
   children,
   title,
   date,
@@ -32,33 +31,23 @@ const PostWrapper = ({
   const windowSize = useWindowSize();
   const contentRef = useRef();
 
-  const handleScrollIndicatorClick = event => {
-    event.preventDefault();
-
-    window.scrollTo({
-      top: contentRef.current.offsetTop,
-      left: 0,
-      behavior: 'smooth',
-    });
-  };
-
   return (
-    <article className="post">
+    <article className={styles.post}>
       <Head>
         <title>{`Articles | ${title}`}</title>
         <meta name="description" content={description} />
       </Head>
-      <header className="post__header">
-        <div className="post__header-text">
+      <header className={styles.header}>
+        <div className={styles.headerText}>
           <Transition appear in timeout={msToNum(tokens.base.durationM)} onEnter={reflow}>
             {status => (
-              <div className="post__date">
+              <div className={styles.date}>
                 <Divider
                   notchWidth={windowSize.width > media.mobile ? '90px' : '60px'}
                   notchHeight={windowSize.width > media.mobile ? '10px' : '8px'}
                   collapsed={status !== 'entered'}
                 />
-                <span className="post__date-text" data-status={status}>
+                <span className={styles.dateText} data-status={status}>
                   {new Date(date).toLocaleDateString('default', {
                     year: 'numeric',
                     month: 'long',
@@ -67,11 +56,11 @@ const PostWrapper = ({
               </div>
             )}
           </Transition>
-          <Heading level={1} weight="bold" className="post__title" aria-label={title}>
+          <Heading level={1} weight="bold" className={styles.title} aria-label={title}>
             {title.split(' ').map((word, index) => (
-              <span className="post__title-word-wrapper" key={`${word}-${index}`}>
+              <span className={styles.titleWordWrapper} key={`${word}-${index}`}>
                 <span
-                  className="post__title-word"
+                  className={styles.titleWord}
                   style={cssProps({ delay: numToMs(index * 120 + 200) })}
                   index={index}
                 >
@@ -81,29 +70,26 @@ const PostWrapper = ({
               </span>
             ))}
           </Heading>
-          <a
-            className="post__banner-arrow"
-            href="#postContent"
-            aria-label="Scroll to post content"
-            onClick={handleScrollIndicatorClick}
-          >
-            <ArrowDown aria-hidden />
-          </a>
-          <div className="post__banner-read-time">{readTime}</div>
+          <RouterLink href="#postContent">
+            <a className={styles.bannerArrow} aria-label="Scroll to post content">
+              <ArrowDown aria-hidden />
+            </a>
+          </RouterLink>
+          <div className={styles.bannerReadTime}>{readTime}</div>
         </div>
-        <div className="post__banner">
+        <div className={styles.banner}>
           <Image
             reveal
             delay={600}
-            className="post__banner-image"
-            src={banner ? require(`posts/assets/${banner}`).default : undefined}
-            placeholder={require(`posts/assets/${bannerPlaceholder}`).default}
+            className={styles.bannerImage}
+            src={banner ? banner : undefined}
+            placeholder={{ src: bannerPlaceholder }}
             alt={bannerAlt}
           />
         </div>
       </header>
-      <Section className="post__content-wrapper" id="postContent" ref={contentRef}>
-        <div className="post__content">{children}</div>
+      <Section className={styles.contentWrapper} id="postContent" ref={contentRef}>
+        <div className={styles.content}>{children}</div>
       </Section>
       <Footer />
     </article>
@@ -111,13 +97,13 @@ const PostWrapper = ({
 };
 
 const PostHeadingTwo = ({ children, ...rest }) => (
-  <Heading className="post__heading-two" level={3} {...rest}>
+  <Heading className={styles.headingTwo} level={3} {...rest}>
     {children}
   </Heading>
 );
 
 const PostParagraph = ({ children, ...rest }) => (
-  <Text className="post__paragraph" size="l" {...rest}>
+  <Text className={styles.paragraph} size="l" {...rest}>
     {children}
   </Text>
 );
@@ -125,7 +111,7 @@ const PostParagraph = ({ children, ...rest }) => (
 const PostImage = ({ src, alt, ...rest }) => {
   const [size, setSize] = useState();
   const imgRef = useRef();
-  const imgSrc = src.startsWith('http') ? src : require(`posts/assets/${src}`);
+  const imgSrc = src;
 
   useEffect(() => {
     const { width, height } = imgRef.current;
@@ -142,7 +128,7 @@ const PostImage = ({ src, alt, ...rest }) => {
 
   return (
     <img
-      className="post__image"
+      className={styles.image}
       ref={imgRef}
       src={imgSrc}
       onLoad={handleLoad}
@@ -157,27 +143,18 @@ const PostImage = ({ src, alt, ...rest }) => {
 };
 
 const PostCode = ({ children, ...rest }) => (
-  <code className="post__code" {...rest}>
+  <code className={styles.code} {...rest}>
     {children}
   </code>
 );
 
 const PostLink = ({ ...props }) => <Link {...props} />;
 
-export const Post = ({ slug, content: PostContent, ...rest }) => {
-  return (
-    <MDXProvider
-      components={{
-        wrapper: PostWrapper,
-        h2: PostHeadingTwo,
-        p: PostParagraph,
-        img: PostImage,
-        a: PostLink,
-        pre: Code,
-        inlineCode: PostCode,
-      }}
-    >
-      <PostContent slug={slug} {...rest} />
-    </MDXProvider>
-  );
+export const postComponents = {
+  h2: PostHeadingTwo,
+  p: PostParagraph,
+  img: PostImage,
+  a: PostLink,
+  pre: Code,
+  inlineCode: PostCode,
 };

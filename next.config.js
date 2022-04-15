@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: false,
+  trailingSlash: true,
   pageExtensions: ['page.js', 'api.js'],
   webpack(config) {
     config.module.rules.push({

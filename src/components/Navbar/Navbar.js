@@ -5,7 +5,7 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { useAppContext, useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { cssProps, media, msToNum, numToMs } from 'utils/style';
 import { reflow } from 'utils/transition';
@@ -33,12 +33,18 @@ const NavbarIcons = ({ desktop }) => (
 );
 
 export function Navbar() {
+  const [current, setCurrent] = useState();
   const { themeId } = useTheme();
   const { menuOpen, dispatch } = useAppContext();
   const { route, asPath } = useRouter();
   const windowSize = useWindowSize();
   const headerRef = useRef();
   const isMobile = windowSize.width <= media.mobile || windowSize.height <= 696;
+
+  useEffect(() => {
+    // Prevent ssr mismatch by storing this in state
+    setCurrent(asPath);
+  }, [asPath]);
 
   useEffect(() => {
     const navItems = document.querySelectorAll('[data-navbar-item]');
@@ -100,7 +106,7 @@ export function Navbar() {
   }, [themeId, windowSize]);
 
   const getCurrent = (url = '') => {
-    if (url === asPath) {
+    if (url === current) {
       return 'page';
     }
 

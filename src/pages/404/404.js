@@ -22,7 +22,12 @@ export function Page404() {
           <Fragment>
             <div className={styles.details}>
               <div className={styles.text}>
-                <Heading className={styles.title} data-status={status} level={0}>
+                <Heading
+                  className={styles.title}
+                  data-status={status}
+                  level={0}
+                  weight="bold"
+                >
                   404
                 </Heading>
                 <Heading

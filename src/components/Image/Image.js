@@ -33,7 +33,7 @@ export const Image = ({
   return (
     <div
       className={classes(styles.image, className)}
-      data-visible={inViewport}
+      data-visible={inViewport || loaded}
       data-reveal={reveal}
       data-raised={raised}
       data-theme={themeId}
@@ -74,6 +74,7 @@ const ImageElements = ({
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [videoSrc, setVideoSrc] = useState();
+  const [videoInteracted, setVideoInteracted] = useState(false);
   const placeholderRef = useRef();
   const videoRef = useRef();
   const isVideo = getIsVideo(src);
@@ -93,7 +94,7 @@ const ImageElements = ({
   }, [isVideo, src, srcSet]);
 
   useEffect(() => {
-    if (!videoRef.current || !videoSrc) return;
+    if (!videoRef.current || !videoSrc || videoInteracted) return;
 
     if (!play || !inViewport) {
       setPlaying(false);
@@ -102,10 +103,12 @@ const ImageElements = ({
       setPlaying(true);
       videoRef.current.play();
     }
-  }, [inViewport, play, prefersReducedMotion, videoSrc]);
+  }, [inViewport, play, prefersReducedMotion, videoInteracted, videoSrc]);
 
   const togglePlaying = event => {
     event.preventDefault();
+
+    setVideoInteracted(true);
 
     if (videoRef.current.paused) {
       setPlaying(true);
@@ -130,7 +133,7 @@ const ImageElements = ({
     <div
       className={styles.elementWrapper}
       data-reveal={reveal}
-      data-visible={inViewport}
+      data-visible={inViewport || loaded}
       onMouseOver={isVideo ? handleShowPlayButton : undefined}
       onMouseOut={isVideo ? () => setIsHovered(false) : undefined}
       style={cssProps({ delay: numToMs(delay + 1000) })}

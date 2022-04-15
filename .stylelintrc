@@ -1,18 +1,18 @@
 {
-  "extends": ["stylelint-config-standard"],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-prettier",
+    "stylelint-config-css-modules"
+  ],
   "rules": {
+    "string-quotes": "single",
     "selector-class-pattern": "^[a-z][a-zA-Z0-9]+$",
     "custom-property-pattern": "^[a-z][a-zA-Z0-9]+$",
-    "selector-id-pattern": null,
-    "string-quotes": "single",
-    "declaration-block-no-redundant-longhand-properties": null,
-    "value-keyword-case": null,
-    "alpha-value-notation": "number",
-    "declaration-colon-newline-after": null,
-    "indentation": null,
-    "selector-combinator-space-before": null,
-    "value-list-comma-newline-after": null,
     "custom-media-pattern": "^[a-z][a-zA-Z0-9]+$",
+    "selector-id-pattern": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "value-keyword-case": ["lower", { "camelCaseSvgKeywords": true }],
+    "alpha-value-notation": "number",
     "selector-pseudo-class-no-unknown": [
       true,
       {

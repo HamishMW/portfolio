@@ -6,7 +6,6 @@
   "repository": "https://github.com/HamishMW/portfolio.git",
   "author": "Hamish Williams <hello@hamishw.com>",
   "devDependencies": {
-    "@babel/core": "^7.12.3",
     "@hamishmw/react-scripts-postcss": "5.0.0-mod1",
     "@storybook/addon-a11y": "^6.4.20",
     "@storybook/addon-actions": "^6.4.20",
@@ -17,15 +16,19 @@
     "@storybook/manager-webpack5": "^6.4.21",
     "@storybook/react": "^6.4.20",
     "@svgr/webpack": "^6.2.1",
+    "esbuild": "^0.14.36",
     "eslint-config-next": "^12.1.5",
+    "gray-matter": "^4.0.3",
     "prettier": "^2.2.1",
     "storybook-addon-next": "^1.6.2",
     "stylelint": "^14.6.1",
-    "stylelint-config-standard": "^25.0.0",
-    "webpack": "^5.72.0"
+    "stylelint-config-css-modules": "^4.1.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^25.0.0"
   },
   "dependencies": {
     "next": "^12.1.5",
+    "next-mdx-remote": "4.0.1",
     "popmotion": "^8.7.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

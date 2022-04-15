@@ -6,6 +6,7 @@ import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useLocalStorage } from 'hooks';
+import useFoucFix from 'hooks/useFoucFix';
 import styles from 'layouts/App/App.module.css';
 import { initialState, reducer } from 'layouts/App/reducer';
 import Head from 'next/head';
@@ -25,10 +26,11 @@ __  __  __
 \n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio
 `;
 
-const App = ({ Component }) => {
+const App = ({ Component, pageProps }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
   const { route } = useRouter();
+  useFoucFix();
 
   useEffect(() => {
     console.info(`${repoPrompt}\n\n`);
@@ -64,7 +66,7 @@ const App = ({ Component }) => {
                 <TransitionContext.Provider value={{ status }}>
                   <ScrollRestore />
                   <div className={styles.page} data-status={status}>
-                    <Component />
+                    <Component {...pageProps} />
                   </div>
                 </TransitionContext.Provider>
               )}

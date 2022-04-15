@@ -5,7 +5,7 @@ import { Section } from 'components/Section';
 import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { useInterval, usePrevious } from 'hooks';
+import { useInterval, usePrevious, useRouteTransition } from 'hooks';
 import dynamic from 'next/dynamic';
 import RouterLink from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
@@ -18,6 +18,7 @@ const DisplacementSphere = dynamic(() => import('layouts/Home/DisplacementSphere
 
 export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
   const theme = useTheme();
+  const { status: pageStatus } = useRouteTransition();
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const prevTheme = usePrevious(theme);
   const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(
@@ -103,7 +104,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
               <a
                 className={styles.scrollIndicator}
                 data-status={status}
-                data-hidden={scrollIndicatorHidden}
+                data-hidden={scrollIndicatorHidden || pageStatus !== 'entered'}
               >
                 <VisuallyHidden>Scroll to projects</VisuallyHidden>
               </a>
@@ -112,7 +113,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
               <a
                 className={styles.mobileScrollIndicator}
                 data-status={status}
-                data-hidden={scrollIndicatorHidden}
+                data-hidden={scrollIndicatorHidden || pageStatus !== 'entered'}
               >
                 <VisuallyHidden>Scroll to projects</VisuallyHidden>
                 <ArrowDown aria-hidden />

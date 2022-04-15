@@ -6,7 +6,7 @@ import { classes, media } from 'utils/style';
 import { theme, tokens } from './theme';
 import useTheme from './useTheme';
 
-export const fontStyles = `
+export const fontStyles = squish(`
   @font-face {
     font-family: "Gotham";
     font-weight: 400;
@@ -27,7 +27,7 @@ export const fontStyles = `
     src: url(${GothamBold}) format('woff2');
     font-display: swap;
   }
-`;
+`);
 
 const ThemeContext = createContext({});
 
@@ -69,13 +69,22 @@ const ThemeProvider = ({
 };
 
 /**
+ * Squeeze out spaces and newlines
+ */
+function squish(styles) {
+  return styles.replace(/\s\s+/g, ' ');
+}
+
+/**
  * Transform theme token objects into CSS custom property strings
  */
 function createThemeProperties(theme) {
-  return Object.keys(theme)
-    .filter(key => key !== 'themeId')
-    .map(key => `--${key}: ${theme[key]};`)
-    .join('\n');
+  return squish(
+    Object.keys(theme)
+      .filter(key => key !== 'themeId')
+      .map(key => `--${key}: ${theme[key]};`)
+      .join('\n\n')
+  );
 }
 
 /**
@@ -97,20 +106,22 @@ function createThemeStyleObject(theme) {
  * Generate media queries for tokens
  */
 function createMediaTokenProperties() {
-  return Object.keys(media)
-    .map(key => {
-      return `
+  return squish(
+    Object.keys(media)
+      .map(key => {
+        return `
         @media (max-width: ${media[key]}px) {
           :root {
             ${createThemeProperties(tokens[key])}
           }
         }
       `;
-    })
-    .join('\n');
+      })
+      .join('\n')
+  );
 }
 
-export const tokenStyles = `
+export const tokenStyles = squish(`
   :root {
     ${createThemeProperties(tokens.base)}
   }
@@ -124,7 +135,7 @@ export const tokenStyles = `
   [data-theme='light'] {
     ${createThemeProperties(theme.light)}
   }
-`;
+`);
 
 export {
   theme,

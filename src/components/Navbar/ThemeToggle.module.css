@@ -43,7 +43,7 @@
     fill: white;
   }
 
-  &[data-dark='true'] {
+  @nest body[data-theme='dark'] & {
     transform: none;
     transition-delay: 0.3s;
   }
@@ -60,7 +60,7 @@
     }
   }
 
-  &[data-dark='true'] {
+  @nest body[data-theme='dark'] & {
     transform: none;
     transition-delay: 0.3s;
   }
@@ -84,7 +84,7 @@
     }
   }
 
-  &[data-dark='true'] {
+  @nest body[data-theme='dark'] & {
     stroke-dashoffset: 7;
     transition-delay: 0s;
     opacity: 0;

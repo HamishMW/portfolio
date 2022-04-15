@@ -70,7 +70,7 @@ export const SegmentedControl = ({
         onKeyDown={handleKeyDown}
         {...props}
       >
-        <VisuallyHidden as="label" className={styles.label} id={labelId}>
+        <VisuallyHidden as="label" id={labelId}>
           {label}
         </VisuallyHidden>
         <div className={styles.options}>
