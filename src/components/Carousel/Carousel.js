@@ -16,6 +16,7 @@ import {
   sRGBEncoding,
 } from 'three';
 import { getImageFromSrcSet } from 'utils/image';
+import { cssProps } from 'utils/style';
 import { cleanRenderer, cleanScene } from 'utils/three';
 import styles from './Carousel.module.css';
 import { fragment, vertex } from './carouselShader';
@@ -365,7 +366,12 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   return (
     <div className={styles.carousel} onKeyDown={handleKeyDown} {...rest}>
       <div className={styles.content}>
-        <div className={styles.imageWrapper} data-dragging={dragging} ref={swipeElement}>
+        <div
+          className={styles.imageWrapper}
+          data-dragging={dragging}
+          ref={swipeElement}
+          style={cssProps({ aspectRatio: `${width} / ${height}` })}
+        >
           <div
             aria-atomic
             className={styles.canvasWrapper}

@@ -51,50 +51,53 @@ export function Navbar() {
       return !(rect1.bottom - scrollY < rect2.top || rect1.top - scrollY > rect2.bottom);
     };
 
-    const navItemMeasurements = Array.from(navItems).map(item => ({
-      element: item,
-      top: item.offsetTop,
-      bottom: item.offsetTop + item.offsetHeight,
-    }));
+    const navItemMeasurements = Array.from(navItems).map(item => {
+      const rect = item.getBoundingClientRect();
 
-    const inverseMeasurements = Array.from(invertedElements).map(item => ({
-      element: item,
-      top: item.offsetTop,
-      bottom: item.offsetTop + item.offsetHeight,
-    }));
+      return {
+        element: item,
+        top: rect.top,
+        bottom: rect.bottom,
+      };
+    });
 
-    const handleInversion = () => {
-      invertedElements.forEach(element => {
-        const rect1 = inverseMeasurements.find(item => item.element === element);
+    const handleInversion = () =>
+      requestAnimationFrame(() => {
         const { scrollY } = window;
 
-        // console.log(element, rect1.top - scrollY, window.innerHeight);
+        const inverseMeasurements = Array.from(invertedElements).map(item => ({
+          element: item,
+          top: item.offsetTop,
+          bottom: item.offsetTop + item.offsetHeight,
+        }));
 
-        if (rect1.top - scrollY > window.innerHeight || rect1.bottom - scrollY < 0)
-          return;
-
-        console.log(rect1);
-
-        navItems.forEach(navItem => {
-          const rect2 = navItemMeasurements.find(item => item.element === navItem);
-
-          if (isOverlap(rect1, rect2, scrollY)) {
-            navItem.dataset.theme = inverseTheme;
-          } else {
-            navItem.dataset.theme = '';
+        inverseMeasurements.forEach(inverseMeasurement => {
+          if (
+            inverseMeasurement.top - scrollY > window.innerHeight ||
+            inverseMeasurement.bottom - scrollY < 0
+          ) {
+            return;
           }
+
+          navItemMeasurements.forEach(measurement => {
+            if (isOverlap(inverseMeasurement, measurement, scrollY)) {
+              measurement.element.dataset.theme = inverseTheme;
+            } else {
+              measurement.element.dataset.theme = '';
+            }
+          });
         });
       });
-    };
 
     if (invertedElements) {
       document.addEventListener('scroll', handleInversion);
+      handleInversion();
     }
 
     return () => {
       document.removeEventListener('scroll', handleInversion);
     };
-  }, [themeId]);
+  }, [themeId, windowSize]);
 
   const getCurrent = (url = '') => {
     if (url === asPath) {

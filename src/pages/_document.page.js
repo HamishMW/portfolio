@@ -33,8 +33,8 @@ export default function Document() {
         <meta name="twitter:site" content="@hamishMW" />
         <meta name="twitter:image" content="https://hamishw.com/social-image.png" />
 
-        <link rel="prefetch" href={GothamMedium} as="font" crossOrigin="" />
-        <link rel="prefetch" href={GothamBook} as="font" crossOrigin="" />
+        <link rel="prefetch" href={GothamMedium} as="font" />
+        <link rel="prefetch" href={GothamBook} as="font" />
         <style dangerouslySetInnerHTML={{ __html: fontStyles }} />
         <style dangerouslySetInnerHTML={{ __html: tokenStyles }} />
       </Head>

@@ -22,7 +22,6 @@ import volkiharSlide3Large from 'assets/volkihar-slide-3-large.jpg';
 import volkiharSlide3 from 'assets/volkihar-slide-3.jpg';
 import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
 import { Button } from 'components/Button';
-import Carousel from 'components/Carousel';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
 import { useRouteTransition } from 'hooks';
@@ -38,14 +37,14 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from 'layouts/Project';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { Fragment } from 'react';
 import { media } from 'utils/style';
-import Armor from './Armor';
 import styles from './VolkiharKnight.module.css';
 
-// const Carousel = lazy(() => import('components/Carousel'));
-// const Armor = lazy(() => import('./Armor'));
+const Carousel = dynamic(() => import('components/Carousel'));
+const Armor = dynamic(() => import('./Armor'));
 
 const title = 'Volkihar Knight';
 const description =
@@ -62,16 +61,20 @@ export function VolkiharKnight() {
         <meta name="description" content={description} />
       </Head>
       {(status === 'entered' || status === 'exiting') && (
-        <style>{`
-          .dark {
-            --rgbPrimary: 240 211 150;
-            --rgbAccent: 240 211 150;
-          }
-          .light {
-            --rgbPrimary: 134 99 23;
-            --rgbAccent: 134 99 23;
-          }
-        `}</style>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              [data-theme='dark'] {
+                --rgbPrimary: 240 211 150;
+                --rgbAccent: 240 211 150;
+              }
+              [data-theme='light'] {
+                --rgbPrimary: 134 99 23;
+                --rgbAccent: 134 99 23;
+              }
+            `,
+          }}
+        />
       )}
       <ProjectContainer>
         <ProjectBackground
@@ -111,9 +114,7 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionColumns>
-            {/* <Suspense fallback={null}> */}
             <Armor alt="3D model of the Volkihar Knight armor" />
-            {/* </Suspense> */}
             <div className={styles.textSection}>
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>
@@ -152,30 +153,28 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionContent>
-            {/* <Suspense fallback={null}> */}
             <Carousel
-              placeholder={volkiharSlidePlaceholder}
+              placeholder={volkiharSlidePlaceholder.src}
               images={[
                 {
-                  src: volkiharSlide1,
-                  srcSet: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
+                  src: volkiharSlide1.src,
+                  srcSet: `${volkiharSlide1.src} 960w, ${volkiharSlide1Large.src} 1920w`,
                   alt: 'A female character wearing the black coloured armor set.',
                 },
                 {
-                  src: volkiharSlide2,
-                  srcSet: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
+                  src: volkiharSlide2.src,
+                  srcSet: `${volkiharSlide2.src} 960w, ${volkiharSlide2Large.src} 1920w`,
                   alt: 'A close up of the custom gauntlets design.',
                 },
                 {
-                  src: volkiharSlide3,
-                  srcSet: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
+                  src: volkiharSlide3.src,
+                  srcSet: `${volkiharSlide3.src} 960w, ${volkiharSlide3Large.src} 1920w`,
                   alt: 'A female character wielding a sword and wearing the red coloured armor.',
                 },
               ]}
               width={1920}
               height={1080}
             />
-            {/* </Suspense> */}
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection

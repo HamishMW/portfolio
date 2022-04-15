@@ -23,6 +23,11 @@ module.exports = {
       use: ['@svgr/webpack'],
     });
 
+    config.module.rules.push({
+      test: /\.(mp4|hdr|glb|woff2)$/i,
+      type: 'asset/resource',
+    });
+
     return config;
   },
 };

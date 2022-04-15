@@ -11,14 +11,20 @@ import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { reflow } from 'utils/transition';
 import styles from './Image.module.css';
 
-export const Image = ({ className, style, reveal, delay = 0, raised, src, ...rest }) => {
+export const Image = ({
+  className,
+  style,
+  reveal,
+  delay = 0,
+  raised,
+  src,
+  placeholder,
+  ...rest
+}) => {
   const [loaded, setLoaded] = useState(false);
   const { themeId } = useTheme();
   const containerRef = useRef();
-  const inViewport = useInViewport(
-    containerRef,
-    !(typeof src === 'string' && src?.endsWith('.mp4'))
-  );
+  const inViewport = useInViewport(containerRef, !getIsVideo(src));
 
   const onLoad = useCallback(() => {
     setLoaded(true);
@@ -41,6 +47,7 @@ export const Image = ({ className, style, reveal, delay = 0, raised, src, ...res
         inViewport={inViewport}
         reveal={reveal}
         src={src}
+        placeholder={placeholder}
         {...rest}
       />
     </div>
@@ -69,7 +76,7 @@ const ImageElements = ({
   const [videoSrc, setVideoSrc] = useState();
   const placeholderRef = useRef();
   const videoRef = useRef();
-  const isVideo = typeof src === 'string' && src?.endsWith('.mp4');
+  const isVideo = getIsVideo(src);
   const showFullRes = inViewport;
 
   useEffect(() => {
@@ -200,3 +207,7 @@ const ImageElements = ({
     </div>
   );
 };
+
+function getIsVideo(src) {
+  return typeof src === 'string' && src.endsWith('.mp4');
+}

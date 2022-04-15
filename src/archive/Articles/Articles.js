@@ -5,18 +5,8 @@ import { Image } from 'components/Image';
 import { Section } from 'components/Section';
 import Head from 'next/head';
 import { Post } from 'pages/Post';
-import {
-  Fragment,
-  Suspense,
-  createContext,
-  lazy,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { Fragment, createContext, useContext, useEffect, useState } from 'react';
 import { Route, Link as RouterLink, Routes } from 'react-router-dom';
-
-const Page404 = lazy(() => import('pages/404/index.page'));
 
 const ArticlesPost = ({
   slug,
@@ -114,20 +104,17 @@ export const Articles = () => {
 
   return (
     <ArticlesContext.Provider value={{ posts }}>
-      {/* <Suspense>
-        <Routes>
-          <Route path="/" element={<ArticlesLayout />} />
-          {posts?.map(({ slug, ...rest }) => (
-            <Route
-              exact
-              key={slug}
-              path={`/articles/${slug}`}
-              render={() => <Post slug={slug} {...rest} />}
-            />
-          ))}
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-      </Suspense> */}
+      <Routes>
+        <Route path="/" element={<ArticlesLayout />} />
+        {posts?.map(({ slug, ...rest }) => (
+          <Route
+            exact
+            key={slug}
+            path={`/articles/${slug}`}
+            render={() => <Post slug={slug} {...rest} />}
+          />
+        ))}
+      </Routes>
     </ArticlesContext.Provider>
   );
 };

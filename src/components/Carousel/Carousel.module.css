@@ -24,6 +24,7 @@
   grid-column: 1;
   grid-row: 1;
   user-select: none;
+  aspect-ratio: var(--aspectRatio);
 }
 
 .canvas {

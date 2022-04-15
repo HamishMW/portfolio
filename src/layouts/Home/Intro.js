@@ -6,15 +6,15 @@ import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useInterval, usePrevious } from 'hooks';
+import dynamic from 'next/dynamic';
 import RouterLink from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { cssProps } from 'utils/style';
 import { reflow } from 'utils/transition';
-import DisplacementSphere from './DisplacementSphere';
 import styles from './Intro.module.css';
 
-// const DisplacementSphere = lazy(() => import('layouts/Home/DisplacementSphere'));
+const DisplacementSphere = dynamic(() => import('layouts/Home/DisplacementSphere'));
 
 export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
   const theme = useTheme();
@@ -56,9 +56,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
       <Transition appear in key={theme.themeId} timeout={3000} onEnter={reflow}>
         {status => (
           <Fragment>
-            {/* <Suspense fallback={null}> */}
             <DisplacementSphere />
-            {/* </Suspense> */}
             <header className={styles.text}>
               <h1 className={styles.name} data-status={status} id={titleId}>
                 <DecoderText text="Hamish Williams" delay={300} />

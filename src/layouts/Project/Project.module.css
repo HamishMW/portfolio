@@ -305,15 +305,10 @@
 
 .image {
   position: relative;
-  display: flex;
-  align-items: flex-start;
+  display: grid;
   transform: translate3d(0, 0, 0);
   max-width: 100%;
   width: 100%;
-
-  & .image {
-    width: 100%;
-  }
 }
 
 .sectionContent {

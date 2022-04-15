@@ -76,8 +76,8 @@ export const Home = () => {
           content="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile
           apps with a focus on motion and user experience design."
         />
-        <link rel="prefetch" href={iphone11} as="fetch" crossOrigin="" />
-        <link rel="prefetch" href={macbookPro} as="fetch" crossOrigin="" />
+        <link rel="prefetch" href={iphone11} as="fetch" />
+        <link rel="prefetch" href={macbookPro} as="fetch" />
       </Head>
       <Intro
         id="intro"
