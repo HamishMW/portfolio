@@ -14,25 +14,7 @@ import styles from './Navbar.module.css';
 import { ThemeToggle } from './ThemeToggle';
 import { navLinks, socialLinks } from './navData';
 
-const NavbarIcons = ({ desktop }) => (
-  <div className={styles.navIcons}>
-    {socialLinks.map(({ label, url, icon }) => (
-      <a
-        key={label}
-        data-navbar-item={desktop || undefined}
-        className={styles.navIconLink}
-        aria-label={label}
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Icon className={styles.navIcon} icon={icon} />
-      </a>
-    ))}
-  </div>
-);
-
-export function Navbar() {
+export const Navbar = () => {
   const [current, setCurrent] = useState();
   const [target, setTarget] = useState();
   const { themeId } = useTheme();
@@ -49,16 +31,40 @@ export function Navbar() {
     setCurrent(asPath);
   }, [asPath]);
 
+  // Handle shifting focus to linked element
   useEffect(() => {
-    const hash = route.split('#')[1];
+    const hash = asPath.split('#')[1];
+    const targetElement = document.getElementById(hash);
 
-    if (hash) {
-      const targetElement = document.getElementById(target);
-      targetElement.focus();
+    if (targetElement) {
+      targetElement.focus({ preventScroll: true });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [asPath]);
 
+  useEffect(() => {
+    if (!target) return;
+
+    const targetElement = document.getElementById(target);
+    targetElement.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+    const newPath = `${route}#${target}`;
+    setCurrent(newPath);
+
+    const handleScroll = () => {
+      clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => {
+        setTarget(null);
+        push(newPath, null, { scroll: false });
+      }, 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [push, reduceMotion, route, target]);
+
+  // Handle swapping the theme when intersecting with inverse themed elements
   useEffect(() => {
     const navItems = document.querySelectorAll('[data-navbar-item]');
     const inverseTheme = themeId === 'dark' ? 'light' : 'dark';
@@ -138,28 +144,6 @@ export function Navbar() {
     setTarget(hash);
   };
 
-  useEffect(() => {
-    if (!target) return;
-
-    const targetElement = document.getElementById(target);
-    targetElement.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
-
-    const handleScroll = () => {
-      clearTimeout(scrollTimeout.current);
-      scrollTimeout.current = setTimeout(() => {
-        setTarget(null);
-        push(`#${target}`, null, { scroll: false });
-        targetElement.focus();
-      }, 100);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [push, reduceMotion, target]);
-
   const handleMobileNavClick = event => {
     handleNavItemClick(event);
     if (menuOpen) dispatch({ type: 'toggleMenu' });
@@ -229,4 +213,22 @@ export function Navbar() {
       {!isMobile && <ThemeToggle data-navbar-item />}
     </header>
   );
-}
+};
+
+const NavbarIcons = ({ desktop }) => (
+  <div className={styles.navIcons}>
+    {socialLinks.map(({ label, url, icon }) => (
+      <a
+        key={label}
+        data-navbar-item={desktop || undefined}
+        className={styles.navIconLink}
+        aria-label={label}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon className={styles.navIcon} icon={icon} />
+      </a>
+    ))}
+  </div>
+);

@@ -327,7 +327,7 @@
   }
 }
 
-.headingTwo {
+:where(.h1, .h2) {
   grid-column: 3;
 
   @media (--mediaTablet) {
@@ -339,11 +339,12 @@
 
 .paragraph {
   --paraSpace: 26px;
-  --headingSpace: 34px;
+  --headingSpace: 24px;
+  --lineHeightBody: 1.8;
 
   grid-column: 3;
 
-  @nest .headingTwo + & {
+  @nest :where(.h1, .h2) + & {
     margin-top: var(--headingSpace);
   }
 
@@ -353,24 +354,19 @@
 
   @media (--mediaLaptop) {
     & {
-      --paraSpace: 20px;
-      --headingSpace: 24px;
+      --paraSpace: 18px;
+      --headingSpace: 20px;
     }
   }
 
   @media (--mediaTablet) {
     & {
-      --headingSpace: 22px;
-
       grid-column: 1;
     }
   }
 
   @media (--mediaMobile) {
     & {
-      --paraSpace: 18px;
-      --headingSpace: 22px;
-
       hyphens: auto;
     }
   }
@@ -378,7 +374,7 @@
 
 .image {
   display: block;
-  margin: 40px 0 80px;
+  margin: 80px 0;
   max-width: 100%;
   width: 100%;
   height: auto;
@@ -387,7 +383,7 @@
   @media (--mediaTablet) {
     & {
       grid-column: 1;
-      margin: 30px 0 60px;
+      margin: 60px 0;
     }
   }
 }

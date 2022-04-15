@@ -360,7 +360,7 @@
     }
   }
 
-  &:focus {
+  &:focus-visible {
     opacity: 1;
   }
 }
@@ -417,7 +417,7 @@
     stroke: rgb(var(--rgbText) / 0.5);
   }
 
-  &:focus {
+  &:focus-visible {
     opacity: 1;
   }
 }

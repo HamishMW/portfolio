@@ -30,7 +30,6 @@ export const Loader = ({ className, style, size = 32, text = 'Loading...', ...re
   return (
     <div
       className={classes(styles.loader, className)}
-      aria-label={text}
       style={cssProps({ size, spanSize, gapSize }, style)}
       {...rest}
     >

@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { Post, postComponents } from 'layouts/Post';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
+import rehypeSlug from 'rehype-slug';
 import { POSTS_PATH, postFilePaths } from 'utils/mdx';
 import rehypePrism from '@mapbox/rehype-prism';
 
@@ -24,7 +25,7 @@ export const getStaticProps = async ({ params }) => {
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [],
-      rehypePlugins: [rehypePrism],
+      rehypePlugins: [rehypePrism, rehypeSlug],
     },
     scope: data,
   });

@@ -11,7 +11,7 @@ import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { Children, useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import { media } from 'utils/style';
@@ -107,17 +107,33 @@ export const Post = ({
   );
 };
 
-const PostHeadingTwo = ({ children, ...rest }) => (
-  <Heading className={styles.headingTwo} level={3} {...rest}>
+const PostH1 = ({ children, ...rest }) => (
+  <Heading className={styles.h1} level={2} as="h1" {...rest}>
     {children}
   </Heading>
 );
 
-const PostParagraph = ({ children, ...rest }) => (
-  <Text className={styles.paragraph} size="l" {...rest}>
+const PostH2 = ({ children, ...rest }) => (
+  <Heading className={styles.h2} level={3} as="h2" {...rest}>
     {children}
-  </Text>
+  </Heading>
 );
+
+const PostParagraph = ({ children, ...rest }) => {
+  const hasSingleChild = Children.count(children) === 1;
+  const firstChild = Children.toArray(children)[0];
+
+  // Prevent `img` being wrapped in `p`
+  if (hasSingleChild && firstChild.type === PostImage) {
+    return children;
+  }
+
+  return (
+    <Text className={styles.paragraph} size="l" {...rest}>
+      {children}
+    </Text>
+  );
+};
 
 const PostImage = ({ src, alt, ...rest }) => {
   const [size, setSize] = useState();
@@ -162,7 +178,8 @@ const PostCode = ({ children, ...rest }) => (
 const PostLink = ({ ...props }) => <Link {...props} />;
 
 export const postComponents = {
-  h2: PostHeadingTwo,
+  h1: PostH1,
+  h2: PostH2,
   p: PostParagraph,
   img: PostImage,
   a: PostLink,

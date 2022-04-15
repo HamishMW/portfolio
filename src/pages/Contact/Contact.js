@@ -9,37 +9,13 @@ import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useFormInput, useRouteTransition } from 'hooks';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import { isVisible, reflow } from 'utils/transition';
 import styles from './Contact.module.css';
 
-const initDelay = tokens.base.durationS;
-
-function getStatusError({
-  status,
-  errorMessage,
-  fallback = 'There was a problem with your request',
-}) {
-  if (status === 200) return false;
-
-  const statuses = {
-    500: 'There was a problem with the server, try again later',
-    404: 'There was a problem connecting to the server. Make sure you are connected to the internet',
-  };
-
-  if (errorMessage) {
-    return errorMessage;
-  }
-
-  return statuses[status] || fallback;
-}
-
-function getDelay(delayMs, initDelayMs = numToMs(0), multiplier = 1) {
-  const numDelay = msToNum(delayMs) * multiplier;
-  return cssProps({ delay: numToMs((msToNum(initDelayMs) + numDelay).toFixed(0)) });
-}
+const INIT_DELAY = tokens.base.durationS;
 
 export const Contact = () => {
   const { status } = useRouteTransition();
@@ -50,47 +26,44 @@ export const Contact = () => {
   const [complete, setComplete] = useState(false);
   const [statusError, setStatusError] = useState('');
 
-  const onSubmit = useCallback(
-    async event => {
-      event.preventDefault();
-      setStatusError('');
+  const onSubmit = async event => {
+    event.preventDefault();
+    setStatusError('');
 
-      if (sending) return;
+    if (sending) return;
 
-      try {
-        setSending(true);
+    try {
+      setSending(true);
 
-        const response = await fetch('https://api.hamishw.com/message', {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: email.value,
-            message: message.value,
-          }),
-        });
+      const response = await fetch('https://api.hamishw.com/message', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.value,
+          message: message.value,
+        }),
+      });
 
-        const responseMessage = await response.json();
+      const responseMessage = await response.json();
 
-        const statusError = getStatusError({
-          status: response?.status,
-          errorMessage: responseMessage?.error,
-          fallback: 'There was a problem sending your message',
-        });
+      const statusError = getStatusError({
+        status: response?.status,
+        errorMessage: responseMessage?.error,
+        fallback: 'There was a problem sending your message',
+      });
 
-        if (statusError) throw new Error(statusError);
+      if (statusError) throw new Error(statusError);
 
-        setComplete(true);
-        setSending(false);
-      } catch (error) {
-        setSending(false);
-        setStatusError(error.message);
-      }
-    },
-    [email.value, message.value, sending]
-  );
+      setComplete(true);
+      setSending(false);
+    } catch (error) {
+      setSending(false);
+      setStatusError(error.message);
+    }
+  };
 
   return (
     <Section className={styles.contact} data-status={status}>
@@ -108,20 +81,20 @@ export const Contact = () => {
                   data-status={status}
                   level={3}
                   as="h1"
-                  style={getDelay(tokens.base.durationXS, initDelay, 0.3)}
+                  style={getDelay(tokens.base.durationXS, INIT_DELAY, 0.3)}
                 >
                   <DecoderText text="Say hello" start={status !== 'exited'} delay={300} />
                 </Heading>
                 <Divider
                   className={styles.divider}
                   data-status={status}
-                  style={getDelay(tokens.base.durationXS, initDelay, 0.4)}
+                  style={getDelay(tokens.base.durationXS, INIT_DELAY, 0.4)}
                 />
                 <Input
                   required
                   className={styles.input}
                   data-status={status}
-                  style={getDelay(tokens.base.durationXS, initDelay)}
+                  style={getDelay(tokens.base.durationXS, INIT_DELAY)}
                   autoComplete="email"
                   label="Your Email"
                   type="email"
@@ -133,7 +106,7 @@ export const Contact = () => {
                   multiline
                   className={styles.input}
                   data-status={status}
-                  style={getDelay(tokens.base.durationS, initDelay)}
+                  style={getDelay(tokens.base.durationS, INIT_DELAY)}
                   autoComplete="off"
                   label="Message"
                   maxLength={4096}
@@ -167,7 +140,7 @@ export const Contact = () => {
                   className={styles.button}
                   data-status={status}
                   data-sending={sending}
-                  style={getDelay(tokens.base.durationM, initDelay)}
+                  style={getDelay(tokens.base.durationM, INIT_DELAY)}
                   disabled={sending}
                   loading={sending}
                   loadingText="Sending..."
@@ -219,3 +192,27 @@ export const Contact = () => {
     </Section>
   );
 };
+
+function getStatusError({
+  status,
+  errorMessage,
+  fallback = 'There was a problem with your request',
+}) {
+  if (status === 200) return false;
+
+  const statuses = {
+    500: 'There was a problem with the server, try again later',
+    404: 'There was a problem connecting to the server. Make sure you are connected to the internet',
+  };
+
+  if (errorMessage) {
+    return errorMessage;
+  }
+
+  return statuses[status] || fallback;
+}
+
+function getDelay(delayMs, offset = numToMs(0), multiplier = 1) {
+  const numDelay = msToNum(delayMs) * multiplier;
+  return cssProps({ delay: numToMs((msToNum(offset) + numDelay).toFixed(0)) });
+}

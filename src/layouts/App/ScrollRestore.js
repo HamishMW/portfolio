@@ -10,16 +10,16 @@ export const ScrollRestore = () => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    // Opt out of native scroll restoration
+    window.history.scrollRestoration = 'manual';
+  }, []);
+
+  useEffect(() => {
     beforePopState(state => {
       state.options.scroll = false;
       return true;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    // Opt out of auto scroll restoration
-    window.history.scrollRestoration = 'manual';
   }, []);
 
   useEffect(() => {

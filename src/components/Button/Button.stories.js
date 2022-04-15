@@ -1,6 +1,6 @@
+import { Button } from 'components/Button';
 import { useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import { Button } from 'components/Button';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 
 export default {
@@ -54,5 +54,6 @@ export const iconOnly = () => (
 export const loader = () => (
   <StoryContainer>
     <LoadableButton>Click to load</LoadableButton>
+    <LoadableButton icon="send">Click to load</LoadableButton>
   </StoryContainer>
 );

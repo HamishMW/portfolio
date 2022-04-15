@@ -21,6 +21,7 @@
     "eslint-config-next": "^12.1.5",
     "gray-matter": "^4.0.3",
     "prettier": "^2.2.1",
+    "rehype-slug": "^5.0.1",
     "storybook-addon-next": "^1.6.2",
     "stylelint": "^14.6.1",
     "stylelint-config-css-modules": "^4.1.0",

@@ -160,6 +160,8 @@
 }
 
 .button {
+  --buttonLoaderDelay: var(--durationL);
+
   margin-top: calc(var(--spaceXL) * 2);
   transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
@@ -192,14 +194,6 @@
       & svg {
         transition-property: opacity;
         transform: none;
-      }
-    }
-
-    & .loader {
-      opacity: 0;
-
-      &:global {
-        animation: fade-in var(--durationM) ease var(--durationL) forwards;
       }
     }
   }

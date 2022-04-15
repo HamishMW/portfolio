@@ -4,7 +4,8 @@
   --buttonFocusWidth: 4px;
   --buttonPadding: 0 var(--spaceL);
   --buttonTextColor: rgb(var(--rgbBackground));
-  --buttonTextVisibility: visible;
+  --buttonTextOpacity: 1;
+  --buttonLoaderDelay: 0s;
 
   height: var(--buttonSize);
   padding: var(--buttonPadding);
@@ -88,7 +89,7 @@
   }
 
   &[data-loading='true'] {
-    --buttonTextVisibility: hidden;
+    --buttonTextOpacity: 0;
   }
 
   &[data-icon-only='true'] {
@@ -117,13 +118,14 @@
 .text {
   font-size: var(--buttonFontSize);
   font-weight: var(--fontWeightMedium);
-  visibility: var(--buttonTextVisibility);
+  opacity: var(--buttonTextOpacity);
   position: relative;
   line-height: 1;
   flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity var(--durationM) var(--bezierFastoutSlowin);
 }
 
 .loader {
@@ -131,6 +133,11 @@
   left: 50%;
   transform: translateX(-50%);
   color: rgb(var(--rgbBackground));
+  opacity: 0;
+
+  &:global {
+    animation: fade-in var(--durationM) ease var(--buttonLoaderDelay) forwards;
+  }
 }
 
 .icon {
