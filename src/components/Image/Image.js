@@ -15,7 +15,10 @@ export const Image = ({ className, style, reveal, delay = 0, raised, src, ...res
   const [loaded, setLoaded] = useState(false);
   const { themeId } = useTheme();
   const containerRef = useRef();
-  const inViewport = useInViewport(containerRef, !src?.endsWith('.mp4'));
+  const inViewport = useInViewport(
+    containerRef,
+    !(typeof src === 'string' && src?.endsWith('.mp4'))
+  );
 
   const onLoad = useCallback(() => {
     setLoaded(true);
@@ -63,28 +66,11 @@ const ImageElements = ({
   const [showPlayButton, setShowPlayButton] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const [placeholderSize, setPlaceholderSize] = useState();
   const [videoSrc, setVideoSrc] = useState();
   const placeholderRef = useRef();
   const videoRef = useRef();
-  const isVideo = src?.endsWith('.mp4');
-  const imgSrc = src || srcSet?.split(' ')[0];
+  const isVideo = typeof src === 'string' && src?.endsWith('.mp4');
   const showFullRes = inViewport;
-
-  useEffect(() => {
-    const purgePlaceholder = () => {
-      setShowPlaceholder(false);
-    };
-
-    const placeholderElement = placeholderRef.current;
-    placeholderElement.addEventListener('transitionend', purgePlaceholder);
-
-    return function cleanUp() {
-      if (placeholderElement) {
-        placeholderElement.removeEventListener('transitionend', purgePlaceholder);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     const resolveVideoSrc = async () => {
@@ -100,14 +86,6 @@ const ImageElements = ({
   }, [isVideo, src, srcSet]);
 
   useEffect(() => {
-    const { width, height } = placeholderRef.current;
-
-    if (width && height) {
-      setPlaceholderSize({ width, height });
-    }
-  }, []);
-
-  useEffect(() => {
     if (!videoRef.current || !videoSrc) return;
 
     if (!play || !inViewport) {
@@ -118,11 +96,6 @@ const ImageElements = ({
       videoRef.current.play();
     }
   }, [inViewport, play, prefersReducedMotion, videoSrc]);
-
-  const handlePlaceholderLoad = event => {
-    const { width, height } = event.target;
-    setPlaceholderSize({ width, height });
-  };
 
   const togglePlaying = event => {
     event.preventDefault();
@@ -200,10 +173,10 @@ const ImageElements = ({
           data-loaded={loaded}
           onLoad={onLoad}
           decoding="async"
-          src={showFullRes ? imgSrc : undefined}
+          src={showFullRes ? src.src : undefined}
           srcSet={showFullRes ? srcSet : undefined}
-          width={placeholderSize?.width}
-          height={placeholderSize?.height}
+          width={src.width}
+          height={src.height}
           alt={alt}
           {...rest}
         />
@@ -215,10 +188,10 @@ const ImageElements = ({
           data-loaded={loaded}
           style={cssProps({ delay: numToMs(delay) })}
           ref={placeholderRef}
-          src={placeholder}
-          onLoad={handlePlaceholderLoad}
-          width={placeholderSize?.width}
-          height={placeholderSize?.height}
+          src={placeholder.src}
+          width={placeholder.width}
+          height={placeholder.height}
+          onTransitionEnd={() => setShowPlaceholder(false)}
           decoding="async"
           alt=""
           role="presentation"

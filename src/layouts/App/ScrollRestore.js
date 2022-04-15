@@ -4,16 +4,31 @@ import { useEffect } from 'react';
 
 // Custom scroll restoration to avoid jank during page transitions
 export const ScrollRestore = () => {
-  const { asPath } = useRouter();
+  const { asPath, beforePopState } = useRouter();
   const { status } = useRouteTransition();
   const prevStatus = usePrevious(status);
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    beforePopState(state => {
+      state.options.scroll = false;
+      return true;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    // Opt out of auto scroll restoration
+    window.history.scrollRestoration = 'manual';
+  }, []);
 
   useEffect(() => {
     const hasEntered = prevStatus === 'entering' && status === 'entered';
     const hasEnteredReducedMotion = prefersReducedMotion && status === 'entered';
 
     const restoreScroll = () => {
+      document.documentElement.style = 'scroll-behavior: auto';
+
       // Handle hash link restoration
       if (asPath.includes('#')) {
         requestAnimationFrame(() => {
@@ -24,13 +39,15 @@ export const ScrollRestore = () => {
           }
         });
       } else {
-        window.scrollTo(0, 0);
+        requestAnimationFrame(() => {
+          window.scrollTo(0, 0);
+        });
       }
-    };
 
-    // if (!prevStatus) {
-    //   restoreScroll();
-    // }
+      setTimeout(() => {
+        document.documentElement.removeAttribute('style');
+      }, 1000);
+    };
 
     if (hasEntered || hasEnteredReducedMotion) {
       restoreScroll();

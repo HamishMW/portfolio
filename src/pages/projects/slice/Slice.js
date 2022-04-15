@@ -1,3 +1,24 @@
+import sliceAnnotationLarge from 'assets/slice-annotation-large.png';
+import sliceAnnotationPlaceholder from 'assets/slice-annotation-placeholder.png';
+import sliceAnnotation from 'assets/slice-annotation.png';
+import sliceAppLarge from 'assets/slice-app-large.jpg';
+import sliceAppPlaceholder from 'assets/slice-app-placeholder.jpg';
+import sliceApp from 'assets/slice-app.jpg';
+import sliceBackgroundBarLarge from 'assets/slice-background-bar-large.jpg';
+import sliceBackgroundBarPlaceholder from 'assets/slice-background-bar-placeholder.jpg';
+import sliceBackgroundBar from 'assets/slice-background-bar.jpg';
+import sliceBackgroundLarge from 'assets/slice-background-large.jpg';
+import sliceBackgroundPlaceholder from 'assets/slice-background-placeholder.jpg';
+import sliceBackground from 'assets/slice-background.jpg';
+import sliceSidebarAnnotationsLarge from 'assets/slice-sidebar-annotations-large.png';
+import sliceSidebarAnnotationsPlaceholder from 'assets/slice-sidebar-annotations-placeholder.png';
+import sliceSidebarAnnotations from 'assets/slice-sidebar-annotations.png';
+import sliceSidebarLayersLarge from 'assets/slice-sidebar-layers-large.png';
+import sliceSidebarLayersPlaceholder from 'assets/slice-sidebar-layers-placeholder.png';
+import sliceSidebarLayers from 'assets/slice-sidebar-layers.png';
+import sliceSlidesLarge from 'assets/slice-slides-large.jpg';
+import sliceSlidesPlaceholder from 'assets/slice-slides-placeholder.jpg';
+import sliceSlides from 'assets/slice-slides.jpg';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
 import {
@@ -17,29 +38,6 @@ import { Fragment } from 'react';
 import { media } from 'utils/style';
 import styles from './Slice.module.css';
 
-const sliceAnnotationLarge = '/assets/slice-annotation-large.png';
-const sliceAnnotationPlaceholder = '/assets/slice-annotation-placeholder.png';
-const sliceAnnotation = '/assets/slice-annotation.png';
-const sliceAppLarge = '/assets/slice-app-large.jpg';
-const sliceAppPlaceholder = '/assets/slice-app-placeholder.jpg';
-const sliceApp = '/assets/slice-app.jpg';
-const sliceBackgroundBarLarge = '/assets/slice-background-bar-large.jpg';
-const sliceBackgroundBarPlaceholder = '/assets/slice-background-bar-placeholder.jpg';
-const sliceBackgroundBar = '/assets/slice-background-bar.jpg';
-const sliceBackgroundLarge = '/assets/slice-background-large.jpg';
-const sliceBackgroundPlaceholder = '/assets/slice-background-placeholder.jpg';
-const sliceBackground = '/assets/slice-background.jpg';
-const sliceSidebarAnnotationsLarge = '/assets/slice-sidebar-annotations-large.png';
-const sliceSidebarAnnotationsPlaceholder =
-  '/assets/slice-sidebar-annotations-placeholder.png';
-const sliceSidebarAnnotations = '/assets/slice-sidebar-annotations.png';
-const sliceSidebarLayersLarge = '/assets/slice-sidebar-layers-large.png';
-const sliceSidebarLayersPlaceholder = '/assets/slice-sidebar-layers-placeholder.png';
-const sliceSidebarLayers = '/assets/slice-sidebar-layers.png';
-const sliceSlidesLarge = '/assets/slice-slides-large.jpg';
-const sliceSlidesPlaceholder = '/assets/slice-slides-placeholder.jpg';
-const sliceSlides = '/assets/slice-slides.jpg';
-
 const title = 'Biomedical image collaboration';
 const description =
   'This project involved designing a better way for biomedical educators and learners to annotate digital slides together.';
@@ -54,7 +52,8 @@ export const Slice = () => {
       </Head>
       <ProjectContainer className={styles.slice}>
         <ProjectBackground
-          srcSet={`${sliceBackground} 1280w, ${sliceBackgroundLarge} 2560w`}
+          src={sliceBackground}
+          srcSet={`${sliceBackground.src} 1280w, ${sliceBackgroundLarge.src} 2560w`}
           placeholder={sliceBackgroundPlaceholder}
           opacity={0.8}
         />
@@ -67,7 +66,8 @@ export const Slice = () => {
         <ProjectSection first>
           <ProjectSectionContent>
             <ProjectImage
-              srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1920w`}
+              src={sliceApp}
+              srcSet={`${sliceApp.src} 800w, ${sliceAppLarge.src} 1920w`}
               placeholder={sliceAppPlaceholder}
               alt="The Slice web application showing a selected user annotation."
               sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 90vw, 80vw`}
@@ -92,14 +92,16 @@ export const Slice = () => {
             <div className={styles.sidebarImages}>
               <Image
                 className={styles.sidebarImage}
-                srcSet={`${sliceSidebarLayers} 300w, ${sliceSidebarLayersLarge} 700w`}
+                src={sliceSidebarLayers}
+                srcSet={`${sliceSidebarLayers.src} 300w, ${sliceSidebarLayersLarge.src} 700w`}
                 placeholder={sliceSidebarLayersPlaceholder}
                 alt="The layers sidebar design, now with user profiles."
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
               />
               <Image
                 className={styles.sidebarImage}
-                srcSet={`${sliceSidebarAnnotations} 300w, ${sliceSidebarAnnotationsLarge} 700w`}
+                src={sliceSidebarAnnotations}
+                srcSet={`${sliceSidebarAnnotations.src} 300w, ${sliceSidebarAnnotationsLarge.src} 700w`}
                 placeholder={sliceSidebarAnnotationsPlaceholder}
                 alt="Multiple user annotations on a shared layer."
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
@@ -121,7 +123,8 @@ export const Slice = () => {
               </ProjectSectionText>
             </ProjectTextRow>
             <Image
-              srcSet={`${sliceSlides} 800w, ${sliceSlidesLarge} 1440w`}
+              src={sliceSlides}
+              srcSet={`${sliceSlides.src} 800w, ${sliceSlidesLarge.src} 1440w`}
               placeholder={sliceSlidesPlaceholder}
               alt="The new My Slides tab in slice, showing annotated and favorited slides."
               sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
@@ -133,7 +136,8 @@ export const Slice = () => {
             <div className={styles.gridImage}>
               <div className={styles.gridBackground}>
                 <Image
-                  srcSet={`${sliceBackgroundBar} 400w, ${sliceBackgroundBarLarge} 898w`}
+                  src={sliceBackgroundBar}
+                  srcSet={`${sliceBackgroundBar.src} 400w, ${sliceBackgroundBarLarge.src} 898w`}
                   placeholder={sliceBackgroundBarPlaceholder}
                   alt=""
                   role="presentation"
@@ -142,7 +146,8 @@ export const Slice = () => {
               </div>
               <div className={styles.gridForeground}>
                 <Image
-                  srcSet={`${sliceAnnotation} 440w, ${sliceAnnotationLarge} 880w`}
+                  src={sliceAnnotation}
+                  srcSet={`${sliceAnnotation.src} 440w, ${sliceAnnotationLarge.src} 880w`}
                   placeholder={sliceAnnotationPlaceholder}
                   alt="An annotation preview popover with statistics for shape perimeter and area."
                   sizes={`(max-width: ${media.mobile}px) 584px, (max-width: ${media.tablet}px) 747px, 556px`}

@@ -1,3 +1,11 @@
+import earthModel from 'assets/earth.glb';
+import mwnx from 'assets/milkyway-nx.hdr';
+import mwny from 'assets/milkyway-ny.hdr';
+import mwnz from 'assets/milkyway-nz.hdr';
+import mwpx from 'assets/milkyway-px.hdr';
+import mwpy from 'assets/milkyway-py.hdr';
+import mwpz from 'assets/milkyway-pz.hdr';
+import milkywayBg from 'assets/milkyway.jpg';
 import { Loader } from 'components/Loader';
 import { Section } from 'components/Section';
 import { tokens } from 'components/ThemeProvider/theme';
@@ -40,15 +48,6 @@ import { classes, media, msToNum } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
 import { reflow } from 'utils/transition';
 import styles from './Earth.module.css';
-
-const mwnx = '/assets/milkyway-nx.hdr';
-const mwny = '/assets/milkyway-ny.hdr';
-const mwnz = '/assets/milkyway-nz.hdr';
-const mwpx = '/assets/milkyway-px.hdr';
-const mwpy = '/assets/milkyway-py.hdr';
-const mwpz = '/assets/milkyway-pz.hdr';
-const milkywayBg = '/assets/milkyway.jpg';
-const earthModel = '/assets/earth.glb';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
 
@@ -272,7 +271,7 @@ export const Earth = forwardRef(
       };
 
       const loadBackground = async () => {
-        const backgroundTexture = await textureLoader.loadAsync(milkywayBg);
+        const backgroundTexture = await textureLoader.loadAsync(milkywayBg.src);
         backgroundTexture.mapping = EquirectangularReflectionMapping;
         backgroundTexture.encoding = sRGBEncoding;
         scene.current.background = backgroundTexture;

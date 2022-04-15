@@ -7,7 +7,7 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { useParallax } from 'hooks';
 import { forwardRef } from 'react';
 import { Transition } from 'react-transition-group';
-import { classes, cssProps, numToMs } from 'utils/style';
+import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import styles from './Project.module.css';
 
 const initDelay = 300;
@@ -109,7 +109,7 @@ export const ProjectBackground = ({ opacity = 0.7, className, ...rest }) => {
   const offset = useParallax(0.6);
 
   return (
-    <Transition appear in timeout={tokens.base.durationM}>
+    <Transition appear in timeout={msToNum(tokens.base.durationM)}>
       {status => (
         <div className={classes(styles.backgroundImage, className)} data-status={status}>
           <div className={styles.backgroundImageElement} style={cssProps({ offset })}>

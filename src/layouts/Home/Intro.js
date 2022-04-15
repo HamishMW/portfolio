@@ -7,7 +7,7 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useInterval, usePrevious } from 'hooks';
 import RouterLink from 'next/link';
-import { Fragment, Suspense, lazy, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { cssProps } from 'utils/style';
 import { reflow } from 'utils/transition';
@@ -59,7 +59,6 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
             {/* <Suspense fallback={null}> */}
             <DisplacementSphere />
             {/* </Suspense> */}
-
             <header className={styles.text}>
               <h1 className={styles.name} data-status={status} id={titleId}>
                 <DecoderText text="Hamish Williams" delay={300} />

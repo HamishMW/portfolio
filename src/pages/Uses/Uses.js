@@ -1,3 +1,5 @@
+import usesBackgroundPlaceholder from 'assets/uses-background-placeholder.jpg';
+import usesBackground from 'assets/uses-background.mp4';
 import { Footer } from 'components/Footer';
 import { Link } from 'components/Link';
 import { Table, TableCell, TableRow } from 'components/Table';
@@ -14,9 +16,6 @@ import {
 import Head from 'next/head';
 import { Fragment } from 'react';
 import styles from './Uses.module.css';
-
-const usesBackgroundPlaceholder = '/assets/uses-background-placeholder.jpg';
-const usesBackground = '/assets/uses-background.mp4';
 
 export const Uses = () => {
   return (

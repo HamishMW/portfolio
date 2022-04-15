@@ -195,9 +195,12 @@
       }
     }
 
-    & .loader:global {
+    & .loader {
       opacity: 0;
-      animation: fade-in var(--durationM) ease var(--durationL) forwards;
+
+      &:global {
+        animation: fade-in var(--durationM) ease var(--durationL) forwards;
+      }
     }
   }
 

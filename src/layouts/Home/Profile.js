@@ -1,4 +1,7 @@
 import KatakanaProfile from 'assets/katakana-profile.svg';
+import profileImgLarge from 'assets/profile-large.jpg';
+import profileImgPlaceholder from 'assets/profile-placeholder.jpg';
+import profileImg from 'assets/profile.jpg';
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Divider } from 'components/Divider';
@@ -12,10 +15,6 @@ import { Transition } from 'react-transition-group';
 import { media } from 'utils/style';
 import { reflow } from 'utils/transition';
 import styles from './Profile.module.css';
-
-const ProfileImgLarge = '/assets/profile-large.jpg';
-const ProfileImgPlaceholder = '/assets/profile-placeholder.jpg';
-const ProfileImg = '/assets/profile.jpg';
 
 const ProfileText = ({ status, titleId }) => (
   <Fragment>
@@ -80,8 +79,9 @@ export const Profile = ({ id, visible, sectionRef }) => {
                 <Image
                   reveal
                   delay={100}
-                  placeholder={ProfileImgPlaceholder}
-                  srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
+                  placeholder={profileImgPlaceholder}
+                  src={profileImg}
+                  srcSet={`${profileImg.src} 480w, ${profileImgLarge.src} 960w`}
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
                   alt="Me standing in front of the Torii on Miyajima, an island off the coast of Hiroshima in Japan"
                 />

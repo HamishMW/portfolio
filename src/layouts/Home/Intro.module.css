@@ -272,8 +272,10 @@
   transform-origin: left;
   opacity: 0;
 
-  &[data-status='entering']:global {
-    animation-name: fade-in;
+  &[data-status='entering'] {
+    &:global {
+      animation-name: fade-in;
+    }
 
     @media (--mediaUseMotion) {
       & {

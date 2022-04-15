@@ -1,12 +1,11 @@
+import GothamBold from 'assets/fonts/gotham-bold.woff2';
+import GothamBook from 'assets/fonts/gotham-book.woff2';
+import GothamMedium from 'assets/fonts/gotham-medium.woff2';
 import Head from 'next/head';
 import { Fragment, createContext, useEffect } from 'react';
 import { classes, media } from 'utils/style';
 import { theme, tokens } from './theme';
 import useTheme from './useTheme';
-
-const GothamBold = '/assets/fonts/gotham-bold.woff2';
-const GothamBook = '/assets/fonts/gotham-book.woff2';
-const GothamMedium = '/assets/fonts/gotham-medium.woff2';
 
 export const fontStyles = `
   @font-face {
@@ -39,6 +38,7 @@ const ThemeProvider = ({
   children,
   className,
   as: Component = 'div',
+  ...rest
 }) => {
   const currentTheme = { ...theme[themeId], ...themeOverrides };
   const parentTheme = useTheme();
@@ -71,7 +71,8 @@ const ThemeProvider = ({
       {!isRootProvider && (
         <Component
           className={classes('theme-provider', className)}
-          style={createThemeStyleObject(currentTheme)}
+          data-theme={themeId}
+          {...rest}
         >
           {children}
         </Component>
@@ -129,11 +130,13 @@ export const tokenStyles = `
 
   ${createMediaTokenProperties()}
 
-  .dark {
+  .dark,
+  [data-theme='dark'] {
     ${createThemeProperties(theme.dark)}
   }
 
-  .light {
+  .light,
+  [data-theme='light'] {
     ${createThemeProperties(theme.light)}
   }
 `;

@@ -73,7 +73,7 @@ export const SegmentedControl = ({
         <VisuallyHidden as="label" className={styles.label} id={labelId}>
           {label}
         </VisuallyHidden>
-        <div className={styles.option}>
+        <div className={styles.options}>
           {!!indicator && (
             <div
               className={styles.indicator}

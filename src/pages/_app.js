@@ -16,8 +16,8 @@ import { msToNum } from 'utils/style';
 import { reflow } from 'utils/transition';
 import { ScrollRestore } from '../layouts/App/ScrollRestore';
 
-export const AppContext = createContext();
-export const TransitionContext = createContext();
+export const AppContext = createContext({});
+export const TransitionContext = createContext({});
 
 const repoPrompt = `
 __  __  __
@@ -28,21 +28,11 @@ __  __  __
 const App = ({ Component }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { route, beforePopState } = useRouter();
+  const { route } = useRouter();
 
   useEffect(() => {
     console.info(`${repoPrompt}\n\n`);
   }, []);
-
-  useEffect(() => {
-    // Disable scroll restoration in favor of custom animation-aware scroll restoration
-    window.history.scrollRestoration = 'manual';
-
-    beforePopState(state => {
-      state.options.scroll = false;
-      return true;
-    });
-  }, [beforePopState]);
 
   useEffect(() => {
     dispatch({ type: 'setTheme', value: storedTheme || 'dark' });
@@ -58,7 +48,7 @@ const App = ({ Component }) => {
           <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#MainContent">
             Skip to main content
           </VisuallyHidden>
-          <Navbar location={route} />
+          <Navbar />
           <TransitionGroup
             component="main"
             className={styles.app}

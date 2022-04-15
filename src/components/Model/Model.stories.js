@@ -1,16 +1,15 @@
+import phoneTexture2Large from 'assets/gamestack-list-large.jpg';
+import phoneTexture2Placeholder from 'assets/gamestack-list-placeholder.jpg';
+import phoneTexture2 from 'assets/gamestack-list.jpg';
+import phoneTextureLarge from 'assets/gamestack-login-large.jpg';
+import phoneTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
+import phoneTexture from 'assets/gamestack-login.jpg';
+import laptopTexture from 'assets/spr-lesson-builder-dark-large.jpg';
+import laptopTextureLarge from 'assets/spr-lesson-builder-dark-large.jpg';
+import laptopTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
 import { Model } from 'components/Model/Model';
 import { StoryContainer } from '../../../.storybook/StoryContainer';
 import { deviceModels } from './deviceModels';
-
-const phoneTexture2Large = '/assets/gamestack-list-large.jpg';
-const phoneTexture2Placeholder = '/assets/gamestack-list-placeholder.jpg';
-const phoneTexture2 = '/assets/gamestack-list.jpg';
-const phoneTextureLarge = '/assets/gamestack-login-large.jpg';
-const phoneTexturePlaceholder = '/assets/gamestack-login-placeholder.jpg';
-const phoneTexture = '/assets/gamestack-login.jpg';
-const laptopTexture = '/assets/spr-lesson-builder-dark-large.jpg';
-const laptopTextureLarge = '/assets/spr-lesson-builder-dark-large.jpg';
-const laptopTexturePlaceholder = '/assets/spr-lesson-builder-dark-placeholder.jpg';
 
 export default {
   title: 'Model',
@@ -29,18 +28,18 @@ export const phone = () => (
           ...deviceModels.phone,
           position: { x: -0.6, y: 0.8, z: 0.1 },
           texture: {
-            src: phoneTexture,
-            srcSet: `${phoneTexture} 800w, ${phoneTextureLarge} 1440w`,
-            placeholder: phoneTexturePlaceholder,
+            src: phoneTexture.src,
+            srcSet: `${phoneTexture.src} 800w, ${phoneTextureLarge.src} 1440w`,
+            placeholder: phoneTexturePlaceholder.src,
           },
         },
         {
           ...deviceModels.phone,
           position: { x: 0.6, y: -0.8, z: 0.4 },
           texture: {
-            src: phoneTexture2,
-            srcSet: `${phoneTexture2} 800w, ${phoneTexture2Large} 1440w`,
-            placeholder: phoneTexture2Placeholder,
+            src: phoneTexture2.src,
+            srcSet: `${phoneTexture2.src} 800w, ${phoneTexture2Large.src} 1440w`,
+            placeholder: phoneTexture2Placeholder.src,
           },
         },
       ]}
@@ -59,9 +58,9 @@ export const laptop = () => (
           ...deviceModels.laptop,
           position: { x: 0, y: 0, z: 0 },
           texture: {
-            src: laptopTexture,
-            srcSet: `${laptopTexture} 800w, ${laptopTextureLarge} 1440w`,
-            placeholder: laptopTexturePlaceholder,
+            src: laptopTexture.src,
+            srcSet: `${laptopTexture.src} 800w, ${laptopTextureLarge.src} 1440w`,
+            placeholder: laptopTexturePlaceholder.src,
           },
         },
       ]}

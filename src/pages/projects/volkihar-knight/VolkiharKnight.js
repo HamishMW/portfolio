@@ -1,5 +1,28 @@
+import volkiharBackgroundLarge from 'assets/volkihar-background-large.jpg';
+import volkiharBackgroundPlaceholder from 'assets/volkihar-background-placeholder.jpg';
+import volkiharBackground from 'assets/volkihar-background.jpg';
+import volkiharBannerLarge from 'assets/volkihar-banner-large.jpg';
+import volkiharBannerPlaceholder from 'assets/volkihar-banner-placeholder.jpg';
+import volkiharBanner from 'assets/volkihar-banner.jpg';
+import volkiharBookLarge from 'assets/volkihar-book-large.png';
+import volkiharBookPlaceholder from 'assets/volkihar-book-placeholder.png';
+import volkiharBook from 'assets/volkihar-book.png';
+import volkiharEnderalLarge from 'assets/volkihar-enderal-large.jpg';
+import volkiharEnderalLogoLarge from 'assets/volkihar-enderal-logo-large.png';
+import volkiharEnderalLogoPlaceholder from 'assets/volkihar-enderal-logo-placeholder.png';
+import volkiharEnderalLogo from 'assets/volkihar-enderal-logo.png';
+import volkiharEnderalPlaceholder from 'assets/volkihar-enderal-placeholder.jpg';
+import volkiharEnderal from 'assets/volkihar-enderal.jpg';
 import VolkiharKnightLogo from 'assets/volkihar-logo.svg';
+import volkiharSlide1Large from 'assets/volkihar-slide-1-large.jpg';
+import volkiharSlide1 from 'assets/volkihar-slide-1.jpg';
+import volkiharSlide2Large from 'assets/volkihar-slide-2-large.jpg';
+import volkiharSlide2 from 'assets/volkihar-slide-2.jpg';
+import volkiharSlide3Large from 'assets/volkihar-slide-3-large.jpg';
+import volkiharSlide3 from 'assets/volkihar-slide-3.jpg';
+import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
 import { Button } from 'components/Button';
+import Carousel from 'components/Carousel';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
 import { useRouteTransition } from 'hooks';
@@ -16,35 +39,13 @@ import {
   ProjectTextRow,
 } from 'layouts/Project';
 import Head from 'next/head';
-import { Fragment, Suspense, lazy } from 'react';
+import { Fragment } from 'react';
 import { media } from 'utils/style';
+import Armor from './Armor';
 import styles from './VolkiharKnight.module.css';
 
-const volkiharBackgroundLarge = '/assets/volkihar-background-large.jpg';
-const volkiharBackgroundPlaceholder = '/assets/volkihar-background-placeholder.jpg';
-const volkiharBackground = '/assets/volkihar-background.jpg';
-const volkiharBannerLarge = '/assets/volkihar-banner-large.jpg';
-const volkiharBannerPlaceholder = '/assets/volkihar-banner-placeholder.jpg';
-const volkiharBanner = '/assets/volkihar-banner.jpg';
-const volkiharBookLarge = '/assets/volkihar-book-large.png';
-const volkiharBookPlaceholder = '/assets/volkihar-book-placeholder.png';
-const volkiharBook = '/assets/volkihar-book.png';
-const volkiharEnderalLarge = '/assets/volkihar-enderal-large.jpg';
-const volkiharEnderalLogoLarge = '/assets/volkihar-enderal-logo-large.png';
-const volkiharEnderalLogoPlaceholder = '/assets/volkihar-enderal-logo-placeholder.png';
-const volkiharEnderalLogo = '/assets/volkihar-enderal-logo.png';
-const volkiharEnderalPlaceholder = '/assets/volkihar-enderal-placeholder.jpg';
-const volkiharEnderal = '/assets/volkihar-enderal.jpg';
-const volkiharSlide1Large = '/assets/volkihar-slide-1-large.jpg';
-const volkiharSlide1 = '/assets/volkihar-slide-1.jpg';
-const volkiharSlide2Large = '/assets/volkihar-slide-2-large.jpg';
-const volkiharSlide2 = '/assets/volkihar-slide-2.jpg';
-const volkiharSlide3Large = '/assets/volkihar-slide-3-large.jpg';
-const volkiharSlide3 = '/assets/volkihar-slide-3.jpg';
-const volkiharSlidePlaceholder = '/assets/volkihar-slide-placeholder.jpg';
-
-const Carousel = lazy(() => import('components/Carousel'));
-const Armor = lazy(() => import('./Armor'));
+// const Carousel = lazy(() => import('components/Carousel'));
+// const Armor = lazy(() => import('./Armor'));
 
 const title = 'Volkihar Knight';
 const description =
@@ -74,7 +75,8 @@ export function VolkiharKnight() {
       )}
       <ProjectContainer>
         <ProjectBackground
-          srcSet={`${volkiharBackground} 1000w, ${volkiharBackgroundLarge} 1600w`}
+          src={volkiharBackground}
+          srcSet={`${volkiharBackground.src} 1000w, ${volkiharBackgroundLarge.src} 1600w`}
           placeholder={volkiharBackgroundPlaceholder}
           opacity={0.5}
         />
@@ -88,7 +90,8 @@ export function VolkiharKnight() {
         <ProjectSection first>
           <ProjectSectionContent>
             <ProjectImage
-              srcSet={`${volkiharBanner} 800w, ${volkiharBannerLarge} 1100w`}
+              src={volkiharBackground}
+              srcSet={`${volkiharBanner.src} 800w, ${volkiharBannerLarge.src} 1100w`}
               placeholder={volkiharBannerPlaceholder}
               alt="A dark elf wearing the Volkihar Knight armor with the logo overlaid on the image."
               sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
@@ -98,7 +101,8 @@ export function VolkiharKnight() {
         <ProjectSection>
           <ProjectSectionContent>
             <Image
-              srcSet={`${volkiharBook} 480w, ${volkiharBookLarge} 960w`}
+              src={volkiharBook}
+              srcSet={`${volkiharBook.src} 480w, ${volkiharBookLarge.src} 960w`}
               placeholder={volkiharBookPlaceholder}
               alt="A book containing a sketch depicting the logo and armor"
               sizes={`(max-width: ${media.mobile}px) 90vw, (max-width: ${media.tablet}px) 80vw, 70vw`}
@@ -107,11 +111,9 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionColumns>
-            {/* {!ssr && (
-              <Suspense fallback={null}>
-                <Armor alt="3D model of the Volkihar Knight armor" />
-              </Suspense>
-            )} */}
+            {/* <Suspense fallback={null}> */}
+            <Armor alt="3D model of the Volkihar Knight armor" />
+            {/* </Suspense> */}
             <div className={styles.textSection}>
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>
@@ -150,38 +152,37 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionContent>
-            {/* {!ssr && (
-              <Suspense fallback={null}>
-                <Carousel
-                  placeholder={volkiharSlidePlaceholder}
-                  images={[
-                    {
-                      src: volkiharSlide1,
-                      srcSet: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
-                      alt: 'A female character wearing the black coloured armor set.',
-                    },
-                    {
-                      src: volkiharSlide2,
-                      srcSet: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
-                      alt: 'A close up of the custom gauntlets design.',
-                    },
-                    {
-                      src: volkiharSlide3,
-                      srcSet: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
-                      alt: 'A female character wielding a sword and wearing the red coloured armor.',
-                    },
-                  ]}
-                  width={1920}
-                  height={1080}
-                />
-              </Suspense>
-            )} */}
+            {/* <Suspense fallback={null}> */}
+            <Carousel
+              placeholder={volkiharSlidePlaceholder}
+              images={[
+                {
+                  src: volkiharSlide1,
+                  srcSet: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
+                  alt: 'A female character wearing the black coloured armor set.',
+                },
+                {
+                  src: volkiharSlide2,
+                  srcSet: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
+                  alt: 'A close up of the custom gauntlets design.',
+                },
+                {
+                  src: volkiharSlide3,
+                  srcSet: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
+                  alt: 'A female character wielding a sword and wearing the red coloured armor.',
+                },
+              ]}
+              width={1920}
+              height={1080}
+            />
+            {/* </Suspense> */}
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection
           backgroundElement={
             <Image
-              srcSet={`${volkiharEnderal} 1280w, ${volkiharEnderalLarge} 1920w`}
+              src={volkiharEnderal}
+              srcSet={`${volkiharEnderal.src} 1280w, ${volkiharEnderalLarge.src} 1920w`}
               placeholder={volkiharEnderalPlaceholder}
               alt="A promotional image from Enderal showing several characters in the game overlooking a distant city."
               sizes={`100vw`}
@@ -191,7 +192,8 @@ export function VolkiharKnight() {
           <ProjectSectionContent>
             <ProjectTextRow center centerMobile noMargin>
               <Image
-                srcSet={`${volkiharEnderalLogo} 180w, ${volkiharEnderalLogoLarge} 320w`}
+                src={volkiharEnderalLogo}
+                srcSet={`${volkiharEnderalLogo.src} 180w, ${volkiharEnderalLogoLarge.src} 320w`}
                 placeholder={volkiharEnderalLogoPlaceholder}
                 alt="The Enderal game logo"
                 sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 220px`}

@@ -1,5 +1,18 @@
+import gamestackTexture2Large from 'assets/gamestack-list-large.jpg';
+import gamestackTexture2Placeholder from 'assets/gamestack-list-placeholder.jpg';
+import gamestackTexture2 from 'assets/gamestack-list.jpg';
+import gamestackTextureLarge from 'assets/gamestack-login-large.jpg';
+import gamestackTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
+import gamestackTexture from 'assets/gamestack-login.jpg';
+import iphone11 from 'assets/iphone-11.glb';
+import macbookPro from 'assets/macbook-pro.glb';
+import sliceTextureLarge from 'assets/slice-app-large.jpg';
+import sliceTexturePlaceholder from 'assets/slice-app-placeholder.jpg';
+import sliceTexture from 'assets/slice-app.jpg';
+import sprTextureLarge from 'assets/spr-lesson-builder-dark-large.jpg';
+import sprTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
+import sprTexture from 'assets/spr-lesson-builder-dark.jpg';
 import { Footer } from 'components/Footer';
-import { usePrefersReducedMotion, useRouteTransition } from 'hooks';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
@@ -7,30 +20,9 @@ import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
-const gamestackTexture2Large = '/assets/gamestack-list-large.jpg';
-const gamestackTexture2Placeholder = '/assets/gamestack-list-placeholder.jpg';
-const gamestackTexture2 = '/assets/gamestack-list.jpg';
-const gamestackTextureLarge = '/assets/gamestack-login-large.jpg';
-const gamestackTexturePlaceholder = '/assets/gamestack-login-placeholder.jpg';
-const gamestackTexture = '/assets/gamestack-login.jpg';
-const iphone11 = '/assets/iphone-11.glb';
-const macbookPro = '/assets/macbook-pro.glb';
-const sliceTextureLarge = '/assets/slice-app-large.jpg';
-const sliceTexturePlaceholder = '/assets/slice-app-placeholder.jpg';
-const sliceTexture = '/assets/slice-app.jpg';
-const sprTextureLarge = '/assets/spr-lesson-builder-dark-large.jpg';
-const sprTexturePlaceholder = '/assets/spr-lesson-builder-dark-placeholder.jpg';
-const sprTexture = '/assets/spr-lesson-builder-dark.jpg';
-
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
 export const Home = () => {
-  const { status } = useRouteTransition();
-  // const { hash, state } = useLocation();
-  const hash = '';
-  const state = '';
-
-  const initHash = useRef(true);
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
   const intro = useRef();
@@ -38,7 +30,6 @@ export const Home = () => {
   const projectTwo = useRef();
   const projectThree = useRef();
   const details = useRef();
-  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const revealSections = [intro, projectOne, projectTwo, projectThree, details];
@@ -76,68 +67,6 @@ export const Home = () => {
     };
   }, [visibleSections]);
 
-  useEffect(() => {
-    const hasEntered = status === 'entered';
-    const supportsNativeSmoothScroll = 'scrollBehavior' in document.documentElement.style;
-    let scrollObserver;
-    let scrollTimeout;
-
-    const handleHashchange = (hash, scroll) => {
-      clearTimeout(scrollTimeout);
-      const hashSections = [intro, projectOne, details];
-      const hashString = hash.replace('#', '');
-      const element = hashSections.filter(item => item.current.id === hashString)[0];
-      if (!element) return;
-      const behavior = scroll && !prefersReducedMotion ? 'smooth' : 'instant';
-      const top = element.current.offsetTop;
-
-      scrollObserver = new IntersectionObserver(
-        (entries, observer) => {
-          const [entry] = entries;
-          if (entry.isIntersecting) {
-            scrollTimeout = setTimeout(
-              () => {
-                element.current.focus();
-              },
-              prefersReducedMotion ? 0 : 400
-            );
-            observer.unobserve(entry.target);
-          }
-        },
-        { rootMargin: '-20% 0px -20% 0px' }
-      );
-
-      scrollObserver.observe(element.current);
-
-      if (supportsNativeSmoothScroll) {
-        window.scroll({
-          top,
-          left: 0,
-          behavior,
-        });
-      } else {
-        window.scrollTo(0, top);
-      }
-    };
-
-    if (hash && initHash.current && hasEntered) {
-      handleHashchange(hash, false);
-      initHash.current = false;
-    } else if (!hash && initHash.current && hasEntered) {
-      window.scrollTo(0, 0);
-      initHash.current = false;
-    } else if (hasEntered) {
-      handleHashchange(hash, true);
-    }
-
-    return () => {
-      clearTimeout(scrollTimeout);
-      if (scrollObserver) {
-        scrollObserver.disconnect();
-      }
-    };
-  }, [hash, state, prefersReducedMotion, status]);
-
   return (
     <div className={styles.home}>
       <Head>
@@ -170,9 +99,9 @@ export const Home = () => {
           alt: 'Smart Sparrow lesson builder',
           textures: [
             {
-              src: sprTexture,
-              srcSet: `${sprTexture} 800w, ${sprTextureLarge} 1440w`,
-              placeholder: sprTexturePlaceholder,
+              src: sprTexture.src,
+              srcSet: `${sprTexture.src} 800w, ${sprTextureLarge.src} 1440w`,
+              placeholder: sprTexturePlaceholder.src,
             },
           ],
         }}
@@ -192,14 +121,14 @@ export const Home = () => {
           alt: 'App login screen',
           textures: [
             {
-              src: gamestackTexture,
-              srcSet: `${gamestackTexture} 254w, ${gamestackTextureLarge} 508w`,
-              placeholder: gamestackTexturePlaceholder,
+              src: gamestackTexture.src,
+              srcSet: `${gamestackTexture.src} 254w, ${gamestackTextureLarge.src} 508w`,
+              placeholder: gamestackTexturePlaceholder.src,
             },
             {
-              src: gamestackTexture2,
-              srcSet: `${gamestackTexture2} 254w, ${gamestackTexture2Large} 508w`,
-              placeholder: gamestackTexture2Placeholder,
+              src: gamestackTexture2.src,
+              srcSet: `${gamestackTexture2.src} 254w, ${gamestackTexture2Large.src} 508w`,
+              placeholder: gamestackTexture2Placeholder.src,
             },
           ],
         }}
@@ -218,9 +147,9 @@ export const Home = () => {
           alt: 'Annotating a biomedical image in the Slice app',
           textures: [
             {
-              src: sliceTexture,
-              srcSet: `${sliceTexture} 980w, ${sliceTextureLarge} 1376w`,
-              placeholder: sliceTexturePlaceholder,
+              src: sliceTexture.src,
+              srcSet: `${sliceTexture.src} 980w, ${sliceTextureLarge.src} 1376w`,
+              placeholder: sliceTexturePlaceholder.src,
             },
           ],
         }}

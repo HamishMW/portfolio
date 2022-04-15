@@ -5,16 +5,18 @@ import { forwardRef } from 'react';
 import { classes } from 'utils/style';
 import styles from './Button.module.css';
 
-export const Button = forwardRef(({ href, ...rest }, ref) => {
-  const isExternalLink = href?.includes('://');
+function isExternalLink(href) {
+  return href?.includes('://');
+}
 
-  if (isExternalLink || !href) {
+export const Button = forwardRef(({ href, ...rest }, ref) => {
+  if (isExternalLink(href) || !href) {
     return <ButtonContent href={href} ref={ref} {...rest} />;
   }
 
   return (
     <RouterLink passHref href={href} scroll={false}>
-      <ButtonContent ref={ref} {...rest} />
+      <ButtonContent href={href} ref={ref} {...rest} />
     </RouterLink>
   );
 });
@@ -39,7 +41,7 @@ const ButtonContent = forwardRef(
     },
     ref
   ) => {
-    const isExternalLink = href?.includes('://');
+    const isExternal = isExternalLink(href);
     const defaultComponent = href ? 'a' : 'button';
     const Component = as || defaultComponent;
 
@@ -49,9 +51,9 @@ const ButtonContent = forwardRef(
         data-loading={loading}
         data-icon-only={iconOnly}
         data-secondary={secondary}
-        href={isExternalLink ? href : undefined}
-        rel={rel || isExternalLink ? 'noopener noreferrer' : undefined}
-        target={target || isExternalLink ? '_blank' : undefined}
+        href={href}
+        rel={rel || isExternal ? 'noopener noreferrer' : undefined}
+        target={target || isExternal ? '_blank' : undefined}
         ref={ref}
         {...rest}
       >
