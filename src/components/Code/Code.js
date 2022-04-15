@@ -6,7 +6,7 @@ export const Code = props => {
 
   return (
     <pre className={styles.code} data-theme={theme.themeId}>
-      <pre className={styles.content} {...props} />
+      <pre {...props} />
     </pre>
   );
 };

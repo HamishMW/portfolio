@@ -7,6 +7,7 @@
   "author": "Hamish Williams <hello@hamishw.com>",
   "devDependencies": {
     "@hamishmw/react-scripts-postcss": "5.0.0-mod1",
+    "@mapbox/rehype-prism": "^0.8.0",
     "@storybook/addon-a11y": "^6.4.20",
     "@storybook/addon-actions": "^6.4.20",
     "@storybook/addon-controls": "^6.4.20",

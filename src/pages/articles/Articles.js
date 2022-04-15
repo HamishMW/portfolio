@@ -1,6 +1,6 @@
 import { Image } from 'components/Image';
+import { Meta } from 'components/Meta';
 import { Section } from 'components/Section';
-import Head from 'next/head';
 import RouterLink from 'next/link';
 import { Fragment, useState } from 'react';
 import styles from './Articles.module.css';
@@ -61,13 +61,10 @@ const ArticlesPost = ({
 export const Articles = ({ posts }) => {
   return (
     <div className={styles.articles}>
-      <Head>
-        <title>{`Articles | Hamish Williams Designer`}</title>
-        <meta
-          name="description"
-          content="A collection of technical design and development articles."
-        />
-      </Head>
+      <Meta
+        title="Articles"
+        description="A collection of technical design and development articles."
+      />
       <Section className={styles.content}>
         <div className={styles.column}>
           {posts.map(({ slug, ...post }, index) => (

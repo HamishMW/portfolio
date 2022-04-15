@@ -2,6 +2,7 @@ import usesBackgroundPlaceholder from 'assets/uses-background-placeholder.jpg';
 import usesBackground from 'assets/uses-background.mp4';
 import { Footer } from 'components/Footer';
 import { Link } from 'components/Link';
+import { Meta } from 'components/Meta';
 import { Table, TableCell, TableRow } from 'components/Table';
 import {
   ProjectBackground,
@@ -13,20 +14,16 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from 'layouts/Project';
-import Head from 'next/head';
 import { Fragment } from 'react';
 import styles from './Uses.module.css';
 
 export const Uses = () => {
   return (
     <Fragment>
-      <Head>
-        <title>Uses | Hamish Williams</title>
-        <meta
-          name="description"
-          content="A list of hardware and software I use to do my thing"
-        />
-      </Head>
+      <Meta
+        title="Uses"
+        description="A list of hardware and software I use to do my thing"
+      />
       <ProjectContainer className={styles.uses}>
         <ProjectBackground
           src={usesBackground}

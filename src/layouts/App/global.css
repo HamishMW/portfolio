@@ -11,13 +11,13 @@
 body {
   font-family: var(--fontStack);
   font-weight: var(--fontWeightRegular);
-  background: rgb(var(--rgbBackground));
+  background-color: rgb(var(--rgbBackground));
   color: var(--colorTextBody);
   width: 100vw;
   overflow-x: hidden;
 }
 
-code {
+:where(code, pre) {
   font-family: var(--monoFontStack);
 }
 

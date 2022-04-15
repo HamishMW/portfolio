@@ -21,6 +21,7 @@ import sliceSlidesPlaceholder from 'assets/slice-slides-placeholder.jpg';
 import sliceSlides from 'assets/slice-slides.jpg';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
+import { Meta } from 'components/Meta';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -33,7 +34,6 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from 'layouts/Project';
-import Head from 'next/head';
 import { Fragment } from 'react';
 import { media } from 'utils/style';
 import styles from './Slice.module.css';
@@ -46,10 +46,7 @@ const roles = ['User Research', 'UX Design', 'Interface Design'];
 export const Slice = () => {
   return (
     <Fragment>
-      <Head>
-        <title>{`Projects | ${title}`}</title>
-        <meta name="description" content={description} />
-      </Head>
+      <Meta title={title} prefix="Projects" description={description} />
       <ProjectContainer className={styles.slice}>
         <ProjectBackground
           src={sliceBackground}

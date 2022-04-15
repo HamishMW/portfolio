@@ -4,11 +4,11 @@ import { Divider } from 'components/Divider';
 import { Heading } from 'components/Heading';
 import { Icon } from 'components/Icon';
 import { Input } from 'components/Input';
+import { Meta } from 'components/Meta';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useFormInput, useRouteTransition } from 'hooks';
-import Head from 'next/head';
 import { useCallback, useRef, useState } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { cssProps, msToNum, numToMs } from 'utils/style';
@@ -94,13 +94,10 @@ export const Contact = () => {
 
   return (
     <Section className={styles.contact} data-status={status}>
-      <Head>
-        <title>Contact | Hamish Williams</title>
-        <meta
-          name="description"
-          content="Send me a message if you’re interested in discussing a project or if you just want to say hi"
-        />
-      </Head>
+      <Meta
+        title="Contact"
+        description="Send me a message if you’re interested in discussing a project or if you just want to say hi"
+      />
       <TransitionGroup component={null}>
         {!complete && (
           <Transition appear mountOnEnter unmountOnExit timeout={1600} onEnter={reflow}>

@@ -5,6 +5,7 @@ import { Post, postComponents } from 'layouts/Post';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { POSTS_PATH, postFilePaths } from 'utils/mdx';
+import rehypePrism from '@mapbox/rehype-prism';
 
 export default function PostPage({ frontmatter, code }) {
   return (
@@ -21,10 +22,9 @@ export const getStaticProps = async ({ params }) => {
   const { content, data } = matter(source);
 
   const mdxSource = await serialize(content, {
-    // Optionally pass remark/rehype plugins
     mdxOptions: {
       remarkPlugins: [],
-      rehypePlugins: [],
+      rehypePlugins: [rehypePrism],
     },
     scope: data,
   });
@@ -40,9 +40,7 @@ export const getStaticProps = async ({ params }) => {
 
 export const getStaticPaths = async () => {
   const paths = postFilePaths
-    // Remove file extensions for page paths
     .map(filePath => filePath.replace(/\.mdx?$/, ''))
-    // Map the path into the static paths object required by Next.js
     .map(slug => ({ params: { slug } }));
 
   return {

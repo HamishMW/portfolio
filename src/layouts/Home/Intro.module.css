@@ -359,6 +359,10 @@
       display: none;
     }
   }
+
+  &:focus {
+    opacity: 1;
+  }
 }
 
 @keyframes intro-mobile-scroll-indicator {
@@ -411,5 +415,9 @@
 
   & svg {
     stroke: rgb(var(--rgbText) / 0.5);
+  }
+
+  &:focus {
+    opacity: 1;
   }
 }

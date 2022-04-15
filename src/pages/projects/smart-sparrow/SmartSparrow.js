@@ -46,6 +46,7 @@ import imageSprStoryboarderLight from 'assets/spr-storyboarder-light.png';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
 import { Link } from 'components/Link';
+import { Meta } from 'components/Meta';
 import { SegmentedControl, SegmentedControlOption } from 'components/SegmentedControl';
 import { ThemeProvider, useTheme } from 'components/ThemeProvider';
 import { useAppContext } from 'hooks';
@@ -61,7 +62,6 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from 'layouts/Project';
-import Head from 'next/head';
 import { Fragment, useMemo, useRef } from 'react';
 import { media } from 'utils/style';
 import { Earth, EarthSection } from './Earth';
@@ -93,10 +93,7 @@ export const SmartSparrow = () => {
   return (
     <Fragment>
       <ProjectContainer className="spr">
-        <Head>
-          <title>{`Projects | ${title}`}</title>
-          <meta name="description" content={description} />
-        </Head>
+        <Meta title={title} prefix="Projects" description={description} />
         <ProjectBackground
           opacity={isDark ? 0.5 : 0.8}
           src={backgroundSpr}

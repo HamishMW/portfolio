@@ -13,6 +13,7 @@ import sprTextureLarge from 'assets/spr-lesson-builder-dark-large.jpg';
 import sprTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
 import sprTexture from 'assets/spr-lesson-builder-dark.jpg';
 import { Footer } from 'components/Footer';
+import { Meta } from 'components/Meta';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
@@ -69,13 +70,12 @@ export const Home = () => {
 
   return (
     <div className={styles.home}>
-      <Head>
-        <title>Hamish Williams | Designer + Developer</title>
-        <meta
-          name="description"
-          content="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile
+      <Meta
+        title="Designer + Developer"
+        description="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile
           apps with a focus on motion and user experience design."
-        />
+      />
+      <Head>
         <link rel="prefetch" href={iphone11} as="fetch" />
         <link rel="prefetch" href={macbookPro} as="fetch" />
       </Head>

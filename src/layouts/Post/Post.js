@@ -5,11 +5,11 @@ import { Footer } from 'components/Footer';
 import { Heading } from 'components/Heading';
 import { Image } from 'components/Image';
 import { Link } from 'components/Link';
+import { Meta } from 'components/Meta';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useWindowSize } from 'hooks';
-import Head from 'next/head';
 import RouterLink from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
@@ -43,10 +43,7 @@ export const Post = ({
 
   return (
     <article className={styles.post}>
-      <Head>
-        <title>{`Articles | ${title}`}</title>
-        <meta name="description" content={description} />
-      </Head>
+      <Meta title={title} prefix="Articles" description={description} />
       <header className={styles.header}>
         <div className={styles.headerText}>
           <Transition appear in timeout={msToNum(tokens.base.durationM)} onEnter={reflow}>

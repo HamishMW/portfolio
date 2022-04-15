@@ -50,6 +50,16 @@ export function Navbar() {
   }, [asPath]);
 
   useEffect(() => {
+    const hash = route.split('#')[1];
+
+    if (hash) {
+      const targetElement = document.getElementById(target);
+      targetElement.focus();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     const navItems = document.querySelectorAll('[data-navbar-item]');
     const inverseTheme = themeId === 'dark' ? 'light' : 'dark';
     const invertedElements = document.querySelectorAll(
@@ -109,7 +119,9 @@ export function Navbar() {
   }, [themeId, windowSize]);
 
   const getCurrent = (url = '') => {
-    if (url === current) {
+    const nonTrailing = current.endsWith('/') ? current.slice(0, -1) : current;
+
+    if (url === nonTrailing) {
       return 'page';
     }
 
@@ -137,6 +149,7 @@ export function Navbar() {
       scrollTimeout.current = setTimeout(() => {
         setTarget(null);
         push(`#${target}`, null, { scroll: false });
+        targetElement.focus();
       }, 100);
     };
 

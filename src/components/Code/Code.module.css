@@ -48,15 +48,10 @@
     --operator: #a8093f;
     --background: rgb(228 228 228);
   }
-}
-
-.content {
-  margin: 0;
 
   /* stylelint-disable selector-class-pattern */
-  & code,
-  & pre,
-  & pre.prism-code {
+  & :global(code),
+  & :global(pre) {
     height: auto;
     font-size: var(--fontSizeBodyS);
     line-height: var(--lineHeightBody);
@@ -64,91 +59,91 @@
     font-family: var(--monoFontStack);
   }
 
-  & .token.attr-name {
+  & :global(.namespace) {
+    opacity: 0.7;
+  }
+
+  & :global(.token.attr-name) {
     color: var(--keyword);
   }
 
-  & .token.comment,
-  & .token.block-comment,
-  & .token.prolog,
-  & .token.doctype,
-  & .token.cdata {
+  & :global(.token.comment),
+  & :global(.token.block-comment),
+  & :global(.token.prolog),
+  & :global(.token.doctype),
+  & :global(.token.cdata) {
     color: var(--comment);
   }
 
-  & .token.property,
-  & .token.number,
-  & .token.function-name,
-  & .token.constant,
-  & .token.symbol,
-  & .token.deleted {
+  & :global(.token.property),
+  & :global(.token.number),
+  & :global(.token.function-name),
+  & :global(.token.constant),
+  & :global(.token.symbol),
+  & :global(.token.deleted) {
     color: var(--primitive);
   }
 
-  & .token.boolean {
+  & :global(.token.boolean) {
     color: var(--boolean);
   }
 
-  & .token.tag {
+  & :global(.token.tag) {
     color: var(--tag);
   }
 
-  & .token.string {
+  & :global(.token.string) {
     color: var(--string);
   }
 
-  & .token.punctuation {
+  & :global(.token.punctuation) {
     color: var(--punctuation);
   }
 
-  & .token.selector,
-  & .token.char,
-  & .token.builtin,
-  & .token.inserted {
+  & :global(.token.selector),
+  & :global(.token.char),
+  & :global(.token.builtin),
+  & :global(.token.inserted) {
     color: var(--char);
   }
 
-  & .token.function {
+  & :global(.token.function) {
     color: var(--function);
   }
 
-  & .token.operator,
-  & .token.entity,
-  & .token.url,
-  & .token.variable {
+  & :global(.token.operator),
+  & :global(.token.entity),
+  & :global(.token.url),
+  & :global(.token.variable) {
     color: var(--variable);
   }
 
-  & .token.attr-value {
+  & :global(.token.attr-value) {
     color: var(--string);
   }
 
-  & .token.keyword {
+  & :global(.token.keyword) {
     color: var(--keyword);
   }
 
-  & .token.atrule,
-  & .token.class-name {
+  & :global(.token.atrule),
+  & :global(.token.class-name) {
     color: var(--className);
   }
 
-  & .token.important {
+  & :global(.token.important) {
     font-weight: var(--fontWeightRegular);
   }
 
-  & .token.bold {
+  & :global(.token.bold) {
     font-weight: var(--fontWeightBold);
   }
 
-  & .token.italic {
+  & :global(.token.italic) {
     font-style: italic;
   }
 
-  & .token.entity {
+  & :global(.token.entity) {
     cursor: help;
-  }
-
-  & .namespace {
-    opacity: 0.7;
   }
 }

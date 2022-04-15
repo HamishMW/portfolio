@@ -269,7 +269,7 @@
 .content {
   width: 100%;
   align-self: center;
-  margin-top: 16vh;
+  margin-top: 14vh;
   opacity: 0;
   display: grid;
   grid-template-columns: 1fr 100px 800px 100px 1fr;

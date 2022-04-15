@@ -3,8 +3,8 @@ import notFoundVideo from 'assets/notfound.mp4';
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Heading } from 'components/Heading';
+import { Meta } from 'components/Meta';
 import { Text } from 'components/Text';
-import Head from 'next/head';
 import { Fragment } from 'react';
 import { Transition } from 'react-transition-group';
 import { reflow } from 'utils/transition';
@@ -13,10 +13,10 @@ import styles from './404.module.css';
 export function Page404() {
   return (
     <section className={styles.page}>
-      <Head>
-        <title tag="title">404 | Not Found</title>
-        <meta name="description" content="404 page not found. This page doesn't exist" />
-      </Head>
+      <Meta
+        title="404 | Not Found"
+        description="404 page not found. This page doesn't exist"
+      />
       <Transition appear in={true} timeout={0} onEnter={reflow}>
         {status => (
           <Fragment>

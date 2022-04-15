@@ -24,6 +24,7 @@ import volkiharSlidePlaceholder from 'assets/volkihar-slide-placeholder.jpg';
 import { Button } from 'components/Button';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
+import { Meta } from 'components/Meta';
 import { useRouteTransition } from 'hooks';
 import {
   ProjectBackground,
@@ -38,7 +39,6 @@ import {
   ProjectTextRow,
 } from 'layouts/Project';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
 import { Fragment } from 'react';
 import { media } from 'utils/style';
 import styles from './VolkiharKnight.module.css';
@@ -56,10 +56,7 @@ export function VolkiharKnight() {
 
   return (
     <Fragment>
-      <Head>
-        <title>{`Projects | ${title}`}</title>
-        <meta name="description" content={description} />
-      </Head>
+      <Meta title={title} prefix="Projects" description={description} />
       {(status === 'entered' || status === 'exiting') && (
         <style
           dangerouslySetInnerHTML={{
