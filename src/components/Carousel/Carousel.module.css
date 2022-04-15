@@ -122,7 +122,6 @@
   margin: 0;
   padding: var(--spaceM);
   cursor: pointer;
-  outline: none;
 
   &[aria-pressed='true'] {
     --buttonColor: var(--colorTextBody);

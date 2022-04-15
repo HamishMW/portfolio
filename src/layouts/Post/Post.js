@@ -31,6 +31,16 @@ export const Post = ({
   const windowSize = useWindowSize();
   const contentRef = useRef();
 
+  const handleScrollIndicatorClick = event => {
+    event.preventDefault();
+
+    window.scrollTo({
+      top: contentRef.current.offsetTop,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <article className={styles.post}>
       <Head>
@@ -71,7 +81,11 @@ export const Post = ({
             ))}
           </Heading>
           <RouterLink href="#postContent">
-            <a className={styles.bannerArrow} aria-label="Scroll to post content">
+            <a
+              className={styles.bannerArrow}
+              aria-label="Scroll to post content"
+              onClick={handleScrollIndicatorClick}
+            >
               <ArrowDown aria-hidden />
             </a>
           </RouterLink>

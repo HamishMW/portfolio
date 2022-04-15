@@ -33,6 +33,7 @@ export const getStaticProps = async ({ params }) => {
     props: {
       code: mdxSource,
       frontmatter: data,
+      notFound: process.env.NODE_ENV === 'production', // TODO: Remove this for posts to appear on production
     },
   };
 };

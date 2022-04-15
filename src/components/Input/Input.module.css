@@ -27,6 +27,7 @@
   line-height: var(--lineHeightBody);
   padding: var(--spaceL) 0 var(--spaceM);
   overflow-x: hidden;
+  outline: none;
 
   &:-internal-autofill-selected {
     -webkit-text-fill-color: var(--colorTextBody);
@@ -37,10 +38,6 @@
   &:-webkit-autofill {
     -webkit-text-fill-color: var(--colorTextBody);
     box-shadow: 0 0 0 1000px rgb(var(--rgbText) / 0.1) inset;
-  }
-
-  &:focus {
-    outline: none;
   }
 
   &::-webkit-contacts-auto-fill-button:hover {

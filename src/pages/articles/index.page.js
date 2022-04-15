@@ -16,5 +16,8 @@ export function getStaticProps() {
     };
   });
 
-  return { props: { posts } };
+  return {
+    props: { posts },
+    notFound: process.env.NODE_ENV === 'production', // TODO: Remove this for articles to appear on production
+  };
 }

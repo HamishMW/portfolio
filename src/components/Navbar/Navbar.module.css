@@ -215,7 +215,7 @@
     }
   }
 
-  @media (max-width: 400px), (max-height: 360px) {
+  @media (--mediaMobileS), (max-height: 360px) {
     & {
       --headerNavFontSize: calc((18 / 16) * 1rem);
     }

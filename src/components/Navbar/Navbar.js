@@ -2,7 +2,7 @@ import { Icon } from 'components/Icon';
 import { Monogram } from 'components/Monogram';
 import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
-import { useAppContext, useWindowSize } from 'hooks';
+import { useAppContext, usePrefersReducedMotion, useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -34,12 +34,15 @@ const NavbarIcons = ({ desktop }) => (
 
 export function Navbar() {
   const [current, setCurrent] = useState();
+  const [target, setTarget] = useState();
   const { themeId } = useTheme();
   const { menuOpen, dispatch } = useAppContext();
-  const { route, asPath } = useRouter();
+  const { route, asPath, push } = useRouter();
+  const scrollTimeout = useRef();
   const windowSize = useWindowSize();
   const headerRef = useRef();
   const isMobile = windowSize.width <= media.mobile || windowSize.height <= 696;
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     // Prevent ssr mismatch by storing this in state
@@ -113,7 +116,39 @@ export function Navbar() {
     return '';
   };
 
-  const handleMobileNavClick = () => {
+  const handleNavItemClick = event => {
+    const hash = event.currentTarget.href.split('#')[1];
+
+    if (route !== '/' || !hash) return;
+
+    event.preventDefault();
+
+    setTarget(hash);
+  };
+
+  useEffect(() => {
+    if (!target) return;
+
+    const targetElement = document.getElementById(target);
+    targetElement.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+
+    const handleScroll = () => {
+      clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => {
+        setTarget(null);
+        push(`#${target}`, null, { scroll: false });
+      }, 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [push, reduceMotion, target]);
+
+  const handleMobileNavClick = event => {
+    handleNavItemClick(event);
     if (menuOpen) dispatch({ type: 'toggleMenu' });
   };
 
@@ -138,6 +173,7 @@ export function Navbar() {
                 data-navbar-item
                 className={styles.navLink}
                 aria-current={getCurrent(pathname)}
+                onClick={handleNavItemClick}
               >
                 {label}
               </a>

@@ -8,10 +8,6 @@
 @custom-media --mediaTouch (pointer: coarse);
 @custom-media --mediaNoTouch (pointer: fine);
 
-html:focus-within {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: var(--fontStack);
   font-weight: var(--fontWeightRegular);

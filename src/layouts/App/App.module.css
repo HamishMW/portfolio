@@ -3,7 +3,6 @@
   position: relative;
   background: rgb(var(--rgbBackground));
   transition: background var(--durationM) ease;
-  outline: none;
   display: grid;
   grid-template: 100% / 100%;
 }
@@ -40,7 +39,6 @@
     font-weight: var(--fontWeightMedium);
     line-height: 1;
     box-shadow: 0 0 0 4px rgb(var(--rgbBackground)), 0 0 0 8px rgb(var(--rgbText));
-    outline: none;
   }
 
   &::before {

@@ -8,7 +8,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  outline: none;
 
   @media (--mediaDesktop) {
     & {
@@ -55,8 +54,12 @@
   }
 
   @media (--mediaLaptop) {
+    @nest .summary[data-alternate='true'] & {
+      grid-template-columns: 1fr 45%;
+    }
+
     & {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 45% 1fr;
     }
   }
 
@@ -64,9 +67,7 @@
     @nest .summary[data-alternate='true'] & {
       grid-template-columns: 100%;
     }
-  }
 
-  @media (--mediaTablet) {
     & {
       grid-template-columns: 100%;
       flex-direction: column-reverse;
