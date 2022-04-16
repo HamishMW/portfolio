@@ -2,6 +2,10 @@
   padding-right: var(--space5XL);
   padding-left: calc(var(--space4XL) * 2);
 
+  &:focus {
+    outline: none;
+  }
+
   @media (min-width: 2080px) {
     & {
       padding-left: var(--space5XL);

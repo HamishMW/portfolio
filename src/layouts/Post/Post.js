@@ -11,7 +11,7 @@ import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useScrollToHash, useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
-import { Children, useRef } from 'react';
+import { Children } from 'react';
 import { Transition } from 'react-transition-group';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import { media } from 'utils/style';

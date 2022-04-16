@@ -9,10 +9,6 @@
   align-items: center;
   justify-content: center;
 
-  &:focus {
-    outline: none;
-  }
-
   @media (--mediaDesktop) {
     & {
       margin: var(--space2XL) 0;
