@@ -39,12 +39,13 @@
     "three": "^0.139.2"
   },
   "scripts": {
-    "dev": "next dev",
+    "start": "next dev",
     "build": "next build && next export -o build/",
     "build:storybook": "build-storybook -o build-storybook",
     "deploy": "aws s3 sync --delete build/ s3://hamish-portfolio-site",
     "deploy:storybook": "aws s3 sync --delete build-storybook s3://hamish-portfolio-storybook",
-    "start": "next start",
+    "deploy:functions": "cd functions && npm run deploy",
+    "serve": "next start",
     "test": "echo 'write some tests'",
     "storybook": "start-storybook -p 9009 -s public"
   },

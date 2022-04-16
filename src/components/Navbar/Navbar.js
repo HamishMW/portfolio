@@ -45,31 +45,18 @@ export const Navbar = () => {
       `[data-theme='${inverseTheme}'][data-invert]`
     );
 
+    let inverseMeasurements = [];
+    let navItemMeasurements = [];
+
     const isOverlap = (rect1, rect2, scrollY) => {
       return !(rect1.bottom - scrollY < rect2.top || rect1.top - scrollY > rect2.bottom);
     };
 
-    const navItemMeasurements = Array.from(navItems).map(item => {
-      const rect = item.getBoundingClientRect();
-
-      return {
-        element: item,
-        top: rect.top,
-        bottom: rect.bottom,
-      };
-    });
-
-    const handleInversion = () =>
+    const handleInversion = () => {
       requestAnimationFrame(() => {
         const { scrollY } = window;
 
-        const inverseMeasurements = Array.from(invertedElements).map(item => ({
-          element: item,
-          top: item.offsetTop,
-          bottom: item.offsetTop + item.offsetHeight,
-        }));
-
-        inverseMeasurements.forEach(inverseMeasurement => {
+        for (const inverseMeasurement of inverseMeasurements) {
           if (
             inverseMeasurement.top - scrollY > window.innerHeight ||
             inverseMeasurement.bottom - scrollY < 0
@@ -77,17 +64,34 @@ export const Navbar = () => {
             return;
           }
 
-          navItemMeasurements.forEach(measurement => {
+          for (const measurement of navItemMeasurements) {
             if (isOverlap(inverseMeasurement, measurement, scrollY)) {
               measurement.element.dataset.theme = inverseTheme;
             } else {
               measurement.element.dataset.theme = '';
             }
-          });
-        });
+          }
+        }
       });
+    };
 
     if (invertedElements) {
+      navItemMeasurements = Array.from(navItems).map(item => {
+        const rect = item.getBoundingClientRect();
+
+        return {
+          element: item,
+          top: rect.top,
+          bottom: rect.bottom,
+        };
+      });
+
+      inverseMeasurements = Array.from(invertedElements).map(item => ({
+        element: item,
+        top: item.offsetTop,
+        bottom: item.offsetTop + item.offsetHeight,
+      }));
+
       document.addEventListener('scroll', handleInversion);
       handleInversion();
     }
@@ -97,6 +101,7 @@ export const Navbar = () => {
     };
   }, [themeId, windowSize]);
 
+  // Check if a nav item should be active
   const getCurrent = (url = '') => {
     const nonTrailing = current?.endsWith('/') ? current?.slice(0, -1) : current;
 
@@ -107,14 +112,15 @@ export const Navbar = () => {
     return '';
   };
 
+  // Store the current hash to scroll to
   const handleNavItemClick = event => {
     const hash = event.currentTarget.href.split('#')[1];
+    setTarget(null);
 
-    if (route !== '/' || !hash) return;
-
-    event.preventDefault();
-
-    setTarget(`#${hash}`);
+    if (hash && route === '/') {
+      setTarget(`#${hash}`);
+      event.preventDefault();
+    }
   };
 
   const handleMobileNavClick = event => {

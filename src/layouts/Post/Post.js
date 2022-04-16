@@ -9,7 +9,7 @@ import { Meta } from 'components/Meta';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
-import { useWindowSize } from 'hooks';
+import { useScrollToHash, useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
 import { Children, useRef } from 'react';
 import { Transition } from 'react-transition-group';
@@ -29,16 +29,11 @@ export const Post = ({
   readTime,
 }) => {
   const windowSize = useWindowSize();
-  const contentRef = useRef();
+  const scrollToHash = useScrollToHash();
 
   const handleScrollIndicatorClick = event => {
     event.preventDefault();
-
-    window.scrollTo({
-      top: contentRef.current.offsetTop,
-      left: 0,
-      behavior: 'smooth',
-    });
+    scrollToHash(event.currentTarget.href);
   };
 
   return (
@@ -99,7 +94,7 @@ export const Post = ({
           />
         </div>
       </header>
-      <Section className={styles.contentWrapper} id="postContent" ref={contentRef}>
+      <Section className={styles.contentWrapper} id="postContent" tabIndex={-1}>
         <div className={styles.content}>{children}</div>
       </Section>
       <Footer />

@@ -26,6 +26,8 @@ __  __  __
 \n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio
 `;
 
+export const ROUTE_TRANSITION_DURATION = msToNum(tokens.base.durationS);
+
 const App = ({ Component, pageProps }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -57,11 +59,7 @@ const App = ({ Component, pageProps }) => {
             tabIndex={-1}
             id="MainContent"
           >
-            <Transition
-              key={route}
-              timeout={msToNum(tokens.base.durationS)}
-              onEnter={reflow}
-            >
+            <Transition key={route} timeout={ROUTE_TRANSITION_DURATION} onEnter={reflow}>
               {status => (
                 <TransitionContext.Provider value={{ status }}>
                   <ScrollRestore />

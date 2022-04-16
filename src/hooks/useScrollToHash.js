@@ -4,13 +4,14 @@ import { useCallback, useRef } from 'react';
 
 export function useScrollToHash() {
   const scrollTimeout = useRef();
-  const { route, push } = useRouter();
+  const { asPath, push } = useRouter();
   const reduceMotion = usePrefersReducedMotion();
 
   const scrollToHash = useCallback(
     (hash, onDone) => {
       const id = hash.split('#')[1];
       const targetElement = document.getElementById(id);
+      const route = asPath.split('#')[0];
       const newPath = `${route}#${id}`;
 
       targetElement.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
@@ -19,9 +20,12 @@ export function useScrollToHash() {
         clearTimeout(scrollTimeout.current);
 
         scrollTimeout.current = setTimeout(() => {
-          onDone?.();
-          push(newPath, null, { scroll: false });
           window.removeEventListener('scroll', handleScroll);
+
+          if (window.location.pathname === route) {
+            onDone?.();
+            push(newPath, null, { scroll: false });
+          }
         }, 50);
       };
 
@@ -29,9 +33,10 @@ export function useScrollToHash() {
 
       return () => {
         window.removeEventListener('scroll', handleScroll);
+        clearTimeout(scrollTimeout.current);
       };
     },
-    [push, reduceMotion, route]
+    [push, reduceMotion, asPath]
   );
 
   return scrollToHash;
