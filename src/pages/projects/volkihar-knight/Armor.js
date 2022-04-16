@@ -28,7 +28,7 @@ import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
 import styles from './Armor.module.css';
 
-const Armor = ({
+export const Armor = ({
   showDelay = 0,
   cameraPosition = { x: 0, y: 0, z: 6 },
   className,
@@ -224,5 +224,3 @@ const Armor = ({
     </>
   );
 };
-
-export default Armor;

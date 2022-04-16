@@ -41,12 +41,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export -o build/",
-    "start": "next start",
     "build:storybook": "build-storybook -o build-storybook",
     "deploy": "aws s3 sync --delete build/ s3://hamish-portfolio-site",
     "deploy:storybook": "aws s3 sync --delete build-storybook s3://hamish-portfolio-storybook",
+    "start": "next start",
     "test": "echo 'write some tests'",
-    "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public"
   },
   "browserslist": {

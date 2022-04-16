@@ -11,10 +11,11 @@ import RouterLink from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { cssProps } from 'utils/style';
-import { reflow } from 'utils/transition';
 import styles from './Intro.module.css';
 
-const DisplacementSphere = dynamic(() => import('layouts/Home/DisplacementSphere'));
+const DisplacementSphere = dynamic(() =>
+  import('layouts/Home/DisplacementSphere').then(mod => mod.DisplacementSphere)
+);
 
 export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
   const theme = useTheme();
@@ -60,7 +61,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
       tabIndex={-1}
       {...rest}
     >
-      <Transition appear in key={theme.themeId} timeout={3000} onEnter={reflow}>
+      <Transition appear in key={theme.themeId} timeout={3000}>
         {status => (
           <Fragment>
             <DisplacementSphere />
@@ -84,12 +85,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                 </span>
                 <TransitionGroup className={styles.row} component="span">
                   {currentDisciplines.map(item => (
-                    <Transition
-                      appear
-                      timeout={{ enter: 3000, exit: 2000 }}
-                      key={item}
-                      onEnter={reflow}
-                    >
+                    <Transition appear timeout={{ enter: 3000, exit: 2000 }} key={item}>
                       {wordStatus => (
                         <span
                           aria-hidden

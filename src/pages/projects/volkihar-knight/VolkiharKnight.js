@@ -43,8 +43,8 @@ import { Fragment } from 'react';
 import { media } from 'utils/style';
 import styles from './VolkiharKnight.module.css';
 
-const Carousel = dynamic(() => import('components/Carousel'));
-const Armor = dynamic(() => import('./Armor'));
+const Carousel = dynamic(() => import('components/Carousel').then(mod => mod.Carousel));
+const Armor = dynamic(() => import('./Armor').then(mod => mod.Armor));
 
 const title = 'Volkihar Knight';
 const description =

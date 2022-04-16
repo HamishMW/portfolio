@@ -2,17 +2,19 @@ import KatakanaProject from 'assets/katakana-project.svg';
 import { Button } from 'components/Button';
 import { Divider } from 'components/Divider';
 import { Heading } from 'components/Heading';
-import { Model } from 'components/Model/Model';
 import { deviceModels } from 'components/Model/deviceModels';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { useTheme } from 'components/ThemeProvider';
 import { useWindowSize } from 'hooks';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { cssProps, media } from 'utils/style';
 import { isVisible, reflow } from 'utils/transition';
 import styles from './ProjectSummary.module.css';
+
+const Model = dynamic(() => import('components/Model').then(mod => mod.Model));
 
 export const ProjectSummary = ({
   id,

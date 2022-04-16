@@ -62,10 +62,13 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from 'layouts/Project';
+import dynamic from 'next/dynamic';
 import { Fragment, useMemo, useRef } from 'react';
 import { media } from 'utils/style';
-import { Earth, EarthSection } from './Earth';
 import styles from './SmartSparrow.module.css';
+
+const Earth = dynamic(() => import('./Earth').then(mod => mod.Earth));
+const EarthSection = dynamic(() => import('./Earth').then(mod => mod.EarthSection));
 
 const title = 'Designing the future of education';
 const description =

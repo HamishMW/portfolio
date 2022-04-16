@@ -25,7 +25,7 @@ import styles from './DisplacementSphere.module.css';
 import fragShader from './sphereFragShader';
 import vertShader from './sphereVertShader';
 
-const DisplacementSphere = props => {
+export const DisplacementSphere = props => {
   const theme = useTheme();
   const { rgbBackground, themeId, colorWhite } = theme;
   const start = useRef(Date.now());
@@ -206,5 +206,3 @@ const DisplacementSphere = props => {
     </Transition>
   );
 };
-
-export default DisplacementSphere;
