@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const dracoLoader = new DRACOLoader();
 const gltfLoader = new GLTFLoader();
-dracoLoader.setDecoderPath('/draco/');
+dracoLoader.setDecoderPath('../../node_modules/three/examples/js/libs/draco/gltf/');
 gltfLoader.setDRACOLoader(dracoLoader);
 
 /**
