@@ -1,7 +1,7 @@
 import { Icon } from 'components/Icon';
 import { tokens } from 'components/ThemeProvider/theme';
+import { Transition } from 'components/Transition';
 import { useId, useRef, useState } from 'react';
-import { Transition, TransitionGroup } from 'react-transition-group';
 import { classes, cssProps, msToNum } from 'utils/style';
 import { isVisible } from 'utils/transition';
 import styles from './Input.module.css';
@@ -72,30 +72,24 @@ export const Input = ({
         />
         <div className={styles.underline} data-focused={focused} />
       </div>
-      <TransitionGroup component={null}>
-        {!!error && (
-          <Transition timeout={msToNum(tokens.base.durationM)}>
-            {status => (
-              <div
-                className={styles.error}
-                data-status={status}
-                id={errorId}
-                role="alert"
-                style={cssProps({
-                  height: isVisible(status)
-                    ? errorRef.current?.getBoundingClientRect().height
-                    : 0,
-                })}
-              >
-                <div className={styles.errorMessage} ref={errorRef}>
-                  <Icon icon="error" />
-                  {error}
-                </div>
-              </div>
-            )}
-          </Transition>
+      <Transition unmount in={error} timeout={msToNum(tokens.base.durationM)}>
+        {visible => (
+          <div
+            className={styles.error}
+            data-visible={visible}
+            id={errorId}
+            role="alert"
+            style={cssProps({
+              height: visible ? errorRef.current?.getBoundingClientRect().height : 0,
+            })}
+          >
+            <div className={styles.errorMessage} ref={errorRef}>
+              <Icon icon="error" />
+              {error}
+            </div>
+          </div>
         )}
-      </TransitionGroup>
+      </Transition>
     </div>
   );
 };

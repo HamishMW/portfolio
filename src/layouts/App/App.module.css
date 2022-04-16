@@ -8,21 +8,9 @@
 }
 
 .page {
-  opacity: 0;
   grid-area: 1 / 1;
   transition: opacity var(--durationS) ease;
   min-height: 100lvh;
-
-  &[data-status='exiting'],
-  &[data-status='entering'] {
-    opacity: 0;
-  }
-
-  &[data-status='entered'] {
-    transition-duration: var(--durationL);
-    transition-delay: var(--durationXS);
-    opacity: 1;
-  }
 }
 
 .skip {

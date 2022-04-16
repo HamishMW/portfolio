@@ -9,8 +9,7 @@
   transition: opacity var(--durationL) var(--bezierFastoutSlowin);
   opacity: 0;
 
-  &[data-status='entering'],
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     opacity: 1;
   }
 }

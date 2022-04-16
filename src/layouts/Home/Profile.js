@@ -10,25 +10,24 @@ import { Image } from 'components/Image';
 import { Link } from 'components/Link';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
+import { Transition } from 'components/Transition';
 import { Fragment, useState } from 'react';
-import { Transition } from 'react-transition-group';
 import { media } from 'utils/style';
-import { reflow } from 'utils/transition';
 import styles from './Profile.module.css';
 
-const ProfileText = ({ status, titleId }) => (
+const ProfileText = ({ visible, titleId }) => (
   <Fragment>
-    <Heading className={styles.title} data-status={status} level={3} id={titleId}>
-      <DecoderText text="Hi there" start={status !== 'exited'} delay={500} />
+    <Heading className={styles.title} data-visible={visible} level={3} id={titleId}>
+      <DecoderText text="Hi there" start={visible} delay={500} />
     </Heading>
-    <Text className={styles.description} data-status={status} size="l">
+    <Text className={styles.description} data-visible={visible} size="l">
       I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
       <Link href="https://www.qwilr.com">Qwilr</Link>. My projects include UX design, UI
       animations, and icon illustration. Being comfortable with code allows me to rapidly
       prototype and validate experiences. If you’re interested in the tools and software I
       use check out my <Link href="/uses">uses page</Link>.
     </Text>
-    <Text className={styles.description} data-status={status} size="l">
+    <Text className={styles.description} data-visible={visible} size="l">
       In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
       <Link href="/projects/volkihar-knight">make mods</Link>. I’m always down for hearing
       about new projects, so feel free to drop me a line.
@@ -51,15 +50,15 @@ export const Profile = ({ id, visible, sectionRef }) => {
       aria-labelledby={titleId}
       tabIndex={-1}
     >
-      <Transition in={visible || focused} timeout={0} onEnter={reflow}>
-        {status => (
+      <Transition in={visible || focused} timeout={0}>
+        {visible => (
           <div className={styles.content}>
             <div className={styles.column}>
-              <ProfileText status={status} titleId={titleId} />
+              <ProfileText visible={visible} titleId={titleId} />
               <Button
                 secondary
                 className={styles.button}
-                data-status={status}
+                data-visible={visible}
                 href="/contact"
                 icon="send"
               >
@@ -71,10 +70,10 @@ export const Profile = ({ id, visible, sectionRef }) => {
                 <Divider
                   notchWidth="64px"
                   notchHeight="8px"
-                  collapsed={status !== 'entered'}
+                  collapsed={!visible}
                   collapseDelay={1000}
                 />
-                <div className={styles.tagText} data-status={status}>
+                <div className={styles.tagText} data-visible={visible}>
                   About Me
                 </div>
               </div>
@@ -88,7 +87,7 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
                   alt="Me standing in front of the Torii on Miyajima, an island off the coast of Hiroshima in Japan"
                 />
-                <KatakanaProfile className={styles.svg} data-status={status} />
+                <KatakanaProfile className={styles.svg} data-visible={visible} />
               </div>
             </div>
           </div>

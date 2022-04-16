@@ -5,16 +5,15 @@ import { Navbar } from 'components/Navbar';
 import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useLocalStorage } from 'hooks';
 import useFoucFix from 'hooks/useFoucFix';
 import styles from 'layouts/App/App.module.css';
 import { initialState, reducer } from 'layouts/App/reducer';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Fragment, createContext, useEffect, useReducer } from 'react';
-import { Transition, TransitionGroup } from 'react-transition-group';
+import { Fragment, createContext, useEffect, useReducer, useState } from 'react';
 import { msToNum } from 'utils/style';
-import { reflow } from 'utils/transition';
 import { ScrollRestore } from '../layouts/App/ScrollRestore';
 
 export const AppContext = createContext({});
@@ -53,23 +52,27 @@ const App = ({ Component, pageProps }) => {
             Skip to main content
           </VisuallyHidden>
           <Navbar />
-          <TransitionGroup
-            component="main"
-            className={styles.app}
-            tabIndex={-1}
-            id="MainContent"
-          >
-            <Transition key={route} timeout={ROUTE_TRANSITION_DURATION} onEnter={reflow}>
-              {status => (
-                <TransitionContext.Provider value={{ status }}>
+          <main className={styles.app} tabIndex={-1} id="MainContent">
+            <AnimatePresence exitBeforeEnter>
+              <motion.div
+                key={route}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  type: 'tween',
+                  ease: 'linear',
+                  duration: ROUTE_TRANSITION_DURATION / 1000,
+                  delay: 0.1,
+                }}
+              >
+                <div className={styles.page}>
                   <ScrollRestore />
-                  <div className={styles.page} data-status={status}>
-                    <Component {...pageProps} />
-                  </div>
-                </TransitionContext.Provider>
-              )}
-            </Transition>
-          </TransitionGroup>
+                  <Component {...pageProps} />
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </main>
         </Fragment>
       </ThemeProvider>
     </AppContext.Provider>

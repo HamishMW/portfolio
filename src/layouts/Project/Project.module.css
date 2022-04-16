@@ -104,8 +104,7 @@
   transition: opacity 2s ease;
   transform: translateZ(0);
 
-  &[data-status='entering'],
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     opacity: 1;
   }
 }

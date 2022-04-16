@@ -1,14 +1,14 @@
-import { usePrefersReducedMotion, usePrevious, useRouteTransition } from 'hooks';
+import { useIsPresent } from 'framer-motion';
+import { useRouteTransition } from 'hooks';
 import { useRouter } from 'next/router';
 import { ROUTE_TRANSITION_DURATION } from 'pages/_app.page';
 import { useEffect } from 'react';
 
 // Custom scroll restoration to avoid jank during page transitions
 export const ScrollRestore = () => {
-  const { asPath, replace, events } = useRouter();
+  const isPresent = useIsPresent();
+  const { asPath, replace, events, beforePopState } = useRouter();
   const { status } = useRouteTransition();
-  const prevStatus = usePrevious(status);
-  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     // Opt out of native scroll restoration
@@ -17,16 +17,24 @@ export const ScrollRestore = () => {
 
   // Wait for route transition before applying hash
   useEffect(() => {
+    beforePopState(state => {
+      state.options.scroll = false;
+      return true;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Wait for route transition before applying hash
+  useEffect(() => {
     const handleRouteChange = url => {
-      console.log({ url });
       const [path, hash] = url.split('#');
 
       if (hash) {
-        replace(path);
+        replace(path, null, { scroll: false });
 
         setTimeout(() => {
-          replace(`${path}#${hash}`);
-        }, ROUTE_TRANSITION_DURATION * 2);
+          replace(`${path}#${hash}`, null, { scroll: false });
+        }, ROUTE_TRANSITION_DURATION);
       }
     };
 
@@ -39,23 +47,18 @@ export const ScrollRestore = () => {
 
   // Handle shifting focus to linked element
   useEffect(() => {
-    if (['entering', 'exiting'].includes(status)) return;
-
     const hash = asPath.split('#')[1];
     const targetElement = document.getElementById(hash);
 
     if (targetElement) {
       targetElement.focus({ preventScroll: true });
     }
-  }, [asPath, status]);
+  }, [asPath]);
 
   useEffect(() => {
-    const hasEntered = prevStatus === 'entering' && status === 'entered';
-    const hasEnteredReducedMotion = reduceMotion && status === 'entered';
+    if (!isPresent) return;
 
     const restoreScroll = () => {
-      document.documentElement.style = 'scroll-behavior: auto';
-
       // Handle hash link restoration
       if (asPath.includes('#')) {
         requestAnimationFrame(() => {
@@ -70,15 +73,9 @@ export const ScrollRestore = () => {
           window.scrollTo(0, 0);
         });
       }
-
-      setTimeout(() => {
-        document.documentElement.removeAttribute('style');
-      }, 1000);
     };
 
-    if (hasEntered || hasEnteredReducedMotion) {
-      restoreScroll();
-      document.getElementById('MainContent').focus();
-    }
-  }, [asPath, reduceMotion, prevStatus, status]);
+    restoreScroll();
+    document.getElementById('MainContent').focus({ preventScroll: true });
+  }, [asPath, isPresent, status]);
 };

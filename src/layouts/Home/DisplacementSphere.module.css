@@ -7,8 +7,7 @@
   transition-duration: 3s;
   transition-timing-function: var(--bezierFastoutSlowin);
 
-  &[data-status='entering'],
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     opacity: 1;
   }
 }

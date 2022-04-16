@@ -2,13 +2,12 @@ import { Icon } from 'components/Icon';
 import { Monogram } from 'components/Monogram';
 import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
+import { Transition } from 'components/Transition';
 import { useAppContext, useScrollToHash, useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { Transition } from 'react-transition-group';
 import { cssProps, media, msToNum, numToMs } from 'utils/style';
-import { reflow } from 'utils/transition';
 import { NavToggle } from './NavToggle';
 import styles from './Navbar.module.css';
 import { ThemeToggle } from './ThemeToggle';
@@ -158,20 +157,14 @@ export const Navbar = () => {
         </div>
         <NavbarIcons desktop />
       </nav>
-      <Transition
-        mountOnEnter
-        unmountOnExit
-        in={menuOpen}
-        timeout={{ enter: 0, exit: msToNum(tokens.base.durationL) }}
-        onEnter={reflow}
-      >
-        {status => (
-          <nav className={styles.mobileNav} data-status={status}>
+      <Transition unmount in={menuOpen} timeout={msToNum(tokens.base.durationL)}>
+        {visible => (
+          <nav className={styles.mobileNav} data-visible={visible}>
             {navLinks.map(({ label, pathname }, index) => (
               <RouterLink href={pathname} scroll={false} key={label}>
                 <a
                   className={styles.mobileNavLink}
-                  data-status={status}
+                  data-visible={visible}
                   aria-current={getCurrent(pathname)}
                   onClick={handleMobileNavClick}
                   style={cssProps({

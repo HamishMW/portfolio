@@ -30,12 +30,12 @@
     "stylelint-config-standard": "^25.0.0"
   },
   "dependencies": {
+    "framer-motion": "^6.3.0",
     "mdx-bundler": "^9.0.0",
     "next": "^12.1.5",
     "popmotion": "^8.7.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-transition-group": "^4.4.2",
     "three": "^0.139.2"
   },
   "scripts": {

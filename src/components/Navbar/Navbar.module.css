@@ -183,8 +183,8 @@
     }
   }
 
-  &[data-status='entered'] {
-    transform: translate3d(0, 0, 0);
+  &[data-visible='true'] {
+    transform: none;
   }
 }
 
@@ -199,6 +199,7 @@
   transition-property: opacity;
   transition-duration: var(--durationS);
   transition-timing-function: var(--bezierFastoutSlowin);
+  transition-delay: var(--transitionDelay);
   position: relative;
   top: calc(var(--spaceM) * -1);
 
@@ -246,7 +247,7 @@
     transform-origin: left;
   }
 
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     opacity: 1;
     transform: none;
   }

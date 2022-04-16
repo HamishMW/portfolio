@@ -53,6 +53,7 @@
   font-weight: var(--fontWeightMedium);
   line-height: 1;
   opacity: 0;
+  transition: opacity var(--durationL) var(--bezierFastoutSlowin) 0.2s;
 
   @media (--mediaDesktop) {
     & {
@@ -84,12 +85,8 @@
     }
   }
 
-  &[data-status='entering']:global {
-    animation: fade-in var(--durationL) ease 0.2s forwards;
-  }
-
-  &[data-status='entered']:global {
-    animation: fade-in var(--durationL) ease 0.2s forwards;
+  &[data-visible='true'] {
+    opacity: 1;
   }
 }
 

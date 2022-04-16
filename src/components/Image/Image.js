@@ -1,14 +1,10 @@
 import { Button } from 'components/Button';
 import { Icon } from 'components/Icon';
 import { useTheme } from 'components/ThemeProvider';
-import { tokens } from 'components/ThemeProvider/theme';
-import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
-import { Transition } from 'react-transition-group';
 import { resolveVideoSrcFromSrcSet } from 'utils/image';
-import { classes, cssProps, msToNum, numToMs } from 'utils/style';
-import { reflow } from 'utils/transition';
+import { classes, cssProps, numToMs } from 'utils/style';
 import styles from './Image.module.css';
 
 export const Image = ({
@@ -71,9 +67,6 @@ const ImageElements = ({
   const prefersReducedMotion = usePrefersReducedMotion();
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const [playing, setPlaying] = useState(!prefersReducedMotion);
-  const [showPlayButton, setShowPlayButton] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
   const [videoSrc, setVideoSrc] = useState();
   const [videoInteracted, setVideoInteracted] = useState(false);
   const placeholderRef = useRef();
@@ -138,23 +131,11 @@ const ImageElements = ({
     }
   };
 
-  const handleShowPlayButton = () => {
-    setShowPlayButton(true);
-    setIsHovered(true);
-  };
-
-  const handleFocusPlayButton = () => {
-    setShowPlayButton(true);
-    setIsFocused(true);
-  };
-
   return (
     <div
       className={styles.elementWrapper}
       data-reveal={reveal}
       data-visible={inViewport || loaded}
-      onMouseOver={isVideo ? handleShowPlayButton : undefined}
-      onMouseOut={isVideo ? () => setIsHovered(false) : undefined}
       style={cssProps({ delay: numToMs(delay + 1000) })}
     >
       {isVideo && (
@@ -173,27 +154,10 @@ const ImageElements = ({
             ref={videoRef}
             {...rest}
           />
-          <Transition
-            in={isHovered || isFocused}
-            onExit={reflow}
-            onExited={() => setShowPlayButton(false)}
-            timeout={{ enter: 0, exit: msToNum(tokens.base.durationS) }}
-          >
-            {status => (
-              <VisuallyHidden visible={showPlayButton}>
-                <Button
-                  className={styles.button}
-                  data-status={status}
-                  onFocus={handleFocusPlayButton}
-                  onBlur={() => setIsFocused(false)}
-                  onClick={togglePlaying}
-                >
-                  <Icon icon={playing ? 'pause' : 'play'} />
-                  {playing ? 'Pause' : 'Play'}
-                </Button>
-              </VisuallyHidden>
-            )}
-          </Transition>
+          <Button className={styles.button} onClick={togglePlaying}>
+            <Icon icon={playing ? 'pause' : 'play'} />
+            {playing ? 'Pause' : 'Play'}
+          </Button>
         </Fragment>
       )}
       {!isVideo && (

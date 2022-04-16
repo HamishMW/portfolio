@@ -9,13 +9,12 @@ import { Meta } from 'components/Meta';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
+import { Transition } from 'components/Transition';
 import { useScrollToHash, useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
 import { Children } from 'react';
-import { Transition } from 'react-transition-group';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import { media } from 'utils/style';
-import { reflow } from 'utils/transition';
 import styles from './Post.module.css';
 
 export const Post = ({
@@ -41,15 +40,15 @@ export const Post = ({
       <Meta title={title} prefix="Articles" description={description} />
       <header className={styles.header}>
         <div className={styles.headerText}>
-          <Transition appear in timeout={msToNum(tokens.base.durationM)} onEnter={reflow}>
-            {status => (
+          <Transition in timeout={msToNum(tokens.base.durationM)}>
+            {visible => (
               <div className={styles.date}>
                 <Divider
                   notchWidth={windowSize.width > media.mobile ? '90px' : '60px'}
                   notchHeight={windowSize.width > media.mobile ? '10px' : '8px'}
-                  collapsed={status !== 'entered'}
+                  collapsed={!visible}
                 />
-                <span className={styles.dateText} data-status={status}>
+                <span className={styles.dateText} data-visible={visible}>
                   {new Date(date).toLocaleDateString('default', {
                     year: 'numeric',
                     month: 'long',

@@ -6,19 +6,18 @@ import { deviceModels } from 'components/Model/deviceModels';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { useTheme } from 'components/ThemeProvider';
+import { Transition } from 'components/Transition';
 import { useWindowSize } from 'hooks';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { Transition } from 'react-transition-group';
 import { cssProps, media } from 'utils/style';
-import { isVisible, reflow } from 'utils/transition';
 import styles from './ProjectSummary.module.css';
 
 const Model = dynamic(() => import('components/Model').then(mod => mod.Model));
 
 export const ProjectSummary = ({
   id,
-  visible,
+  visible: sectionVisible,
   sectionRef,
   index,
   title,
@@ -39,16 +38,16 @@ export const ProjectSummary = ({
   const phoneSizes = `(max-width: ${media.tablet}px) 30vw, 20vw`;
   const laptopSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
 
-  const renderDetails = status => (
+  const renderDetails = visible => (
     <div className={styles.details}>
       <div aria-hidden className={styles.index}>
         <Divider
           notchWidth="64px"
           notchHeight="8px"
-          collapsed={status !== 'entered'}
+          collapsed={!visible}
           collapseDelay={1000}
         />
-        <span className={styles.indexNumber} data-status={status}>
+        <span className={styles.indexNumber} data-visible={visible}>
           {indexText}
         </span>
       </div>
@@ -56,15 +55,15 @@ export const ProjectSummary = ({
         level={3}
         as="h2"
         className={styles.title}
-        data-status={status}
+        data-visible={visible}
         id={titleId}
       >
         {title}
       </Heading>
-      <Text className={styles.description} data-status={status}>
+      <Text className={styles.description} data-visible={visible}>
         {description}
       </Text>
-      <div className={styles.button} data-status={status}>
+      <div className={styles.button} data-visible={visible}>
         <Button iconHoverShift href={buttonLink} iconEnd="arrowRight">
           {buttonText}
         </Button>
@@ -72,7 +71,7 @@ export const ProjectSummary = ({
     </div>
   );
 
-  const renderPreview = status => (
+  const renderPreview = visible => (
     <div className={styles.preview}>
       {model.type === 'laptop' && (
         <>
@@ -80,7 +79,7 @@ export const ProjectSummary = ({
             className={styles.svg}
             style={cssProps({ opacity: svgOpacity })}
             data-device="laptop"
-            data-status={status}
+            data-visible={visible}
             data-light={theme.themeId === 'light'}
           />
           <Model
@@ -89,7 +88,7 @@ export const ProjectSummary = ({
             alt={model.alt}
             cameraPosition={{ x: 0, y: 0, z: 8 }}
             showDelay={800}
-            show={isVisible(status)}
+            show={visible}
             models={[
               {
                 ...deviceModels.laptop,
@@ -105,7 +104,7 @@ export const ProjectSummary = ({
       {model.type === 'phone' && (
         <>
           <KatakanaProject
-            data-status={status}
+            data-visible={visible}
             data-light={theme.themeId === 'light'}
             style={cssProps({ opacity: svgOpacity })}
             className={styles.svg}
@@ -117,7 +116,7 @@ export const ProjectSummary = ({
             alt={model.alt}
             cameraPosition={{ x: 0, y: 0, z: 11.5 }}
             showDelay={500}
-            show={isVisible(status)}
+            show={visible}
             models={[
               {
                 ...deviceModels.phone,
@@ -157,19 +156,19 @@ export const ProjectSummary = ({
       {...rest}
     >
       <div className={styles.content}>
-        <Transition in={visible || focused} timeout={0} onEnter={reflow}>
-          {status => (
+        <Transition in={sectionVisible || focused}>
+          {visible => (
             <>
               {!alternate && !isMobile && (
                 <>
-                  {renderDetails(status)}
-                  {renderPreview(status)}
+                  {renderDetails(visible)}
+                  {renderPreview(visible)}
                 </>
               )}
               {(alternate || isMobile) && (
                 <>
-                  {renderPreview(status)}
-                  {renderDetails(status)}
+                  {renderPreview(visible)}
+                  {renderDetails(visible)}
                 </>
               )}
             </>

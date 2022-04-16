@@ -7,11 +7,11 @@ import vkpz from 'assets/volkihar-cube-pz.jpg';
 import armor from 'assets/volkihar-knight.glb';
 import { Loader } from 'components/Loader';
 import { tokens } from 'components/ThemeProvider/theme';
+import { Transition } from 'components/Transition';
+import { useSpring } from 'framer-motion';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import Head from 'next/head';
-import { spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Transition } from 'react-transition-group';
 import {
   ACESFilmicToneMapping,
   CubeTextureLoader,
@@ -27,6 +27,12 @@ import { degToRad } from 'three/src/math/MathUtils';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
 import styles from './Armor.module.css';
+
+const rotationSpringConfig = {
+  stiffness: 40,
+  damping: 20,
+  mass: 1.5,
+};
 
 export const Armor = ({
   showDelay = 0,
@@ -47,6 +53,8 @@ export const Armor = ({
   const lights = useRef();
   const isInViewport = useInViewport(container, false, { threshold: 0.4 });
   const reduceMotion = usePrefersReducedMotion();
+  const rotationX = useSpring(0, rotationSpringConfig);
+  const rotationY = useSpring(0, rotationSpringConfig);
 
   useEffect(() => {
     const { clientWidth, clientHeight } = container.current;
@@ -111,15 +119,27 @@ export const Armor = ({
       renderFrame();
     };
 
-    setTimeout(load, 1000);
+    setTimeout(load, 2000);
     setTimeout(() => {
       setLoaderVisible(true);
-    }, 2000);
+    }, 3000);
+
+    const unsubscribeX = rotationX.onRenderRequest(value => {
+      modelGroup.current.rotation.x = value;
+      renderFrame();
+    });
+
+    const unsubscribeY = rotationY.onRenderRequest(value => {
+      modelGroup.current.rotation.y = value;
+      renderFrame();
+    });
 
     return () => {
       removeLights(lights.current);
       cleanScene(scene.current);
       cleanRenderer(renderer.current);
+      unsubscribeX();
+      unsubscribeY();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -131,11 +151,7 @@ export const Armor = ({
 
   // Handle mouse move animation
   useEffect(() => {
-    let rotationSpring;
-    let rotationSpringValue;
-
     const onMouseMove = event => {
-      const { rotation } = modelGroup.current;
       const { innerWidth, innerHeight } = window;
 
       const position = {
@@ -143,22 +159,8 @@ export const Armor = ({
         y: (event.clientY - innerHeight / 2) / innerHeight,
       };
 
-      if (!rotationSpringValue) {
-        rotationSpringValue = value({ x: rotation.x, y: rotation.y }, ({ x, y }) => {
-          rotation.set(x, y, rotation.z);
-          renderFrame();
-        });
-      }
-
-      rotationSpring = spring({
-        from: rotationSpringValue.get(),
-        to: { x: position.y / 2, y: position.x / 2 },
-        stiffness: 40,
-        damping: 40,
-        velocity: rotationSpringValue.getVelocity(),
-        restSpeed: 0.00001,
-        mass: 1.4,
-      }).start(rotationSpringValue);
+      rotationX.set(position.y / 2);
+      rotationY.set(position.x / 2);
     };
 
     if (isInViewport && !reduceMotion) {
@@ -168,9 +170,8 @@ export const Armor = ({
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-      rotationSpring?.stop();
     };
-  }, [isInViewport, reduceMotion, renderFrame]);
+  }, [isInViewport, reduceMotion, rotationX, rotationY]);
 
   // Handle window resize
   useEffect(() => {
@@ -207,12 +208,11 @@ export const Armor = ({
         {...rest}
       >
         <Transition
-          mountOnEnter
-          unmountOnExit
+          unmount
           in={!loaded && loaderVisible}
           timeout={msToNum(tokens.base.durationL)}
         >
-          {status => <Loader className={styles.loader} data-status={status} />}
+          {visible => <Loader className={styles.loader} data-visible={visible} />}
         </Transition>
         <canvas
           className={styles.canvas}

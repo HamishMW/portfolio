@@ -9,6 +9,8 @@ import milkywayBg from 'assets/milkyway.jpg';
 import { Loader } from 'components/Loader';
 import { Section } from 'components/Section';
 import { tokens } from 'components/ThemeProvider/theme';
+import { Transition } from 'components/Transition';
+import { useSpring } from 'framer-motion';
 import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
 import { spring, transform, value } from 'popmotion';
 import {
@@ -21,7 +23,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Transition } from 'react-transition-group';
 import {
   ACESFilmicToneMapping,
   AmbientLight,
@@ -46,7 +47,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader.js';
 import { classes, media, msToNum } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
-import { reflow } from 'utils/transition';
 import styles from './Earth.module.css';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
@@ -124,6 +124,11 @@ export const Earth = forwardRef(
     const mounted = useRef();
     const { width: windowWidth, height: windowHeight } = useWindowSize();
     const reduceMotion = usePrefersReducedMotion();
+    const chunkSpring = useSpring(0);
+    const atmosphereSpring = useSpring(0);
+    const cameraXSpring = useSpring(0);
+    const cameraYSpring = useSpring(0);
+    const cameraZSpring = useSpring(0);
 
     const animate = useCallback(() => {
       if (!inViewport) {
@@ -656,14 +661,12 @@ export const Earth = forwardRef(
           </div>
           <div className={styles.sections}>{children}</div>
           <Transition
-            mountOnEnter
-            unmountOnExit
-            onEnter={reflow}
+            unmount
             in={!loaded && loaderVisible}
             timeout={msToNum(tokens.base.durationL)}
           >
-            {status => (
-              <Section className={styles.loader} data-status={status}>
+            {visible => (
+              <Section className={styles.loader} data-visible={visible}>
                 <Loader />
               </Section>
             )}

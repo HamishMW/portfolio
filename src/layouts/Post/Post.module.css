@@ -104,7 +104,7 @@
   transition: opacity var(--durationXL) ease,
     transform var(--durationXL) var(--bezierFastoutSlowin);
 
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     opacity: 1;
     transform: none;
   }

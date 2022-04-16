@@ -4,9 +4,9 @@ import { Image } from 'components/Image';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
+import { Transition } from 'components/Transition';
 import { useParallax } from 'hooks';
 import { forwardRef } from 'react';
-import { Transition } from 'react-transition-group';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import styles from './Project.module.css';
 
@@ -109,9 +109,12 @@ export const ProjectBackground = ({ opacity = 0.7, className, ...rest }) => {
   const offset = useParallax(0.6);
 
   return (
-    <Transition appear in timeout={msToNum(tokens.base.durationM)}>
-      {status => (
-        <div className={classes(styles.backgroundImage, className)} data-status={status}>
+    <Transition in timeout={msToNum(tokens.base.durationM)}>
+      {visible => (
+        <div
+          className={classes(styles.backgroundImage, className)}
+          data-visible={visible}
+        >
           <div className={styles.backgroundImageElement} style={cssProps({ offset })}>
             <Image alt="" role="presentation" {...rest} />
           </div>

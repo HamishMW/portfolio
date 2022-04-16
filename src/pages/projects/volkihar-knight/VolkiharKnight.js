@@ -25,7 +25,6 @@ import { Button } from 'components/Button';
 import { Footer } from 'components/Footer';
 import { Image } from 'components/Image';
 import { Meta } from 'components/Meta';
-import { useRouteTransition } from 'hooks';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -52,27 +51,23 @@ const description =
 const roles = ['3D Modelling', 'Texturing', 'Graphic Design'];
 
 export function VolkiharKnight() {
-  const { status } = useRouteTransition();
-
   return (
     <Fragment>
       <Meta title={title} prefix="Projects" description={description} />
-      {(status === 'entered' || status === 'exiting') && (
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-              [data-theme='dark'] {
-                --rgbPrimary: 240 211 150;
-                --rgbAccent: 240 211 150;
-              }
-              [data-theme='light'] {
-                --rgbPrimary: 134 99 23;
-                --rgbAccent: 134 99 23;
-              }
-            `,
-          }}
-        />
-      )}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            [data-theme='dark'] {
+              --rgbPrimary: 240 211 150;
+              --rgbAccent: 240 211 150;
+            }
+            [data-theme='light'] {
+              --rgbPrimary: 134 99 23;
+              --rgbAccent: 134 99 23;
+            }
+          `,
+        }}
+      />
       <ProjectContainer>
         <ProjectBackground
           src={volkiharBackground}

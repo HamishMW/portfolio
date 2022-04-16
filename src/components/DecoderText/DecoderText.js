@@ -1,7 +1,8 @@
 import { VisuallyHidden } from 'components/VisuallyHidden';
+import { useSpring } from 'framer-motion';
 import { usePrefersReducedMotion } from 'hooks';
-import { chain, delay, spring, value } from 'popmotion';
 import { memo, useEffect, useRef } from 'react';
+import { delay } from 'utils/delay';
 import { classes } from 'utils/style';
 import styles from './DecoderText.module.css';
 
@@ -49,6 +50,7 @@ export const DecoderText = memo(
     const output = useRef([{ type: CharType.Glyph, value: '' }]);
     const container = useRef();
     const reduceMotion = usePrefersReducedMotion();
+    const decoderSpring = useSpring(0, { stiffness: 8, damping: 5 });
 
     useEffect(() => {
       const containerInstance = container.current;
@@ -63,21 +65,18 @@ export const DecoderText = memo(
         containerInstance.innerHTML = characterMap.join('');
       };
 
-      const springValue = value(0, position => {
-        output.current = shuffle(content, output.current, position);
+      const unsubscribeSpring = decoderSpring.onRenderRequest(value => {
+        output.current = shuffle(content, output.current, value);
         renderOutput();
       });
 
+      const startSpring = async () => {
+        await delay(startDelay);
+        decoderSpring.set(content.length);
+      };
+
       if (start && !animation && !reduceMotion) {
-        animation = chain(
-          delay(startDelay),
-          spring({
-            from: 0,
-            to: content.length,
-            stiffness: 8,
-            damping: 5,
-          })
-        ).start(springValue);
+        startSpring();
       }
 
       if (reduceMotion) {
@@ -89,11 +88,9 @@ export const DecoderText = memo(
       }
 
       return () => {
-        if (animation) {
-          animation.stop();
-        }
+        unsubscribeSpring?.();
       };
-    }, [reduceMotion, start, startDelay, text]);
+    }, [decoderSpring, reduceMotion, start, startDelay, text]);
 
     return (
       <span className={classes(styles.text, className)} {...rest}>

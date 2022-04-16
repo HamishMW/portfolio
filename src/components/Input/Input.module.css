@@ -108,8 +108,7 @@
     }
   }
 
-  &[data-status='entering'],
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     opacity: 1;
   }
 }

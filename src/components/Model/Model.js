@@ -1,5 +1,5 @@
+import { useSpring } from 'framer-motion';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
-import { chain, delay, spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   AmbientLight,
@@ -24,6 +24,7 @@ import {
 } from 'three';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
+import { delay } from 'utils/delay';
 import { getImageFromSrcSet } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
@@ -36,6 +37,12 @@ const MeshType = {
   Screen: 'Screen',
 };
 
+const rotationSpringConfig = {
+  stiffness: 40,
+  damping: 20,
+  mass: 1.4,
+};
+
 export const Model = ({
   models,
   show = true,
@@ -46,7 +53,6 @@ export const Model = ({
   alt,
   ...rest
 }) => {
-  const [modelData, setModelData] = useState();
   const [loaded, setLoaded] = useState(false);
   const container = useRef();
   const canvas = useRef();
@@ -68,6 +74,8 @@ export const Model = ({
   const fillPlane = useRef();
   const isInViewport = useInViewport(container, false, { threshold: 0.4 });
   const reduceMotion = usePrefersReducedMotion();
+  const rotationX = useSpring(0, rotationSpringConfig);
+  const rotationY = useSpring(0, rotationSpringConfig);
 
   useEffect(() => {
     const { clientWidth, clientHeight } = container.current;
@@ -190,69 +198,16 @@ export const Model = ({
     verticalBlurMaterial.current = new ShaderMaterial(VerticalBlurShader);
     verticalBlurMaterial.current.depthTest = false;
 
-    const applyScreenTexture = async (texture, node) => {
-      texture.encoding = sRGBEncoding;
-      texture.minFilter = LinearFilter;
-      texture.magFilter = LinearFilter;
-      texture.flipY = false;
-      texture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
-      texture.generateMipmaps = false;
-
-      // Decode the texture to prevent jank on first render
-      await renderer.current.initTexture(texture);
-
-      node.material.color = new Color(0xffffff);
-      node.material.transparent = false;
-      node.material.map = texture;
-    };
-
-    // Build an array of promises to fetch and apply models & animations
-    const modelConfigPromises = models.map(async (model, index) => {
-      const { texture, position, url } = model;
-      let loadFullResTexture;
-
-      const [gltf, placeholder] = await Promise.all([
-        await modelLoader.loadAsync(url),
-        await textureLoader.current.loadAsync(texture.placeholder),
-      ]);
-
-      gltf.scene.traverse(async node => {
-        if (node.material) {
-          node.material.color = new Color(0x1f2025);
-          node.material.color.convertSRGBToLinear();
-        }
-
-        if (node.name === MeshType.Screen) {
-          applyScreenTexture(placeholder, node);
-          loadFullResTexture = async () => {
-            const image = await getImageFromSrcSet(texture);
-            const fullSize = await textureLoader.current.loadAsync(image);
-            await applyScreenTexture(fullSize, node);
-          };
-        }
-      });
-
-      modelGroup.current.add(gltf.scene);
-
-      const animation = getModelAnimation({
-        model,
-        gltf,
-        position,
-        reduceMotion,
-        renderFrame,
-        index,
-        showDelay,
-      });
-
-      return { ...animation, loadFullResTexture };
-    });
-
-    setModelData(modelConfigPromises);
+    const unsubscribeX = rotationX.onRenderRequest(renderFrame);
+    const unsubscribeY = rotationY.onRenderRequest(renderFrame);
 
     return () => {
       removeLights(lights.current);
       cleanScene(scene.current);
       cleanRenderer(renderer.current);
+
+      unsubscribeX();
+      unsubscribeY();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -308,62 +263,15 @@ export const Model = ({
     renderer.current.setRenderTarget(null);
     scene.current.background = initialBackground;
 
+    modelGroup.current.rotation.x = rotationX.get();
+    modelGroup.current.rotation.y = rotationY.get();
+
     renderer.current.render(scene.current, camera.current);
-  }, [blurShadow]);
-
-  useEffect(() => {
-    let introSprings = [];
-
-    if (!modelData) return;
-
-    scene.current.add(modelGroup.current);
-
-    const loadScene = async () => {
-      const loadedModels = await Promise.all(modelData);
-
-      setLoaded(true);
-
-      const handleModelLoad = loadedModels.map(async model => {
-        // Start animation
-        if (model.animation) {
-          const modelAnimation = model.animation.start(model.modelValue);
-          introSprings.push(modelAnimation);
-        }
-
-        if (reduceMotion) {
-          renderFrame();
-        }
-
-        // Load full res screen texture
-        await model.loadFullResTexture();
-
-        // Render the loaded texture
-        if (reduceMotion) {
-          renderFrame();
-        }
-      });
-
-      await Promise.all(handleModelLoad);
-    };
-
-    if (show) {
-      loadScene();
-    }
-
-    return () => {
-      for (const spring of introSprings) {
-        spring.stop();
-      }
-    };
-  }, [modelData, reduceMotion, renderFrame, show]);
+  }, [blurShadow, rotationX, rotationY]);
 
   // Handle mouse move animation
   useEffect(() => {
-    let rotationSpring;
-    let rotationSpringValue;
-
     const onMouseMove = event => {
-      const { rotation } = modelGroup.current;
       const { innerWidth, innerHeight } = window;
 
       const position = {
@@ -371,22 +279,8 @@ export const Model = ({
         y: (event.clientY - innerHeight / 2) / innerHeight,
       };
 
-      if (!rotationSpringValue) {
-        rotationSpringValue = value({ x: rotation.x, y: rotation.y }, ({ x, y }) => {
-          rotation.set(x, y, rotation.z);
-          renderFrame();
-        });
-      }
-
-      rotationSpring = spring({
-        from: rotationSpringValue.get(),
-        to: { x: position.y / 2, y: position.x / 2 },
-        stiffness: 40,
-        damping: 40,
-        velocity: rotationSpringValue.getVelocity(),
-        restSpeed: 0.00001,
-        mass: 1.4,
-      }).start(rotationSpringValue);
+      rotationX.set(position.y / 2);
+      rotationY.set(position.x / 2);
     };
 
     if (isInViewport && !reduceMotion) {
@@ -395,9 +289,8 @@ export const Model = ({
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-      rotationSpring?.stop();
     };
-  }, [isInViewport, reduceMotion, renderFrame]);
+  }, [isInViewport, reduceMotion, rotationX, rotationY]);
 
   // Handle window resize
   useEffect(() => {
@@ -432,78 +325,178 @@ export const Model = ({
       {...rest}
     >
       <canvas className={styles.canvas} ref={canvas} />
+      {models.map((model, index) => (
+        <Device
+          key={JSON.stringify(model.position)}
+          renderer={renderer}
+          modelGroup={modelGroup}
+          textureLoader={textureLoader}
+          show={show}
+          showDelay={showDelay}
+          renderFrame={renderFrame}
+          index={index}
+          loaded={loaded}
+          setLoaded={setLoaded}
+          model={model}
+          scene={scene}
+        />
+      ))}
     </div>
   );
 };
 
-// Get custom model animation
-function getModelAnimation({ model, gltf, reduceMotion, renderFrame, index, showDelay }) {
-  const positionVector = new Vector3(
-    model.position.x,
-    model.position.y,
-    model.position.z
-  );
+const phoneSpringConfig = {
+  stiffness: 60,
+  damping: 20,
+  mass: 1,
+  restSpeed: 0.0001,
+  restDelta: 0.0001,
+};
 
-  if (reduceMotion) {
-    gltf.scene.position.set(...positionVector.toArray());
-    return;
-  }
+const laptopSpringConfig = {
+  stiffness: 80,
+  damping: 20,
+  restSpeed: 0.0001,
+  restDelta: 0.0001,
+};
 
-  // Simple slide up animation
-  if (model.animation === ModelAnimationType.SpringUp) {
-    const startPosition = new Vector3(
-      positionVector.x,
-      positionVector.y - 1,
-      positionVector.z
-    );
-    const endPosition = positionVector;
+const Device = ({
+  renderer,
+  model,
+  modelGroup,
+  textureLoader,
+  renderFrame,
+  index,
+  showDelay,
+  loaded,
+  setLoaded,
+  show,
+  scene,
+}) => {
+  const [loadDevice, setLoadDevice] = useState();
+  const reduceMotion = usePrefersReducedMotion();
+  const phoneSpring = useSpring(0, phoneSpringConfig);
+  const laptopSpring = useSpring(0, laptopSpringConfig);
 
-    gltf.scene.position.set(...startPosition.toArray());
+  useEffect(() => {
+    let unsubscribePhone;
+    let unsubscribeLaptop;
 
-    const modelValue = value(gltf.scene.position, ({ x, y, z }) => {
-      gltf.scene.position.set(x, y, z);
-      renderFrame();
-    });
+    const applyScreenTexture = async (texture, node) => {
+      texture.encoding = sRGBEncoding;
+      texture.minFilter = LinearFilter;
+      texture.magFilter = LinearFilter;
+      texture.flipY = false;
+      texture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
+      texture.generateMipmaps = false;
 
-    const animation = chain(
-      delay(300 * index + showDelay * 0.6),
-      spring({
-        from: startPosition,
-        to: endPosition,
-        stiffness: 60,
-        damping: 16,
-        restSpeed: 0.001,
-      })
-    );
+      // Decode the texture to prevent jank on first render
+      await renderer.current.initTexture(texture);
 
-    return { animation, modelValue };
-  }
+      node.material.color = new Color(0xffffff);
+      node.material.transparent = false;
+      node.material.map = texture;
+    };
 
-  // Laptop open animation
-  if (model.animation === ModelAnimationType.LaptopOpen) {
-    const frameNode = gltf.scene.children.find(node => node.name === MeshType.Frame);
-    const startRotation = new Vector3(MathUtils.degToRad(90), 0, 0);
-    const endRotation = new Vector3(0, 0, 0);
+    // Build an array of promises to fetch and apply models & animations
+    const load = async () => {
+      const { texture, position, url } = model;
+      let loadFullResTexture;
 
-    gltf.scene.position.set(...positionVector.toArray());
-    frameNode.rotation.set(...startRotation.toArray());
+      const [gltf, placeholder] = await Promise.all([
+        await modelLoader.loadAsync(url),
+        await textureLoader.current.loadAsync(texture.placeholder),
+      ]);
 
-    const modelValue = value(frameNode.rotation, ({ x, y, z }) => {
-      frameNode.rotation.set(x, y, z);
-      renderFrame();
-    });
+      gltf.scene.traverse(async node => {
+        if (node.material) {
+          node.material.color = new Color(0x1f2025);
+          node.material.color.convertSRGBToLinear();
+        }
 
-    const animation = chain(
-      delay(300 * index + showDelay + 200),
-      spring({
-        from: startRotation,
-        to: endRotation,
-        stiffness: 50,
-        damping: 14,
-        restSpeed: 0.001,
-      })
-    );
+        if (node.name === MeshType.Screen) {
+          applyScreenTexture(placeholder, node);
+          loadFullResTexture = async () => {
+            const image = await getImageFromSrcSet(texture);
+            const fullSize = await textureLoader.current.loadAsync(image);
+            await applyScreenTexture(fullSize, node);
+          };
+        }
+      });
 
-    return { animation, modelValue };
-  }
-}
+      modelGroup.current.add(gltf.scene);
+      scene.current.add(modelGroup.current);
+
+      const targetPosition = new Vector3(position.x, position.y, position.z);
+
+      if (reduceMotion) {
+        gltf.scene.position.set(...targetPosition.toArray());
+        return;
+      }
+
+      // Simple slide up animation
+      if (model.animation === ModelAnimationType.SpringUp) {
+        const startPosition = new Vector3(
+          targetPosition.x,
+          targetPosition.y - 1,
+          targetPosition.z
+        );
+
+        gltf.scene.position.set(...startPosition.toArray());
+        phoneSpring.set(startPosition.y, false);
+
+        unsubscribePhone = phoneSpring.onRenderRequest(value => {
+          gltf.scene.position.y = value;
+          renderFrame();
+        });
+
+        setLoaded(true);
+
+        await delay(300 * index + showDelay * 0.6);
+
+        phoneSpring.set(targetPosition.y);
+      }
+
+      // Swing the laptop lid open
+      if (model.animation === ModelAnimationType.LaptopOpen) {
+        const frameNode = gltf.scene.children.find(node => node.name === MeshType.Frame);
+        const startRotation = new Vector3(MathUtils.degToRad(90), 0, 0);
+        const endRotation = new Vector3(0, 0, 0);
+
+        gltf.scene.position.set(...targetPosition.toArray());
+        frameNode.rotation.set(...startRotation.toArray());
+        laptopSpring.set(startRotation.x, false);
+
+        unsubscribeLaptop = laptopSpring.onRenderRequest(value => {
+          frameNode.rotation.x = value;
+          renderFrame();
+        });
+
+        setLoaded(true);
+
+        await delay(300 * index + showDelay + 200);
+
+        laptopSpring.set(endRotation.x);
+      }
+
+      await loadFullResTexture();
+
+      if (reduceMotion) {
+        renderFrame();
+      }
+    };
+
+    setLoadDevice({ start: load });
+
+    return () => {
+      unsubscribePhone?.();
+      unsubscribeLaptop?.();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!loadDevice || !show) return;
+    loadDevice.start();
+  }, [loadDevice, loaded, show]);
+};

@@ -1,8 +1,8 @@
 import { useTheme } from 'components/ThemeProvider';
+import { Transition } from 'components/Transition';
+import { useSpring } from 'framer-motion';
 import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
-import { spring, value } from 'popmotion';
 import { useEffect, useRef } from 'react';
-import { Transition } from 'react-transition-group';
 import {
   AmbientLight,
   Color,
@@ -20,10 +20,15 @@ import {
 } from 'three';
 import { media, rgbToThreeColor } from 'utils/style';
 import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
-import { reflow } from 'utils/transition';
 import styles from './DisplacementSphere.module.css';
 import fragShader from './sphereFragShader';
 import vertShader from './sphereVertShader';
+
+const springConfig = {
+  stiffness: 30,
+  damping: 20,
+  mass: 2,
+};
 
 export const DisplacementSphere = props => {
   const theme = useTheme();
@@ -39,11 +44,11 @@ export const DisplacementSphere = props => {
   const material = useRef();
   const geometry = useRef();
   const sphere = useRef();
-  const tweenRef = useRef();
-  const sphereSpring = useRef();
   const prefersReducedMotion = usePrefersReducedMotion();
   const isInViewport = useInViewport(canvasRef);
   const windowSize = useWindowSize();
+  const rotationX = useSpring(0, springConfig);
+  const rotationY = useSpring(0, springConfig);
 
   useEffect(() => {
     const { innerWidth, innerHeight } = window;
@@ -133,28 +138,13 @@ export const DisplacementSphere = props => {
 
   useEffect(() => {
     const onMouseMove = event => {
-      const { rotation } = sphere.current;
-
       const position = {
         x: event.clientX / window.innerWidth,
         y: event.clientY / window.innerHeight,
       };
 
-      if (!sphereSpring.current) {
-        sphereSpring.current = value(rotation.toArray(), values =>
-          rotation.set(values[0], values[1], sphere.current.rotation.z)
-        );
-      }
-
-      tweenRef.current = spring({
-        from: sphereSpring.current.get(),
-        to: [position.y / 2, position.x / 2],
-        stiffness: 30,
-        damping: 20,
-        velocity: sphereSpring.current.getVelocity(),
-        mass: 2,
-        restSpeed: 0.0001,
-      }).start(sphereSpring.current);
+      rotationX.set(position.y / 2);
+      rotationY.set(position.x / 2);
     };
 
     if (!prefersReducedMotion && isInViewport) {
@@ -163,9 +153,8 @@ export const DisplacementSphere = props => {
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-      tweenRef.current?.stop();
     };
-  }, [isInViewport, prefersReducedMotion]);
+  }, [isInViewport, prefersReducedMotion, rotationX, rotationY]);
 
   useEffect(() => {
     let animation;
@@ -178,6 +167,9 @@ export const DisplacementSphere = props => {
       }
 
       sphere.current.rotation.z += 0.001;
+      sphere.current.rotation.x = rotationX.get();
+      sphere.current.rotation.y = rotationY.get();
+
       renderer.current.render(scene.current, camera.current);
     };
 
@@ -190,15 +182,15 @@ export const DisplacementSphere = props => {
     return () => {
       cancelAnimationFrame(animation);
     };
-  }, [isInViewport, prefersReducedMotion]);
+  }, [isInViewport, prefersReducedMotion, rotationX, rotationY]);
 
   return (
-    <Transition appear in onEnter={reflow} timeout={3000}>
-      {status => (
+    <Transition in timeout={3000}>
+      {visible => (
         <canvas
           aria-hidden
           className={styles.canvas}
-          data-status={status}
+          data-visible={visible}
           ref={canvasRef}
           {...props}
         />

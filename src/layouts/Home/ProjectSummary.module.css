@@ -158,7 +158,7 @@
   transition: opacity 1200ms ease 1400ms;
   fill: var(--colorTextTitle);
 
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     opacity: var(--opacity);
   }
 
@@ -226,7 +226,7 @@
     }
   }
 
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     transform: translateX(0);
     opacity: 1;
   }
@@ -247,7 +247,7 @@
     }
   }
 
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     transform: none;
     opacity: 1;
   }
@@ -268,7 +268,7 @@
     }
   }
 
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     transform: none;
     opacity: 1;
   }
@@ -289,7 +289,7 @@
     }
   }
 
-  &[data-status='entered'] {
+  &[data-visible='true'] {
     transform: none;
     opacity: 1;
   }

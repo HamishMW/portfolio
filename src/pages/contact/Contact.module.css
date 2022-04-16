@@ -13,11 +13,6 @@
       padding-top: 0;
     }
   }
-
-  &[data-status='entered'],
-  &[data-status='exiting'] {
-    position: relative;
-  }
 }
 
 .form {

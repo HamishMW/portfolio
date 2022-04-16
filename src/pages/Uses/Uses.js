@@ -96,13 +96,8 @@ export const Uses = () => {
                   </li>
                   <li>
                     For Javascript animations I use{' '}
-                    <Link href="https://popmotion.io/api/">Popmotion Pure 8</Link>, it’s a
-                    great way to add spring animations to three.js. All other animations
-                    are CSS with{' '}
-                    <Link href="https://reactcommunity.org/react-transition-group/">
-                      React Transition Group
-                    </Link>{' '}
-                    for enter/exit transitions.
+                    <Link href="https://www.framer.com/motion/">Framer Motion</Link>, it’s
+                    a great way to add spring animations to React and three.js.
                   </li>
                   <li>
                     For building and testing UI components in isolation I use{' '}
@@ -168,7 +163,7 @@ export const Uses = () => {
                   <TableCell>
                     <strong>Laptop</strong>
                   </TableCell>
-                  <TableCell>2015 Macbook Pro</TableCell>
+                  <TableCell>Macbook Pro 14″ (2022 M1 Max)</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>
