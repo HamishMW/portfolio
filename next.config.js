@@ -2,7 +2,11 @@ module.exports = {
   reactStrictMode: false,
   trailingSlash: true,
   pageExtensions: ['page.js', 'api.js'],
-  webpack(config) {
+  webpack(config, { isServer }) {
+    if (isServer) {
+      require('./scripts/generate-sitemap');
+    }
+
     config.module.rules.push({
       test: /\.svg$/,
       use: [{ loader: '@svgr/webpack', options: { svgo: false } }],

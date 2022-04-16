@@ -3,7 +3,6 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { useId, useRef, useState } from 'react';
 import { classes, cssProps, msToNum } from 'utils/style';
-import { isVisible } from 'utils/transition';
 import styles from './Input.module.css';
 import { TextArea } from './TextArea';
 

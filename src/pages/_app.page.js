@@ -5,14 +5,14 @@ import { Navbar } from 'components/Navbar';
 import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion';
 import { useLocalStorage } from 'hooks';
 import useFoucFix from 'hooks/useFoucFix';
 import styles from 'layouts/App/App.module.css';
 import { initialState, reducer } from 'layouts/App/reducer';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Fragment, createContext, useEffect, useReducer, useState } from 'react';
+import { Fragment, createContext, useEffect, useReducer } from 'react';
 import { msToNum } from 'utils/style';
 import { ScrollRestore } from '../layouts/App/ScrollRestore';
 
@@ -44,36 +44,42 @@ const App = ({ Component, pageProps }) => {
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
       <ThemeProvider themeId={state.theme}>
-        <Fragment>
-          <Head>
-            <link rel="canonical" href={`https://hamishw.com${route}`} />
-          </Head>
-          <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#MainContent">
-            Skip to main content
-          </VisuallyHidden>
-          <Navbar />
-          <main className={styles.app} tabIndex={-1} id="MainContent">
-            <AnimatePresence exitBeforeEnter>
-              <motion.div
-                key={route}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{
-                  type: 'tween',
-                  ease: 'linear',
-                  duration: ROUTE_TRANSITION_DURATION / 1000,
-                  delay: 0.1,
-                }}
-              >
-                <div className={styles.page}>
+        <LazyMotion features={domAnimation}>
+          <Fragment>
+            <Head>
+              <link rel="canonical" href={`${process.env.WEBSITE_URL}${route}`} />
+            </Head>
+            <VisuallyHidden
+              showOnFocus
+              as="a"
+              className={styles.skip}
+              href="#MainContent"
+            >
+              Skip to main content
+            </VisuallyHidden>
+            <Navbar />
+            <main className={styles.app} tabIndex={-1} id="MainContent">
+              <AnimatePresence exitBeforeEnter>
+                <m.div
+                  key={route}
+                  className={styles.page}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    type: 'tween',
+                    ease: 'linear',
+                    duration: ROUTE_TRANSITION_DURATION / 1000,
+                    delay: 0.1,
+                  }}
+                >
                   <ScrollRestore />
                   <Component {...pageProps} />
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </main>
-        </Fragment>
+                </m.div>
+              </AnimatePresence>
+            </main>
+          </Fragment>
+        </LazyMotion>
       </ThemeProvider>
     </AppContext.Provider>
   );

@@ -19,6 +19,7 @@
     "@svgr/webpack": "^6.2.1",
     "esbuild": "^0.14.36",
     "eslint-config-next": "^12.1.5",
+    "globby": "^13.1.1",
     "prettier": "^2.2.1",
     "rehype-img-size": "^1.0.1",
     "rehype-preset-minify": "^6.0.0",

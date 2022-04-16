@@ -3,6 +3,8 @@ import GothamMedium from 'assets/fonts/gotham-medium.woff2';
 import { fontStyles, tokenStyles } from 'components/ThemeProvider';
 import { Head, Html, Main, NextScript } from 'next/document';
 
+const siteUrl = process.env.WEBSITE_URL;
+
 export default function Document() {
   return (
     <Html lang="en">
@@ -17,21 +19,21 @@ export default function Document() {
         <link rel="apple-touch-icon" href="/icon-256.png" />
         <link type="text/plain" rel="author" href="/humans.txt" />
 
-        <meta property="og:image" content="https://hamishw.com/social-image.png" />
+        <meta property="og:image" content={`${siteUrl}/social-image.png`} />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="549" />
 
         <meta property="og:title" content="Design portfolio of Hamish Williams" />
         <meta property="og:site_name" content="hamishw.com" />
-        <meta property="og:url" content="https://hamishw.com" />
+        <meta property="og:url" content={siteUrl} />
         <meta property="og:description" content="Multidisciplinary product designer" />
 
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:description" content="Multidisciplinary product designer" />
         <meta name="twitter:title" content="Design portfolio of Hamish Williams" />
         <meta name="twitter:site" content="@hamishMW" />
-        <meta name="twitter:image" content="https://hamishw.com/social-image.png" />
+        <meta name="twitter:image" content={`${siteUrl}/social-image.png`} />
 
         <link rel="prefetch" href={GothamMedium} as="font" />
         <link rel="prefetch" href={GothamBook} as="font" />
