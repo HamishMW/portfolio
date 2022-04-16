@@ -10,7 +10,7 @@ import { Image } from 'components/Image';
 import { Link } from 'components/Link';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { media } from 'utils/style';
 import { reflow } from 'utils/transition';
@@ -37,18 +37,21 @@ const ProfileText = ({ status, titleId }) => (
 );
 
 export const Profile = ({ id, visible, sectionRef }) => {
+  const [focused, setFocused] = useState(false);
   const titleId = `${id}-title`;
 
   return (
     <Section
       className={styles.profile}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
       as="section"
       id={id}
       ref={sectionRef}
       aria-labelledby={titleId}
       tabIndex={-1}
     >
-      <Transition in={visible} timeout={0} onEnter={reflow}>
+      <Transition in={visible || focused} timeout={0} onEnter={reflow}>
         {status => (
           <div className={styles.content}>
             <div className={styles.column}>

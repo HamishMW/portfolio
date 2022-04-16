@@ -64,6 +64,7 @@ const ImageElements = ({
   src,
   alt,
   play = true,
+  restartOnPause,
   reveal,
   ...rest
 }) => {
@@ -94,16 +95,34 @@ const ImageElements = ({
   }, [isVideo, src, srcSet]);
 
   useEffect(() => {
-    if (!videoRef.current || !videoSrc || videoInteracted) return;
+    if (!videoRef.current || !videoSrc) return;
 
-    if (!play || !inViewport) {
-      setPlaying(false);
-      videoRef.current.pause();
-    } else if (inViewport && !prefersReducedMotion) {
+    const playVideo = () => {
       setPlaying(true);
       videoRef.current.play();
+    };
+
+    const pauseVideo = () => {
+      setPlaying(false);
+      videoRef.current.pause();
+    };
+
+    if (!play) {
+      pauseVideo();
+
+      if (restartOnPause) {
+        videoRef.current.currentTime = 0;
+      }
     }
-  }, [inViewport, play, prefersReducedMotion, videoInteracted, videoSrc]);
+
+    if (videoInteracted) return;
+
+    if (!inViewport) {
+      pauseVideo();
+    } else if (inViewport && !prefersReducedMotion && play) {
+      playVideo();
+    }
+  }, [inViewport, play, prefersReducedMotion, restartOnPause, videoInteracted, videoSrc]);
 
   const togglePlaying = event => {
     event.preventDefault();

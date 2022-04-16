@@ -8,6 +8,7 @@ import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { useTheme } from 'components/ThemeProvider';
 import { useWindowSize } from 'hooks';
+import { useState } from 'react';
 import { Transition } from 'react-transition-group';
 import { cssProps, media } from 'utils/style';
 import { isVisible, reflow } from 'utils/transition';
@@ -26,6 +27,7 @@ export const ProjectSummary = ({
   alternate,
   ...rest
 }) => {
+  const [focused, setFocused] = useState(false);
   const theme = useTheme();
   const { width } = useWindowSize();
   const titleId = `${id}-title`;
@@ -143,6 +145,8 @@ export const ProjectSummary = ({
       className={styles.summary}
       data-alternate={alternate}
       data-first={index === 1}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
       as="section"
       aria-labelledby={titleId}
       ref={sectionRef}
@@ -151,7 +155,7 @@ export const ProjectSummary = ({
       {...rest}
     >
       <div className={styles.content}>
-        <Transition in={visible} timeout={0} onEnter={reflow}>
+        <Transition in={visible || focused} timeout={0} onEnter={reflow}>
           {status => (
             <>
               {!alternate && !isMobile && (

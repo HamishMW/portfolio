@@ -2,7 +2,7 @@ import { Icon } from 'components/Icon';
 import { Monogram } from 'components/Monogram';
 import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
-import { useAppContext, usePrefersReducedMotion, useWindowSize } from 'hooks';
+import { useAppContext, useScrollToHash, useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -19,50 +19,23 @@ export const Navbar = () => {
   const [target, setTarget] = useState();
   const { themeId } = useTheme();
   const { menuOpen, dispatch } = useAppContext();
-  const { route, asPath, push } = useRouter();
-  const scrollTimeout = useRef();
+  const { route, asPath } = useRouter();
   const windowSize = useWindowSize();
   const headerRef = useRef();
   const isMobile = windowSize.width <= media.mobile || windowSize.height <= 696;
-  const reduceMotion = usePrefersReducedMotion();
+  const scrollToHash = useScrollToHash();
 
   useEffect(() => {
     // Prevent ssr mismatch by storing this in state
     setCurrent(asPath);
   }, [asPath]);
 
-  // Handle shifting focus to linked element
+  // Handle smooth scroll nav items
   useEffect(() => {
-    const hash = asPath.split('#')[1];
-    const targetElement = document.getElementById(hash);
-
-    if (targetElement) {
-      targetElement.focus({ preventScroll: true });
-    }
-  }, [asPath]);
-
-  useEffect(() => {
-    if (!target) return;
-
-    const targetElement = document.getElementById(target);
-    targetElement.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
-    const newPath = `${route}#${target}`;
-    setCurrent(newPath);
-
-    const handleScroll = () => {
-      clearTimeout(scrollTimeout.current);
-      scrollTimeout.current = setTimeout(() => {
-        setTarget(null);
-        push(newPath, null, { scroll: false });
-      }, 100);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [push, reduceMotion, route, target]);
+    if (!target || route !== '/') return;
+    setCurrent(`${route}${target}`);
+    scrollToHash(target, () => setTarget(null));
+  }, [route, scrollToHash, target]);
 
   // Handle swapping the theme when intersecting with inverse themed elements
   useEffect(() => {
@@ -141,7 +114,7 @@ export const Navbar = () => {
 
     event.preventDefault();
 
-    setTarget(hash);
+    setTarget(`#${hash}`);
   };
 
   const handleMobileNavClick = event => {

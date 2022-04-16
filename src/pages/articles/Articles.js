@@ -34,6 +34,7 @@ const ArticlesPost = ({
         >
           <div className={styles.postImageWrapper}>
             <Image
+              restartOnPause
               play={hovered}
               className={styles.postImage}
               src={banner}

@@ -11,7 +11,7 @@ import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
-import { Children, useEffect, useRef, useState } from 'react';
+import { Children, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import { media } from 'utils/style';
@@ -135,35 +135,16 @@ const PostParagraph = ({ children, ...rest }) => {
   );
 };
 
-const PostImage = ({ src, alt, ...rest }) => {
-  const [size, setSize] = useState();
-  const imgRef = useRef();
-  const imgSrc = src;
-
-  useEffect(() => {
-    const { width, height } = imgRef.current;
-
-    if (width && height) {
-      setSize({ width, height });
-    }
-  }, []);
-
-  const handleLoad = event => {
-    const { width, height } = event.target;
-    setSize({ width, height });
-  };
-
+const PostImage = ({ src, alt, width, height, ...rest }) => {
   return (
     <img
       className={styles.image}
-      ref={imgRef}
-      src={imgSrc}
-      onLoad={handleLoad}
-      loading="lazy"
+      src={src}
       decoding="async"
+      loading="lazy"
       alt={alt}
-      width={size?.width}
-      height={size?.height}
+      width={width}
+      height={height}
       {...rest}
     />
   );

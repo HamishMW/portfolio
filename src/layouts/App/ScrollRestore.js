@@ -22,6 +22,18 @@ export const ScrollRestore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Handle shifting focus to linked element
+  useEffect(() => {
+    if (['entering', 'exiting'].includes(status)) return;
+
+    const hash = asPath.split('#')[1];
+    const targetElement = document.getElementById(hash);
+
+    if (targetElement) {
+      targetElement.focus({ preventScroll: true });
+    }
+  }, [asPath, status]);
+
   useEffect(() => {
     const hasEntered = prevStatus === 'entering' && status === 'entered';
     const hasEnteredReducedMotion = prefersReducedMotion && status === 'entered';

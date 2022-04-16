@@ -5,7 +5,7 @@ import { Section } from 'components/Section';
 import { useTheme } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { useInterval, usePrevious, useRouteTransition } from 'hooks';
+import { useInterval, usePrevious, useRouteTransition, useScrollToHash } from 'hooks';
 import dynamic from 'next/dynamic';
 import RouterLink from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
@@ -28,6 +28,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
     (item, index) => index === disciplineIndex
   );
   const titleId = `${id}-title`;
+  const scrollToHash = useScrollToHash();
 
   useInterval(
     () => {
@@ -43,6 +44,11 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
       setDisciplineIndex(0);
     }
   }, [theme.themeId, prevTheme]);
+
+  const handleScrollClick = event => {
+    event.preventDefault();
+    scrollToHash(event.currentTarget.href);
+  };
 
   return (
     <Section
@@ -105,6 +111,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                 className={styles.scrollIndicator}
                 data-status={status}
                 data-hidden={scrollIndicatorHidden || pageStatus !== 'entered'}
+                onClick={handleScrollClick}
               >
                 <VisuallyHidden>Scroll to projects</VisuallyHidden>
               </a>
@@ -114,6 +121,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                 className={styles.mobileScrollIndicator}
                 data-status={status}
                 data-hidden={scrollIndicatorHidden || pageStatus !== 'entered'}
+                onClick={handleScrollClick}
               >
                 <VisuallyHidden>Scroll to projects</VisuallyHidden>
                 <ArrowDown aria-hidden />

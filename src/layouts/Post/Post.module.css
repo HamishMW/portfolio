@@ -5,8 +5,8 @@
 }
 
 .header {
-  --gutter: 80px;
-  --height: 80vh;
+  --gutter: 90px;
+  --height: 70vh;
   --offset: 300px;
 
   display: grid;
@@ -19,21 +19,14 @@
 
 @media (--mediaDesktop) {
   .header {
-    --gutter: 60px;
+    --gutter: 80px;
     --offset: 200px;
-  }
-}
-
-@media (--mediaDesktop) {
-  .header {
-    --gutter: 60px;
-    --offset: 160px;
   }
 }
 
 @media (--mediaLaptop) {
   .header {
-    --gutter: 40px;
+    --gutter: 60px;
     --height: 70vh;
     --offset: 180px;
   }
