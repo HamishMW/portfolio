@@ -58,10 +58,14 @@ I do not give permission to present any of my projects as your own (this is bein
 
 ## FAQs
 
-> Q: How do I change the colour on the `DisplacementSphere` (blobby rotating thing in the background).
+<details>
+  <summary>How do I change the colour on the `DisplacementSphere` (blobby rotating thing in the background).</summary>
+  
+  You'll need to edit the fragment shader. [Check out this issue for more details](https://github.com/HamishMW/portfolio/issues/19#issuecomment-870996615).
+</details>
 
-A: You'll need to edit the fragment shader. [Check out this issue for more details](https://github.com/HamishMW/portfolio/issues/19#issuecomment-870996615).
-
-> Q: How do I get the contact form to work?
-
-A: It's set up using a serverless function with AWS Lambda. You'll need to set up an AWS account and deploy the function. [Refer to this issue for more details](https://github.com/HamishMW/portfolio/issues/21#issuecomment-958727113).
+<details>
+  <summary>How do I get the contact form to work?</summary>
+  
+  A: It's set up using a serverless function with AWS Lambda. You'll need to set up an AWS account and deploy the function. [Refer to this issue for more details](https://github.com/HamishMW/portfolio/issues/21#issuecomment-958727113).
+</details>

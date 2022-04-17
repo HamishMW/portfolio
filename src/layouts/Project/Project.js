@@ -21,7 +21,7 @@ export function ProjectHeader({
   className,
 }) {
   return (
-    <Section className={classes(styles.header, className)}>
+    <Section className={classes(styles.header, className)} as="section">
       <div
         className={styles.headerContent}
         style={cssProps({ initDelay: numToMs(initDelay) })}

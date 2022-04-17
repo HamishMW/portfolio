@@ -234,6 +234,7 @@
   grid-template-columns: 60px 1fr;
   gap: 10px;
   opacity: 0;
+  font-family: var(--monoFontStack);
 
   &:global {
     animation: fade-in 0.6s var(--bezierFastoutSlowin) 1s forwards;
@@ -383,7 +384,6 @@
 
 .code {
   color: var(--colorTextLight);
-  background: rgb(var(--rgbText) / 0.1);
-  padding: 0.1em 0.3em;
-  font-family: var(--monoFontStack);
+  background: rgb(var(--rgbText) / 0.06);
+  padding: 0.2em 0.4em;
 }

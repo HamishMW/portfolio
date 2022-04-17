@@ -88,9 +88,9 @@ const ImageElements = ({
     if (isVideo && srcSet) {
       resolveVideoSrc();
     } else if (isVideo) {
-      setVideoSrc(src);
+      setVideoSrc(src.src);
     }
-  }, [isVideo, src, srcSet]);
+  }, [isVideo, sizes, src, srcSet]);
 
   useEffect(() => {
     if (!videoRef.current || !videoSrc) return;

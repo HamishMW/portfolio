@@ -51,7 +51,9 @@ export const ScrollRestore = () => {
     const targetElement = document.getElementById(hash);
 
     if (targetElement) {
-      targetElement.focus({ preventScroll: true });
+      requestAnimationFrame(() => {
+        targetElement.focus({ preventScroll: true });
+      });
     }
   }, [asPath]);
 

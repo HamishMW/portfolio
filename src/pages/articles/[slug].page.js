@@ -4,17 +4,19 @@ import { Post, postComponents } from 'layouts/Post';
 import { bundleMDX } from 'mdx-bundler';
 import { getMDXComponent } from 'mdx-bundler/client';
 import { useMemo } from 'react';
+import readingTime from 'reading-time';
 import rehypeImgSize from 'rehype-img-size';
 import rehypeMinify from 'rehype-preset-minify';
 import rehypeSlug from 'rehype-slug';
 import { POSTS_PATH, postFilePaths } from 'utils/mdx';
+import { formatTimecode } from 'utils/timecode';
 import rehypePrism from '@mapbox/rehype-prism';
 
-export default function PostPage({ frontmatter, code }) {
+export default function PostPage({ frontmatter, code, timecode }) {
   const MDXComponent = useMemo(() => getMDXComponent(code), [code]);
 
   return (
-    <Post {...frontmatter}>
+    <Post timecode={timecode} {...frontmatter}>
       <MDXComponent components={postComponents} />
     </Post>
   );
@@ -27,6 +29,7 @@ export const getStaticProps = async ({ params }) => {
   const mdxSource = await bundleMDX({
     source,
     mdxOptions(options) {
+      options.remarkPlugins = [...(options.remarkPlugins ?? [])];
       options.rehypePlugins = [
         ...(options.rehypePlugins ?? []),
         rehypePrism,
@@ -39,10 +42,14 @@ export const getStaticProps = async ({ params }) => {
     },
   });
 
+  const { time } = readingTime(mdxSource.matter.content);
+  const timecode = formatTimecode(time);
+
   return {
     props: {
       code: mdxSource.code,
       frontmatter: mdxSource.frontmatter,
+      timecode,
     },
   };
 };

@@ -4,6 +4,7 @@
   position: absolute;
   display: grid;
   grid-template-rows: 1fr auto;
+  grid-template-columns: 100%;
   justify-items: center;
   justify-content: center;
   align-items: center;

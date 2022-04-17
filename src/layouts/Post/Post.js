@@ -25,7 +25,7 @@ export const Post = ({
   banner,
   bannerPlaceholder,
   bannerAlt,
-  readTime,
+  timecode,
 }) => {
   const windowSize = useWindowSize();
   const scrollToHash = useScrollToHash();
@@ -80,7 +80,7 @@ export const Post = ({
               <ArrowDown aria-hidden />
             </a>
           </RouterLink>
-          <div className={styles.bannerReadTime}>{readTime}</div>
+          <div className={styles.bannerReadTime}>{timecode}</div>
         </div>
         {banner && (
           <div className={styles.banner}>
@@ -161,5 +161,5 @@ export const postComponents = {
   img: PostImage,
   a: PostLink,
   pre: Code,
-  inlineCode: PostCode,
+  code: PostCode,
 };

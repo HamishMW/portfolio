@@ -10,7 +10,7 @@ export async function loadImageFromSrcSet({ src, srcSet, sizes }) {
         throw new Error('No image src or srcSet provided');
       }
 
-      const tempImage = new Image();
+      let tempImage = new Image();
 
       if (src) {
         tempImage.src = src;
@@ -27,6 +27,7 @@ export async function loadImageFromSrcSet({ src, srcSet, sizes }) {
       const onLoad = () => {
         tempImage.removeEventListener('load', onLoad);
         const source = tempImage.currentSrc;
+        tempImage = null;
         resolve(source);
       };
 
@@ -52,7 +53,7 @@ export function srcSetToString(srcSet = []) {
  * Generates a transparent png of a given width and height
  */
 export async function generateImage(width = 1, height = 1) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     try {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
