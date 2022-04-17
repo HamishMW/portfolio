@@ -63,7 +63,7 @@ import {
   ProjectTextRow,
 } from 'layouts/Project';
 import dynamic from 'next/dynamic';
-import { Fragment, useMemo, useRef } from 'react';
+import { Fragment, useMemo } from 'react';
 import { media } from 'utils/style';
 import styles from './SmartSparrow.module.css';
 
@@ -83,8 +83,6 @@ const roles = [
 export const SmartSparrow = () => {
   const { themeId } = useTheme();
   const { dispatch } = useAppContext();
-  const motionSectionRef = useRef();
-  const earthSectionRef = useRef();
 
   const isDark = themeId === 'dark';
   const themes = ['dark', 'light'];
@@ -221,7 +219,6 @@ export const SmartSparrow = () => {
         </ProjectSection>
         <ThemeProvider themeId="dark" data-invert>
           <ProjectSection
-            ref={motionSectionRef}
             backgroundOverlayOpacity={0.5}
             backgroundElement={
               <Image
@@ -350,7 +347,6 @@ export const SmartSparrow = () => {
               []
             )}
             position={useMemo(() => [0, 0, 0], [])}
-            ref={earthSectionRef}
             labels={useMemo(
               () => [
                 {
