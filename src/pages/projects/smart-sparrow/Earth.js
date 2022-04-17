@@ -507,35 +507,31 @@ export const Earth = forwardRef(
 
         const updateMeshes = index => {
           const visibleMeshes = sectionRefs.current[index].meshes;
-          const chunk = getChild('Chunk', sceneModel.current);
-          const earthFull = getChild('EarthFull', sceneModel.current);
-          const earthPartial = getChild('EarthPartial', sceneModel.current);
-          const atmosphere = getChild('Atmosphere', sceneModel.current);
 
           sceneModel.current.traverse(child => {
             const { name } = child;
-            const isVisible = visibleMeshes && visibleMeshes.includes(name);
-            const isHidden = hideMeshes.includes(name);
+            const chunk = getChild('Chunk', sceneModel.current);
+            const isVisible = visibleMeshes?.includes(name);
+            const isHidden = hideMeshes?.includes(name);
 
             if (isVisible) {
               if (name === 'Atmosphere') {
-                atmosphere.visible = true;
+                child.visible = true;
 
-                opacitySpring = animate(atmosphere.material.opacity, 1, {
+                opacitySpring = animate(child.material.opacity, 1, {
                   ...opacitySpringConfig,
                   onUpdate: value => {
-                    atmosphere.material.opacity = value;
-                    atmosphere.material.needsUpdate = true;
+                    child.material.opacity = value;
+                    child.material.needsUpdate = true;
                   },
                 });
               } else if (name === 'Chunk') {
                 const chunkTarget = new Vector3(-0.4, 0.4, 0.4);
-                chunk.visible = true;
-                earthFull.visible = false;
-                earthPartial.visible = true;
+
+                child.visible = true;
 
                 if (reduceMotion) {
-                  chunk.position.set(...chunkTarget.toArray());
+                  child.position.set(...chunkTarget.toArray());
                 } else {
                   chunkXSpring.set(chunkTarget.x);
                   chunkYSpring.set(chunkTarget.y);
@@ -548,26 +544,26 @@ export const Earth = forwardRef(
               }
             } else if (isHidden && !isVisible) {
               if (name === 'Atmosphere') {
-                opacitySpring = animate(atmosphere.material.opacity, 0, {
+                opacitySpring = animate(child.material.opacity, 0, {
                   ...opacitySpringConfig,
                   onUpdate: value => {
-                    atmosphere.material.opacity = value;
+                    child.material.opacity = value;
                   },
                 });
               } else if (name === 'Chunk') {
                 const chunkTarget = new Vector3(0, 0, 0);
 
                 if (isEqualPosition(chunkTarget, chunk.position)) {
-                  earthFull.visible = true;
-                  earthPartial.visible = false;
-                  chunk.visible = false;
+                  child.visible = false;
                 }
 
                 chunkXSpring.set(chunkTarget.x);
                 chunkYSpring.set(chunkTarget.y);
                 chunkZSpring.set(chunkTarget.z);
-              } else if (name !== 'EarthPartial') {
-                earthPartial.visible = false;
+              } else if (name === 'EarthPartial' && chunk.visible) {
+                child.visible = true;
+              } else {
+                child.visible = false;
               }
             }
           });

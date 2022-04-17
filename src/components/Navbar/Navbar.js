@@ -98,7 +98,7 @@ export const Navbar = () => {
     return () => {
       document.removeEventListener('scroll', handleInversion);
     };
-  }, [themeId, windowSize]);
+  }, [themeId, windowSize, asPath]);
 
   // Check if a nav item should be active
   const getCurrent = (url = '') => {

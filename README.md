@@ -15,7 +15,7 @@ npm install
 Once it's done start up a local server with:
 
 ```bash
-npm start
+npm run dev
 ```
 
 To view the components storybook:
