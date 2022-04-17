@@ -43,12 +43,18 @@ export const getStaticProps = async ({ params }) => {
     props: {
       code: mdxSource.code,
       frontmatter: mdxSource.frontmatter,
-      notFound: process.env.NODE_ENV === 'production', // TODO: Remove this for posts to appear on production
     },
   };
 };
 
 export const getStaticPaths = async () => {
+  if (process.env.NODE_ENV === 'production') {
+    return {
+      paths: [],
+      fallback: false,
+    }; // TODO: Remove this for posts to appear on production
+  }
+
   const paths = postFilePaths
     .map(filePath => filePath.replace(/\.mdx?$/, ''))
     .map(slug => ({ params: { slug } }));

@@ -87,7 +87,7 @@ export const ProjectSummary = ({
             data-device="laptop"
             alt={model.alt}
             cameraPosition={{ x: 0, y: 0, z: 8 }}
-            showDelay={800}
+            showDelay={700}
             show={visible}
             models={[
               {

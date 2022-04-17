@@ -20,7 +20,7 @@ export const Loader = ({ className, style, size = 32, text = 'Loading...', ...re
       <VisuallyHidden className="loader-announcement" aria-live="assertive">
         {text}
       </VisuallyHidden>,
-      document.body
+      document.getElementById('portal-root')
     );
   };
 

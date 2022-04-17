@@ -81,6 +81,7 @@ const App = ({ Component, pageProps }) => {
                 </m.div>
               </AnimatePresence>
             </main>
+            <div id="portal-root" />
           </Fragment>
         </LazyMotion>
       </ThemeProvider>

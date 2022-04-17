@@ -6,7 +6,6 @@
   "repository": "https://github.com/HamishMW/portfolio.git",
   "author": "Hamish Williams <hello@hamishw.com>",
   "devDependencies": {
-    "@hamishmw/react-scripts-postcss": "5.0.0-mod1",
     "@mapbox/rehype-prism": "^0.8.0",
     "@storybook/addon-a11y": "^6.4.20",
     "@storybook/addon-actions": "^6.4.20",
@@ -18,8 +17,12 @@
     "@storybook/react": "^6.4.20",
     "@svgr/webpack": "^6.2.1",
     "esbuild": "^0.14.36",
+    "eslint": "^8.13.0",
     "eslint-config-next": "^12.1.5",
+    "fs-extra": "^10.1.0",
     "globby": "^13.1.1",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^7.4.3",
     "prettier": "^2.2.1",
     "rehype-img-size": "^1.0.1",
     "rehype-preset-minify": "^6.0.0",
@@ -34,8 +37,8 @@
     "framer-motion": "^6.3.0",
     "mdx-bundler": "^9.0.0",
     "next": "^12.1.5",
-    "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react": "^18.0.0",
     "three": "^0.139.2"
   },
   "scripts": {

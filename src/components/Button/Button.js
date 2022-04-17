@@ -75,7 +75,7 @@ const ButtonContent = forwardRef(
             icon={iconEnd}
           />
         )}
-        <Transition in={loading}>
+        <Transition unmount in={loading}>
           {visible => (
             <Loader
               className={styles.loader}
