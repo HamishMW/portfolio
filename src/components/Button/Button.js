@@ -1,5 +1,6 @@
 import { Icon } from 'components/Icon';
 import { Loader } from 'components/Loader';
+import { Transition } from 'components/Transition';
 import RouterLink from 'next/link';
 import { forwardRef } from 'react';
 import { classes } from 'utils/style';
@@ -74,7 +75,16 @@ const ButtonContent = forwardRef(
             icon={iconEnd}
           />
         )}
-        {loading && <Loader className={styles.loader} size={32} text={loadingText} />}
+        <Transition in={loading}>
+          {visible => (
+            <Loader
+              className={styles.loader}
+              size={32}
+              text={loadingText}
+              data-visible={visible}
+            />
+          )}
+        </Transition>
       </Component>
     );
   }

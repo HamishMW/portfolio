@@ -14,7 +14,7 @@ function addPage(page) {
   if (route.includes('[') || route.includes('404')) return;
 
   return `  <url>
-    <loc>${`${process.env.WEBSITE_URL}${route}`}</loc>
+    <loc>${`${process.env.NEXT_PUBLIC_WEBSITE_URL}${route}`}</loc>
     <changefreq>hourly</changefreq>
   </url>`;
 }
@@ -25,7 +25,7 @@ function addPost(post) {
   const path = post.replace('src/posts', '/articles').replace('.mdx', '');
 
   return `  <url>
-    <loc>${`${process.env.WEBSITE_URL}${path}`}</loc>
+    <loc>${`${process.env.NEXT_PUBLIC_WEBSITE_URL}${path}`}</loc>
     <changefreq>hourly</changefreq>
   </url>`;
 }

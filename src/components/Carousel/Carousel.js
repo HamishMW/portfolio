@@ -1,7 +1,7 @@
 import ArrowLeft from 'assets/arrow-left.svg';
 import ArrowRight from 'assets/arrow-right.svg';
+import { animate } from 'framer-motion';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
-import { listen, pointer, spring, value } from 'popmotion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Color,
@@ -51,8 +51,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
   const inViewport = useInViewport(canvas, true);
   const placeholderRef = useRef();
-  const springTween = useRef();
-  const swipeElement = useRef();
+  const initSwipeX = useRef();
 
   const currentImageAlt = `Slide ${imageIndex + 1} of ${images.length}. ${
     images[imageIndex].alt
@@ -155,7 +154,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     ({ index, direction = 1 }) => {
       if (!textures) return;
       setImageIndex(index);
-      const uniforms = material.current.uniforms;
+      const { uniforms } = material.current;
       uniforms.nextImage.value = textures[index];
       uniforms.direction.value = direction;
 
@@ -168,18 +167,17 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       if (!prefersReducedMotion && uniforms.dispFactor.value !== 1) {
         animating.current = true;
 
-        const springValue = value(uniforms.dispFactor.value, value => {
-          uniforms.dispFactor.value = value;
-          if (value === 1) onComplete();
-        });
-
-        springTween.current = spring({
-          from: springValue.get(),
-          to: 1,
-          velocity: springValue.getVelocity(),
+        animate(uniforms.dispFactor.value, 1, {
+          type: 'spring',
           stiffness: 100,
           damping: 20,
-        }).start(springValue);
+          restSpeed: 0.001,
+          restDelta: 0.001,
+          onUpdate: value => {
+            uniforms.dispFactor.value = value;
+          },
+          onComplete,
+        });
       } else {
         onComplete();
         requestAnimationFrame(() => {
@@ -245,7 +243,6 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
 
     return () => {
       cancelAnimationFrame(animation);
-      springTween.current?.stop();
     };
   }, []);
 
@@ -267,9 +264,8 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   }, [placeholder]);
 
   const onSwipeMove = useCallback(
-    position => {
+    x => {
       if (animating.current || !material.current || !textures) return;
-      const { x } = position;
       lastSwipePosition.current = x;
       const absoluteX = Math.abs(x);
       const containerWidth = canvasRect.width;
@@ -322,44 +318,40 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     }
   }, [canvasRect, imageIndex, navigate]);
 
-  useEffect(() => {
-    let pointerTracker;
+  const handlePointerMove = useCallback(
+    event => {
+      onSwipeMove(event.clientX - initSwipeX.current);
+    },
+    [onSwipeMove]
+  );
 
-    const swipeXY = value({ x: 0, y: 0 }, position => {
-      onSwipeMove(position);
-    });
+  const handlePointerUp = useCallback(() => {
+    setDragging(false);
+    onSwipeEnd();
 
-    const swipeStart = listen(swipeElement.current, 'mousedown touchstart').start(
-      event => {
-        setDragging(true);
-        event.preventDefault();
-        pointerTracker = pointer({ x: 0, y: 0 }).start(swipeXY);
-      }
-    );
+    document.removeEventListener('pointerup', handlePointerUp);
+    document.removeEventListener('pointermove', handlePointerMove);
+  }, [handlePointerMove, onSwipeEnd]);
 
-    const swipeEnd = listen(document, 'mouseup touchend').start(() => {
-      setDragging(false);
-      onSwipeEnd();
-      pointerTracker?.stop();
-    });
+  const handlePointerDown = useCallback(
+    event => {
+      initSwipeX.current = event.clientX;
+      setDragging(true);
 
-    return () => {
-      swipeStart.stop();
-      swipeEnd.stop();
-      pointerTracker?.stop();
-    };
-  }, [onSwipeEnd, onSwipeMove]);
+      document.addEventListener('pointermove', handlePointerMove);
+      document.addEventListener('pointerup', handlePointerUp);
+    },
+    [handlePointerMove, handlePointerUp]
+  );
 
   const handleKeyDown = event => {
-    const actions = {
-      ArrowRight: () => navigate({ direction: 1 }),
-      ArrowLeft: () => navigate({ direction: -1 }),
-    };
-
-    const selectedAction = actions[event.key];
-
-    if (selectedAction) {
-      selectedAction();
+    switch (event.key) {
+      case 'ArrowRight':
+        navigate({ direction: 1 });
+        break;
+      case 'ArrowLeft':
+        navigate({ direction: -1 });
+        break;
     }
   };
 
@@ -369,7 +361,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         <div
           className={styles.imageWrapper}
           data-dragging={dragging}
-          ref={swipeElement}
+          onPointerDown={handlePointerDown}
           style={cssProps({ aspectRatio: `${width} / ${height}` })}
         >
           <div

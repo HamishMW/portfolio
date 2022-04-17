@@ -3,7 +3,7 @@ import GothamMedium from 'assets/fonts/gotham-medium.woff2';
 import { fontStyles, tokenStyles } from 'components/ThemeProvider';
 import { Head, Html, Main, NextScript } from 'next/document';
 
-const siteUrl = process.env.WEBSITE_URL;
+const siteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL;
 
 export default function Document() {
   return (

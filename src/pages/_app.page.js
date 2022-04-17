@@ -47,7 +47,10 @@ const App = ({ Component, pageProps }) => {
         <LazyMotion features={domAnimation}>
           <Fragment>
             <Head>
-              <link rel="canonical" href={`${process.env.WEBSITE_URL}${route}`} />
+              <link
+                rel="canonical"
+                href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}${route}`}
+              />
             </Head>
             <VisuallyHidden
               showOnFocus

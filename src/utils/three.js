@@ -60,3 +60,18 @@ export const removeLights = lights => {
     light.parent.remove(light);
   }
 };
+
+/**
+ * Get child by name
+ */
+export const getChild = (name, object) => {
+  let node;
+
+  object.traverse(child => {
+    if (child.name === name) {
+      node = child;
+    }
+  });
+
+  return node;
+};

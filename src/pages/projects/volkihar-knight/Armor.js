@@ -115,21 +115,30 @@ export const Armor = ({
       scene.current.environment = texture;
       pmremGenerator.dispose();
 
+      await renderer.current.initTexture(scene.current.environment);
+
+      modelGroup.current.traverse(async node => {
+        if (node.material) {
+          await renderer.current.initTexture(node.material);
+        }
+      });
+
       setLoaded(true);
       renderFrame();
     };
 
-    setTimeout(load, 2000);
+    load();
+
     setTimeout(() => {
       setLoaderVisible(true);
-    }, 3000);
+    }, 1000);
 
-    const unsubscribeX = rotationX.onRenderRequest(value => {
+    const unsubscribeX = rotationX.onChange(value => {
       modelGroup.current.rotation.x = value;
       renderFrame();
     });
 
-    const unsubscribeY = rotationY.onRenderRequest(value => {
+    const unsubscribeY = rotationY.onChange(value => {
       modelGroup.current.rotation.y = value;
       renderFrame();
     });

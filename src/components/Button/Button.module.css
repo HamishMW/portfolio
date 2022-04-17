@@ -134,9 +134,10 @@
   transform: translateX(-50%);
   color: rgb(var(--rgbBackground));
   opacity: 0;
+  transition: opacity var(--durationM) ease var(--buttonLoaderDelay);
 
-  &:global {
-    animation: fade-in var(--durationM) ease var(--buttonLoaderDelay) forwards;
+  &[data-visible='true'] {
+    opacity: 1;
   }
 }
 

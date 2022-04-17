@@ -1,4 +1,4 @@
-import { useSpring } from 'framer-motion';
+import { animate, useSpring } from 'framer-motion';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -24,7 +24,6 @@ import {
 } from 'three';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
-import { delay } from 'utils/delay';
 import { getImageFromSrcSet } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
@@ -41,6 +40,7 @@ const rotationSpringConfig = {
   stiffness: 40,
   damping: 20,
   mass: 1.4,
+  restSpeed: 0.001,
 };
 
 export const Model = ({
@@ -198,8 +198,8 @@ export const Model = ({
     verticalBlurMaterial.current = new ShaderMaterial(VerticalBlurShader);
     verticalBlurMaterial.current.depthTest = false;
 
-    const unsubscribeX = rotationX.onRenderRequest(renderFrame);
-    const unsubscribeY = rotationY.onRenderRequest(renderFrame);
+    const unsubscribeX = rotationX.onChange(renderFrame);
+    const unsubscribeY = rotationY.onChange(renderFrame);
 
     return () => {
       removeLights(lights.current);
@@ -335,7 +335,6 @@ export const Model = ({
           showDelay={showDelay}
           renderFrame={renderFrame}
           index={index}
-          loaded={loaded}
           setLoaded={setLoaded}
           model={model}
           scene={scene}
@@ -343,21 +342,6 @@ export const Model = ({
       ))}
     </div>
   );
-};
-
-const phoneSpringConfig = {
-  stiffness: 60,
-  damping: 20,
-  mass: 1,
-  restSpeed: 0.0001,
-  restDelta: 0.0001,
-};
-
-const laptopSpringConfig = {
-  stiffness: 80,
-  damping: 20,
-  restSpeed: 0.0001,
-  restDelta: 0.0001,
 };
 
 const Device = ({
@@ -368,19 +352,15 @@ const Device = ({
   renderFrame,
   index,
   showDelay,
-  loaded,
   setLoaded,
   show,
   scene,
 }) => {
   const [loadDevice, setLoadDevice] = useState();
   const reduceMotion = usePrefersReducedMotion();
-  const phoneSpring = useSpring(0, phoneSpringConfig);
-  const laptopSpring = useSpring(0, laptopSpringConfig);
 
   useEffect(() => {
-    let unsubscribePhone;
-    let unsubscribeLaptop;
+    let animation;
 
     const applyScreenTexture = async (texture, node) => {
       texture.encoding = sRGBEncoding;
@@ -443,18 +423,22 @@ const Device = ({
         );
 
         gltf.scene.position.set(...startPosition.toArray());
-        phoneSpring.set(startPosition.y, false);
-
-        unsubscribePhone = phoneSpring.onRenderRequest(value => {
-          gltf.scene.position.y = value;
-          renderFrame();
-        });
 
         setLoaded(true);
 
-        await delay(300 * index + showDelay * 0.6);
-
-        phoneSpring.set(targetPosition.y);
+        animation = animate(startPosition.y, targetPosition.y, {
+          type: 'spring',
+          delay: (300 * index + showDelay * 0.6) / 1000,
+          stiffness: 60,
+          damping: 20,
+          mass: 1,
+          restSpeed: 0.0001,
+          restDelta: 0.0001,
+          onUpdate: value => {
+            gltf.scene.position.y = value;
+            renderFrame();
+          },
+        });
       }
 
       // Swing the laptop lid open
@@ -465,18 +449,21 @@ const Device = ({
 
         gltf.scene.position.set(...targetPosition.toArray());
         frameNode.rotation.set(...startRotation.toArray());
-        laptopSpring.set(startRotation.x, false);
-
-        unsubscribeLaptop = laptopSpring.onRenderRequest(value => {
-          frameNode.rotation.x = value;
-          renderFrame();
-        });
 
         setLoaded(true);
 
-        await delay(300 * index + showDelay + 200);
-
-        laptopSpring.set(endRotation.x);
+        animation = animate(startRotation.x, endRotation.x, {
+          type: 'spring',
+          delay: (300 * index + showDelay + 200) / 1000,
+          stiffness: 80,
+          damping: 20,
+          restSpeed: 0.0001,
+          restDelta: 0.0001,
+          onUpdate: value => {
+            frameNode.rotation.x = value;
+            renderFrame();
+          },
+        });
       }
 
       await loadFullResTexture();
@@ -489,8 +476,7 @@ const Device = ({
     setLoadDevice({ start: load });
 
     return () => {
-      unsubscribePhone?.();
-      unsubscribeLaptop?.();
+      animation?.stop();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -498,5 +484,5 @@ const Device = ({
   useEffect(() => {
     if (!loadDevice || !show) return;
     loadDevice.start();
-  }, [loadDevice, loaded, show]);
+  }, [loadDevice, show]);
 };

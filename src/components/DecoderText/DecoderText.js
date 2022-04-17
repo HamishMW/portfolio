@@ -65,7 +65,7 @@ export const DecoderText = memo(
         containerInstance.innerHTML = characterMap.join('');
       };
 
-      const unsubscribeSpring = decoderSpring.onRenderRequest(value => {
+      const unsubscribeSpring = decoderSpring.onChange(value => {
         output.current = shuffle(content, output.current, value);
         renderOutput();
       });

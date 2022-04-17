@@ -1,19 +1,28 @@
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { usePrefersReducedMotion } from 'hooks';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { classes, cssProps } from 'utils/style';
 import styles from './Loader.module.css';
 
 export const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const [mounted, setMounted] = useState(false);
 
-  const renderScreenReaderTextPortal = () =>
-    createPortal(
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const renderScreenReaderTextPortal = () => {
+    if (!mounted) return;
+
+    return createPortal(
       <VisuallyHidden className="loader-announcement" aria-live="assertive">
         {text}
       </VisuallyHidden>,
       document.body
     );
+  };
 
   if (prefersReducedMotion) {
     return (

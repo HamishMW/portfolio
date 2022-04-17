@@ -10,9 +10,8 @@ import { Loader } from 'components/Loader';
 import { Section } from 'components/Section';
 import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
-import { useSpring } from 'framer-motion';
+import { animate, useSpring } from 'framer-motion';
 import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
-import { spring, transform, value } from 'popmotion';
 import {
   createContext,
   forwardRef,
@@ -45,8 +44,15 @@ import { LinearFilter } from 'three';
 import { EquirectangularReflectionMapping } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader.js';
+import { clamp } from 'utils/clamp';
 import { classes, media, msToNum } from 'utils/style';
-import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
+import {
+  cleanRenderer,
+  cleanScene,
+  getChild,
+  modelLoader,
+  removeLights,
+} from 'utils/three';
 import styles from './Earth.module.css';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
@@ -69,7 +75,7 @@ const getPositionValues = section => {
   };
 };
 
-const isEqualCameraPosition = (position1, position2) => {
+const isEqualPosition = (position1, position2) => {
   const round = (num = 0) => Math.round((num + Number.EPSILON) * 100) / 100;
 
   return (
@@ -77,6 +83,27 @@ const isEqualCameraPosition = (position1, position2) => {
     round(position1?.y) === round(position2?.y) &&
     round(position1?.z) === round(position2?.z)
   );
+};
+
+const cameraSpringConfig = {
+  stiffness: 80,
+  damping: 40,
+  mass: 2,
+  restSpeed: 0.001,
+  restDelta: 0.001,
+};
+
+const chunkSpringConfig = {
+  stiffness: 40,
+  damping: 30,
+  mass: 2,
+  restSpeed: 0.001,
+  restDelta: 0.001,
+};
+
+const opacitySpringConfig = {
+  stiffness: 16,
+  damping: 32,
 };
 
 const EarthContext = createContext({});
@@ -116,27 +143,29 @@ export const Earth = forwardRef(
     const animationFrame = useRef();
     const initCameraPosition = useRef(getPositionValues(sectionRefs.current[0]));
     const labelElements = useRef([]);
-    const cameraValue = useRef();
     const controls = useRef();
     const envMap = useRef();
     const contentAdded = useRef();
-    const cameraSpring = useRef();
     const mounted = useRef();
     const { width: windowWidth, height: windowHeight } = useWindowSize();
     const reduceMotion = usePrefersReducedMotion();
-    const chunkSpring = useSpring(0);
-    const atmosphereSpring = useSpring(0);
-    const cameraXSpring = useSpring(0);
-    const cameraYSpring = useSpring(0);
-    const cameraZSpring = useSpring(0);
 
-    const animate = useCallback(() => {
+    const cameraXSpring = useSpring(0, cameraSpringConfig);
+    const cameraYSpring = useSpring(0, cameraSpringConfig);
+    const cameraZSpring = useSpring(0, cameraSpringConfig);
+
+    const chunkXSpring = useSpring(0, chunkSpringConfig);
+    const chunkYSpring = useSpring(0, chunkSpringConfig);
+    const chunkZSpring = useSpring(0, chunkSpringConfig);
+    const opacitySpring = useSpring(0, opacitySpringConfig);
+
+    const animateFrame = useCallback(() => {
       if (!inViewport) {
         cancelAnimationFrame(animationFrame.current);
         return;
       }
 
-      animationFrame.current = requestAnimationFrame(animate);
+      animationFrame.current = requestAnimationFrame(animateFrame);
       const delta = clock.current.getDelta();
       mixer.current.update(delta);
       controls.current.update();
@@ -166,6 +195,64 @@ export const Earth = forwardRef(
     }, [inViewport]);
 
     useEffect(() => {
+      if (!loaded) return;
+
+      const chunk = getChild('Chunk', sceneModel.current);
+      const atmosphere = getChild('Atmosphere', sceneModel.current);
+
+      const handleCameraChange = (axis, value) => {
+        camera.current.position[axis] = value;
+      };
+
+      const unsubscribeCameraX = cameraXSpring.onChange(value =>
+        handleCameraChange('x', value)
+      );
+      const unsubscribeCameraY = cameraYSpring.onChange(value =>
+        handleCameraChange('y', value)
+      );
+      const unsubscribeCameraZ = cameraZSpring.onChange(value =>
+        handleCameraChange('z', value)
+      );
+
+      const handleChunkChange = (axis, value) => {
+        chunk.position[axis] = value;
+      };
+
+      const unsubscribeChunkX = chunkXSpring.onChange(value =>
+        handleChunkChange('x', value)
+      );
+      const unsubscribeChunkY = chunkYSpring.onChange(value =>
+        handleChunkChange('y', value)
+      );
+      const unsubscribeChunkZ = chunkZSpring.onChange(value =>
+        handleChunkChange('z', value)
+      );
+
+      const unsubscribeOpacity = opacitySpring.onChange(value => {
+        atmosphere.opacity = value;
+      });
+
+      return () => {
+        unsubscribeCameraX();
+        unsubscribeCameraY();
+        unsubscribeCameraZ();
+        unsubscribeChunkX();
+        unsubscribeChunkY();
+        unsubscribeChunkZ();
+        unsubscribeOpacity();
+      };
+    }, [
+      loaded,
+      cameraXSpring,
+      cameraYSpring,
+      cameraZSpring,
+      chunkXSpring,
+      chunkYSpring,
+      chunkZSpring,
+      opacitySpring,
+    ]);
+
+    useEffect(() => {
       mounted.current = true;
       const { innerWidth, innerHeight } = window;
 
@@ -185,11 +272,23 @@ export const Earth = forwardRef(
       camera.current.position.z = initCameraPosition.current.z;
       camera.current.lookAt(0, 0, 0);
 
+      cameraXSpring.set(camera.current.position.x, false);
+      cameraYSpring.set(camera.current.position.y, false);
+      cameraZSpring.set(camera.current.position.z, false);
+
       const handleControlStart = () => {
-        cameraSpring.current?.stop();
         setGrabbing(true);
       };
-      const handleControlEnd = () => setGrabbing(false);
+
+      const handleControlChange = () => {
+        cameraXSpring.set(camera.current.position.x, false);
+        cameraYSpring.set(camera.current.position.y, false);
+        cameraZSpring.set(camera.current.position.z, false);
+      };
+
+      const handleControlEnd = () => {
+        setGrabbing(false);
+      };
 
       controls.current = new OrbitControls(camera.current, canvas.current);
       controls.current.enableZoom = false;
@@ -198,6 +297,7 @@ export const Earth = forwardRef(
       controls.current.dampingFactor = 0.1;
       controls.current.rotateSpeed = 0.5;
       controls.current.addEventListener('start', handleControlStart);
+      controls.current.addEventListener('change', handleControlChange);
       controls.current.addEventListener('end', handleControlEnd);
 
       scene.current = new Scene();
@@ -214,11 +314,13 @@ export const Earth = forwardRef(
         mounted.current = false;
         cancelAnimationFrame(animationFrame.current);
         controls.current.removeEventListener('start', handleControlStart);
+        controls.current.removeEventListener('change', handleControlChange);
         controls.current.removeEventListener('end', handleControlEnd);
         removeLights(lights);
         cleanScene(scene.current);
         cleanRenderer(renderer.current);
       };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -243,11 +345,15 @@ export const Earth = forwardRef(
         mixer.current = new AnimationMixer(sceneModel.current);
         mixer.current.timeScale = 0.1;
 
-        sceneModel.current.traverse(child => {
+        sceneModel.current.traverse(async child => {
           const { material, name } = child;
 
           if (name === 'Atmosphere') {
             material.alphaMap = material.map;
+          }
+
+          if (material) {
+            await renderer.current.initTexture(material);
           }
         });
 
@@ -273,6 +379,7 @@ export const Earth = forwardRef(
         hdrTexture.magFilter = LinearFilter;
         envMap.current = pmremGenerator.fromCubemap(hdrTexture);
         pmremGenerator.dispose();
+        await renderer.current.initTexture(envMap.current.texture);
       };
 
       const loadBackground = async () => {
@@ -280,6 +387,7 @@ export const Earth = forwardRef(
         backgroundTexture.mapping = EquirectangularReflectionMapping;
         backgroundTexture.encoding = sRGBEncoding;
         scene.current.background = backgroundTexture;
+        await renderer.current.initTexture(backgroundTexture);
       };
 
       const handleLoad = async () => {
@@ -301,10 +409,11 @@ export const Earth = forwardRef(
 
       fetching.current = true;
 
-      setTimeout(handleLoad, 2000);
+      handleLoad();
+
       setTimeout(() => {
         setLoaderVisible(true);
-      }, 3000);
+      }, 1000);
     }, [loaded, position, scale]);
 
     useEffect(() => {
@@ -317,13 +426,13 @@ export const Earth = forwardRef(
       // Only animate while visible
       if (loaded && inViewport) {
         setVisible(true);
-        animate();
+        animateFrame();
       }
 
       return () => {
         cancelAnimationFrame(animationFrame.current);
       };
-    }, [animate, inViewport, loaded]);
+    }, [animateFrame, inViewport, loaded]);
 
     useEffect(() => {
       if (loaded) {
@@ -387,10 +496,8 @@ export const Earth = forwardRef(
 
     useEffect(() => {
       let chunkSpring;
-      let chunkValue;
-      let chunkValueSubscription;
       let opacitySpring;
-      let opacityValue;
+
       const { offsetTop } = container.current;
       const { innerHeight } = window;
 
@@ -398,86 +505,41 @@ export const Earth = forwardRef(
         const currentScrollY = window.scrollY - offsetTop;
         let prevTarget;
 
-        if (chunkValueSubscription) {
-          chunkValueSubscription.unsubscribe();
-        }
-
-        const getChild = name => {
-          let node;
-
-          sceneModel.current.traverse(child => {
-            if (child.name === name) {
-              node = child;
-            }
-          });
-
-          return node;
-        };
-
         const updateMeshes = index => {
           const visibleMeshes = sectionRefs.current[index].meshes;
+          const chunk = getChild('Chunk', sceneModel.current);
+          const earthFull = getChild('EarthFull', sceneModel.current);
+          const earthPartial = getChild('EarthPartial', sceneModel.current);
+          const atmosphere = getChild('Atmosphere', sceneModel.current);
 
           sceneModel.current.traverse(child => {
             const { name } = child;
             const isVisible = visibleMeshes && visibleMeshes.includes(name);
             const isHidden = hideMeshes.includes(name);
-            const chunk = getChild('Chunk');
-            const earthFull = getChild('EarthFull');
-            const earthPartial = getChild('EarthPartial');
-            const atmosphere = getChild('Atmosphere');
-
-            if (!opacityValue) {
-              opacityValue = value(atmosphere.material.opacity, opacity => {
-                atmosphere.material.opacity = opacity;
-              });
-            }
-
-            const setChunkValue = () => {
-              chunkValue = value(chunk.position, ({ x, y, z }) => {
-                chunk.position.set(x, y, z);
-              });
-            };
-
-            if (!chunkValue) {
-              setChunkValue();
-            }
-
-            const opacitySpringConfig = {
-              from: opacityValue?.get(),
-              velocity: opacityValue?.getVelocity(),
-              stiffness: 16,
-              damping: 32,
-            };
-
-            const chunkSpringConfig = {
-              from: chunkValue?.get(),
-              velocity: chunkValue?.getVelocity(),
-              stiffness: 32,
-              damping: 26,
-              mass: 1.8,
-              restSpeed: 0.001,
-            };
 
             if (isVisible) {
               if (name === 'Atmosphere') {
-                child.visible = true;
-                opacitySpring = spring({ ...opacitySpringConfig, to: 1 }).start(
-                  opacityValue
-                );
-              } else if (name === 'Chunk') {
-                const chunkPosition = new Vector3(-0.4, 0.4, 0.4);
-                child.visible = true;
-                chunkValueSubscription = chunkValue.subscribe({
-                  complete: setChunkValue,
+                atmosphere.visible = true;
+
+                opacitySpring = animate(atmosphere.material.opacity, 1, {
+                  ...opacitySpringConfig,
+                  onUpdate: value => {
+                    atmosphere.material.opacity = value;
+                    atmosphere.material.needsUpdate = true;
+                  },
                 });
+              } else if (name === 'Chunk') {
+                const chunkTarget = new Vector3(-0.4, 0.4, 0.4);
+                chunk.visible = true;
+                earthFull.visible = false;
+                earthPartial.visible = true;
 
                 if (reduceMotion) {
-                  chunk.position.set(...chunkPosition.toArray());
+                  chunk.position.set(...chunkTarget.toArray());
                 } else {
-                  chunkSpring = spring({
-                    ...chunkSpringConfig,
-                    to: chunkPosition,
-                  }).start(chunkValue);
+                  chunkXSpring.set(chunkTarget.x);
+                  chunkYSpring.set(chunkTarget.y);
+                  chunkZSpring.set(chunkTarget.z);
                 }
               } else if (name === 'EarthFull' && chunk.visible) {
                 child.visible = false;
@@ -486,26 +548,26 @@ export const Earth = forwardRef(
               }
             } else if (isHidden && !isVisible) {
               if (name === 'Atmosphere') {
-                opacitySpring = spring({ ...opacitySpringConfig, to: 0 }).start(
-                  opacityValue
-                );
-              } else if (name === 'Chunk') {
-                chunkValueSubscription = chunkValue.subscribe({
-                  complete: () => {
-                    chunk.visible = false;
-                    earthPartial.visible = false;
-                    earthFull.visible = true;
-
-                    setChunkValue();
+                opacitySpring = animate(atmosphere.material.opacity, 0, {
+                  ...opacitySpringConfig,
+                  onUpdate: value => {
+                    atmosphere.material.opacity = value;
                   },
                 });
+              } else if (name === 'Chunk') {
+                const chunkTarget = new Vector3(0, 0, 0);
 
-                chunkSpring = spring({
-                  ...chunkSpringConfig,
-                  to: new Vector3(0, 0, 0),
-                }).start(chunkValue);
+                if (isEqualPosition(chunkTarget, chunk.position)) {
+                  earthFull.visible = true;
+                  earthPartial.visible = false;
+                  chunk.visible = false;
+                }
+
+                chunkXSpring.set(chunkTarget.x);
+                chunkYSpring.set(chunkTarget.y);
+                chunkZSpring.set(chunkTarget.z);
               } else if (name !== 'EarthPartial') {
-                child.visible = false;
+                earthPartial.visible = false;
               }
             }
           });
@@ -556,11 +618,9 @@ export const Earth = forwardRef(
         };
 
         const update = () => {
-          const indexRange = transform.clamp(0, sectionRefs.current.length - 1);
-
-          const currentSectionIndex = indexRange(
-            Math.floor(currentScrollY / innerHeight)
-          );
+          const sectionCount = sectionRefs.current.length - 1;
+          const absoluteSection = Math.floor(currentScrollY / innerHeight);
+          const currentSectionIndex = clamp(absoluteSection, 0, sectionCount);
 
           const currentTarget =
             getPositionValues(sectionRefs.current[currentSectionIndex]) || nullTarget;
@@ -569,8 +629,7 @@ export const Earth = forwardRef(
           const sectionScrolled =
             (currentScrollY - innerHeight * currentSectionIndex) / innerHeight;
 
-          const scrollPercentRange = transform.clamp(0, 1);
-          const scrollPercent = scrollPercentRange(sectionScrolled);
+          const scrollPercent = clamp(sectionScrolled, 0, 1);
           const currentX = interpolatePosition(
             currentTarget.x,
             nextTarget.x,
@@ -599,26 +658,12 @@ export const Earth = forwardRef(
 
           prevTarget = currentTarget;
 
-          if (
-            !isEqualCameraPosition(cameraValue.current?.get(), camera.current.position)
-          ) {
-            cameraValue.current = value(camera.current.position, ({ x, y, z }) =>
-              camera.current.position.set(x, y, z)
-            );
-          }
-
           if (reduceMotion) {
             camera.current.position.set(currentX, currentY, currentZ);
           } else {
-            cameraSpring.current = spring({
-              from: cameraValue.current.get(),
-              to: { x: currentX, y: currentY, z: currentZ },
-              velocity: cameraValue.current.getVelocity(),
-              stiffness: 80,
-              damping: 70,
-              mass: 2,
-              restSpeed: 0.001,
-            }).start(cameraValue.current);
+            cameraXSpring.set(currentX);
+            cameraYSpring.set(currentY);
+            cameraZSpring.set(currentZ);
           }
         };
 
@@ -634,9 +679,20 @@ export const Earth = forwardRef(
         window.removeEventListener('scroll', handleScroll);
         chunkSpring?.stop();
         opacitySpring?.stop();
-        cameraSpring.current?.stop();
       };
-    }, [container, hideMeshes, inViewport, loaded, reduceMotion]);
+    }, [
+      cameraXSpring,
+      cameraYSpring,
+      cameraZSpring,
+      chunkXSpring,
+      chunkYSpring,
+      chunkZSpring,
+      container,
+      hideMeshes,
+      inViewport,
+      loaded,
+      reduceMotion,
+    ]);
 
     const registerSection = useCallback(section => {
       sectionRefs.current = [...sectionRefs.current, section];
