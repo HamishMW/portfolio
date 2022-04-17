@@ -19,6 +19,7 @@ export const decorators = [
         <style>{tokenStyles}</style>
         <div id="story-root" className="storyRoot">
           <Story />
+          <div id="portal-root" />
         </div>
       </ThemeProvider>
     );

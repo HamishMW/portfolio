@@ -24,7 +24,7 @@ import {
 } from 'three';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
-import { getImageFromSrcSet } from 'utils/image';
+import { resolveSrcFromSrcSet } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
 import styles from './Model.module.css';
@@ -397,7 +397,7 @@ const Device = ({
         if (node.name === MeshType.Screen) {
           applyScreenTexture(placeholder, node);
           loadFullResTexture = async () => {
-            const image = await getImageFromSrcSet(texture);
+            const image = await resolveSrcFromSrcSet(texture);
             const fullSize = await textureLoader.current.loadAsync(image);
             await applyScreenTexture(fullSize, node);
           };

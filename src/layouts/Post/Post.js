@@ -82,16 +82,18 @@ export const Post = ({
           </RouterLink>
           <div className={styles.bannerReadTime}>{readTime}</div>
         </div>
-        <div className={styles.banner}>
-          <Image
-            reveal
-            delay={600}
-            className={styles.bannerImage}
-            src={banner ? banner : undefined}
-            placeholder={{ src: bannerPlaceholder }}
-            alt={bannerAlt}
-          />
-        </div>
+        {banner && (
+          <div className={styles.banner}>
+            <Image
+              reveal
+              delay={600}
+              className={styles.bannerImage}
+              src={{ src: banner }}
+              placeholder={{ src: bannerPlaceholder }}
+              alt={bannerAlt}
+            />
+          </div>
+        )}
       </header>
       <Section className={styles.contentWrapper} id="postContent" tabIndex={-1}>
         <div className={styles.content}>{children}</div>

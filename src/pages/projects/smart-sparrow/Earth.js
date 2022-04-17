@@ -471,6 +471,8 @@ export const Earth = ({
   }, []);
 
   const handleScroll = useCallback(() => {
+    if (!container.current) return;
+
     const { offsetTop } = container.current;
     const { innerHeight } = window;
 

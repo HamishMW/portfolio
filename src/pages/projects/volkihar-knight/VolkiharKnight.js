@@ -70,8 +70,7 @@ export function VolkiharKnight() {
       />
       <ProjectContainer>
         <ProjectBackground
-          src={volkiharBackground}
-          srcSet={`${volkiharBackground.src} 1000w, ${volkiharBackgroundLarge.src} 1600w`}
+          srcSet={[volkiharBackground, volkiharBackgroundLarge]}
           placeholder={volkiharBackgroundPlaceholder}
           opacity={0.5}
         />
@@ -82,11 +81,10 @@ export function VolkiharKnight() {
           url="https://www.nexusmods.com/skyrimspecialedition/mods/4806/"
           roles={roles}
         />
-        <ProjectSection first>
+        <ProjectSection>
           <ProjectSectionContent>
             <ProjectImage
-              src={volkiharBackground}
-              srcSet={`${volkiharBanner.src} 800w, ${volkiharBannerLarge.src} 1100w`}
+              srcSet={[volkiharBanner, volkiharBannerLarge]}
               placeholder={volkiharBannerPlaceholder}
               alt="A dark elf wearing the Volkihar Knight armor with the logo overlaid on the image."
               sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
@@ -96,8 +94,7 @@ export function VolkiharKnight() {
         <ProjectSection>
           <ProjectSectionContent>
             <Image
-              src={volkiharBook}
-              srcSet={`${volkiharBook.src} 480w, ${volkiharBookLarge.src} 960w`}
+              srcSet={[volkiharBook, volkiharBookLarge]}
               placeholder={volkiharBookPlaceholder}
               alt="A book containing a sketch depicting the logo and armor"
               sizes={`(max-width: ${media.mobile}px) 90vw, (max-width: ${media.tablet}px) 80vw, 70vw`}
@@ -146,21 +143,21 @@ export function VolkiharKnight() {
         <ProjectSection>
           <ProjectSectionContent>
             <Carousel
-              placeholder={volkiharSlidePlaceholder.src}
+              placeholder={volkiharSlidePlaceholder}
               images={[
                 {
-                  src: volkiharSlide1.src,
-                  srcSet: `${volkiharSlide1.src} 960w, ${volkiharSlide1Large.src} 1920w`,
+                  srcSet: [volkiharSlide1, volkiharSlide1Large],
+                  sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
                   alt: 'A female character wearing the black coloured armor set.',
                 },
                 {
-                  src: volkiharSlide2.src,
-                  srcSet: `${volkiharSlide2.src} 960w, ${volkiharSlide2Large.src} 1920w`,
+                  srcSet: [volkiharSlide2, volkiharSlide2Large],
+                  sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
                   alt: 'A close up of the custom gauntlets design.',
                 },
                 {
-                  src: volkiharSlide3.src,
-                  srcSet: `${volkiharSlide3.src} 960w, ${volkiharSlide3Large.src} 1920w`,
+                  srcSet: [volkiharSlide3, volkiharSlide3Large],
+                  sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
                   alt: 'A female character wielding a sword and wearing the red coloured armor.',
                 },
               ]}
@@ -172,8 +169,7 @@ export function VolkiharKnight() {
         <ProjectSection
           backgroundElement={
             <Image
-              src={volkiharEnderal}
-              srcSet={`${volkiharEnderal.src} 1280w, ${volkiharEnderalLarge.src} 1920w`}
+              srcSet={[volkiharEnderal, volkiharEnderalLarge]}
               placeholder={volkiharEnderalPlaceholder}
               alt="A promotional image from Enderal showing several characters in the game overlooking a distant city."
               sizes={`100vw`}
@@ -183,8 +179,7 @@ export function VolkiharKnight() {
           <ProjectSectionContent>
             <ProjectTextRow center centerMobile noMargin>
               <Image
-                src={volkiharEnderalLogo}
-                srcSet={`${volkiharEnderalLogo.src} 180w, ${volkiharEnderalLogoLarge.src} 320w`}
+                srcSet={[volkiharEnderalLogo, volkiharEnderalLogoLarge]}
                 placeholder={volkiharEnderalLogoPlaceholder}
                 alt="The Enderal game logo"
                 sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 220px`}

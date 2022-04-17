@@ -15,7 +15,7 @@ import {
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
-import { getImageFromSrcSet } from 'utils/image';
+import { resolveSrcFromSrcSet } from 'utils/image';
 import { cssProps } from 'utils/style';
 import { cleanRenderer, cleanScene } from 'utils/three';
 import styles from './Carousel.module.css';
@@ -99,7 +99,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       const anisotropy = renderer.current.capabilities.getMaxAnisotropy();
 
       const texturePromises = images.map(async image => {
-        const imageSrc = await getImageFromSrcSet(image);
+        const imageSrc = await resolveSrcFromSrcSet(image);
         const imageTexture = await textureLoader.loadAsync(imageSrc);
         await renderer.current.initTexture(imageTexture);
         imageTexture.encoding = sRGBEncoding;
@@ -378,7 +378,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
               aria-hidden
               className={styles.placeholder}
               data-loaded={loaded && !!textures}
-              src={placeholder}
+              src={placeholder.src}
               ref={placeholderRef}
               alt=""
               role="presentation"

@@ -1,6 +1,7 @@
 import { Button } from 'components/Button';
 import { DecoderText } from 'components/DecoderText';
 import { Divider } from 'components/Divider';
+import { Footer } from 'components/Footer';
 import { Heading } from 'components/Heading';
 import { Icon } from 'components/Icon';
 import { Input } from 'components/Input';
@@ -175,6 +176,7 @@ export const Contact = () => {
           </div>
         )}
       </Transition>
+      <Footer className={styles.footer} />
     </Section>
   );
 };

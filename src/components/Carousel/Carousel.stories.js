@@ -15,15 +15,15 @@ export const images = () => (
       placeholder={placeholderImg}
       images={[
         {
-          src: 'https://source.unsplash.com/ANJHXftvvJ8/1280x720',
+          src: { src: 'https://source.unsplash.com/ANJHXftvvJ8/1280x720' },
           alt: 'A neon sign with kanji',
         },
         {
-          src: 'https://source.unsplash.com/qEWEz-U5p8Q/1280x720',
+          src: { src: 'https://source.unsplash.com/qEWEz-U5p8Q/1280x720' },
           alt: 'Tokyo at night',
         },
         {
-          src: 'https://source.unsplash.com/lx9RWIg1Rdg/1280x720',
+          src: { src: 'https://source.unsplash.com/lx9RWIg1Rdg/1280x720' },
           alt: 'A rad cyberpunk dude',
         },
       ]}

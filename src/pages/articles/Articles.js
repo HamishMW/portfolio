@@ -37,7 +37,7 @@ const ArticlesPost = ({
               restartOnPause
               play={hovered}
               className={styles.postImage}
-              src={banner}
+              src={{ src: banner }}
               placeholder={{ src: bannerPlaceholder }}
               alt={bannerAlt}
             />

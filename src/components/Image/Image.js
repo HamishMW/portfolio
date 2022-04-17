@@ -3,7 +3,7 @@ import { Icon } from 'components/Icon';
 import { useTheme } from 'components/ThemeProvider';
 import { useInViewport, usePrefersReducedMotion } from 'hooks';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
-import { resolveVideoSrcFromSrcSet } from 'utils/image';
+import { resolveSrcFromSrcSet, srcSetToString } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
 import styles from './Image.module.css';
 
@@ -13,13 +13,15 @@ export const Image = ({
   reveal,
   delay = 0,
   raised,
-  src,
+  src: baseSrc,
+  srcSet,
   placeholder,
   ...rest
 }) => {
   const [loaded, setLoaded] = useState(false);
   const { themeId } = useTheme();
   const containerRef = useRef();
+  const src = baseSrc || srcSet?.[0];
   const inViewport = useInViewport(containerRef, !getIsVideo(src));
 
   const onLoad = useCallback(() => {
@@ -43,6 +45,7 @@ export const Image = ({
         inViewport={inViewport}
         reveal={reveal}
         src={src}
+        srcSet={srcSet}
         placeholder={placeholder}
         {...rest}
       />
@@ -62,6 +65,7 @@ const ImageElements = ({
   play = true,
   restartOnPause,
   reveal,
+  sizes,
   ...rest
 }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -73,10 +77,11 @@ const ImageElements = ({
   const videoRef = useRef();
   const isVideo = getIsVideo(src);
   const showFullRes = inViewport;
+  const srcSetString = srcSetToString(srcSet);
 
   useEffect(() => {
     const resolveVideoSrc = async () => {
-      const resolvedVideoSrc = await resolveVideoSrcFromSrcSet(srcSet);
+      const resolvedVideoSrc = await resolveSrcFromSrcSet({ srcSet, sizes });
       setVideoSrc(resolvedVideoSrc);
     };
 
@@ -167,10 +172,11 @@ const ImageElements = ({
           onLoad={onLoad}
           decoding="async"
           src={showFullRes ? src.src : undefined}
-          srcSet={showFullRes ? srcSet : undefined}
+          srcSet={showFullRes ? srcSetString : undefined}
           width={src.width}
           height={src.height}
           alt={alt}
+          sizes={sizes}
           {...rest}
         />
       )}
@@ -195,5 +201,5 @@ const ImageElements = ({
 };
 
 function getIsVideo(src) {
-  return typeof src === 'string' && src.endsWith('.mp4');
+  return typeof src.src === 'string' && src.src.endsWith('.mp4');
 }

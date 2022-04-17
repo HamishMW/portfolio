@@ -89,16 +89,14 @@ export const Slice = () => {
             <div className={styles.sidebarImages}>
               <Image
                 className={styles.sidebarImage}
-                src={sliceSidebarLayers}
-                srcSet={`${sliceSidebarLayers.src} 300w, ${sliceSidebarLayersLarge.src} 700w`}
+                srcSet={[sliceSidebarLayers, sliceSidebarLayersLarge]}
                 placeholder={sliceSidebarLayersPlaceholder}
                 alt="The layers sidebar design, now with user profiles."
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
               />
               <Image
                 className={styles.sidebarImage}
-                src={sliceSidebarAnnotations}
-                srcSet={`${sliceSidebarAnnotations.src} 300w, ${sliceSidebarAnnotationsLarge.src} 700w`}
+                srcSet={[sliceSidebarAnnotations, sliceSidebarAnnotationsLarge]}
                 placeholder={sliceSidebarAnnotationsPlaceholder}
                 alt="Multiple user annotations on a shared layer."
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
@@ -120,8 +118,7 @@ export const Slice = () => {
               </ProjectSectionText>
             </ProjectTextRow>
             <Image
-              src={sliceSlides}
-              srcSet={`${sliceSlides.src} 800w, ${sliceSlidesLarge.src} 1440w`}
+              srcSet={[sliceSlides, sliceSlidesLarge]}
               placeholder={sliceSlidesPlaceholder}
               alt="The new My Slides tab in slice, showing annotated and favorited slides."
               sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
@@ -133,8 +130,7 @@ export const Slice = () => {
             <div className={styles.gridImage}>
               <div className={styles.gridBackground}>
                 <Image
-                  src={sliceBackgroundBar}
-                  srcSet={`${sliceBackgroundBar.src} 400w, ${sliceBackgroundBarLarge.src} 898w`}
+                  srcSet={[sliceBackgroundBar, sliceBackgroundBarLarge]}
                   placeholder={sliceBackgroundBarPlaceholder}
                   alt=""
                   role="presentation"
@@ -143,8 +139,7 @@ export const Slice = () => {
               </div>
               <div className={styles.gridForeground}>
                 <Image
-                  src={sliceAnnotation}
-                  srcSet={`${sliceAnnotation.src} 440w, ${sliceAnnotationLarge.src} 880w`}
+                  srcSet={[sliceAnnotation, sliceAnnotationLarge]}
                   placeholder={sliceAnnotationPlaceholder}
                   alt="An annotation preview popover with statistics for shape perimeter and area."
                   sizes={`(max-width: ${media.mobile}px) 584px, (max-width: ${media.tablet}px) 747px, 556px`}

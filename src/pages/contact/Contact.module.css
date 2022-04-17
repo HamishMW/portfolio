@@ -2,9 +2,11 @@
   --formHeight: 530px;
 
   position: absolute;
-  display: flex;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
   justify-content: center;
-  padding-top: calc(50vh - var(--formHeight) / 2);
+  align-items: center;
   min-height: 100vh;
   width: 100%;
 

@@ -112,14 +112,11 @@ export const SmartSparrow = () => {
             <ProjectImage
               raised
               key={themeId}
-              src={isDark ? imageSprLessonBuilderDark : imageSprLessonBuilderLight}
-              srcSet={`${
-                isDark ? imageSprLessonBuilderDark.src : imageSprLessonBuilderLight.src
-              } 1280w, ${
+              srcSet={
                 isDark
-                  ? imageSprLessonBuilderDarkLarge.src
-                  : imageSprLessonBuilderLightLarge.src
-              } 2560w`}
+                  ? [imageSprLessonBuilderDark, imageSprLessonBuilderDarkLarge]
+                  : [imageSprLessonBuilderLight, imageSprLessonBuilderLightLarge]
+              }
               placeholder={
                 isDark
                   ? imageSprLessonBuilderDarkPlaceholder
@@ -148,14 +145,11 @@ export const SmartSparrow = () => {
           <ProjectSectionContent>
             <Image
               key={themeId}
-              src={isDark ? imageSprComponentsDark : imageSprComponentsLight}
-              srcSet={`${
-                isDark ? imageSprComponentsDark.src : imageSprComponentsLight.src
-              } 800w, ${
+              srcSet={
                 isDark
-                  ? imageSprComponentsDarkLarge.src
-                  : imageSprComponentsLightLarge.src
-              } 1000w`}
+                  ? [imageSprComponentsDark, imageSprComponentsDarkLarge]
+                  : [imageSprComponentsLight, imageSprComponentsLightLarge]
+              }
               placeholder={
                 isDark
                   ? imageSprComponentsDarkPlaceholder
@@ -190,14 +184,11 @@ export const SmartSparrow = () => {
             <Image
               raised
               key={themeId}
-              src={isDark ? imageSprDesignSystemDark : imageSprDesignSystemLight}
-              srcSet={`${
-                isDark ? imageSprDesignSystemDark.src : imageSprDesignSystemLight.src
-              } 1280w, ${
+              srcSet={
                 isDark
-                  ? imageSprDesignSystemDarkLarge.src
-                  : imageSprDesignSystemLightLarge.src
-              } 2560w`}
+                  ? [imageSprDesignSystemDark, imageSprDesignSystemDarkLarge]
+                  : [imageSprDesignSystemLight, imageSprDesignSystemLightLarge]
+              }
               placeholder={
                 isDark
                   ? imageSprDesignSystemDarkPlaceholder
@@ -222,8 +213,7 @@ export const SmartSparrow = () => {
             backgroundOverlayOpacity={0.5}
             backgroundElement={
               <Image
-                src={imageSprBackgroundVolcanism}
-                srcSet={`${imageSprBackgroundVolcanism.src} 1280w, ${imageSprBackgroundVolcanismLarge.src} 2560w`}
+                srcSet={[imageSprBackgroundVolcanism, imageSprBackgroundVolcanismLarge]}
                 placeholder={imageSprBackgroundVolcanismPlaceholder}
                 alt="A dramatic ocean scene with lava forming a new land mass."
                 sizes="100vw"
@@ -244,9 +234,11 @@ export const SmartSparrow = () => {
               </ProjectSectionContent>
               <Image
                 raised
-                src={videoSprMotionLarge}
-                srcSet={`${videoSprMotion} 1280w, ${videoSprMotionLarge} 2560w`}
                 className={styles.video}
+                srcSet={[
+                  { src: videoSprMotion, width: 1280 },
+                  { src: videoSprMotionLarge, width: 2560 },
+                ]}
                 placeholder={videoSprMotionPlaceholder}
                 alt="A learning designer building and deploying an interactive lesson on volcanism using the app."
                 sizes={`(max-width: ${media.mobile}px) 100vw, 50vw`}
@@ -269,14 +261,11 @@ export const SmartSparrow = () => {
             <Image
               raised
               key={themeId}
-              src={isDark ? imageSprStoryboarderDark : imageSprStoryboarderLight}
-              srcSet={`${
-                isDark ? imageSprStoryboarderDark.src : imageSprStoryboarderLight.src
-              } 1280w, ${
+              srcSet={
                 isDark
-                  ? imageSprStoryboarderDarkLarge.src
-                  : imageSprStoryboarderLightLarge.src
-              } 2560w`}
+                  ? [imageSprStoryboarderDark, imageSprStoryboarderDarkLarge]
+                  : [imageSprStoryboarderLight, imageSprStoryboarderLightLarge]
+              }
               placeholder={
                 isDark
                   ? imageSprStoryboarderDarkPlaceholder
@@ -306,12 +295,11 @@ export const SmartSparrow = () => {
             <div className={styles.sidebarImages}>
               <Image
                 className={styles.sidebarImage}
-                src={isDark ? imageSprSchema2Dark : imageSprSchema2Light}
-                srcSet={`${
-                  isDark ? imageSprSchema2Dark.src : imageSprSchema2Light.src
-                } 260w, ${
-                  isDark ? imageSprSchema2DarkLarge.src : imageSprSchema2LightLarge.src
-                } 520w`}
+                srcSet={
+                  isDark
+                    ? [imageSprSchema2Dark, imageSprSchema2DarkLarge]
+                    : [imageSprSchema2Light, imageSprSchema2LightLarge]
+                }
                 placeholder={
                   isDark
                     ? imageSprSchema2DarkPlaceholder
@@ -322,12 +310,11 @@ export const SmartSparrow = () => {
               />
               <Image
                 className={styles.sidebarImage}
-                src={isDark ? imageSprSchema1Dark : imageSprSchema1Light}
-                srcSet={`${
-                  isDark ? imageSprSchema1Dark.src : imageSprSchema1Light.src
-                } 260w, ${
-                  isDark ? imageSprSchema1DarkLarge.src : imageSprSchema1LightLarge.src
-                } 520w`}
+                srcSet={
+                  isDark
+                    ? [imageSprSchema1Dark, imageSprSchema1DarkLarge]
+                    : [imageSprSchema1Light, imageSprSchema1LightLarge]
+                }
                 placeholder={
                   isDark
                     ? imageSprSchema1DarkPlaceholder
