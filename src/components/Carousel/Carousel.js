@@ -1,7 +1,7 @@
 import ArrowLeft from 'assets/arrow-left.svg';
 import ArrowRight from 'assets/arrow-right.svg';
-import { animate } from 'framer-motion';
-import { useInViewport, usePrefersReducedMotion } from 'hooks';
+import { animate, useReducedMotion } from 'framer-motion';
+import { useInViewport } from 'hooks';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Color,
@@ -48,7 +48,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   const swipeDirection = useRef();
   const lastSwipePosition = useRef();
   const scheduledAnimationFrame = useRef();
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
   const inViewport = useInViewport(canvas, true);
   const placeholderRef = useRef();
   const initSwipeX = useRef();
@@ -164,7 +164,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         animating.current = false;
       };
 
-      if (!prefersReducedMotion && uniforms.dispFactor.value !== 1) {
+      if (!reduceMotion && uniforms.dispFactor.value !== 1) {
         animating.current = true;
 
         animate(uniforms.dispFactor.value, 1, {
@@ -185,7 +185,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         });
       }
     },
-    [prefersReducedMotion, textures]
+    [reduceMotion, textures]
   );
 
   const navigate = useCallback(
@@ -279,7 +279,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       uniforms.nextImage.value = textures[nextIndex];
       uniforms.direction.value = swipeDirection.current;
 
-      if (!prefersReducedMotion) {
+      if (!reduceMotion) {
         uniforms.dispFactor.value = displacementClamp;
       }
 
@@ -287,7 +287,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         renderer.current.render(scene.current, camera.current);
       });
     },
-    [canvasRect, imageIndex, images, prefersReducedMotion, textures]
+    [canvasRect, imageIndex, images, reduceMotion, textures]
   );
 
   const onSwipeEnd = useCallback(() => {

@@ -37,9 +37,7 @@
   cursor: grab;
 
   @media (--mediaTouch) {
-    & {
-      pointer-events: none;
-    }
+    pointer-events: none;
   }
 
   &[data-grabbing='true'] {

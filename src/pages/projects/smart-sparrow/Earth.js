@@ -10,8 +10,8 @@ import { Loader } from 'components/Loader';
 import { Section } from 'components/Section';
 import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
-import { useSpring } from 'framer-motion';
-import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
+import { useReducedMotion, useSpring } from 'framer-motion';
+import { useInViewport, useWindowSize } from 'hooks';
 import {
   createContext,
   memo,
@@ -142,7 +142,7 @@ export const Earth = ({
   const contentAdded = useRef();
   const mounted = useRef();
   const { width: windowWidth, height: windowHeight } = useWindowSize();
-  const reduceMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
   const cameraXSpring = useSpring(0, cameraSpringConfig);
   const cameraYSpring = useSpring(0, cameraSpringConfig);
   const cameraZSpring = useSpring(0, cameraSpringConfig);

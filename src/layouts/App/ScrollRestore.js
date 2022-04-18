@@ -1,5 +1,4 @@
 import { useIsPresent } from 'framer-motion';
-import { useRouteTransition } from 'hooks';
 import { useRouter } from 'next/router';
 import { ROUTE_TRANSITION_DURATION } from 'pages/_app.page';
 import { useEffect } from 'react';
@@ -8,7 +7,6 @@ import { useEffect } from 'react';
 export const ScrollRestore = () => {
   const isPresent = useIsPresent();
   const { asPath, replace, events, beforePopState } = useRouter();
-  const { status } = useRouteTransition();
 
   useEffect(() => {
     // Opt out of native scroll restoration
@@ -28,10 +26,8 @@ export const ScrollRestore = () => {
   useEffect(() => {
     const handleRouteChange = url => {
       const [path, hash] = url.split('#');
-
       if (hash) {
         replace(path, null, { scroll: false });
-
         setTimeout(() => {
           replace(`${path}#${hash}`, null, { scroll: false });
         }, ROUTE_TRANSITION_DURATION);
@@ -65,7 +61,6 @@ export const ScrollRestore = () => {
       if (asPath.includes('#')) {
         requestAnimationFrame(() => {
           const target = document.getElementById(asPath.split('#')[1]);
-
           if (target) {
             window.scrollTo(0, target.offsetTop);
           }
@@ -79,5 +74,5 @@ export const ScrollRestore = () => {
 
     restoreScroll();
     document.getElementById('MainContent').focus({ preventScroll: true });
-  }, [asPath, isPresent, status]);
+  }, [asPath, isPresent]);
 };

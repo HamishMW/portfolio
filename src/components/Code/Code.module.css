@@ -1,14 +1,15 @@
 .code {
   --padding: var(--space2XL);
 
-  margin: var(--space3XL) calc(var(--padding) * -1);
   color: var(--colorTextBody);
   position: relative;
 
+  @media (--mediaTablet) {
+    --padding: var(--spaceXL);
+  }
+
   @media (--mediaMobile) {
-    & {
-      margin: var(--space2XL) calc(var(--spaceL) * -1);
-    }
+    --padding: var(--spaceL);
   }
 
   &::before {
@@ -22,13 +23,7 @@
   & pre {
     overflow-x: auto;
     position: relative;
-    padding: var(--padding);
-
-    @media (--mediaMobile) {
-      & {
-        --padding: var(--spaceL);
-      }
-    }
+    padding: calc(var(--padding) + var(--spaceS)) var(--padding);
   }
 
   /* Based on the Poimandres theme */
@@ -169,6 +164,10 @@
   @nest .code:hover &, &:focus-within {
     opacity: 1;
   }
+
+  @media (--mediaMobile) {
+    opacity: 1;
+  }
 }
 
 .copyIcon {
@@ -183,9 +182,7 @@
     transition-timing-function: var(--bezierFastoutSlowin);
 
     @media (--mediaUseMotion) {
-      & {
-        transition-property: opacity, transform;
-      }
+      transition-property: opacity, transform;
     }
   }
 

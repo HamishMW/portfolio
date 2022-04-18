@@ -11,7 +11,9 @@ export const Code = props => {
   const theme = useTheme();
   const elementRef = useRef();
   const copyTimeout = useRef();
-  const lang = props.className.split('-')[1];
+  const lang = props.className?.split('-')[1];
+
+  console.log({ props });
 
   const handleCopy = () => {
     clearTimeout(copyTimeout);
@@ -25,7 +27,7 @@ export const Code = props => {
   };
 
   return (
-    <pre className={styles.code} data-theme={theme.themeId}>
+    <div className={styles.code} data-theme={theme.themeId}>
       {!!lang && (
         <Text secondary as="span" size="s" className={styles.lang}>
           {lang}
@@ -44,6 +46,6 @@ export const Code = props => {
           </span>
         </Button>
       </div>
-    </pre>
+    </div>
   );
 };

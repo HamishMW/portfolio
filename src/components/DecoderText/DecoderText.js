@@ -1,6 +1,5 @@
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { useSpring } from 'framer-motion';
-import { usePrefersReducedMotion } from 'hooks';
+import { useReducedMotion, useSpring } from 'framer-motion';
 import { memo, useEffect, useRef } from 'react';
 import { delay } from 'utils/delay';
 import { classes } from 'utils/style';
@@ -49,7 +48,7 @@ export const DecoderText = memo(
   ({ text, start = true, delay: startDelay = 0, className, ...rest }) => {
     const output = useRef([{ type: CharType.Glyph, value: '' }]);
     const container = useRef();
-    const reduceMotion = usePrefersReducedMotion();
+    const reduceMotion = useReducedMotion();
     const decoderSpring = useSpring(0, { stiffness: 8, damping: 5 });
 
     useEffect(() => {

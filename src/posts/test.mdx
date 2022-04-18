@@ -8,13 +8,15 @@ tags: ['development', 'design', 'accessiblity']
 date: '2019-06-29'
 ---
 
-## Test post
+# Test post
 
 Lorem ipsum [dolor amet hell](/) of aesthetic literally gochujang quinoa. Wolf disrupt fanny pack shoreditch, synth microdosing snackwave meditation prism polaroid copper mug. Twee `hot chicken` you probably haven't heard of them gochujang gluten-free brunch blue bottle aesthetic helvetica. Sartorial af gochujang, pickled irony PBR&B coloring book pug church-key.
 
 ![Windows settings](/assets/windows-settings.png)
 
-## Sick title brosadsa
+## Sick title
+
+### Subheading
 
 Mustache twee direct trade 90's chia master cleanse poke subway tile shabby chic knausgaard prism adaptogen. Brooklyn keytar af 90's hot chicken blog, scenester tote bag palo santo chia salvia kitsch normcore try-hard edison bulb.
 
@@ -31,12 +33,40 @@ Mustache twee direct trade 90's chia master cleanse poke subway tile shabby chic
 }
 ```
 
+```ts
+const loader: LoaderFunction = async ({ request, params }) => {
+  // this runs on the server
+  // unexpected runtime errors will trigger the ErrorBoundary to be rendered
+  // expected errors (like 401s, 404s, etc) will render the CatchBoundary
+  // otherwise I can return a response and that'll render the default component
+  return json(data);
+};
+
+export default function AttendeesRoute() {
+  const data = useLoaderData();
+  return <div>{/* render the data */}</div>;
+}
+
+export function ErrorBoundary({ error }) {
+  return <div>{/* render an "unexpected error" message */}</div>;
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+  return <div>{/* render the error for 400-status level responses */}</div>;
+}
+```
+
+## Sick title 2 electric boogaloo
+
+### Subheading
+
 Leggings narwhal church-key trust fund, meditation tbh chillwave chambray normcore venmo portland cray craft beer iceland. Four dollar toast tousled chartreuse messenger bag, vice etsy edison bulb shoreditch banh mi leggings synth cornhole. Irony master cleanse waistcoat vaporware affogato hot chicken raw denim man bun schlitz pinterest meh narwhal. Paleo skateboard readymade shaman. Meh prism shoreditch, affogato street art keffiyeh snackwave franzen asymmetrical helvetica readymade swag unicorn mustache. Leggings organic post-ironic food truck farm-to-table. Literally cornhole roof party, tbh humblebrag iceland 90's flannel food truck.
 
-```jsx
+```jsx filename=app/events/$eventId/attendees.tsx
 import { useState, useEffect } from 'react';
 
-function usePrefersReducedMotion() {
+function useReducedMotion() {
   const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const [reducedMotion, setReducedMotion] = useState(mediaQuery.matches);
 

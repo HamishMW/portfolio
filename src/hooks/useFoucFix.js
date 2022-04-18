@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 // Temporary fix to avoid flash of unstyled content (FOUC) during route transitions.
 // Keep an eye on this issue and remove this code when resolved: https://github.com/vercel/next.js/issues/17464
-const useFoucFix = () =>
+export const useFoucFix = () => {
   useEffect(() => {
     // Gather all server-side rendered stylesheet entries.
     let ssrPageStyleSheetsEntries = Array.from(
@@ -71,5 +71,4 @@ const useFoucFix = () =>
 
     return () => observer.disconnect();
   }, []);
-
-export default useFoucFix;
+};

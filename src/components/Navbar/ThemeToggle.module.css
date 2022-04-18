@@ -31,12 +31,10 @@
   transform-origin: center;
 
   @media (--mediaUseMotion) {
-    & {
-      transition-property: transform, fill;
-      transition-duration: var(--durationL);
-      transition-delay: 0s;
-      transition-timing-function: var(--bezierFastoutSlowin);
-    }
+    transition-property: transform, fill;
+    transition-duration: var(--durationL);
+    transition-delay: 0s;
+    transition-timing-function: var(--bezierFastoutSlowin);
   }
 
   &[data-mask='true'] {
@@ -54,10 +52,8 @@
   transform: translate3d(100%, -100%, 0);
 
   @media (--mediaUseMotion) {
-    & {
-      transition: transform var(--durationL) var(--bezierFastoutSlowin);
-      transition-delay: 0s;
-    }
+    transition: transform var(--durationL) var(--bezierFastoutSlowin);
+    transition-delay: 0s;
   }
 
   @nest body[data-theme='dark'] & {
@@ -76,12 +72,10 @@
   opacity: 1;
 
   @media (--mediaUseMotion) {
-    & {
-      transition-property: stroke-dashoffset, opacity;
-      transition-duration: var(--durationL);
-      transition-timing-function: var(--bezierFastoutSlowin);
-      transition-delay: 0.3s;
-    }
+    transition-property: stroke-dashoffset, opacity;
+    transition-duration: var(--durationL);
+    transition-timing-function: var(--bezierFastoutSlowin);
+    transition-delay: 0.3s;
   }
 
   @nest body[data-theme='dark'] & {

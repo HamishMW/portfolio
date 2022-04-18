@@ -36,9 +36,7 @@
   }
 
   @media (--mediaUseMotion) {
-    & {
-      transition-property: transform, opacity, color, background;
-    }
+    transition-property: transform, opacity, color, background;
 
     &:hover {
       transform: scale(1.05);
@@ -147,9 +145,7 @@
   transition-timing-function: var(--bezierFastoutSlowin);
 
   @media (--mediaUseMotion) {
-    & {
-      transition-property: transform, opacity, fill;
-    }
+    transition-property: transform, opacity, fill;
   }
 
   &[data-start='true'] {

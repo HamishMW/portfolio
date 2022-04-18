@@ -115,7 +115,7 @@ export const ProjectSummary = ({
             data-device="phone"
             alt={model.alt}
             cameraPosition={{ x: 0, y: 0, z: 11.5 }}
-            showDelay={500}
+            showDelay={300}
             show={visible}
             models={[
               {

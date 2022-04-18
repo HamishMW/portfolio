@@ -3,6 +3,7 @@ import { Code } from 'components/Code';
 import { Divider } from 'components/Divider';
 import { Footer } from 'components/Footer';
 import { Heading } from 'components/Heading';
+import { Icon } from 'components/Icon';
 import { Image } from 'components/Image';
 import { Link } from 'components/Link';
 import { Meta } from 'components/Meta';
@@ -13,7 +14,7 @@ import { Transition } from 'components/Transition';
 import { useScrollToHash, useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
 import { Children } from 'react';
-import { cssProps, msToNum, numToMs } from 'utils/style';
+import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import { media } from 'utils/style';
 import styles from './Post.module.css';
 
@@ -37,7 +38,7 @@ export const Post = ({
 
   return (
     <article className={styles.post}>
-      <Meta title={title} prefix="Articles" description={description} />
+      <Meta title={title} prefix="" description={description} />
       <header className={styles.header}>
         <div className={styles.headerText}>
           <Transition in timeout={msToNum(tokens.base.durationM)}>
@@ -103,16 +104,50 @@ export const Post = ({
   );
 };
 
-const PostH1 = ({ children, ...rest }) => (
-  <Heading className={styles.h1} level={2} as="h1" {...rest}>
-    {children}
-  </Heading>
+const PostHeading = ({ id, children, className, label }) => {
+  return (
+    <span className={classes(styles.heading, className)}>
+      <a
+        className={styles.headingLink}
+        href={`#${id}`}
+        aria-label={`Link to heading: ${label}`}
+      >
+        <Icon icon="link" />
+      </a>
+      {children}
+    </span>
+  );
+};
+
+const PostH1 = ({ children, id, ...rest }) => (
+  <PostHeading className={styles.h1} id={id} label={children}>
+    <Heading className={styles.headingElement} id={id} level={2} as="h1" {...rest}>
+      {children}
+    </Heading>
+  </PostHeading>
 );
 
-const PostH2 = ({ children, ...rest }) => (
-  <Heading className={styles.h2} level={3} as="h2" {...rest}>
-    {children}
-  </Heading>
+const PostH2 = ({ children, id, ...rest }) => (
+  <PostHeading className={styles.h2} id={id} label={children}>
+    <Heading className={styles.headingElement} id={id} level={3} as="h2" {...rest}>
+      {children}
+    </Heading>
+  </PostHeading>
+);
+
+const PostH3 = ({ children, id, ...rest }) => (
+  <PostHeading className={styles.h2} id={id} label={children}>
+    <Heading
+      className={styles.headingElement}
+      id={id}
+      level={4}
+      as="h3"
+      weight="regular"
+      {...rest}
+    >
+      {children}
+    </Heading>
+  </PostHeading>
 );
 
 const PostParagraph = ({ children, ...rest }) => {
@@ -152,14 +187,23 @@ const PostCode = ({ children, ...rest }) => (
   </code>
 );
 
+const PostPre = props => {
+  return (
+    <div className={styles.pre}>
+      <Code {...props} />
+    </div>
+  );
+};
+
 const PostLink = ({ ...props }) => <Link {...props} />;
 
 export const postComponents = {
   h1: PostH1,
   h2: PostH2,
+  h3: PostH3,
   p: PostParagraph,
   img: PostImage,
   a: PostLink,
-  pre: Code,
+  pre: PostPre,
   code: PostCode,
 };

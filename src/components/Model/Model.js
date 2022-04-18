@@ -1,5 +1,5 @@
-import { animate, useSpring } from 'framer-motion';
-import { useInViewport, usePrefersReducedMotion } from 'hooks';
+import { animate, useReducedMotion, useSpring } from 'framer-motion';
+import { useInViewport } from 'hooks';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   AmbientLight,
@@ -73,7 +73,7 @@ export const Model = ({
   const blurPlane = useRef();
   const fillPlane = useRef();
   const isInViewport = useInViewport(container, false, { threshold: 0.4 });
-  const reduceMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
   const rotationX = useSpring(0, rotationSpringConfig);
   const rotationY = useSpring(0, rotationSpringConfig);
 
@@ -205,7 +205,6 @@ export const Model = ({
       removeLights(lights.current);
       cleanScene(scene.current);
       cleanRenderer(renderer.current);
-
       unsubscribeX();
       unsubscribeY();
     };
@@ -357,7 +356,7 @@ const Device = ({
   scene,
 }) => {
   const [loadDevice, setLoadDevice] = useState();
-  const reduceMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     let animation;
@@ -428,7 +427,7 @@ const Device = ({
 
         animation = animate(startPosition.y, targetPosition.y, {
           type: 'spring',
-          delay: (300 * index + showDelay * 0.6) / 1000,
+          delay: (300 * index + showDelay) / 1000,
           stiffness: 60,
           damping: 20,
           mass: 1,
@@ -454,7 +453,7 @@ const Device = ({
 
         animation = animate(startRotation.x, endRotation.x, {
           type: 'spring',
-          delay: (300 * index + showDelay + 200) / 1000,
+          delay: (300 * index + showDelay) / 1000,
           stiffness: 80,
           damping: 20,
           restSpeed: 0.0001,

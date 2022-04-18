@@ -22,11 +22,9 @@
   }
 
   @media (--mediaUseMotion) {
-    & {
-      transition-duration: var(--durationM);
-      transition-timing-function: var(--bezierFastoutSlowin);
-      transition-property: background-size;
-    }
+    transition-duration: var(--durationM);
+    transition-timing-function: var(--bezierFastoutSlowin);
+    transition-property: background-size;
   }
 
   &[data-secondary='true'] {

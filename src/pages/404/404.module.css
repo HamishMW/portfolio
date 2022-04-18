@@ -5,20 +5,16 @@
   padding-left: 140px;
 
   @media (--mediaTablet) {
-    & {
-      padding-top: 80px;
-      padding-bottom: 80px;
-      padding-left: 80px;
-      grid-template-columns: 100%;
-      min-height: 100vh;
-      height: auto;
-    }
+    padding-top: 80px;
+    padding-bottom: 80px;
+    padding-left: 80px;
+    grid-template-columns: 100%;
+    min-height: 100vh;
+    height: auto;
   }
 
   @media (--mediaMobile) {
-    & {
-      padding-left: 0;
-    }
+    padding-left: 0;
   }
 }
 
@@ -50,7 +46,7 @@
   height: 100%;
   overflow: hidden;
   position: relative;
-  border: 30px solid transparent;
+  border: var(--space2XL) solid transparent;
 
   &::after {
     content: '';
@@ -64,11 +60,19 @@
     z-index: 16;
   }
 
+  @media (--mediaLaptop) {
+    border-width: var(--spaceL);
+  }
+
+  @media (--mediaTablet) {
+    border-width: var(--space4XL);
+  }
+
   @media (--mediaMobile) {
-    & {
-      min-height: 240px;
-      grid-row: 1;
-    }
+    min-height: 240px;
+    grid-row: 1;
+    border-width: var(--spaceOuter);
+    border-top: 0;
   }
 
   @media (--mediaUseMotion) {
@@ -89,9 +93,7 @@
   transition-duration: var(--durationXL);
 
   @media (--mediaMobile) {
-    & {
-      left: 0;
-    }
+    left: 0;
   }
 
   &[data-visible='true'] {
@@ -130,9 +132,8 @@
   height: 100%;
 
   @media (--mediaMobile) {
-    & {
-      grid-row: 2;
-    }
+    grid-row: 2;
+    padding: 0 var(--spaceOuter);
   }
 }
 
@@ -152,10 +153,8 @@
   opacity: 0;
 
   @media (--mediaUseMotion) {
-    & {
-      transition-property: transform, opacity;
-      transform: translate3d(0, var(--spaceL), 0);
-    }
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
   }
 
   &[data-visible='true'] {
@@ -176,19 +175,16 @@
   opacity: 0;
   max-width: 100%;
   white-space: nowrap;
+  overflow: hidden;
   flex: 0 0 auto;
 
   @media (--mediaMobile) {
-    & {
-      font-size: calc((18 / 16) * 1rem);
-    }
+    font-size: calc((18 / 16) * 1rem);
   }
 
   @media (--mediaUseMotion) {
-    & {
-      transition-property: transform, opacity;
-      transform: translate3d(0, var(--spaceL), 0);
-    }
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
   }
 
   &[data-visible='true'] {
@@ -206,10 +202,8 @@
   opacity: 0;
 
   @media (--mediaUseMotion) {
-    & {
-      transition-property: transform, opacity;
-      transform: translate3d(0, var(--spaceL), 0);
-    }
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
   }
 
   &[data-visible='true'] {
@@ -228,10 +222,8 @@
   padding-left: var(--spaceXXS);
 
   @media (--mediaUseMotion) {
-    & {
-      transition-property: transform, opacity;
-      transform: translate3d(0, var(--spaceL), 0);
-    }
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
   }
 
   &[data-visible='true'] {

@@ -8,8 +8,8 @@ import armor from 'assets/volkihar-knight.glb';
 import { Loader } from 'components/Loader';
 import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
-import { useSpring } from 'framer-motion';
-import { useInViewport, usePrefersReducedMotion } from 'hooks';
+import { useReducedMotion, useSpring } from 'framer-motion';
+import { useInViewport } from 'hooks';
 import Head from 'next/head';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -52,7 +52,7 @@ export const Armor = ({
   const renderer = useRef();
   const lights = useRef();
   const isInViewport = useInViewport(container, false, { threshold: 0.4 });
-  const reduceMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
   const rotationX = useSpring(0, rotationSpringConfig);
   const rotationY = useSpring(0, rotationSpringConfig);
 

@@ -9,9 +9,7 @@
   margin: 40px 0;
 
   @media (--mediaTablet) {
-    & {
-      grid-template-columns: 1fr;
-    }
+    grid-template-columns: 1fr;
   }
 }
 
@@ -23,9 +21,7 @@
   grid-row: 1;
 
   @media (--mediaLaptop) {
-    & {
-      grid-template-rows: 1fr;
-    }
+    grid-template-rows: 1fr;
   }
 }
 
@@ -34,15 +30,11 @@
   grid-row: 1 / span 2;
 
   @media (--mediaTablet) {
-    & {
-      padding: 0 120px;
-    }
+    padding: 0 120px;
   }
 
   @media (--mediaMobile) {
-    & {
-      padding: 0 60px;
-    }
+    padding: 0 60px;
   }
 }
 
@@ -56,11 +48,9 @@
   width: 110%;
 
   @media (--mediaLaptop) {
-    & {
-      width: auto;
-      left: auto;
-      right: auto;
-    }
+    width: auto;
+    left: auto;
+    right: auto;
   }
 }
 
@@ -68,15 +58,11 @@
   padding-top: 80px;
 
   @media (--mediaDesktop) {
-    & {
-      padding-top: 40px;
-    }
+    padding-top: 40px;
   }
 
   @media (--mediaTablet) {
-    & {
-      padding-top: 0;
-    }
+    padding-top: 0;
   }
 }
 
@@ -86,17 +72,13 @@
   align-items: center;
 
   @media (--mediaTablet) {
-    & {
-      padding: 0 80px;
-      margin-top: 60px;
-    }
+    padding: 0 80px;
+    margin-top: 60px;
   }
 
   @media (--mediaMobile) {
-    & {
-      padding: 0 20px;
-      margin-top: 40px;
-    }
+    padding: 0 20px;
+    margin-top: 40px;
   }
 }
 
@@ -108,9 +90,7 @@
   padding-right: 10px;
 
   @media (--mediaTablet) {
-    & {
-      padding-right: 0;
-    }
+    padding-right: 0;
   }
 }
 

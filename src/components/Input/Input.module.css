@@ -61,9 +61,7 @@
   transform-origin: left;
 
   @media (--mediaUseMotion) {
-    & {
-      transition: transform var(--durationM) var(--bezierFastoutSlowin);
-    }
+    transition: transform var(--durationM) var(--bezierFastoutSlowin);
   }
 
   &[data-focused='true'] {
@@ -82,10 +80,8 @@
   transition: color var(--durationM) ease;
 
   @media (--mediaUseMotion) {
-    & {
-      transition: transform var(--durationM) var(--bezierFastoutSlowin),
-        color var(--durationM) ease;
-    }
+    transition: transform var(--durationM) var(--bezierFastoutSlowin),
+      color var(--durationM) ease;
   }
 
   &[data-filled='true'],
@@ -103,9 +99,7 @@
   opacity: 0;
 
   @media (--mediaUseMotion) {
-    & {
-      transition-property: height, opacity;
-    }
+    transition-property: height, opacity;
   }
 
   &[data-visible='true'] {

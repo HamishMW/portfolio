@@ -35,23 +35,17 @@
   position: relative;
 
   @media (--mediaLaptop) {
-    & {
-      --sectionPadding: var(--space5XL);
-    }
+    --sectionPadding: var(--space5XL);
   }
 
   @media (--mediaTablet) {
-    & {
-      --sectionPadding: var(--space3XL);
+    --sectionPadding: var(--space3XL);
 
-      height: auto;
-    }
+    height: auto;
   }
 
   @media (--mediaMobile) {
-    & {
-      --sectionPadding: var(--space2XL);
-    }
+    --sectionPadding: var(--space2XL);
   }
 
   &[data-first='true'] {
@@ -125,9 +119,7 @@
   }
 
   @media (--mediaUseMotion) {
-    & {
-      transform: translate3d(0, var(--offset), 0);
-    }
+    transform: translate3d(0, var(--offset), 0);
   }
 }
 
@@ -148,24 +140,18 @@
   padding-bottom: 0;
 
   @media (--mediaLaptop) {
-    & {
-      padding-top: var(--space5XL);
-      padding-bottom: var(--space2XL);
-    }
+    padding-top: var(--space5XL);
+    padding-bottom: var(--space2XL);
   }
 
   @media (--mediaTablet) {
-    & {
-      padding-top: var(--space4XL);
-      padding-bottom: 0;
-    }
+    padding-top: var(--space4XL);
+    padding-bottom: 0;
   }
 
   @media (--mediaMobile) {
-    & {
-      padding-top: var(--space5XL);
-      padding-bottom: var(--spaceXL);
-    }
+    padding-top: var(--space5XL);
+    padding-bottom: var(--spaceXL);
   }
 }
 
@@ -177,23 +163,17 @@
   max-width: var(--maxWidthL);
 
   @media (--mediaDesktop) {
-    & {
-      grid-template-columns: 1fr 400px;
-    }
+    grid-template-columns: 1fr 400px;
   }
 
   @media (max-width: 1200px) {
-    & {
-      grid-template-columns: 1fr 200px;
-      gap: var(--space2XL);
-    }
+    grid-template-columns: 1fr 200px;
+    gap: var(--space2XL);
   }
 
   @media (--mediaTablet) {
-    & {
-      grid-template-columns: 100%;
-      gap: var(--spaceXL);
-    }
+    grid-template-columns: 100%;
+    gap: var(--spaceXL);
   }
 }
 
@@ -214,10 +194,8 @@
 
   &:only-child {
     grid-column: 1 / span 2;
-  }
 
-  @media (--mediaTablet) {
-    &:only-child {
+    @media (--mediaTablet) {
       grid-column: 1;
     }
   }
@@ -227,12 +205,7 @@
   margin-bottom: 0.5em;
 
   @media (--mediaUseMotion) {
-    & {
-      opacity: 0;
-    }
-  }
-
-  @media (--mediaUseMotion) {
+    opacity: 0;
     animation: project-fade-slide 1.4s var(--bezierFastoutSlowin) var(--initDelay)
       forwards;
   }
@@ -242,12 +215,7 @@
   padding-bottom: var(--spaceL);
 
   @media (--mediaUseMotion) {
-    & {
-      opacity: 0;
-    }
-  }
-
-  @media (--mediaUseMotion) {
+    opacity: 0;
     animation: project-fade-slide 1.4s var(--bezierFastoutSlowin)
       calc(var(--initDelay) + 100ms) forwards;
   }
@@ -257,12 +225,7 @@
   padding-left: var(--spaceXS);
 
   @media (--mediaUseMotion) {
-    & {
-      opacity: 0;
-    }
-  }
-
-  @media (--mediaUseMotion) {
+    opacity: 0;
     animation: project-fade-slide 1.4s var(--bezierFastoutSlowin)
       calc(var(--initDelay) + 200ms) forwards;
   }
@@ -282,23 +245,16 @@
   border-top: 1px solid rgb(var(--rgbText) / 0.2);
 
   @media (--mediaUseMotion) {
-    & {
-      opacity: 0;
-    }
+    opacity: 0;
+    animation: project-fade-slide 1.5s var(--bezierFastoutSlowin) var(--delay) forwards;
   }
 
   @media (--mediaMobile) {
-    & {
-      padding: var(--spaceM) 0;
-    }
+    padding: var(--spaceM) 0;
   }
 
   &:last-child {
     border-bottom: 1px solid rgb(var(--rgbText) / 0.2);
-  }
-
-  @media (--mediaUseMotion) {
-    animation: project-fade-slide 1.5s var(--bezierFastoutSlowin) var(--delay) forwards;
   }
 }
 
@@ -317,9 +273,7 @@
   gap: var(--space4XL);
 
   @media (--mediaLaptop) {
-    & {
-      gap: var(--space3XL);
-    }
+    gap: var(--space3XL);
   }
 
   &[data-width='l'] {
@@ -355,10 +309,8 @@
   align-items: flex-start;
 
   @media (--mediaMobile) {
-    & {
-      text-align: left;
-      align-items: flex-start;
-    }
+    text-align: left;
+    align-items: flex-start;
   }
 
   &[data-width='s'] {
@@ -398,10 +350,8 @@
     justify-self: flex-end;
 
     @media (--mediaMobile) {
-      & {
-        align-items: center;
-        text-align: center;
-      }
+      align-items: center;
+      text-align: center;
     }
   }
 }
@@ -418,8 +368,6 @@
   }
 
   @media (--mediaTablet) {
-    & {
-      grid-template-columns: 1fr;
-    }
+    grid-template-columns: 1fr;
   }
 }

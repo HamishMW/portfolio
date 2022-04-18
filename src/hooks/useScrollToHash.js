@@ -1,11 +1,11 @@
-import { usePrefersReducedMotion } from 'hooks';
+import { useReducedMotion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useCallback, useRef } from 'react';
 
 export function useScrollToHash() {
   const scrollTimeout = useRef();
   const { asPath, push } = useRouter();
-  const reduceMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
 
   const scrollToHash = useCallback(
     (hash, onDone) => {

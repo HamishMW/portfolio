@@ -44,12 +44,12 @@ const ArticlesPost = ({
             <div className={styles.postImageTag}>K256</div>
           </div>
           <div className={styles.postText}>
-            <span className={styles.postDate}>
+            <div className={styles.postDate}>
               {new Date(date).toLocaleDateString('default', {
                 year: 'numeric',
                 month: 'long',
               })}
-            </span>
+            </div>
             <h2 className={styles.postTitle}>{title}</h2>
             <p className={styles.postDescription}>{description}</p>
           </div>

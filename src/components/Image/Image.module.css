@@ -95,7 +95,6 @@
   height: auto;
   transition: opacity var(--durationM) ease var(--delay);
   pointer-events: none;
-  display: block;
   position: relative;
   z-index: 1;
   opacity: 1;
@@ -110,7 +109,6 @@
 .element {
   width: 100%;
   height: auto;
-  display: block;
   opacity: 0;
   grid-column: 1;
   grid-row: 1;

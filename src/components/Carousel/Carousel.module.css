@@ -29,7 +29,6 @@
 
 .canvas {
   position: relative;
-  display: block;
 }
 
 .placeholder {
@@ -84,13 +83,10 @@
     position: relative;
     left: var(--offset);
     fill: rgb(var(--rgbWhite));
-    display: block;
   }
 
   @media (--mediaMobile) {
-    & {
-      display: none;
-    }
+    display: none;
   }
 
   &[data-prev='true'] {
@@ -130,7 +126,6 @@
   &::after {
     content: '';
     border-radius: 50%;
-    display: block;
     width: var(--navButtonSize);
     height: var(--navButtonSize);
     background: var(--buttonColor);

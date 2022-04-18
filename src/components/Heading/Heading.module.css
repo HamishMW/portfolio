@@ -1,5 +1,4 @@
 .heading {
-  display: block;
   line-height: var(--lineHeightTitle);
   color: var(--colorTextTitle);
 

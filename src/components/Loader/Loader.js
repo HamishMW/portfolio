@@ -1,12 +1,12 @@
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import { usePrefersReducedMotion } from 'hooks';
+import { useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { classes, cssProps } from 'utils/style';
 import styles from './Loader.module.css';
 
 export const Loader = ({ className, style, size = 32, text = 'Loading...', ...rest }) => {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const Loader = ({ className, style, size = 32, text = 'Loading...', ...re
     );
   };
 
-  if (prefersReducedMotion) {
+  if (reduceMotion) {
     return (
       <div className="loader-text" {...rest}>
         {text}

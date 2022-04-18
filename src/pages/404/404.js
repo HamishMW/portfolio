@@ -13,7 +13,7 @@ export function Page404() {
   return (
     <section className={styles.page}>
       <Meta
-        title="404 | Not Found"
+        title="404 Not Found"
         description="404 page not found. This page doesn't exist"
       />
       <Transition in>

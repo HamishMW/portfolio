@@ -15,7 +15,7 @@ export const modelLoader = gltfLoader;
  * Clean up a scene's materials and geometry
  */
 export const cleanScene = scene => {
-  scene.traverse(object => {
+  scene?.traverse(object => {
     if (!object.isMesh) return;
 
     object.geometry.dispose();

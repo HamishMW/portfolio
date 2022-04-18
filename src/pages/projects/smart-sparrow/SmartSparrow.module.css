@@ -2,15 +2,11 @@
   width: 120%;
 
   @media (--mediaLaptop) {
-    & {
-      width: 150%;
-    }
+    width: 150%;
   }
 
   @media (--mediaTablet) {
-    & {
-      width: 100%;
-    }
+    width: 100%;
   }
 }
 
@@ -20,17 +16,13 @@
   align-items: center;
 
   @media (--mediaTablet) {
-    & {
-      padding: 0 80px;
-      margin-top: 60px;
-    }
+    padding: 0 80px;
+    margin-top: 60px;
   }
 
   @media (--mediaMobile) {
-    & {
-      padding: 0 20px;
-      margin-top: 40px;
-    }
+    padding: 0 20px;
+    margin-top: 40px;
   }
 }
 

@@ -13,33 +13,23 @@
   top: calc(var(--spaceL) * -1);
 
   @media (--mediaDesktop) {
-    & {
-      max-width: 920px;
-    }
+    max-width: 920px;
   }
 
   @media (--mediaLaptop) {
-    & {
-      max-width: 780px;
-    }
+    max-width: 780px;
   }
 
   @media (--mediaMobile) {
-    & {
-      top: calc(var(--space3XL) * -1);
-    }
+    top: calc(var(--space3XL) * -1);
   }
 
   @media (--mediaMobileS) {
-    & {
-      top: calc(var(--spaceXL) * -1);
-    }
+    top: calc(var(--spaceXL) * -1);
   }
 
   @media (max-width: 820px) and (max-height: 420px) {
-    & {
-      top: calc(var(--spaceM) * -1);
-    }
+    top: calc(var(--spaceM) * -1);
   }
 }
 
@@ -56,33 +46,25 @@
   transition: opacity var(--durationL) var(--bezierFastoutSlowin) 0.2s;
 
   @media (--mediaDesktop) {
-    & {
-      font-size: calc((28 / 16) * 1rem);
-      margin-bottom: var(--space2XL);
-    }
+    font-size: calc((28 / 16) * 1rem);
+    margin-bottom: var(--space2XL);
   }
 
   @media (--mediaTablet) {
-    & {
-      font-size: calc((18 / 16) * 1rem);
-      margin-bottom: var(--space2XL);
-    }
+    font-size: calc((18 / 16) * 1rem);
+    margin-bottom: var(--space2XL);
   }
 
   @media (--mediaMobile) {
-    & {
-      margin-bottom: 20px;
-      letter-spacing: 0.2em;
-      white-space: nowrap;
-      overflow: hidden;
-    }
+    margin-bottom: 20px;
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   @media (max-width: 820px) and (max-height: 420px) {
-    & {
-      margin-bottom: 20px;
-      margin-top: 30px;
-    }
+    margin-bottom: 20px;
+    margin-top: 30px;
   }
 
   &[data-visible='true'] {
@@ -97,33 +79,23 @@
   letter-spacing: -0.005em;
 
   @media (--mediaDesktop) {
-    & {
-      font-size: calc((120 / 16) * 1rem);
-    }
+    font-size: calc((120 / 16) * 1rem);
   }
 
   @media (--mediaLaptop) {
-    & {
-      font-size: calc((100 / 16) * 1rem);
-    }
+    font-size: calc((100 / 16) * 1rem);
   }
 
   @media (max-width: 860px) {
-    & {
-      font-size: calc((80 / 16) * 1rem);
-    }
+    font-size: calc((80 / 16) * 1rem);
   }
 
   @media (--mediaMobile) {
-    & {
-      font-size: calc((56 / 16) * 1rem);
-    }
+    font-size: calc((56 / 16) * 1rem);
   }
 
   @media (--mediaMobileS) {
-    & {
-      font-size: calc((42 / 16) * 1rem);
-    }
+    font-size: calc((42 / 16) * 1rem);
   }
 }
 
@@ -274,9 +246,7 @@
     }
 
     @media (--mediaUseMotion) {
-      & {
-        animation-name: intro-line;
-      }
+      animation-name: intro-line;
     }
   }
 
@@ -328,9 +298,7 @@
   }
 
   @media (--mediaUseMotion) {
-    & {
-      transition-property: opacity, transform;
-    }
+    transition-property: opacity, transform;
 
     &::before {
       animation: intro-scroll-indicator 2s ease infinite;
@@ -345,16 +313,12 @@
     opacity: 0;
 
     @media (--mediaUseMotion) {
-      & {
-        transform: translate3d(0, 20px, 0);
-      }
+      transform: translate3d(0, 20px, 0);
     }
   }
 
   @media (--mediaTouch) {
-    & {
-      display: none;
-    }
+    display: none;
   }
 
   &:focus-visible {
@@ -388,11 +352,9 @@
   padding: 20px;
 
   @media (--mediaUseMotion) {
-    & {
-      animation-name: intro-mobile-scroll-indicator;
-      transition-property: opacity, transform;
-      transform: translate3d(0, 20px, 0);
-    }
+    animation-name: intro-mobile-scroll-indicator;
+    transition-property: opacity, transform;
+    transform: translate3d(0, 20px, 0);
   }
 
   &[data-status='entered'] {
@@ -405,9 +367,7 @@
   }
 
   @media (--mediaNoTouch) {
-    & {
-      display: none;
-    }
+    display: none;
   }
 
   & svg {

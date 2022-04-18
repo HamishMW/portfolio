@@ -1,14 +1,14 @@
-body {
+:root {
   color-scheme: dark light;
-  border: 0;
-  margin: 0;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
 }
 
 :where(html, body, #__next) {
+  min-height: 100%;
   width: 100%;
 }
 

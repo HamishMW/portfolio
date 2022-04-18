@@ -9,9 +9,7 @@ button.toggle {
   display: none;
 
   @media (--mediaMobile), (max-height: 696px) {
-    & {
-      display: flex;
-    }
+    display: flex;
   }
 }
 
@@ -37,20 +35,16 @@ button.toggle {
   height: var(--iconSize);
 
   @media (--mediaUseMotion) {
-    & {
-      transition-delay: 0.1s;
-      transition-property: opacity, transform, fill;
-    }
+    transition-delay: 0.1s;
+    transition-property: opacity, transform, fill;
   }
 
   &[data-open='true'] {
     opacity: 0;
 
     @media (--mediaUseMotion) {
-      & {
-        transition-delay: 0s;
-        transform: rotate(45deg);
-      }
+      transition-delay: 0s;
+      transform: rotate(45deg);
     }
   }
 
@@ -58,10 +52,8 @@ button.toggle {
     opacity: 0;
 
     @media (--mediaUseMotion) {
-      & {
-        transition-delay: 0s;
-        transform: rotate(-45deg);
-      }
+      transition-delay: 0s;
+      transform: rotate(-45deg);
     }
   }
 
@@ -69,10 +61,8 @@ button.toggle {
     opacity: 1;
 
     @media (--mediaUseMotion) {
-      & {
-        transition-delay: 0.1s;
-        transform: rotate(0deg);
-      }
+      transition-delay: 0.1s;
+      transform: rotate(0deg);
     }
   }
 }

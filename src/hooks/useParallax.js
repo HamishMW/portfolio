@@ -1,9 +1,9 @@
-import { usePrefersReducedMotion } from 'hooks';
+import { useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export function useParallax(multiplier, clamp = true) {
   const [offset, setOffset] = useState(0);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     let ticking = false;
@@ -27,7 +27,7 @@ export function useParallax(multiplier, clamp = true) {
       }
     };
 
-    if (!prefersReducedMotion) {
+    if (!reduceMotion) {
       window.addEventListener('scroll', handleScroll);
     }
 
@@ -35,7 +35,7 @@ export function useParallax(multiplier, clamp = true) {
       window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(animationFrame);
     };
-  }, [clamp, multiplier, prefersReducedMotion]);
+  }, [clamp, multiplier, reduceMotion]);
 
   return offset;
 }

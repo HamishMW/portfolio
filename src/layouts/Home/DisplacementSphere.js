@@ -1,7 +1,7 @@
 import { useTheme } from 'components/ThemeProvider';
 import { Transition } from 'components/Transition';
-import { useSpring } from 'framer-motion';
-import { useInViewport, usePrefersReducedMotion, useWindowSize } from 'hooks';
+import { useReducedMotion, useSpring } from 'framer-motion';
+import { useInViewport, useWindowSize } from 'hooks';
 import { useEffect, useRef } from 'react';
 import {
   AmbientLight,
@@ -44,7 +44,7 @@ export const DisplacementSphere = props => {
   const material = useRef();
   const geometry = useRef();
   const sphere = useRef();
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
   const isInViewport = useInViewport(canvasRef);
   const windowSize = useWindowSize();
   const rotationX = useSpring(0, springConfig);
@@ -120,7 +120,7 @@ export const DisplacementSphere = props => {
     camera.current.updateProjectionMatrix();
 
     // Render a single frame on resize when not animating
-    if (prefersReducedMotion) {
+    if (reduceMotion) {
       renderer.current.render(scene.current, camera.current);
     }
 
@@ -134,7 +134,7 @@ export const DisplacementSphere = props => {
       sphere.current.position.x = 22;
       sphere.current.position.y = 16;
     }
-  }, [prefersReducedMotion, windowSize]);
+  }, [reduceMotion, windowSize]);
 
   useEffect(() => {
     const onMouseMove = event => {
@@ -147,14 +147,14 @@ export const DisplacementSphere = props => {
       rotationY.set(position.x / 2);
     };
 
-    if (!prefersReducedMotion && isInViewport) {
+    if (!reduceMotion && isInViewport) {
       window.addEventListener('mousemove', onMouseMove);
     }
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
     };
-  }, [isInViewport, prefersReducedMotion, rotationX, rotationY]);
+  }, [isInViewport, reduceMotion, rotationX, rotationY]);
 
   useEffect(() => {
     let animation;
@@ -173,7 +173,7 @@ export const DisplacementSphere = props => {
       renderer.current.render(scene.current, camera.current);
     };
 
-    if (!prefersReducedMotion && isInViewport) {
+    if (!reduceMotion && isInViewport) {
       animate();
     } else {
       renderer.current.render(scene.current, camera.current);
@@ -182,7 +182,7 @@ export const DisplacementSphere = props => {
     return () => {
       cancelAnimationFrame(animation);
     };
-  }, [isInViewport, prefersReducedMotion, rotationX, rotationY]);
+  }, [isInViewport, reduceMotion, rotationX, rotationY]);
 
   return (
     <Transition in timeout={3000}>

@@ -1,7 +1,8 @@
 import { Button } from 'components/Button';
 import { Icon } from 'components/Icon';
 import { useTheme } from 'components/ThemeProvider';
-import { useInViewport, usePrefersReducedMotion } from 'hooks';
+import { useReducedMotion } from 'framer-motion';
+import { useInViewport } from 'hooks';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { resolveSrcFromSrcSet, srcSetToString } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
@@ -68,9 +69,9 @@ const ImageElements = ({
   sizes,
   ...rest
 }) => {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const reduceMotion = useReducedMotion();
   const [showPlaceholder, setShowPlaceholder] = useState(true);
-  const [playing, setPlaying] = useState(!prefersReducedMotion);
+  const [playing, setPlaying] = useState(!reduceMotion);
   const [videoSrc, setVideoSrc] = useState();
   const [videoInteracted, setVideoInteracted] = useState(false);
   const placeholderRef = useRef();
@@ -117,10 +118,10 @@ const ImageElements = ({
 
     if (!inViewport) {
       pauseVideo();
-    } else if (inViewport && !prefersReducedMotion && play) {
+    } else if (inViewport && !reduceMotion && play) {
       playVideo();
     }
-  }, [inViewport, play, prefersReducedMotion, restartOnPause, videoInteracted, videoSrc]);
+  }, [inViewport, play, reduceMotion, restartOnPause, videoInteracted, videoSrc]);
 
   const togglePlaying = event => {
     event.preventDefault();
@@ -151,7 +152,7 @@ const ImageElements = ({
             playsInline
             className={styles.element}
             data-loaded={loaded}
-            autoPlay={!prefersReducedMotion}
+            autoPlay={!reduceMotion}
             role="img"
             onLoadStart={onLoad}
             src={videoSrc}
