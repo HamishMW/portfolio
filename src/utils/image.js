@@ -1,5 +1,6 @@
 /**
- * Uses the browser's image loading to get the correct image `src` from a `srcSet`
+ * Use the browser's image loading to load an image and
+ * grab the `src` it chooses from a `srcSet`
  */
 export async function loadImageFromSrcSet({ src, srcSet, sizes }) {
   return new Promise((resolve, reject) => {
@@ -73,7 +74,7 @@ export async function generateImage(width = 1, height = 1) {
 }
 
 /**
- * Use native image `srcSet` resolution for images/videos/anything
+ * Use native html image `srcSet` resolution for non-html images
  */
 export async function resolveSrcFromSrcSet({ srcSet, sizes }) {
   const stringSrcSet = srcSetToString(srcSet);

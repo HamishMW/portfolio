@@ -99,9 +99,8 @@ export const Home = () => {
           alt: 'Smart Sparrow lesson builder',
           textures: [
             {
-              src: sprTexture.src,
-              srcSet: `${sprTexture.src} 800w, ${sprTextureLarge.src} 1440w`,
-              placeholder: sprTexturePlaceholder.src,
+              srcSet: [sprTexture, sprTextureLarge],
+              placeholder: sprTexturePlaceholder,
             },
           ],
         }}
@@ -121,14 +120,12 @@ export const Home = () => {
           alt: 'App login screen',
           textures: [
             {
-              src: gamestackTexture.src,
-              srcSet: `${gamestackTexture.src} 254w, ${gamestackTextureLarge.src} 508w`,
-              placeholder: gamestackTexturePlaceholder.src,
+              srcSet: [gamestackTexture, gamestackTextureLarge],
+              placeholder: gamestackTexturePlaceholder,
             },
             {
-              src: gamestackTexture2.src,
-              srcSet: `${gamestackTexture2.src} 254w, ${gamestackTexture2Large.src} 508w`,
-              placeholder: gamestackTexture2Placeholder.src,
+              srcSet: [gamestackTexture2, gamestackTexture2Large],
+              placeholder: gamestackTexture2Placeholder,
             },
           ],
         }}
@@ -147,9 +144,8 @@ export const Home = () => {
           alt: 'Annotating a biomedical image in the Slice app',
           textures: [
             {
-              src: sliceTexture.src,
-              srcSet: `${sliceTexture.src} 980w, ${sliceTextureLarge.src} 1376w`,
-              placeholder: sliceTexturePlaceholder.src,
+              srcSet: [sliceTexture, sliceTextureLarge],
+              placeholder: sliceTexturePlaceholder,
             },
           ],
         }}

@@ -40,9 +40,7 @@ export const Navbar = () => {
   useEffect(() => {
     const navItems = document.querySelectorAll('[data-navbar-item]');
     const inverseTheme = themeId === 'dark' ? 'light' : 'dark';
-    const invertedElements = document.querySelectorAll(
-      `[data-theme='${inverseTheme}'][data-invert]`
-    );
+    const { innerHeight } = window;
 
     let inverseMeasurements = [];
     let navItemMeasurements = [];
@@ -51,30 +49,49 @@ export const Navbar = () => {
       return !(rect1.bottom - scrollY < rect2.top || rect1.top - scrollY > rect2.bottom);
     };
 
-    const handleInversion = () => {
-      requestAnimationFrame(() => {
-        const { scrollY } = window;
-
-        for (const inverseMeasurement of inverseMeasurements) {
-          if (
-            inverseMeasurement.top - scrollY > window.innerHeight ||
-            inverseMeasurement.bottom - scrollY < 0
-          ) {
-            return;
-          }
-
-          for (const measurement of navItemMeasurements) {
-            if (isOverlap(inverseMeasurement, measurement, scrollY)) {
-              measurement.element.dataset.theme = inverseTheme;
-            } else {
-              measurement.element.dataset.theme = '';
-            }
-          }
-        }
-      });
+    const resetNavTheme = () => {
+      for (const measurement of navItemMeasurements) {
+        measurement.element.dataset.theme = '';
+      }
     };
 
-    if (invertedElements) {
+    const handleInversion = () => {
+      const invertedElements = document.querySelectorAll(
+        `[data-theme='${inverseTheme}'][data-invert]`
+      );
+
+      if (!invertedElements) return;
+
+      inverseMeasurements = Array.from(invertedElements).map(item => ({
+        element: item,
+        top: item.offsetTop,
+        bottom: item.offsetTop + item.offsetHeight,
+      }));
+
+      const { scrollY } = window;
+
+      resetNavTheme();
+
+      for (const inverseMeasurement of inverseMeasurements) {
+        if (
+          inverseMeasurement.top - scrollY > innerHeight ||
+          inverseMeasurement.bottom - scrollY < 0
+        ) {
+          continue;
+        }
+
+        for (const measurement of navItemMeasurements) {
+          if (isOverlap(inverseMeasurement, measurement, scrollY)) {
+            measurement.element.dataset.theme = inverseTheme;
+          } else {
+            measurement.element.dataset.theme = '';
+          }
+        }
+      }
+    };
+
+    // Currently only the light theme has dark full-width elements
+    if (themeId === 'light') {
       navItemMeasurements = Array.from(navItems).map(item => {
         const rect = item.getBoundingClientRect();
 
@@ -85,18 +102,13 @@ export const Navbar = () => {
         };
       });
 
-      inverseMeasurements = Array.from(invertedElements).map(item => ({
-        element: item,
-        top: item.offsetTop,
-        bottom: item.offsetTop + item.offsetHeight,
-      }));
-
       document.addEventListener('scroll', handleInversion);
       handleInversion();
     }
 
     return () => {
       document.removeEventListener('scroll', handleInversion);
+      resetNavTheme();
     };
   }, [themeId, windowSize, asPath]);
 

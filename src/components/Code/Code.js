@@ -13,8 +13,6 @@ export const Code = props => {
   const copyTimeout = useRef();
   const lang = props.className?.split('-')[1];
 
-  console.log({ props });
-
   const handleCopy = () => {
     clearTimeout(copyTimeout);
     navigator.clipboard.writeText(elementRef.current.textContent);

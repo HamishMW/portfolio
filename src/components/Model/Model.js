@@ -359,8 +359,6 @@ const Device = ({
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    let animation;
-
     const applyScreenTexture = async (texture, node) => {
       texture.encoding = sRGBEncoding;
       texture.minFilter = LinearFilter;
@@ -377,15 +375,19 @@ const Device = ({
       node.material.map = texture;
     };
 
-    // Build an array of promises to fetch and apply models & animations
+    // Generate promises to await when ready
     const load = async () => {
       const { texture, position, url } = model;
       let loadFullResTexture;
 
-      const [gltf, placeholder] = await Promise.all([
+      const image = await resolveSrcFromSrcSet(texture);
+
+      const [placeholder, gltf] = await Promise.all([
+        await textureLoader.current.loadAsync(texture.placeholder.src),
         await modelLoader.loadAsync(url),
-        await textureLoader.current.loadAsync(texture.placeholder),
       ]);
+
+      modelGroup.current.add(gltf.scene);
 
       gltf.scene.traverse(async node => {
         if (node.material) {
@@ -395,22 +397,19 @@ const Device = ({
 
         if (node.name === MeshType.Screen) {
           applyScreenTexture(placeholder, node);
+
           loadFullResTexture = async () => {
-            const image = await resolveSrcFromSrcSet(texture);
             const fullSize = await textureLoader.current.loadAsync(image);
             await applyScreenTexture(fullSize, node);
           };
         }
       });
 
-      modelGroup.current.add(gltf.scene);
-      scene.current.add(modelGroup.current);
-
       const targetPosition = new Vector3(position.x, position.y, position.z);
 
       if (reduceMotion) {
         gltf.scene.position.set(...targetPosition.toArray());
-        return;
+        return loadFullResTexture;
       }
 
       // Simple slide up animation
@@ -423,9 +422,7 @@ const Device = ({
 
         gltf.scene.position.set(...startPosition.toArray());
 
-        setLoaded(true);
-
-        animation = animate(startPosition.y, targetPosition.y, {
+        animate(startPosition.y, targetPosition.y, {
           type: 'spring',
           delay: (300 * index + showDelay) / 1000,
           stiffness: 60,
@@ -449,9 +446,7 @@ const Device = ({
         gltf.scene.position.set(...targetPosition.toArray());
         frameNode.rotation.set(...startRotation.toArray());
 
-        setLoaded(true);
-
-        animation = animate(startRotation.x, endRotation.x, {
+        animate(startRotation.x, endRotation.x, {
           type: 'spring',
           delay: (300 * index + showDelay) / 1000,
           stiffness: 80,
@@ -465,6 +460,23 @@ const Device = ({
         });
       }
 
+      return loadFullResTexture;
+    };
+
+    setLoadDevice({ start: load });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!loadDevice || !show) return;
+    const onLoad = async () => {
+      scene.current.add(modelGroup.current);
+
+      const loadFullResTexture = await loadDevice.start();
+
+      setLoaded(true);
+
       await loadFullResTexture();
 
       if (reduceMotion) {
@@ -472,16 +484,7 @@ const Device = ({
       }
     };
 
-    setLoadDevice({ start: load });
-
-    return () => {
-      animation?.stop();
-    };
+    onLoad();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (!loadDevice || !show) return;
-    loadDevice.start();
   }, [loadDevice, show]);
 };
