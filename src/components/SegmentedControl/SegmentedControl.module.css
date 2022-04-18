@@ -69,11 +69,14 @@
   bottom: var(--inset);
   left: 0;
   filter: drop-shadow(0 6px 12px rgb(var(--rgbBlack) / 0.2));
-  transition-property: width, transform, clip-path;
-  transition-duration: var(--durationM);
-  transition-timing-function: var(--bezierFastoutSlowin);
   transform: translate3d(var(--left), 0, 0);
   width: var(--width);
+
+  @media (--mediaUseMotion) {
+    transition-property: width, transform;
+    transition-duration: var(--durationM);
+    transition-timing-function: var(--bezierFastoutSlowin);
+  }
 
   &::before {
     content: '';
@@ -82,7 +85,10 @@
     background-color: rgb(var(--rgbBackgroundLight));
     filter: brightness(2.2);
     clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
-    transition: clip-path var(--durationM) var(--bezierFastoutSlowin);
+
+    @media (--mediaUseMotion) {
+      transition: clip-path var(--durationM) var(--bezierFastoutSlowin);
+    }
   }
 
   &[data-last='true']::before {

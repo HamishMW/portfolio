@@ -491,6 +491,7 @@ export const Earth = ({
         if (isVisible) {
           if (name === 'Atmosphere') {
             child.visible = true;
+
             opacitySpring.set(1);
           } else if (name === 'Chunk') {
             const chunkTarget = new Vector3(-0.4, 0.4, 0.4);
@@ -533,6 +534,8 @@ export const Earth = ({
 
     const updateAnimation = index => {
       const sectionAnimations = sectionRefs.current[index].animations;
+
+      if (reduceMotion) return;
 
       animations.current.forEach((clip, index) => {
         if (!sectionAnimations.find(section => section.includes(index.toString()))) {

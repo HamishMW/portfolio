@@ -7,8 +7,6 @@
 
 .text {
   color: inherit;
-  font-size: var(--fontSizeBodyS);
-  font-weight: var(--fontWeightMedium);
 }
 
 .content {

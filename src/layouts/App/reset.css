@@ -36,7 +36,7 @@
   appearance: none;
 }
 
-:where(svg, img, picture, video, iframe) {
+:where(svg, img, picture, video, iframe, canvas) {
   display: block;
 }
 

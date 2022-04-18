@@ -125,6 +125,7 @@
 
   &::after {
     content: '';
+    display: block;
     border-radius: 50%;
     width: var(--navButtonSize);
     height: var(--navButtonSize);

@@ -43,7 +43,10 @@
 
   @nest body[data-theme='dark'] & {
     transform: none;
-    transition-delay: 0.3s;
+
+    @media (--mediaUseMotion) {
+      transition-delay: 0.3s;
+    }
   }
 }
 
@@ -58,7 +61,10 @@
 
   @nest body[data-theme='dark'] & {
     transform: none;
-    transition-delay: 0.3s;
+
+    @media (--mediaUseMotion) {
+      transition-delay: 0.3s;
+    }
   }
 }
 
@@ -80,7 +86,10 @@
 
   @nest body[data-theme='dark'] & {
     stroke-dashoffset: 7;
-    transition-delay: 0s;
     opacity: 0;
+
+    @media (--mediaUseMotion) {
+      transition-delay: 0s;
+    }
   }
 }

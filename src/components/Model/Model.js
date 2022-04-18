@@ -379,6 +379,7 @@ const Device = ({
     const load = async () => {
       const { texture, position, url } = model;
       let loadFullResTexture;
+      let playAnimation;
 
       const image = await resolveSrcFromSrcSet(texture);
 
@@ -409,58 +410,63 @@ const Device = ({
 
       if (reduceMotion) {
         gltf.scene.position.set(...targetPosition.toArray());
-        return loadFullResTexture;
       }
 
       // Simple slide up animation
       if (model.animation === ModelAnimationType.SpringUp) {
-        const startPosition = new Vector3(
-          targetPosition.x,
-          targetPosition.y - 1,
-          targetPosition.z
-        );
+        playAnimation = () => {
+          const startPosition = new Vector3(
+            targetPosition.x,
+            targetPosition.y - 1,
+            targetPosition.z
+          );
 
-        gltf.scene.position.set(...startPosition.toArray());
+          gltf.scene.position.set(...startPosition.toArray());
 
-        animate(startPosition.y, targetPosition.y, {
-          type: 'spring',
-          delay: (300 * index + showDelay) / 1000,
-          stiffness: 60,
-          damping: 20,
-          mass: 1,
-          restSpeed: 0.0001,
-          restDelta: 0.0001,
-          onUpdate: value => {
-            gltf.scene.position.y = value;
-            renderFrame();
-          },
-        });
+          animate(startPosition.y, targetPosition.y, {
+            type: 'spring',
+            delay: (300 * index + showDelay) / 1000,
+            stiffness: 60,
+            damping: 20,
+            mass: 1,
+            restSpeed: 0.0001,
+            restDelta: 0.0001,
+            onUpdate: value => {
+              gltf.scene.position.y = value;
+              renderFrame();
+            },
+          });
+        };
       }
 
       // Swing the laptop lid open
       if (model.animation === ModelAnimationType.LaptopOpen) {
-        const frameNode = gltf.scene.children.find(node => node.name === MeshType.Frame);
-        const startRotation = new Vector3(MathUtils.degToRad(90), 0, 0);
-        const endRotation = new Vector3(0, 0, 0);
+        playAnimation = () => {
+          const frameNode = gltf.scene.children.find(
+            node => node.name === MeshType.Frame
+          );
+          const startRotation = new Vector3(MathUtils.degToRad(90), 0, 0);
+          const endRotation = new Vector3(0, 0, 0);
 
-        gltf.scene.position.set(...targetPosition.toArray());
-        frameNode.rotation.set(...startRotation.toArray());
+          gltf.scene.position.set(...targetPosition.toArray());
+          frameNode.rotation.set(...startRotation.toArray());
 
-        animate(startRotation.x, endRotation.x, {
-          type: 'spring',
-          delay: (300 * index + showDelay) / 1000,
-          stiffness: 80,
-          damping: 20,
-          restSpeed: 0.0001,
-          restDelta: 0.0001,
-          onUpdate: value => {
-            frameNode.rotation.x = value;
-            renderFrame();
-          },
-        });
+          return animate(startRotation.x, endRotation.x, {
+            type: 'spring',
+            delay: (300 * index + showDelay) / 1000,
+            stiffness: 80,
+            damping: 20,
+            restSpeed: 0.0001,
+            restDelta: 0.0001,
+            onUpdate: value => {
+              frameNode.rotation.x = value;
+              renderFrame();
+            },
+          });
+        };
       }
 
-      return loadFullResTexture;
+      return { loadFullResTexture, playAnimation };
     };
 
     setLoadDevice({ start: load });
@@ -470,12 +476,18 @@ const Device = ({
 
   useEffect(() => {
     if (!loadDevice || !show) return;
+    let animation;
+
     const onLoad = async () => {
       scene.current.add(modelGroup.current);
 
-      const loadFullResTexture = await loadDevice.start();
+      const { loadFullResTexture, playAnimation } = await loadDevice.start();
 
       setLoaded(true);
+
+      if (!reduceMotion) {
+        animation = playAnimation();
+      }
 
       await loadFullResTexture();
 
@@ -485,6 +497,10 @@ const Device = ({
     };
 
     onLoad();
+
+    return () => {
+      animation?.stop();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadDevice, show]);
 };

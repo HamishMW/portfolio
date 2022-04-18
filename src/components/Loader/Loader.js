@@ -1,3 +1,4 @@
+import { Text } from 'components/Text';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -26,10 +27,10 @@ export const Loader = ({ className, style, size = 32, text = 'Loading...', ...re
 
   if (reduceMotion) {
     return (
-      <div className="loader-text" {...rest}>
+      <Text className={classes(styles.text, className)} weight="medium" {...rest}>
         {text}
         {renderScreenReaderTextPortal()}
-      </div>
+      </Text>
     );
   }
 

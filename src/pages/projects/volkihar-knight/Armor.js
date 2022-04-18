@@ -172,9 +172,12 @@ export const Armor = ({
       rotationY.set(position.x / 2);
     };
 
+    if (isInViewport) {
+      setVisible(true);
+    }
+
     if (isInViewport && !reduceMotion) {
       window.addEventListener('mousemove', onMouseMove);
-      setVisible(true);
     }
 
     return () => {

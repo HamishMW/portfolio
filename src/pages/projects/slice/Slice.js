@@ -63,8 +63,7 @@ export const Slice = () => {
         <ProjectSection first>
           <ProjectSectionContent>
             <ProjectImage
-              src={sliceApp}
-              srcSet={`${sliceApp.src} 800w, ${sliceAppLarge.src} 1920w`}
+              srcSet={[sliceApp, sliceAppLarge]}
               placeholder={sliceAppPlaceholder}
               alt="The Slice web application showing a selected user annotation."
               sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 90vw, 80vw`}

@@ -60,16 +60,6 @@
   transform: none;
   display: grid;
   grid-template-columns: 100%;
-
-  &[data-reveal='true'] {
-    background-color: rgb(var(--rgbAccent));
-    position: absolute;
-    inset: 0;
-    transform: scale3d(0, 1, 1);
-    transform-origin: left;
-    z-index: 16;
-    animation: image-reveal 1.8s var(--bezierFastoutSlowin);
-  }
 }
 
 .elementWrapper {
@@ -83,6 +73,10 @@
   &[data-reveal='true'] {
     opacity: 0;
     transition: opacity var(--durationM) ease var(--delay);
+
+    @media (--mediaReduceMotion) {
+      transition-delay: calc(var(--delay) - 1s);
+    }
   }
 
   &[data-visible='true'] {

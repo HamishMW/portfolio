@@ -79,6 +79,11 @@ const ImageElements = ({
   const isVideo = getIsVideo(src);
   const showFullRes = inViewport;
   const srcSetString = srcSetToString(srcSet);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const resolveVideoSrc = async () => {
@@ -144,7 +149,7 @@ const ImageElements = ({
       data-visible={inViewport || loaded}
       style={cssProps({ delay: numToMs(delay + 1000) })}
     >
-      {isVideo && (
+      {isVideo && mounted && (
         <Fragment>
           <video
             muted
