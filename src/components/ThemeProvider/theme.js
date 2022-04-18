@@ -25,6 +25,7 @@ const baseTokens = {
   fontSizeH2: pxToRem(58),
   fontSizeH3: pxToRem(38),
   fontSizeH4: pxToRem(28),
+  fontSizeH5: pxToRem(24),
   fontSizeBodyXL: pxToRem(22),
   fontSizeBodyL: pxToRem(20),
   fontSizeBodyM: pxToRem(18),
@@ -62,9 +63,10 @@ const tokensLaptop = {
   spaceOuter: '48px',
   fontSizeH0: pxToRem(100),
   fontSizeH1: pxToRem(70),
-  fontSizeH2: pxToRem(52),
+  fontSizeH2: pxToRem(50),
   fontSizeH3: pxToRem(36),
   fontSizeH4: pxToRem(26),
+  fontSizeH5: pxToRem(22),
 };
 
 const tokensTablet = {
@@ -73,6 +75,7 @@ const tokensTablet = {
   fontSizeH2: pxToRem(48),
   fontSizeH3: pxToRem(32),
   fontSizeH4: pxToRem(24),
+  fontSizeH5: pxToRem(20),
 };
 
 const tokensMobile = {
@@ -82,6 +85,7 @@ const tokensMobile = {
   fontSizeH2: pxToRem(34),
   fontSizeH3: pxToRem(28),
   fontSizeH4: pxToRem(22),
+  fontSizeH5: pxToRem(18),
   fontSizeBodyL: pxToRem(18),
   fontSizeBodyM: pxToRem(16),
   fontSizeBodyS: pxToRem(14),

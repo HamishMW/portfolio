@@ -12,18 +12,18 @@ export const images = () => (
   <StoryContainer>
     <Carousel
       style={{ maxWidth: 800, width: '100%' }}
-      placeholder={placeholderImg}
+      placeholder={{ src: placeholderImg }}
       images={[
         {
-          src: { src: 'https://source.unsplash.com/ANJHXftvvJ8/1280x720' },
+          src: { src: 'https://source.unsplash.com/ANJHXftvvJ8/1280x720', width: 1280 },
           alt: 'A neon sign with kanji',
         },
         {
-          src: { src: 'https://source.unsplash.com/qEWEz-U5p8Q/1280x720' },
+          src: { src: 'https://source.unsplash.com/qEWEz-U5p8Q/1280x720', width: 1280 },
           alt: 'Tokyo at night',
         },
         {
-          src: { src: 'https://source.unsplash.com/lx9RWIg1Rdg/1280x720' },
+          src: { src: 'https://source.unsplash.com/lx9RWIg1Rdg/1280x720', width: 1280 },
           alt: 'A rad cyberpunk dude',
         },
       ]}

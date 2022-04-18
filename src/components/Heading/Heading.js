@@ -11,7 +11,7 @@ export const Heading = ({
   className,
   ...rest
 }) => {
-  const clampedLevel = Math.min(Math.max(level, 0), 4);
+  const clampedLevel = Math.min(Math.max(level, 0), 5);
   const Component = as || `h${Math.max(clampedLevel, 1)}`;
 
   return (

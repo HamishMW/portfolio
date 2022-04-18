@@ -166,6 +166,10 @@
     grid-template-columns: 1fr 400px;
   }
 
+  @media (--mediaLaptop) {
+    gap: var(--space3XL);
+  }
+
   @media (max-width: 1200px) {
     grid-template-columns: 1fr 200px;
     gap: var(--space2XL);
@@ -236,6 +240,14 @@
   margin: 0;
   padding: 0;
   margin-top: var(--spaceM);
+
+  @media (--mediaLaptop) {
+    margin-top: 0;
+  }
+
+  @media (--mediaTablet) {
+    margin-top: var(--spaceL);
+  }
 }
 
 .metaItem {

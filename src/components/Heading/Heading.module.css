@@ -25,6 +25,10 @@
     font-size: var(--fontSizeH4);
   }
 
+  &[data-level='5'] {
+    font-size: var(--fontSizeH5);
+  }
+
   &[data-align='auto'] {
     text-align: inherit;
   }

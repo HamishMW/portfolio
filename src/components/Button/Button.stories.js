@@ -40,14 +40,9 @@ export const secondary = () => (
 
 export const iconOnly = () => (
   <StoryContainer gutter={20}>
-    <Button iconOnly aria-label="Send" icon="send" onClick={action('clicked')}></Button>
-    <Button
-      iconOnly
-      aria-label="Dribbble"
-      icon="dribbble"
-      onClick={action('clicked')}
-    ></Button>
-    <Button iconOnly aria-label="Close" icon="close" onClick={action('clicked')}></Button>
+    <Button iconOnly aria-label="Send" icon="send" onClick={action('clicked')} />
+    <Button iconOnly aria-label="Figma" icon="figma" onClick={action('clicked')} />
+    <Button iconOnly aria-label="Close" icon="close" onClick={action('clicked')} />
   </StoryContainer>
 );
 

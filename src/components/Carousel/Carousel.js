@@ -99,7 +99,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       const anisotropy = renderer.current.capabilities.getMaxAnisotropy();
 
       const texturePromises = images.map(async image => {
-        const imageSrc = await resolveSrcFromSrcSet(image);
+        const imageSrc = image.srcSet ? await resolveSrcFromSrcSet(image) : image.src.src;
         const imageTexture = await textureLoader.loadAsync(imageSrc);
         await renderer.current.initTexture(imageTexture);
         imageTexture.encoding = sRGBEncoding;
