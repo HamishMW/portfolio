@@ -52,6 +52,7 @@ const ButtonContent = forwardRef(
         data-loading={loading}
         data-icon-only={iconOnly}
         data-secondary={secondary}
+        data-icon={icon}
         href={href}
         rel={rel || isExternal ? 'noopener noreferrer' : undefined}
         target={target || isExternal ? '_blank' : undefined}

@@ -79,6 +79,10 @@
       transform-origin: left;
     }
 
+    &[data-icon='chevronRight'] {
+      padding-left: calc(var(--buttonSpace) / 2);
+    }
+
     @media (--mediaUseMotion) {
       &::after {
         transition: transform var(--durationM) var(--bezierFastoutSlowin);

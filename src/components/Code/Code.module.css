@@ -21,6 +21,7 @@
   }
 
   & pre {
+    transform: translateZ(0);
     overflow-x: auto;
     position: relative;
     padding: calc(var(--padding) + var(--spaceS)) var(--padding);
