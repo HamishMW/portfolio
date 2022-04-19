@@ -1,4 +1,3 @@
-import notFoundPoster from 'assets/notfound.jpg';
 import { Button } from 'components/Button';
 import { Divider } from 'components/Divider';
 import { Footer } from 'components/Footer';
@@ -38,12 +37,12 @@ const ArticlesPost = ({ slug, title, description, date, featured, banner, timeco
               Featured
             </Text>
           )}
-          {featured && (
+          {featured && !!banner && (
             <div className={styles.postImage}>
               <Image
                 play={!reduceMotion ? hovered : undefined}
                 src={{ src: banner }}
-                placeholder={{ src: notFoundPoster }}
+                placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
                 alt=""
                 role="presentation"
               />
