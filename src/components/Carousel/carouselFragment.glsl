@@ -1,19 +1,19 @@
-export const vertex = `
-  varying vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-  }
-`;
+varying vec2 vUv;
+uniform sampler2D currentImage;
+uniform sampler2D nextImage;
+uniform float dispFactor;
+uniform float direction;
+uniform bool reduceMotion;
 
-export const fragment = `
-  varying vec2 vUv;
-  uniform sampler2D currentImage;
-  uniform sampler2D nextImage;
-  uniform float dispFactor;
-  uniform float direction;
-
-  void main() {
+void main() {
+  if (reduceMotion) {
+    // Simple crossfade
+    vec4 _currentImage = texture2D(currentImage, vUv);
+    vec4 _nextImage = texture2D(nextImage, vUv);
+    vec4 finalTexture = mix(_currentImage, _nextImage, dispFactor);
+    gl_FragColor = finalTexture;
+  } else {
+    // Liquid distortion effect
     vec2 uv = vUv;
     vec4 _currentImage;
     vec4 _nextImage;
@@ -38,4 +38,4 @@ export const fragment = `
     vec4 finalTexture = mix(_currentImage, _nextImage, dispFactor);
     gl_FragColor = finalTexture;
   }
-`;
+}

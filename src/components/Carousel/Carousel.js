@@ -19,7 +19,8 @@ import { resolveSrcFromSrcSet } from 'utils/image';
 import { cssProps } from 'utils/style';
 import { cleanRenderer, cleanScene } from 'utils/three';
 import styles from './Carousel.module.css';
-import { fragment, vertex } from './carouselShader';
+import fragment from './carouselFragment.glsl';
+import vertex from './carouselVertex.glsl';
 
 function determineIndex(imageIndex, index, images, direction) {
   if (index !== null) return index;
@@ -121,6 +122,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
           direction: { type: 'f', value: 1 },
           currentImage: { type: 't', value: textures[0] },
           nextImage: { type: 't', value: textures[1] },
+          reduceMotion: { type: 'b', value: reduceMotion },
         },
         vertexShader: vertex,
         fragmentShader: fragment,
@@ -148,7 +150,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     return () => {
       mounted = false;
     };
-  }, [height, images, inViewport, loaded, width]);
+  }, [height, images, inViewport, loaded, reduceMotion, width]);
 
   const goToIndex = useCallback(
     ({ index, direction = 1 }) => {
@@ -164,7 +166,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         animating.current = false;
       };
 
-      if (!reduceMotion && uniforms.dispFactor.value !== 1) {
+      if (uniforms.dispFactor.value !== 1) {
         animating.current = true;
 
         animate(uniforms.dispFactor.value, 1, {
@@ -178,14 +180,9 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
           },
           onComplete,
         });
-      } else {
-        onComplete();
-        requestAnimationFrame(() => {
-          renderer.current.render(scene.current, camera.current);
-        });
       }
     },
-    [reduceMotion, textures]
+    [textures]
   );
 
   const navigate = useCallback(
@@ -279,15 +276,13 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       uniforms.nextImage.value = textures[nextIndex];
       uniforms.direction.value = swipeDirection.current;
 
-      if (!reduceMotion) {
-        uniforms.dispFactor.value = displacementClamp;
-      }
+      uniforms.dispFactor.value = displacementClamp;
 
       requestAnimationFrame(() => {
         renderer.current.render(scene.current, camera.current);
       });
     },
-    [canvasRect, imageIndex, images, reduceMotion, textures]
+    [canvasRect, imageIndex, images, textures]
   );
 
   const onSwipeEnd = useCallback(() => {

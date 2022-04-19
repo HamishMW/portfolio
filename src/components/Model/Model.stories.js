@@ -28,18 +28,16 @@ export const phone = () => (
           ...deviceModels.phone,
           position: { x: -0.6, y: 0.8, z: 0.1 },
           texture: {
-            src: phoneTexture.src,
-            srcSet: `${phoneTexture.src} 800w, ${phoneTextureLarge.src} 1440w`,
-            placeholder: phoneTexturePlaceholder.src,
+            srcSet: [phoneTexture, phoneTextureLarge],
+            placeholder: phoneTexturePlaceholder,
           },
         },
         {
           ...deviceModels.phone,
           position: { x: 0.6, y: -0.8, z: 0.4 },
           texture: {
-            src: phoneTexture2.src,
-            srcSet: `${phoneTexture2.src} 800w, ${phoneTexture2Large.src} 1440w`,
-            placeholder: phoneTexture2Placeholder.src,
+            srcSet: [phoneTexture2, phoneTexture2Large],
+            placeholder: phoneTexture2Placeholder,
           },
         },
       ]}
@@ -58,9 +56,8 @@ export const laptop = () => (
           ...deviceModels.laptop,
           position: { x: 0, y: 0, z: 0 },
           texture: {
-            src: laptopTexture.src,
-            srcSet: `${laptopTexture.src} 800w, ${laptopTextureLarge.src} 1440w`,
-            placeholder: laptopTexturePlaceholder.src,
+            srcSet: [laptopTexture, laptopTextureLarge],
+            placeholder: laptopTexturePlaceholder,
           },
         },
       ]}

@@ -21,8 +21,8 @@ import {
 import { media, rgbToThreeColor } from 'utils/style';
 import { cleanRenderer, cleanScene, removeLights } from 'utils/three';
 import styles from './DisplacementSphere.module.css';
-import fragShader from './sphereFragShader';
-import vertShader from './sphereVertShader';
+import fragShader from './displacementSphereFragment.glsl';
+import vertShader from './displacementSphereVertex.glsl';
 
 const springConfig = {
   stiffness: 30,

@@ -28,6 +28,11 @@ module.exports = {
       type: 'asset/resource',
     });
 
+    config.module.rules.push({
+      test: /\.glsl$/,
+      type: 'asset/source',
+    });
+
     return config;
   },
 };

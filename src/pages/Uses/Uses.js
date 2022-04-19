@@ -26,7 +26,7 @@ export const Uses = () => {
       />
       <ProjectContainer className={styles.uses}>
         <ProjectBackground
-          src={usesBackground}
+          src={{ src: usesBackground }}
           placeholder={usesBackgroundPlaceholder}
           opacity={0.7}
         />
