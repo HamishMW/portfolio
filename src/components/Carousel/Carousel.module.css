@@ -13,6 +13,7 @@
   display: grid;
   grid-template-columns: 100%;
   cursor: grab;
+  touch-action: none;
 
   &[data-dragging='true'] {
     cursor: grabbing;

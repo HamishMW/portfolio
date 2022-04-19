@@ -40,6 +40,10 @@
   display: block;
 }
 
+:any-link {
+  text-decoration: none;
+}
+
 :focus {
   outline: 4px solid rgb(var(--rgbText));
   outline-offset: 4px;
@@ -47,8 +51,4 @@
 
 :focus:not(:focus-visible) {
   outline: none;
-}
-
-a {
-  text-decoration: none;
 }
