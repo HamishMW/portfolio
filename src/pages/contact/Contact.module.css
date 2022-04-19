@@ -17,6 +17,7 @@
 }
 
 .form {
+  grid-area: 1 / 1;
   max-width: var(--maxWidthS);
   width: 100%;
   padding: var(--space2XL) 0;
@@ -195,12 +196,12 @@
 }
 
 .complete {
+  grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--spaceXL) var(--spaceM);
-  position: fixed;
   text-align: center;
   inset: 0;
 }
