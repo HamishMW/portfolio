@@ -368,6 +368,10 @@
   grid-column: 3;
   margin: var(--space3XL) calc(var(--space2XL) * -1);
 
+  & + & {
+    margin-top: 0;
+  }
+
   @media (--mediaTablet) {
     margin: var(--space2XL) calc(var(--spaceXL) * -1);
     grid-column: 1;

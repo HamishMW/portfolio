@@ -45,7 +45,7 @@
   }
 
   &[data-theme='light'] {
-    --background: rgb(236 236 236);
+    --background: rgb(255 255 255);
     --comment: rgba(0 0 0 / 0.6);
     --keyword: #00378c;
     --string: rgb(4 98 108);

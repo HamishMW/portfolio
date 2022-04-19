@@ -1,7 +1,9 @@
 .articles {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  grid-template-rows: 1fr auto;
+  min-height: 100%;
 }
 
 .content {
@@ -27,7 +29,7 @@
 }
 
 .header {
-  padding: var(--spaceM) 0;
+  padding: var(--spaceM) 0 var(--spaceXL);
   display: flex;
   justify-content: space-between;
 }
@@ -43,9 +45,17 @@
 
 .post {
   --backgroundOutset: var(--space3XL);
+  --backgroundClip: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 32px),
+    calc(100% - 32px) 100%,
+    0 100%
+  );
 
   position: relative;
   isolation: isolate;
+  margin: calc(var(--backgroundOutset) / 2) 0;
 
   &[data-featured='true'] {
     margin: var(--backgroundOutset) 0;
@@ -60,6 +70,27 @@
   }
 }
 
+.postLabel,
+.postTag {
+  position: absolute;
+  background-color: rgb(var(--rgbBackground));
+  padding: var(--spaceXS) var(--spaceM);
+  z-index: 1;
+  color: var(--colorTextLight);
+}
+
+.postLabel {
+  top: calc(var(--backgroundOutset) * -1);
+  left: calc(var(--spaceM) * -1);
+  transform: translateY(-50%);
+}
+
+.postTag {
+  bottom: 30%;
+  right: calc(var(--backgroundOutset) * -1);
+  transform: translateX(50%) rotate(-90deg);
+}
+
 .postContent {
   display: flex;
   position: relative;
@@ -67,17 +98,11 @@
   &[data-featured='false']::before {
     content: '';
     position: absolute;
-    inset: calc(var(--spaceXL) * -1);
+    inset: calc(var(--backgroundOutset) * -1);
     background-color: rgb(var(--rgbBackgroundLight));
     opacity: 0;
     transition: opacity var(--durationM) ease;
-    clip-path: polygon(
-      0 0,
-      100% 0,
-      100% calc(100% - 24px),
-      calc(100% - 24px) 100%,
-      0 100%
-    );
+    clip-path: var(--backgroundClip);
 
     &:hover {
       opacity: 1;
@@ -99,9 +124,9 @@
   position: absolute;
   inset: calc(var(--backgroundOutset) * -1);
   display: grid;
-  place-content: center;
+  place-content: stretch;
   overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0 100%);
+  clip-path: var(--backgroundClip);
   isolation: isolate;
 
   &::after {
@@ -115,6 +140,11 @@
       rgb(var(--rgbBackgroundLight) / 0.82) 30%,
       rgb(var(--rgbBackgroundLight) / 0.6) 100%
     );
+  }
+
+  & :where(img, video) {
+    object-fit: cover;
+    height: 100%;
   }
 }
 
@@ -130,6 +160,11 @@
   grid-auto-flow: column;
   justify-content: space-between;
   justify-self: stretch;
+
+  & button {
+    position: relative;
+    left: -8px;
+  }
 }
 
 .timecode {

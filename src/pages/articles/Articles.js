@@ -1,5 +1,4 @@
 import notFoundPoster from 'assets/notfound.jpg';
-import notFoundVideo from 'assets/notfound.mp4';
 import { Button } from 'components/Button';
 import { Divider } from 'components/Divider';
 import { Footer } from 'components/Footer';
@@ -8,12 +7,14 @@ import { Image } from 'components/Image';
 import { Meta } from 'components/Meta';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
+import { useReducedMotion } from 'framer-motion';
 import RouterLink from 'next/link';
 import { Fragment, useState } from 'react';
 import styles from './Articles.module.css';
 
-const ArticlesPost = ({ slug, title, description, date, featured, timecode }) => {
+const ArticlesPost = ({ slug, title, description, date, featured, banner, timecode }) => {
   const [hovered, setHovered] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   const handleMouseEnter = () => {
     setHovered(true);
@@ -33,10 +34,15 @@ const ArticlesPost = ({ slug, title, description, date, featured, timecode }) =>
           onMouseLeave={handleMouseLeave}
         >
           {featured && (
+            <Text className={styles.postLabel} size="s">
+              Featured
+            </Text>
+          )}
+          {featured && (
             <div className={styles.postImage}>
               <Image
-                play={hovered}
-                src={{ src: notFoundVideo }}
+                play={!reduceMotion ? hovered : undefined}
+                src={{ src: banner }}
                 placeholder={{ src: notFoundPoster }}
                 alt=""
                 role="presentation"
@@ -52,7 +58,7 @@ const ArticlesPost = ({ slug, title, description, date, featured, timecode }) =>
               })}
             </div>
             <Heading level={featured ? 2 : 4}>{title}</Heading>
-            <Text size={featured ? 'm' : 's'}>{description}</Text>
+            <Text size="m">{description}</Text>
             <div className={styles.postFooter}>
               <Button secondary iconHoverShift icon="chevronRight" as="div">
                 Read article
@@ -62,6 +68,11 @@ const ArticlesPost = ({ slug, title, description, date, featured, timecode }) =>
               </Text>
             </div>
           </div>
+          {featured && (
+            <Text aria-hidden className={styles.postTag} size="s">
+              477
+            </Text>
+          )}
         </a>
       </RouterLink>
     </article>
