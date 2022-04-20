@@ -4,7 +4,7 @@ import styles from './Text.module.css';
 export const Text = ({
   children,
   size = 'm',
-  as: Component = 'p',
+  as: Component = 'span',
   align = 'auto',
   weight = 'auto',
   secondary,

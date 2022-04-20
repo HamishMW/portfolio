@@ -23,6 +23,7 @@
   gap: var(--gutter);
   align-items: center;
   min-height: var(--height);
+  max-height: 800px;
   padding-left: var(--offset);
 
   @media (--mediaDesktop) {
@@ -217,7 +218,6 @@
   grid-template-columns: 60px 1fr;
   gap: 10px;
   opacity: 0;
-  font-family: var(--monoFontStack);
 
   &:global {
     animation: fade-in 0.6s var(--bezierFastoutSlowin) 1s forwards;

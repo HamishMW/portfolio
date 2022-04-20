@@ -60,7 +60,7 @@ export const ProjectSummary = ({
       >
         {title}
       </Heading>
-      <Text className={styles.description} data-visible={visible}>
+      <Text className={styles.description} data-visible={visible} as="p">
         {description}
       </Text>
       <div className={styles.button} data-visible={visible}>

@@ -132,7 +132,6 @@ export const Earth = ({
   const sceneModel = useRef();
   const animations = useRef();
   const mixer = useRef();
-  const fetching = useRef(false);
   const inViewport = useInViewport(canvas);
   const animationFrame = useRef();
   const initCameraPosition = useRef(getPositionValues(sectionRefs.current[0]));
@@ -316,7 +315,7 @@ export const Earth = ({
   }, [windowWidth]);
 
   useEffect(() => {
-    if (loaded || fetching.current) return;
+    if (loaded) return;
 
     const hdrLoader = new HDRCubeTextureLoader();
     const textureLoader = new TextureLoader();
@@ -382,11 +381,7 @@ export const Earth = ({
       if (mounted.current) {
         setLoaded(true);
       }
-
-      fetching.current = false;
     };
-
-    fetching.current = true;
 
     handleLoad();
 

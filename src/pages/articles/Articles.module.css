@@ -17,6 +17,8 @@
 
   @media (--mediaLaptop) {
     --contentWidth: 560px;
+
+    gap: var(--spaceXL);
   }
 
   @media (--mediaTablet) {
@@ -30,17 +32,41 @@
 
 .header {
   padding: var(--spaceM) 0 var(--spaceXL);
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+
+  @media (--mediaMobile) {
+    padding-bottom: var(--spaceL);
+  }
+}
+
+.heading {
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .list {
   display: grid;
-  gap: var(--space4XL);
+  gap: var(--space3XL);
+  margin-top: var(--space2XL);
+
+  @media (--mediaLaptop) {
+    margin-top: var(--spaceL);
+  }
 
   @media (--mediaTablet) {
-    gap: var(--space3XL);
+    gap: var(--space2XL);
   }
+
+  @media (--mediaMobile) {
+    margin-top: var(--spaceM);
+  }
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid rgb(var(--rgbText) / 0.1);
 }
 
 .post {

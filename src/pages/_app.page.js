@@ -16,15 +16,12 @@ import { msToNum } from 'utils/style';
 import { ScrollRestore } from '../layouts/App/ScrollRestore';
 
 export const AppContext = createContext({});
-export const TransitionContext = createContext({});
 
 const repoPrompt = `
 __  __  __
 \u005C \u005C \u005C \u005C \u005C\u2215\n \u005C \u005C\u2215\u005C \u005C\n  \u005C\u2215  \u005C\u2215
 \n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio
 `;
-
-export const ROUTE_TRANSITION_DURATION = msToNum(tokens.base.durationS);
 
 const App = ({ Component, pageProps }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
@@ -72,7 +69,7 @@ const App = ({ Component, pageProps }) => {
                   transition={{
                     type: 'tween',
                     ease: 'linear',
-                    duration: ROUTE_TRANSITION_DURATION / 1000,
+                    duration: msToNum(tokens.base.durationS) / 1000,
                     delay: 0.1,
                   }}
                 >

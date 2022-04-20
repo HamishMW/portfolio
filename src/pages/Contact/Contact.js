@@ -155,6 +155,7 @@ export const Contact = () => {
             </Heading>
             <Text
               size="l"
+              as="p"
               className={styles.completeText}
               data-status={status}
               style={getDelay(tokens.base.durationXS)}

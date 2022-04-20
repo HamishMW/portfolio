@@ -1,4 +1,6 @@
 .footer {
+  --lineHeightBody: 1.1;
+
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -7,7 +9,6 @@
   padding: var(--space3XL) var(--spaceL);
   z-index: 16;
   position: relative;
-  font-size: var(--fontSizeBodyS);
   color: var(--colorTextLight);
 }
 

@@ -30,7 +30,7 @@ export function ProjectHeader({
           <Heading className={styles.title} level={2} as="h1">
             {title}
           </Heading>
-          <Text className={styles.description} size="xl">
+          <Text className={styles.description} size="xl" as="p">
             {description}
           </Text>
           {!!url && (
@@ -53,9 +53,7 @@ export function ProjectHeader({
                 style={cssProps({ delay: numToMs(initDelay + 300 + index * 140) })}
                 key={role}
               >
-                <Text secondary as="span">
-                  {role}
-                </Text>
+                <Text secondary>{role}</Text>
               </li>
             ))}
           </ul>
@@ -150,7 +148,7 @@ export const ProjectSectionHeading = ({ className, level = 3, as = 'h2', ...rest
 );
 
 export const ProjectSectionText = ({ className, ...rest }) => (
-  <Text className={classes(styles.sectionText, className)} size="l" {...rest} />
+  <Text className={classes(styles.sectionText, className)} size="l" as="p" {...rest} />
 );
 
 export const ProjectTextRow = ({

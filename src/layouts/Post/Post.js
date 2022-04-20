@@ -22,7 +22,7 @@ export const Post = ({
   children,
   title,
   date,
-  description,
+  abstract,
   banner,
   bannerPlaceholder,
   bannerAlt,
@@ -38,7 +38,7 @@ export const Post = ({
 
   return (
     <article className={styles.post}>
-      <Meta title={title} prefix="" description={description} />
+      <Meta title={title} prefix="" description={abstract} />
       <header className={styles.header}>
         <div className={styles.headerText}>
           <Transition in timeout={msToNum(tokens.base.durationM)}>
@@ -104,13 +104,14 @@ export const Post = ({
   );
 };
 
-const PostHeading = ({ id, children, className, label }) => {
+const PostHeading = ({ id, children, className }) => {
   return (
     <span className={classes(styles.heading, className)}>
       <a
         className={styles.headingLink}
         href={`#${id}`}
-        aria-label={`Link to heading: ${label}`}
+        aria-label="Link to heading"
+        aria-describedby={id}
       >
         <Icon icon="link" />
       </a>
@@ -120,7 +121,7 @@ const PostHeading = ({ id, children, className, label }) => {
 };
 
 const PostH1 = ({ children, id, ...rest }) => (
-  <PostHeading className={styles.h1} id={id} label={children}>
+  <PostHeading className={styles.h1} id={id}>
     <Heading className={styles.headingElement} id={id} level={2} as="h1" {...rest}>
       {children}
     </Heading>
@@ -128,7 +129,7 @@ const PostH1 = ({ children, id, ...rest }) => (
 );
 
 const PostH2 = ({ children, id, ...rest }) => (
-  <PostHeading className={styles.h2} id={id} label={children}>
+  <PostHeading className={styles.h2} id={id}>
     <Heading className={styles.headingElement} id={id} level={3} as="h2" {...rest}>
       {children}
     </Heading>
@@ -136,7 +137,7 @@ const PostH2 = ({ children, id, ...rest }) => (
 );
 
 const PostH3 = ({ children, id, ...rest }) => (
-  <PostHeading className={styles.h2} id={id} label={children}>
+  <PostHeading className={styles.h2} id={id}>
     <Heading
       className={styles.headingElement}
       id={id}
@@ -160,7 +161,7 @@ const PostParagraph = ({ children, ...rest }) => {
   }
 
   return (
-    <Text className={styles.paragraph} size="l" {...rest}>
+    <Text className={styles.paragraph} size="l" {...rest} as="p">
       {children}
     </Text>
   );
