@@ -3,6 +3,7 @@ import { Icon } from 'components/Icon';
 import { useTheme } from 'components/ThemeProvider';
 import { useReducedMotion } from 'framer-motion';
 import { useInViewport } from 'hooks';
+import { useHasMounted } from 'hooks/hasMounted';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { resolveSrcFromSrcSet, srcSetToString } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
@@ -79,11 +80,7 @@ const ImageElements = ({
   const isVideo = getIsVideo(src);
   const showFullRes = inViewport;
   const srcSetString = srcSetToString(srcSet);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const hasMounted = useHasMounted();
 
   useEffect(() => {
     const resolveVideoSrc = async () => {
@@ -149,7 +146,7 @@ const ImageElements = ({
       data-visible={inViewport || loaded}
       style={cssProps({ delay: numToMs(delay + 1000) })}
     >
-      {isVideo && mounted && (
+      {isVideo && hasMounted && (
         <Fragment>
           <video
             muted

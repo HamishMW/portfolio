@@ -238,6 +238,10 @@
   display: flex;
   flex-direction: column;
   padding-bottom: var(--space2XL);
+
+  @media (--mediaMobile) {
+    scroll-margin-top: 40px;
+  }
 }
 
 .content {
@@ -378,6 +382,6 @@
   }
 
   @media (--mediaMobile) {
-    margin: var(--space2XL) calc(var(--spaceL) * -1);
+    margin: var(--space2XL) calc(var(--spaceOuter) * -1);
   }
 }

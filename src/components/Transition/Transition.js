@@ -59,18 +59,18 @@ const TransitionContent = ({
 }) => {
   const [status, setStatus] = useState('exited');
   const [isPresent, safeToRemove] = usePresence();
-  const [mounted, setMounted] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
   const splitTimeout = typeof timeout === 'object';
 
   useEffect(() => {
-    if (mounted || !show) return;
+    if (hasEntered || !show) return;
 
     const actualTimeout = splitTimeout ? timeout.enter : timeout;
 
     clearTimeout(enterTimeout.current);
     clearTimeout(exitTimeout.current);
 
-    setMounted(true);
+    setHasEntered(true);
     setStatus('entering');
     onEnter?.();
 
@@ -100,5 +100,5 @@ const TransitionContent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPresent, onExit, safeToRemove, timeout, onExited, show]);
 
-  return children(mounted && show ? isPresent : false, status);
+  return children(hasEntered && show ? isPresent : false, status);
 };

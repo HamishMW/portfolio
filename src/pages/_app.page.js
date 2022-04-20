@@ -30,6 +30,7 @@ const App = ({ Component, pageProps }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
   const { route } = useRouter();
+  const canonicalRoute = route === '/' ? '' : `${route}/`;
   useFoucFix();
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const App = ({ Component, pageProps }) => {
             <Head>
               <link
                 rel="canonical"
-                href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}${route}`}
+                href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}${canonicalRoute}`}
               />
             </Head>
             <VisuallyHidden
@@ -80,7 +81,6 @@ const App = ({ Component, pageProps }) => {
                 </m.div>
               </AnimatePresence>
             </main>
-            <div id="portal-root" />
           </Fragment>
         </LazyMotion>
       </ThemeProvider>

@@ -86,7 +86,7 @@ const tokensMobile = {
   fontSizeH3: pxToRem(28),
   fontSizeH4: pxToRem(22),
   fontSizeH5: pxToRem(18),
-  fontSizeBodyL: pxToRem(18),
+  fontSizeBodyL: pxToRem(17),
   fontSizeBodyM: pxToRem(16),
   fontSizeBodyS: pxToRem(14),
 };

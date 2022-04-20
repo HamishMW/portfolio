@@ -33,7 +33,7 @@ export const Home = () => {
   const details = useRef();
 
   useEffect(() => {
-    const revealSections = [intro, projectOne, projectTwo, projectThree, details];
+    const sections = [intro, projectOne, projectTwo, projectThree, details];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -56,7 +56,7 @@ export const Home = () => {
       { rootMargin: '-100% 0px 0px 0px' }
     );
 
-    revealSections.forEach(section => {
+    sections.forEach(section => {
       sectionObserver.observe(section.current);
     });
 
@@ -72,8 +72,8 @@ export const Home = () => {
     <div className={styles.home}>
       <Meta
         title="Designer + Developer"
-        description="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile
-          apps with a focus on motion and user experience design."
+        description="Hey I'm Hamish Williams. I'm a product designer working on web &amp; mobile
+          apps with a focus on motion, experience design, and accessibility."
       />
       <Head>
         <link rel="prefetch" href={iphone11} as="fetch" />
@@ -92,7 +92,7 @@ export const Home = () => {
         index={1}
         title="Designing the future of education"
         description="Designing a platform to help educators build better online courseware"
-        buttonText="View Project"
+        buttonText="View project"
         buttonLink="/projects/smart-sparrow"
         model={{
           type: 'laptop',
@@ -113,7 +113,7 @@ export const Home = () => {
         index={2}
         title="Video game progress tracking"
         description="Design and development for a video game tracking app built in React Native"
-        buttonText="View Website"
+        buttonText="View website"
         buttonLink="https://gamestack.hamishw.com"
         model={{
           type: 'phone',
@@ -137,7 +137,7 @@ export const Home = () => {
         index={3}
         title="Biomedical image collaboration"
         description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
-        buttonText="View Project"
+        buttonText="View project"
         buttonLink="/projects/slice"
         model={{
           type: 'laptop',
