@@ -1,6 +1,6 @@
 @custom-media --mediaDesktop (max-width: 2080px);
 @custom-media --mediaLaptop (max-width: 1680px);
-@custom-media --mediaTablet (max-width: 1024px);
+@custom-media --mediaTablet (max-width: 1040px);
 @custom-media --mediaMobile (max-width: 696px);
 @custom-media --mediaMobileS (max-width: 400px);
 @custom-media --mediaUseMotion (prefers-reduced-motion: no-preference);
@@ -26,7 +26,7 @@ body {
   color: rgb(var(--rgbBlack));
 }
 
-@keyframes fade-in {
+@keyframes fadeIn {
   0% {
     opacity: 0;
   }

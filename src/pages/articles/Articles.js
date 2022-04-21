@@ -9,8 +9,9 @@ import { Meta } from 'components/Meta';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { useReducedMotion } from 'framer-motion';
+import { useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import styles from './Articles.module.css';
 
 const ArticlesPost = ({ slug, title, abstract, date, featured, banner, timecode }) => {
@@ -26,40 +27,41 @@ const ArticlesPost = ({ slug, title, abstract, date, featured, banner, timecode 
   };
 
   return (
-    <article className={styles.post} data-featured={featured}>
+    <article className={styles.post} data-featured={!!featured}>
+      {featured && (
+        <Text className={styles.postLabel} size="s">
+          Featured
+        </Text>
+      )}
+      {featured && !!banner && (
+        <div className={styles.postImage}>
+          <Image
+            noPauseButton
+            play={!reduceMotion ? hovered : undefined}
+            src={{ src: banner }}
+            placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
+            alt=""
+            role="presentation"
+          />
+        </div>
+      )}
       <RouterLink href={`/articles/${slug}`} scroll={false}>
         <a
-          data-featured={!!featured}
-          className={styles.postContent}
+          className={styles.postLink}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {featured && (
-            <Text className={styles.postLabel} size="s">
-              Featured
-            </Text>
-          )}
-          {featured && !!banner && (
-            <div className={styles.postImage}>
-              <Image
-                play={!reduceMotion ? hovered : undefined}
-                src={{ src: banner }}
-                placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
-                alt=""
-                role="presentation"
-              />
-            </div>
-          )}
           <div className={styles.postDetails}>
             <div aria-hidden className={styles.postDate}>
               <Divider notchWidth="64px" notchHeight="8px" />
               {new Date(date).toLocaleDateString('default', {
                 year: 'numeric',
                 month: 'long',
+                day: '2-digit',
               })}
             </div>
             <Heading level={featured ? 2 : 4}>{title}</Heading>
-            <Text size="m" as="p">
+            <Text size={featured ? 'l' : 'm'} as="p">
               {abstract}
             </Text>
             <div className={styles.postFooter}>
@@ -71,18 +73,42 @@ const ArticlesPost = ({ slug, title, abstract, date, featured, banner, timecode 
               </Text>
             </div>
           </div>
-          {featured && (
-            <Text aria-hidden className={styles.postTag} size="s">
-              477
-            </Text>
-          )}
         </a>
       </RouterLink>
+      {featured && (
+        <Text aria-hidden className={styles.postTag} size="s">
+          477
+        </Text>
+      )}
     </article>
   );
 };
 
 export const Articles = ({ posts, featured }) => {
+  const { width } = useWindowSize();
+  const singleColumnWidth = 1140;
+  const isSingleColumn = width <= singleColumnWidth;
+
+  const list = (
+    <div className={styles.list}>
+      <header className={styles.header}>
+        <Heading className={styles.heading} level={5} as="h1">
+          <DecoderText text="Latest articles" />
+        </Heading>
+        <Barcode />
+      </header>
+      {posts.map(({ slug, ...post }) => (
+        <ArticlesPost key={slug} slug={slug} {...post} />
+      ))}
+      {/* {posts.map(({ slug, ...post }) => (
+        <ArticlesPost key={slug} slug={slug} {...post} />
+      ))}
+      {posts.map(({ slug, ...post }) => (
+        <ArticlesPost key={slug} slug={slug} {...post} />
+      ))} */}
+    </div>
+  );
+
   return (
     <article className={styles.articles}>
       <Meta
@@ -90,21 +116,18 @@ export const Articles = ({ posts, featured }) => {
         description="A collection of technical design and development articles."
       />
       <Section className={styles.content}>
-        <header className={styles.header}>
-          <Heading className={styles.heading} level={5} as="h1">
-            <DecoderText text="Latest articles" />
-          </Heading>
-          <Barcode />
-        </header>
-        <ArticlesPost {...featured} />
-        <div className={styles.list}>
-          {posts.map(({ slug, ...post }, index) => (
-            <Fragment key={slug}>
-              {index !== 0 && <hr className={styles.divider} />}
-              <ArticlesPost slug={slug} {...post} />
-            </Fragment>
-          ))}
-        </div>
+        {!isSingleColumn && (
+          <div className={styles.grid}>
+            {list}
+            <ArticlesPost {...featured} />
+          </div>
+        )}
+        {isSingleColumn && (
+          <div className={styles.grid}>
+            <ArticlesPost {...featured} />
+            {list}
+          </div>
+        )}
       </Section>
       <Footer />
     </article>

@@ -1,4 +1,4 @@
-@keyframes image-reveal {
+@keyframes imageReveal {
   0% {
     transform: scale3d(0, 1, 1);
     transform-origin: left;
@@ -49,7 +49,7 @@
 
     @media (--mediaUseMotion) {
       &[data-visible='true']::before {
-        animation: image-reveal 1.8s var(--bezierFastoutSlowin) var(--delay);
+        animation: imageReveal 1.8s var(--bezierFastoutSlowin) var(--delay);
       }
     }
   }

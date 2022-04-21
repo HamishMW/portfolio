@@ -41,8 +41,7 @@ import {
 } from 'three';
 import { LinearFilter } from 'three';
 import { EquirectangularReflectionMapping } from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader.js';
+import { HDRCubeTextureLoader, OrbitControls } from 'three-stdlib';
 import { clamp } from 'utils/clamp';
 import { classes, media, msToNum } from 'utils/style';
 import {

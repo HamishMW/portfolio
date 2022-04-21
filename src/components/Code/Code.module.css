@@ -177,13 +177,13 @@
   & svg {
     opacity: 0;
     grid-area: 1 / 1;
-    transform: scale(0.5);
     transition-property: opacity;
     transition-duration: var(--durationS);
     transition-timing-function: var(--bezierFastoutSlowin);
 
     @media (--mediaUseMotion) {
       transition-property: opacity, transform;
+      transform: scale(0.5);
     }
   }
 

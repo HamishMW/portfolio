@@ -40,8 +40,6 @@
   align-items: center;
   flex: 1 1 auto;
   max-width: var(--space2XL);
-  position: relative;
-  top: calc(var(--spaceM) * -1);
 
   @media (--mediaMobile), (max-height: 696px) {
     display: none;
@@ -52,6 +50,8 @@
   transform: rotate(-90deg) translate3d(-50%, 0, 0);
   display: flex;
   flex-direction: row-reverse;
+  position: relative;
+  top: calc(var(--spaceM) * -1);
 }
 
 .navLink {

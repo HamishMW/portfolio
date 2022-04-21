@@ -1,7 +1,7 @@
 import { Text } from 'components/Text';
 import { VisuallyHidden } from 'components/VisuallyHidden';
 import { useReducedMotion } from 'framer-motion';
-import { useHasMounted } from 'hooks/hasMounted';
+import { useHasMounted } from 'hooks';
 import { createPortal } from 'react-dom';
 import { classes, cssProps } from 'utils/style';
 import styles from './Loader.module.css';

@@ -127,6 +127,14 @@
       --width: 108%;
 
       left: 0;
+      max-height: 60vh;
+    }
+
+    @media (--mediaMobile) {
+      --width: 108%;
+
+      left: 0;
+      max-height: none;
     }
   }
 }

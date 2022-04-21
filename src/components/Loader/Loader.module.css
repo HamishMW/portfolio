@@ -18,7 +18,7 @@
   transform: skewX(22deg);
 }
 
-@keyframes loader-span {
+@keyframes loaderSpan {
   0% {
     transform: scaleY(0);
     opacity: 0.5;
@@ -47,7 +47,7 @@
 .span {
   height: 60%;
   background: currentColor;
-  animation: loader-span 1s var(--bezierFastoutSlowin) infinite;
+  animation: loaderSpan 1s var(--bezierFastoutSlowin) infinite;
   transform: scaleY(0);
   transform-origin: top left;
 

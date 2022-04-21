@@ -1,5 +1,4 @@
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader, GLTFLoader } from 'three-stdlib';
 
 const dracoLoader = new DRACOLoader();
 const gltfLoader = new GLTFLoader();

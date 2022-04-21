@@ -181,7 +181,7 @@
   }
 }
 
-@keyframes project-fade-slide {
+@keyframes projectFadeSlide {
   0% {
     opacity: 0;
     transform: translate3d(0, var(--space3XL), 0);
@@ -210,8 +210,7 @@
 
   @media (--mediaUseMotion) {
     opacity: 0;
-    animation: project-fade-slide 1.4s var(--bezierFastoutSlowin) var(--initDelay)
-      forwards;
+    animation: projectFadeSlide 1.4s var(--bezierFastoutSlowin) var(--initDelay) forwards;
   }
 }
 
@@ -220,7 +219,7 @@
 
   @media (--mediaUseMotion) {
     opacity: 0;
-    animation: project-fade-slide 1.4s var(--bezierFastoutSlowin)
+    animation: projectFadeSlide 1.4s var(--bezierFastoutSlowin)
       calc(var(--initDelay) + 100ms) forwards;
   }
 }
@@ -230,7 +229,7 @@
 
   @media (--mediaUseMotion) {
     opacity: 0;
-    animation: project-fade-slide 1.4s var(--bezierFastoutSlowin)
+    animation: projectFadeSlide 1.4s var(--bezierFastoutSlowin)
       calc(var(--initDelay) + 200ms) forwards;
   }
 }
@@ -258,7 +257,7 @@
 
   @media (--mediaUseMotion) {
     opacity: 0;
-    animation: project-fade-slide 1.5s var(--bezierFastoutSlowin) var(--delay) forwards;
+    animation: projectFadeSlide 1.5s var(--bezierFastoutSlowin) var(--delay) forwards;
   }
 
   @media (--mediaMobile) {

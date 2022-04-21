@@ -1,5 +1,5 @@
+import { useHasMounted } from 'hooks';
 import { useState } from 'react';
-import { useHasMounted } from './hasMounted';
 
 export function useLocalStorage(key, initialValue) {
   const hasMounted = useHasMounted();

@@ -2,8 +2,7 @@ import { Button } from 'components/Button';
 import { Icon } from 'components/Icon';
 import { useTheme } from 'components/ThemeProvider';
 import { useReducedMotion } from 'framer-motion';
-import { useInViewport } from 'hooks';
-import { useHasMounted } from 'hooks/hasMounted';
+import { useHasMounted, useInViewport } from 'hooks';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { resolveSrcFromSrcSet, srcSetToString } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
@@ -68,6 +67,7 @@ const ImageElements = ({
   restartOnPause,
   reveal,
   sizes,
+  noPauseButton,
   ...rest
 }) => {
   const reduceMotion = useReducedMotion();
@@ -162,10 +162,12 @@ const ImageElements = ({
             ref={videoRef}
             {...rest}
           />
-          <Button className={styles.button} onClick={togglePlaying}>
-            <Icon icon={playing ? 'pause' : 'play'} />
-            {playing ? 'Pause' : 'Play'}
-          </Button>
+          {!noPauseButton && (
+            <Button className={styles.button} onClick={togglePlaying}>
+              <Icon icon={playing ? 'pause' : 'play'} />
+              {playing ? 'Pause' : 'Play'}
+            </Button>
+          )}
         </Fragment>
       )}
       {!isVideo && (

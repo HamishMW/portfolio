@@ -40,7 +40,8 @@
     "next": "^12.1.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "three": "^0.139.2"
+    "three": "^0.139.2",
+    "three-stdlib": "^2.9.1"
   },
   "scripts": {
     "dev": "next dev",

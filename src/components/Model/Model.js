@@ -22,8 +22,7 @@ import {
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
-import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
-import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
+import { HorizontalBlurShader, VerticalBlurShader } from 'three-stdlib';
 import { resolveSrcFromSrcSet } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
@@ -415,6 +414,7 @@ const Device = ({
             animate(1, 0, {
               onUpdate: value => {
                 placeholderScreen.current.material.opacity = value;
+                renderFrame();
               },
             });
           };
