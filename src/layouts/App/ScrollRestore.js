@@ -26,7 +26,6 @@ export const ScrollRestore = () => {
     if (!isPresent) return;
     const hash = asPath.split('#')[1];
     const targetElement = document.getElementById(hash);
-    const mainElement = document.getElementById('MainContent');
 
     if (hash && targetElement) {
       // If there's a hash in the url and a matching element
@@ -35,7 +34,7 @@ export const ScrollRestore = () => {
       targetElement.focus({ preventScroll: true });
     } else {
       window.scrollTo(0, 0);
-      mainElement.focus({ preventScroll: true });
+      document.body.focus({ preventScroll: true });
     }
   }, [asPath, isPresent]);
 };

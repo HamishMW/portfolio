@@ -60,7 +60,9 @@ const ArticlesPost = ({ slug, title, abstract, date, featured, banner, timecode 
                 day: '2-digit',
               })}
             </div>
-            <Heading level={featured ? 2 : 4}>{title}</Heading>
+            <Heading as="h2" level={featured ? 2 : 4}>
+              {title}
+            </Heading>
             <Text size={featured ? 'l' : 'm'} as="p">
               {abstract}
             </Text>

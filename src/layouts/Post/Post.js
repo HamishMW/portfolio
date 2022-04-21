@@ -11,11 +11,10 @@ import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
-import { useScrollToHash, useWindowSize } from 'hooks';
+import { useScrollToHash } from 'hooks';
 import RouterLink from 'next/link';
 import { Children } from 'react';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
-import { media } from 'utils/style';
 import styles from './Post.module.css';
 
 export const Post = ({
@@ -28,7 +27,6 @@ export const Post = ({
   bannerAlt,
   timecode,
 }) => {
-  const windowSize = useWindowSize();
   const scrollToHash = useScrollToHash();
 
   const handleScrollIndicatorClick = event => {
@@ -39,63 +37,63 @@ export const Post = ({
   return (
     <article className={styles.post}>
       <Meta title={title} prefix="" description={abstract} />
-      <header className={styles.header}>
-        <div className={styles.headerText}>
-          <Transition in timeout={msToNum(tokens.base.durationM)}>
-            {visible => (
-              <div className={styles.date}>
-                <Divider
-                  notchWidth={windowSize.width > media.mobile ? '90px' : '60px'}
-                  notchHeight={windowSize.width > media.mobile ? '10px' : '8px'}
-                  collapsed={!visible}
+      <Section>
+        <header className={styles.header}>
+          <div className={styles.headerText}>
+            {banner && (
+              <div className={styles.banner}>
+                <Image
+                  reveal
+                  delay={1200}
+                  className={styles.bannerImage}
+                  src={{ src: banner }}
+                  placeholder={{ src: bannerPlaceholder }}
+                  alt={bannerAlt}
                 />
-                <span className={styles.dateText} data-visible={visible}>
-                  {new Date(date).toLocaleDateString('default', {
-                    year: 'numeric',
-                    month: 'long',
-                  })}
-                </span>
               </div>
             )}
-          </Transition>
-          <Heading level={1} weight="bold" className={styles.title} aria-label={title}>
-            {title.split(' ').map((word, index) => (
-              <span className={styles.titleWordWrapper} key={`${word}-${index}`}>
-                <span
-                  className={styles.titleWord}
-                  style={cssProps({ delay: numToMs(index * 120 + 200) })}
-                  index={index}
-                >
-                  {word}
-                  {index !== title.split(' ').length - 1 ? '\u00a0' : ''}
+            <Transition in timeout={msToNum(tokens.base.durationM)}>
+              {visible => (
+                <div className={styles.date}>
+                  <Divider notchWidth="64px" notchHeight="8px" collapsed={!visible} />
+                  <Text className={styles.dateText} data-visible={visible}>
+                    {new Date(date).toLocaleDateString('default', {
+                      year: 'numeric',
+                      month: 'long',
+                    })}
+                  </Text>
+                </div>
+              )}
+            </Transition>
+            <Heading level={2} as="h1" className={styles.title} aria-label={title}>
+              {title.split(' ').map((word, index) => (
+                <span className={styles.titleWordWrapper} key={`${word}-${index}`}>
+                  <span
+                    className={styles.titleWord}
+                    style={cssProps({ delay: numToMs(index * 120 + 200) })}
+                    index={index}
+                  >
+                    {word}
+                    {index !== title.split(' ').length - 1 ? '\u00a0' : ''}
+                  </span>
                 </span>
-              </span>
-            ))}
-          </Heading>
-          <RouterLink href="#postContent">
-            <a
-              className={styles.bannerArrow}
-              aria-label="Scroll to post content"
-              onClick={handleScrollIndicatorClick}
-            >
-              <ArrowDown aria-hidden />
-            </a>
-          </RouterLink>
-          <div className={styles.bannerReadTime}>{timecode}</div>
-        </div>
-        {banner && (
-          <div className={styles.banner}>
-            <Image
-              reveal
-              delay={600}
-              className={styles.bannerImage}
-              src={{ src: banner }}
-              placeholder={{ src: bannerPlaceholder }}
-              alt={bannerAlt}
-            />
+              ))}
+            </Heading>
+            <div className={styles.headerFooter}>
+              <RouterLink href="#postContent">
+                <a
+                  className={styles.headerArrow}
+                  aria-label="Scroll to post content"
+                  onClick={handleScrollIndicatorClick}
+                >
+                  <ArrowDown aria-hidden />
+                </a>
+              </RouterLink>
+              <div className={styles.headerReadTime}>{timecode}</div>
+            </div>
           </div>
-        )}
-      </header>
+        </header>
+      </Section>
       <Section className={styles.contentWrapper} id="postContent" tabIndex={-1}>
         <div className={styles.content}>{children}</div>
       </Section>

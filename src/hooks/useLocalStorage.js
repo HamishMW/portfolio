@@ -1,11 +1,8 @@
-import { useHasMounted } from 'hooks';
 import { useState } from 'react';
 
 export function useLocalStorage(key, initialValue) {
-  const hasMounted = useHasMounted();
-
   const [storedValue, setStoredValue] = useState(() => {
-    if (!hasMounted) return;
+    if (typeof window === 'undefined') return;
 
     try {
       const item = window.localStorage.getItem(key);

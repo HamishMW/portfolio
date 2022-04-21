@@ -15,7 +15,7 @@
   padding-bottom: var(--space4XL);
   padding-left: var(--space3XL);
   padding-right: var(--spaceL);
-  gap: var(--space3XL);
+  gap: var(--space4XL);
   height: 100%;
 
   @media (--mediaDesktop) {
@@ -93,7 +93,7 @@
     height: calc(100vh - (var(--spaceOuter) * 2));
     display: grid;
 
-    @media (--mediaTablet) {
+    @media (max-width: 1140px) {
       position: relative;
       height: auto;
       padding-top: 50%;
