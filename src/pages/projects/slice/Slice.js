@@ -10,6 +10,8 @@ import sliceBackgroundBar from 'assets/slice-background-bar.jpg';
 import sliceBackgroundLarge from 'assets/slice-background-large.jpg';
 import sliceBackgroundPlaceholder from 'assets/slice-background-placeholder.jpg';
 import sliceBackground from 'assets/slice-background.jpg';
+import sliceIrlPlaceholder from 'assets/slice-irl-placeholder.jpg';
+import sliceIrl from 'assets/slice-irl.jpg';
 import sliceSidebarAnnotationsLarge from 'assets/slice-sidebar-annotations-large.png';
 import sliceSidebarAnnotationsPlaceholder from 'assets/slice-sidebar-annotations-placeholder.png';
 import sliceSidebarAnnotations from 'assets/slice-sidebar-annotations.png';
@@ -124,7 +126,7 @@ export const Slice = () => {
             />
           </ProjectSectionContent>
         </ProjectSection>
-        <ProjectSection>
+        <ProjectSection first>
           <ProjectSectionContent className={styles.grid}>
             <div className={styles.gridImage}>
               <div className={styles.gridBackground}>
@@ -155,6 +157,25 @@ export const Slice = () => {
                 the image and how large the annotated feature is in comparison.
               </ProjectSectionText>
             </div>
+          </ProjectSectionContent>
+        </ProjectSection>
+        <ProjectSection>
+          <ProjectSectionContent>
+            <ProjectTextRow>
+              <ProjectSectionHeading>Project outcomes</ProjectSectionHeading>
+              <ProjectSectionText>
+                Real-time collaborative annotation facilitated better collaboration
+                between learners, and was much easier to run group exercises with the new
+                shared layers feature. Learners gave feedback that is was enjoyable to
+                work together and see what others were doing, and liked how interactive
+                and easy to use the application was.
+              </ProjectSectionText>
+            </ProjectTextRow>
+            <Image
+              src={sliceIrl}
+              placeholder={sliceIrlPlaceholder}
+              alt="Students at the University of New South Wales using the new collaborative annotation features"
+            />
           </ProjectSectionContent>
         </ProjectSection>
       </ProjectContainer>

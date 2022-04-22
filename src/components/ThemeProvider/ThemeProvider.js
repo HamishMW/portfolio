@@ -11,7 +11,7 @@ export const fontStyles = squish(`
   @font-face {
     font-family: "Gotham";
     font-weight: 400;
-    src: url(${GothamBook}) format("woff");
+    src: url(${GothamBook}) format("woff2");
     font-display: block;
   }
 

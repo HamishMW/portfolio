@@ -18,16 +18,19 @@ module.exports = {
     const imageRule = config.module.rules.find(rule => rule.test.test('.svg'));
     imageRule.exclude = /\.svg$/;
 
+    // Import `svg` files as React components
     config.module.rules.push({
       test: /\.svg$/,
-      use: ['@svgr/webpack'],
+      use: [{ loader: '@svgr/webpack', options: { svgo: false } }],
     });
 
+    // Import videos, models, hdrs, and fonts
     config.module.rules.push({
-      test: /\.(mp4|hdr|glb|woff2)$/i,
+      test: /\.(mp4|hdr|glb|woff|woff2)$/i,
       type: 'asset/resource',
     });
 
+    // Import `.glsl` shaders
     config.module.rules.push({
       test: /\.glsl$/,
       type: 'asset/source',

@@ -17,7 +17,7 @@ module.exports = {
 
     // Import videos, models, hdrs, and fonts
     config.module.rules.push({
-      test: /\.(mp4|hdr|glb|woff2)$/i,
+      test: /\.(mp4|hdr|glb|woff|woff2)$/i,
       type: 'asset/resource',
     });
 

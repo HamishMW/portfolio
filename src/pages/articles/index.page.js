@@ -27,7 +27,7 @@ export function getStaticProps() {
   const posts = allPosts
     .filter(post => post.slug !== featured.slug)
     .sort((a, b) => {
-      return new Date(a.date).getTime() < new Date(b.date).getTime();
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
     })
     .reverse();
 

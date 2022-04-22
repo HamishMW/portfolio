@@ -183,6 +183,7 @@
     position: absolute;
     inset: 0;
     mix-blend-mode: luminosity;
+    transition: all var(--durationM) var(--bezierFastoutSlowin);
     background-image: linear-gradient(
       -135deg,
       rgb(var(--rgbBackgroundLight) / 0.5) 0%,
