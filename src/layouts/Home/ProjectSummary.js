@@ -92,54 +92,54 @@ export const ProjectSummary = ({
       {model.type === 'laptop' && (
         <>
           {renderKatakana('laptop', visible)}
-          <Model
-            className={styles.model}
-            data-device="laptop"
-            alt={model.alt}
-            cameraPosition={{ x: 0, y: 0, z: 8 }}
-            showDelay={700}
-            show={visible}
-            models={[
-              {
-                ...deviceModels.laptop,
-                texture: {
-                  ...model.textures[0],
-                  sizes: laptopSizes,
+          <div className={styles.model} data-device="laptop">
+            <Model
+              alt={model.alt}
+              cameraPosition={{ x: 0, y: 0, z: 8 }}
+              showDelay={700}
+              show={visible}
+              models={[
+                {
+                  ...deviceModels.laptop,
+                  texture: {
+                    ...model.textures[0],
+                    sizes: laptopSizes,
+                  },
                 },
-              },
-            ]}
-          />
+              ]}
+            />
+          </div>
         </>
       )}
       {model.type === 'phone' && (
         <>
           {renderKatakana('phone', visible)}
-          <Model
-            className={styles.model}
-            data-device="phone"
-            alt={model.alt}
-            cameraPosition={{ x: 0, y: 0, z: 11.5 }}
-            showDelay={300}
-            show={visible}
-            models={[
-              {
-                ...deviceModels.phone,
-                position: { x: -0.6, y: 1.1, z: 0 },
-                texture: {
-                  ...model.textures[0],
-                  sizes: phoneSizes,
+          <div className={styles.model} data-device="phone">
+            <Model
+              alt={model.alt}
+              cameraPosition={{ x: 0, y: 0, z: 11.5 }}
+              showDelay={300}
+              show={visible}
+              models={[
+                {
+                  ...deviceModels.phone,
+                  position: { x: -0.6, y: 1.1, z: 0 },
+                  texture: {
+                    ...model.textures[0],
+                    sizes: phoneSizes,
+                  },
                 },
-              },
-              {
-                ...deviceModels.phone,
-                position: { x: 0.6, y: -0.5, z: 0.3 },
-                texture: {
-                  ...model.textures[1],
-                  sizes: phoneSizes,
+                {
+                  ...deviceModels.phone,
+                  position: { x: 0.6, y: -0.5, z: 0.3 },
+                  texture: {
+                    ...model.textures[1],
+                    sizes: phoneSizes,
+                  },
                 },
-              },
-            ]}
-          />
+              ]}
+            />
+          </div>
         </>
       )}
     </div>

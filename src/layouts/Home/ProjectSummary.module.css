@@ -91,6 +91,8 @@
 
   min-width: var(--width);
   aspect-ratio: var(--aspectRatio);
+  display: grid;
+  position: relative;
 
   &[data-device='laptop'] {
     top: 6%;
