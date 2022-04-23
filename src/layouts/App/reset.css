@@ -21,10 +21,6 @@
   margin: 0;
 }
 
-:where(h1, h2, h3, h4, h5, h6, p) {
-  margin: 0;
-}
-
 :where(input, textarea, select, button) {
   font: inherit;
   color: inherit;
@@ -41,13 +37,4 @@
 
 :any-link {
   text-decoration: none;
-}
-
-:focus {
-  outline: 4px solid rgb(var(--rgbText));
-  outline-offset: 4px;
-}
-
-:focus:not(:focus-visible) {
-  outline: none;
 }

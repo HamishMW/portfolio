@@ -12,9 +12,14 @@ body {
   font-family: var(--fontStack);
   font-weight: var(--fontWeightRegular);
   background-color: rgb(var(--rgbBackground));
+  transition: background var(--durationM) ease;
   color: var(--colorTextBody);
   width: 100vw;
   overflow-x: hidden;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 :where(code, pre) {
@@ -24,6 +29,15 @@ body {
 ::selection {
   background: rgb(var(--rgbAccent));
   color: rgb(var(--rgbBlack));
+}
+
+:focus {
+  outline: 4px solid rgb(var(--rgbText));
+  outline-offset: 4px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 @keyframes fadeIn {

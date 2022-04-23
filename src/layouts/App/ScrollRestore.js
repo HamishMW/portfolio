@@ -27,16 +27,14 @@ export const ScrollRestore = () => {
     const hash = asPath.split('#')[1];
     const targetElement = document.getElementById(hash);
 
-    requestAnimationFrame(() => {
-      if (hash && targetElement) {
-        // If there's a hash in the url and a matching element
-        // id, scroll to and focus it
-        window.scrollTo(0, targetElement.offsetTop);
-        targetElement.focus({ preventScroll: true });
-      } else {
-        window.scrollTo(0, 0);
-        document.body.focus({ preventScroll: true });
-      }
-    });
+    if (hash && targetElement) {
+      // If there's a hash in the url and a matching element
+      // id, scroll to and focus it
+      window.scrollTo(0, targetElement.offsetTop);
+      targetElement.focus({ preventScroll: true });
+    } else {
+      window.scrollTo(0, 0);
+      document.body.focus({ preventScroll: true });
+    }
   }, [asPath, isPresent]);
 };

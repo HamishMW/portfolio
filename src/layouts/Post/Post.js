@@ -11,9 +11,10 @@ import { Section } from 'components/Section';
 import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
-import { useScrollToHash } from 'hooks';
+import { useParallax, useScrollToHash } from 'hooks';
 import RouterLink from 'next/link';
-import { Children } from 'react';
+import { Children, useRef } from 'react';
+import { formateDate } from 'utils/date';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import styles from './Post.module.css';
 
@@ -28,6 +29,12 @@ export const Post = ({
   timecode,
 }) => {
   const scrollToHash = useScrollToHash();
+  const imageRef = useRef();
+
+  useParallax(0.08, value => {
+    if (!imageRef.current) return;
+    imageRef.current.style = `--blur: ${value}px`;
+  });
 
   const handleScrollIndicatorClick = event => {
     event.preventDefault();
@@ -38,29 +45,24 @@ export const Post = ({
     <article className={styles.post}>
       <Meta title={title} prefix="" description={abstract} />
       <Section>
+        {banner && (
+          <div className={styles.banner} ref={imageRef}>
+            <Image
+              className={styles.bannerImage}
+              src={{ src: banner }}
+              placeholder={{ src: bannerPlaceholder }}
+              alt={bannerAlt}
+            />
+          </div>
+        )}
         <header className={styles.header}>
           <div className={styles.headerText}>
-            {banner && (
-              <div className={styles.banner}>
-                <Image
-                  reveal
-                  delay={1200}
-                  className={styles.bannerImage}
-                  src={{ src: banner }}
-                  placeholder={{ src: bannerPlaceholder }}
-                  alt={bannerAlt}
-                />
-              </div>
-            )}
             <Transition in timeout={msToNum(tokens.base.durationM)}>
               {visible => (
                 <div className={styles.date}>
                   <Divider notchWidth="64px" notchHeight="8px" collapsed={!visible} />
                   <Text className={styles.dateText} data-visible={visible}>
-                    {new Date(date).toLocaleDateString('default', {
-                      year: 'numeric',
-                      month: 'long',
-                    })}
+                    {formateDate(date)}
                   </Text>
                 </div>
               )}

@@ -2,13 +2,8 @@
   --paraSpace: 26px;
   --headingSpace: 24px;
   --lineHeightBody: 1.8;
-  --contentWidth: 800px;
-  --gutterWidth: 100px;
-
-  @media (max-width: 1320px) {
-    --contentWidth: 740px;
-    --gutterWidth: 80px;
-  }
+  --contentWidth: 740px;
+  --gutterWidth: 80px;
 
   @media (--mediaLaptop) {
     --contentWidth: 680px;
@@ -57,7 +52,6 @@
   @media (--mediaTablet) {
     grid-column: 1;
     gap: var(--spaceXL);
-    padding: var(--gutterWidth);
   }
 
   @media (--mediaMobile), (max-width: 820px) and (max-height: 420px) {
@@ -81,8 +75,12 @@
   color: rgb(var(--rgbPrimary));
   opacity: 0;
   transform: translate3d(-5%, 0, 0);
-  transition: opacity var(--durationXL) ease,
-    transform var(--durationXL) var(--bezierFastoutSlowin);
+  transition: opacity var(--durationXL) ease;
+
+  @media (--mediaUseMotion) {
+    transition: opacity var(--durationXL) ease,
+      transform var(--durationXL) var(--bezierFastoutSlowin);
+  }
 
   &[data-visible='true'] {
     opacity: 1;
@@ -123,7 +121,9 @@
   position: absolute;
   inset: calc(var(--gutterWidth) * -1);
   top: 0;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+  height: 60vh;
+  isolation: isolate;
+  overflow: hidden;
 
   @media (--mediaTablet) {
     inset: 0;
@@ -134,21 +134,21 @@
   }
 
   &::after {
+    --background1: rgb(var(--rgbBackground) / 0.7);
+    --background2: rgb(var(--rgbBackground));
+
     content: '';
     position: absolute;
-    inset: -1px;
-    mix-blend-mode: luminosity;
-    background-image: linear-gradient(
-      -135deg,
-      rgb(var(--rgbBackgroundLight) / 0.5) 0%,
-      rgb(var(--rgbBackgroundLight) / 0.86) 60%,
-      rgb(var(--rgbBackgroundLight) / 0.95) 100%
-    );
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, var(--background1), var(--background2));
   }
 }
 
 .bannerImage {
-  height: 100%;
+  position: absolute;
+  inset: 0;
+  filter: blur(var(--blur));
 
   & img,
   & video {
@@ -165,20 +165,6 @@
   gap: var(--spaceM);
 }
 
-@keyframes postHeaderArrow {
-  0% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
 .headerArrow {
   position: relative;
   left: -10px;
@@ -191,13 +177,6 @@
 
   & svg {
     stroke: rgb(var(--rgbText) / 0.5);
-
-    @media (--mediaUseMotion) {
-      animation-name: postHeaderArrow;
-      animation-duration: 1.5s;
-      animation-iteration-count: infinite;
-      transition-timing-function: cubic-bezier(0.8, 0.1, 0.27, 1);
-    }
   }
 
   @media (--mediaTablet) {
@@ -224,10 +203,6 @@
     animation: fadeIn 0.6s var(--bezierFastoutSlowin) 1s forwards;
   }
 
-  @media (--mediaReduceMotion) {
-    opacity: 1;
-  }
-
   &::before {
     content: '';
     height: 2px;
@@ -240,6 +215,7 @@
   flex-direction: column;
   padding-bottom: var(--space2XL);
   margin-top: calc(var(--gutterWidth) + var(--space4XL));
+  scroll-margin-top: var(--spaceOuter);
 
   @media (--mediaTablet) {
     margin-top: calc(var(--gutterWidth) + var(--space2XL));

@@ -7,28 +7,31 @@
 }
 
 .grid {
+  --verticalPadding: var(--space4XL);
+
   max-width: 1800px;
   display: grid;
   align-items: start;
   grid-template-columns: 1fr 55%;
-  padding-top: var(--spaceOuter);
+  padding-top: var(--verticalPadding);
   padding-bottom: var(--space4XL);
   padding-left: var(--space3XL);
   padding-right: var(--spaceL);
-  gap: var(--space4XL);
+  gap: var(--space5XL);
   height: 100%;
 
   @media (--mediaDesktop) {
+    --verticalPadding: var(--spaceOuter);
+
     padding-left: 0;
   }
 
   @media (--mediaLaptop) {
-    gap: var(--space2XL);
+    gap: var(--space3XL);
     padding-bottom: var(--space3XL);
   }
 
   @media (max-width: 1140px) {
-    gap: var(--space3XL);
     padding-right: 0;
     grid-template-columns: 100%;
   }
@@ -62,7 +65,8 @@
 }
 
 .post {
-  --featuredPostPadding: var(--space4XL);
+  --featuredPostPadding: var(--space5XL);
+  --featuredPostClip: polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%);
   --postBorder: 1px solid rgb(var(--rgbText) / 0.1);
 
   position: relative;
@@ -71,6 +75,10 @@
 
   &:last-child {
     border-bottom: var(--postBorder);
+  }
+
+  @media (--mediaDesktop) {
+    --featuredPostPadding: var(--space4XL);
   }
 
   @media (--mediaLaptop) {
@@ -89,16 +97,20 @@
     margin: 0;
     border: 0;
     position: sticky;
-    top: var(--spaceOuter);
-    height: calc(100vh - (var(--spaceOuter) * 2));
+    top: var(--verticalPadding);
+    height: calc(100vh - (var(--verticalPadding) * 2));
     display: grid;
 
     @media (max-width: 1140px) {
       position: relative;
       height: auto;
-      padding-top: 50%;
       top: 0;
     }
+  }
+
+  &[data-featured='false']:global {
+    opacity: 0;
+    animation: fadeIn var(--durationL) ease var(--delay) forwards;
   }
 }
 
@@ -111,16 +123,88 @@
   color: var(--colorTextLight);
 }
 
+@keyframes labelIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
+
 .postLabel {
   top: 0;
   left: calc((var(--spaceM) * -1) + var(--featuredPostPadding));
-  transform: translateY(-50%);
+  transform: translateY(-100%);
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    animation: labelIn 0.8s ease 1.6s forwards;
+  }
+
+  @media (--mediaReduceMotion) {
+    transform: translateY(-50%);
+
+    &:global {
+      animation: fadeIn 0.8s ease 1.6s forwards;
+    }
+  }
+}
+
+@keyframes tagIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%) rotate(-90deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(50%) rotate(-90deg);
+  }
 }
 
 .postTag {
-  bottom: 30%;
+  top: 30%;
   right: 0;
-  transform: translateX(50%) rotate(-90deg);
+  opacity: 0;
+  transform: translateX(100%) rotate(-90deg);
+
+  @media (--mediaUseMotion) {
+    animation: tagIn 0.8s ease 1.6s forwards;
+  }
+
+  @media (--mediaReduceMotion) {
+    transform: translateX(50%) rotate(-90deg);
+
+    &:global {
+      animation: fadeIn 0.8s ease 1.6s forwards;
+    }
+  }
+}
+
+@keyframes postReveal {
+  0% {
+    transform: scale3d(0, 1, 1);
+    transform-origin: left;
+  }
+
+  49% {
+    transform: scale3d(1, 1, 1);
+    transform-origin: left;
+  }
+
+  50% {
+    transform: scale3d(1, 1, 1);
+    transform-origin: right;
+  }
+
+  100% {
+    transform: scale3d(0, 1, 1);
+    transform-origin: right;
+  }
 }
 
 .postLink {
@@ -156,6 +240,25 @@
 
   @nest [data-featured='true'] & {
     padding: var(--featuredPostPadding);
+    clip-path: var(--featuredPostClip);
+
+    @media (--mediaTablet) {
+      padding-top: 50%;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgb(var(--rgbAccent));
+      z-index: 16;
+      pointer-events: none;
+      transform: scale3d(0, 1, 1);
+
+      @media (--mediaUseMotion) {
+        animation: postReveal 1.8s var(--bezierFastoutSlowin) forwards;
+      }
+    }
   }
 }
 
@@ -175,8 +278,13 @@
   display: grid;
   place-content: stretch;
   overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0 100%);
   isolation: isolate;
+  clip-path: var(--featuredPostClip);
+  opacity: 0;
+
+  &:global {
+    animation: fadeIn 1s var(--bezierFastoutSlowin) forwards 0.9s;
+  }
 
   &::after {
     content: '';
@@ -188,11 +296,18 @@
       -135deg,
       rgb(var(--rgbBackgroundLight) / 0.5) 0%,
       rgb(var(--rgbBackgroundLight) / 0.86) 60%,
-      rgb(var(--rgbBackgroundLight) / 0.95) 100%
+      rgb(var(--rgbBackgroundLight) / 0.9) 100%
     );
   }
 
+  @media (--mediaUseMotion) {
+    @nest .post:hover & :where(img, video) {
+      transform: scale(1.06);
+    }
+  }
+
   & :where(img, video) {
+    transition: transform var(--durationXL) var(--bezierFastoutSlowin);
     object-fit: cover;
     height: 100%;
   }
@@ -203,6 +318,14 @@
   display: grid;
   justify-items: start;
   gap: var(--spaceL);
+
+  @nest [data-featured='true'] & {
+    opacity: 0;
+
+    &:global {
+      animation: fadeIn 1s var(--bezierFastoutSlowin) forwards 0.9s;
+    }
+  }
 }
 
 .postFooter {

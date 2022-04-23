@@ -4,8 +4,6 @@ import gamestackTexture2 from 'assets/gamestack-list.jpg';
 import gamestackTextureLarge from 'assets/gamestack-login-large.jpg';
 import gamestackTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
 import gamestackTexture from 'assets/gamestack-login.jpg';
-import iphone11 from 'assets/iphone-11.glb';
-import macbookPro from 'assets/macbook-pro.glb';
 import sliceTextureLarge from 'assets/slice-app-large.jpg';
 import sliceTexturePlaceholder from 'assets/slice-app-placeholder.jpg';
 import sliceTexture from 'assets/slice-app.jpg';
@@ -17,7 +15,6 @@ import { Meta } from 'components/Meta';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
-import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
@@ -75,10 +72,6 @@ export const Home = () => {
         description="Design portfolio of Hamish Williams — a product designer working on web & mobile
           apps with a focus on motion, experience design, and accessibility."
       />
-      <Head>
-        <link rel="prefetch" href={iphone11} as="fetch" />
-        <link rel="prefetch" href={macbookPro} as="fetch" />
-      </Head>
       <Intro
         id="intro"
         sectionRef={intro}

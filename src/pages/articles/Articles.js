@@ -12,9 +12,20 @@ import { useReducedMotion } from 'framer-motion';
 import { useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
 import { useState } from 'react';
+import { formateDate } from 'utils/date';
+import { cssProps } from 'utils/style';
 import styles from './Articles.module.css';
 
-const ArticlesPost = ({ slug, title, abstract, date, featured, banner, timecode }) => {
+const ArticlesPost = ({
+  slug,
+  title,
+  abstract,
+  date,
+  featured,
+  banner,
+  timecode,
+  index,
+}) => {
   const [hovered, setHovered] = useState(false);
   const reduceMotion = useReducedMotion();
 
@@ -27,7 +38,11 @@ const ArticlesPost = ({ slug, title, abstract, date, featured, banner, timecode 
   };
 
   return (
-    <article className={styles.post} data-featured={!!featured}>
+    <article
+      className={styles.post}
+      data-featured={!!featured}
+      style={cssProps({ delay: index * 100 + 200 })}
+    >
       {featured && (
         <Text className={styles.postLabel} size="s">
           Featured
@@ -54,16 +69,12 @@ const ArticlesPost = ({ slug, title, abstract, date, featured, banner, timecode 
           <div className={styles.postDetails}>
             <div aria-hidden className={styles.postDate}>
               <Divider notchWidth="64px" notchHeight="8px" />
-              {new Date(date).toLocaleDateString('default', {
-                year: 'numeric',
-                month: 'long',
-                day: '2-digit',
-              })}
+              {formateDate(date)}
             </div>
             <Heading as="h2" level={featured ? 2 : 4}>
               {title}
             </Heading>
-            <Text size={featured ? 'l' : 'm'} as="p">
+            <Text size={featured ? 'l' : 's'} as="p">
               {abstract}
             </Text>
             <div className={styles.postFooter}>
@@ -99,15 +110,15 @@ export const Articles = ({ posts, featured }) => {
         </Heading>
         <Barcode />
       </header>
-      {posts.map(({ slug, ...post }) => (
-        <ArticlesPost key={slug} slug={slug} {...post} />
+      {posts.map(({ slug, ...post }, index) => (
+        <ArticlesPost key={slug} slug={slug} index={index} {...post} />
       ))}
-      {/* {posts.map(({ slug, ...post }) => (
-        <ArticlesPost key={slug} slug={slug} {...post} />
+      {posts.map(({ slug, ...post }, index) => (
+        <ArticlesPost key={slug} slug={slug} index={index} {...post} />
       ))}
-      {posts.map(({ slug, ...post }) => (
-        <ArticlesPost key={slug} slug={slug} {...post} />
-      ))} */}
+      {posts.map(({ slug, ...post }, index) => (
+        <ArticlesPost key={slug} slug={slug} index={index} {...post} />
+      ))}
     </div>
   );
 

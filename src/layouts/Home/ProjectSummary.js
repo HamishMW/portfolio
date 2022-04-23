@@ -1,4 +1,4 @@
-import KatakanaProject from 'assets/katakana-project.svg';
+import projectKatakana from 'assets/katakana-project.svg?url';
 import { Button } from 'components/Button';
 import { Divider } from 'components/Divider';
 import { Heading } from 'components/Heading';
@@ -38,6 +38,22 @@ export const ProjectSummary = ({
   const phoneSizes = `(max-width: ${media.tablet}px) 30vw, 20vw`;
   const laptopSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
 
+  const renderKatakana = (device, visible) => (
+    <svg
+      aria-hidden="true"
+      width="750"
+      height="137"
+      viewBox="0 0 750 137"
+      data-visible={visible}
+      data-light={theme.themeId === 'light'}
+      style={cssProps({ opacity: svgOpacity })}
+      className={styles.svg}
+      data-device={device}
+    >
+      <use href={`${projectKatakana}#katakana-project`} />
+    </svg>
+  );
+
   const renderDetails = visible => (
     <div className={styles.details}>
       <div aria-hidden className={styles.index}>
@@ -75,13 +91,7 @@ export const ProjectSummary = ({
     <div className={styles.preview}>
       {model.type === 'laptop' && (
         <>
-          <KatakanaProject
-            className={styles.svg}
-            style={cssProps({ opacity: svgOpacity })}
-            data-device="laptop"
-            data-visible={visible}
-            data-light={theme.themeId === 'light'}
-          />
+          {renderKatakana('laptop', visible)}
           <Model
             className={styles.model}
             data-device="laptop"
@@ -103,13 +113,7 @@ export const ProjectSummary = ({
       )}
       {model.type === 'phone' && (
         <>
-          <KatakanaProject
-            data-visible={visible}
-            data-light={theme.themeId === 'light'}
-            style={cssProps({ opacity: svgOpacity })}
-            className={styles.svg}
-            data-device="phone"
-          />
+          {renderKatakana('phone', visible)}
           <Model
             className={styles.model}
             data-device="phone"

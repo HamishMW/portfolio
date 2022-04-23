@@ -6,7 +6,7 @@ import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { useParallax } from 'hooks';
-import { forwardRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import styles from './Project.module.css';
 
@@ -104,7 +104,12 @@ export const ProjectSection = forwardRef(
 );
 
 export const ProjectBackground = ({ opacity = 0.7, className, ...rest }) => {
-  const offset = useParallax(0.6);
+  const imageRef = useRef();
+
+  useParallax(0.6, value => {
+    if (!imageRef.current) return;
+    imageRef.current.style = `--offset: ${value}px`;
+  });
 
   return (
     <Transition in timeout={msToNum(tokens.base.durationM)}>
@@ -113,7 +118,7 @@ export const ProjectBackground = ({ opacity = 0.7, className, ...rest }) => {
           className={classes(styles.backgroundImage, className)}
           data-visible={visible}
         >
-          <div className={styles.backgroundImageElement} style={cssProps({ offset })}>
+          <div className={styles.backgroundImageElement} ref={imageRef}>
             <Image alt="" role="presentation" {...rest} />
           </div>
           <div className={styles.backgroundScrim} style={cssProps({ opacity })} />

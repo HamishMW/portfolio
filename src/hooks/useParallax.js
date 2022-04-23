@@ -1,8 +1,7 @@
 import { useReducedMotion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-export function useParallax(multiplier, clamp = true) {
-  const [offset, setOffset] = useState(0);
+export function useParallax(multiplier, onChange) {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -16,7 +15,7 @@ export function useParallax(multiplier, clamp = true) {
         -innerHeight,
         Math.min(innerHeight, offsetValue)
       );
-      setOffset(clamp ? clampedOffsetValue : offsetValue);
+      onChange(clampedOffsetValue);
       ticking = false;
     };
 
@@ -29,13 +28,12 @@ export function useParallax(multiplier, clamp = true) {
 
     if (!reduceMotion) {
       window.addEventListener('scroll', handleScroll);
+      handleScroll();
     }
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(animationFrame);
     };
-  }, [clamp, multiplier, reduceMotion]);
-
-  return offset;
+  }, [multiplier, onChange, reduceMotion]);
 }

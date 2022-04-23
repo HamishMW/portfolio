@@ -54,6 +54,10 @@ export function cssProps(props, style = {}) {
   for (const key of keys) {
     let value = props[key];
 
+    if (typeof value === 'number' && key === 'delay') {
+      value = numToMs(value);
+    }
+
     if (typeof value === 'number' && key !== 'opacity') {
       value = numToPx(value);
     }

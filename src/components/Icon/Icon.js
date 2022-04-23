@@ -6,7 +6,6 @@ import Check from './svg/check.svg';
 import ChevronRight from './svg/chevron-right.svg';
 import Close from './svg/close.svg';
 import Copy from './svg/copy.svg';
-import Dribbble from './svg/dribbble.svg';
 import Error from './svg/error.svg';
 import Figma from './svg/figma.svg';
 import Github from './svg/github.svg';
@@ -24,7 +23,6 @@ export const icons = {
   chevronRight: ChevronRight,
   close: Close,
   copy: Copy,
-  dribbble: Dribbble,
   error: Error,
   figma: Figma,
   github: Github,

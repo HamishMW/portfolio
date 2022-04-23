@@ -97,6 +97,7 @@ export const Model = ({
 
     textureLoader.current = new TextureLoader();
     modelGroup.current = new Group();
+    scene.current.add(modelGroup.current);
 
     // Lighting
     const ambientLight = new AmbientLight(0xffffff, 1.2);
@@ -335,7 +336,7 @@ export const Model = ({
           index={index}
           setLoaded={setLoaded}
           model={model}
-          scene={scene}
+          camera={camera}
         />
       ))}
     </div>
@@ -352,7 +353,7 @@ const Device = ({
   showDelay,
   setLoaded,
   show,
-  scene,
+  camera,
 }) => {
   const [loadDevice, setLoadDevice] = useState();
   const reduceMotion = useReducedMotion();
@@ -388,6 +389,7 @@ const Device = ({
         await modelLoader.loadAsync(url),
       ]);
 
+      renderer.current.compile(gltf.scene, camera.current);
       modelGroup.current.add(gltf.scene);
 
       gltf.scene.traverse(async node => {
@@ -494,8 +496,6 @@ const Device = ({
     let animation;
 
     const onLoad = async () => {
-      scene.current.add(modelGroup.current);
-
       const { loadFullResTexture, playAnimation } = await loadDevice.start();
 
       setLoaded(true);
