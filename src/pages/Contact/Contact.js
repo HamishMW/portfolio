@@ -33,7 +33,7 @@ export const Contact = () => {
     try {
       setSending(true);
 
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/message`, {
         method: 'POST',
         mode: 'cors',
         headers: {
