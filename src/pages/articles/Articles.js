@@ -99,7 +99,7 @@ const ArticlesPost = ({
 
 export const Articles = ({ posts, featured }) => {
   const { width } = useWindowSize();
-  const singleColumnWidth = 1140;
+  const singleColumnWidth = 1190;
   const isSingleColumn = width <= singleColumnWidth;
 
   const list = (

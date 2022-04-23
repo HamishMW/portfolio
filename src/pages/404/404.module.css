@@ -18,29 +18,6 @@
   }
 }
 
-@keyframes videoReveal {
-  0% {
-    opacity: 0;
-    transform: scale3d(0, 1, 1);
-    transform-origin: left;
-  }
-
-  49% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: left;
-  }
-
-  50% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: right;
-  }
-
-  100% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: right;
-  }
-}
-
 .videoContainer {
   width: 100%;
   height: 100%;
@@ -76,8 +53,8 @@
   }
 
   @media (--mediaUseMotion) {
-    &[data-visible='true']::after {
-      animation-name: videoReveal;
+    &[data-visible='true']::after:global {
+      animation-name: reveal;
     }
   }
 }

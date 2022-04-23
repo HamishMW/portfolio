@@ -25,7 +25,7 @@
     overflow-x: hidden;
   }
 
-  @media (--mediaMobile), (max-height: 696px) {
+  @media (--mediaMobile), (--mediaMobileLS) {
     padding-right: var(--spaceOuter);
     padding-left: var(--spaceOuter);
   }

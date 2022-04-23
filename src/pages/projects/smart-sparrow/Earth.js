@@ -382,11 +382,13 @@ export const Earth = ({
       }
     };
 
-    handleLoad();
+    setTimeout(() => {
+      handleLoad();
+    }, 2000);
 
     setTimeout(() => {
       setLoaderVisible(true);
-    }, 1000);
+    }, 3000);
   }, [loaded, position, scale]);
 
   useEffect(() => {

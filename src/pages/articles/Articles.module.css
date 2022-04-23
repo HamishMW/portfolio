@@ -1,3 +1,5 @@
+@custom-media --singleColumnWidth (max-width: 1190px);
+
 .articles {
   display: grid;
   align-items: start;
@@ -31,14 +33,14 @@
     padding-bottom: var(--space3XL);
   }
 
-  @media (max-width: 1140px) {
+  @media (--singleColumnWidth), (--mediaMobileLS) {
     padding-right: 0;
     grid-template-columns: 100%;
   }
 
-  @media (--mediaMobile) {
+  @media (--mediaMobile), (--mediaMobileLS) {
     padding-bottom: var(--spaceXL);
-    padding-top: 100px;
+    padding-top: var(--mobileNavOffset);
   }
 }
 
@@ -89,7 +91,7 @@
     --featuredPostPadding: var(--spaceXL);
   }
 
-  @media (--mediaMobile) {
+  @media (--mediaMobile), (--mediaMobileLS) {
     --featuredPostPadding: var(--spaceOuter);
   }
 
@@ -101,7 +103,7 @@
     height: calc(100vh - (var(--verticalPadding) * 2));
     display: grid;
 
-    @media (max-width: 1140px) {
+    @media (--singleColumnWidth) {
       position: relative;
       height: auto;
       top: 0;
@@ -185,28 +187,6 @@
   }
 }
 
-@keyframes postReveal {
-  0% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: left;
-  }
-
-  49% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: left;
-  }
-
-  50% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: right;
-  }
-
-  100% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: right;
-  }
-}
-
 .postLink {
   --linkPadding: var(--space3XL);
 
@@ -242,7 +222,7 @@
     padding: var(--featuredPostPadding);
     clip-path: var(--featuredPostClip);
 
-    @media (--mediaTablet) {
+    @media (--singleColumnWidth) {
       padding-top: 50%;
     }
 
@@ -256,7 +236,9 @@
       transform: scale3d(0, 1, 1);
 
       @media (--mediaUseMotion) {
-        animation: postReveal 1.8s var(--bezierFastoutSlowin) forwards;
+        &:global {
+          animation: reveal 1.8s var(--bezierFastoutSlowin) forwards;
+        }
       }
     }
   }

@@ -19,7 +19,7 @@
     padding-left: var(--spaceL);
   }
 
-  @media (--mediaMobile), (max-height: 696px) {
+  @media (--mediaMobile), (--mediaMobileLS) {
     padding-left: var(--spaceOuter);
     padding-right: var(--spaceOuter);
   }

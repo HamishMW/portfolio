@@ -71,7 +71,7 @@ export const Model = ({
   const lights = useRef();
   const blurPlane = useRef();
   const fillPlane = useRef();
-  const isInViewport = useInViewport(container, false, { threshold: 0.4 });
+  const isInViewport = useInViewport(container, false, { threshold: 0.2 });
   const reduceMotion = useReducedMotion();
   const rotationX = useSpring(0, rotationSpringConfig);
   const rotationY = useSpring(0, rotationSpringConfig);
@@ -278,8 +278,8 @@ export const Model = ({
         y: (event.clientY - innerHeight / 2) / innerHeight,
       };
 
-      rotationX.set(position.y / 2);
       rotationY.set(position.x / 2);
+      rotationX.set(position.y / 2);
     };
 
     if (isInViewport && !reduceMotion) {
@@ -336,7 +336,6 @@ export const Model = ({
           index={index}
           setLoaded={setLoaded}
           model={model}
-          camera={camera}
         />
       ))}
     </div>
@@ -353,7 +352,6 @@ const Device = ({
   showDelay,
   setLoaded,
   show,
-  camera,
 }) => {
   const [loadDevice, setLoadDevice] = useState();
   const reduceMotion = useReducedMotion();
@@ -389,7 +387,6 @@ const Device = ({
         await modelLoader.loadAsync(url),
       ]);
 
-      renderer.current.compile(gltf.scene, camera.current);
       modelGroup.current.add(gltf.scene);
 
       gltf.scene.traverse(async node => {
@@ -470,7 +467,7 @@ const Device = ({
 
           return animate(startRotation.x, endRotation.x, {
             type: 'spring',
-            delay: (300 * index + showDelay) / 1000,
+            delay: (300 * index + showDelay + 300) / 1000,
             stiffness: 80,
             damping: 20,
             restSpeed: 0.0001,

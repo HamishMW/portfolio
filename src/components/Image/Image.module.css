@@ -1,25 +1,3 @@
-@keyframes imageReveal {
-  0% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: left;
-  }
-
-  49% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: left;
-  }
-
-  50% {
-    transform: scale3d(1, 1, 1);
-    transform-origin: right;
-  }
-
-  100% {
-    transform: scale3d(0, 1, 1);
-    transform-origin: right;
-  }
-}
-
 .image {
   position: relative;
   transform: translate3d(0, 0, 0);
@@ -52,9 +30,8 @@
     }
 
     @media (--mediaUseMotion) {
-      &[data-visible='true']::before {
-        animation: imageReveal var(--revealDuration) var(--bezierFastoutSlowin)
-          var(--delay);
+      &[data-visible='true']::before:global {
+        animation: reveal var(--revealDuration) var(--bezierFastoutSlowin) var(--delay);
       }
     }
   }

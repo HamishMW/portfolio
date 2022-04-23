@@ -10,7 +10,6 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport } from 'hooks';
-import Head from 'next/head';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ACESFilmicToneMapping,
@@ -127,11 +126,13 @@ export const Armor = ({
       renderFrame();
     };
 
-    load();
+    setTimeout(() => {
+      load();
+    }, 2000);
 
     setTimeout(() => {
       setLoaderVisible(true);
-    }, 1000);
+    }, 3000);
 
     const unsubscribeX = rotationX.onChange(value => {
       modelGroup.current.rotation.x = value;
@@ -208,31 +209,26 @@ export const Armor = ({
   }, [renderFrame]);
 
   return (
-    <>
-      <Head>
-        <link rel="prefetch" href={armor} as="fetch" />
-      </Head>
-      <div
-        className={classes(styles.armor, className)}
-        ref={container}
-        role="img"
-        aria-label={alt}
-        {...rest}
+    <div
+      className={classes(styles.armor, className)}
+      ref={container}
+      role="img"
+      aria-label={alt}
+      {...rest}
+    >
+      <Transition
+        unmount
+        in={!loaded && loaderVisible}
+        timeout={msToNum(tokens.base.durationL)}
       >
-        <Transition
-          unmount
-          in={!loaded && loaderVisible}
-          timeout={msToNum(tokens.base.durationL)}
-        >
-          {visible => <Loader className={styles.loader} data-visible={visible} />}
-        </Transition>
-        <canvas
-          className={styles.canvas}
-          ref={canvas}
-          data-loaded={loaded && visible}
-          style={cssProps({ delay: numToMs(showDelay) })}
-        />
-      </div>
-    </>
+        {visible => <Loader className={styles.loader} data-visible={visible} />}
+      </Transition>
+      <canvas
+        className={styles.canvas}
+        ref={canvas}
+        data-loaded={loaded && visible}
+        style={cssProps({ delay: numToMs(showDelay) })}
+      />
+    </div>
   );
 };

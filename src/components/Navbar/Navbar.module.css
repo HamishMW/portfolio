@@ -17,7 +17,7 @@
     --headerNavFontSize: calc((22 / 16) * 1rem);
   }
 
-  @media (--mediaMobile), (max-height: 696px) {
+  @media (--mediaMobile), (--mediaMobileLS) {
     bottom: auto;
   }
 }
@@ -41,7 +41,7 @@
   flex: 1 1 auto;
   max-width: var(--space2XL);
 
-  @media (--mediaMobile), (max-height: 696px) {
+  @media (--mediaMobile), (--mediaMobileLS) {
     display: none;
   }
 }
@@ -106,7 +106,7 @@
   position: relative;
   z-index: 16;
 
-  @media (--mediaMobile), (max-height: 696px) {
+  @media (--mediaMobile), (--mediaMobileLS) {
     flex-direction: row;
     position: absolute;
     bottom: var(--spaceXL);
@@ -158,7 +158,7 @@
   justify-content: center;
   backdrop-filter: blur(16px);
 
-  @media (--mediaMobile), (max-height: 696px) {
+  @media (--mediaMobile), (--mediaMobileLS) {
     display: flex;
   }
 
