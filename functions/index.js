@@ -17,6 +17,8 @@ const ses = new aws.SES({
 const ORIGINS = ['https://hamishw.com', 'https://www.hamishw.com'];
 const MAX_EMAIL_LENGTH = 512;
 const MAX_MESSAGE_LENGTH = 4096;
+const EMAIL = 'hello@hamishw.com';
+const FROM_EMAIL = 'mailbot@hamishw.com';
 
 app.use(helmet());
 app.use(express.json());
@@ -37,11 +39,6 @@ app.post('/message', async (req, res) => {
     const email = DOMPurify.sanitize(req.body.email);
     const message = DOMPurify.sanitize(req.body.message);
 
-    // Reject unsupported origins
-    if (!ORIGINS.includes(req.headers.origin)) {
-      throw new Error(`Unsupported origin: ${req.headers.origin}`);
-    }
-
     // Validate email request
     if (!email || !/(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
       return res.status(400).json({ error: 'Please enter a valid email address' });
@@ -59,9 +56,9 @@ app.post('/message', async (req, res) => {
 
     // Send email using AWS SES
     await ses.sendEmail({
-      Source: 'Portfolio <mailbot@hamishw.com>',
+      Source: `Portfolio <${FROM_EMAIL}>`,
       Destination: {
-        ToAddresses: ['hello@hamishw.com'],
+        ToAddresses: [EMAIL],
       },
       Message: {
         Subject: { Data: `New message from ${email}` },

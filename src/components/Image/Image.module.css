@@ -1,4 +1,4 @@
-@keyframes image-reveal {
+@keyframes imageReveal {
   0% {
     transform: scale3d(0, 1, 1);
     transform-origin: left;
@@ -32,6 +32,10 @@
   }
 
   &[data-reveal='true'] {
+    --revealDuration: 1.8s;
+
+    transition: box-shadow var(--durationL) ease calc(var(--revealDuration) / 2);
+
     &:not([data-visible='true']) {
       box-shadow: none;
     }
@@ -49,7 +53,8 @@
 
     @media (--mediaUseMotion) {
       &[data-visible='true']::before {
-        animation: image-reveal 1.8s var(--bezierFastoutSlowin) var(--delay);
+        animation: imageReveal var(--revealDuration) var(--bezierFastoutSlowin)
+          var(--delay);
       }
     }
   }

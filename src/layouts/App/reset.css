@@ -4,7 +4,6 @@
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  line-height: 1.5;
 }
 
 :where(html, body, #__next) {
@@ -19,10 +18,6 @@
 }
 
 * {
-  margin: 0;
-}
-
-:where(h1, h2, h3, h4, h5, h6, p) {
   margin: 0;
 }
 
@@ -42,13 +37,4 @@
 
 :any-link {
   text-decoration: none;
-}
-
-:focus {
-  outline: 4px solid rgb(var(--rgbText));
-  outline-offset: 4px;
-}
-
-:focus:not(:focus-visible) {
-  outline: none;
 }

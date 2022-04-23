@@ -110,7 +110,7 @@
   }
 }
 
-@keyframes intro-text-reveal {
+@keyframes introTextReveal {
   0% {
     color: rgb(var(--rgbText) / 0);
   }
@@ -128,7 +128,7 @@
   }
 }
 
-@keyframes intro-text-reveal-mask {
+@keyframes introTextRevealMask {
   0% {
     transform: scale3d(0, 1, 1);
     transform-origin: left;
@@ -164,8 +164,6 @@
 
   &::after {
     content: '';
-    width: 100%;
-    height: 100%;
     background: rgb(var(--rgbAccent));
     animation-duration: 1.5s;
     animation-delay: var(--delay);
@@ -174,7 +172,7 @@
     transform-origin: left;
     transform: scale3d(0, 1, 1);
     position: absolute;
-    inset: 0;
+    inset: 0 -0.02em 0 0;
     z-index: 1;
     will-change: transform;
   }
@@ -186,11 +184,11 @@
   }
 
   &[data-status='entering'] {
-    animation-name: intro-text-reveal;
+    animation-name: introTextReveal;
 
     @media (--mediaUseMotion) {
       &::after {
-        animation-name: intro-text-reveal-mask;
+        animation-name: introTextRevealMask;
       }
     }
   }
@@ -214,7 +212,7 @@
   }
 }
 
-@keyframes intro-line {
+@keyframes introLine {
   0% {
     transform: scaleX(0);
     opacity: 1;
@@ -242,11 +240,11 @@
 
   &[data-status='entering'] {
     &:global {
-      animation-name: fade-in;
+      animation-name: fadeIn;
     }
 
     @media (--mediaUseMotion) {
-      animation-name: intro-line;
+      animation-name: introLine;
     }
   }
 
@@ -256,7 +254,7 @@
   }
 }
 
-@keyframes intro-scroll-indicator {
+@keyframes introScrollIndicator {
   0% {
     transform: translate3d(-1px, 0, 0);
     opacity: 0;
@@ -301,7 +299,7 @@
     transition-property: opacity, transform;
 
     &::before {
-      animation: intro-scroll-indicator 2s ease infinite;
+      animation: introScrollIndicator 2s ease infinite;
     }
   }
 
@@ -326,7 +324,7 @@
   }
 }
 
-@keyframes intro-mobile-scroll-indicator {
+@keyframes introMobileScrollIndicator {
   0% {
     transform: translateY(0);
   }
@@ -352,7 +350,7 @@
   padding: 20px;
 
   @media (--mediaUseMotion) {
-    animation-name: intro-mobile-scroll-indicator;
+    animation-name: introMobileScrollIndicator;
     transition-property: opacity, transform;
     transform: translate3d(0, 20px, 0);
   }

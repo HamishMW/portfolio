@@ -16,6 +16,6 @@
   opacity: 0;
 
   &:global {
-    animation: fade-in 1s ease 1s forwards;
+    animation: fadeIn 1s ease 1s forwards;
   }
 }

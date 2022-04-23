@@ -17,3 +17,8 @@
     height: auto;
   }
 }
+
+.armor {
+  aspect-ratio: 1 / 2;
+  display: grid;
+}

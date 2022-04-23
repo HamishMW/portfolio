@@ -4,8 +4,6 @@ import gamestackTexture2 from 'assets/gamestack-list.jpg';
 import gamestackTextureLarge from 'assets/gamestack-login-large.jpg';
 import gamestackTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
 import gamestackTexture from 'assets/gamestack-login.jpg';
-import iphone11 from 'assets/iphone-11.glb';
-import macbookPro from 'assets/macbook-pro.glb';
 import sliceTextureLarge from 'assets/slice-app-large.jpg';
 import sliceTexturePlaceholder from 'assets/slice-app-placeholder.jpg';
 import sliceTexture from 'assets/slice-app.jpg';
@@ -17,7 +15,6 @@ import { Meta } from 'components/Meta';
 import { Intro } from 'layouts/Home/Intro';
 import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
-import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
@@ -33,7 +30,7 @@ export const Home = () => {
   const details = useRef();
 
   useEffect(() => {
-    const revealSections = [intro, projectOne, projectTwo, projectThree, details];
+    const sections = [intro, projectOne, projectTwo, projectThree, details];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -56,7 +53,7 @@ export const Home = () => {
       { rootMargin: '-100% 0px 0px 0px' }
     );
 
-    revealSections.forEach(section => {
+    sections.forEach(section => {
       sectionObserver.observe(section.current);
     });
 
@@ -72,13 +69,9 @@ export const Home = () => {
     <div className={styles.home}>
       <Meta
         title="Designer + Developer"
-        description="Portfolio of Hamish Williams – a digital designer working on web &amp; mobile
-          apps with a focus on motion and user experience design."
+        description="Design portfolio of Hamish Williams — a product designer working on web & mobile
+          apps with a focus on motion, experience design, and accessibility."
       />
-      <Head>
-        <link rel="prefetch" href={iphone11} as="fetch" />
-        <link rel="prefetch" href={macbookPro} as="fetch" />
-      </Head>
       <Intro
         id="intro"
         sectionRef={intro}
@@ -92,7 +85,7 @@ export const Home = () => {
         index={1}
         title="Designing the future of education"
         description="Designing a platform to help educators build better online courseware"
-        buttonText="View Project"
+        buttonText="View project"
         buttonLink="/projects/smart-sparrow"
         model={{
           type: 'laptop',
@@ -113,7 +106,7 @@ export const Home = () => {
         index={2}
         title="Video game progress tracking"
         description="Design and development for a video game tracking app built in React Native"
-        buttonText="View Website"
+        buttonText="View website"
         buttonLink="https://gamestack.hamishw.com"
         model={{
           type: 'phone',
@@ -137,7 +130,7 @@ export const Home = () => {
         index={3}
         title="Biomedical image collaboration"
         description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
-        buttonText="View Project"
+        buttonText="View project"
         buttonLink="/projects/slice"
         model={{
           type: 'laptop',

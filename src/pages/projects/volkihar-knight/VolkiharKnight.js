@@ -103,7 +103,9 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionColumns>
-            <Armor alt="3D model of the Volkihar Knight armor" />
+            <div className={styles.armor}>
+              <Armor alt="3D model of the Volkihar Knight armor" />
+            </div>
             <div className={styles.textSection}>
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
               <ProjectSectionText>

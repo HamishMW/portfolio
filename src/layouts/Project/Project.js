@@ -6,7 +6,7 @@ import { Text } from 'components/Text';
 import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { useParallax } from 'hooks';
-import { forwardRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import styles from './Project.module.css';
 
@@ -30,7 +30,7 @@ export function ProjectHeader({
           <Heading className={styles.title} level={2} as="h1">
             {title}
           </Heading>
-          <Text className={styles.description} size="xl">
+          <Text className={styles.description} size="xl" as="p">
             {description}
           </Text>
           {!!url && (
@@ -53,9 +53,7 @@ export function ProjectHeader({
                 style={cssProps({ delay: numToMs(initDelay + 300 + index * 140) })}
                 key={role}
               >
-                <Text secondary as="span">
-                  {role}
-                </Text>
+                <Text secondary>{role}</Text>
               </li>
             ))}
           </ul>
@@ -106,7 +104,12 @@ export const ProjectSection = forwardRef(
 );
 
 export const ProjectBackground = ({ opacity = 0.7, className, ...rest }) => {
-  const offset = useParallax(0.6);
+  const imageRef = useRef();
+
+  useParallax(0.6, value => {
+    if (!imageRef.current) return;
+    imageRef.current.style = `--offset: ${value}px`;
+  });
 
   return (
     <Transition in timeout={msToNum(tokens.base.durationM)}>
@@ -115,7 +118,7 @@ export const ProjectBackground = ({ opacity = 0.7, className, ...rest }) => {
           className={classes(styles.backgroundImage, className)}
           data-visible={visible}
         >
-          <div className={styles.backgroundImageElement} style={cssProps({ offset })}>
+          <div className={styles.backgroundImageElement} ref={imageRef}>
             <Image alt="" role="presentation" {...rest} />
           </div>
           <div className={styles.backgroundScrim} style={cssProps({ opacity })} />
@@ -150,7 +153,7 @@ export const ProjectSectionHeading = ({ className, level = 3, as = 'h2', ...rest
 );
 
 export const ProjectSectionText = ({ className, ...rest }) => (
-  <Text className={classes(styles.sectionText, className)} size="l" {...rest} />
+  <Text className={classes(styles.sectionText, className)} size="l" as="p" {...rest} />
 );
 
 export const ProjectTextRow = ({

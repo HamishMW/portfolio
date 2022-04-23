@@ -43,6 +43,10 @@ export const SegmentedControl = ({
     optionRefs.current = [...optionRefs.current, optionRef];
   }, []);
 
+  const unRegisterOption = useCallback(optionRef => {
+    optionRefs.current = optionRefs.current.filter(ref => ref !== optionRef);
+  }, []);
+
   useEffect(() => {
     const currentOption = optionRefs.current[currentIndex]?.current;
 
@@ -61,7 +65,7 @@ export const SegmentedControl = ({
 
   return (
     <SegmentedControlContext.Provider
-      value={{ optionRefs, currentIndex, onChange, registerOption }}
+      value={{ optionRefs, currentIndex, onChange, registerOption, unRegisterOption }}
     >
       <div
         className={styles.container}
@@ -89,16 +93,19 @@ export const SegmentedControl = ({
 };
 
 export const SegmentedControlOption = ({ children, ...props }) => {
-  const { optionRefs, currentIndex, onChange, registerOption } = useContext(
-    SegmentedControlContext
-  );
+  const { optionRefs, currentIndex, onChange, registerOption, unRegisterOption } =
+    useContext(SegmentedControlContext);
   const optionRef = useRef();
   const index = optionRefs.current.indexOf(optionRef);
   const isSelected = currentIndex === index;
 
   useEffect(() => {
     registerOption(optionRef);
-  }, [registerOption]);
+
+    return () => {
+      unRegisterOption(optionRef);
+    };
+  }, [registerOption, unRegisterOption]);
 
   return (
     <button

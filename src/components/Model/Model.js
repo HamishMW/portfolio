@@ -22,8 +22,7 @@ import {
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
-import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
-import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
+import { HorizontalBlurShader, VerticalBlurShader } from 'three-stdlib';
 import { resolveSrcFromSrcSet } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
@@ -98,6 +97,7 @@ export const Model = ({
 
     textureLoader.current = new TextureLoader();
     modelGroup.current = new Group();
+    scene.current.add(modelGroup.current);
 
     // Lighting
     const ambientLight = new AmbientLight(0xffffff, 1.2);
@@ -336,7 +336,7 @@ export const Model = ({
           index={index}
           setLoaded={setLoaded}
           model={model}
-          scene={scene}
+          camera={camera}
         />
       ))}
     </div>
@@ -353,7 +353,7 @@ const Device = ({
   showDelay,
   setLoaded,
   show,
-  scene,
+  camera,
 }) => {
   const [loadDevice, setLoadDevice] = useState();
   const reduceMotion = useReducedMotion();
@@ -389,6 +389,7 @@ const Device = ({
         await modelLoader.loadAsync(url),
       ]);
 
+      renderer.current.compile(gltf.scene, camera.current);
       modelGroup.current.add(gltf.scene);
 
       gltf.scene.traverse(async node => {
@@ -415,6 +416,7 @@ const Device = ({
             animate(1, 0, {
               onUpdate: value => {
                 placeholderScreen.current.material.opacity = value;
+                renderFrame();
               },
             });
           };
@@ -494,8 +496,6 @@ const Device = ({
     let animation;
 
     const onLoad = async () => {
-      scene.current.add(modelGroup.current);
-
       const { loadFullResTexture, playAnimation } = await loadDevice.start();
 
       setLoaded(true);

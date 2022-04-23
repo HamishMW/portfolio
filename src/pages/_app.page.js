@@ -16,7 +16,6 @@ import { msToNum } from 'utils/style';
 import { ScrollRestore } from '../layouts/App/ScrollRestore';
 
 export const AppContext = createContext({});
-export const TransitionContext = createContext({});
 
 const repoPrompt = `
 __  __  __
@@ -24,12 +23,11 @@ __  __  __
 \n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio
 `;
 
-export const ROUTE_TRANSITION_DURATION = msToNum(tokens.base.durationS);
-
 const App = ({ Component, pageProps }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
   const { route } = useRouter();
+  const canonicalRoute = route === '/' ? '' : `${route}/`;
   useFoucFix();
 
   useEffect(() => {
@@ -48,7 +46,7 @@ const App = ({ Component, pageProps }) => {
             <Head>
               <link
                 rel="canonical"
-                href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}${route}`}
+                href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}${canonicalRoute}`}
               />
             </Head>
             <VisuallyHidden
@@ -71,7 +69,7 @@ const App = ({ Component, pageProps }) => {
                   transition={{
                     type: 'tween',
                     ease: 'linear',
-                    duration: ROUTE_TRANSITION_DURATION / 1000,
+                    duration: msToNum(tokens.base.durationS) / 1000,
                     delay: 0.1,
                   }}
                 >
@@ -80,7 +78,6 @@ const App = ({ Component, pageProps }) => {
                 </m.div>
               </AnimatePresence>
             </main>
-            <div id="portal-root" />
           </Fragment>
         </LazyMotion>
       </ThemeProvider>

@@ -27,7 +27,7 @@ export const Code = props => {
   return (
     <div className={styles.code} data-theme={theme.themeId}>
       {!!lang && (
-        <Text secondary as="span" size="s" className={styles.lang}>
+        <Text secondary size="s" className={styles.lang}>
           {lang}
         </Text>
       )}

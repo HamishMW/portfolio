@@ -3,22 +3,23 @@
   color: var(--colorTextTitle);
 
   &[data-level='0'] {
-    letter-spacing: -0.006em;
+    letter-spacing: -0.04em;
     font-size: var(--fontSizeH0);
   }
 
   &[data-level='1'] {
-    letter-spacing: -0.005em;
+    letter-spacing: -0.05em;
     font-size: var(--fontSizeH1);
   }
 
   &[data-level='2'] {
     font-size: var(--fontSizeH2);
-    letter-spacing: -0.003em;
+    letter-spacing: -0.03em;
   }
 
   &[data-level='3'] {
     font-size: var(--fontSizeH3);
+    letter-spacing: -0.01em;
   }
 
   &[data-level='4'] {

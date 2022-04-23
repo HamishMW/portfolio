@@ -1,16 +1,17 @@
 import GothamBold from 'assets/fonts/gotham-bold.woff2';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
+import Head from 'next/head';
 import { createContext, useEffect } from 'react';
 import { classes, media } from 'utils/style';
 import { theme, tokens } from './theme';
-import useTheme from './useTheme';
+import { useTheme } from './useTheme';
 
 export const fontStyles = squish(`
   @font-face {
     font-family: "Gotham";
     font-weight: 400;
-    src: url(${GothamBook}) format("woff");
+    src: url(${GothamBook}) format("woff2");
     font-display: block;
   }
 
@@ -29,9 +30,9 @@ export const fontStyles = squish(`
   }
 `);
 
-const ThemeContext = createContext({});
+export const ThemeContext = createContext({});
 
-const ThemeProvider = ({
+export const ThemeProvider = ({
   themeId = 'dark',
   theme: themeOverrides,
   children,
@@ -53,7 +54,14 @@ const ThemeProvider = ({
 
   return (
     <ThemeContext.Provider value={currentTheme}>
-      {isRootProvider && children}
+      {isRootProvider && (
+        <>
+          <Head>
+            <meta name="theme-color" content={`rgb(${currentTheme.rgbBackground})`} />
+          </Head>
+          {children}
+        </>
+      )}
       {/* Nested providers need a div to override theme tokens */}
       {!isRootProvider && (
         <Component
@@ -71,14 +79,14 @@ const ThemeProvider = ({
 /**
  * Squeeze out spaces and newlines
  */
-function squish(styles) {
+export function squish(styles) {
   return styles.replace(/\s\s+/g, ' ');
 }
 
 /**
  * Transform theme token objects into CSS custom property strings
  */
-function createThemeProperties(theme) {
+export function createThemeProperties(theme) {
   return squish(
     Object.keys(theme)
       .filter(key => key !== 'themeId')
@@ -90,7 +98,7 @@ function createThemeProperties(theme) {
 /**
  * Transform theme tokens into a React CSSProperties object
  */
-function createThemeStyleObject(theme) {
+export function createThemeStyleObject(theme) {
   let style = {};
 
   for (const key of Object.keys(theme)) {
@@ -105,7 +113,7 @@ function createThemeStyleObject(theme) {
 /**
  * Generate media queries for tokens
  */
-function createMediaTokenProperties() {
+export function createMediaTokenProperties() {
   return squish(
     Object.keys(media)
       .map(key => {
@@ -136,13 +144,3 @@ export const tokenStyles = squish(`
     ${createThemeProperties(theme.light)}
   }
 `);
-
-export {
-  theme,
-  useTheme,
-  ThemeContext,
-  ThemeProvider,
-  createThemeProperties,
-  createThemeStyleObject,
-  createMediaTokenProperties,
-};

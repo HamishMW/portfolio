@@ -1,4 +1,4 @@
-import KatakanaProject from 'assets/katakana-project.svg';
+import projectKatakana from 'assets/katakana-project.svg?url';
 import { Button } from 'components/Button';
 import { Divider } from 'components/Divider';
 import { Heading } from 'components/Heading';
@@ -38,6 +38,22 @@ export const ProjectSummary = ({
   const phoneSizes = `(max-width: ${media.tablet}px) 30vw, 20vw`;
   const laptopSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
 
+  const renderKatakana = (device, visible) => (
+    <svg
+      aria-hidden="true"
+      width="750"
+      height="137"
+      viewBox="0 0 750 137"
+      data-visible={visible}
+      data-light={theme.themeId === 'light'}
+      style={cssProps({ opacity: svgOpacity })}
+      className={styles.svg}
+      data-device={device}
+    >
+      <use href={`${projectKatakana}#katakana-project`} />
+    </svg>
+  );
+
   const renderDetails = visible => (
     <div className={styles.details}>
       <div aria-hidden className={styles.index}>
@@ -60,7 +76,7 @@ export const ProjectSummary = ({
       >
         {title}
       </Heading>
-      <Text className={styles.description} data-visible={visible}>
+      <Text className={styles.description} data-visible={visible} as="p">
         {description}
       </Text>
       <div className={styles.button} data-visible={visible}>
@@ -75,67 +91,55 @@ export const ProjectSummary = ({
     <div className={styles.preview}>
       {model.type === 'laptop' && (
         <>
-          <KatakanaProject
-            className={styles.svg}
-            style={cssProps({ opacity: svgOpacity })}
-            data-device="laptop"
-            data-visible={visible}
-            data-light={theme.themeId === 'light'}
-          />
-          <Model
-            className={styles.model}
-            data-device="laptop"
-            alt={model.alt}
-            cameraPosition={{ x: 0, y: 0, z: 8 }}
-            showDelay={700}
-            show={visible}
-            models={[
-              {
-                ...deviceModels.laptop,
-                texture: {
-                  ...model.textures[0],
-                  sizes: laptopSizes,
+          {renderKatakana('laptop', visible)}
+          <div className={styles.model} data-device="laptop">
+            <Model
+              alt={model.alt}
+              cameraPosition={{ x: 0, y: 0, z: 8 }}
+              showDelay={700}
+              show={visible}
+              models={[
+                {
+                  ...deviceModels.laptop,
+                  texture: {
+                    ...model.textures[0],
+                    sizes: laptopSizes,
+                  },
                 },
-              },
-            ]}
-          />
+              ]}
+            />
+          </div>
         </>
       )}
       {model.type === 'phone' && (
         <>
-          <KatakanaProject
-            data-visible={visible}
-            data-light={theme.themeId === 'light'}
-            style={cssProps({ opacity: svgOpacity })}
-            className={styles.svg}
-            data-device="phone"
-          />
-          <Model
-            className={styles.model}
-            data-device="phone"
-            alt={model.alt}
-            cameraPosition={{ x: 0, y: 0, z: 11.5 }}
-            showDelay={300}
-            show={visible}
-            models={[
-              {
-                ...deviceModels.phone,
-                position: { x: -0.6, y: 1.1, z: 0 },
-                texture: {
-                  ...model.textures[0],
-                  sizes: phoneSizes,
+          {renderKatakana('phone', visible)}
+          <div className={styles.model} data-device="phone">
+            <Model
+              alt={model.alt}
+              cameraPosition={{ x: 0, y: 0, z: 11.5 }}
+              showDelay={300}
+              show={visible}
+              models={[
+                {
+                  ...deviceModels.phone,
+                  position: { x: -0.6, y: 1.1, z: 0 },
+                  texture: {
+                    ...model.textures[0],
+                    sizes: phoneSizes,
+                  },
                 },
-              },
-              {
-                ...deviceModels.phone,
-                position: { x: 0.6, y: -0.5, z: 0.3 },
-                texture: {
-                  ...model.textures[1],
-                  sizes: phoneSizes,
+                {
+                  ...deviceModels.phone,
+                  position: { x: 0.6, y: -0.5, z: 0.3 },
+                  texture: {
+                    ...model.textures[1],
+                    sizes: phoneSizes,
+                  },
                 },
-              },
-            ]}
-          />
+              ]}
+            />
+          </div>
         </>
       )}
     </div>

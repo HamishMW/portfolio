@@ -4,7 +4,7 @@
 export const media = {
   desktop: 2080,
   laptop: 1680,
-  tablet: 1024,
+  tablet: 1040,
   mobile: 696,
   mobileS: 400,
 };
@@ -53,6 +53,10 @@ export function cssProps(props, style = {}) {
 
   for (const key of keys) {
     let value = props[key];
+
+    if (typeof value === 'number' && key === 'delay') {
+      value = numToMs(value);
+    }
 
     if (typeof value === 'number' && key !== 'opacity') {
       value = numToPx(value);

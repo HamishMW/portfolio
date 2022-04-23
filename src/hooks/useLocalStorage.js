@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { ssr } from 'utils/ssr';
 
 export function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(() => {
-    if (ssr) return initialValue;
+    if (typeof window === 'undefined') return;
 
     try {
       const item = window.localStorage.getItem(key);

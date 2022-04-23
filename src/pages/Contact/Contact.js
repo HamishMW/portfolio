@@ -15,8 +15,6 @@ import { useRef, useState } from 'react';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import styles from './Contact.module.css';
 
-const INIT_DELAY = tokens.base.durationS;
-
 export const Contact = () => {
   const errorRef = useRef();
   const email = useFormInput('');
@@ -24,6 +22,7 @@ export const Contact = () => {
   const [sending, setSending] = useState(false);
   const [complete, setComplete] = useState(false);
   const [statusError, setStatusError] = useState('');
+  const initDelay = tokens.base.durationS;
 
   const onSubmit = async event => {
     event.preventDefault();
@@ -34,7 +33,7 @@ export const Contact = () => {
     try {
       setSending(true);
 
-      const response = await fetch('https://api.hamishw.com/message', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/message`, {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -78,20 +77,20 @@ export const Contact = () => {
               data-status={status}
               level={3}
               as="h1"
-              style={getDelay(tokens.base.durationXS, INIT_DELAY, 0.3)}
+              style={getDelay(tokens.base.durationXS, initDelay, 0.3)}
             >
               <DecoderText text="Say hello" start={status !== 'exited'} delay={300} />
             </Heading>
             <Divider
               className={styles.divider}
               data-status={status}
-              style={getDelay(tokens.base.durationXS, INIT_DELAY, 0.4)}
+              style={getDelay(tokens.base.durationXS, initDelay, 0.4)}
             />
             <Input
               required
               className={styles.input}
               data-status={status}
-              style={getDelay(tokens.base.durationXS, INIT_DELAY)}
+              style={getDelay(tokens.base.durationXS, initDelay)}
               autoComplete="email"
               label="Your Email"
               type="email"
@@ -103,7 +102,7 @@ export const Contact = () => {
               multiline
               className={styles.input}
               data-status={status}
-              style={getDelay(tokens.base.durationS, INIT_DELAY)}
+              style={getDelay(tokens.base.durationS, initDelay)}
               autoComplete="off"
               label="Message"
               maxLength={4096}
@@ -131,14 +130,14 @@ export const Contact = () => {
               className={styles.button}
               data-status={status}
               data-sending={sending}
-              style={getDelay(tokens.base.durationM, INIT_DELAY)}
+              style={getDelay(tokens.base.durationM, initDelay)}
               disabled={sending}
               loading={sending}
               loadingText="Sending..."
               icon="send"
               type="submit"
             >
-              Send Message
+              Send message
             </Button>
           </form>
         )}
@@ -156,6 +155,7 @@ export const Contact = () => {
             </Heading>
             <Text
               size="l"
+              as="p"
               className={styles.completeText}
               data-status={status}
               style={getDelay(tokens.base.durationXS)}

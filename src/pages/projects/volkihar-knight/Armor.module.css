@@ -1,6 +1,5 @@
 .armor {
   position: relative;
-  aspect-ratio: 1 / 2;
   display: grid;
   place-content: center;
 }

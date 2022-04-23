@@ -1,7 +1,6 @@
 .contact {
   --formHeight: 530px;
 
-  position: absolute;
   display: grid;
   grid-template-rows: 1fr auto;
   grid-template-columns: 100%;
@@ -299,6 +298,6 @@
   opacity: 0;
 
   &:global {
-    animation: fade-in var(--durationL) ease var(--durationXL) forwards;
+    animation: fadeIn var(--durationL) ease var(--durationXL) forwards;
   }
 }

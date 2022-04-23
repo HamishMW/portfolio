@@ -1,14 +1,8 @@
 .app {
   width: 100%;
   position: relative;
-  background: rgb(var(--rgbBackground));
-  transition: background var(--durationM) ease;
   display: grid;
   grid-template: 100% / 100%;
-
-  &:focus {
-    outline: none;
-  }
 }
 
 .page {

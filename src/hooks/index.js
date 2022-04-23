@@ -8,3 +8,4 @@ export * from './usePrevious';
 export * from './useWindowSize';
 export * from './useScrollToHash';
 export * from './useFoucFix';
+export * from './useHasMounted';
