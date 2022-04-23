@@ -42,13 +42,19 @@ app.post('/message', async (req, res) => {
     // Validate email request
     if (!email || !/(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
       return res.status(400).json({ error: 'Please enter a valid email address' });
-    } else if (!message) {
+    }
+
+    if (!message) {
       return res.status(400).json({ error: 'Please enter a message' });
-    } else if (email.length > MAX_EMAIL_LENGTH) {
+    }
+
+    if (email.length > MAX_EMAIL_LENGTH) {
       return res.status(400).json({
         error: `Please enter an email fewer than ${MAX_EMAIL_LENGTH} characters`,
       });
-    } else if (message.length > MAX_MESSAGE_LENGTH) {
+    }
+
+    if (message.length > MAX_MESSAGE_LENGTH) {
       return res.status(400).json({
         error: `Please enter a message fewer than ${MAX_MESSAGE_LENGTH} characters`,
       });
