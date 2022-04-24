@@ -10,6 +10,7 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport } from 'hooks';
+import { useFps } from 'hooks/useFps';
 import { startTransition, useCallback, useEffect, useRef, useState } from 'react';
 import {
   ACESFilmicToneMapping,
@@ -54,6 +55,7 @@ export const Armor = ({
   const reduceMotion = useReducedMotion();
   const rotationX = useSpring(0, rotationSpringConfig);
   const rotationY = useSpring(0, rotationSpringConfig);
+  const { measureFps, fps } = useFps();
 
   useEffect(() => {
     const { clientWidth, clientHeight } = container.current;
@@ -158,6 +160,15 @@ export const Armor = ({
   // Handle render passes for a single frame
   const renderFrame = useCallback(() => {
     renderer.current.render(scene.current, camera.current);
+
+    measureFps();
+
+    if (fps.current < 60) {
+      renderer.current.setPixelRatio(1);
+    } else if (fps.current > 80) {
+      renderer.current.setPixelRatio(2);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Handle mouse move animation
