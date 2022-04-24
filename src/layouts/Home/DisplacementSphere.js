@@ -12,7 +12,6 @@ import {
   PerspectiveCamera,
   Scene,
   SphereBufferGeometry,
-  UniformsLib,
   UniformsUtils,
   Vector2,
   WebGLRenderer,
@@ -56,7 +55,9 @@ export const DisplacementSphere = props => {
     renderer.current = new WebGLRenderer({
       canvas: canvasRef.current,
       antialias: false,
+      alpha: true,
       powerPreference: 'high-performance',
+      failIfMajorPerformanceCaveat: true,
     });
     renderer.current.setSize(innerWidth, innerHeight);
     renderer.current.setPixelRatio(1);
@@ -70,8 +71,6 @@ export const DisplacementSphere = props => {
     material.current = new MeshPhongMaterial();
     material.current.onBeforeCompile = shader => {
       uniforms.current = UniformsUtils.merge([
-        UniformsLib['ambient'],
-        UniformsLib['lights'],
         shader.uniforms,
         { time: { type: 'f', value: 0 } },
       ]);

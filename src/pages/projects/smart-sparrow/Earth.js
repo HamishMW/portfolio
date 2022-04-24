@@ -15,6 +15,7 @@ import { useInViewport, useWindowSize } from 'hooks';
 import {
   createContext,
   memo,
+  startTransition,
   useCallback,
   useContext,
   useEffect,
@@ -193,7 +194,9 @@ export const Earth = ({
     renderer.current = new WebGLRenderer({
       canvas: canvas.current,
       antialias: false,
+      alpha: true,
       powerPreference: 'high-performance',
+      failIfMajorPerformanceCaveat: true,
     });
     renderer.current.setPixelRatio(1);
     renderer.current.outputEncoding = sRGBEncoding;
@@ -394,13 +397,13 @@ export const Earth = ({
       }
     };
 
-    setTimeout(() => {
+    startTransition(() => {
       handleLoad();
-    }, 2000);
 
-    setTimeout(() => {
-      setLoaderVisible(true);
-    }, 3000);
+      setTimeout(() => {
+        setLoaderVisible(true);
+      }, 1000);
+    });
   }, [loaded, position, scale]);
 
   useEffect(() => {

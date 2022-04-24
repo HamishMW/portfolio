@@ -10,7 +10,7 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport } from 'hooks';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { startTransition, useCallback, useEffect, useRef, useState } from 'react';
 import {
   ACESFilmicToneMapping,
   CubeTextureLoader,
@@ -63,6 +63,7 @@ export const Armor = ({
       alpha: true,
       antialias: false,
       powerPreference: 'high-performance',
+      failIfMajorPerformanceCaveat: true,
     });
 
     renderer.current.setPixelRatio(2);
@@ -126,13 +127,13 @@ export const Armor = ({
       renderFrame();
     };
 
-    setTimeout(() => {
+    startTransition(() => {
       load();
-    }, 2000);
 
-    setTimeout(() => {
-      setLoaderVisible(true);
-    }, 3000);
+      setTimeout(() => {
+        setLoaderVisible(true);
+      }, 1000);
+    });
 
     const unsubscribeX = rotationX.onChange(value => {
       modelGroup.current.rotation.x = value;

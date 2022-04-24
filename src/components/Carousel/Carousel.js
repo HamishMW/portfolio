@@ -73,7 +73,9 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     renderer.current = new WebGLRenderer({
       canvas: canvas.current,
       antialias: false,
+      alpha: true,
       powerPreference: 'high-performance',
+      failIfMajorPerformanceCaveat: true,
     });
     camera.current = new OrthographicCamera(...cameraOptions);
     scene.current = new Scene();

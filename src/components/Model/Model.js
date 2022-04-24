@@ -1,6 +1,13 @@
 import { animate, useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport } from 'hooks';
-import { createRef, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  createRef,
+  startTransition,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   AmbientLight,
   Color,
@@ -84,6 +91,7 @@ export const Model = ({
       alpha: true,
       antialias: false,
       powerPreference: 'high-performance',
+      failIfMajorPerformanceCaveat: true,
     });
 
     renderer.current.setPixelRatio(2);
@@ -380,8 +388,6 @@ const Device = ({
       let loadFullResTexture;
       let playAnimation;
 
-      const image = await resolveSrcFromSrcSet(texture);
-
       const [placeholder, gltf] = await Promise.all([
         await textureLoader.current.loadAsync(texture.placeholder.src),
         await modelLoader.loadAsync(url),
@@ -407,6 +413,7 @@ const Device = ({
           applyScreenTexture(placeholder, placeholderScreen.current);
 
           loadFullResTexture = async () => {
+            const image = await resolveSrcFromSrcSet(texture);
             const fullSize = await textureLoader.current.loadAsync(image);
             await applyScreenTexture(fullSize, node);
 
@@ -508,7 +515,9 @@ const Device = ({
       }
     };
 
-    onLoad();
+    startTransition(() => {
+      onLoad();
+    });
 
     return () => {
       animation?.stop();

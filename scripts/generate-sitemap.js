@@ -16,7 +16,7 @@ function addPage(page) {
 
   return `  <url>
     <loc>${`${process.env.NEXT_PUBLIC_WEBSITE_URL}${route}`}</loc>
-    <changefreq>hourly</changefreq>
+    <changefreq>monthly</changefreq>
   </url>`;
 }
 
@@ -30,7 +30,7 @@ async function addPost(post) {
 
   return `  <url>
     <loc>${`${process.env.NEXT_PUBLIC_WEBSITE_URL}${path}`}</loc>
-    <changefreq>hourly</changefreq>
+    <changefreq>monthly</changefreq>
   </url>`;
 }
 
