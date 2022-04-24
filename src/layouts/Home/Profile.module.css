@@ -19,9 +19,7 @@
 
   @media (--mediaMobile) {
     margin-top: 0;
-    padding-top: 90px;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-top: var(--space4XL);
     overflow-x: hidden;
   }
 
@@ -124,7 +122,7 @@
   bottom: 0;
   transform: translate3d(50%, -20%, 0);
   height: 100%;
-  z-index: 32;
+  z-index: var(--zIndex3);
   opacity: 0;
   transition: opacity var(--durationM) ease var(--durationL);
   fill: var(--colorTextTitle);

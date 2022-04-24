@@ -26,6 +26,7 @@
   grid-row: 1;
   user-select: none;
   aspect-ratio: var(--aspectRatio);
+  isolation: isolate;
 }
 
 .canvas {
@@ -40,7 +41,7 @@
   opacity: 1;
   pointer-events: none;
   position: relative;
-  z-index: 1;
+  z-index: var(--zIndex1);
 
   &[data-loaded='true'] {
     opacity: 0;
@@ -55,7 +56,7 @@
   aspect-ratio: 1 / 1;
   grid-area: 1 / 1;
   position: absolute;
-  z-index: 32;
+  z-index: var(--zIndex3);
   cursor: pointer;
   display: grid;
   place-items: center;

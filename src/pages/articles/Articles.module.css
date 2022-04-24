@@ -6,6 +6,10 @@
   justify-items: center;
   grid-template-rows: 1fr auto;
   min-height: 100%;
+
+  @media (--singleColumnWidth), (--mediaMobileLS) {
+    overflow-x: hidden;
+  }
 }
 
 .grid {
@@ -25,6 +29,7 @@
   @media (--mediaDesktop) {
     --verticalPadding: var(--spaceOuter);
 
+    gap: var(--space4XL);
     padding-left: 0;
   }
 
@@ -39,6 +44,7 @@
   }
 
   @media (--mediaMobile), (--mediaMobileLS) {
+    gap: var(--space2XL);
     padding-bottom: var(--spaceXL);
     padding-top: var(--mobileNavOffset);
   }
@@ -50,6 +56,16 @@
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
+
+  @media (--singleColumnWidth) {
+    padding-top: calc(var(--spaceM) - var(--spaceXS));
+    padding-bottom: 0;
+  }
+
+  @media (--mediaMobileLS) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 .heading {
@@ -118,30 +134,35 @@
 
 .postLabel,
 .postTag {
+  --labelTagPadding: var(--spaceM);
+
   position: absolute;
   background-color: rgb(var(--rgbBackground));
-  padding: var(--spaceXS) var(--spaceM);
-  z-index: 1;
-  color: var(--colorTextLight);
+  padding: var(--spaceXS) var(--labelTagPadding);
+  z-index: var(--zIndex1);
+  color: transparent;
+
+  @media (--mediaMobile) {
+    --labelTagPadding: var(--spaceS);
+  }
 }
 
 @keyframes labelIn {
   from {
-    opacity: 0;
+    color: transparent;
     transform: translateY(-100%);
   }
 
   to {
-    opacity: 1;
+    color: var(--colorTextLight);
     transform: translateY(-50%);
   }
 }
 
 .postLabel {
   top: 0;
-  left: calc((var(--spaceM) * -1) + var(--featuredPostPadding));
+  left: calc((var(--labelTagPadding) * -1) + var(--featuredPostPadding));
   transform: translateY(-100%);
-  opacity: 0;
 
   @media (--mediaUseMotion) {
     animation: labelIn 0.8s ease 1.6s forwards;
@@ -158,12 +179,12 @@
 
 @keyframes tagIn {
   from {
-    opacity: 0;
+    color: transparent;
     transform: translateX(100%) rotate(-90deg);
   }
 
   to {
-    opacity: 1;
+    color: var(--colorTextLight);
     transform: translateX(50%) rotate(-90deg);
   }
 }
@@ -171,7 +192,6 @@
 .postTag {
   top: 30%;
   right: 0;
-  opacity: 0;
   transform: translateX(100%) rotate(-90deg);
 
   @media (--mediaUseMotion) {
@@ -231,7 +251,7 @@
       position: absolute;
       inset: 0;
       background-color: rgb(var(--rgbAccent));
-      z-index: 16;
+      z-index: var(--zIndex2);
       pointer-events: none;
       transform: scale3d(0, 1, 1);
 
@@ -272,8 +292,6 @@
     content: '';
     position: absolute;
     inset: 0;
-    mix-blend-mode: luminosity;
-    transition: all var(--durationM) var(--bezierFastoutSlowin);
     background-image: linear-gradient(
       -135deg,
       rgb(var(--rgbBackgroundLight) / 0.5) 0%,

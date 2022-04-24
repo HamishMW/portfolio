@@ -108,7 +108,7 @@ export const ProjectBackground = ({ opacity = 0.7, className, ...rest }) => {
 
   useParallax(0.6, value => {
     if (!imageRef.current) return;
-    imageRef.current.style = `--offset: ${value}px`;
+    imageRef.current.style.setProperty('--offset', `${value}px`);
   });
 
   return (

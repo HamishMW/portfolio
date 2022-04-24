@@ -3,7 +3,7 @@
   --inset: calc(var(--spaceOuter) - var(--offset));
 
   position: fixed;
-  z-index: 2048;
+  z-index: var(--zIndex4);
   top: var(--inset);
   right: var(--inset);
   transform: translate3d(0, 0, 0);

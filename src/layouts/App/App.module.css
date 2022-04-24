@@ -13,7 +13,7 @@
 .skip {
   isolation: isolate;
   color: rgb(var(--rgbBackground));
-  z-index: 128;
+  z-index: var(--zIndex4);
 
   &:focus {
     padding: var(--spaceS) var(--spaceM);

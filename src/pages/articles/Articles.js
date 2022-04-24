@@ -41,7 +41,7 @@ const ArticlesPost = ({
     <article
       className={styles.post}
       data-featured={!!featured}
-      style={cssProps({ delay: index * 100 + 200 })}
+      style={index !== undefined ? cssProps({ delay: index * 100 + 200 }) : undefined}
     >
       {featured && (
         <Text className={styles.postLabel} size="s">
@@ -102,14 +102,18 @@ export const Articles = ({ posts, featured }) => {
   const singleColumnWidth = 1190;
   const isSingleColumn = width <= singleColumnWidth;
 
-  const list = (
+  const postsHeader = (
+    <header className={styles.header}>
+      <Heading className={styles.heading} level={5} as="h1">
+        <DecoderText text="Latest articles" />
+      </Heading>
+      <Barcode />
+    </header>
+  );
+
+  const postList = (
     <div className={styles.list}>
-      <header className={styles.header}>
-        <Heading className={styles.heading} level={5} as="h1">
-          <DecoderText text="Latest articles" />
-        </Heading>
-        <Barcode />
-      </header>
+      {!isSingleColumn && postsHeader}
       {posts.map(({ slug, ...post }, index) => (
         <ArticlesPost key={slug} slug={slug} index={index} {...post} />
       ))}
@@ -122,23 +126,26 @@ export const Articles = ({ posts, featured }) => {
     </div>
   );
 
+  const featuredPost = <ArticlesPost {...featured} />;
+
   return (
     <article className={styles.articles}>
       <Meta
         title="Articles"
-        description="A collection of technical design and development articles."
+        description="A collection of technical design and development articles. May contain incoherent ramblings."
       />
       <Section className={styles.content}>
         {!isSingleColumn && (
           <div className={styles.grid}>
-            {list}
-            <ArticlesPost {...featured} />
+            {postList}
+            {featuredPost}
           </div>
         )}
         {isSingleColumn && (
           <div className={styles.grid}>
-            <ArticlesPost {...featured} />
-            {list}
+            {postsHeader}
+            {featuredPost}
+            {postList}
           </div>
         )}
       </Section>

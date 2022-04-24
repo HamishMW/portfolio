@@ -3,6 +3,7 @@
   transform: translate3d(0, 0, 0);
   display: grid;
   grid-template-columns: 100%;
+  isolation: isolate;
 
   &[data-raised='true'] {
     box-shadow: 0 50px 100px -20px rgb(var(--rgbBlack) / 0.25),
@@ -26,7 +27,7 @@
       transform: scale3d(0, 1, 1);
       transform-origin: left;
       will-change: transform;
-      z-index: 16;
+      z-index: var(--zIndex2);
     }
 
     @media (--mediaUseMotion) {
@@ -72,7 +73,7 @@
   transition: opacity var(--durationM) ease var(--delay);
   pointer-events: none;
   position: relative;
-  z-index: 1;
+  z-index: var(--zIndex1);
   opacity: 1;
   grid-column: 1;
   grid-row: 1;

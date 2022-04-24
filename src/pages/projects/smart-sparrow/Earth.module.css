@@ -67,6 +67,7 @@
   transition: opacity var(--durationM) ease;
   transition-delay: var(--delay);
   font-family: var(--systemFontStack);
+  transform: translate3d(-50%, -50%, 0) translate3d(var(--posX), var(--posY), 0);
 
   &[data-occluded='true'] {
     opacity: 0.2;
@@ -81,7 +82,12 @@
 
 .vignette {
   grid-area: 1 / 1;
-  background-image: radial-gradient(transparent, rgb(var(--rgbBackground)));
+  background-image: radial-gradient(
+    transparent,
+    transparent,
+    rgb(var(--rgbBackground) / 0.2),
+    rgb(var(--rgbBackground) / 0.7)
+  );
   position: relative;
   pointer-events: none;
 }

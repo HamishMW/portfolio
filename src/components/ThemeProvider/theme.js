@@ -47,6 +47,12 @@ const baseTokens = {
   space3XL: '64px',
   space4XL: '96px',
   space5XL: '128px',
+  zIndex0: 0,
+  zIndex1: 4,
+  zIndex2: 8,
+  zIndex3: 16,
+  zIndex4: 32,
+  zIndex5: 64,
 };
 
 // Tokens that change based on viewport size

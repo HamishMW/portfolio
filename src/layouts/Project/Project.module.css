@@ -97,6 +97,7 @@
   opacity: 0;
   transition: opacity 2s ease;
   transform: translateZ(0);
+  isolation: isolate;
 
   &[data-visible='true'] {
     opacity: 1;
@@ -104,7 +105,7 @@
 }
 
 .backgroundImageElement {
-  z-index: 0;
+  z-index: var(--zIndex0);
   position: absolute;
   inset: 0;
   height: var(--imageHeight);
@@ -129,10 +130,8 @@
 
   position: absolute;
   inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, var(--background1), var(--background2));
+  z-index: var(--zIndex1);
+  background: linear-gradient(var(--background1), var(--background2));
 }
 
 .header {

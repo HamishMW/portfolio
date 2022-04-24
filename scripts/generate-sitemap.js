@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { bundleMDX } = require('mdx-bundler');
 
 function addPage(page) {
   const path = page
@@ -19,8 +20,11 @@ function addPage(page) {
   </url>`;
 }
 
-function addPost(post) {
-  if (process.env.NODE_ENV === 'production') return; // TODO: remove this once blog is done
+async function addPost(post) {
+  const source = fs.readFileSync(post, 'utf-8');
+  const { frontmatter } = await bundleMDX({ source });
+
+  if (process.env.NODE_ENV === 'production' && frontmatter.draft) return;
 
   const path = post.replace('src/posts', '/articles').replace('.mdx', '');
 
@@ -38,11 +42,12 @@ async function generateSitemap() {
     '!src/pages/_*.js',
     '!src/pages/api',
   ]);
-  const posts = await globby(['src/posts/**/*.mdx']);
+  const postUrls = await globby(['src/posts/**/*.mdx']);
+  const posts = await Promise.all(postUrls.map(addPost));
 
   const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages.map(addPage).filter(Boolean).join('\n')}
-${posts.map(addPost).filter(Boolean).join('\n')}
+${posts.filter(Boolean).join('\n')}
 </urlset>\n`;
 
   fs.writeFileSync('public/sitemap.xml', sitemap);

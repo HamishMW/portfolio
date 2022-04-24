@@ -11,7 +11,8 @@
   top: var(--spaceOuter);
   left: var(--spaceOuter);
   bottom: var(--spaceOuter);
-  z-index: 1024;
+  z-index: var(--zIndex4);
+  isolation: isolate;
 
   @media (--mediaMobile) {
     --headerNavFontSize: calc((22 / 16) * 1rem);
@@ -26,7 +27,7 @@
   display: flex;
   position: relative;
   padding: var(--spaceS) var(--spaceS) var(--spaceL);
-  z-index: 16;
+  z-index: var(--zIndex2);
 
   @media (--mediaMobile) {
     padding-bottom: var(--spaceS);
@@ -104,7 +105,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  z-index: 16;
+  z-index: var(--zIndex2);
 
   @media (--mediaMobile), (--mediaMobileLS) {
     flex-direction: row;

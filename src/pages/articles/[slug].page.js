@@ -26,7 +26,7 @@ export const getStaticProps = async ({ params }) => {
   const postFilePath = path.join(POSTS_PATH, `${params.slug}.mdx`);
   const source = fs.readFileSync(postFilePath, 'utf-8');
 
-  const mdxSource = await bundleMDX({
+  const { code, frontmatter, matter } = await bundleMDX({
     source,
     mdxOptions(options) {
       options.remarkPlugins = [...(options.remarkPlugins ?? [])];
@@ -42,26 +42,16 @@ export const getStaticProps = async ({ params }) => {
     },
   });
 
-  const { time } = readingTime(mdxSource.matter.content);
+  const { time } = readingTime(matter.content);
   const timecode = formatTimecode(time);
 
   return {
-    props: {
-      code: mdxSource.code,
-      frontmatter: mdxSource.frontmatter,
-      timecode,
-    },
+    props: { code, frontmatter, timecode },
+    notFound: process.env.NODE_ENV === 'production' && frontmatter.draft,
   };
 };
 
 export const getStaticPaths = async () => {
-  if (process.env.NODE_ENV === 'production') {
-    return {
-      paths: [],
-      fallback: false,
-    }; // TODO: Remove this for posts to appear on production
-  }
-
   const paths = postFilePaths
     .map(filePath => filePath.replace(/\.mdx?$/, ''))
     .map(slug => ({ params: { slug } }));

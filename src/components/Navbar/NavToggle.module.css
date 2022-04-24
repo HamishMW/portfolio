@@ -5,7 +5,7 @@ button.toggle {
   position: fixed;
   top: var(--inset);
   right: var(--inset);
-  z-index: 1024;
+  z-index: var(--zIndex4);
   display: none;
 
   @media (--mediaMobile), (--mediaMobileLS) {

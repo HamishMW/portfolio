@@ -43,7 +43,7 @@ import { LinearFilter } from 'three';
 import { EquirectangularReflectionMapping } from 'three';
 import { HDRCubeTextureLoader, OrbitControls } from 'three-stdlib';
 import { clamp } from 'utils/clamp';
-import { classes, media, msToNum } from 'utils/style';
+import { classes, media, msToNum, numToPx } from 'utils/style';
 import {
   cleanRenderer,
   cleanScene,
@@ -51,6 +51,7 @@ import {
   modelLoader,
   removeLights,
 } from 'utils/three';
+import { throttle } from 'utils/throttle';
 import styles from './Earth.module.css';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
@@ -174,7 +175,8 @@ export const Earth = ({
       vector.project(camera.current);
       vector.x = Math.round((0.5 + vector.x / 2) * window.innerWidth);
       vector.y = Math.round((0.5 - vector.y / 2) * window.innerHeight);
-      element.style.transform = `translate3d(-50%, -50%, 0) translate3d(${vector.x}px, ${vector.y}px, 0)`;
+      element.style.setProperty('--posX', numToPx(vector.x));
+      element.style.setProperty('--posY', numToPx(vector.y));
 
       if (spriteBehindObject) {
         element.dataset.occluded = true;
@@ -183,6 +185,81 @@ export const Earth = ({
       }
     });
   }, [inViewport]);
+
+  useEffect(() => {
+    mounted.current = true;
+    const { innerWidth, innerHeight } = window;
+
+    renderer.current = new WebGLRenderer({
+      canvas: canvas.current,
+      antialias: false,
+      powerPreference: 'high-performance',
+    });
+    renderer.current.setPixelRatio(1);
+    renderer.current.outputEncoding = sRGBEncoding;
+    renderer.current.physicallyCorrectLights = true;
+    renderer.current.toneMapping = ACESFilmicToneMapping;
+
+    camera.current = new PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 100);
+    camera.current.position.x = initCameraPosition.current.x;
+    camera.current.position.y = initCameraPosition.current.y;
+    camera.current.position.z = initCameraPosition.current.z;
+    camera.current.lookAt(0, 0, 0);
+
+    cameraXSpring.set(camera.current.position.x, false);
+    cameraYSpring.set(camera.current.position.y, false);
+    cameraZSpring.set(camera.current.position.z, false);
+
+    scene.current = new Scene();
+    clock.current = new Clock();
+    raycaster.current = new Raycaster();
+
+    const ambientLight = new AmbientLight(0x222222, 0.05);
+    const dirLight = new DirectionalLight(0xffffff, 1.5);
+    dirLight.position.set(3, 0, 1);
+    const lights = [ambientLight, dirLight];
+    lights.forEach(light => scene.current.add(light));
+
+    controls.current = new OrbitControls(camera.current, canvas.current);
+    controls.current.enableZoom = false;
+    controls.current.enablePan = false;
+    controls.current.enableDamping = false;
+    controls.current.rotateSpeed = 0.5;
+
+    return () => {
+      mounted.current = false;
+      cancelAnimationFrame(animationFrame.current);
+
+      removeLights(lights);
+      cleanScene(scene.current);
+      cleanRenderer(renderer.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const handleControlStart = () => {
+      setGrabbing(true);
+      cameraXSpring.stop();
+      cameraYSpring.stop();
+      cameraZSpring.stop();
+    };
+
+    const handleControlEnd = () => {
+      cameraXSpring.set(camera.current.position.x, false);
+      cameraYSpring.set(camera.current.position.y, false);
+      cameraZSpring.set(camera.current.position.z, false);
+      setGrabbing(false);
+    };
+
+    controls.current.addEventListener('start', handleControlStart);
+    controls.current.addEventListener('end', handleControlEnd);
+
+    return () => {
+      controls.current.removeEventListener('start', handleControlStart);
+      controls.current.removeEventListener('end', handleControlEnd);
+    };
+  }, [cameraXSpring, cameraYSpring, cameraZSpring]);
 
   useEffect(() => {
     if (!loaded) return;
@@ -232,80 +309,15 @@ export const Earth = ({
       unsubscribeOpacity();
     };
   }, [
-    loaded,
     cameraXSpring,
     cameraYSpring,
     cameraZSpring,
     chunkXSpring,
     chunkYSpring,
     chunkZSpring,
+    loaded,
     opacitySpring,
   ]);
-
-  useEffect(() => {
-    mounted.current = true;
-    const { innerWidth, innerHeight } = window;
-
-    renderer.current = new WebGLRenderer({
-      canvas: canvas.current,
-      antialias: false,
-      powerPreference: 'high-performance',
-    });
-    renderer.current.setPixelRatio(1);
-    renderer.current.outputEncoding = sRGBEncoding;
-    renderer.current.physicallyCorrectLights = true;
-    renderer.current.toneMapping = ACESFilmicToneMapping;
-
-    camera.current = new PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 100);
-    camera.current.position.x = initCameraPosition.current.x;
-    camera.current.position.y = initCameraPosition.current.y;
-    camera.current.position.z = initCameraPosition.current.z;
-    camera.current.lookAt(0, 0, 0);
-
-    cameraXSpring.set(camera.current.position.x, false);
-    cameraYSpring.set(camera.current.position.y, false);
-    cameraZSpring.set(camera.current.position.z, false);
-
-    scene.current = new Scene();
-    clock.current = new Clock();
-    raycaster.current = new Raycaster();
-
-    const ambientLight = new AmbientLight(0x222222, 0.05);
-    const dirLight = new DirectionalLight(0xffffff, 1.5);
-    dirLight.position.set(3, 0, 1);
-    const lights = [ambientLight, dirLight];
-    lights.forEach(light => scene.current.add(light));
-
-    const handleControlStart = () => {
-      setGrabbing(true);
-    };
-
-    const handleControlEnd = () => {
-      cameraXSpring.set(camera.current.position.x, false);
-      cameraYSpring.set(camera.current.position.y, false);
-      cameraZSpring.set(camera.current.position.z, false);
-      setGrabbing(false);
-    };
-
-    controls.current = new OrbitControls(camera.current, canvas.current);
-    controls.current.enableZoom = false;
-    controls.current.enablePan = false;
-    controls.current.enableDamping = false;
-    controls.current.rotateSpeed = 0.5;
-    controls.current.addEventListener('start', handleControlStart);
-    controls.current.addEventListener('end', handleControlEnd);
-
-    return () => {
-      mounted.current = false;
-      cancelAnimationFrame(animationFrame.current);
-      controls.current.removeEventListener('start', handleControlStart);
-      controls.current.removeEventListener('end', handleControlEnd);
-      removeLights(lights);
-      cleanScene(scene.current);
-      cleanRenderer(renderer.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (windowWidth <= media.tablet) {
@@ -599,13 +611,16 @@ export const Earth = ({
 
       prevTarget = currentTarget;
 
+      if (grabbing) return;
+
       if (reduceMotion) {
         camera.current.position.set(currentX, currentY, currentZ);
-      } else {
-        cameraXSpring.set(currentX);
-        cameraYSpring.set(currentY);
-        cameraZSpring.set(currentZ);
+        return;
       }
+
+      cameraXSpring.set(currentX);
+      cameraYSpring.set(currentY);
+      cameraZSpring.set(currentZ);
     };
 
     requestAnimationFrame(update);
@@ -616,19 +631,21 @@ export const Earth = ({
     chunkXSpring,
     chunkYSpring,
     chunkZSpring,
+    grabbing,
     hideMeshes,
     opacitySpring,
     reduceMotion,
   ]);
 
   useEffect(() => {
+    const throttledScroll = throttle(handleScroll, 100);
+
     if (loaded && inViewport) {
-      window.addEventListener('scroll', handleScroll);
-      handleScroll();
+      window.addEventListener('scroll', throttledScroll);
     }
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', throttledScroll);
     };
   }, [handleScroll, inViewport, loaded, opacitySpring]);
 

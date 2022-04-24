@@ -63,7 +63,7 @@
 }
 
 .details {
-  z-index: 1;
+  z-index: var(--zIndex1);
   position: relative;
 
   @media (--mediaTablet) {

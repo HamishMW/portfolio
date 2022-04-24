@@ -18,22 +18,13 @@ import { formateDate } from 'utils/date';
 import { classes, cssProps, msToNum, numToMs } from 'utils/style';
 import styles from './Post.module.css';
 
-export const Post = ({
-  children,
-  title,
-  date,
-  abstract,
-  banner,
-  bannerPlaceholder,
-  bannerAlt,
-  timecode,
-}) => {
+export const Post = ({ children, title, date, abstract, banner, timecode }) => {
   const scrollToHash = useScrollToHash();
   const imageRef = useRef();
 
   useParallax(0.08, value => {
     if (!imageRef.current) return;
-    imageRef.current.style = `--blur: ${value}px`;
+    imageRef.current.style.setProperty('--blur', `${value}px`);
   });
 
   const handleScrollIndicatorClick = event => {
@@ -48,10 +39,11 @@ export const Post = ({
         {banner && (
           <div className={styles.banner} ref={imageRef}>
             <Image
+              role="presentation"
               className={styles.bannerImage}
               src={{ src: banner }}
-              placeholder={{ src: bannerPlaceholder }}
-              alt={bannerAlt}
+              placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
+              alt=""
             />
           </div>
         )}
@@ -72,7 +64,7 @@ export const Post = ({
                 <span className={styles.titleWordWrapper} key={`${word}-${index}`}>
                   <span
                     className={styles.titleWord}
-                    style={cssProps({ delay: numToMs(index * 120 + 200) })}
+                    style={cssProps({ delay: numToMs(index * 100 + 100) })}
                     index={index}
                   >
                     {word}

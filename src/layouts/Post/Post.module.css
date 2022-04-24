@@ -18,6 +18,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 
   @media (--mediaLaptop) {
     --paraSpace: 18px;
@@ -44,7 +45,7 @@
   justify-self: flex-end;
   justify-content: center;
   flex-direction: column;
-  padding-top: var(--gutterWidth);
+  padding-top: var(--space5XL);
   gap: var(--space2XL);
   max-width: 800px;
   grid-column: 3;
@@ -52,10 +53,11 @@
   @media (--mediaTablet) {
     grid-column: 1;
     gap: var(--spaceXL);
+    max-width: none;
   }
 
-  @media (--mediaMobile), (max-width: 820px) and (max-height: 420px) {
-    padding: var(--mobileNavOffset) 0 0;
+  @media (--mediaMobile), (--mediaMobileLS) {
+    padding: calc(var(--mobileNavOffset) + var(--spaceL)) 0 0;
   }
 }
 
@@ -111,7 +113,7 @@
     transform: translate3d(0, 110%, 0);
     animation-name: postTitleWord;
     animation-timing-function: var(--bezierFastoutSlowin);
-    animation-duration: 1.2s;
+    animation-duration: var(--durationXL);
     animation-delay: var(--delay);
     animation-fill-mode: forwards;
   }
@@ -135,13 +137,18 @@
 
   &::after {
     --background1: rgb(var(--rgbBackground) / 0.7);
-    --background2: rgb(var(--rgbBackground));
+    --background2: rgb(var(--rgbBackground) / 0.9);
+    --background3: rgb(var(--rgbBackground));
 
     content: '';
     position: absolute;
     inset: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, var(--background1), var(--background2));
+    z-index: var(--zIndex1);
+    background: linear-gradient(
+      var(--background1),
+      var(--background2),
+      var(--background3)
+    );
   }
 }
 
@@ -167,8 +174,8 @@
 
 .headerArrow {
   position: relative;
-  left: -10px;
-  padding: 20px;
+  left: calc(var(--spaceL) * -1);
+  padding: var(--spaceL);
   opacity: 0;
 
   &:global {
@@ -180,7 +187,7 @@
   }
 
   @media (--mediaTablet) {
-    left: -20px;
+    left: calc(var(--spaceL) * -1);
   }
 
   @media (--mediaMobile) {
@@ -192,7 +199,7 @@
 .headerReadTime {
   color: var(--colorTextLight);
   font-size: 16px;
-  padding: 20px 0;
+  padding: var(--spaceL) 0;
   display: grid;
   align-items: center;
   grid-template-columns: 60px 1fr;
@@ -216,6 +223,7 @@
   padding-bottom: var(--space2XL);
   margin-top: calc(var(--gutterWidth) + var(--space4XL));
   scroll-margin-top: var(--spaceOuter);
+  overflow-x: hidden;
 
   @media (--mediaTablet) {
     margin-top: calc(var(--gutterWidth) + var(--space2XL));
@@ -311,6 +319,10 @@
   width: 100%;
   height: auto;
   grid-column: 2 / span 3;
+
+  & + & {
+    margin-top: 0;
+  }
 
   @media (--mediaTablet) {
     grid-column: 1;
