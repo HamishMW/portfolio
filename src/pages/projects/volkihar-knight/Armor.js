@@ -55,7 +55,7 @@ export const Armor = ({
   const reduceMotion = useReducedMotion();
   const rotationX = useSpring(0, rotationSpringConfig);
   const rotationY = useSpring(0, rotationSpringConfig);
-  const { measureFps, fps } = useFps();
+  const { measureFps, isLowFps } = useFps(isInViewport);
 
   useEffect(() => {
     const { clientWidth, clientHeight } = container.current;
@@ -163,13 +163,12 @@ export const Armor = ({
 
     measureFps();
 
-    if (fps.current < 60) {
+    if (isLowFps.current) {
       renderer.current.setPixelRatio(1);
-    } else if (fps.current > 80) {
+    } else {
       renderer.current.setPixelRatio(2);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [measureFps, isLowFps]);
 
   // Handle mouse move animation
   useEffect(() => {
