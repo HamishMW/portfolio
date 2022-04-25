@@ -96,9 +96,9 @@ export const Post = ({ children, title, date, abstract, banner, timecode }) => {
   );
 };
 
-const PostHeading = ({ id, children, className }) => {
+const PostHeading = ({ id, children, className, ...rest }) => {
   return (
-    <span className={classes(styles.heading, className)}>
+    <span className={classes(styles.heading, className)} {...rest}>
       <a
         className={styles.headingLink}
         href={`#${id}`}
@@ -113,7 +113,7 @@ const PostHeading = ({ id, children, className }) => {
 };
 
 const PostH1 = ({ children, id, ...rest }) => (
-  <PostHeading className={styles.h1} id={id}>
+  <PostHeading className={styles.h1} id={id} data-level={1}>
     <Heading className={styles.headingElement} id={id} level={2} as="h1" {...rest}>
       {children}
     </Heading>
@@ -121,7 +121,7 @@ const PostH1 = ({ children, id, ...rest }) => (
 );
 
 const PostH2 = ({ children, id, ...rest }) => (
-  <PostHeading className={styles.h2} id={id}>
+  <PostHeading className={styles.h2} id={id} data-level={2}>
     <Heading className={styles.headingElement} id={id} level={3} as="h2" {...rest}>
       {children}
     </Heading>
@@ -129,15 +129,8 @@ const PostH2 = ({ children, id, ...rest }) => (
 );
 
 const PostH3 = ({ children, id, ...rest }) => (
-  <PostHeading className={styles.h2} id={id}>
-    <Heading
-      className={styles.headingElement}
-      id={id}
-      level={4}
-      as="h3"
-      weight="regular"
-      {...rest}
-    >
+  <PostHeading className={styles.h2} id={id} data-level={3}>
+    <Heading className={styles.headingElement} id={id} level={4} as="h3" {...rest}>
       {children}
     </Heading>
   </PostHeading>
@@ -188,6 +181,10 @@ const PostPre = props => {
   );
 };
 
+const PostHr = props => {
+  return <hr className={styles.hr} {...props} />;
+};
+
 const PostLink = ({ ...props }) => <Link {...props} />;
 
 export const postComponents = {
@@ -199,4 +196,5 @@ export const postComponents = {
   a: PostLink,
   pre: PostPre,
   code: PostCode,
+  hr: PostHr,
 };
