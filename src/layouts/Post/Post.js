@@ -1,11 +1,8 @@
 import ArrowDown from 'assets/arrow-down.svg';
-import { Code } from 'components/Code';
 import { Divider } from 'components/Divider';
 import { Footer } from 'components/Footer';
 import { Heading } from 'components/Heading';
-import { Icon } from 'components/Icon';
 import { Image } from 'components/Image';
-import { Link } from 'components/Link';
 import { Meta } from 'components/Meta';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
@@ -13,9 +10,9 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { useParallax, useScrollToHash } from 'hooks';
 import RouterLink from 'next/link';
-import { Children, useRef } from 'react';
+import { useRef } from 'react';
 import { formateDate } from 'utils/date';
-import { classes, cssProps, msToNum, numToMs } from 'utils/style';
+import { cssProps, msToNum, numToMs } from 'utils/style';
 import styles from './Post.module.css';
 
 export const Post = ({ children, title, date, abstract, banner, timecode }) => {
@@ -73,128 +70,25 @@ export const Post = ({ children, title, date, abstract, banner, timecode }) => {
                 </span>
               ))}
             </Heading>
-            <div className={styles.headerFooter}>
+            <div className={styles.details}>
               <RouterLink href="#postContent">
                 <a
-                  className={styles.headerArrow}
+                  className={styles.arrow}
                   aria-label="Scroll to post content"
                   onClick={handleScrollIndicatorClick}
                 >
                   <ArrowDown aria-hidden />
                 </a>
               </RouterLink>
-              <div className={styles.headerReadTime}>{timecode}</div>
+              <div className={styles.timecode}>{timecode}</div>
             </div>
           </div>
         </header>
       </Section>
-      <Section className={styles.contentWrapper} id="postContent" tabIndex={-1}>
+      <Section className={styles.wrapper} id="postContent" tabIndex={-1}>
         <div className={styles.content}>{children}</div>
       </Section>
       <Footer />
     </article>
   );
-};
-
-const PostHeading = ({ id, children, className, ...rest }) => {
-  return (
-    <span className={classes(styles.heading, className)} {...rest}>
-      <a
-        className={styles.headingLink}
-        href={`#${id}`}
-        aria-label="Link to heading"
-        aria-describedby={id}
-      >
-        <Icon icon="link" />
-      </a>
-      {children}
-    </span>
-  );
-};
-
-const PostH1 = ({ children, id, ...rest }) => (
-  <PostHeading className={styles.h1} id={id} data-level={1}>
-    <Heading className={styles.headingElement} id={id} level={2} as="h1" {...rest}>
-      {children}
-    </Heading>
-  </PostHeading>
-);
-
-const PostH2 = ({ children, id, ...rest }) => (
-  <PostHeading className={styles.h2} id={id} data-level={2}>
-    <Heading className={styles.headingElement} id={id} level={3} as="h2" {...rest}>
-      {children}
-    </Heading>
-  </PostHeading>
-);
-
-const PostH3 = ({ children, id, ...rest }) => (
-  <PostHeading className={styles.h2} id={id} data-level={3}>
-    <Heading className={styles.headingElement} id={id} level={4} as="h3" {...rest}>
-      {children}
-    </Heading>
-  </PostHeading>
-);
-
-const PostParagraph = ({ children, ...rest }) => {
-  const hasSingleChild = Children.count(children) === 1;
-  const firstChild = Children.toArray(children)[0];
-
-  // Prevent `img` being wrapped in `p`
-  if (hasSingleChild && firstChild.type === PostImage) {
-    return children;
-  }
-
-  return (
-    <Text className={styles.paragraph} size="l" {...rest} as="p">
-      {children}
-    </Text>
-  );
-};
-
-const PostImage = ({ src, alt, width, height, ...rest }) => {
-  return (
-    <img
-      className={styles.image}
-      src={src}
-      decoding="async"
-      loading="lazy"
-      alt={alt}
-      width={width}
-      height={height}
-      {...rest}
-    />
-  );
-};
-
-const PostCode = ({ children, ...rest }) => (
-  <code className={styles.code} {...rest}>
-    {children}
-  </code>
-);
-
-const PostPre = props => {
-  return (
-    <div className={styles.pre}>
-      <Code {...props} />
-    </div>
-  );
-};
-
-const PostHr = props => {
-  return <hr className={styles.hr} {...props} />;
-};
-
-const PostLink = ({ ...props }) => <Link {...props} />;
-
-export const postComponents = {
-  h1: PostH1,
-  h2: PostH2,
-  h3: PostH3,
-  p: PostParagraph,
-  img: PostImage,
-  a: PostLink,
-  pre: PostPre,
-  code: PostCode,
-  hr: PostHr,
 };

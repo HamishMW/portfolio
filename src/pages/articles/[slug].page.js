@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Post, postComponents } from 'layouts/Post';
+import { Post, postMarkdown } from 'layouts/Post';
 import { bundleMDX } from 'mdx-bundler';
 import { getMDXComponent } from 'mdx-bundler/client';
 import { useMemo } from 'react';
@@ -17,7 +17,7 @@ export default function PostPage({ frontmatter, code, timecode }) {
 
   return (
     <Post timecode={timecode} {...frontmatter}>
-      <MDXComponent components={postComponents} />
+      <MDXComponent components={postMarkdown} />
     </Post>
   );
 }

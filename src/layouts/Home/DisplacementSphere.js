@@ -3,7 +3,7 @@ import { Transition } from 'components/Transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport, useWindowSize } from 'hooks';
 import { useFps } from 'hooks/useFps';
-import { useEffect, useRef } from 'react';
+import { startTransition, useEffect, useRef } from 'react';
 import {
   AmbientLight,
   Color,
@@ -82,12 +82,13 @@ export const DisplacementSphere = props => {
       shader.fragmentShader = fragShader;
     };
 
-    geometry.current = new SphereBufferGeometry(32, 128, 128);
-
-    sphere.current = new Mesh(geometry.current, material.current);
-    sphere.current.position.z = 0;
-    sphere.current.modifier = Math.random();
-    scene.current.add(sphere.current);
+    startTransition(() => {
+      geometry.current = new SphereBufferGeometry(32, 128, 128);
+      sphere.current = new Mesh(geometry.current, material.current);
+      sphere.current.position.z = 0;
+      sphere.current.modifier = Math.random();
+      scene.current.add(sphere.current);
+    });
 
     return () => {
       cleanScene(scene.current);
