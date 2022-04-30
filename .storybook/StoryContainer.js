@@ -6,6 +6,7 @@ export const StoryContainer = ({
   gutter = 32,
   vertical,
   children,
+  style,
 }) => (
   <div
     className="storyContainer"
@@ -15,6 +16,7 @@ export const StoryContainer = ({
       flexDirection: vertical ? 'column' : 'row',
       alignItems: stretch ? 'stretch' : 'flex-start',
       justifyContent: stretch ? 'stretch' : 'flex-start',
+      ...style,
     }}
   >
     {children}

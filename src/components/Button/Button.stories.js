@@ -12,7 +12,7 @@ const LoadableButton = props => {
   return <Button loading={loading} onClick={() => setLoading(!loading)} {...props} />;
 };
 
-export const primary = () => (
+export const Primary = () => (
   <StoryContainer>
     <Button onClick={action('clicked')}>Text only</Button>
     <Button icon="send" onClick={action('clicked')}>
@@ -24,7 +24,7 @@ export const primary = () => (
   </StoryContainer>
 );
 
-export const secondary = () => (
+export const Secondary = () => (
   <StoryContainer>
     <Button secondary onClick={action('clicked')}>
       Text only
@@ -38,7 +38,7 @@ export const secondary = () => (
   </StoryContainer>
 );
 
-export const iconOnly = () => (
+export const IconOnly = () => (
   <StoryContainer gutter={20}>
     <Button iconOnly aria-label="Send" icon="send" onClick={action('clicked')} />
     <Button iconOnly aria-label="Figma" icon="figma" onClick={action('clicked')} />
@@ -46,7 +46,7 @@ export const iconOnly = () => (
   </StoryContainer>
 );
 
-export const loader = () => (
+export const Loader = () => (
   <StoryContainer>
     <LoadableButton>Click to load</LoadableButton>
     <LoadableButton icon="send">Click to load</LoadableButton>

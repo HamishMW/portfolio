@@ -1,6 +1,6 @@
 .post {
   --contentWidth: 740px;
-  --gutterWidth: 80px;
+  --gutterWidth: 100px;
   --mainColumn: 3;
 
   @media (--mediaTablet) {
@@ -218,16 +218,11 @@
   display: flex;
   flex-direction: column;
   padding-bottom: var(--space2XL);
-  margin-top: calc(var(--gutterWidth) + var(--space4XL));
-  scroll-margin-top: var(--spaceOuter);
+  padding-top: calc(var(--gutterWidth) + var(--space2XL));
   overflow-x: hidden;
 
   @media (--mediaTablet) {
-    margin-top: calc(var(--gutterWidth) + var(--space2XL));
-  }
-
-  @media (--mediaMobile) {
-    scroll-margin-top: var(--mobileNavOffset);
+    padding-top: calc(var(--gutterWidth) + var(--spaceXL));
   }
 }
 

@@ -5,7 +5,7 @@ export default {
   title: 'Loader',
 };
 
-export const loader = () => (
+export const Default = () => (
   <StoryContainer>
     <Loader size={48} />
   </StoryContainer>

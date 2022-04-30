@@ -2,6 +2,7 @@ import { Code } from 'components/Code';
 import { Heading } from 'components/Heading';
 import { Icon } from 'components/Icon';
 import { Link } from 'components/Link';
+import { List, ListItem } from 'components/List';
 import { Text } from 'components/Text';
 import { Children } from 'react';
 import styles from './PostMarkdown.module.css';
@@ -52,7 +53,7 @@ const PostParagraph = ({ children, ...rest }) => {
   }
 
   return (
-    <Text className={styles.paragraph} size="l" {...rest} as="p">
+    <Text className={styles.paragraph} size="l" as="p" {...rest}>
       {children}
     </Text>
   );
@@ -61,19 +62,15 @@ const PostParagraph = ({ children, ...rest }) => {
 const PostLink = ({ ...props }) => <Link {...props} />;
 
 const PostUl = props => {
-  return <ul className={styles.ul} {...props} />;
+  return <List className={styles.list} {...props} />;
 };
 
 const PostOl = props => {
-  return <ol className={styles.ol} {...props} />;
+  return <List className={styles.list} ordered {...props} />;
 };
 
 const PostLi = ({ children, ...props }) => {
-  return (
-    <li className={styles.li} {...props}>
-      <PostParagraph>{children}</PostParagraph>
-    </li>
-  );
+  return <ListItem {...props}>{children}</ListItem>;
 };
 
 const PostCode = ({ children, ...rest }) => (
@@ -98,6 +95,10 @@ const PostHr = props => {
   return <hr className={styles.hr} {...props} />;
 };
 
+const PostStrong = props => {
+  return <strong className={styles.strong} {...props} />;
+};
+
 const PostImage = ({ src, alt, width, height, ...rest }) => {
   return (
     <img
@@ -110,6 +111,14 @@ const PostImage = ({ src, alt, width, height, ...rest }) => {
       height={height}
       {...rest}
     />
+  );
+};
+
+const Embed = ({ src }) => {
+  return (
+    <div className={styles.embed}>
+      <iframe src={src} loading="lazy" onError={() => console.log('fuck')} />
+    </div>
   );
 };
 
@@ -128,4 +137,6 @@ export const postMarkdown = {
   blockquote: PostBlockquote,
   hr: PostHr,
   img: PostImage,
+  strong: PostStrong,
+  Embed,
 };

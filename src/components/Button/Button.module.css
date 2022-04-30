@@ -128,6 +128,7 @@
   align-items: center;
   justify-content: center;
   transition: opacity var(--durationM) var(--bezierFastoutSlowin);
+  margin-bottom: 0.1em;
 }
 
 .loader {

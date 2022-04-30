@@ -5,17 +5,26 @@ export default {
   title: 'Input',
 };
 
-const ExampleInput = props => {
+const Story = args => {
   const exampleValue = useFormInput('');
   return (
     <div style={{ maxWidth: 400, width: '100%', padding: 30 }}>
-      <Input {...exampleValue} {...props} />
+      <Input {...exampleValue} {...args} />
     </div>
   );
 };
 
-export const text = () => <ExampleInput label="Your name" type="text" />;
+export const Text = Story.bind({});
 
-export const multiline = () => (
-  <ExampleInput multiline label="Type a message" type="text" />
-);
+Text.args = {
+  label: 'Your name',
+  type: 'text',
+};
+
+export const Multiline = Story.bind({});
+
+Multiline.args = {
+  label: 'Type a message',
+  type: 'text',
+  multiline: true,
+};

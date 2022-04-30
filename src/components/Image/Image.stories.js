@@ -6,26 +6,36 @@ export default {
 };
 
 const imageData = {
+  alt: 'An abstract purple and pink neon thing',
   src: {
-    src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=1317&q=80',
-    width: 1317,
-    height: 878,
+    src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=960&h=540&q=80',
+    width: 960,
+    height: 540,
   },
   placeholder: {
-    src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=439&q=2',
-    width: 1317,
-    height: 878,
+    src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=64&h=36&q=0',
+    width: 64,
+    height: 36,
   },
 };
 
-export const image = () => (
+const Story = args => (
   <StoryContainer>
-    <Image alt="An abstract purple and pink neon thing" {...imageData} />
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0px, 960px)' }}>
+      <Image alt="An abstract purple and pink neon thing" {...imageData} {...args} />
+    </div>
   </StoryContainer>
 );
 
-export const reveal = () => (
-  <StoryContainer>
-    <Image reveal alt="An abstract purple and pink neon thing" {...imageData} />
-  </StoryContainer>
-);
+export const Default = Story.bind({});
+
+Default.args = {
+  ...imageData,
+};
+
+export const Reveal = Story.bind({});
+
+Reveal.args = {
+  ...imageData,
+  reveal: true,
+};

@@ -9,7 +9,7 @@ export default {
   },
 };
 
-export const text = ({ text }) => (
+export const Text = ({ text }) => (
   <StoryContainer>
     <Heading level={3}>
       <DecoderText delay={0} text={text} />

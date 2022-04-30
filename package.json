@@ -21,7 +21,7 @@
     "fs-extra": "^10.1.0",
     "globby": "^13.1.1",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-preset-env": "^7.4.3",
+    "postcss-preset-env": "^7.4.4",
     "prettier": "^2.6.2",
     "reading-time": "^1.5.0",
     "rehype-img-size": "^1.0.1",
@@ -29,19 +29,19 @@
     "rehype-slug": "^5.0.1",
     "storybook": "^6.4.22",
     "storybook-addon-next": "^1.6.2",
-    "stylelint": "^14.7.1",
+    "stylelint": "^14.8.1",
     "stylelint-config-css-modules": "^4.1.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^25.0.0"
   },
   "dependencies": {
-    "framer-motion": "^6.3.2",
+    "framer-motion": "^6.3.3",
     "mdx-bundler": "^9.0.0",
     "next": "^12.1.5",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "three": "^0.139.2",
-    "three-stdlib": "^2.10.0"
+    "three-stdlib": "^2.10.1"
   },
   "scripts": {
     "dev": "next dev",

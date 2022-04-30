@@ -5,7 +5,7 @@ export default {
   title: 'Heading',
 };
 
-export const level = () => (
+export const Level = () => (
   <StoryContainer vertical>
     <Heading level={0}>Heading 0</Heading>
     <Heading level={1}>Heading 1</Heading>
@@ -16,7 +16,7 @@ export const level = () => (
   </StoryContainer>
 );
 
-export const weight = () => (
+export const Weight = () => (
   <StoryContainer vertical>
     <Heading level={3} weight="regular">
       Regular
@@ -30,7 +30,7 @@ export const weight = () => (
   </StoryContainer>
 );
 
-export const align = () => (
+export const Align = () => (
   <StoryContainer vertical stretch>
     <Heading level={3} align="start">
       Start

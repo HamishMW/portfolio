@@ -86,7 +86,9 @@ export const Post = ({ children, title, date, abstract, banner, timecode }) => {
         </header>
       </Section>
       <Section className={styles.wrapper} id="postContent" tabIndex={-1}>
-        <div className={styles.content}>{children}</div>
+        <Text as="div" size="l" className={styles.content}>
+          {children}
+        </Text>
       </Section>
       <Footer />
     </article>

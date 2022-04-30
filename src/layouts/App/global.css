@@ -45,16 +45,6 @@ body {
   outline: none;
 }
 
-ul {
-  padding-left: 1.4em;
-  list-style-type: square;
-}
-
-li {
-  margin-bottom: 0.6em;
-  padding-left: 0.4em;
-}
-
 @keyframes fadeIn {
   0% {
     opacity: 0;

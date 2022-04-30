@@ -17,7 +17,7 @@ export default {
 
 const modelStyle = { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 };
 
-export const phone = () => (
+export const Phone = () => (
   <StoryContainer padding={0}>
     <Model
       style={modelStyle}
@@ -45,7 +45,7 @@ export const phone = () => (
   </StoryContainer>
 );
 
-export const laptop = () => (
+export const Laptop = () => (
   <StoryContainer padding={0}>
     <Model
       style={modelStyle}

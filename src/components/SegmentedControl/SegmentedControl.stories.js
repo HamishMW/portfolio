@@ -9,22 +9,20 @@ export default {
   },
 };
 
-function DemoSegmentedControl({ options, ...rest }) {
+function Story({ options, ...args }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <SegmentedControl currentIndex={currentIndex} onChange={setCurrentIndex} {...rest}>
-      {options?.map((option, index) => (
-        <SegmentedControlOption key={`${option}-${index}`}>
-          {option}
-        </SegmentedControlOption>
-      ))}
-    </SegmentedControl>
+    <StoryContainer>
+      <SegmentedControl currentIndex={currentIndex} onChange={setCurrentIndex} {...args}>
+        {options?.map((option, index) => (
+          <SegmentedControlOption key={`${option}-${index}`}>
+            {option}
+          </SegmentedControlOption>
+        ))}
+      </SegmentedControl>
+    </StoryContainer>
   );
 }
 
-export const segmentedControl = ({ options }) => (
-  <StoryContainer>
-    <DemoSegmentedControl options={options} />
-  </StoryContainer>
-);
+export const Default = Story.bind({});

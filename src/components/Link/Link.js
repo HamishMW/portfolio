@@ -25,7 +25,7 @@ export const Link = forwardRef(({ href, ...rest }, ref) => {
 
 export const LinkContent = forwardRef(
   ({ rel, target, children, secondary, className, href, ...rest }, ref) => {
-    const isExternal = isAnchor(href);
+    const isExternal = href?.includes('://');
     const relValue = rel || (isExternal ? 'noreferrer noopener' : undefined);
     const targetValue = target || (isExternal ? '_blank' : undefined);
 

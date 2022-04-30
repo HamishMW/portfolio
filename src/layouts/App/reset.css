@@ -38,3 +38,7 @@
 :any-link {
   text-decoration: none;
 }
+
+ul {
+  padding: 0;
+}

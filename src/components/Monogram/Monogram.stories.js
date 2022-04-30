@@ -5,7 +5,7 @@ export default {
   title: 'Monogram',
 };
 
-export const monogram = () => (
+export const Default = () => (
   <StoryContainer>
     <Monogram highlight />
   </StoryContainer>
