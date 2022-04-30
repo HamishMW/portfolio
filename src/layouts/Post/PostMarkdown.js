@@ -117,7 +117,7 @@ const PostImage = ({ src, alt, width, height, ...rest }) => {
 const Embed = ({ src }) => {
   return (
     <div className={styles.embed}>
-      <iframe src={src} loading="lazy" onError={() => console.log('fuck')} />
+      <iframe src={src} loading="lazy" />
     </div>
   );
 };

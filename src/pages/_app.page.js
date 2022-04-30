@@ -37,7 +37,6 @@ const App = ({ Component, pageProps }) => {
 
     Fathom.load(process.env.NEXT_PUBLIC_FATHOM_ID, {
       url: process.env.NEXT_PUBLIC_FATHOM_URL,
-      includedDomains: [process.env.NEXT_PUBLIC_WEBSITE_DOMAIN],
     });
 
     const onRouteChangeComplete = () => {
