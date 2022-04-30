@@ -33,6 +33,5 @@ export function getStaticProps() {
 
   return {
     props: { posts, featured },
-    notFound: process.env.NODE_ENV === 'production', // TODO: Remove this for articles to appear on production
   };
 }

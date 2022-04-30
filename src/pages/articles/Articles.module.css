@@ -314,7 +314,8 @@
     }
   }
 
-  & :where(img, video) {
+  & img,
+  & video {
     transition: transform var(--durationXL) var(--bezierFastoutSlowin);
     object-fit: cover;
     height: 100%;

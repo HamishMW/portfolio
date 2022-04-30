@@ -35,6 +35,7 @@
     "stylelint-config-standard": "^25.0.0"
   },
   "dependencies": {
+    "fathom-client": "^3.4.1",
     "framer-motion": "^6.3.3",
     "mdx-bundler": "^9.0.0",
     "next": "^12.1.5",
