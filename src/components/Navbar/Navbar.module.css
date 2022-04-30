@@ -80,7 +80,7 @@
     left: var(--spaceS);
     height: 4px;
     background: rgb(var(--rgbAccent));
-    transform: scaleX(0);
+    transform: scaleX(0) translateY(-2px);
     transform-origin: right;
   }
 
@@ -94,7 +94,7 @@
   &:active::after,
   &:focus::after,
   &[aria-current='page']::after {
-    transform: scaleX(1);
+    transform: scaleX(1) translateY(-2px);
     transform-origin: left;
   }
 }

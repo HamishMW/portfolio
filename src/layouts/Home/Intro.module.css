@@ -216,8 +216,6 @@
   animation-timing-function: var(--bezierFastoutSlowin);
   transform-origin: left;
   opacity: 0;
-  position: relative;
-  top: 0.08em;
 
   &[data-status='entering'] {
     &:global {
