@@ -82,6 +82,14 @@
   border-top: 1px solid rgb(var(--rgbText) / 0.1);
 }
 
+.skeleton {
+  filter: grayscale(1);
+}
+
+.skeletonBone {
+  background-color: rgb(var(--rgbText) / 0.05);
+}
+
 .post {
   --featuredPostPadding: var(--space5XL);
   --featuredPostClip: polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%);
@@ -318,6 +326,7 @@
   display: grid;
   justify-items: start;
   gap: var(--spaceL);
+  width: 100%;
 
   @nest [data-featured='true'] & {
     opacity: 0;

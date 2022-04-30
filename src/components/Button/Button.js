@@ -38,6 +38,7 @@ const ButtonContent = forwardRef(
       rel,
       target,
       href,
+      disabled,
       ...rest
     },
     ref
@@ -56,6 +57,7 @@ const ButtonContent = forwardRef(
         href={href}
         rel={rel || isExternal ? 'noopener noreferrer' : undefined}
         target={target || isExternal ? '_blank' : undefined}
+        disabled={disabled}
         ref={ref}
         {...rest}
       >

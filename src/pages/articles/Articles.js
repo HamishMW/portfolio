@@ -13,7 +13,7 @@ import { useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
 import { useState } from 'react';
 import { formateDate } from 'utils/date';
-import { cssProps } from 'utils/style';
+import { classes, cssProps } from 'utils/style';
 import styles from './Articles.module.css';
 
 const ArticlesPost = ({
@@ -97,6 +97,45 @@ const ArticlesPost = ({
   );
 };
 
+const SkeletonPost = ({ index }) => {
+  return (
+    <article
+      aria-hidden="true"
+      className={classes(styles.post, styles.skeleton)}
+      style={index !== undefined ? cssProps({ delay: index * 100 + 200 }) : undefined}
+    >
+      <div className={styles.postLink}>
+        <div className={styles.postDetails}>
+          <div aria-hidden className={styles.postDate}>
+            <Divider notchWidth="64px" notchHeight="8px" />
+            Coming soon...
+          </div>
+          <Heading
+            className={styles.skeletonBone}
+            as="h2"
+            level={4}
+            style={{ height: 24, width: '100%' }}
+          />
+          <Text
+            className={styles.skeletonBone}
+            size="s"
+            as="p"
+            style={{ height: 90, width: '100%' }}
+          />
+          <div className={styles.postFooter}>
+            <Button disabled secondary iconHoverShift icon="chevronRight" as="div">
+              Read more
+            </Button>
+            <Text className={styles.timecode} size="s">
+              00:00:00:00
+            </Text>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+};
+
 export const Articles = ({ posts, featured }) => {
   const { width } = useWindowSize();
   const singleColumnWidth = 1190;
@@ -117,12 +156,11 @@ export const Articles = ({ posts, featured }) => {
       {posts.map(({ slug, ...post }, index) => (
         <ArticlesPost key={slug} slug={slug} index={index} {...post} />
       ))}
-      {posts.map(({ slug, ...post }, index) => (
-        <ArticlesPost key={slug} slug={slug} index={index} {...post} />
-      ))}
-      {posts.map(({ slug, ...post }, index) => (
-        <ArticlesPost key={slug} slug={slug} index={index} {...post} />
-      ))}
+      {Array(2)
+        .fill()
+        .map((skeleton, index) => (
+          <SkeletonPost key={index} />
+        ))}
     </div>
   );
 
