@@ -114,7 +114,7 @@ const SkeletonPost = ({ index }) => {
             className={styles.skeletonBone}
             as="h2"
             level={4}
-            style={{ height: 24, width: '100%' }}
+            style={{ height: 24, width: '70%' }}
           />
           <Text
             className={styles.skeletonBone}
@@ -123,7 +123,7 @@ const SkeletonPost = ({ index }) => {
             style={{ height: 90, width: '100%' }}
           />
           <div className={styles.postFooter}>
-            <Button disabled secondary iconHoverShift icon="chevronRight" as="div">
+            <Button secondary iconHoverShift icon="chevronRight" as="div">
               Read more
             </Button>
             <Text className={styles.timecode} size="s">

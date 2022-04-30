@@ -28,18 +28,20 @@ const App = ({ Component, pageProps }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
   const { route, events, asPath } = useRouter();
-  const canonicalRoute = route === '/' ? '' : `${route}/`;
+  const canonicalRoute = route === '/' ? '' : `${asPath}`;
   useFoucFix();
 
   // Handle analytics pageview recording
   useEffect(() => {
+    if (process.env.NODE_ENV === 'development') return;
+
     Fathom.load(process.env.NEXT_PUBLIC_FATHOM_ID, {
       url: process.env.NEXT_PUBLIC_FATHOM_URL,
       includedDomains: [process.env.NEXT_PUBLIC_WEBSITE_DOMAIN],
     });
 
     const onRouteChangeComplete = () => {
-      Fathom.trackPageview({ url: asPath });
+      Fathom.trackPageview({ url: window.location.pathname });
     };
 
     // Record a pageview when route changes
@@ -48,7 +50,8 @@ const App = ({ Component, pageProps }) => {
     return () => {
       events.off('routeChangeComplete', onRouteChangeComplete);
     };
-  }, [asPath, events]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     console.info(`${repoPrompt}\n\n`);

@@ -9,8 +9,6 @@ function addPage(page) {
     .replace('/index', '/');
   const route = path === '/index' ? '' : path;
 
-  if (process.env.NODE_ENV === 'production' && path === '/articles/') return; // TODO: remove this once blog is done
-
   // Exclude 404 page and generated `[]` pages
   if (route.includes('[') || route.includes('404')) return;
 

@@ -84,10 +84,15 @@
 
 .skeleton {
   filter: grayscale(1);
+  pointer-events: none;
+
+  & > * {
+    opacity: 0.3;
+  }
 }
 
 .skeletonBone {
-  background-color: rgb(var(--rgbText) / 0.05);
+  background-color: rgb(var(--rgbText) / 0.2);
 }
 
 .post {
