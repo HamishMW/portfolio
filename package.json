@@ -20,6 +20,7 @@
     "eslint-config-next": "^12.1.5",
     "fs-extra": "^10.1.0",
     "globby": "^13.1.1",
+    "postcss": "^8.4.13",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^7.4.4",
     "prettier": "^2.6.2",
