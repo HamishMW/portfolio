@@ -13,7 +13,7 @@
   color: rgb(var(--linkColor));
   background: var(--filledLineGradient) no-repeat 100% 100% / 0 var(--lineStrokeWidth),
     var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
-  padding-bottom: var(--lineStrokeWidth);
+  padding-bottom: calc(var(--lineStrokeWidth) + 0.1em);
 
   &:hover,
   &:focus {

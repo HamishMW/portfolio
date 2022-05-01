@@ -6,10 +6,10 @@ My design portfolio to showcase a few projects. Built with [Next.js](https://nex
 
 ## Install & run
 
-Make sure you have nodejs and npm installed. Install dependencies with:
+Make sure you have nodejs `18.0.0` or higher and npm `8.6.0` or higher installed. Install dependencies with:
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 ```
 
 Once it's done start up a local server with:
