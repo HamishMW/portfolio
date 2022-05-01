@@ -9,7 +9,7 @@ My design portfolio to showcase a few projects. Built with [Next.js](https://nex
 Make sure you have nodejs `18.0.0` or higher and npm `8.6.0` or higher installed. Install dependencies with:
 
 ```bash
-npm install --legacy-peer-deps
+npm install
 ```
 
 Once it's done start up a local server with:
