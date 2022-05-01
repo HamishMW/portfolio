@@ -65,7 +65,7 @@ export const Post = ({ children, title, date, abstract, banner, timecode }) => {
                     index={index}
                   >
                     {word}
-                    {index !== title.split(' ').length - 1 ? '\u00a0' : ''}
+                    {index !== title.split(' ').length - 1 ? ' ' : ''}
                   </span>
                 </span>
               ))}

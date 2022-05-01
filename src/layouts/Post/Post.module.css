@@ -105,6 +105,7 @@
 
 .titleWord {
   display: inline-flex;
+  white-space: pre;
 
   @media (--mediaUseMotion) {
     transform: translate3d(0, 110%, 0);
@@ -219,7 +220,7 @@
   flex-direction: column;
   padding-bottom: var(--space2XL);
   padding-top: calc(var(--gutterWidth) + var(--space2XL));
-  overflow-x: hidden;
+  overflow: hidden;
 
   @media (--mediaTablet) {
     padding-top: calc(var(--gutterWidth) + var(--spaceXL));
