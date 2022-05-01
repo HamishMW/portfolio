@@ -12,7 +12,7 @@ import { useReducedMotion } from 'framer-motion';
 import { useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
 import { useState } from 'react';
-import { formateDate } from 'utils/date';
+import { formatDate } from 'utils/date';
 import { classes, cssProps } from 'utils/style';
 import styles from './Articles.module.css';
 
@@ -69,7 +69,7 @@ const ArticlesPost = ({
           <div className={styles.postDetails}>
             <div aria-hidden className={styles.postDate}>
               <Divider notchWidth="64px" notchHeight="8px" />
-              {formateDate(date)}
+              {formatDate(date)}
             </div>
             <Heading as="h2" level={featured ? 2 : 4}>
               {title}

@@ -127,13 +127,16 @@
   font-weight: var(--fontWeightMedium);
   opacity: var(--buttonTextOpacity);
   position: relative;
-  line-height: 1;
+  line-height: normal;
   flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity var(--durationM) var(--bezierFastoutSlowin);
-  margin-bottom: 0.2em;
+
+  @nest .button:not([data-icon-only='true']) & {
+    margin-bottom: 0.2em;
+  }
 }
 
 .loader {

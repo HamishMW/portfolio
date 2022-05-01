@@ -11,17 +11,18 @@ import { Transition } from 'components/Transition';
 import { useParallax, useScrollToHash } from 'hooks';
 import RouterLink from 'next/link';
 import { useRef } from 'react';
-import { formateDate } from 'utils/date';
+import { clamp } from 'utils/clamp';
+import { formatDate } from 'utils/date';
 import { cssProps, msToNum, numToMs } from 'utils/style';
 import styles from './Post.module.css';
 
-export const Post = ({ children, title, date, abstract, banner, timecode }) => {
+export const Post = ({ children, title, date, abstract, banner, timecode, ogImage }) => {
   const scrollToHash = useScrollToHash();
   const imageRef = useRef();
 
-  useParallax(0.08, value => {
+  useParallax(0.004, value => {
     if (!imageRef.current) return;
-    imageRef.current.style.setProperty('--blur', `${value}px`);
+    imageRef.current.style.setProperty('--blurOpacity', clamp(value, 0, 1));
   });
 
   const handleScrollIndicatorClick = event => {
@@ -31,17 +32,26 @@ export const Post = ({ children, title, date, abstract, banner, timecode }) => {
 
   return (
     <article className={styles.post}>
-      <Meta title={title} prefix="" description={abstract} />
+      <Meta title={title} prefix="" description={abstract} ogImage={ogImage} />
       <Section>
         {banner && (
           <div className={styles.banner} ref={imageRef}>
-            <Image
-              role="presentation"
-              className={styles.bannerImage}
-              src={{ src: banner }}
-              placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
-              alt=""
-            />
+            <div className={styles.bannerImage}>
+              <Image
+                role="presentation"
+                src={{ src: banner }}
+                placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
+                alt=""
+              />
+            </div>
+            <div className={styles.bannerImageBlur}>
+              <Image
+                role="presentation"
+                src={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
+                placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
+                alt=""
+              />
+            </div>
           </div>
         )}
         <header className={styles.header}>
@@ -51,7 +61,7 @@ export const Post = ({ children, title, date, abstract, banner, timecode }) => {
                 <div className={styles.date}>
                   <Divider notchWidth="64px" notchHeight="8px" collapsed={!visible} />
                   <Text className={styles.dateText} data-visible={visible}>
-                    {formateDate(date)}
+                    {formatDate(date)}
                   </Text>
                 </div>
               )}

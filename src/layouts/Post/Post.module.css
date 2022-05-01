@@ -148,12 +148,6 @@
       var(--background3)
     );
   }
-}
-
-.bannerImage {
-  position: absolute;
-  inset: 0;
-  filter: blur(var(--blur));
 
   & img,
   & video {
@@ -161,6 +155,18 @@
     width: 100%;
     object-fit: cover;
   }
+}
+
+.bannerImage,
+.bannerImageBlur {
+  position: absolute;
+  inset: 0;
+}
+
+.bannerImageBlur {
+  opacity: var(--blurOpacity, 0);
+  transform: translateZ(0);
+  will-change: opacity;
 }
 
 .details {

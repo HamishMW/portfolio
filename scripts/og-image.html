@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>OG Image Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../src/layouts/App/reset.css" />
+  </head>
+
+  <body>
+    <style>
+      :root {
+        --rgbBackground: 17 17 17;
+        --rgbText: 255 255 255;
+        --rgbPrimary: 0 229 255;
+
+        font-family: Gotham, system-ui;
+        background-color: rgb(var(--rgbBackground));
+        color: rgb(var(--rgbText));
+      }
+
+      .container {
+        background-image: linear-gradient(
+            90deg,
+            rgb(var(--rgbBackground) / 0.95),
+            rgb(var(--rgbBackground) / 0.76)
+          ),
+          var(--url);
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 80px;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-top: 32px;
+      }
+
+      .divider {
+        --lineWidth: 180px;
+        --lineHeight: 4px;
+        --notchWidth: 100px;
+        --notchHeight: 8px;
+
+        position: relative;
+        width: var(--lineWidth);
+        height: var(--lineHeight);
+      }
+
+      .divider::before,
+      .divider::after {
+        content: '';
+        display: block;
+      }
+
+      .divider::before {
+        width: 100%;
+        height: 100%;
+        background-color: rgb(var(--rgbPrimary));
+      }
+
+      .divider::after {
+        background-color: rgb(var(--rgbPrimary));
+        position: absolute;
+        clip-path: polygon(0 -1px, 100% -1px, calc(100% - 10px) 100%, 10px 100%);
+        width: var(--notchWidth);
+        height: var(--notchHeight);
+        top: var(--lineHeight);
+      }
+
+      .date {
+        font-size: calc(24 / 16 * 1rem);
+        font-weight: 500;
+        color: rgb(var(--rgbPrimary));
+      }
+
+      .title {
+        font-size: calc(86 / 16 * 1rem);
+        line-height: 1.1;
+        letter-spacing: -0.05em;
+        max-width: 80%;
+        margin-top: 48px;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        color: rgb(var(--rgbText) / 0.7);
+      }
+
+      .author {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        font-size: calc(40 / 16 * 1rem);
+        font-weight: 500;
+      }
+
+      .avatar {
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100% calc(100% - 16px),
+          calc(100% - 16px) 100%,
+          0 100%
+        );
+      }
+
+      .timecode {
+        font-size: calc(32 / 16 * 1rem);
+        display: flex;
+        gap: 24px;
+        align-items: center;
+      }
+
+      .timecode::before {
+        content: '';
+        display: block;
+        height: 4px;
+        width: 100px;
+        background-color: rgb(var(--rgbText) / 0.4);
+      }
+    </style>
+    <main class="container">
+      <header class="header">
+        <div class="divider"></div>
+        <span class="date"></span>
+      </header>
+      <h1 class="title"></h1>
+      <footer class="footer">
+        <div class="author">
+          <img class="avatar" src="../public/static/avatar.jpg" alt="Hamish" />
+          <span>Hamish Williams</span>
+        </div>
+        <div class="timecode"></div>
+      </footer>
+    </main>
+    <script>
+      const container = document.querySelector('.container');
+      const title = document.querySelector('.title');
+      const date = document.querySelector('.date');
+      const timecode = document.querySelector('.timecode');
+
+      const params = new URLSearchParams(window.location.search);
+      container.style.setProperty('--url', `url('../public${params.get('banner')}')`);
+
+      title.textContent = params.get('title') || 'Untitled';
+      timecode.textContent = params.get('timecode') || '00:00:00:00';
+      date.textContent = new Date(params.get('date') || '2022-01-01').toLocaleDateString(
+        'default',
+        {
+          year: 'numeric',
+          month: 'long',
+          day: '2-digit',
+        }
+      );
+    </script>
+  </body>
+</html>
