@@ -36,7 +36,6 @@ import {
   Raycaster,
   Scene,
   Sprite,
-  TextureLoader,
   Vector2,
   Vector3,
   WebGLRenderer,
@@ -52,6 +51,7 @@ import {
   getChild,
   modelLoader,
   removeLights,
+  textureLoader,
 } from 'utils/three';
 import { throttle } from 'utils/throttle';
 import styles from './Earth.module.css';
@@ -342,7 +342,6 @@ export const Earth = ({
     if (loaded) return;
 
     const hdrLoader = new HDRCubeTextureLoader();
-    const textureLoader = new TextureLoader();
     const pmremGenerator = new PMREMGenerator(renderer.current);
     pmremGenerator.compileCubemapShader();
 

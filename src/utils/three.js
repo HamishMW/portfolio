@@ -1,4 +1,8 @@
+import { Cache, TextureLoader } from 'three';
 import { DRACOLoader, GLTFLoader } from 'three-stdlib';
+
+// Enable caching for all loaders
+Cache.enabled = true;
 
 const dracoLoader = new DRACOLoader();
 const gltfLoader = new GLTFLoader();
@@ -9,6 +13,7 @@ gltfLoader.setDRACOLoader(dracoLoader);
  * GLTF model loader configured with draco decoder
  */
 export const modelLoader = gltfLoader;
+export const textureLoader = new TextureLoader();
 
 /**
  * Clean up a scene's materials and geometry
@@ -39,6 +44,9 @@ export const cleanMaterial = material => {
     const value = material[key];
     if (value && typeof value === 'object' && 'minFilter' in value) {
       value.dispose();
+
+      // Close GLTF bitmap textures
+      value.source?.data?.close?.();
     }
   }
 };

@@ -11,13 +11,12 @@ import {
   PlaneBufferGeometry,
   Scene,
   ShaderMaterial,
-  TextureLoader,
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
 import { resolveSrcFromSrcSet } from 'utils/image';
 import { cssProps } from 'utils/style';
-import { cleanRenderer, cleanScene } from 'utils/three';
+import { cleanRenderer, cleanScene, textureLoader } from 'utils/three';
 import styles from './Carousel.module.css';
 import fragment from './carouselFragment.glsl';
 import vertex from './carouselVertex.glsl';
@@ -98,7 +97,6 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     let mounted = true;
 
     const loadImages = async () => {
-      const textureLoader = new TextureLoader();
       const anisotropy = renderer.current.capabilities.getMaxAnisotropy();
 
       const texturePromises = images.map(async image => {

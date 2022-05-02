@@ -25,11 +25,11 @@ app.use(express.json());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (ORIGINS.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
+      if (!ORIGINS.includes(origin)) {
+        return callback(new Error('Not allowed by CORS'));
       }
+
+      return callback(null, true);
     },
   })
 );

@@ -25,7 +25,6 @@ import {
   PlaneBufferGeometry,
   Scene,
   ShaderMaterial,
-  TextureLoader,
   Vector3,
   WebGLRenderTarget,
   WebGLRenderer,
@@ -33,7 +32,13 @@ import {
 } from 'three';
 import { resolveSrcFromSrcSet } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
-import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
+import {
+  cleanRenderer,
+  cleanScene,
+  modelLoader,
+  removeLights,
+  textureLoader,
+} from 'utils/three';
 import styles from './Model.module.css';
 import { ModelAnimationType } from './deviceModels';
 
@@ -64,7 +69,6 @@ export const Model = ({
   const container = useRef();
   const canvas = useRef();
   const camera = useRef();
-  const textureLoader = useRef();
   const modelGroup = useRef();
   const scene = useRef();
   const renderer = useRef();
@@ -105,7 +109,6 @@ export const Model = ({
     camera.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
     scene.current = new Scene();
 
-    textureLoader.current = new TextureLoader();
     modelGroup.current = new Group();
     scene.current.add(modelGroup.current);
 
@@ -212,6 +215,8 @@ export const Model = ({
     const unsubscribeY = rotationY.onChange(renderFrame);
 
     return () => {
+      renderTarget.current.dispose();
+      renderTargetBlur.current.dispose();
       removeLights(lights.current);
       cleanScene(scene.current);
       cleanRenderer(renderer.current);
@@ -346,7 +351,6 @@ export const Model = ({
           key={JSON.stringify(model.position)}
           renderer={renderer}
           modelGroup={modelGroup}
-          textureLoader={textureLoader}
           show={show}
           showDelay={showDelay}
           renderFrame={renderFrame}
@@ -363,7 +367,6 @@ const Device = ({
   renderer,
   model,
   modelGroup,
-  textureLoader,
   renderFrame,
   index,
   showDelay,
@@ -398,7 +401,7 @@ const Device = ({
       let playAnimation;
 
       const [placeholder, gltf] = await Promise.all([
-        await textureLoader.current.loadAsync(texture.placeholder.src),
+        await textureLoader.loadAsync(texture.placeholder.src),
         await modelLoader.loadAsync(url),
       ]);
 
@@ -423,7 +426,7 @@ const Device = ({
 
           loadFullResTexture = async () => {
             const image = await resolveSrcFromSrcSet(texture);
-            const fullSize = await textureLoader.current.loadAsync(image);
+            const fullSize = await textureLoader.loadAsync(image);
             await applyScreenTexture(fullSize, node);
 
             animate(1, 0, {
