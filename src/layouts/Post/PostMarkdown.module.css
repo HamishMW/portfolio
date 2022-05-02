@@ -70,8 +70,19 @@
 .code {
   color: var(--colorTextLight);
   background: rgb(var(--rgbText) / 0.08);
-  padding: 0.2em 0.4em;
+  padding: 0.2em 0.6em 0.2em 0.4em;
   font-size: 0.9em;
+
+  --size: 3px;
+  --angle: 180deg;
+  --mask: #0000 var(--angle), #000 0;
+
+  mask: conic-gradient(white 0 25%, #0000 0 50%, white 0 75%, white 0 75%),
+    conic-gradient(
+        from calc(var(--angle) / -2 + 135deg) at bottom var(--size) right var(--size),
+        var(--mask)
+      )
+      100% 100% / 50% 51% no-repeat;
 }
 
 .pre {

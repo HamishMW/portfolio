@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { HorizontalBlurShader, VerticalBlurShader } from 'three-stdlib';
 import {
   AmbientLight,
   Color,
@@ -30,7 +31,6 @@ import {
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
-import { HorizontalBlurShader, VerticalBlurShader } from 'three-stdlib';
 import { resolveSrcFromSrcSet } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';

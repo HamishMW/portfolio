@@ -11,9 +11,19 @@
   &:last-child {
     border-bottom: var(--rowBorder);
   }
+
+  @nest .head & {
+    border-top: 0;
+  }
 }
 
-.cell {
+.headCell {
+  font-weight: var(--fontWeightMedium);
+  text-align: left;
+}
+
+.cell,
+.headCell {
   padding-right: var(--spaceXL);
   padding-top: var(--spaceM);
   padding-bottom: var(--spaceM);

@@ -1,5 +1,5 @@
 .list {
-  padding-left: 1.4em;
+  padding-left: 1.7em;
   line-height: var(--lineHeightBody);
 
   @nest ol& {
@@ -12,29 +12,29 @@
 }
 
 .item {
-  --bulletSize: 24px;
+  --bulletSize: min(1.2em, 24px);
+  --markerGap: var(--spaceS);
 
-  position: relative;
   margin-bottom: 0.6em;
-  padding-left: 0.4em;
 
   @nest ol &::marker {
     color: rgb(var(--rgbPrimary));
     font-variant-numeric: ordinal;
-    font-size: 15px;
+    font-size: min(1.2em, 16px);
     font-weight: var(--fontWeightMedium);
+    font-family: var(--monoFontStack);
   }
 
   @nest ul &::before {
     content: '';
-    display: block;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    left: calc(var(--markerGap) * -1);
+    margin-left: calc(var(--bulletSize) * -1);
     width: var(--bulletSize);
     height: var(--bulletSize);
     background-color: rgb(var(--rgbAccent));
-    position: absolute;
-    left: calc((0.7em - (var(--bulletSize) / 2)) * -1);
-    top: calc(0.1em + (var(--lineHeightBody) - 1) * 1em);
-    transform: translate(-100%, -50%);
-    mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.586 12L7.793 6.207l1.414-1.414 6.5 6.5.707.707-.707.707-6.5 6.5-1.414-1.414L13.586 12z"/></svg>');
+    mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.586 12L7.793 6.207l1.414-1.414 6.5 6.5.707.707-.707.707-6.5 6.5-1.414-1.414L13.586 12z"/></svg>');
   }
 }

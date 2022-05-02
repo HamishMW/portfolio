@@ -18,8 +18,7 @@
   }
 
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   overflow-x: hidden;
 }
 

@@ -10,56 +10,6 @@ import { classes, media } from 'utils/style';
 import { theme, tokens } from './theme';
 import { useTheme } from './useTheme';
 
-export const fontStyles = squish(`
-  @font-face {
-    font-family: "Gotham";
-    font-weight: 400;
-    src: url(${GothamBook}) format("woff2");
-    font-display: block;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: "Gotham";
-    font-weight: 400;
-    src: url(${GothamBookItalic}) format("woff2");
-    font-display: block;
-    font-style: italic;
-  }
-
-  @font-face {
-    font-family: "Gotham";
-    font-weight: 500;
-    src: url(${GothamMedium}) format("woff2");
-    font-display: block;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: "Gotham";
-    font-weight: 500;
-    src: url(${GothamMediumItalic}) format("woff2");
-    font-display: block;
-    font-style: italic;
-  }
-
-  @font-face {
-    font-family: 'Gotham';
-    font-weight: 700;
-    src: url(${GothamBold}) format('woff2');
-    font-display: block;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Gotham';
-    font-weight: 700;
-    src: url(${GothamBoldItalic}) format('woff2');
-    font-display: block;
-    font-style: italic;
-  }
-`);
-
 export const ThemeContext = createContext({});
 
 export const ThemeProvider = ({
@@ -172,5 +122,55 @@ export const tokenStyles = squish(`
 
   [data-theme='light'] {
     ${createThemeProperties(theme.light)}
+  }
+`);
+
+export const fontStyles = squish(`
+  @font-face {
+    font-family: Gotham;
+    font-weight: 400;
+    src: url(${GothamBook}) format('woff2');
+    font-display: block;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: Gotham;
+    font-weight: 400;
+    src: url(${GothamBookItalic}) format('woff2');
+    font-display: block;
+    font-style: italic;
+  }
+
+  @font-face {
+    font-family: Gotham;
+    font-weight: 500;
+    src: url(${GothamMedium}) format('woff2');
+    font-display: block;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: Gotham;
+    font-weight: 500;
+    src: url(${GothamMediumItalic}) format('woff2');
+    font-display: block;
+    font-style: italic;
+  }
+
+  @font-face {
+    font-family: Gotham;
+    font-weight: 700;
+    src: url(${GothamBold}) format('woff2');
+    font-display: block;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: Gotham;
+    font-weight: 700;
+    src: url(${GothamBoldItalic}) format('woff2');
+    font-display: block;
+    font-style: italic;
   }
 `);

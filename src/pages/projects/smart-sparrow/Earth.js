@@ -23,6 +23,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { HDRCubeTextureLoader, OrbitControls } from 'three-stdlib';
 import {
   ACESFilmicToneMapping,
   AmbientLight,
@@ -43,7 +44,6 @@ import {
 } from 'three';
 import { LinearFilter } from 'three';
 import { EquirectangularReflectionMapping } from 'three';
-import { HDRCubeTextureLoader, OrbitControls } from 'three-stdlib';
 import { clamp } from 'utils/clamp';
 import { classes, media, msToNum, numToPx } from 'utils/style';
 import {
