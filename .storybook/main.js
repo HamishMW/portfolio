@@ -44,11 +44,6 @@ module.exports = {
       type: 'asset/source',
     });
 
-    config.module.rules.push({
-      test: /\.glsl$/,
-      type: 'asset/source',
-    });
-
     return config;
   },
 };

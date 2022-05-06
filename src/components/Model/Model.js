@@ -9,13 +9,11 @@ import {
   useRef,
   useState,
 } from 'react';
-import { HorizontalBlurShader, VerticalBlurShader } from 'three-stdlib';
 import {
   AmbientLight,
   Color,
   DirectionalLight,
   Group,
-  LinearFilter,
   MathUtils,
   Mesh,
   MeshBasicMaterial,
@@ -30,6 +28,7 @@ import {
   WebGLRenderer,
   sRGBEncoding,
 } from 'three';
+import { HorizontalBlurShader, VerticalBlurShader } from 'three-stdlib';
 import { resolveSrcFromSrcSet } from 'utils/image';
 import { classes, cssProps, numToMs } from 'utils/style';
 import {
@@ -380,8 +379,6 @@ const Device = ({
   useEffect(() => {
     const applyScreenTexture = async (texture, node) => {
       texture.encoding = sRGBEncoding;
-      texture.minFilter = LinearFilter;
-      texture.magFilter = LinearFilter;
       texture.flipY = false;
       texture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
       texture.generateMipmaps = false;

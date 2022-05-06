@@ -120,7 +120,7 @@
   position: absolute;
   inset: calc(var(--gutterWidth) * -1);
   top: 0;
-  height: 60vh;
+  height: 70vh;
   isolation: isolate;
   overflow: hidden;
 

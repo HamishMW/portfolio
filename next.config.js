@@ -1,5 +1,5 @@
 module.exports = {
-  reactStrictMode: false,
+  reactStrictMode: true,
   trailingSlash: true,
   pageExtensions: ['page.js', 'api.js'],
   webpack(config, { isServer }) {
@@ -29,11 +29,6 @@ module.exports = {
     });
 
     // Import `.glsl` shaders
-    config.module.rules.push({
-      test: /\.glsl$/,
-      type: 'asset/source',
-    });
-
     config.module.rules.push({
       test: /\.glsl$/,
       type: 'asset/source',

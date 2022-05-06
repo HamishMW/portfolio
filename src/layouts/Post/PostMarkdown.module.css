@@ -10,7 +10,7 @@
     margin-top: 0.8em;
   }
 
-  @nest :where(.paragraph, .list) + & {
+  @nest :where(.paragraph, .list, .image) + & {
     margin-top: 1.6em;
   }
 }
