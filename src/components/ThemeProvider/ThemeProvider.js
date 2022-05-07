@@ -4,6 +4,7 @@ import GothamBookItalic from 'assets/fonts/gotham-book-italic.woff2';
 import GothamBook from 'assets/fonts/gotham-book.woff2';
 import GothamMediumItalic from 'assets/fonts/gotham-medium-italic.woff2';
 import GothamMedium from 'assets/fonts/gotham-medium.woff2';
+import { useHasMounted } from 'hooks';
 import Head from 'next/head';
 import { createContext, useEffect } from 'react';
 import { classes, media } from 'utils/style';
@@ -23,14 +24,15 @@ export const ThemeProvider = ({
   const currentTheme = { ...theme[themeId], ...themeOverrides };
   const parentTheme = useTheme();
   const isRootProvider = !parentTheme.themeId;
+  const hasMounted = useHasMounted();
 
   // Save root theme id to localstorage and apply class to body
   useEffect(() => {
-    if (isRootProvider) {
+    if (isRootProvider && hasMounted) {
       window.localStorage.setItem('theme', JSON.stringify(themeId));
       document.body.dataset.theme = themeId;
     }
-  }, [themeId, isRootProvider]);
+  }, [themeId, isRootProvider, hasMounted]);
 
   return (
     <ThemeContext.Provider value={currentTheme}>

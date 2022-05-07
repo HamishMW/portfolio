@@ -1,6 +1,5 @@
 export const initialState = {
   menuOpen: false,
-  theme: 'dark',
 };
 
 export function reducer(state, action) {
