@@ -3,7 +3,7 @@
   color: var(--colorTextTitle);
 
   &[data-level='0'] {
-    letter-spacing: -0.04em;
+    letter-spacing: -0.05em;
     font-size: var(--fontSizeH0);
   }
 
@@ -14,16 +14,17 @@
 
   &[data-level='2'] {
     font-size: var(--fontSizeH2);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
   }
 
   &[data-level='3'] {
     font-size: var(--fontSizeH3);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
 
   &[data-level='4'] {
     font-size: var(--fontSizeH4);
+    letter-spacing: -0.01em;
   }
 
   &[data-level='5'] {

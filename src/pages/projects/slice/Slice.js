@@ -62,7 +62,7 @@ export const Slice = () => {
           url="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
           roles={roles}
         />
-        <ProjectSection first>
+        <ProjectSection padding="top">
           <ProjectSectionContent>
             <ProjectImage
               srcSet={[sliceApp, sliceAppLarge]}
@@ -126,7 +126,7 @@ export const Slice = () => {
             />
           </ProjectSectionContent>
         </ProjectSection>
-        <ProjectSection first>
+        <ProjectSection padding="top">
           <ProjectSectionContent className={styles.grid}>
             <div className={styles.gridImage}>
               <div className={styles.gridBackground}>

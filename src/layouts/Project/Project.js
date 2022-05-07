@@ -72,7 +72,7 @@ export const ProjectSection = forwardRef(
     {
       className,
       light,
-      first,
+      padding = 'both',
       fullHeight,
       backgroundOverlayOpacity = 0.9,
       backgroundElement,
@@ -96,7 +96,7 @@ export const ProjectSection = forwardRef(
           {backgroundElement}
         </div>
       )}
-      <Section className={styles.sectionInner} data-first={first}>
+      <Section className={styles.sectionInner} data-padding={padding}>
         {children}
       </Section>
     </section>

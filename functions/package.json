@@ -7,7 +7,7 @@
     "deploy:headers": "serverless deploy function --function headers --stage production"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.81.0",
+    "@aws-sdk/client-ses": "^3.85.0",
     "cors": "^2.8.5",
     "dompurify": "^2.3.6",
     "express": "^4.18.1",
@@ -16,7 +16,7 @@
     "serverless-http": "^3.0.1"
   },
   "devDependencies": {
-    "eslint": "^8.14.0",
+    "eslint": "^8.15.0",
     "eslint-plugin-promise": "^6.0.0"
   },
   "engines": {

@@ -34,6 +34,24 @@
   padding-bottom: var(--sectionPadding);
   position: relative;
 
+  &[data-padding='none'] {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  &[data-padding='both'] {
+    padding-top: var(--sectionPadding);
+    padding-bottom: var(--sectionPadding);
+  }
+
+  &[data-padding='top'] {
+    padding-top: var(--sectionPadding);
+  }
+
+  &[data-padding='bottom'] {
+    padding-bottom: var(--sectionPadding);
+  }
+
   @media (--mediaLaptop) {
     --sectionPadding: var(--space5XL);
   }
@@ -46,10 +64,6 @@
 
   @media (--mediaMobile) {
     --sectionPadding: var(--space2XL);
-  }
-
-  &[data-first='true'] {
-    padding-bottom: 0;
   }
 }
 
