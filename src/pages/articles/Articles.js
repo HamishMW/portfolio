@@ -74,7 +74,7 @@ const ArticlesPost = ({
           <div className={styles.postDetails}>
             <div aria-hidden className={styles.postDate}>
               <Divider notchWidth="64px" notchHeight="8px" />
-              {formatDate(date)}
+              {dateTime}
             </div>
             <Heading as="h2" level={featured ? 2 : 4}>
               {title}
