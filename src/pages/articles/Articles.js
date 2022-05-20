@@ -32,7 +32,7 @@ const ArticlesPost = ({
 
   useEffect(() => {
     setDateTime(formatDate(date));
-  }, [dateTime]);
+  }, [date, dateTime]);
   
   const handleMouseEnter = () => {
     setHovered(true);
