@@ -11,7 +11,7 @@ import { Text } from 'components/Text';
 import { useReducedMotion } from 'framer-motion';
 import { useWindowSize } from 'hooks';
 import RouterLink from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { formatDate } from 'utils/date';
 import { classes, cssProps } from 'utils/style';
 import styles from './Articles.module.css';
@@ -27,8 +27,13 @@ const ArticlesPost = ({
   index,
 }) => {
   const [hovered, setHovered] = useState(false);
+  const [dateTime, setDateTime] = useState(null);
   const reduceMotion = useReducedMotion();
 
+  useEffect(() => {
+    setDateTime(formatDate(date));
+  }, [date, dateTime]);
+  
   const handleMouseEnter = () => {
     setHovered(true);
   };
@@ -69,7 +74,7 @@ const ArticlesPost = ({
           <div className={styles.postDetails}>
             <div aria-hidden className={styles.postDate}>
               <Divider notchWidth="64px" notchHeight="8px" />
-              {formatDate(date)}
+              {dateTime}
             </div>
             <Heading as="h2" level={featured ? 2 : 4}>
               {title}

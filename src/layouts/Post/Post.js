@@ -10,7 +10,7 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { useParallax, useScrollToHash } from 'hooks';
 import RouterLink from 'next/link';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { clamp } from 'utils/clamp';
 import { formatDate } from 'utils/date';
 import { cssProps, msToNum, numToMs } from 'utils/style';
@@ -19,6 +19,11 @@ import styles from './Post.module.css';
 export const Post = ({ children, title, date, abstract, banner, timecode, ogImage }) => {
   const scrollToHash = useScrollToHash();
   const imageRef = useRef();
+  const [dateTime, setDateTime] = useState(null);
+  
+  useEffect(() => {
+    setDateTime(formatDate(date));
+  }, [date, dateTime]);
 
   useParallax(0.004, value => {
     if (!imageRef.current) return;
@@ -61,7 +66,7 @@ export const Post = ({ children, title, date, abstract, banner, timecode, ogImag
                 <div className={styles.date}>
                   <Divider notchWidth="64px" notchHeight="8px" collapsed={!visible} />
                   <Text className={styles.dateText} data-visible={visible}>
-                    {formatDate(date)}
+                    {dateTime}
                   </Text>
                 </div>
               )}
