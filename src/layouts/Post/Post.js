@@ -23,7 +23,7 @@ export const Post = ({ children, title, date, abstract, banner, timecode, ogImag
   
   useEffect(() => {
     setDateTime(formatDate(date));
-  }, [dateTime]);
+  }, [date, dateTime]);
 
   useParallax(0.004, value => {
     if (!imageRef.current) return;
