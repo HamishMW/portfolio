@@ -1,0 +1,303 @@
+.contact {
+  --formHeight: 530px;
+
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 100%;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+
+  @media (--mediaMobile) {
+    padding-top: 0;
+  }
+}
+
+.form {
+  grid-area: 1 / 1;
+  max-width: var(--maxWidthS);
+  width: 100%;
+  padding: var(--space2XL) 0;
+
+  @media (--mediaMobile) {
+    padding: var(--space5XL) 0 var(--space2XL);
+    align-self: flex-start;
+  }
+}
+
+.title {
+  margin-bottom: var(--space2XL);
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--delay);
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--space5XL), 0);
+  }
+
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
+
+  &[data-status='exiting'] {
+    transition-duration: var(--durationM);
+    transition-delay: 0s;
+    opacity: 0;
+
+    @media (--mediaUseMotion) {
+      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    }
+  }
+}
+
+.divider {
+  margin-bottom: var(--space3XL);
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--delay);
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--space5XL), 0);
+  }
+
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
+
+  &[data-hidden='true'] {
+    opacity: 0;
+
+    @media (--mediaUseMotion) {
+      transform: translate3d(0, var(--space5XL), 0);
+    }
+  }
+
+  &[data-status='exiting'] {
+    transition-duration: var(--durationM);
+    transition-delay: 0s;
+    opacity: 0;
+
+    @media (--mediaUseMotion) {
+      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    }
+  }
+}
+
+.input {
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--delay);
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--space3XL), 0);
+  }
+
+  & + & {
+    margin-top: var(--spaceXL);
+  }
+
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
+
+  &[data-hidden='true'] {
+    opacity: 0;
+
+    @media (--mediaUseMotion) {
+      transform: translate3d(0, var(--space3XL), 0);
+      transform: none;
+    }
+  }
+
+  &[data-status='exiting'] {
+    transition-duration: var(--durationM);
+    transition-delay: 0s;
+    opacity: 0;
+
+    @media (--mediaUseMotion) {
+      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    }
+  }
+}
+
+.button {
+  --buttonLoaderDelay: var(--durationL);
+
+  margin-top: calc(var(--spaceXL) * 2);
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-delay: var(--delay);
+  transition-duration: var(--durationXL);
+  opacity: 0;
+  justify-self: flex-start;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--space3XL), 0);
+  }
+
+  &[data-status='entered'] {
+    transition-delay: 0ms;
+    transition-duration: var(--durationM);
+  }
+
+  &[data-sending='true'] {
+    & svg {
+      transition: transform var(--bezierFastoutSlowin) var(--durationXL),
+        opacity var(--durationS) ease var(--durationS);
+      transform: translate3d(var(--space5XL), 0, 0);
+      opacity: 0;
+
+      @media (--mediaReduceMotion) {
+        transition-property: opacity;
+        transform: none;
+      }
+    }
+  }
+
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    opacity: 1;
+  }
+
+  &[data-status='entering']:not(:hover),
+  &[data-status='entered']:not(:hover),
+  &[data-status='entering']:hover {
+    transform: none;
+  }
+
+  &[data-status='exiting'] {
+    transition-duration: var(--durationM);
+    transition-delay: 0s;
+    opacity: 0;
+
+    @media (--mediaUseMotion) {
+      transform: translate3d(0, calc(var(--space2XL) * -1), 0);
+    }
+  }
+}
+
+.complete {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spaceXL) var(--spaceM);
+  text-align: center;
+  inset: 0;
+}
+
+.completeTitle {
+  margin: 0;
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--delay);
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--space3XL), 0);
+  }
+
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.completeText {
+  margin-top: var(--spaceM);
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--delay);
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--space3XL), 0);
+  }
+
+  &[data-status='entered'] {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.completeButton {
+  margin-top: var(--spaceL);
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--delay);
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--space3XL), 0);
+  }
+
+  &[data-status='entered'] {
+    opacity: 1;
+
+    &:not(:hover) {
+      transform: none;
+    }
+  }
+}
+
+.formError {
+  color: rgb(var(--rgbError));
+  overflow: hidden;
+  height: var(--height);
+
+  @media (--mediaUseMotion) {
+    transition-property: height;
+    transition-duration: var(--durationM);
+    transition-timing-function: var(--bezierFastoutSlowin);
+  }
+}
+
+.formErrorContent {
+  padding-top: var(--spaceXL);
+}
+
+.formErrorMessage {
+  display: flex;
+  padding: var(--spaceM);
+  line-height: 24px;
+  background-color: rgb(var(--rgbError) / 0.1);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
+}
+
+.formErrorIcon {
+  flex: 0 0 auto;
+  margin-right: var(--spaceS);
+}
+
+.footer {
+  opacity: 0;
+
+  &:global {
+    animation: fadeIn var(--durationL) ease var(--durationXL) forwards;
+  }
+}

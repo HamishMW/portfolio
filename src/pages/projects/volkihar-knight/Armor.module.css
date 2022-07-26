@@ -1,0 +1,25 @@
+.armor {
+  position: relative;
+  display: grid;
+  place-content: center;
+}
+
+.loader {
+  transition: opacity var(--durationL) var(--bezierFastoutSlowin);
+  opacity: 0;
+
+  &[data-visible='true'] {
+    opacity: 1;
+  }
+}
+
+.canvas {
+  transition: opacity var(--durationXL) var(--bezierFastoutSlowin);
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+
+  &[data-loaded='true'] {
+    opacity: 1;
+  }
+}

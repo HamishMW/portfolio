@@ -1,0 +1,210 @@
+.page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  padding-left: 140px;
+
+  @media (--mediaTablet) {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    padding-left: 80px;
+    grid-template-columns: 100%;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  @media (--mediaMobile) {
+    padding-left: 0;
+  }
+}
+
+.videoContainer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  border: var(--space2XL) solid transparent;
+
+  &::after {
+    content: '';
+    background: rgb(var(--rgbAccent));
+    animation-duration: 1.8s;
+    animation-timing-function: var(--bezierFastoutSlowin);
+    position: absolute;
+    inset: 0;
+    transform: scale3d(0, 1, 1);
+    transform-origin: left;
+    z-index: var(--zIndex2);
+  }
+
+  @media (--mediaLaptop) {
+    border-width: var(--spaceL);
+  }
+
+  @media (--mediaTablet) {
+    border-width: var(--space4XL);
+  }
+
+  @media (--mediaMobile) {
+    min-height: 240px;
+    grid-row: 1;
+    border-width: var(--spaceOuter);
+    border-top: 0;
+  }
+
+  @media (--mediaUseMotion) {
+    &[data-visible='true']::after:global {
+      animation-name: reveal;
+    }
+  }
+}
+
+.video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  opacity: 0;
+  transition-property: opacity;
+  transition-delay: 0.8s;
+  transition-duration: var(--durationXL);
+
+  @media (--mediaMobile) {
+    left: 0;
+  }
+
+  &[data-visible='true'] {
+    opacity: 1;
+  }
+}
+
+.credit {
+  color: rgb(var(--rgbWhite) / 0.4);
+  background: rgb(var(--rgbBlack) / 0.6);
+  padding: var(--spaceXS) var(--spaceS);
+  font-size: var(--fontSizeBodyS);
+  position: absolute;
+  bottom: var(--spaceS);
+  left: var(--spaceS);
+  transform: none;
+  text-decoration: none;
+  transition: opacity var(--durationM) ease var(--durationXL), color var(--durationM) ease;
+  opacity: 0;
+
+  &:hover,
+  &:focus {
+    color: rgb(var(--rgbWhite));
+  }
+
+  &[data-visible='true'] {
+    opacity: 1;
+  }
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spaceXL);
+  height: 100%;
+
+  @media (--mediaMobile) {
+    grid-row: 2;
+    padding: 0 var(--spaceOuter);
+  }
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  width: 100%;
+}
+
+.title {
+  margin-bottom: var(--spaceM);
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: 0.1s;
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
+  }
+
+  &[data-visible='true'] {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.subheading {
+  padding-bottom: var(--spaceL);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgb(var(--rgbText) / 0.4);
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: 0.2s;
+  opacity: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 0 0 auto;
+
+  @media (--mediaMobile) {
+    font-size: calc((18 / 16) * 1rem);
+  }
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
+  }
+
+  &[data-visible='true'] {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.description {
+  padding-bottom: var(--spaceL);
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: 0.3s;
+  opacity: 0;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
+  }
+
+  &[data-visible='true'] {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.button {
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationXL);
+  transition-delay: var(--durationM);
+  opacity: 0;
+  align-self: flex-start;
+  padding-left: var(--spaceXXS);
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--spaceL), 0);
+  }
+
+  &[data-visible='true'] {
+    transform: none;
+    opacity: 1;
+  }
+}
