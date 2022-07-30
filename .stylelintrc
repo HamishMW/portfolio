@@ -14,6 +14,7 @@
     "declaration-block-no-redundant-longhand-properties": null,
     "value-keyword-case": ["lower", { "camelCaseSvgKeywords": true }],
     "alpha-value-notation": "number",
+    "no-descending-specificity": null,
     "selector-pseudo-class-no-unknown": [
       true,
       {
