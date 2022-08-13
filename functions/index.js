@@ -19,6 +19,7 @@ const MAX_EMAIL_LENGTH = 512;
 const MAX_MESSAGE_LENGTH = 4096;
 const EMAIL = 'hello@hamishw.com';
 const FROM_EMAIL = 'mailbot@hamishw.com';
+const EMAIL_PATTERN = /(.+)@(.+){2,}\.(.+){2,}/;
 
 app.use(helmet());
 app.use(express.json());
@@ -26,13 +27,16 @@ app.use(
   cors({
     origin: (origin, callback) => {
       if (!ORIGINS.includes(origin)) {
-        return callback(new Error('Not allowed by CORS'));
+        return callback(
+          new Error(`Not allowed by CORS. Origin must be: ${ORIGINS.join(' or ')}`)
+        );
       }
 
       return callback(null, true);
     },
   })
 );
+app.options('*', cors());
 
 app.post('/message', async (req, res) => {
   try {
@@ -40,7 +44,7 @@ app.post('/message', async (req, res) => {
     const message = DOMPurify.sanitize(req.body.message);
 
     // Validate email request
-    if (!email || !/(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
+    if (!email || !EMAIL_PATTERN.test(email)) {
       return res.status(400).json({ error: 'Please enter a valid email address' });
     }
 
