@@ -2,7 +2,6 @@ import { useTheme } from 'components/ThemeProvider';
 import { Transition } from 'components/Transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport, useWindowSize } from 'hooks';
-import { useFps } from 'hooks/useFps';
 import { startTransition, useEffect, useRef } from 'react';
 import {
   AmbientLight,
@@ -49,7 +48,6 @@ export const DisplacementSphere = props => {
   const windowSize = useWindowSize();
   const rotationX = useSpring(0, springConfig);
   const rotationY = useSpring(0, springConfig);
-  const { measureFps, isLowFps } = useFps(isInViewport);
 
   useEffect(() => {
     const { innerWidth, innerHeight } = window;
@@ -173,14 +171,6 @@ export const DisplacementSphere = props => {
       sphere.current.rotation.y = rotationY.get();
 
       renderer.current.render(scene.current, camera.current);
-
-      measureFps();
-
-      if (isLowFps.current) {
-        renderer.current.setPixelRatio(0.5);
-      } else {
-        renderer.current.setPixelRatio(1);
-      }
     };
 
     if (!reduceMotion && isInViewport) {
@@ -192,7 +182,7 @@ export const DisplacementSphere = props => {
     return () => {
       cancelAnimationFrame(animation);
     };
-  }, [isInViewport, measureFps, reduceMotion, isLowFps, rotationX, rotationY]);
+  }, [isInViewport, reduceMotion, rotationX, rotationY]);
 
   return (
     <Transition in timeout={3000}>

@@ -12,7 +12,6 @@ import { tokens } from 'components/ThemeProvider/theme';
 import { Transition } from 'components/Transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport, useWindowSize } from 'hooks';
-import { useFps } from 'hooks/useFps';
 import {
   createContext,
   memo,
@@ -151,7 +150,6 @@ export const Earth = ({
   const chunkYSpring = useSpring(0, chunkSpringConfig);
   const chunkZSpring = useSpring(0, chunkSpringConfig);
   const opacitySpring = useSpring(0, opacitySpringConfig);
-  const { measureFps, isLowFps } = useFps(inViewport);
 
   const renderFrame = useCallback(() => {
     if (!inViewport) {
@@ -187,15 +185,7 @@ export const Earth = ({
         element.dataset.occluded = false;
       }
     });
-
-    measureFps();
-
-    if (isLowFps.current) {
-      renderer.current.setPixelRatio(0.5);
-    } else {
-      renderer.current.setPixelRatio(1);
-    }
-  }, [inViewport, measureFps, isLowFps]);
+  }, [inViewport]);
 
   useEffect(() => {
     mounted.current = true;

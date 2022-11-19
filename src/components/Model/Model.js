@@ -1,6 +1,5 @@
 import { animate, useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport } from 'hooks';
-import { useFps } from 'hooks/useFps';
 import {
   createRef,
   startTransition,
@@ -86,7 +85,6 @@ export const Model = ({
   const reduceMotion = useReducedMotion();
   const rotationX = useSpring(0, rotationSpringConfig);
   const rotationY = useSpring(0, rotationSpringConfig);
-  const { measureFps, isLowFps } = useFps(isInViewport);
 
   useEffect(() => {
     const { clientWidth, clientHeight } = container.current;
@@ -280,14 +278,7 @@ export const Model = ({
     modelGroup.current.rotation.y = rotationY.get();
 
     renderer.current.render(scene.current, camera.current);
-    measureFps();
-
-    if (isLowFps.current) {
-      renderer.current.setPixelRatio(1);
-    } else {
-      renderer.current.setPixelRatio(2);
-    }
-  }, [blurShadow, isLowFps, measureFps, rotationX, rotationY]);
+  }, [blurShadow, rotationX, rotationY]);
 
   // Handle mouse move animation
   useEffect(() => {
