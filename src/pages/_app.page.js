@@ -5,7 +5,6 @@ import { Navbar } from 'components/Navbar';
 import { ThemeProvider } from 'components/ThemeProvider';
 import { tokens } from 'components/ThemeProvider/theme';
 import { VisuallyHidden } from 'components/VisuallyHidden';
-import * as Fathom from 'fathom-client';
 import { AnimatePresence, LazyMotion, domAnimation, m } from 'framer-motion';
 import { useFoucFix, useLocalStorage } from 'hooks';
 import styles from 'layouts/App/App.module.css';
@@ -27,30 +26,9 @@ __  __  __
 const App = ({ Component, pageProps }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { route, events, asPath } = useRouter();
+  const { route, asPath } = useRouter();
   const canonicalRoute = route === '/' ? '' : `${asPath}`;
   useFoucFix();
-
-  // Handle analytics pageview recording
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') return;
-
-    Fathom.load(process.env.NEXT_PUBLIC_FATHOM_ID, {
-      url: process.env.NEXT_PUBLIC_FATHOM_URL,
-    });
-
-    const onRouteChangeComplete = () => {
-      Fathom.trackPageview({ url: window.location.pathname });
-    };
-
-    // Record a pageview when route changes
-    events.on('routeChangeComplete', onRouteChangeComplete);
-
-    return () => {
-      events.off('routeChangeComplete', onRouteChangeComplete);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     console.info(`${repoPrompt}\n\n`);
