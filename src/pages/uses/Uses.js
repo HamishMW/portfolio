@@ -70,7 +70,7 @@ export const Uses = () => {
                     my typeface of choice.
                   </ListItem>
                   <ListItem>
-                    Firefox is my main browser for both development and general use.
+                    Microsoft Edge is my main browser for both development and general use. (and ARC on my laptop)
                   </ListItem>
                   <ListItem>
                     <Link href="https://reactjs.org/">React</Link> is my front end
