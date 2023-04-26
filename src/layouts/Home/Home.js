@@ -98,16 +98,16 @@ export const Home = () => {
           ],
         }}
       />
-      {/* <ProjectSummary
+      <ProjectSummary
         id="project-2"
         alternate
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
-        title="Video game progress tracking"
-        description="Design and development for a video game tracking app built in React Native"
+        title="SpainRP"
+        description="SpainRP Minecraft Server"
         buttonText="View website"
-        buttonLink="https://gamestack.hamishw.com"
+        buttonLink="https://spainrp.ga"
         model={{
           type: 'phone',
           alt: 'App login screen',
@@ -128,10 +128,10 @@ export const Home = () => {
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index={3}
-        title="Biomedical image collaboration"
-        description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
-        buttonText="View project"
-        buttonLink="/projects/slice"
+        title="Public Onedrive"
+        description="My public onedrive index"
+        buttonText="View website"
+        buttonLink="https://drive.tomasps.tk"
         model={{
           type: 'laptop',
           alt: 'Annotating a biomedical image in the Slice app',
@@ -142,7 +142,7 @@ export const Home = () => {
             },
           ],
         }}
-      /> */}
+      />
       <Profile
         sectionRef={details}
         visible={visibleSections.includes(details.current)}
