@@ -33,7 +33,7 @@ const ArticlesPost = ({
   useEffect(() => {
     setDateTime(formatDate(date));
   }, [date, dateTime]);
-  
+
   const handleMouseEnter = () => {
     setHovered(true);
   };
@@ -84,7 +84,7 @@ const ArticlesPost = ({
             </Text>
             <div className={styles.postFooter}>
               <Button secondary iconHoverShift icon="chevronRight" as="div">
-                Read article
+                Leer Artículo
               </Button>
               <Text className={styles.timecode} size="s">
                 {timecode}
