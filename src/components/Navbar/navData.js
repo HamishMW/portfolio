@@ -1,8 +1,8 @@
 export const navLinks = [
-  // {
-  //   label: 'Projects',
-  //   pathname: '/#project-1',
-  // },
+  {
+    label: 'Projects',
+    pathname: '/#project-1',
+  },
   {
     label: 'Details',
     pathname: '/#details',
@@ -14,6 +14,14 @@ export const navLinks = [
   {
     label: 'Contact',
     pathname: '/contact',
+  },
+  {
+    label: 'Photography',
+    pathname: 'https://photography.tomasps.tk',
+  },
+  {
+    label: 'Drive',
+    pathname: 'https://drive.tomasps.tk',
   },
 ];
 

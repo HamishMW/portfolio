@@ -37,6 +37,8 @@
     "stylelint-config-standard": "^26.0.0"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
+    "emailjs": "^4.0.1",
     "framer-motion": "^7.1.0",
     "mdx-bundler": "^9.0.1",
     "next": "^12.2.5",

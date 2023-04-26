@@ -74,10 +74,10 @@ const title = 'Tesla Dashboard for Beamng Drive';
 const description =
   'Wanted to have a tesla screen on beamng drive, now you can with simhub.';
 const roles = [
-  'Art Direction',
-  'UX and UI Design',
-  'Front End Development',
-  'Motion Design',
+  'RPM',
+  'FuelLight',
+  'Blinkers',
+  'Over speed warning',
 ];
 
 export const SmartSparrow = () => {
@@ -128,17 +128,17 @@ export const SmartSparrow = () => {
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
-          <ProjectTextRow>
-            <ProjectSectionHeading>The problem</ProjectSectionHeading>
+          {/* <ProjectTextRow>
+            <ProjectSectionHeading>More</ProjectSectionHeading>
             <ProjectSectionText>
               Tesla Dashboard is a template for Simhub and dedicated to Beamng-Drive, for
               simulating a Dashboard from a Tesla vehicle.
-            </ProjectSectionText>
-          </ProjectTextRow>
+            </ProjectSectionText> */}
+          {/* </ProjectTextRow>
         </ProjectSection>
         <ProjectSection light={isDark}>
-          <ProjectSectionContent>
-            <Image
+          <ProjectSectionContent> */}
+            {/* <Image
               key={themeId}
               srcSet={
                 isDark
@@ -152,8 +152,8 @@ export const SmartSparrow = () => {
               }
               alt={`A set of ${themeId} themed components for the aero design system`}
               sizes="100vw"
-            />
-            <ProjectTextRow>
+            /> */}
+            {/* <ProjectTextRow>
               <SegmentedControl
                 currentIndex={themes.indexOf(themeId)}
                 onChange={handleThemeChange}
@@ -512,8 +512,8 @@ export const SmartSparrow = () => {
                 </Link>{' '}
                 to become a foundation for their next generation learning platform.
               </ProjectSectionText>
-            </ProjectTextRow>
-          </ProjectSectionContent>
+            </ProjectTextRow> */}
+          {/* </ProjectSectionContent> */}
         </ProjectSection>
       </ProjectContainer>
       <Footer />

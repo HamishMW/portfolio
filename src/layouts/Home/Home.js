@@ -85,8 +85,8 @@ export const Home = () => {
         index={1}
         title="Tesla-Dashboard"
         description="Tesla dashboard for beamng drive"
-        buttonText="View website"
-        buttonLink="https://tesladashboard.tomasps.tk"
+        buttonText="View more"
+        buttonLink="/projects/tesla-dashboard"
         model={{
           type: 'laptop',
           alt: 'Screenshot of the current UI',
