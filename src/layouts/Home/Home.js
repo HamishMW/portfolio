@@ -134,7 +134,7 @@ export const Home = () => {
         buttonLink="https://drive.tomasps.tk"
         model={{
           type: 'laptop',
-          alt: 'Annotating a biomedical image in the Slice app',
+          alt: 'A screenshot of the current UI',
           textures: [
             {
               srcSet: [sliceTexture, sliceTextureLarge],
