@@ -128,10 +128,10 @@ export const Home = () => {
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index={3}
-        title="Public Onedrive"
-        description="My public onedrive index"
+        title="Vectorify"
+        description="A vector drawing app made with C# and WinUI3"
         buttonText="View website"
-        buttonLink="https://drive.tomasps.tk"
+        buttonLink="https://github.com/tresillo2017/vectorify"
         model={{
           type: 'laptop',
           alt: 'A screenshot of the current UI',
