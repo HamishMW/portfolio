@@ -50,7 +50,7 @@ export const Contact = () => {
       emailjs
         .sendForm(
           'service_ycbwb98',
-          'template_esmxpvj',
+          'template_jkq31q9',
           form.current,
           '-5oNwSq9cIBCe9IZD'
         )
