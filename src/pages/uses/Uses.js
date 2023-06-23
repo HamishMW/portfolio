@@ -122,7 +122,7 @@ export const Uses = () => {
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Monitors</TableHeadCell>
-                    <TableCell>AOC 1080p 165hz 21incj/ Samsung 75hz 17inch </TableCell>
+                    <TableCell>AOC 1080p 165hz 21inch/ Samsung 75hz 17inch </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Keyboard</TableHeadCell>
@@ -130,7 +130,7 @@ export const Uses = () => {
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Mouse</TableHeadCell>
-                    <TableCell>Logitech G203</TableCell>
+                    <TableCell>Logitech G502 Hero</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableRow>
