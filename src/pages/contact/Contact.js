@@ -49,10 +49,10 @@ export const Contact = () => {
       // console.log(form.current);
       emailjs
         .sendForm(
-          'service_ycbwb98',
-          'template_jkq31q9',
+          'service_key',
+          'template_key',
           form.current,
-          '-5oNwSq9cIBCe9IZD'
+          'form'
         )
         .then(res => {
           // setSenderEmail('');
