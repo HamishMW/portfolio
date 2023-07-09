@@ -26,7 +26,7 @@ import vertShader from './displacementSphereVertex.glsl';
 const springConfig = {
   stiffness: 30,
   damping: 20,
-  mass: 2,
+  mass: 1,
 };
 
 export const DisplacementSphere = props => {
@@ -185,7 +185,7 @@ export const DisplacementSphere = props => {
   }, [isInViewport, reduceMotion, rotationX, rotationY]);
 
   return (
-    <Transition in timeout={3000}>
+    <Transition in timeout={200}>
       {visible => (
         <canvas
           aria-hidden

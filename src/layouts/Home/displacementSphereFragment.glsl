@@ -41,11 +41,11 @@ varying float noise;
 void main() {
 	#include <clipping_planes_fragment>
 
-  vec3 color = vec3(vUv * (0.2 - 2.0 * noise), 1.0);
-  vec3 finalColors = vec3(color.b * 1.5, color.r, color.r);
-  vec4 diffuseColor = vec4(cos(finalColors * noise * 3.0), 1.0);
-  ReflectedLight reflectedLight = ReflectedLight(vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0));
-  vec3 totalEmissiveRadiance = emissive;
+vec3 color = vec3(vUv * (0.2 - 2.0 * noise), 1.5);
+vec3 finalColors = vec3(color.r > 1.0 ? 1.0 : 1.0, 0.1, 0.2);
+vec4 diffuseColor = vec4(finalColors.rgb, 1.0);
+ReflectedLight reflectedLight = ReflectedLight(vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0));
+vec3 totalEmissiveRadiance = emissive;
 
 	#include <logdepthbuf_fragment>
 	#include <map_fragment>
