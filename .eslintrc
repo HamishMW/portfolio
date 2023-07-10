@@ -7,6 +7,8 @@
     "semi": "error",
     "no-unused-vars": "warn",
     "import/no-anonymous-default-export": "off",
+    "react/no-unescaped-entities": "off",
+
     "react/display-name": "off",
     "@next/next/no-img-element": "off"
   }

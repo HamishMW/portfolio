@@ -28,10 +28,10 @@ const ProfileText = ({ visible, titleId }) => (
       Node.js and Express.js for robust server-side logic. Currently, I work at
       <Link href="https://www.gmsls.com/"> GMS Global Solutions</Link> If you have any
       projects or opportunities to discuss, feel free to reach out!
-    </Text>{' '}
+    </Text>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
       In my spare time I have a passion for photography, capturing moments and creating
-      visually appealing images. play video games, and{' '}
+      visually appealing images. play video games, and
       <Link href="/projects/volkihar-knight">make mods</Link>. I’m always down for hearing
       about new projects, so feel free to drop me a line.
     </Text>
