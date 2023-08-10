@@ -47,7 +47,6 @@ export const Home = () => {
   const projectFour = useRef();
 
   const details = useRef();
-
   const theme = useTheme();
 
   useEffect(() => {
@@ -75,9 +74,25 @@ export const Home = () => {
       // Update existing Vanta.js effect properties
       console.log("Vanta initiated already -> updating to " + theme.themeId + " mode");
       if (theme.themeId === "dark") {
-        console.log("Inside Dark block");
-        vantaEffect.options.backgroundColor = 0x111111;
-        vantaEffect.options.color = 0x7084f4
+        vantaEffect.destroy();
+        const newVantaEffect = NET({
+          el: vantaRef.current,
+          THREE: THREE,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0x7084f4,
+          backgroundColor: (theme.themeId === "dark") ? 0x111111 : 0xf2f2f2,
+          points: 7.00,
+          maxDistance: 18.00,
+          spacing: 20.00
+        });
+        // Set the new Vanta.js effect
+        setVantaEffect(newVantaEffect);
       } else {
         //little clumsy on here as vanta doesn't react with react well ig ;
         vantaEffect.destroy();
