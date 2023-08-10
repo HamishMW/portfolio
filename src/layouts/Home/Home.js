@@ -1,15 +1,29 @@
-import gamestackTexture2Large from 'assets/gamestack-list-large.jpg';
 import gamestackTexture2Placeholder from 'assets/gamestack-list-placeholder.jpg';
-import gamestackTexture2 from 'assets/gamestack-list.jpg';
-import gamestackTextureLarge from 'assets/gamestack-login-large.jpg';
 import gamestackTexturePlaceholder from 'assets/gamestack-login-placeholder.jpg';
-import gamestackTexture from 'assets/gamestack-login.jpg';
-import sliceTextureLarge from 'assets/slice-app-large.jpg';
 import sliceTexturePlaceholder from 'assets/slice-app-placeholder.jpg';
-import sliceTexture from 'assets/slice-app.jpg';
-import sprTextureLarge from 'assets/spr-lesson-builder-dark-large.jpg';
 import sprTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
-import sprTexture from 'assets/spr-lesson-builder-dark.jpg';
+
+import { Text } from 'components/Text';
+
+import nebulaDashboard from 'assets/nebula-dashboard.jpg';
+import nebulaDashboardLarge from 'assets/nebula-dashboard-large.jpg';
+
+import OneBITTexture from 'assets/onebit-texture1.jpg';
+import OneBITTextureLarge from 'assets/onebit-texture1-large.jpg';
+import OneBITTexture2 from 'assets/onebit-texture2.jpg';
+import OneBITTextureLarge2 from 'assets/onebit-texture2-large.jpg';
+
+import SmartWhitecane from 'assets/smart-whitecane.jpg';
+import SmartWhitecaneLarge from 'assets/smart-whitecane-large.jpg';
+
+import YoutubeStudio from 'assets/youtubeAutomation/studio-gif.gif';
+import YoutubeExplore from 'assets/youtubeAutomation/explore.png';
+
+import NET from "vanta/dist/vanta.net.min";
+import * as THREE from "three";
+
+import { useTheme } from 'components/ThemeProvider';
+
 import { Footer } from 'components/Footer';
 import { Meta } from 'components/Meta';
 import { Intro } from 'layouts/Home/Intro';
@@ -18,19 +32,83 @@ import { ProjectSummary } from 'layouts/Home/ProjectSummary';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
-const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
+const disciplines = ['Innovator', 'Prototyper', 'Engineer', 'Designer', 'Modder'];
 
 export const Home = () => {
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
+  const [vantaEffect, setVantaEffect] = useState(0);  // vanta
+  const vantaRef = useRef(null);                      // vanta
   const intro = useRef();
+
   const projectOne = useRef();
   const projectTwo = useRef();
   const projectThree = useRef();
+  const projectFour = useRef();
+
   const details = useRef();
 
+  const theme = useTheme();
+
   useEffect(() => {
-    const sections = [intro, projectOne, projectTwo, projectThree, details];
+    if (!vantaEffect) {
+      console.log("Initiating vanta first time on " + theme.themeId + " mode");
+      setVantaEffect(
+        NET({
+          el: vantaRef.current,
+          THREE: THREE,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0x7084f4,
+          backgroundColor: (theme.themeId === "dark") ? 0x111111 : 0xf2f2f2,
+          points: 7.00,
+          maxDistance: 18.00,
+          spacing: 20.00
+        })
+      );
+    } else {
+      // Update existing Vanta.js effect properties
+      console.log("Vanta initiated already -> updating to " + theme.themeId + " mode");
+      if (theme.themeId === "dark") {
+        console.log("Inside Dark block");
+        vantaEffect.options.backgroundColor = 0x111111;
+        vantaEffect.options.color = 0x7084f4
+      } else {
+        //little clumsy on here as vanta doesn't react with react well ig ;
+        vantaEffect.destroy();
+        const newVantaEffect = NET({
+          el: vantaRef.current,
+          THREE: THREE,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0x7084f4,
+          backgroundColor: (theme.themeId === "dark") ? 0x111111 : 0xf2f2f2,
+          points: 7.00,
+          maxDistance: 18.00,
+          spacing: 20.00
+        });
+        // Set the new Vanta.js effect
+        setVantaEffect(newVantaEffect);
+
+      }
+    }
+    return () => {
+      if (vantaEffect) vantaEffect.destroy();
+    };
+  }, [theme]);
+
+  useEffect(() => {
+    const sections = [intro, projectOne, projectTwo, projectThree, projectFour, details];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -65,34 +143,36 @@ export const Home = () => {
     };
   }, [visibleSections]);
 
+
   return (
     <div className={styles.home}>
       <Meta
-        title="Designer + Developer"
-        description="Design portfolio of Hamish Williams — a product designer working on web & mobile
-          apps with a focus on motion, experience design, and accessibility."
+        title="Developer + Innovator"
+        description="Design portfolio of GANISH DEEPAK — a developer working on various frameworks to learn and excel current trends"
       />
-      <Intro
-        id="intro"
-        sectionRef={intro}
-        disciplines={disciplines}
-        scrollIndicatorHidden={scrollIndicatorHidden}
-      />
+      <div ref={vantaRef}>
+        <Intro
+          id="intro"
+          sectionRef={intro}
+          disciplines={disciplines}
+          scrollIndicatorHidden={scrollIndicatorHidden}
+        /></div>
       <ProjectSummary
         id="project-1"
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Designing the future of education"
-        description="Designing a platform to help educators build better online courseware"
+        title="Nebula Dashboard"
+        description="A Mutual Funds Portfolio for better tracking and analysis with 45.1k live schemes data built over mern stack technology"
         buttonText="View project"
-        buttonLink="/projects/smart-sparrow"
+        //buttonLink="/projects/smart-sparrow"
+        buttonLink="https://nebuladashboard2023.web.app"
         model={{
           type: 'laptop',
-          alt: 'Smart Sparrow lesson builder',
+          alt: 'Nebula Dashboard PReview',
           textures: [
             {
-              srcSet: [sprTexture, sprTextureLarge],
+              srcSet: [nebulaDashboard, nebulaDashboardLarge],
               placeholder: sprTexturePlaceholder,
             },
           ],
@@ -104,20 +184,20 @@ export const Home = () => {
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
-        title="Video game progress tracking"
-        description="Design and development for a video game tracking app built in React Native"
-        buttonText="View website"
-        buttonLink="https://gamestack.hamishw.com"
+        title="OneBIT Application"
+        description="An one stop application for all needs inside BIT Campus right from study materials to leave applications requiring to login only once. Actively under construction."
+        buttonText="Download Now"
+        buttonLink="https://github.com/gd03champ/OneBIT"
         model={{
           type: 'phone',
-          alt: 'App login screen',
+          alt: 'OneBIT Onboarding (Under Dev)',
           textures: [
             {
-              srcSet: [gamestackTexture, gamestackTextureLarge],
+              srcSet: [OneBITTexture2, OneBITTextureLarge2],
               placeholder: gamestackTexturePlaceholder,
             },
             {
-              srcSet: [gamestackTexture2, gamestackTexture2Large],
+              srcSet: [OneBITTexture, OneBITTextureLarge],
               placeholder: gamestackTexture2Placeholder,
             },
           ],
@@ -128,21 +208,53 @@ export const Home = () => {
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index={3}
-        title="Biomedical image collaboration"
-        description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
+        title="Smart Whitcane"
+        description="AI based Smart Whitecane with features like realtime object detection , google assistant and location tracking, making life of VI a lot easier. SIH 2022 winning project."
         buttonText="View project"
-        buttonLink="/projects/slice"
+        buttonLink="/projects/smart-whitecane"
         model={{
           type: 'laptop',
-          alt: 'Annotating a biomedical image in the Slice app',
+          alt: 'Smart Whitecane Image',
           textures: [
             {
-              srcSet: [sliceTexture, sliceTextureLarge],
+              srcSet: [SmartWhitecane, SmartWhitecaneLarge],
               placeholder: sliceTexturePlaceholder,
             },
           ],
         }}
       />
+      <ProjectSummary
+        id="project-4"
+        alternate
+        sectionRef={projectFour}
+        visible={visibleSections.includes(projectFour.current)}
+        index={4}
+        title="YouTube Automation Software"
+        description="I created a fully automated solution using insta loader, insta looter, ffmpeg, and moviepy to manage a YouTube channel, handling tasks such as Instagram login, reel downloads, video compilation, watermarking, Google login, and YouTube uploads using the v3 API, revolutionizing content creation and maximizing productivity."
+        buttonText="View Project"
+        buttonLink="/articles/how-i-created-a-fully-automated-youtube-channel/"
+        model={{
+          type: 'phone',
+          alt: 'OneBIT Onboarding (Under Dev)',
+          textures: [
+            {
+              srcSet: [YoutubeExplore, YoutubeExplore],
+              placeholder: gamestackTexture2Placeholder,
+            },
+            {
+              srcSet: [YoutubeStudio, YoutubeStudio],
+              placeholder: gamestackTexturePlaceholder,
+            },
+          ],
+        }}
+      />
+      {/*<center>
+        <Text>
+          Four more projects are being configured to be loaded in this space.
+          <br />
+          Hang Tight!
+        </Text>
+      </center>*/}
       <Profile
         sectionRef={details}
         visible={visibleSections.includes(details.current)}

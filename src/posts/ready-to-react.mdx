@@ -1,0 +1,199 @@
+---
+title: What should you know in JS Before transitioning to react!
+abstract: By the end of this article, you'll have a solid foundation in the important concepts of JavaScript that you'll need before diving into React. 💪 I won't just be talking theory either - I'll be showing you coding examples for each concept so you can really see it in action! 💻
+date: '2023-04-22'
+banner: https://media.licdn.com/dms/image/D5612AQGyBTSYrMBTSA/article-cover_image-shrink_423_752/0/1682152928312?e=1687996800&v=beta&t=xfAJEjD29_Qs2y8DtBwEVs4U0hzW42t9B7-4bvqQDog
+featured: false
+---
+
+## Introduction
+Hey there, coding novices!👨 💻👩 💻. Are you eager to transition into React but feeling a bit lost in the world of JavaScript? 🤔 Don't worry, I've got your back! JavaScript is a pretty big deal in modern web development 🌐, and it's the foundation for building all sorts of fancy UIs that users just can't get enough of! 😍 Now, let's talk about React - it's a super popular JavaScript library that's perfect for building web apps 🚀. But before you jump right into it, let's cover some important JavaScript concepts that you should know first. We'll make it easy to understand, promise! 🤞
+Article Objective
+By the end of this article, you'll have a solid foundation in the important concepts of JavaScript that you'll need before diving into React. 💪 I won't just be talking theory either - I'll be showing you coding examples for each concept so you can really see it in action! 💻 And if you're still hungry for more knowledge after reading this article, we've got you covered with some great resources to help you further understand each concept. I've scratched it mostly from official docs📚 So get ready to level up your coding game! 😎
+Time to buckle up! 🚀
+
+## Variables and Data types
+Let's talk about variables in JavaScript! 💻 Variables are like little boxes where you can store data - anything from simple strings and numbers to more complex arrays and objects! 📦 To declare a variable in JavaScript, you just need to use the "var" keyword, followed by the name you want to give your variable and the value you want to assign to it.
+Easy peasy! 🤓
+
+```jsx
+var name = "GD"; // string
+
+var radius = 2.77; // number
+
+var user = {
+
+name: "GD Champ",
+
+age: 30
+
+} // object
+
+var isDark = false; // booleans
+```
+
+Hit more about JavaScript variables 👉 [click here](https://javascript.info/variables)
+
+Understanding data types is crucial for working with variables and manipulating data in JavaScript. Here are some of the data types you'll encounter:
+- Strings: A sequence of characters wrapped in quotes, either single ('') or double (""). For example: "Hello, World!🌎"
+- Numbers: Numeric values, including integers, decimals, and even special values like NaN (Not a Number) and Infinity. For example: 42, 3.14 🧮
+- Booleans: True or false values, used for logical operations. For example: true, false 🤔
+- Arrays: An ordered collection of values, separated by commas and enclosed in square brackets ([]). For example: [1, 2, 3] 📚
+- Objects: A collection of key-value pairs, enclosed in curly braces ({}). 👥
+- Undefined: A value assigned to a variable that has not been assigned a value yet. For example: let myVar; (myVar is undefined) 🤷
+- Null: A value assigned to a variable that represents the intentional absence of any object value. For example: let myVar = null; (myVar has no value) 🚫
+These are just some of the data types you'll come across in JavaScript, but they're the most important ones to know for now! 👍
+You can learn more about them ➡️ [here](https://javascript.info/variables)
+
+## Operators and Expression
+Now, let's talk about operators in JavaScript! 💻 Operators are symbols used to perform mathematical or logical operations between operands. Here are some of the most common operators you'll encounter:
+**Arithmetic operators**:
+- Addition (+)
+- Subtraction (-)
+- Multiplication (*)
+- Division (/)
+- Modulus (%)
+**Logical operators**:
+- AND (&&)
+- OR (||)
+- NOT (!)
+**Comparison operators**:
+- Greater than 
+- Less than
+- Equals to (==)
+- Not equals to (!=)
+By using these operators with variables, values, and other operands, you can create expressions that produce results! For example:
+```jsx
+let x = 20; 
+
+let y = 15;
+ 
+let score = x + y; // score will be 35 
+```
+See how we used the addition operator (+) to add the values of x and y and assign the result to the variable score? 🤓 That's the power of operators in JavaScript!
+
+## Functions
+Let's talk about functions - they're like reusable blocks of code that do a specific job, and can be used over and over again in your program! No more copy-pasting the same code over and over! 🙅 Functions take input (also known as arguments) and return output (also known as return values) - it's like a magical black box 🎩 that turns inputs into outputs! To declare a function, just use the "function" keyword, like so:
+```jsx
+function addNumbers(a, b) {
+   return a + b;
+ } 
+ ```
+This example creates a function called "addNumbers" that takes two parameters (a and b) and returns their sum when called. Check out this real example:
+```jsx
+addNumbers(3, 2); // Output = 5 
+```
+Here, we call the function "addNumbers" with the parameters 3 and 2, and the function returns their sum, which is 5. Pretty neat, huh? 😎 Want to learn more about functions? Check out this link! 🔗
+
+## Conditional Statement
+Came so far? Seems like you're really interested 🔥. Let's keep going🚀 Now time for conditional statements - they're like a gatekeeper🚪for your code, letting it run only if a certain condition is met!🤝 There are several types of conditional statements in JavaScript, but the most common one is the if-else statement. It lets you run one block of code if the condition is true, and another block if it's false. Check out this example:
+```jsx
+var score = 20; 
+
+if (score >= 20) { 
+    console.log("You passed!"); 
+} else { 
+    console.log("Try again."); 
+} 
+```
+Here, the first condition ran successfully because the score was equal to 20! 🎉 If it wasn't, the else block of code would have been executed instead. See how that works? 😎 If you want to learn more about conditional statements, I've got you covered! Just click this [link](https://www.javatpoint.com/javascript-function) to learn more! 🔗
+
+## Loops
+
+![loop illustration](https://media.licdn.com/dms/image/D5612AQEj24ykKP-O8w/article-inline_image-shrink_1500_2232/0/1682158148339?e=1687996800&v=beta&t=AA2ahUmpNSA0glcdGObOV6Wejf1EmNm3sATIPrzobSk)
+Loops are like the gift that keeps on giving, letting you write a block of code over and over again until a certain condition is met. The two most popular loops are "For" and "While" loops.
+For loops are like those harry potter books we used to read as a kid. 📚 They come with 3 optional expressions, kind of like different pathways you can take:
+
+Expression 1 👉 gets executed (one time) before the code block even starts. Expression 2 👉is what sets the condition for executing the code block, and Expression 3 👉gets executed (every time) after the code block is done.
+Here's an example:
+```jsx
+for (i = 0; i < 10; i++) {
+
+  console.log(i) // 0,1,2,3,4,5,6,7,8,9
+  
+  }
+  ```
+While loops, on the other hand, are like the Energizer Bunny, they just keep going and going and going... 🐰 They repeat a block of code as long as the condition is true, and only stop once the condition becomes false.
+Here's an example:
+```jsx
+var i = 0
+
+while (i < 10) {
+
+console.log(i);
+
+i++;
+
+} // 0,1,2,3,4,5,6,7,8,9;
+```
+So there you have it, folks! Two loops that will make your coding life so much easier! 💻
+➿Loop in more about loops 👉[here](https://javascript.info/while-for)
+
+## Arrays and array methods
+
+Alright, let's dive into arrays - they're like fancy ordered lists 📜 of values that you can access using index numbers! 😎 To declare an array, just use some square brackets "[ ]" and separate each element with a comma. For instance, check out this awesome array:
+const myArray = ["baby", "two", 1, true];
+This cool dude is called "myArray" and it contains two strings ("baby" and "two"), a number (1), and a boolean (true). 🤩
+Now, let's get into some array methods! These are super handy built-in functions 🛠️ that can help you manipulate the contents of an array.
+- We've got the "push()" method to add elements to the end,
+- "pop()" to remove the last element and get it,
+- "shift()" to remove the first element and get it,
+- "unshift()" to add elements to the beginning,
+- "slice()" to get a new array with a subset of the original, and
+- "splice()" to remove or replace elements and return the removed ones.
+Phew, that's a lot! 😅 But don't worry, once you get the hang of it, arrays will be your new best friend! 💪
+Traverse more about Array and its methods 👉 [here](https://www.javatpoint.com/javascript-array).
+
+## Destructing
+
+![destructing literal illustration](https://media.licdn.com/dms/image/D5612AQETL-uSd4G9SA/article-inline_image-shrink_1500_2232/0/1682160728946?e=1687996800&v=beta&t=zf-aYgFQFctDwyAxIrgqSpBgkfcy0nPHfjc8LLZeJig)
+Yo, what's up with ES6 🤘? It's got this crazy cool thing called destructive assignment, which basically means you can extract data from arrays and objects into distinct variables 🤯. For example, let's say you have an array called "myArray" with a bunch of values in it. Instead of having to access each value individually, you can just use destructuring to create variables for each element in the array. So, if you do something like:
+```jsx
+const myArray = [1, 2, 3, 4, 5]
+
+const [a, b, c, d, e] = myArray;
+```
+You'll end up with variables "a", "b", "c", "d", and "e" that correspond to the values in "myArray". And if you log those variables to the console, you'll see the array values printed out nice and neat 🙌. So go ahead and destruct some arrays! 💥
+You can learn more about Destructing in JavaScript 👉 [here](https://javascript.info/destructuring-assignment)
+
+## Template literals
+Did you know that with ECMAScript 6 (ES6) came a feature that lets you embed expressions and variables into strings? 🤯 That's right, it's called template literals and it's totally game changing! 🔥
+To use template literals, simply enclose your string in backticks (`) and use the dollar sign ($) syntax to include placeholders for your expressions. For example, let's say we have a variable called name and we want to create a personalized greeting string:
+```jsx
+const name = "GD"
+
+const greeting = Hello, ${name}!;
+
+console.log(greeting); // Output: Hello, GD! 🎉;
+```
+Using the ${} syntax allows you to dynamically incorporate the value of the name variable into your greeting string. Pretty cool, huh? 😎
+Dive more into Template literals 👉 [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+
+## Ternary operators
+Now, let me tell you about this cool thing ternary operator - it's basically a fancy way of writing an if statement in just one line of code! 😎 Here's the syntax:
+condition ? expression1 : expression2
+Let's take a look at an example to make it clearer:
+```jsx
+var score = 25
+
+var result = score >= 20 ? "You passed" : "Try again.";
+
+console.log(result); // You passed.;
+```
+In this example, the ternary operator is checking whether the score is greater than or equal to 20. If it is, the text "You passed" is assigned to the variable result. If not, the variable is assigned the text "Try again." 😬
+Pretty neat, right? 😜 You can learn more about ternary operators and other coding concepts over [here](https://javascript.info/ifelse#conditional-operator)!
+
+## Modules Import / Export
+Have you heard of the Import and Export features in JavaScript? They're like superheroes for code reusability! 🦸 💻 The keywords "Import" and "Export" make it super easy to share code between files, divide code into smaller, reusable parts, and maintain your codebase with ease.
+To export code, you can use the "export" statement to export values, functions, or objects from a module. Check out this example from a "module.js" file:
+
+```jsx
+export const myFunction = () => { console.log("Hello, GD!"); }; 
+```
+And to import code, you can use the "import" statement to bring in values or functions from a module. Here's an example from a "main.js" file:
+```jsx
+import { myFunction } from "./module.js"; myFunction(); // Output: Hello, GD! 
+```
+See how easy it is to use the code from "module.js" in multiple files? 🤯 Just export it once and import it wherever you need it.
+## Conclusion
+The topics I just covered are crucial if you want to dive into ReactJS like a boss! 💪. It's important to have a solid foundation in JavaScript and understand these concepts before moving on to the fun stuff in ReactJS. Trust me, it'll make your life a whole lot easier! 😎 So don't skip out on these topics - they're relevant and they'll give you the skills you need to build some kickass web apps! 🚀

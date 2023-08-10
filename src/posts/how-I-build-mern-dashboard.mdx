@@ -1,0 +1,99 @@
+---
+title: 'How I build a mern dashboard'
+abstract: This article explains my dashboard project and a kick start guide to build a mern stack in beginner friendly approach.
+date: '2023-04-01'
+banner: https://media.licdn.com/dms/image/D5612AQFf04OCexlbqw/article-cover_image-shrink_600_2000/0/1680329877756?e=1687996800&v=beta&t=_N8ZxZKDg1UlNpwwnHvQ5GqyF0zMO9uOLKq_KyYwNjU
+featured: false
+---
+
+If you are interested in investing in mutual funds or stocks📈, you might want to have a tool that can help you track and analyze📊 your portfolio performance.
+Today, in this article, I will show you how I build a #mern stack dashboard application for the requirement of my college trustee that can do just that.
+Speaking of full stack MERN application, the tech used are :
+
+- Frontend 👉 React.js
+- Backend 👉 Node.js
+- Database 👉 MongoDB |
+- Restful API 👉 Express.js
+- UI 👉 Tailwind CSS |
+
+The main features of our application are:
+👉 A user authentication system🔑 that allows users to sign up, log in, and log out.
+👉 A dashboard that displays the user's mutual fund holdings, their current value, profit📈 or loss📉 percentage, scheme's performance with interactive graphs and bars.
+👉 Charts📊 that shows the historical performance of the user's portfolio over time.
+
+![Dashboard Overview](https://media.licdn.com/dms/image/D5612AQFUdhmvbtbrZQ/article-inline_image-shrink_1000_1488/0/1680350003124?e=1687996800&v=beta&t=03z-5XdoDx9TRdv25ouL4vxrkT4vl71JisJbo0gVKOY)
+
+👉 A search function🔍 that allows users to find and add new mutual funds among 45.1k live schemes available to their portfolio.
+![search function🔍](https://media.licdn.com/dms/image/D5612AQGsi2-LdnbcHg/article-inline_image-shrink_1000_1488/0/1680354101067?e=1687996800&v=beta&t=UbEon1XM1IaYhtvT-qftcfSp3fzvrjWx0jGRMPvQvz4)
+
+👉 A detail table view of portfolio with both tracking and redeemed schemes with export options to export and download⬇️ complete user portfolio data to an excel file.
+![table view](https://media.licdn.com/dms/image/D5612AQF6qRNS8dCpsQ/article-inline_image-shrink_1000_1488/0/1680354281947?e=1687996800&v=beta&t=hLUH1fYcEnDtYcKqb1foFNt0UL26RiOMDK3c4Zn-Q1U)
+👉 Finally a cool dark mode🌓 theme wrapping up whole dashboard that will sync with os theme automatically.
+![dark mode](https://media.licdn.com/dms/image/D5612AQHy6MlZqImqyw/article-inline_image-shrink_1000_1488/0/1680356955710?e=1687996800&v=beta&t=ubRpebROdgvMq-qAIcg0y1W_joWNlM9neex6pqvQYKk)
+👉I'm currently working on another feature tab that will give predictions🔮 on any scheme's future performance and a risk factor to buy or redeem which will be based on available API. ( will update this article when it's done )
+
+To build this application, we will follow these steps to get started
+
+- Set up the project structure and install the required dependencies. Shown below are my completed server and client file structures.
+  No alt text provided for this image
+  server structure
+
+![client](https://media.licdn.com/dms/image/D5612AQHETC2SUeU3OQ/article-inline_image-shrink_1500_2232/0/1680359156623?e=1687996800&v=beta&t=FMHZ_ATHqlLcvNXz7NF-sud2TObmXnpBJi6MbS6ev4Q)
+![server](https://media.licdn.com/dms/image/D5612AQHETC2SUeU3OQ/article-inline_image-shrink_1500_2232/0/1680359156623?e=1687996800&v=beta&t=FMHZ_ATHqlLcvNXz7NF-sud2TObmXnpBJi6MbS6ev4Q)
+
+- Create the MongoDB database🪣 and define the schema for the user credentials and mutual fund models in node server side.
+
+```jsx
+//connecting to mongodb serve
+mongoose
+  .connect('mongodb://127.0.0.1:27017/mF-dashboard', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('MongoDB Connected 🍃'))
+  .catch(console.error);
+r;
+```
+
+- Create the Express server and implement the API endpoints for user authentication and mutual fund operations such as insert, delete, redeem, refresh, get. Shown below are API endpoints of my dashboard.
+
+```jsx
+// routes of the application
+app.post('/api/insert', auth, insertData);
+
+app.get('/api/show', auth, showData);
+
+app.get('/api/mutual_funds/show', auth, getSchemes);
+
+app.delete('/api/delete/:id', auth, deleteData);
+
+app.get('/api/refresh/:id', auth, refreshData);
+
+app.get('/api/redeem/:id', auth, redeemData);
+
+app.get('/api/export', auth, exportData);
+
+//admin only endpoint - open for now
+app.post('/api/mutual_funds/refresh', auth, refreshSchemes);
+```
+
+- Implement the user authentication logic🔐 using JSON Web Tokens (JWT) and local storage (You can choose to authenticate through sessions also).
+- Implement the dashboard and chart components that shows performance of mutual fund holdings and user's portfolio using React Hooks and Axios. Third party UI components will make the work lot easier 😉. Example below👇
+
+```jsx
+//use effect to fetch all funds data
+useEffect(() => {
+  axios
+    .get(api + '/show')
+    .then(res => setData(res.data))
+    .catch(err => console.log(err));
+}, []);
+```
+
+- Implement the search component🔎 that allows users to find and add new mutual funds using React Select and an external API. The external API I used in my dashboard is MF-API which is free and fast enough.
+- Implement the detail component that shows more information about a specific mutual fund using Tailwind and React Icons.
+
+In this article, I will only provide an overview of each step and some code snippets to illustrate the main concepts. For the full source code and detailed instructions, you can check out the GitHub repository here:
+🔗 https://github.com/gd03champ/mern-mf-dashboard
+
+I hope you find this article helpful and enjoy building your own MERN stack dashboard application. Happy coding!🚀

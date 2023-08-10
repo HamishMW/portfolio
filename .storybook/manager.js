@@ -4,8 +4,8 @@ import { addons } from '@storybook/addons';
 addons.setConfig({
   theme: {
     ...themes.dark,
-    brandImage: 'https://hamishw.com/icon.svg',
-    brandTitle: 'Hamish Williams Components',
-    brandUrl: 'https://hamishw.com',
+    brandImage: 'https://gd03champ.web.app/icon.svg',
+    brandTitle: 'GANISH DEEPAK Components',
+    brandUrl: 'https://gd03champ.web.app',
   },
 });

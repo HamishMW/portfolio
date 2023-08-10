@@ -7,7 +7,21 @@ export const Monogram = forwardRef(({ highlight, className, ...props }, ref) => 
   const clipId = `${id}monogram-clip`;
 
   return (
-    <svg
+
+<svg
+    aria-hidden
+    className={classes(styles.monogram, className)}
+    width="46" height="29"
+    viewBox="-20 -10 300 40"
+    ref={ref}
+    {...props}>
+    <path d="M105.5-.5h3a219.748 219.748 0 0 1 6 19 185.59 185.59 0 0 0 11-1c1.874-14.847 2.874-15.18 3-1a4730.776 4730.776 0 0 0 78-12l4 1a3268.727 3268.727 0 0 0 14 18v4a153435.985 153435.985 0 0 0-117 80l-1-1.5A757.342 757.342 0 0 0 117 52.5a5535.551 5535.551 0 0 0-28.5 58h-1a1414.39 1414.39 0 0 1 4-28c-25.08 4.15-50.08 8.816-75 14a189.654 189.654 0 0 1-17-20v-3a5869.905 5869.905 0 0 0 106-74Zm0 24h18a137.836 137.836 0 0 1-5 21.5l-48 16a295.714 295.714 0 0 0 24 4 60.013 60.013 0 0 0-2 13.5 670.076 670.076 0 0 1-61-3.5A7551.731 7551.731 0 0 1 97 24.5c3.238 2.749 6.071 2.415 8.5-1Zm24 0c21.261.822 42.594 1.322 64 1.5L131 71.5a552.243 552.243 0 0 1-1.5-48Z"/>
+</svg>
+
+  );
+});
+
+/*    <svg
       aria-hidden
       className={classes(styles.monogram, className)}
       width="46"
@@ -27,6 +41,4 @@ export const Monogram = forwardRef(({ highlight, className, ...props }, ref) => 
           <rect className={styles.highlight} width="100%" height="100%" />
         </g>
       )}
-    </svg>
-  );
-});
+    </svg> */

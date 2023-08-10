@@ -1,6 +1,16 @@
 .monogram {
   fill: var(--colorTextTitle);
   transition: fill var(--durationL) ease;
+
+  shape-rendering:geometricPrecision;
+  text-rendering:geometricPrecision;
+  image-rendering:optimizeQuality;
+  fill-rule:evenodd;
+  clip-rule:evenodd;
+
+  position: relative;
+  transform: scale(2);
+
 }
 
 .highlight {

@@ -1,0 +1,94 @@
+---
+title: OSI Model and TCP/IP -> The Nuts and Bolts of Networking
+abstract: The OSI model and TCP/IP are two important concepts in computer networking. This article provides a fun and easy introduction to these models, explaining how they work together and why they're so important for understanding the internet.
+date: '2023-08-02'
+banner: https://media.licdn.com/dms/image/D4E12AQGtAE1kVgqDaQ/article-cover_image-shrink_423_752/0/1690996983374?e=1696464000&v=beta&t=2U03Aq1z36ena5MSOURLGQuyjyQ5Tdxrk8sMPHPcp14
+featured: true
+---
+
+## INTRODUCTION
+
+In this article, we will take a look at the OSI model and TCP/IP right from birth of internet to protocols we follow now. We will discuss the different layers of each model, and how they work together to send data across a network.
+Let's dive in 🚀.
+
+## BIRTH OF INTERNET
+
+Well, it all started in the 1960s, when the US government was worried about nuclear war. They wanted to create a way for scientists to communicate with each other even if the phone lines were down.
+So they built a network of computers that could talk to each other using a new technology called **packet switching**.
+
+![packet switching](https://media.licdn.com/dms/image/D4E12AQF74r8mAyvGnw/article-inline_image-shrink_1500_2232/0/1690998174115?e=1696464000&v=beta&t=oNjRM2dMT-atQj7g5FJ7g6fDAm7GMkTSlf-j_GkKEyA)
+
+Packet switching is a way of sending data over a network that breaks it up into small pieces called packets. Each packet is then routed to its destination independently.
+This made it possible for the network to survive even if some of the computers were down.
+The network was called **ARPANET**, and it was first used in 1969.
+Over the years, ARPANET grew and grew, and eventually it became the internet.
+
+## EVALUATION OF INTERNET
+
+Internet prototype was invented successfully as ARPANET, but different companies used different ways to connect to ARPANET in the early days.
+It's because each company wanted to have their own proprietary way of connecting to the network. They thought that this would give them an advantage over their competitors. But this also made it difficult for different networks to communicate with each other.
+No alt text provided for this image
+
+![seriously?](https://media.licdn.com/dms/image/D4E12AQGu1z0t2ZkrNw/article-inline_image-shrink_1500_2232/0/1690998349798?e=1696464000&v=beta&t=Tb5ThyP8HKp3kh0Yyjt13Q4BLZcAIEEBWCP15h5W4vI)
+
+For example, if you wanted to send an email from a computer on one network to a computer on another network, you would have to use a different protocol for each network. This was a pain, and it made it difficult for people to use the internet.
+So in the early 1970s, a group of scientists sat together and came up with a new protocol called TCP/IP. It is a universal protocol that allows different networks to communicate with each other.
+This made it possible for the internet to grow and become the global network that it is today.
+
+# TCP/IP and the ISO model
+
+The ISO model was invented in the late 1983 by the International Organization for standardization. It's a more general model than TCP/IP, and it's used to describe different types of networks, not just the internet.
+TCP/IP and the ISO model are two of the most important things that make the internet work today.
+TCP/IP is a set of protocols that define how data is transmitted over the internet. The ISO model is a conceptual model that describes how different layers of a network interact with each other.
+
+![TCP/IP vs OSI Layers](https://media.licdn.com/dms/image/D4E12AQFtamjRJDtKEA/article-inline_image-shrink_1500_2232/0/1690998931798?e=1696464000&v=beta&t=B5NUdBb3JMWHz3qatYhxlW7qQUhWrpujp7Lp3udBKEg)
+
+# TCP/IP Layers
+
+TCP/IP protocol is made up of 5 layers that are widely used:
+5 - **Physical layer**: This layer is responsible for transmitting data over the physical medium, such as copper wire or fiber optic cable.
+4 - **Data link layer**: This layer is responsible for ensuring that data is transmitted reliably between two devices.
+3 - **Network layer**: This layer is responsible for routing data between different networks.
+2 - **Transport layer**: This layer is responsible for ensuring that data is transmitted in the correct order and that it is not corrupted.
+1 - **Application layer**: This layer is responsible for providing services to applications, such as web browsing, email, and file sharing.
+Didn't get it ? Don't worry, I have included real world examples of each layers below 😉
+
+# OSI Layers
+
+OSI model is a conceptual model that describes how data is transmitted over a network. It breaks down the process of sending data over a network into 7 different layers.
+Each layer has a specific function, and they all work together to ensure that data is transmitted correctly.
+The 7 layers of the OSI model are:
+7 - **Physical layer**: This layer is responsible for transmitting data over the physical medium, such as copper wire or fiber optic cable.
+6 - **Data link layer**: This layer is responsible for ensuring that data is transmitted reliably between two devices.
+5 - **Network layer**: This layer is responsible for routing data between different networks.
+4 - **Transport layer**: This layer is responsible for ensuring that data is transmitted reliably between two applications.
+3 - **Session layer**: This layer is responsible for establishing and terminating connections between two applications.
+2 - **Presentation layer**: This layer is responsible for converting data between different formats, such as ASCII and binary.
+1 - **Application layer**: This layer is responsible for providing services to applications, such as web browsing, email, and file sharing.
+
+Here are some examples of how different layers works:
+When you send an email, the OSI model breaks the email down into packets at the Data Link layer.
+
+- The Network layer then routes the packets to the correct destination (receiver if the mail).
+- The Transport layer ensures that the packets are delivered reliably.
+- The Session layer establishes a connection between your email client and the email server.
+- The Presentation layer converts the email into a format that the email server can understand.
+- The Application layer delivers the email to the recipient's inbox.
+
+# So why is TCP/IP so widely used over OSI?
+
+![why ?](https://media.licdn.com/dms/image/D4E12AQFQd2l2KHbMUA/article-inline_image-shrink_1500_2232/0/1690999105397?e=1696464000&v=beta&t=t0aSM4aLoBDbxdZ1Dt1FzZgf_S0n0GxT0tQ8u-AeK4g)
+
+Well, there are a few reasons.
+_First_, TCP is simpler than OSI layers. It has only five layers, while OSI layers has seven.
+_Second_, TCP is more efficient than OSI layers. It uses less overhead, which means that more data can be sent over a network.
+_Third_, TCP is more reliable than OSI layers. It ensures that data is delivered correctly, even if there are errors in the network.
+So, while OSI layers is a more comprehensive model, TCP is a more practical choice for most networks.
+
+## CONCLUSION
+
+In conclusion, the OSI model and TCP/IP are two important concepts in computer networking. They define how data is transmitted between computers on a network, and they are essential for understanding how the computer networks.
+Let me know your thoughts on this article as comments on linkedin 👉 [here](https://www.linkedin.com/pulse/osi-model-tcpip-nuts-bolts-networking-ganish-deepak-n).
+Happy Learning! See you until then👋
+
+![bye](https://media.licdn.com/dms/image/D4E12AQGiVzRQ54ZK0w/article-inline_image-shrink_1500_2232/0/1690998717355?e=1696464000&v=beta&t=EFsk7n9Rk4HdYXFm9FCRwzlZGwkwoFwaJIlgBCEboLI)

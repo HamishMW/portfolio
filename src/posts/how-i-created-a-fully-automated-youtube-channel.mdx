@@ -1,0 +1,218 @@
+---
+title: From Manual to Magical - How I Created a Fully Automated YouTube Channel
+abstract: I developed a fully automated solution to manage a YouTube channel effortlessly. By utilizing tools like insta loader, insta looter, ffmpeg, and moviepy, I created a software system that automates tasks such as Instagram login, reel downloads, video compilation, watermarking, Google login, and YouTube uploads using the v3 API. The software operates on a 24-hour cycle, ensuring consistent content delivery. Through this project, I successfully demonstrated my ability to leverage automation to enhance productivity, streamline content creation, and prioritize creative engagement with the audience 🔉.
+date: '2023-05-29'
+banner: https://adscanhelp.com/wp-content/uploads/2022/04/how-to-use-youtube-creator-studio-4.png
+featured: false
+---
+
+# Introduction
+
+Hey LinkedIn fam! 👋 Have you ever wondered how to turn your YouTube channel into an unstoppable content machine? 🤔 Well, get ready to have your mind blown because today, I'm here to spill the secrets on how I transformed a channel from manual madness to complete automation! 🤖💥
+
+My YouTube automation project in github has 9 active forks 🚀
+
+Here's the projct source code as I promised in LinkedIn 🔗github.com/gd03champ/YouTube-Automation
+
+# The Need for Automation in YouTube Channel Management
+
+Let's face it, managing a YouTube channel manually is a full-time job on its own! 🕒😫 From logging in to Instagram to downloading reels, compiling videos, applying watermarks, logging in to Google, and uploading to YouTube - it's a never-ending cycle of repetitive tasks! 😩 But fear not, because automation is here to save the day! 🦸 ♂️💪
+
+# Creating the Automation Software
+
+Now, let me spill the secret and walk you through the functionalities of the software I cooked up! 🍲👨 🍳
+
+## Automating Instagram Interaction
+
+To kick things off, my software automagically logs into Instagram, leaving no room for FOMO! 😎 It swiftly downloads all the juicy reels posted within the last 24 hours from the accounts I follow, ensuring I'm up to date with the latest trends and viral content. 🕺📲
+
+Here's a gist 👇
+
+```python
+def scrapeVideos(username = "",
+                 password = "",
+                 output_folder = "",
+                 days = 1):
+
+    print("Starting Scraping")
+
+
+    L = instaloader.Instaloader()
+
+
+    # Login or load session for loader
+    L.login(username, password)
+    profile = instaloader.Profile.from_username(L.context, username)
+    following = profile.get_followees()
+    print(following)
+
+
+    today = datetime.date.today()
+    timeframe = (today, today - dateutil.relativedelta.relativedelta(days=days))
+
+
+    for profile in following:
+        acc = profile.username
+        looter = ProfileLooter(acc, videos_only=True, template="{id}-{username}-{width}-{height}")
+        if not looter.logged_in():
+            looter.login(username, password)
+        print("Scraping From Account: " + acc)
+        try:
+            numDowloaded = looter.download(output_folder, media_count=30, timeframe=timeframe)
+            print("Downloaded " + str(numDowloaded) + " videos successfully")
+            print("")
+        except Exception as e:
+            print("Skipped acc " + acc + "because of");
+            print(e);
+```
+
+## Compiling Videos and Applying Watermark
+
+Next, my software puts on its director's hat and creates epic video compilations according to the given configuration. 🎥🎬 It seamlessly stitches together the downloaded reels, adding a touch of personalization with an automatic watermark. Now, no one can steal my precious content! 🚫👀
+
+Here's the snipper of compilation 👇
+
+```python
+def makeCompilation(path = "./
+                    introName = '',
+                    outroName = '',
+                    totalVidLength = 10*60,
+                    maxClipLength = 20,
+                    minClipLength = 5,
+                    outputFile = "output.mp4"):
+
+
+    allVideos = []
+    seenLengths = defaultdict(list)
+    totalLength = 0
+    for fileName in os.listdir(path):
+
+        filePath = join(path, fileName);
+        if isfile(filePath) and fileName.endswith(".mp4"):
+            print(fileName)
+            if os.stat(filePath).st_size < 5000:
+                continue
+
+
+            # Destination path
+            clip = VideoFileClip(filePath)
+            clip = clip.resize(width=1920)
+            clip = clip.resize(height=1080)
+            duration = clip.duration
+            print(duration)
+            if duration <= maxClipLength and duration >= minClipLength:
+                allVideos.append(clip)
+                seenLengths[duration].append(fileName)
+                totalLength += duration
+
+    print("Total Length: " + str(totalLength))
+
+
+    random.shuffle(allVideos)
+
+
+    duration = 0
+    # Add intro vid
+    videos = []
+    if introName != '':
+        introVid = VideoFileClip("./" + introName)
+        videos.append(introVid)
+        duration += introVid.duration
+
+    description = ""
+    # Create videos
+    for clip in allVideos:
+        timeRange = generateTimeRange(duration, clip.duration)
+        acc = extractAcc(clip.filename)
+        description += timeRange + " : @" + acc + "\n"
+        duration += clip.duration
+        videos.append(clip)
+        print(duration)
+        if duration >= totalVidLength:
+            # Just make one video
+            break
+
+    # Add outro vid
+    if outroName != '':
+        outroVid = VideoFileClip("./" + outroName)
+        videos.append(outroVid)
+
+
+    finalClip = concatenate_videoclips(videos, method="compose")
+
+
+    audio_path = "/tmp/temoaudiofile.m4a"
+
+
+    #print(description)
+    # Create compilation
+    finalClip.write_videofile(outputFile, threads=8, temp_audiofile=audio_path, remove_temp=True, codec="libx264", audio_codec="aac")
+
+
+    return description,"
+```
+
+## Seamless YouTube Uploads
+
+Once the video masterpiece is complete, it's time for the grand finale! 🌟🎉 My software performs a dazzling dance routine by logging into Google and effortlessly uploads the video to YouTube using the v3 API. The audience won't even know it wasn't my own two hands doing the work! 🤫💻📤
+
+Here's the code that does the uploading job for us👇
+
+```python
+from googleapiclient.http import MediaFileUpload
+
+def uploadYtvid(VIDEO_FILE_NAME='',
+                title='Intro Video!',
+                description=':) ',
+                tags=[],
+                googleAPI=None):
+
+    now = datetime.datetime.now()
+    upload_date_time = datetime.datetime(now.year, now.month, now.day, now.hour, now.minute, int(now.second)).isoformat() + '.000Z'
+
+
+    request_body = {
+        'snippet': {
+            'categoryId': 23,
+            'title': title,
+            'description': description,
+            'tags': tags
+        },
+        'status': {
+            'privacyStatus': 'public',
+            'selfDeclaredMadeForKids': False,
+        },
+        'notifySubscribers': False
+    }
+
+    mediaFile = MediaFileUpload(VIDEO_FILE_NAME, chunksize=-1, resumable=True)
+
+    response_upload = googleAPI.videos().insert(
+        part='snippet,status',
+        body=request_body,
+        media_body=mediaFile
+    ).execute()
+
+if __name__ == "__main__":
+    uploadYtvid(VIDEO_FILE_NAME='./intro_vid.mp4')
+```
+
+## Automating the 24-Hour Cycle
+
+But wait, the magic doesn't stop there! 🎩✨ My software knows that content creation never sleeps, so it repeats the entire process every 24 hours, ensuring my channel stays as fresh as a just-baked batch of cookies! 🍪🔄
+
+## Benefits and Impact of Complete Automation
+
+Oh, the wonders of automation! 🌟🌈 By embracing the power of complete automation, the YouTube channel has gone from being a time-consuming chore to a well-oiled content machine! 🤖⚙️ The benefits are endless - increased productivity, consistent content delivery, and more time to focus on creative ideas and audience engagement. 🚀🎨💬
+
+# Challenges and Lessons Learned
+
+Now, let's not forget the behind-the-scenes bloopers and the lessons learned along the way! 🎬 Building this automated YouTube channel wasn't a walk in the park. There were moments when my software misbehaved and glitches turned my content into a comedy show! 😅.
+![YouTube Mail Issues](https://media.licdn.com/dms/image/D5612AQHTFIijXZ2r6w/article-inline_image-shrink_400_744/0/1685349326676?e=1691020800&v=beta&t=z-NE8P5B8EEU85DICXcbs-Md3bd051v1nMtemECu8sM)
+Also getting approval for the YouTube API access from Google wasn't a easy process, untill then, the videos would be locked in private mode🔏. But hey, I learned to expect the unexpected and developed resilience in the face of technical challenges. 💪💡
+
+# Conclusion
+
+✨ With a little bit of code, some ingenious tools like insta loader, insta looter, ffmpeg, and moviepy, and a sprinkle of automation, I've achieved the holy bread of YouTube content creation - a fully automated channel! 🎥🤖 Now, we can sit back, relax, and watch the content conquer the YouTube universe seamlessly🍹.
+
+And hey, if you have any questions, funny stories, or want to share your automation adventures, drop a comment below! Let's connect and keep the automation party going! 🤝🤖💬
