@@ -24,8 +24,8 @@ export const Contact = () => {
   const [statusError, setStatusError] = useState('');
   const initDelay = tokens.base.durationS;
 
-
-/*  const onSubmit = async event => {
+  //below function send reposne correctly to the fast api but doesn't parse the reposne well, rectifying that will complete this part
+  const onSubmit = async event => {
     event.preventDefault();
     setStatusError('');
 
@@ -33,10 +33,8 @@ export const Contact = () => {
 
     try {
       setSending(true);
-
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/message`, {
         method: 'POST',
-        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -46,49 +44,50 @@ export const Contact = () => {
         }),
       });
 
-      const responseMessage = await response.json();
+      console.log("response status:", response.status);
 
-      const statusError = getStatusError({
-        status: response?.status,
-        errorMessage: responseMessage?.error,
-        fallback: 'There was a problem sending your message',
-      });
+      if (response.ok) {
+        setComplete(true);
+      } else {
+        setSending(false);
+        setStatusError('There was a problem sending your message');
+        window.alert("Seems like some error has occured?. Haaa it happens, I'll work on it. I'm forwarding to your mail app for now :)");
+        window.open(`mailto:ganishdeepak.cs21@bitsathy.ac.in?subject=${encodeURIComponent("Pinging from portfolio&body")}&body=${encodeURIComponent("Hello GD")},`, '_blank');
+      }
 
-      if (statusError) throw new Error(statusError);
-
-      setComplete(true);
       setSending(false);
     } catch (error) {
       setSending(false);
       setStatusError(error.message);
     }
   };
-*/
-//dummy on submit until developing an api
 
-  const onSubmit = async event => {
-    event.preventDefault();
-    setStatusError('');
 
-    if (sending) return;
+  //dummy on submit until developing an api
 
-    try {
-      setSending(true);
-
-      const response = {"status":"sent"};
-
-      const responseMessage = await response;
-
-      window.alert("I'm currently developing an API for this, I'm forwarding to your mail app for now! :)");
-      window.open(`mailto:ganishdeepak.cs21@bitsathy.ac.in?subject=${encodeURIComponent("Pinging from portfolio&body")}&body=${encodeURIComponent("Hello GD")},`, '_blank');
-
-      setComplete(true);
-      setSending(false);
-    } catch (error) {
-      setSending(false);
-      setStatusError(error.message);
-    }
-  };
+  /*  const onSubmit = async event => {
+      event.preventDefault();
+      setStatusError('');
+  
+      if (sending) return;
+  
+      try {
+        setSending(true);
+  
+        const response = {"status":"sent"};
+  
+        const responseMessage = await response;
+  
+        window.alert("I'm currently developing an API for this, I'm forwarding to your mail app for now! :)");
+        window.open(`mailto:ganishdeepak.cs21@bitsathy.ac.in?subject=${encodeURIComponent("Pinging from portfolio&body")}&body=${encodeURIComponent("Hello GD")},`, '_blank');
+  
+        setComplete(true);
+        setSending(false);
+      } catch (error) {
+        setSending(false);
+        setStatusError(error.message);
+      }
+    };*/
 
 
   return (
