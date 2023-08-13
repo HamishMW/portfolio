@@ -63,38 +63,12 @@ export const Contact = () => {
   };
 
 
-  //dummy on submit until developing an api
-
-  /*  const onSubmit = async event => {
-      event.preventDefault();
-      setStatusError('');
-  
-      if (sending) return;
-  
-      try {
-        setSending(true);
-  
-        const response = {"status":"sent"};
-  
-        const responseMessage = await response;
-  
-        window.alert("I'm currently developing an API for this, I'm forwarding to your mail app for now! :)");
-        window.open(`mailto:ganishdeepak.cs21@bitsathy.ac.in?subject=${encodeURIComponent("Pinging from portfolio&body")}&body=${encodeURIComponent("Hello GD")},`, '_blank');
-  
-        setComplete(true);
-        setSending(false);
-      } catch (error) {
-        setSending(false);
-        setStatusError(error.message);
-      }
-    };*/
-
 
   return (
     <Section className={styles.contact}>
       <Meta
         title="Contact"
-        description="Send me a message if you’re interested in discussing a project or if you just want to say hi"
+        description="Send me a message if you're interested in discussing a project or if you just want to say hi"
       />
       <Transition unmount in={!complete} timeout={1600}>
         {(visible, status) => (
