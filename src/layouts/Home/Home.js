@@ -107,7 +107,7 @@ export const Home = () => {
         title="SpainRP"
         description="SpainRP Minecraft Server"
         buttonText="View website"
-        buttonLink="https://spainrp.ga"
+        buttonLink="https://spainrp.me"
         model={{
           type: 'phone',
           alt: 'App login screen',
