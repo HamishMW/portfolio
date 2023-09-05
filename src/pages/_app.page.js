@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { Fragment, createContext, useEffect, useReducer } from 'react';
 import { msToNum } from 'utils/style';
 import { ScrollRestore } from '../layouts/App/ScrollRestore';
+import dynamic from 'next/dynamic';
 
 export const AppContext = createContext({});
 
@@ -30,6 +31,9 @@ __  __  __
 Tryna Inspect ? OKay 🤖
 `;
 
+const AnimatedCursor = dynamic(() => import('react-animated-cursor'), {
+  ssr: false,
+});
 
 const App = ({ Component, pageProps }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
@@ -48,6 +52,14 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
+      <AnimatedCursor
+        innerSize={12}
+        outerSize={17}
+        color='112, 132, 244'
+        outerAlpha={0.35}
+        innerScale={0.6}
+        outerScale={4}
+      />
       <ThemeProvider themeId={state.theme}>
         <LazyMotion features={domAnimation}>
           <Fragment>

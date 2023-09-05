@@ -158,7 +158,6 @@ export const Home = () => {
     };
   }, [visibleSections]);
 
-
   return (
     <div className={styles.home}>
       <Meta

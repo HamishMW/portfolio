@@ -20,14 +20,16 @@ const ProfileText = ({ visible, titleId }) => (
     <Heading className={styles.title} data-visible={visible} level={3} id={titleId}>
       <DecoderText text="Hi there" start={visible} delay={500} />
     </Heading>
-    <Text className={styles.description} data-visible={visible} size="l" as="p">
-      I’m Ganish Deepak aka GD, currently pursuing BE in Computer Science and Engineering. 
-      My projects include full-stack development, automation, prototyping and AI applications. 
+    <Text style={{ textAlign: "justify" }} className={styles.description} data-visible={visible} size="l" as="p">
+      I’m Ganish Deepak aka GD, currently pursuing BE in Computer Science and Engineering.
+      My projects include full-stack development, automation, prototyping and AI applications.
       Being comfortable with code allows me to rapidly prototype and validate experiences.
-      If you’re interested in the tools and software I use check out my <Link href={"/uses-404"/*"/uses"*/}>uses page</Link>.
+    </Text >
+    <Text style={{ textAlign: "justify" }} className={styles.description} data-visible={visible} size="l" as="p">
+      Check out my <Link href={"/resume.pdf"}>resume</Link> and if you’re interested in the tools and software I use check out my <Link href={"/uses"}>uses page</Link>.
     </Text>
-    <Text className={styles.description} data-visible={visible} size="l" as="p">
-      In my spare time I like to play video games, travel, and experiment crazy things. 
+    <Text style={{ textAlign: "justify" }} className={styles.description} data-visible={visible} size="l" as="p">
+      In my spare time I like to play video games, travel, and experiment crazy things.
       I’m always down for hearing about new projects, so feel free to drop me a line.
     </Text>
   </Fragment>

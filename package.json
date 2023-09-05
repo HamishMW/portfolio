@@ -46,6 +46,7 @@
     "mdx-bundler": "^9.0.1",
     "next": "^12.3.4",
     "react": "^18.2.0",
+    "react-animated-cursor": "^2.8.1",
     "react-dom": "^18.2.0",
     "three": "^0.146.0",
     "three-stdlib": "^2.18.1",
