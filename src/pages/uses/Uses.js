@@ -42,8 +42,8 @@ export const Uses = () => {
               <ProjectSectionText as="div">
                 <List>
                   <ListItem>
-                    Any motion graphics I create are created in Adobe After Effects. So
-                    far I haven’t found a non-Adobe product that’s as good. If anyone has
+                    Any video I made is edited with Sony Vegas Pro 19. So
+                    far I haven’t found a opensource product that’s as good. If anyone has
                     suggestions please <Link href="/contact">message me</Link>.
                   </ListItem>
                   <ListItem>
@@ -70,7 +70,7 @@ export const Uses = () => {
                     my typeface of choice.
                   </ListItem>
                   <ListItem>
-                    Microsoft Edge is my main browser for both development and general use. (and ARC on my laptop)
+                    Firefox is my main browser for both development and general use. (ARC will be my replacement when it comes to windows)
                   </ListItem>
                   <ListItem>
                     <Link href="https://reactjs.org/">React</Link> is my front end
@@ -121,8 +121,17 @@ export const Uses = () => {
                     <TableCell>MSI B450 Gaming Plus Max</TableCell>
                   </TableRow>
                   <TableRow>
+                    <TableHeadCell>Storage</TableHeadCell>
+                    <TableCell>WD_BLACK SN770 NVMe SSD 1TB (Main SO Windows)</TableCell>
+                    <TableCell>WD Blue SATA SSD M.2 2280 500GB (Secondary SO Fedora Workstation)</TableCell>
+                    <TableCell>SanDisk SSD Plus 480GB (Programs)</TableCell>
+                    <TableCell>KIOXIA-EXCERIA SATA SSD 1TB (Games)</TableCell>
+                    <TableCell>ST1000DM010-2EP102 1TB (Files)</TableCell>
+                  </TableRow>
+                  <TableRow>
                     <TableHeadCell>Monitors</TableHeadCell>
-                    <TableCell>AOC 1080p 165hz 21inch/ Samsung 75hz 17inch </TableCell>
+                    <TableCell>AOC 1080p 165hz 21inches (Curved)</TableCell>
+                    <TableCell>Samsung 75hz 17inches (Vertical)</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Keyboard</TableHeadCell>
@@ -133,12 +142,14 @@ export const Uses = () => {
                     <TableCell>Logitech G502 Hero</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableRow>
                       <TableHeadCell>Headphones</TableHeadCell>
-                      <TableCell>Razer Kraken Tournament Edition</TableCell>
-                    </TableRow>
+                      <TableCell>Razer Kraken Tournament</TableCell>
                   </TableRow>
                 </TableBody>
+                    <TableRow>
+                      <TableHeadCell>Laptop</TableHeadCell>
+                      <TableCell>MacBook Pro 2011 (i7, 500gb ssd, 16gb ram) running Fedora Workstation</TableCell>
+                    </TableRow>
               </Table>
             </ProjectTextRow>
           </ProjectSectionContent>
