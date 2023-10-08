@@ -16,7 +16,7 @@ const baseTokens = {
   monoFontStack:
     'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace',
   japaneseFontStack:
-    'ヒラギノ角ゴ Pro W3, Hiragino Kaku Gothic Pro, Hiragino Sans, Osaka, メイリオ, Meiryo, Segoe UI, sans-serif',
+    'IPA Gothic, ヒラギノ角ゴ Pro W3, Hiragino Kaku Gothic Pro, Hiragino Sans, Osaka, メイリオ, Meiryo, Segoe UI, sans-serif',
   fontWeightRegular: 400,
   fontWeightMedium: 500,
   fontWeightBold: 700,
