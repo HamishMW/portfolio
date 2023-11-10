@@ -4,16 +4,14 @@ import sliceTexturePlaceholder from 'assets/slice-app-placeholder.jpg';
 import sprTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
 
 import { Text } from 'components/Text';
-import { Link } from 'components/Link';
-import { ToastContainer, toast } from 'react-toastify';
 
 import nebulaDashboard from 'assets/nebula-dashboard.jpg';
 import nebulaDashboardLarge from 'assets/nebula-dashboard-large.jpg';
 
-import OneBITTexture from 'assets/onebit-texture1.jpg';
-import OneBITTextureLarge from 'assets/onebit-texture1-large.jpg';
-import OneBITTexture2 from 'assets/onebit-texture2.jpg';
-import OneBITTextureLarge2 from 'assets/onebit-texture2-large.jpg';
+import OneBITTexture from 'assets/onebit/onebit-texture1.jpg';
+import OneBITTextureLarge from 'assets/onebit/onebit-texture1-large.jpg';
+import OneBITTexture3 from 'assets/onebit/onebit-texture3.jpg';
+import OneBITTextureLarge3 from 'assets/onebit/onebit-texture3-large.jpg';
 
 import SmartWhitecane from 'assets/smart-whitecane.jpg';
 import SmartWhitecaneLarge from 'assets/smart-whitecane-large.jpg';
@@ -26,7 +24,7 @@ import NET from "vanta/dist/vanta.net.min";
 import * as THREE from "three";
 
 import { useTheme } from 'components/ThemeProvider';
-
+import { ToastContainer, toast } from 'react-toastify';
 import { Footer } from 'components/Footer';
 import { Meta } from 'components/Meta';
 import { Intro } from 'layouts/Home/Intro';
@@ -37,7 +35,7 @@ import styles from './Home.module.css';
 
 const disciplines = ['Innovator', 'Prototyper', 'Engineer', 'Designer', 'Modder'];
 
-toast(({ closeToast, toastProps }) => (
+toast(() => (
   <Text
     size='10'
     className={"toast-test"}
@@ -142,6 +140,42 @@ export const Home = () => {
   useEffect(() => {
     const sections = [intro, projectOne, projectTwo, projectThree, projectFour, details];
 
+    console.log(visibleSections.length);
+
+    if (visibleSections.length == 3) {
+      toast(({ closeToast, toastProps }) => (
+        <Text
+          size='10'
+          className={"toast-test"}
+          color={"white"}
+        >
+          Explore more of my projects in github
+        </Text>
+      ), {
+        position: toast.POSITION.TOP_CENTER,
+        theme: "dark"
+      });
+
+    }
+
+    if (visibleSections.length == 6) {
+      toast(({ closeToast, toastProps }) => (
+        <Text
+          size='10'
+          className={"toast-test"}
+          color={"white"}
+        >
+          Go on and drop me a message 😃
+        </Text>
+      ), {
+        position: toast.POSITION.TOP_CENTER,
+        theme: "dark",
+        delay: 3000
+      });
+
+    }
+
+
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach(entry => {
@@ -218,19 +252,19 @@ export const Home = () => {
         index={2}
         title="OneBIT Application"
         description="An one stop application for all needs inside BIT Campus right from study materials to leave applications requiring to login only once. Actively under construction."
-        buttonText="Download Now"
-        buttonLink="https://github.com/gd03champ/OneBIT"
+        buttonText="View Project"
+        buttonLink="projects/onebit"
         model={{
           type: 'phone',
           alt: 'OneBIT Onboarding (Under Dev)',
           textures: [
             {
-              srcSet: [OneBITTexture2, OneBITTextureLarge2],
-              placeholder: gamestackTexturePlaceholder,
-            },
-            {
               srcSet: [OneBITTexture, OneBITTextureLarge],
               placeholder: gamestackTexture2Placeholder,
+            },
+            {
+              srcSet: [OneBITTexture3, OneBITTextureLarge3],
+              placeholder: gamestackTexturePlaceholder,
             },
           ],
         }}
@@ -280,11 +314,11 @@ export const Home = () => {
           ],
         }}
       />
-      <center>
+      {/*<center>
         <Text>
           View more projects in my <Link href={"https://github.com/gd03champ"}>github</Link>
         </Text>
-      </center>
+      </center>*/}
       <Profile
         sectionRef={details}
         visible={visibleSections.includes(details.current)}
