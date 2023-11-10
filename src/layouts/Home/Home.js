@@ -4,6 +4,8 @@ import sliceTexturePlaceholder from 'assets/slice-app-placeholder.jpg';
 import sprTexturePlaceholder from 'assets/spr-lesson-builder-dark-placeholder.jpg';
 
 import { Text } from 'components/Text';
+import { Link } from 'components/Link';
+import { ToastContainer, toast } from 'react-toastify';
 
 import nebulaDashboard from 'assets/nebula-dashboard.jpg';
 import nebulaDashboardLarge from 'assets/nebula-dashboard-large.jpg';
@@ -19,6 +21,7 @@ import SmartWhitecaneLarge from 'assets/smart-whitecane-large.jpg';
 import YoutubeStudio from 'assets/youtubeAutomation/studio-gif.gif';
 import YoutubeExplore from 'assets/youtubeAutomation/explore.png';
 
+import 'react-toastify/dist/ReactToastify.css';
 import NET from "vanta/dist/vanta.net.min";
 import * as THREE from "three";
 
@@ -33,6 +36,20 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
 const disciplines = ['Innovator', 'Prototyper', 'Engineer', 'Designer', 'Modder'];
+
+toast(({ closeToast, toastProps }) => (
+  <Text
+    size='10'
+    className={"toast-test"}
+    color={"white"}
+  >
+    This site&apos;s dark web mirror 👉 <a href={"https://kut.sh/gdonion"}> here </a>
+  </Text>
+), {
+  position: toast.POSITION.TOP_CENTER,
+  theme: "dark",
+  delay: 3500,
+});
 
 export const Home = () => {
   const [visibleSections, setVisibleSections] = useState([]);
@@ -164,6 +181,7 @@ export const Home = () => {
         title="Developer + Innovator"
         description="Design portfolio of GANISH DEEPAK — a developer working on various frameworks to learn and excel current trends"
       />
+      <ToastContainer />
       <div ref={vantaRef}>
         <Intro
           id="intro"
@@ -262,13 +280,11 @@ export const Home = () => {
           ],
         }}
       />
-      {/*<center>
+      <center>
         <Text>
-          Four more projects are being configured to be loaded in this space.
-          <br />
-          Hang Tight!
+          View more projects in my <Link href={"https://github.com/gd03champ"}>github</Link>
         </Text>
-      </center>*/}
+      </center>
       <Profile
         sectionRef={details}
         visible={visibleSections.includes(details.current)}

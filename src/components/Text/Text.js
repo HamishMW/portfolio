@@ -8,6 +8,7 @@ export const Text = ({
   align = 'auto',
   weight = 'auto',
   secondary,
+  color,
   className,
   ...rest
 }) => {
@@ -18,6 +19,7 @@ export const Text = ({
       data-size={size}
       data-weight={weight}
       data-secondary={secondary}
+      style={{ color }}
       {...rest}
     >
       {children}

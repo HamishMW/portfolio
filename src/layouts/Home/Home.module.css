@@ -1,3 +1,7 @@
 .home {
   overflow-x: hidden;
 }
+
+.Toastify__progress-bar-theme--dark {
+  background: #000000;
+}
