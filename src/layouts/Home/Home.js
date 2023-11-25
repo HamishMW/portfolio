@@ -17,8 +17,11 @@ import { Profile } from 'layouts/Home/Profile';
 import { ProjectSummary } from 'layouts/Home/ProjectSummary';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
+import { Helmet } from 'react-helmet';
 
 const disciplines = ['Developer', 'Photographer', 'Helper'];
+
+
 
 export const Home = () => {
   const [visibleSections, setVisibleSections] = useState([]);
@@ -29,8 +32,7 @@ export const Home = () => {
   const projectThree = useRef();
   const details = useRef();
   
-  <script defer data-domain="tomasps.tk" src="https://plausible.tomasps.tk/js/script.js"></script>
-
+  
   useEffect(() => {
     const sections = [intro, projectOne, projectTwo, projectThree, details];
 
@@ -69,6 +71,9 @@ export const Home = () => {
 
   return (
     <div className={styles.home}>
+      <Helmet>
+      <script defer data-domain="tomasps.tk" src="https://plausible.tomasps.tk/js/script.js"></script>
+    </Helmet>
       <Meta
         title="Designer + Developer"
         description="Design portfolio of TomasPS — a product designer working on web & mobile
