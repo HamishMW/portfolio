@@ -18,7 +18,7 @@ import { ProjectSummary } from 'layouts/Home/ProjectSummary';
 import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 
-const disciplines = ['Developer', 'Gamer', 'Photographer', 'Helper', 'Modder'];
+const disciplines = ['Developer', 'Photographer', 'Helper'];
 
 export const Home = () => {
   const [visibleSections, setVisibleSections] = useState([]);
@@ -28,6 +28,8 @@ export const Home = () => {
   const projectTwo = useRef();
   const projectThree = useRef();
   const details = useRef();
+  
+  <script defer data-domain="tomasps.tk" src="https://plausible.tomasps.tk/js/script.js"></script>
 
   useEffect(() => {
     const sections = [intro, projectOne, projectTwo, projectThree, details];
