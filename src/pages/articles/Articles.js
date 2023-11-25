@@ -193,7 +193,6 @@ export const Articles = ({ posts, featured }) => {
         )}
       </Section>
       <Footer />
-      <script defer data-domain="tomasps.tk" src="https://plausible.tomasps.tk/js/script.js"></script>
     </article>
   );
 };
