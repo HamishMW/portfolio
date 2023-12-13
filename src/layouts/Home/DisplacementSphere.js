@@ -24,8 +24,8 @@ import fragShader from './displacementSphereFragment.glsl';
 import vertShader from './displacementSphereVertex.glsl';
 
 const springConfig = {
-  stiffness: 30,
-  damping: 20,
+  stiffness: 1,
+  damping: 2,
   mass: 2,
 };
 
