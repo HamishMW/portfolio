@@ -151,7 +151,7 @@ export const Contact = () => {
               icon="send"
               type="submit"
             >
-              Don't try, it won't do nothing
+              Send Message
             </Button>
           </form>
         )}
