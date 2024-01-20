@@ -47,18 +47,11 @@ export const Contact = () => {
       //   }),
       // });
       // console.log(form.current);
-      emailjs
-        .sendForm(
-          'service_key',
-          'template_key',
-          form.current,
-          'form'
-        )
-        .then(res => {
-          // setSenderEmail('');
-          // setSenderMsg('');
-          console.log(res);
-        });
+      emailjs.sendForm('service_key', 'template_key', form.current, 'form').then(res => {
+        // setSenderEmail('');
+        // setSenderMsg('');
+        console.log(res);
+      });
 
       // const responseMessage = await response.json();
 
@@ -82,7 +75,7 @@ export const Contact = () => {
     <Section className={styles.contact}>
       <Meta
         title="Contact"
-        description="Send me a message if you’re interested in discussing a project or if you just want to say hi"
+        description="You aren't supposed to see this page, it's in wip, :)"
       />
       <Transition unmount in={!complete} timeout={1600}>
         {(visible, status) => (
@@ -94,7 +87,11 @@ export const Contact = () => {
               as="h1"
               style={getDelay(tokens.base.durationXS, initDelay, 0.3)}
             >
-              <DecoderText text="Say hello" start={status !== 'exited'} delay={300} />
+              <DecoderText
+                text="You aren't supposed to see this page, it's in wip, :)"
+                start={status !== 'exited'}
+                delay={300}
+              />
             </Heading>
             <Divider
               className={styles.divider}
@@ -154,7 +151,7 @@ export const Contact = () => {
               icon="send"
               type="submit"
             >
-              Send message
+              Don't try, it won't do nothing
             </Button>
           </form>
         )}

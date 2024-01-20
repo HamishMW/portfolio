@@ -11,10 +11,10 @@ export const navLinks = [
     label: 'Articles',
     pathname: '/articles',
   },
-  {
-    label: 'Contact',
-    pathname: '/contact',
-  },
+  // {
+  //   label: 'Contact',
+  //   pathname: '/contact',
+  // },
   {
     label: 'Photography',
     pathname: 'https://photography.tomasps.tk',

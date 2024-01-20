@@ -106,7 +106,7 @@ export const Uses = () => {
                 <TableBody>
                   <TableRow>
                     <TableHeadCell>CPU</TableHeadCell>
-                    <TableCell>AMD Ryzen 3600x</TableCell>
+                    <TableCell>AMD Ryzen 5 3600x</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>GPU</TableHeadCell>
