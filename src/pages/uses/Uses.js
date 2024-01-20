@@ -148,7 +148,7 @@ export const Uses = () => {
                 </TableBody>
                     <TableRow>
                       <TableHeadCell>Laptop</TableHeadCell>
-                      <TableCell>MacBook Pro 2011 (i7, 500gb ssd, 16gb ram) running Fedora Workstation</TableCell>
+                      <TableCell>Lenovo Thinkpad E16 (AMD R7, 40gb RAM, 1TB SSD, Fedora 39)</TableCell>
                     </TableRow>
               </Table>
             </ProjectTextRow>
