@@ -4,8 +4,7 @@ import { useTheme } from '~/components/ThemeProvider';
 import { tokens } from '~/components/ThemeProvider/theme';
 import { Transition } from '~/components/Transition';
 import { useAppContext, useScrollToHash, useWindowSize } from '~/hooks';
-import RouterLink from 'next/link';
-import { useRouter } from 'next/router';
+import { Link as RouterLink, useLocation } from '@remix-run/react';
 import { useEffect, useRef, useState } from 'react';
 import { cssProps, media, msToNum, numToMs } from '~/utils/style';
 import { NavToggle } from './NavToggle';
@@ -18,7 +17,7 @@ export const Navbar = () => {
   const [target, setTarget] = useState();
   const { themeId } = useTheme();
   const { menuOpen, dispatch } = useAppContext();
-  const { route, asPath } = useRouter();
+  const location = useLocation();
   const windowSize = useWindowSize();
   const headerRef = useRef();
   const isMobile = windowSize.width <= media.mobile || windowSize.height <= 696;
@@ -26,15 +25,15 @@ export const Navbar = () => {
 
   useEffect(() => {
     // Prevent ssr mismatch by storing this in state
-    setCurrent(asPath);
-  }, [asPath]);
+    setCurrent(location.key);
+  }, [location.key]);
 
   // Handle smooth scroll nav items
   useEffect(() => {
-    if (!target || route !== '/') return;
-    setCurrent(`${route}${target}`);
+    if (!target || location.pathname !== '/') return;
+    setCurrent(`${location.pathname}${target}`);
     scrollToHash(target, () => setTarget(null));
-  }, [route, scrollToHash, target]);
+  }, [location.pathname, scrollToHash, target]);
 
   // Handle swapping the theme when intersecting with inverse themed elements
   useEffect(() => {
@@ -110,7 +109,7 @@ export const Navbar = () => {
       document.removeEventListener('scroll', handleInversion);
       resetNavTheme();
     };
-  }, [themeId, windowSize, asPath]);
+  }, [themeId, windowSize, location.key]);
 
   // Check if a nav item should be active
   const getCurrent = (url = '') => {
@@ -128,7 +127,7 @@ export const Navbar = () => {
     const hash = event.currentTarget.href.split('#')[1];
     setTarget(null);
 
-    if (hash && route === '/') {
+    if (hash && location.pathname === '/') {
       setTarget(`#${hash}`);
       event.preventDefault();
     }
@@ -141,29 +140,28 @@ export const Navbar = () => {
 
   return (
     <header className={styles.navbar} ref={headerRef}>
-      <RouterLink href={route === '/' ? '/#intro' : '/'} scroll={false}>
-        <a
-          data-navbar-item
-          className={styles.logo}
-          aria-label="Hamish Williams, Designer"
-          onClick={handleMobileNavClick}
-        >
-          <Monogram highlight />
-        </a>
+      <RouterLink
+        to={location.pathname === '/' ? '/#intro' : '/'}
+        data-navbar-item
+        className={styles.logo}
+        aria-label="Hamish Williams, Designer"
+        onClick={handleMobileNavClick}
+      >
+        <Monogram highlight />
       </RouterLink>
       <NavToggle onClick={() => dispatch({ type: 'toggleMenu' })} menuOpen={menuOpen} />
       <nav className={styles.nav}>
         <div className={styles.navList}>
           {navLinks.map(({ label, pathname }) => (
-            <RouterLink href={pathname} scroll={false} key={label}>
-              <a
-                data-navbar-item
-                className={styles.navLink}
-                aria-current={getCurrent(pathname)}
-                onClick={handleNavItemClick}
-              >
-                {label}
-              </a>
+            <RouterLink
+              to={pathname}
+              key={label}
+              data-navbar-item
+              className={styles.navLink}
+              aria-current={getCurrent(pathname)}
+              onClick={handleNavItemClick}
+            >
+              {label}
             </RouterLink>
           ))}
         </div>
@@ -173,20 +171,20 @@ export const Navbar = () => {
         {visible => (
           <nav className={styles.mobileNav} data-visible={visible}>
             {navLinks.map(({ label, pathname }, index) => (
-              <RouterLink href={pathname} scroll={false} key={label}>
-                <a
-                  className={styles.mobileNavLink}
-                  data-visible={visible}
-                  aria-current={getCurrent(pathname)}
-                  onClick={handleMobileNavClick}
-                  style={cssProps({
-                    transitionDelay: numToMs(
-                      Number(msToNum(tokens.base.durationS)) + index * 50
-                    ),
-                  })}
-                >
-                  {label}
-                </a>
+              <RouterLink
+                to={pathname}
+                key={label}
+                className={styles.mobileNavLink}
+                data-visible={visible}
+                aria-current={getCurrent(pathname)}
+                onClick={handleMobileNavClick}
+                style={cssProps({
+                  transitionDelay: numToMs(
+                    Number(msToNum(tokens.base.durationS)) + index * 50
+                  ),
+                })}
+              >
+                {label}
               </RouterLink>
             ))}
             <NavbarIcons />

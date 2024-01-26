@@ -1,45 +1,42 @@
 import { useReducedMotion } from 'framer-motion';
-// import { useRouter } from 'next/router';
+import { useLocation, useNavigate } from '@remix-run/react';
 import { useCallback, useRef } from 'react';
 
 export function useScrollToHash() {
-  return;
-  
-  // const scrollTimeout = useRef();
-  // const { asPath, push } = useRouter();
-  // const reduceMotion = useReducedMotion();
+  const scrollTimeout = useRef();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const reduceMotion = useReducedMotion();
 
-  // const scrollToHash = useCallback(
-  //   (hash, onDone) => {
-  //     const id = hash.split('#')[1];
-  //     const targetElement = document.getElementById(id);
-  //     const route = asPath.split('#')[0];
-  //     const newPath = `${route}#${id}`;
+  const scrollToHash = useCallback(
+    (hash, onDone) => {
+      const id = hash.split('#')[1];
+      const targetElement = document.getElementById(id);
 
-  //     targetElement.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+      targetElement.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
 
-  //     const handleScroll = () => {
-  //       clearTimeout(scrollTimeout.current);
+      const handleScroll = () => {
+        clearTimeout(scrollTimeout.current);
 
-  //       scrollTimeout.current = setTimeout(() => {
-  //         window.removeEventListener('scroll', handleScroll);
+        scrollTimeout.current = setTimeout(() => {
+          window.removeEventListener('scroll', handleScroll);
 
-  //         if (window.location.pathname === route) {
-  //           onDone?.();
-  //           push(newPath, null, { scroll: false });
-  //         }
-  //       }, 50);
-  //     };
+          if (window.location.pathname === location.pathname) {
+            onDone?.();
+            navigate(`${location.pathname}#${id}`, { scroll: false });
+          }
+        }, 50);
+      };
 
-  //     window.addEventListener('scroll', handleScroll);
+      window.addEventListener('scroll', handleScroll);
 
-  //     return () => {
-  //       window.removeEventListener('scroll', handleScroll);
-  //       clearTimeout(scrollTimeout.current);
-  //     };
-  //   },
-  //   [push, reduceMotion, asPath]
-  // );
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        clearTimeout(scrollTimeout.current);
+      };
+    },
+    [navigate, reduceMotion, location.pathname]
+  );
 
-  // return scrollToHash;
+  return scrollToHash;
 }

@@ -1,0 +1,18 @@
+.uses {
+  --maxWidthL: var(--maxWidthM);
+}
+
+.section {
+  opacity: 0;
+  padding-top: var(--space2XL);
+  padding-bottom: var(--space2XL);
+  margin-top: var(--space2XL);
+
+  &:global {
+    animation: fadeIn 1s ease 1s forwards;
+  }
+
+  & + & {
+    margin-top: 0;
+  }
+}

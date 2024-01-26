@@ -43,7 +43,7 @@
   grid-template-columns: var(--textColumnWidth) 1fr;
   grid-column-gap: var(--space2XL);
 
-  @nest .summary[data-alternate='true'] & {
+  .summary[data-alternate='true'] & {
     grid-template-columns: 1fr var(--textColumnWidth);
   }
 
@@ -52,7 +52,7 @@
   }
 
   @media (--mediaTablet) {
-    @nest .summary[data-alternate='true'] & {
+    .summary[data-alternate='true'] & {
       grid-template-columns: 100%;
     }
 

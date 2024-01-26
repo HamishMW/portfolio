@@ -1,7 +1,6 @@
-// import { AppContext } from 'pages/_app.page';
 import { useContext } from 'react';
+import { AppContext } from '~/root';
 
 export function useAppContext() {
-  return {};
-  // return useContext(AppContext);
+  return useContext(AppContext);
 }

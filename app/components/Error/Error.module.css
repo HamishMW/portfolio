@@ -88,7 +88,9 @@
   left: var(--spaceS);
   transform: none;
   text-decoration: none;
-  transition: opacity var(--durationM) ease var(--durationXL), color var(--durationM) ease;
+  transition:
+    opacity var(--durationM) ease var(--durationXL),
+    color var(--durationM) ease;
   opacity: 0;
 
   &:hover,
@@ -121,7 +123,8 @@
   width: 100%;
 }
 
-.title {
+.title,
+.titleFlatline {
   margin-bottom: var(--spaceM);
   transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
@@ -137,6 +140,19 @@
   &[data-visible='true'] {
     transform: none;
     opacity: 1;
+  }
+}
+
+.titleFlatline {
+  color: rgb(var(--rgbAccent));
+  display: flex;
+  align-items: center;
+  gap: var(--spaceM);
+  white-space: nowrap;
+
+  svg {
+    flex: 0 0 auto;
+    fill: rgb(var(--rgbAccent));
   }
 }
 

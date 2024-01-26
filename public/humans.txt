@@ -26,7 +26,7 @@ _______________________________________________________________________________
 TECHNOLOGY | テクノロジー
 
 React
-Next.js
+Remix
 Three.js
 Framer Motion
 
@@ -34,5 +34,5 @@ _______________________________________________________________________________
 
 FONTS | フォント
 
-Gotham
-Hiragino Kaku Gothic
+Gotham (English)
+IPA Gothic Regular (Japanese)

@@ -11,32 +11,34 @@ function isAnchor(href) {
   return href?.includes('://') || href?.[0] === '#' || isValidExtension;
 }
 
-export const Link = forwardRef(({ href, ...rest }, ref) => {
-  if (isAnchor(href)) {
-    return <LinkContent href={href} ref={ref} {...rest} />;
-  }
-
-  return <LinkContent as={RouterLink} to={href} ref={ref} {...rest} />;
-});
-
-export const LinkContent = forwardRef(
+export const Link = forwardRef(
   ({ rel, target, children, secondary, className, href, ...rest }, ref) => {
     const isExternal = href?.includes('://');
     const relValue = rel || (isExternal ? 'noreferrer noopener' : undefined);
     const targetValue = target || (isExternal ? '_blank' : undefined);
 
+    const linkProps = {
+      className: classes(styles.link, className),
+      ['data-secondary']: secondary,
+      rel: relValue,
+      href: href,
+      target: targetValue,
+      ref: ref,
+      ...rest,
+    };
+
+    if (isAnchor(href)) {
+      return (
+        <a {...linkProps} href={href}>
+          {children}
+        </a>
+      );
+    }
+
     return (
-      <a
-        className={classes(styles.link, className)}
-        data-secondary={secondary}
-        rel={relValue}
-        href={href}
-        target={targetValue}
-        ref={ref}
-        {...rest}
-      >
+      <RouterLink {...linkProps} to={href}>
         {children}
-      </a>
+      </RouterLink>
     );
   }
 );

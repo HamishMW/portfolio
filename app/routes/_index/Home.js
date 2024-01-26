@@ -116,11 +116,11 @@ export const Home = () => {
           alt: 'App login screen',
           textures: [
             {
-              srcSet: [gamestackTexture, gamestackTextureLarge],
+              srcSet: `${gamestackTexture} 375w, ${gamestackTextureLarge} 750w`,
               placeholder: gamestackTexturePlaceholder,
             },
             {
-              srcSet: [gamestackTexture2, gamestackTexture2Large],
+              srcSet: `${gamestackTexture2} 375w, ${gamestackTexture2Large} 750w`,
               placeholder: gamestackTexture2Placeholder,
             },
           ],
@@ -140,7 +140,7 @@ export const Home = () => {
           alt: 'Annotating a biomedical image in the Slice app',
           textures: [
             {
-              srcSet: [sliceTexture, sliceTextureLarge],
+              srcSet: `${sliceTexture} 800w, ${sliceTextureLarge} 1920w`,
               placeholder: sliceTexturePlaceholder,
             },
           ],

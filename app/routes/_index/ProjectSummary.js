@@ -89,7 +89,7 @@ export const ProjectSummary = ({
   const renderPreview = visible => (
     <div className={styles.preview}>
       <Suspense>
-        {/* {model.type === 'laptop' && (
+        {model.type === 'laptop' && (
           <>
             {renderKatakana('laptop', visible)}
             <div className={styles.model} data-device="laptop">
@@ -141,7 +141,7 @@ export const ProjectSummary = ({
               />
             </div>
           </>
-        )} */}
+        )}
       </Suspense>
     </div>
   );

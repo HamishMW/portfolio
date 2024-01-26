@@ -10,6 +10,7 @@ export function reducer(state, action) {
       return { ...state, theme: value };
     case 'toggleTheme': {
       const newThemeId = state.theme === 'dark' ? 'light' : 'dark';
+      document.body.dataset.theme = newThemeId;
       return { ...state, theme: newThemeId };
     }
     case 'toggleMenu':

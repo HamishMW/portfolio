@@ -8,7 +8,7 @@ import {
   LinearFilter,
   Mesh,
   OrthographicCamera,
-  PlaneBufferGeometry,
+  PlaneGeometry,
   Scene,
   ShaderMaterial,
   WebGLRenderer,
@@ -130,7 +130,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         opacity: 1,
       });
 
-      geometry.current = new PlaneBufferGeometry(width, height, 1);
+      geometry.current = new PlaneGeometry(width, height, 1);
       imagePlane.current = new Mesh(geometry.current, material.current);
       imagePlane.current.position.set(0, 0, 0);
       scene.current.add(imagePlane.current);
@@ -351,6 +351,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
   };
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div className={styles.carousel} onKeyDown={handleKeyDown} {...rest}>
       <div className={styles.content}>
         <div

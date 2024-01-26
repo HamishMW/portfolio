@@ -74,7 +74,9 @@ export function VolkiharKnight() {
       />
       <ProjectContainer>
         <ProjectBackground
-          srcSet={[volkiharBackground, volkiharBackgroundLarge]}
+          srcSet={`${volkiharBackground} 1280w, ${volkiharBackgroundLarge} 1920w`}
+          width={1280}
+          height={720}
           placeholder={volkiharBackgroundPlaceholder}
           opacity={0.5}
         />
@@ -88,7 +90,9 @@ export function VolkiharKnight() {
         <ProjectSection>
           <ProjectSectionContent>
             <ProjectImage
-              srcSet={[volkiharBanner, volkiharBannerLarge]}
+              srcSet={`${volkiharBanner} 800w, ${volkiharBannerLarge} 1100w`}
+              width={800}
+              height={436}
               placeholder={volkiharBannerPlaceholder}
               alt="A dark elf wearing the Volkihar Knight armor with the logo overlaid on the image."
               sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
@@ -98,7 +102,9 @@ export function VolkiharKnight() {
         <ProjectSection>
           <ProjectSectionContent>
             <Image
-              srcSet={[volkiharBook, volkiharBookLarge]}
+              srcSet={`${volkiharBook} 490w, ${volkiharBookLarge} 960w`}
+              width={480}
+              height={300}
               placeholder={volkiharBookPlaceholder}
               alt="A book containing a sketch depicting the logo and armor"
               sizes={`(max-width: ${media.mobile}px) 90vw, (max-width: ${media.tablet}px) 80vw, 70vw`}
@@ -131,10 +137,10 @@ export function VolkiharKnight() {
         <ProjectSection>
           <ProjectSectionContent>
             <div className={styles.logoContainer}>
-              <VolkiharKnightLogo
+              {/* <VolkiharKnightLogo
                 role="img"
                 aria-label="The Volkihar Knight logo, a monogram using the letters 'V' and 'K"
-              />
+              /> */}
             </div>
             <ProjectTextRow center noMargin>
               <ProjectSectionHeading>Identity design</ProjectSectionHeading>
@@ -175,7 +181,9 @@ export function VolkiharKnight() {
         <ProjectSection
           backgroundElement={
             <Image
-              srcSet={[volkiharEnderal, volkiharEnderalLarge]}
+              srcSet={`${volkiharEnderal} 1280w, ${volkiharEnderalLarge} 1920w`}
+              width={1280}
+              height={720}
               placeholder={volkiharEnderalPlaceholder}
               alt="A promotional image from Enderal showing several characters in the game overlooking a distant city."
               sizes={`100vw`}
@@ -185,7 +193,9 @@ export function VolkiharKnight() {
           <ProjectSectionContent>
             <ProjectTextRow center centerMobile noMargin>
               <Image
-                srcSet={[volkiharEnderalLogo, volkiharEnderalLogoLarge]}
+                srcSet={`${volkiharEnderalLogo} 180w, ${volkiharEnderalLogoLarge} 360w`}
+                width={180}
+                height={200}
                 placeholder={volkiharEnderalLogoPlaceholder}
                 alt="The Enderal game logo"
                 sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 220px`}

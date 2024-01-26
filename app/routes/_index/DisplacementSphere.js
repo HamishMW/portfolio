@@ -29,7 +29,7 @@ const springConfig = {
   mass: 2,
 };
 
-const DisplacementSphere = props => {
+export const DisplacementSphere = props => {
   const theme = useTheme();
   const { rgbBackground, themeId, colorWhite } = theme;
   const start = useRef(Date.now());

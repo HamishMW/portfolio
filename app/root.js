@@ -23,6 +23,7 @@ import styles from './root.module.css';
 import './reset.css';
 import './global.css';
 import { LazyMotion, domAnimation } from 'framer-motion';
+import { Navbar } from './components/Navbar';
 
 export const links = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
@@ -63,19 +64,18 @@ export default function App() {
         <DynamicLinks />
       </head>
       <body data-theme="dark" tabIndex={-1}>
-        <AppProvider>
+        <AppMain>
           <Outlet />
-        </AppProvider>
+        </AppMain>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-        <div id="portal-root" />
       </body>
     </html>
   );
 }
 
-function AppProvider({ children }) {
+function AppMain({ children }) {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -90,7 +90,7 @@ function AppProvider({ children }) {
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
       <LazyMotion features={domAnimation}>
-        <ThemeProvider themeId="dark">
+        <ThemeProvider themeId={state.theme}>
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -103,9 +103,11 @@ function AppProvider({ children }) {
             Skip to main content
           </VisuallyHidden>
           <Sprites />
+          <Navbar />
           <main id="main-content" tabIndex={-1}>
             {children}
           </main>
+          <div id="portal-root" />
         </ThemeProvider>
       </LazyMotion>
     </AppContext.Provider>
@@ -158,9 +160,9 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body data-theme="dark" tabIndex={-1}>
-        <AppProvider>
+        <AppMain>
           <Error error={error} />
-        </AppProvider>
+        </AppMain>
         <Scripts />
       </body>
     </html>
