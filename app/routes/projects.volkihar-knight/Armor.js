@@ -96,14 +96,7 @@ export const Armor = ({
 
     const load = async () => {
       const loadGltf = modelLoader.loadAsync(armor);
-      const loadEnv = cubeTextureLoader.loadAsync([
-        vknx.src,
-        vkny.src,
-        vknz.src,
-        vkpx.src,
-        vkpy.src,
-        vkpz.src,
-      ]);
+      const loadEnv = cubeTextureLoader.loadAsync([vknx, vkny, vknz, vkpx, vkpy, vkpz]);
 
       const [gltf, envTexture] = await Promise.all([loadGltf, loadEnv]);
 

@@ -4,8 +4,6 @@
  */
 export async function loadImageFromSrcSet({ src, srcSet, sizes }) {
   return new Promise((resolve, reject) => {
-    const srcSetString = srcSetToString(srcSet);
-
     try {
       if (!src && !srcSet) {
         throw new Error('No image src or srcSet provided');
@@ -17,8 +15,8 @@ export async function loadImageFromSrcSet({ src, srcSet, sizes }) {
         tempImage.src = src;
       }
 
-      if (srcSetString) {
-        tempImage.srcset = srcSetString;
+      if (srcSet) {
+        tempImage.srcset = srcSet;
       }
 
       if (sizes) {
@@ -34,20 +32,9 @@ export async function loadImageFromSrcSet({ src, srcSet, sizes }) {
 
       tempImage.addEventListener('load', onLoad);
     } catch (error) {
-      reject(`Error loading ${srcSetString}: ${error}`);
+      reject(`Error loading ${srcSet}: ${error}`);
     }
   });
-}
-
-/**
- * Convert a `srcSet` array to a plain old `srcSet` string
- */
-export function srcSetToString(srcSet = []) {
-  if (typeof srcSet === 'string') {
-    return srcSet;
-  }
-
-  return srcSet.map(item => `${item.src} ${item.width}w`).join(', ');
 }
 
 /**
@@ -77,10 +64,8 @@ export async function generateImage(width = 1, height = 1) {
  * Use native html image `srcSet` resolution for non-html images
  */
 export async function resolveSrcFromSrcSet({ srcSet, sizes }) {
-  const stringSrcSet = srcSetToString(srcSet);
-
   const sources = await Promise.all(
-    stringSrcSet.split(', ').map(async srcString => {
+    srcSet.split(', ').map(async srcString => {
       const [src, width] = srcString.split(' ');
       const size = Number(width.replace('w', ''));
       const image = await generateImage(size);

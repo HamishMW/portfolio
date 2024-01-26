@@ -100,7 +100,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
       const anisotropy = renderer.current.capabilities.getMaxAnisotropy();
 
       const texturePromises = images.map(async image => {
-        const imageSrc = image.srcSet ? await resolveSrcFromSrcSet(image) : image.src.src;
+        const imageSrc = image.srcSet ? await resolveSrcFromSrcSet(image) : image.src;
         const imageTexture = await textureLoader.loadAsync(imageSrc);
         await renderer.current.initTexture(imageTexture);
         imageTexture.encoding = sRGBEncoding;
@@ -373,7 +373,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
               aria-hidden
               className={styles.placeholder}
               data-loaded={loaded && !!textures}
-              src={placeholder.src}
+              src={placeholder}
               ref={placeholderRef}
               alt=""
               role="presentation"

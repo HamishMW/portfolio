@@ -374,7 +374,7 @@ export const Earth = ({
     };
 
     const loadBackground = async () => {
-      const backgroundTexture = await textureLoader.loadAsync(milkywayBg.src);
+      const backgroundTexture = await textureLoader.loadAsync(milkywayBg);
       backgroundTexture.mapping = EquirectangularReflectionMapping;
       backgroundTexture.encoding = sRGBEncoding;
       scene.current.background = backgroundTexture;

@@ -16,7 +16,7 @@ export const Link = forwardRef(({ href, ...rest }, ref) => {
     return <LinkContent href={href} ref={ref} {...rest} />;
   }
 
-  return <LinkContent preventScrollReset as={RouterLink} to={href} ref={ref} {...rest} />;
+  return <LinkContent as={RouterLink} to={href} ref={ref} {...rest} />;
 });
 
 export const LinkContent = forwardRef(

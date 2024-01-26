@@ -88,7 +88,7 @@ export function Error({ error }) {
                 playsInline
                 className={styles.video}
                 data-visible={visible}
-                poster={notFoundPoster.src}
+                poster={notFoundPoster}
               >
                 <source src={notFoundVideo} type="video/mp4" />
               </video>

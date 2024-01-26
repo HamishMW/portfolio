@@ -4,7 +4,7 @@ import { useTheme } from '~/components/ThemeProvider';
 import { useReducedMotion } from 'framer-motion';
 import { useHasMounted, useInViewport } from '~/hooks';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
-import { resolveSrcFromSrcSet, srcSetToString } from '~/utils/image';
+import { resolveSrcFromSrcSet } from '~/utils/image';
 import { classes, cssProps, numToMs } from '~/utils/style';
 import styles from './Image.module.css';
 
@@ -67,6 +67,8 @@ const ImageElements = ({
   restartOnPause,
   reveal,
   sizes,
+  width,
+  height,
   noPauseButton,
   ...rest
 }) => {
@@ -79,7 +81,6 @@ const ImageElements = ({
   const videoRef = useRef();
   const isVideo = getIsVideo(src);
   const showFullRes = inViewport;
-  const srcSetString = srcSetToString(srcSet);
   const hasMounted = useHasMounted();
 
   useEffect(() => {
@@ -91,7 +92,7 @@ const ImageElements = ({
     if (isVideo && srcSet) {
       resolveVideoSrc();
     } else if (isVideo) {
-      setVideoSrc(src.src);
+      setVideoSrc(src);
     }
   }, [isVideo, sizes, src, srcSet]);
 
@@ -176,9 +177,9 @@ const ImageElements = ({
           onLoad={onLoad}
           decoding="async"
           src={showFullRes ? src : undefined}
-          srcSet={showFullRes ? srcSetString : undefined}
-          // width={src.width}
-          // height={src.height}
+          srcSet={showFullRes ? srcSet : undefined}
+          width={width}
+          height={height}
           alt={alt}
           sizes={sizes}
           {...rest}
@@ -192,8 +193,8 @@ const ImageElements = ({
           style={cssProps({ delay: numToMs(delay) })}
           ref={placeholderRef}
           src={placeholder}
-          // width={placeholder.width}
-          // height={placeholder.height}
+          width={width}
+          height={height}
           onTransitionEnd={() => setShowPlaceholder(false)}
           decoding="async"
           alt=""
@@ -205,5 +206,5 @@ const ImageElements = ({
 };
 
 function getIsVideo(src) {
-  return typeof src.src === 'string' && src.src.endsWith('.mp4');
+  return typeof src === 'string' && src.endsWith('.mp4');
 }

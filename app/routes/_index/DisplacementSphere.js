@@ -11,7 +11,7 @@ import {
   MeshPhongMaterial,
   PerspectiveCamera,
   Scene,
-  SphereBufferGeometry,
+  SphereGeometry,
   UniformsUtils,
   Vector2,
   WebGLRenderer,
@@ -20,8 +20,8 @@ import {
 import { media, rgbToThreeColor } from '~/utils/style';
 import { cleanRenderer, cleanScene, removeLights } from '~/utils/three';
 import styles from './DisplacementSphere.module.css';
-import fragShader from './displacementSphereFragment.glsl';
-import vertShader from './displacementSphereVertex.glsl';
+import fragShader from './displacementSphereFragment.js';
+import vertShader from './displacementSphereVertex.js';
 
 const springConfig = {
   stiffness: 30,
@@ -29,7 +29,7 @@ const springConfig = {
   mass: 2,
 };
 
-export const DisplacementSphere = props => {
+const DisplacementSphere = props => {
   const theme = useTheme();
   const { rgbBackground, themeId, colorWhite } = theme;
   const start = useRef(Date.now());
@@ -81,7 +81,7 @@ export const DisplacementSphere = props => {
     };
 
     startTransition(() => {
-      geometry.current = new SphereBufferGeometry(32, 128, 128);
+      geometry.current = new SphereGeometry(32, 128, 128);
       sphere.current = new Mesh(geometry.current, material.current);
       sphere.current.position.z = 0;
       sphere.current.modifier = Math.random();
@@ -198,3 +198,5 @@ export const DisplacementSphere = props => {
     </Transition>
   );
 };
+
+export default DisplacementSphere;

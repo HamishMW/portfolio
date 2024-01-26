@@ -55,7 +55,9 @@ export const Slice = () => {
       <ProjectContainer className={styles.slice}>
         <ProjectBackground
           src={sliceBackground}
-          srcSet={`${sliceBackground.src} 1280w, ${sliceBackgroundLarge.src} 2560w`}
+          srcSet={`${sliceBackground} 1280w, ${sliceBackgroundLarge} 2560w`}
+          width={1280}
+          height={800}
           placeholder={sliceBackgroundPlaceholder}
           opacity={0.8}
         />
@@ -68,7 +70,9 @@ export const Slice = () => {
         <ProjectSection padding="top">
           <ProjectSectionContent>
             <ProjectImage
-              srcSet={[sliceApp, sliceAppLarge]}
+              srcSet={`${sliceApp} 800w, ${sliceAppLarge} 1920w`}
+              width={800}
+              height={500}
               placeholder={sliceAppPlaceholder}
               alt="The Slice web application showing a selected user annotation."
               sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 90vw, 80vw`}
@@ -93,14 +97,18 @@ export const Slice = () => {
             <div className={styles.sidebarImages}>
               <Image
                 className={styles.sidebarImage}
-                srcSet={[sliceSidebarLayers, sliceSidebarLayersLarge]}
+                srcSet={`${sliceSidebarLayers} 350w, ${sliceSidebarLayersLarge} 700w`}
+                width={350}
+                height={750}
                 placeholder={sliceSidebarLayersPlaceholder}
                 alt="The layers sidebar design, now with user profiles."
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
               />
               <Image
                 className={styles.sidebarImage}
-                srcSet={[sliceSidebarAnnotations, sliceSidebarAnnotationsLarge]}
+                srcSet={`${sliceSidebarAnnotations} 350w, ${sliceSidebarAnnotationsLarge} 700w`}
+                width={350}
+                height={750}
                 placeholder={sliceSidebarAnnotationsPlaceholder}
                 alt="Multiple user annotations on a shared layer."
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
@@ -122,7 +130,9 @@ export const Slice = () => {
               </ProjectSectionText>
             </ProjectTextRow>
             <Image
-              srcSet={[sliceSlides, sliceSlidesLarge]}
+              srcSet={`${sliceSlides} 800w, ${sliceSlidesLarge} 1920w`}
+              width={800}
+              height={500}
               placeholder={sliceSlidesPlaceholder}
               alt="The new My Slides tab in slice, showing annotated and favorited slides."
               sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
@@ -134,7 +144,9 @@ export const Slice = () => {
             <div className={styles.gridImage}>
               <div className={styles.gridBackground}>
                 <Image
-                  srcSet={[sliceBackgroundBar, sliceBackgroundBarLarge]}
+                  srcSet={`${sliceBackgroundBar} 440w, ${sliceBackgroundBarLarge} 880w`}
+                  width={440}
+                  height={900}
                   placeholder={sliceBackgroundBarPlaceholder}
                   alt=""
                   role="presentation"
@@ -143,7 +155,9 @@ export const Slice = () => {
               </div>
               <div className={styles.gridForeground}>
                 <Image
-                  srcSet={[sliceAnnotation, sliceAnnotationLarge]}
+                  srcSet={`${sliceAnnotation} 440w, ${sliceAnnotationLarge} 880w`}
+                  width={440}
+                  height={340}
                   placeholder={sliceAnnotationPlaceholder}
                   alt="An annotation preview popover with statistics for shape perimeter and area."
                   sizes={`(max-width: ${media.mobile}px) 584px, (max-width: ${media.tablet}px) 747px, 556px`}

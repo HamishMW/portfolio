@@ -8,12 +8,11 @@ import { Text } from '~/components/Text';
 import { useTheme } from '~/components/ThemeProvider';
 import { Transition } from '~/components/Transition';
 import { useWindowSize } from '~/hooks';
-// import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { cssProps, media } from '~/utils/style';
 import styles from './ProjectSummary.module.css';
 
-// const Model = dynamic(() => import('~/components/Model').then(mod => mod.Model));
+const Model = lazy(() => import('~/components/Model'));
 
 export const ProjectSummary = ({
   id,
@@ -89,59 +88,61 @@ export const ProjectSummary = ({
 
   const renderPreview = visible => (
     <div className={styles.preview}>
-      {model.type === 'laptop' && (
-        <>
-          {renderKatakana('laptop', visible)}
-          <div className={styles.model} data-device="laptop">
-            {/* <Model
-              alt={model.alt}
-              cameraPosition={{ x: 0, y: 0, z: 8 }}
-              showDelay={700}
-              show={visible}
-              models={[
-                {
-                  ...deviceModels.laptop,
-                  texture: {
-                    ...model.textures[0],
-                    sizes: laptopSizes,
+      <Suspense>
+        {/* {model.type === 'laptop' && (
+          <>
+            {renderKatakana('laptop', visible)}
+            <div className={styles.model} data-device="laptop">
+              <Model
+                alt={model.alt}
+                cameraPosition={{ x: 0, y: 0, z: 8 }}
+                showDelay={700}
+                show={visible}
+                models={[
+                  {
+                    ...deviceModels.laptop,
+                    texture: {
+                      ...model.textures[0],
+                      sizes: laptopSizes,
+                    },
                   },
-                },
-              ]}
-            /> */}
-          </div>
-        </>
-      )}
-      {model.type === 'phone' && (
-        <>
-          {renderKatakana('phone', visible)}
-          <div className={styles.model} data-device="phone">
-            {/* <Model
-              alt={model.alt}
-              cameraPosition={{ x: 0, y: 0, z: 11.5 }}
-              showDelay={300}
-              show={visible}
-              models={[
-                {
-                  ...deviceModels.phone,
-                  position: { x: -0.6, y: 1.1, z: 0 },
-                  texture: {
-                    ...model.textures[0],
-                    sizes: phoneSizes,
+                ]}
+              />
+            </div>
+          </>
+        )}
+        {model.type === 'phone' && (
+          <>
+            {renderKatakana('phone', visible)}
+            <div className={styles.model} data-device="phone">
+              <Model
+                alt={model.alt}
+                cameraPosition={{ x: 0, y: 0, z: 11.5 }}
+                showDelay={300}
+                show={visible}
+                models={[
+                  {
+                    ...deviceModels.phone,
+                    position: { x: -0.6, y: 1.1, z: 0 },
+                    texture: {
+                      ...model.textures[0],
+                      sizes: phoneSizes,
+                    },
                   },
-                },
-                {
-                  ...deviceModels.phone,
-                  position: { x: 0.6, y: -0.5, z: 0.3 },
-                  texture: {
-                    ...model.textures[1],
-                    sizes: phoneSizes,
+                  {
+                    ...deviceModels.phone,
+                    position: { x: 0.6, y: -0.5, z: 0.3 },
+                    texture: {
+                      ...model.textures[1],
+                      sizes: phoneSizes,
+                    },
                   },
-                },
-              ]}
-            /> */}
-          </div>
-        </>
-      )}
+                ]}
+              />
+            </div>
+          </>
+        )} */}
+      </Suspense>
     </div>
   );
 

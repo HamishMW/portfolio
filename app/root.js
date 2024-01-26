@@ -22,6 +22,7 @@ import { VisuallyHidden } from '~/components/VisuallyHidden';
 import styles from './root.module.css';
 import './reset.css';
 import './global.css';
+import { LazyMotion, domAnimation } from 'framer-motion';
 
 export const links = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
@@ -88,23 +89,25 @@ function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
-      <ThemeProvider themeId="dark">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+      <LazyMotion features={domAnimation}>
+        <ThemeProvider themeId="dark">
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
               const initialTheme = JSON.parse(localStorage.getItem('theme'));
               document.body.dataset.theme = initialTheme || 'dark';
             `,
-          }}
-        />
-        <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
-          Skip to main content
-        </VisuallyHidden>
-        <Sprites />
-        <main id="main-content" tabIndex={-1}>
-          {children}
-        </main>
-      </ThemeProvider>
+            }}
+          />
+          <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
+            Skip to main content
+          </VisuallyHidden>
+          <Sprites />
+          <main id="main-content" tabIndex={-1}>
+            {children}
+          </main>
+        </ThemeProvider>
+      </LazyMotion>
     </AppContext.Provider>
   );
 }

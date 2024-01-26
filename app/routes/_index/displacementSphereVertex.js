@@ -12,6 +12,7 @@
 // https://github.com/ashima/webgl-noise
 //
 
+export default `
 #define PHONG
 
 vec3 mod289(vec3 x)
@@ -241,3 +242,4 @@ void main() {
   vec3 displacement = vec3((position.x) * noise, position.y * noise, position.z * noise);
   gl_Position = projectionMatrix * modelViewMatrix * vec4((position + normal) + displacement, 1.0);
 }
+`;

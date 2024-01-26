@@ -101,7 +101,7 @@ export const SmartSparrow = () => {
         <ProjectBackground
           opacity={isDark ? 0.5 : 0.8}
           src={backgroundSpr}
-          srcSet={`${backgroundSpr.src} 1080w, ${backgroundSprLarge.src} 2160w`}
+          srcSet={`${backgroundSpr} 1080w, ${backgroundSprLarge} 2160w`}
           placeholder={backgroundSprPlaceholder}
         />
         <ProjectHeader
