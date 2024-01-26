@@ -9,6 +9,7 @@ import { Fragment } from 'react';
 import styles from './Error.module.css';
 
 export function Error({ error }) {
+  console.log({ error });
   const getMessage = () => {
     switch (error.status) {
       case 404:
@@ -18,7 +19,10 @@ export function Error({ error }) {
             'This page could not be found. It either doesn’t exist or was deleted. Or perhaps you don’t exist.',
         };
       default:
-        return { summary: 'Error: anomaly', message: error.data };
+        return {
+          summary: 'Error: anomaly',
+          message: error.data || error.toString(),
+        };
     }
   };
 
@@ -31,14 +35,26 @@ export function Error({ error }) {
           <Fragment>
             <div className={styles.details}>
               <div className={styles.text}>
-                <Heading
-                  className={styles.title}
-                  data-visible={visible}
-                  level={0}
-                  weight="bold"
-                >
-                  {error.status}
-                </Heading>
+                {!!error.status && (
+                  <Heading
+                    className={styles.title}
+                    data-visible={visible}
+                    level={0}
+                    weight="bold"
+                  >
+                    {error.status}
+                  </Heading>
+                )}
+                {!error.status && (
+                  <Heading
+                    className={styles.title}
+                    data-visible={visible}
+                    as="h1"
+                    level={2}
+                  >
+                    Flatlined
+                  </Heading>
+                )}
                 <Heading
                   aria-hidden
                   className={styles.subheading}

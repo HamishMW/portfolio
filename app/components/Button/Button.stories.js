@@ -18,7 +18,7 @@ export const Primary = () => (
     <Button icon="send" onClick={action('clicked')}>
       Icon left
     </Button>
-    <Button iconEnd="arrowRight" onClick={action('clicked')}>
+    <Button iconEnd="arrow-right" onClick={action('clicked')}>
       Icon right
     </Button>
   </StoryContainer>

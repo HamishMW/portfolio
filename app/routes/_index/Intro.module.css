@@ -1,0 +1,358 @@
+.intro {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.text {
+  max-width: 1024px;
+  width: 100%;
+  position: relative;
+  top: calc(var(--spaceL) * -1);
+
+  @media (--mediaDesktop) {
+    max-width: 920px;
+  }
+
+  @media (--mediaLaptop) {
+    max-width: 780px;
+  }
+
+  @media (--mediaMobile) {
+    top: calc(var(--space3XL) * -1);
+  }
+
+  @media (--mediaMobileS) {
+    top: calc(var(--spaceXL) * -1);
+  }
+
+  @media (max-width: 820px) and (max-height: 420px) {
+    top: calc(var(--spaceM) * -1);
+  }
+}
+
+.name {
+  text-transform: uppercase;
+  font-size: calc((24 / 16) * 1rem);
+  letter-spacing: 0.3em;
+  color: var(--colorTextBody);
+  margin-bottom: var(--space2XL);
+  margin-top: 0;
+  font-weight: var(--fontWeightMedium);
+  line-height: 1;
+  opacity: 0;
+  transition: opacity var(--durationL) var(--bezierFastoutSlowin) 0.2s;
+
+  @media (--mediaLaptop) {
+    font-size: calc((22 / 16) * 1rem);
+    margin-bottom: var(--spaceXL);
+  }
+
+  @media (--mediaTablet) {
+    font-size: calc((18 / 16) * 1rem);
+  }
+
+  @media (--mediaMobile) {
+    margin-bottom: var(--spaceL);
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  @media (max-width: 820px) and (max-height: 420px) {
+    margin-bottom: var(--spaceL);
+    margin-bottom: var(--spaceXL);
+  }
+
+  &[data-visible='true'] {
+    opacity: 1;
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  font-size: calc((140 / 16) * 1rem);
+  letter-spacing: -0.005em;
+
+  @media (--mediaDesktop) {
+    font-size: calc((120 / 16) * 1rem);
+  }
+
+  @media (--mediaLaptop) {
+    font-size: calc((100 / 16) * 1rem);
+  }
+
+  @media (max-width: 860px) {
+    font-size: calc((80 / 16) * 1rem);
+  }
+
+  @media (--mediaMobile) {
+    font-size: calc((56 / 16) * 1rem);
+  }
+
+  @media (--mediaMobileS) {
+    font-size: calc((42 / 16) * 1rem);
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+
+  &[data-hidden='true'] {
+    opacity: 0;
+  }
+}
+
+@keyframes introTextReveal {
+  0% {
+    color: rgb(var(--rgbText) / 0);
+  }
+
+  50% {
+    color: rgb(var(--rgbText) / 0);
+  }
+
+  60% {
+    color: var(--colorTextTitle);
+  }
+
+  100% {
+    color: var(--colorTextTitle);
+  }
+}
+
+.word {
+  position: relative;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  animation-duration: 1.5s;
+  animation-delay: var(--delay);
+  animation-fill-mode: forwards;
+  animation-timing-function: var(--bezierFastoutSlowin);
+  color: rgb(var(--rgbText) / 0);
+  transition: opacity 0.5s ease var(--durationM);
+  isolation: isolate;
+
+  &::after {
+    content: '';
+    background: rgb(var(--rgbAccent));
+    animation-duration: 1.5s;
+    animation-delay: var(--delay);
+    animation-fill-mode: forwards;
+    animation-timing-function: var(--bezierFastoutSlowin);
+    transform-origin: left;
+    transform: scale3d(0, 1, 1);
+    position: absolute;
+    inset: 0 -0.02em 0 0;
+    z-index: var(--zIndex1);
+    will-change: transform;
+  }
+
+  &[data-plus='true']::before {
+    content: '+';
+    margin-right: 10px;
+    opacity: 0.4;
+  }
+
+  &[data-status='entering'] {
+    animation-name: introTextReveal;
+
+    @media (--mediaUseMotion) {
+      &::after:global {
+        animation-name: reveal;
+      }
+    }
+  }
+
+  &[data-status='entered'] {
+    color: var(--colorTextTitle);
+
+    &::after {
+      opacity: 1;
+      transform: scale3d(0, 0, 1);
+      transform-origin: right;
+    }
+  }
+
+  &[data-status='exiting'] {
+    color: var(--colorTextTitle);
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    z-index: var(--zIndex0);
+  }
+}
+
+@keyframes introLine {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.line {
+  content: '';
+  height: 2px;
+  background: rgb(var(--rgbText) / 0.3);
+  width: 120%;
+  display: flex;
+  margin-left: 20px;
+  animation-duration: 0.8s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: var(--bezierFastoutSlowin);
+  transform-origin: left;
+  opacity: 0;
+  position: relative;
+  top: 0.05em;
+
+  &[data-status='entering'] {
+    &:global {
+      animation-name: fadeIn;
+    }
+
+    @media (--mediaUseMotion) {
+      animation-name: introLine;
+    }
+  }
+
+  &[data-status='entered'] {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes introScrollIndicator {
+  0% {
+    transform: translate3d(-1px, 0, 0);
+    opacity: 0;
+  }
+
+  20% {
+    transform: translate3d(-1px, 0, 0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(-1px, 8px, 0);
+    opacity: 0;
+  }
+}
+
+.scrollIndicator {
+  border: 2px solid rgb(var(--rgbText) / 0.4);
+  border-radius: 20px;
+  width: 26px;
+  height: 38px;
+  position: fixed;
+  bottom: 64px;
+  transition-property: opacity;
+  transition-duration: var(--durationL);
+  transition-timing-function: ease;
+  opacity: 0;
+
+  &::before {
+    content: '';
+    height: 7px;
+    width: 2px;
+    background: rgb(var(--rgbText) / 0.4);
+    border-radius: 4px;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-1px);
+  }
+
+  @media (--mediaUseMotion) {
+    transition-property: opacity, transform;
+
+    &::before {
+      animation: introScrollIndicator 2s ease infinite;
+    }
+  }
+
+  &[data-status='entered'] {
+    opacity: 1;
+  }
+
+  &[data-hidden='true'] {
+    opacity: 0;
+
+    @media (--mediaUseMotion) {
+      transform: translate3d(0, 20px, 0);
+    }
+  }
+
+  @media (--mediaTouch) {
+    display: none;
+  }
+
+  &:focus-visible {
+    opacity: 1;
+  }
+}
+
+@keyframes introMobileScrollIndicator {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.mobileScrollIndicator {
+  position: fixed;
+  bottom: 0;
+  opacity: 0;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.8, 0.1, 0.27, 1);
+  transition-duration: var(--durationM);
+  padding: 20px;
+
+  @media (--mediaUseMotion) {
+    animation-name: introMobileScrollIndicator;
+    transition-property: opacity, transform;
+    transform: translate3d(0, 20px, 0);
+  }
+
+  &[data-status='entered'] {
+    opacity: 1;
+  }
+
+  &[data-hidden='true'] {
+    opacity: 0;
+    transform: none;
+  }
+
+  @media (--mediaNoTouch) {
+    display: none;
+  }
+
+  & svg {
+    stroke: rgb(var(--rgbText) / 0.5);
+  }
+
+  &:focus-visible {
+    opacity: 1;
+  }
+}

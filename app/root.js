@@ -18,9 +18,10 @@ import { initialState, reducer } from './reducer';
 import { useLocalStorage } from './hooks';
 import { Error } from '~/components/Error';
 import { Sprites } from '~/components/Icon';
+import { VisuallyHidden } from '~/components/VisuallyHidden';
+import styles from './root.module.css';
 import './reset.css';
 import './global.css';
-import './root.module.css';
 
 export const links = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
@@ -96,8 +97,13 @@ function AppProvider({ children }) {
             `,
           }}
         />
+        <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
+          Skip to main content
+        </VisuallyHidden>
         <Sprites />
-        {children}
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
       </ThemeProvider>
     </AppContext.Provider>
   );
@@ -142,7 +148,7 @@ export function ErrorBoundary() {
 
   console.error(error);
   return (
-    <html>
+    <html lang="en">
       <head>
         <AppHead />
         <Meta />
