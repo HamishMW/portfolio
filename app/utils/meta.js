@@ -1,7 +1,7 @@
-const defaultOgImage = `${url}/social-image.png`;
 const name = 'Hamish Williams';
 const twitter = '@hamishMW';
 const url = 'https://hamishw.com';
+const defaultOgImage = `${url}/social-image.png`;
 
 export function baseMeta({
   title,

@@ -1,5 +1,5 @@
 @layer base {
-  :root {
+  :global(:root) {
     color-scheme: dark light;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -7,22 +7,17 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  :where(html, body, #__next) {
+  :global(:where(html, body)) {
     min-height: 100%;
     width: 100%;
   }
 
-  *,
-  *::before,
-  *::after {
+  :global(:where(*, *::before, *::after)) {
     box-sizing: border-box;
-  }
-
-  * {
     margin: 0;
   }
 
-  :where(input, textarea, select, button) {
+  :global(:where(input, textarea, select, button)) {
     font: inherit;
     color: inherit;
     border: 0;
@@ -32,15 +27,15 @@
     appearance: none;
   }
 
-  :where(svg, img, picture, video, iframe, canvas) {
+  :global(:where(svg, img, picture, video, iframe, canvas)) {
     display: block;
   }
 
-  :any-link {
+  :global(:any-link) {
     text-decoration: none;
   }
 
-  ul {
+  :global(ul) {
     padding: 0;
   }
 }

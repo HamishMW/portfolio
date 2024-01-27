@@ -24,16 +24,21 @@ import { useLocalStorage } from './hooks';
 import { Error } from '~/layouts/Error';
 import { Sprites } from '~/components/Icon';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
-import styles from './root.module.css';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import { Navbar } from './components/Navbar';
-import global from './global.css';
-import reset from './reset.css';
+import styles from './root.module.css';
+import './global.module.css';
+import './reset.module.css';
 
 export const links = () => [
-  { rel: 'stylesheet', href: reset },
-  { rel: 'stylesheet', href: global },
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
+  { rel: 'preload', href: GothamMedium, as: 'font', crossOrigin: 'true' },
+  { rel: 'preload', href: GothamBook, as: 'font', crossOrigin: 'true' },
+  { rel: 'manifest', href: '/manifest.json' },
+  { rel: 'shortcut_icon', href: '/favicon.png', type: 'image/png' },
+  { rel: 'shortcut_icon', href: '/favicon.svg', type: 'image/svg+xml' },
+  { rel: 'apple-touch-icon', href: '/icon-256.png' },
+  { rel: 'author', href: '/humans.txt', type: 'text/plain' },
 ];
 
 export const loader = async ({ request }) => {
@@ -78,14 +83,8 @@ function AppHead() {
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content={`rgb(${theme.dark.rgbBackground})`} />
-      <link rel="manifest" href="/manifest.json" />
-      <link rel="shortcut icon" href="/favicon.png" type="image/png" />
-      <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
-      <link rel="apple-touch-icon" href="/icon-256.png" />
-      <link type="text/plain" rel="author" href="/humans.txt" />
-      <link rel="preload" href={GothamMedium} as="font" crossOrigin="true" />
-      <link rel="preload" href={GothamBook} as="font" crossOrigin="true" />
       <link rel="canonical" href={canonicalUrl} />
+      <style dangerouslySetInnerHTML={{ __html: `@layer base, components, layout;` }} />
       <style dangerouslySetInnerHTML={{ __html: fontStyles }} />
       <style dangerouslySetInnerHTML={{ __html: tokenStyles }} />
     </>
