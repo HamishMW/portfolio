@@ -2,7 +2,7 @@
 
 [![Site preview](/public/site-preview.png)](https://hamishw.com)
 
-My design portfolio to showcase a few projects. Built with [Next.js](https://nextjs.org/), [Three.js](https://threejs.org/), and [Framer Motion](https://www.framer.com/motion/). View the [live site](https://hamishw.com) or check out a live version of the [components storybook](https://storybook.hamishw.com).
+My design portfolio to showcase a few projects. Built with [Remix](https://remix.run/), [Three.js](https://threejs.org/), and [Framer Motion](https://www.framer.com/motion/). View the [live site](https://hamishw.com) or check out a live version of the [components storybook](https://storybook.hamishw.com).
 
 ## Install & run
 
@@ -24,30 +24,18 @@ To view the components storybook:
 npm run storybook
 ```
 
-To create a production build:
+## Contact form
 
-```bash
-npm run build
-```
+To get the contact form working create an AWS account and set up SES. Then plug in your details into `.dev.vars.example` and rename it to `.dev.vars`. You'll also need to add these as enviroment variables in the Cloudflare dashboard for it to work in production.
 
 ## Deployment
 
-I've set up the site using AWS for hosting and serverless functions. You'll need an AWS account and the AWS CLI installed in order to deploy.
+I've set up the site using Cloudflare for hosting.
 
-Deploy the site to s3:
+Deploy the site to Cloudflare Pages:
 
 ```bash
 npm run deploy
-```
-
-Deploy serverless functions:
-
-```bash
-cd functions
-```
-
-```bash
-npm run deploy:api
 ```
 
 ## Permissions

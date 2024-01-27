@@ -1,0 +1,18 @@
+/favicon.ico
+  Cache-Control: public, max-age=3600, s-maxage=3600
+/favicon.svg
+  Cache-Control: public, max-age=3600, s-maxage=3600
+/build/*
+  Cache-Control: public, max-age=31536000, immutable
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+/draco/*
+  Cache-Control: public, max-age=31536000, immutable
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: no-referrer-when-downgrade
+  Content-Security-Policy: script-src 'self'; frame-ancestors 'none';
+  Permissions-Policy: document-domain=()

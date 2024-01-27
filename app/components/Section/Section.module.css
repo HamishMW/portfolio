@@ -1,0 +1,33 @@
+@layer components {
+  .section {
+    padding-right: var(--space5XL);
+    padding-left: calc(var(--space4XL) * 2);
+
+    &:focus {
+      outline: none;
+    }
+
+    @media (min-width: 2080px) {
+      padding-left: var(--space5XL);
+    }
+
+    @media (--mediaTablet) {
+      padding-left: calc(var(--space4XL) + var(--space3XL));
+    }
+
+    @media (--mediaMobile) {
+      padding-right: var(--spaceL);
+      padding-left: var(--spaceL);
+    }
+
+    @media (--mediaMobile), (--mediaMobileLS) {
+      padding-left: var(--spaceOuter);
+      padding-right: var(--spaceOuter);
+    }
+
+    @media (max-width: 820px) and (max-height: 420px) {
+      padding-left: var(--space4XL);
+      padding-right: var(--space4XL);
+    }
+  }
+}

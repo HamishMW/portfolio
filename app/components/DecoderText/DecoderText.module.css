@@ -1,0 +1,19 @@
+@layer components {
+  .text {
+    &::after {
+      content: '_';
+      visibility: hidden;
+    }
+  }
+
+  .glyph {
+    opacity: 0.8;
+    font-weight: var(--fontWeightRegular);
+    font-family: var(--japaneseFontStack);
+    line-height: 0;
+  }
+
+  .value {
+    opacity: 1;
+  }
+}
