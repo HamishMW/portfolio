@@ -249,15 +249,19 @@
 
 .completeButton {
   margin-top: var(--spaceL);
-  transition-property: opacity;
-  transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
   transition-delay: var(--delay);
   opacity: 0;
 
-  @media (--mediaUseMotion) {
-    transition-property: transform, opacity;
-    transform: translate3d(0, var(--space3XL), 0);
+  &[data-status='entering'],
+  &[data-status='exited'] {
+    transition-property: opacity;
+    transition-timing-function: var(--bezierFastoutSlowin);
+
+    @media (--mediaUseMotion) {
+      transition-property: transform, opacity;
+      transform: translate3d(0, var(--space3XL), 0);
+    }
   }
 
   &[data-status='entered'] {

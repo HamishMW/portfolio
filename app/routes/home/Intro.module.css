@@ -75,7 +75,7 @@
   display: flex;
   flex-direction: column;
   font-size: calc((140 / 16) * 1rem);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
 
   @media (--mediaDesktop) {
     font-size: calc((120 / 16) * 1rem);

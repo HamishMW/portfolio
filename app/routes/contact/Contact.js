@@ -10,11 +10,11 @@ import { Text } from '~/components/Text';
 import { tokens } from '~/components/ThemeProvider/theme';
 import { Transition } from '~/components/Transition';
 import { useFormInput } from '~/hooks';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { cssProps, msToNum, numToMs } from '~/utils/style';
 import { baseMeta } from '~/utils/meta';
 import { Form, useActionData, useNavigation } from '@remix-run/react';
-import { json, redirect } from '@remix-run/cloudflare';
+import { json } from '@remix-run/cloudflare';
 import { AwsClient } from 'aws4fetch';
 import styles from './Contact.module.css';
 
@@ -41,8 +41,6 @@ export async function action({ context, request }) {
   const message = String(formData.get('message'));
   const errors = {};
 
-  console.log('ENV YEE: ', context.env);
-
   if (!email || !EMAIL_PATTERN.test(email)) {
     errors.email = 'Please enter a valid email address.';
   }
@@ -63,35 +61,29 @@ export async function action({ context, request }) {
     return json({ errors });
   }
 
-  const response = await aws.fetch(
-    `https://email.${region}.amazonaws.com/v2/email/outbound-emails`,
-    {
-      body: JSON.stringify({
-        Content: {
-          Simple: {
-            Body: {
-              Text: {
-                Data: `From: ${email}\n\n${message}`,
-              },
-            },
-            Subject: {
-              Data: `Portfolio message from ${email}`,
+  await aws.fetch(`https://email.${region}.amazonaws.com/v2/email/outbound-emails`, {
+    body: JSON.stringify({
+      Content: {
+        Simple: {
+          Body: {
+            Text: {
+              Data: `From: ${email}\n\n${message}`,
             },
           },
+          Subject: {
+            Data: `Portfolio message from ${email}`,
+          },
         },
-        Destination: {
-          ToAddresses: [context.env.EMAIL],
-        },
-        FromEmailAddress: context.env.FROM_EMAIL,
-        ReplyToAddresses: [email],
-      }),
-    }
-  );
+      },
+      Destination: {
+        ToAddresses: [context.env.EMAIL],
+      },
+      FromEmailAddress: context.env.FROM_EMAIL,
+      ReplyToAddresses: [email],
+    }),
+  });
 
-  console.log(await response.json());
-
-  // Redirect to success page
-  return redirect('/contact/success');
+  return json({ success: true });
 }
 
 export const Contact = () => {
@@ -105,7 +97,7 @@ export const Contact = () => {
 
   return (
     <Section className={styles.contact}>
-      <Transition unmount in timeout={1600}>
+      <Transition unmount in={!actionData?.success} timeout={1600}>
         {(visible, status) => (
           <Form unstable_viewTransition className={styles.form} method="post">
             <Heading
@@ -184,7 +176,7 @@ export const Contact = () => {
           </Form>
         )}
       </Transition>
-      {/* <Transition unmount in={complete}>
+      <Transition unmount in={actionData?.success}>
         {(visible, status) => (
           <div className={styles.complete} aria-live="polite">
             <Heading
@@ -211,36 +203,17 @@ export const Contact = () => {
               data-status={status}
               style={getDelay(tokens.base.durationM)}
               href="/"
-              icon="chevronRight"
+              icon="chevron-right"
             >
               Back to homepage
             </Button>
           </div>
         )}
-      </Transition> */}
+      </Transition>
       <Footer className={styles.footer} />
     </Section>
   );
 };
-
-// function getStatusError({
-//   status,
-//   errorMessage,
-//   fallback = 'There was a problem with your request',
-// }) {
-//   if (status === 200) return false;
-
-//   const statuses = {
-//     500: 'There was a problem with the server, try again later',
-//     404: 'There was a problem connecting to the server. Make sure you are connected to the internet',
-//   };
-
-//   if (errorMessage) {
-//     return errorMessage;
-//   }
-
-//   return statuses[status] || fallback;
-// }
 
 function getDelay(delayMs, offset = numToMs(0), multiplier = 1) {
   const numDelay = msToNum(delayMs) * multiplier;
