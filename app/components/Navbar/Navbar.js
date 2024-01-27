@@ -142,6 +142,7 @@ export const Navbar = () => {
     <header className={styles.navbar} ref={headerRef}>
       <RouterLink
         unstable_viewTransition
+        prefetch="intent"
         to={location.pathname === '/' ? '/#intro' : '/'}
         data-navbar-item
         className={styles.logo}
@@ -156,6 +157,7 @@ export const Navbar = () => {
           {navLinks.map(({ label, pathname }) => (
             <RouterLink
               unstable_viewTransition
+              prefetch="intent"
               to={pathname}
               key={label}
               data-navbar-item
@@ -175,6 +177,7 @@ export const Navbar = () => {
             {navLinks.map(({ label, pathname }, index) => (
               <RouterLink
                 unstable_viewTransition
+                prefetch="intent"
                 to={pathname}
                 key={label}
                 className={styles.mobileNavLink}

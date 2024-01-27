@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
   json,
   useMatches,
+  useNavigation,
   useRouteError,
 } from '@remix-run/react';
 import {
@@ -111,7 +112,7 @@ function AppMain({ children }) {
           </VisuallyHidden>
           <Sprites />
           <Navbar />
-          <main id="main-content" tabIndex={-1}>
+          <main id="main-content" className={styles.container} tabIndex={-1}>
             {children}
           </main>
           <div id="portal-root" />

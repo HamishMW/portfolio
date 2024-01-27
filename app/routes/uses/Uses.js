@@ -57,7 +57,7 @@ export const Uses = () => {
                     suggestions please <Link href="/contact">message me</Link>.
                   </ListItem>
                   <ListItem>
-                    For any 3D models I use{' '}
+                    For any 3D models and video editing I use{' '}
                     <Link href="https://www.blender.org/">Blender</Link>. Since 2.8 it’s
                     become way simpler to use and in a lot of ways better than expensive
                     paid tools like 3DS Max or Maya.
@@ -74,10 +74,9 @@ export const Uses = () => {
               <ProjectSectionText as="div">
                 <List>
                   <ListItem>
-                    I use{' '}
-                    <Link href="https://code.visualstudio.com/">Visual Studio Code</Link>{' '}
-                    as my text editor, with the Atom One Dark theme and Operator Mono as
-                    my typeface of choice.
+                    I use <Link href="https://vscodium.com/">VSCodium</Link> as my text
+                    editor, with the Tokyo Night theme and Operator Mono as my typeface of
+                    choice.
                   </ListItem>
                   <ListItem>
                     Firefox is my main browser for both development and general use.
