@@ -78,7 +78,7 @@ export async function action({ context, request }) {
       Destination: {
         ToAddresses: [context.env.EMAIL],
       },
-      FromEmailAddress: context.env.FROM_EMAIL,
+      FromEmailAddress: `Portfolio <${context.env.FROM_EMAIL}>`,
       ReplyToAddresses: [email],
     }),
   });
