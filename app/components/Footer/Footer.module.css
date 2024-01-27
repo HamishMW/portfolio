@@ -1,22 +1,24 @@
-.footer {
-  --lineHeightBody: 1.1;
+@layer components {
+  .footer {
+    --lineHeightBody: 1.1;
 
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  width: 100vw;
-  padding: var(--space3XL) var(--spaceL);
-  z-index: var(--zIndex2);
-  position: relative;
-  color: var(--colorTextLight);
-}
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    width: 100vw;
+    padding: var(--space3XL) var(--spaceL);
+    z-index: var(--zIndex2);
+    position: relative;
+    color: var(--colorTextLight);
+  }
 
-.link {
-  display: inline-flex;
-}
+  .link {
+    display: inline-flex;
+  }
 
-.date {
-  padding-right: var(--spaceXS);
-  display: inline-flex;
+  .date {
+    padding-right: var(--spaceXS);
+    display: inline-flex;
+  }
 }

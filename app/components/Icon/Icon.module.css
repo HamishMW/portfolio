@@ -1,3 +1,5 @@
-.icon {
-  fill: currentColor;
+@layer components {
+  .icon {
+    fill: currentColor;
+  }
 }

@@ -16,16 +16,18 @@ import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import { Fragment, createContext, useEffect, useReducer } from 'react';
 import { initialState, reducer } from './reducer';
 import { useLocalStorage } from './hooks';
-import { Error } from '~/components/Error';
+import { Error } from '~/layouts/Error';
 import { Sprites } from '~/components/Icon';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
 import styles from './root.module.css';
-import './reset.css';
-import './global.css';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import { Navbar } from './components/Navbar';
+import global from './global.css';
+import reset from './reset.css';
 
 export const links = () => [
+  { rel: 'stylesheet', href: reset },
+  { rel: 'stylesheet', href: global },
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ];
 
