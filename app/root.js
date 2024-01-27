@@ -7,8 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
   json,
-  useMatches,
-  useNavigation,
+  useLoaderData,
   useRouteError,
 } from '@remix-run/react';
 import {
@@ -19,7 +18,7 @@ import {
 } from '~/components/ThemeProvider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
-import { Fragment, createContext, useEffect, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import { initialState, reducer } from './reducer';
 import { useLocalStorage } from './hooks';
 import { Error } from '~/layouts/Error';
@@ -38,20 +37,9 @@ export const links = () => [
 ];
 
 export const loader = async ({ request }) => {
-  return json({ canonicalUrl: request.url });
-};
-
-const dynamicLinks = ({ data }) => {
-  return [
-    {
-      rel: 'canonical',
-      href: data.canonicalUrl,
-    },
-  ];
-};
-
-export const handle = {
-  dynamicLinks,
+  const { url } = request;
+  const canonicalUrl = url.endsWith('/') ? url.slice(0, -1) : url;
+  return json({ canonicalUrl });
 };
 
 export const AppContext = createContext({});
@@ -69,7 +57,6 @@ export default function App() {
         <AppHead />
         <Meta />
         <Links />
-        <DynamicLinks />
       </head>
       <body data-theme="dark" tabIndex={-1}>
         <AppMain>
@@ -80,6 +67,28 @@ export default function App() {
         <LiveReload />
       </body>
     </html>
+  );
+}
+
+function AppHead() {
+  const { canonicalUrl } = useLoaderData();
+
+  return (
+    <>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="theme-color" content={`rgb(${theme.dark.rgbBackground})`} />
+      <link rel="manifest" href="/manifest.json" />
+      <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+      <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
+      <link rel="apple-touch-icon" href="/icon-256.png" />
+      <link type="text/plain" rel="author" href="/humans.txt" />
+      <link rel="preload" href={GothamMedium} as="font" crossOrigin="true" />
+      <link rel="preload" href={GothamBook} as="font" crossOrigin="true" />
+      <link rel="canonical" href={canonicalUrl} />
+      <style dangerouslySetInnerHTML={{ __html: fontStyles }} />
+      <style dangerouslySetInnerHTML={{ __html: tokenStyles }} />
+    </>
   );
 }
 
@@ -122,45 +131,9 @@ function AppMain({ children }) {
   );
 }
 
-function AppHead() {
-  return (
-    <>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="theme-color" content={`rgb(${theme.dark.rgbBackground})`} />
-      <link rel="manifest" href="/manifest.json" />
-      <link rel="shortcut icon" href="/favicon.png" type="image/png" />
-      <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
-      <link rel="apple-touch-icon" href="/icon-256.png" />
-      <link type="text/plain" rel="author" href="/humans.txt" />
-      <link rel="preload" href={GothamMedium} as="font" crossOrigin="true" />
-      <link rel="preload" href={GothamBook} as="font" crossOrigin="true" />
-      <style dangerouslySetInnerHTML={{ __html: fontStyles }} />
-      <style dangerouslySetInnerHTML={{ __html: tokenStyles }} />
-    </>
-  );
-}
-
-function DynamicLinks() {
-  let links = useMatches().flatMap(match => {
-    let fn = match.handle?.dynamicLinks;
-    if (typeof fn !== 'function') return [];
-    return fn({ data: match.data });
-  });
-
-  return (
-    <Fragment>
-      {links.map(link => (
-        <link {...link} key={link.integrity || JSON.stringify(link)} />
-      ))}
-    </Fragment>
-  );
-}
-
 export function ErrorBoundary() {
   const error = useRouteError();
 
-  console.error(error);
   return (
     <html lang="en">
       <head>
