@@ -13,7 +13,6 @@ import volkiharEnderalLogoPlaceholder from '~/assets/volkihar-enderal-logo-place
 import volkiharEnderalLogo from '~/assets/volkihar-enderal-logo.png';
 import volkiharEnderalPlaceholder from '~/assets/volkihar-enderal-placeholder.jpg';
 import volkiharEnderal from '~/assets/volkihar-enderal.jpg';
-import VolkiharKnightLogo from '~/assets/volkihar-logo.svg';
 import volkiharSlide1Large from '~/assets/volkihar-slide-1-large.jpg';
 import volkiharSlide1 from '~/assets/volkihar-slide-1.jpg';
 import volkiharSlide2Large from '~/assets/volkihar-slide-2-large.jpg';
@@ -36,15 +35,17 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from '~/layouts/Project';
-// import dynamic from 'next/dynamic';
-import { Fragment } from 'react';
+import { Fragment, Suspense, lazy } from 'react';
 import { media } from '~/utils/style';
 import { baseMeta } from '~/utils/meta';
-
+import { VolkiharLogo } from './VolkiharLogo';
 import styles from './VolkiharKnight.module.css';
 
-// const Carousel = dynamic(() => import('~components/Carousel').then(mod => mod.Carousel));
-// const Armor = dynamic(() => import('./Armor').then(mod => mod.Armor));
+const Carousel = lazy(() =>
+  import('~/components/Carousel').then(module => ({ default: module.Carousel }))
+);
+
+const Armor = lazy(() => import('./Armor').then(module => ({ default: module.Armor })));
 
 const title = 'Volkihar Knight';
 const description =
@@ -114,7 +115,9 @@ export function VolkiharKnight() {
         <ProjectSection>
           <ProjectSectionColumns>
             <div className={styles.armor}>
-              {/* <Armor alt="3D model of the Volkihar Knight armor" /> */}
+              <Suspense>
+                <Armor alt="3D model of the Volkihar Knight armor" />
+              </Suspense>
             </div>
             <div className={styles.textSection}>
               <ProjectSectionHeading>Armor design</ProjectSectionHeading>
@@ -137,10 +140,10 @@ export function VolkiharKnight() {
         <ProjectSection>
           <ProjectSectionContent>
             <div className={styles.logoContainer}>
-              {/* <VolkiharKnightLogo
+              <VolkiharLogo
                 role="img"
                 aria-label="The Volkihar Knight logo, a monogram using the letters 'V' and 'K"
-              /> */}
+              />
             </div>
             <ProjectTextRow center noMargin>
               <ProjectSectionHeading>Identity design</ProjectSectionHeading>
@@ -154,28 +157,30 @@ export function VolkiharKnight() {
         </ProjectSection>
         <ProjectSection>
           <ProjectSectionContent>
-            {/* <Carousel
-              placeholder={volkiharSlidePlaceholder}
-              images={[
-                {
-                  srcSet: [volkiharSlide1, volkiharSlide1Large],
-                  sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
-                  alt: 'A female character wearing the black coloured armor set.',
-                },
-                {
-                  srcSet: [volkiharSlide2, volkiharSlide2Large],
-                  sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
-                  alt: 'A close up of the custom gauntlets design.',
-                },
-                {
-                  srcSet: [volkiharSlide3, volkiharSlide3Large],
-                  sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
-                  alt: 'A female character wielding a sword and wearing the red coloured armor.',
-                },
-              ]}
-              width={1920}
-              height={1080}
-            /> */}
+            <Suspense>
+              <Carousel
+                placeholder={volkiharSlidePlaceholder}
+                images={[
+                  {
+                    srcSet: `${volkiharSlide1} 960w, ${volkiharSlide1Large} 1920w`,
+                    sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
+                    alt: 'A female character wearing the black coloured armor set.',
+                  },
+                  {
+                    srcSet: `${volkiharSlide2} 960w, ${volkiharSlide2Large} 1920w`,
+                    sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
+                    alt: 'A close up of the custom gauntlets design.',
+                  },
+                  {
+                    srcSet: `${volkiharSlide3} 960w, ${volkiharSlide3Large} 1920w`,
+                    sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
+                    alt: 'A female character wielding a sword and wearing the red coloured armor.',
+                  },
+                ]}
+                width={1920}
+                height={1080}
+              />
+            </Suspense>
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection

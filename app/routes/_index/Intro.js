@@ -1,4 +1,3 @@
-import ArrowDown from '~/assets/arrow-down.svg';
 import { DecoderText } from '~/components/DecoderText';
 import { Heading } from '~/components/Heading';
 import { Section } from '~/components/Section';
@@ -7,12 +6,15 @@ import { tokens } from '~/components/ThemeProvider/theme';
 import { Transition } from '~/components/Transition';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
 import { AnimatePresence } from 'framer-motion';
+import { Link as RouterLink } from '@remix-run/react';
 import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
 import { Fragment, Suspense, lazy, useEffect, useState } from 'react';
 import { cssProps } from '~/utils/style';
 import styles from './Intro.module.css';
 
-const DisplacementSphere = lazy(() => import('./DisplacementSphere'));
+const DisplacementSphere = lazy(() =>
+  import('./DisplacementSphere').then(module => ({ default: module.DisplacementSphere }))
+);
 
 export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
   const theme = useTheme();
@@ -106,27 +108,33 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                 </div>
               </Heading>
             </header>
-            {/* <RouterLink href="/#project-1">
-              <a
-                className={styles.scrollIndicator}
-                data-status={status}
-                data-hidden={scrollIndicatorHidden}
-                onClick={handleScrollClick}
-              >
-                <VisuallyHidden>Scroll to projects</VisuallyHidden>
-              </a>
+            <RouterLink
+              to="/#project-1"
+              className={styles.scrollIndicator}
+              data-status={status}
+              data-hidden={scrollIndicatorHidden}
+              onClick={handleScrollClick}
+            >
+              <VisuallyHidden>Scroll to projects</VisuallyHidden>
             </RouterLink>
-            <RouterLink href="/#project-1">
-              <a
-                className={styles.mobileScrollIndicator}
-                data-status={status}
-                data-hidden={scrollIndicatorHidden}
-                onClick={handleScrollClick}
+            <RouterLink
+              to="/#project-1"
+              className={styles.mobileScrollIndicator}
+              data-status={status}
+              data-hidden={scrollIndicatorHidden}
+              onClick={handleScrollClick}
+            >
+              <VisuallyHidden>Scroll to projects</VisuallyHidden>
+              <svg
+                aria-hidden
+                stroke="currentColor"
+                width="43"
+                height="15"
+                viewBox="0 0 43 15"
               >
-                <VisuallyHidden>Scroll to projects</VisuallyHidden>
-                <ArrowDown aria-hidden />
-              </a>
-            </RouterLink> */}
+                <path d="M1 1l20.5 12L42 1" strokeWidth="2" fill="none" />
+              </svg>
+            </RouterLink>
           </Fragment>
         )}
       </Transition>

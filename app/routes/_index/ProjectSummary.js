@@ -11,8 +11,11 @@ import { useWindowSize } from '~/hooks';
 import { Suspense, lazy, useState } from 'react';
 import { cssProps, media } from '~/utils/style';
 import styles from './ProjectSummary.module.css';
+import { Katakana } from './Katakana';
 
-const Model = lazy(() => import('~/components/Model'));
+const Model = lazy(() =>
+  import('~/components/Model').then(module => ({ default: module.Model }))
+);
 
 export const ProjectSummary = ({
   id,
@@ -38,19 +41,14 @@ export const ProjectSummary = ({
   const laptopSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
 
   const renderKatakana = (device, visible) => (
-    <svg
-      aria-hidden="true"
-      width="750"
-      height="137"
-      viewBox="0 0 750 137"
+    <Katakana
+      type="project"
       data-visible={visible}
       data-light={theme.themeId === 'light'}
       style={cssProps({ opacity: svgOpacity })}
       className={styles.svg}
       data-device={device}
-    >
-      {/* <use href={`${projectKatakana}#katakana-project`} /> */}
-    </svg>
+    />
   );
 
   const renderDetails = visible => (

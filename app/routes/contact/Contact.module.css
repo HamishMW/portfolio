@@ -141,16 +141,20 @@
   --buttonLoaderDelay: var(--durationL);
 
   margin-top: calc(var(--spaceXL) * 2);
-  transition-property: opacity;
-  transition-timing-function: var(--bezierFastoutSlowin);
   transition-delay: var(--delay);
   transition-duration: var(--durationXL);
   opacity: 0;
   justify-self: flex-start;
 
-  @media (--mediaUseMotion) {
-    transition-property: transform, opacity;
-    transform: translate3d(0, var(--space3XL), 0);
+  &[data-status='exiting'],
+  &[data-status='exited'] {
+    transition-property: opacity;
+    transition-timing-function: var(--bezierFastoutSlowin);
+
+    @media (--mediaUseMotion) {
+      transition-property: transform, opacity;
+      transform: translate3d(0, var(--space3XL), 0);
+    }
   }
 
   &[data-status='entered'] {
@@ -179,7 +183,6 @@
   }
 
   &[data-status='entering']:not(:hover),
-  &[data-status='entered']:not(:hover),
   &[data-status='entering']:hover {
     transform: none;
   }

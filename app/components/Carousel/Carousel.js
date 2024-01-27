@@ -1,5 +1,3 @@
-import ArrowLeft from '~/assets/arrow-left.svg';
-import ArrowRight from '~/assets/arrow-right.svg';
 import { animate, useReducedMotion } from 'framer-motion';
 import { useInViewport } from '~/hooks';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -18,8 +16,8 @@ import { resolveSrcFromSrcSet } from '~/utils/image';
 import { cssProps } from '~/utils/style';
 import { cleanRenderer, cleanScene, textureLoader } from '~/utils/three';
 import styles from './Carousel.module.css';
-import fragment from './carouselFragment.glsl';
-import vertex from './carouselVertex.glsl';
+import fragment from './carouselFragment.js';
+import vertex from './carouselVertex.js';
 
 function determineIndex(imageIndex, index, images, direction) {
   if (index !== null) return index;
@@ -412,3 +410,19 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
     </div>
   );
 };
+
+function ArrowLeft() {
+  return (
+    <svg fill="currentColor" width="18" height="42" viewBox="0 0 18 42">
+      <path d="M18.03 1.375L16.47.125-.031 20.75l16.5 20.625 1.562-1.25L2.53 20.75z" />
+    </svg>
+  );
+}
+
+function ArrowRight() {
+  return (
+    <svg fill="currentColor" width="18" height="42" viewBox="0 0 18 42">
+      <path d="M-.03 1.375L1.53.125l16.5 20.625-16.5 20.625-1.562-1.25 15.5-19.375z" />
+    </svg>
+  );
+}

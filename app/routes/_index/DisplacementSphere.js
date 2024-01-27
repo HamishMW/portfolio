@@ -198,5 +198,3 @@ export const DisplacementSphere = props => {
     </Transition>
   );
 };
-
-export default DisplacementSphere;

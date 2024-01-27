@@ -1,13 +1,13 @@
-import vknx from 'assets/volkihar-cube-nx.jpg';
-import vkny from 'assets/volkihar-cube-ny.jpg';
-import vknz from 'assets/volkihar-cube-nz.jpg';
-import vkpx from 'assets/volkihar-cube-px.jpg';
-import vkpy from 'assets/volkihar-cube-py.jpg';
-import vkpz from 'assets/volkihar-cube-pz.jpg';
-import armor from 'assets/volkihar-knight.glb';
-import { Loader } from 'components/Loader';
-import { tokens } from 'components/ThemeProvider/theme';
-import { Transition } from 'components/Transition';
+import vknx from '~/assets/volkihar-cube-nx.jpg';
+import vkny from '~/assets/volkihar-cube-ny.jpg';
+import vknz from '~/assets/volkihar-cube-nz.jpg';
+import vkpx from '~/assets/volkihar-cube-px.jpg';
+import vkpy from '~/assets/volkihar-cube-py.jpg';
+import vkpz from '~/assets/volkihar-cube-pz.jpg';
+import armor from '~/assets/volkihar-knight.glb';
+import { Loader } from '~/components/Loader';
+import { tokens } from '~/components/ThemeProvider/theme';
+import { Transition } from '~/components/Transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport } from '~/hooks';
 import { startTransition, useCallback, useEffect, useRef, useState } from 'react';
@@ -21,10 +21,10 @@ import {
   Scene,
   WebGLRenderer,
   sRGBEncoding,
+  MathUtils,
 } from 'three';
-import { degToRad } from 'three/src/math/MathUtils';
-import { classes, cssProps, msToNum, numToMs } from 'utils/style';
-import { cleanRenderer, cleanScene, modelLoader, removeLights } from 'utils/three';
+import { classes, cssProps, msToNum, numToMs } from '~/utils/style';
+import { cleanRenderer, cleanScene, modelLoader, removeLights } from '~/utils/three';
 import styles from './Armor.module.css';
 
 const rotationSpringConfig = {
@@ -101,7 +101,7 @@ export const Armor = ({
       const [gltf, envTexture] = await Promise.all([loadGltf, loadEnv]);
 
       modelGroup.current.add(gltf.scene);
-      gltf.scene.rotation.y = degToRad(180);
+      gltf.scene.rotation.y = MathUtils.degToRad(180);
       gltf.scene.position.y = -1.6;
 
       const { texture } = pmremGenerator.fromCubemap(envTexture);

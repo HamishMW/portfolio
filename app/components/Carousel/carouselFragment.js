@@ -1,3 +1,4 @@
+export default `
 varying vec2 vUv;
 uniform sampler2D currentImage;
 uniform sampler2D nextImage;
@@ -39,3 +40,4 @@ void main() {
     gl_FragColor = finalTexture;
   }
 }
+`;
