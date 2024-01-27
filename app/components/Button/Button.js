@@ -15,7 +15,9 @@ export const Button = forwardRef(({ href, ...rest }, ref) => {
     return <ButtonContent href={href} ref={ref} {...rest} />;
   }
 
-  return <ButtonContent as={Link} to={href} ref={ref} {...rest} />;
+  return (
+    <ButtonContent as={Link} unstable_viewTransition to={href} ref={ref} {...rest} />
+  );
 });
 
 const ButtonContent = forwardRef(

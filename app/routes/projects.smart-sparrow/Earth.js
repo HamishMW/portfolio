@@ -1,15 +1,15 @@
-import earthModel from 'assets/earth.glb';
-import mwnx from 'assets/milkyway-nx.hdr';
-import mwny from 'assets/milkyway-ny.hdr';
-import mwnz from 'assets/milkyway-nz.hdr';
-import mwpx from 'assets/milkyway-px.hdr';
-import mwpy from 'assets/milkyway-py.hdr';
-import mwpz from 'assets/milkyway-pz.hdr';
-import milkywayBg from 'assets/milkyway.jpg';
-import { Loader } from 'components/Loader';
-import { Section } from 'components/Section';
-import { tokens } from 'components/ThemeProvider/theme';
-import { Transition } from 'components/Transition';
+import earthModel from '~/assets/earth.glb';
+import mwnx from '~/assets/milkyway-nx.hdr';
+import mwny from '~/assets/milkyway-ny.hdr';
+import mwnz from '~/assets/milkyway-nz.hdr';
+import mwpx from '~/assets/milkyway-px.hdr';
+import mwpy from '~/assets/milkyway-py.hdr';
+import mwpz from '~/assets/milkyway-pz.hdr';
+import milkywayBg from '~/assets/milkyway.jpg';
+import { Loader } from '~/components/Loader';
+import { Section } from '~/components/Section';
+import { tokens } from '~/components/ThemeProvider/theme';
+import { Transition } from '~/components/Transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport, useWindowSize } from '~/hooks';
 import {
@@ -42,8 +42,8 @@ import {
 } from 'three';
 import { LinearFilter } from 'three';
 import { EquirectangularReflectionMapping } from 'three';
-import { clamp } from 'utils/clamp';
-import { classes, media, msToNum, numToPx } from 'utils/style';
+import { clamp } from '~/utils/clamp';
+import { classes, media, msToNum, numToPx } from '~/utils/style';
 import {
   cleanRenderer,
   cleanScene,
@@ -51,8 +51,8 @@ import {
   modelLoader,
   removeLights,
   textureLoader,
-} from 'utils/three';
-import { throttle } from 'utils/throttle';
+} from '~/utils/three';
+import { throttle } from '~/utils/throttle';
 import styles from './Earth.module.css';
 
 const nullTarget = { x: 0, y: 0, z: 2 };

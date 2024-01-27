@@ -22,7 +22,7 @@ export const Image = ({
   const [loaded, setLoaded] = useState(false);
   const { themeId } = useTheme();
   const containerRef = useRef();
-  const src = baseSrc || srcSet?.[0];
+  const src = baseSrc || srcSet;
   const inViewport = useInViewport(containerRef, !getIsVideo(src));
 
   const onLoad = useCallback(() => {
@@ -206,5 +206,5 @@ const ImageElements = ({
 };
 
 function getIsVideo(src) {
-  return typeof src === 'string' && src.endsWith('.mp4');
+  return typeof src === 'string' && src.includes('.mp4');
 }

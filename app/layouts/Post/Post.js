@@ -8,7 +8,6 @@ import { Text } from '~/components/Text';
 import { tokens } from '~/components/ThemeProvider/theme';
 import { Transition } from '~/components/Transition';
 import { useParallax, useScrollToHash } from '~/hooks';
-// import RouterLink from 'next/link';
 import { useRef, useState, useEffect } from 'react';
 import { clamp } from '~/utils/clamp';
 import { formatDate } from '~/utils/date';
@@ -43,7 +42,7 @@ export const Post = ({ children, title, date, abstract, banner, timecode, ogImag
             <div className={styles.bannerImage}>
               <Image
                 role="presentation"
-                src={{ src: banner }}
+                src={banner}
                 placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
                 alt=""
               />
@@ -51,7 +50,7 @@ export const Post = ({ children, title, date, abstract, banner, timecode, ogImag
             <div className={styles.bannerImageBlur}>
               <Image
                 role="presentation"
-                src={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
+                src={`${banner.split('.')[0]}-placeholder.jpg`}
                 placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
                 alt=""
               />

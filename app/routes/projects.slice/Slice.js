@@ -190,6 +190,8 @@ export const Slice = () => {
             </ProjectTextRow>
             <Image
               src={sliceIrl}
+              width={940}
+              height={500}
               placeholder={sliceIrlPlaceholder}
               alt="Students at the University of New South Wales using the new collaborative annotation features"
             />

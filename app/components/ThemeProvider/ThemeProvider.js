@@ -6,7 +6,6 @@ import GothamMediumItalic from '~/assets/fonts/gotham-medium-italic.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import IPAGothic from '~/assets/fonts/ipa-gothic.woff2';
 import { useHasMounted } from '~/hooks';
-// import Head from 'next/head';
 import { createContext, useEffect } from 'react';
 import { classes, media } from '~/utils/style';
 import { theme, tokens } from './theme';
@@ -32,19 +31,15 @@ export const ThemeProvider = ({
     if (isRootProvider && hasMounted) {
       window.localStorage.setItem('theme', JSON.stringify(themeId));
       document.body.dataset.theme = themeId;
+      document
+        .querySelector('meta[name="theme-color"]')
+        .setAttribute('content', `rgb(${currentTheme.rgbBackground})`);
     }
-  }, [themeId, isRootProvider, hasMounted]);
+  }, [themeId, isRootProvider, hasMounted, currentTheme.rgbBackground]);
 
   return (
     <ThemeContext.Provider value={currentTheme}>
-      {isRootProvider && (
-        <>
-          {/* <Head>
-            <meta name="theme-color" content={`rgb(${currentTheme.rgbBackground})`} />
-          </Head> */}
-          {children}
-        </>
-      )}
+      {isRootProvider && children}
       {/* Nested providers need a div to override theme tokens */}
       {!isRootProvider && (
         <Component

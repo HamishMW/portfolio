@@ -10,7 +10,12 @@ import {
   useMatches,
   useRouteError,
 } from '@remix-run/react';
-import { ThemeProvider, fontStyles, tokenStyles } from '~/components/ThemeProvider';
+import {
+  ThemeProvider,
+  fontStyles,
+  theme,
+  tokenStyles,
+} from '~/components/ThemeProvider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import { Fragment, createContext, useEffect, useReducer } from 'react';
@@ -121,6 +126,7 @@ function AppHead() {
     <>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="theme-color" content={`rgb(${theme.dark.rgbBackground})`} />
       <link rel="manifest" href="/manifest.json" />
       <link rel="shortcut icon" href="/favicon.png" type="image/png" />
       <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />

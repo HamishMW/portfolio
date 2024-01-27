@@ -14,7 +14,7 @@ import { useRef, useState } from 'react';
 import { cssProps, msToNum, numToMs } from '~/utils/style';
 import { baseMeta } from '~/utils/meta';
 import { Form, useActionData, useNavigation } from '@remix-run/react';
-import { json, redirect } from "@remix-run/cloudflare";
+import { json, redirect } from '@remix-run/cloudflare';
 import { AwsClient } from 'aws4fetch';
 import styles from './Contact.module.css';
 
@@ -32,13 +32,16 @@ const EMAIL_PATTERN = /(.+)@(.+){2,}\.(.+){2,}/;
 
 export async function action({ context, request }) {
   const region = 'us-east-1';
-  const aws = new AwsClient({ accessKeyId: context.env.AWS_ACCESS_KEY_ID, secretAccessKey: context.env.AWS_SECRET_ACCESS_KEY });
+  const aws = new AwsClient({
+    accessKeyId: context.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: context.env.AWS_SECRET_ACCESS_KEY,
+  });
   const formData = await request.formData();
   const email = String(formData.get('email'));
   const message = String(formData.get('message'));
   const errors = {};
 
-  console.log("ENV YEE: ", context.env);
+  console.log('ENV YEE: ', context.env);
 
   if (!email || !EMAIL_PATTERN.test(email)) {
     errors.email = 'Please enter a valid email address.';
@@ -60,27 +63,30 @@ export async function action({ context, request }) {
     return json({ errors });
   }
 
-  const response = await aws.fetch(`https://email.${region}.amazonaws.com/v2/email/outbound-emails`, { body: JSON.stringify({ 
-    Content: {
-      Simple: {
-        Body: {
-          Text: {
-            Charset: 'UTF-8',
-            Data: `From: ${email}\n\n${message}`,
+  const response = await aws.fetch(
+    `https://email.${region}.amazonaws.com/v2/email/outbound-emails`,
+    {
+      body: JSON.stringify({
+        Content: {
+          Simple: {
+            Body: {
+              Text: {
+                Data: `From: ${email}\n\n${message}`,
+              },
+            },
+            Subject: {
+              Data: `Portfolio message from ${email}`,
+            },
           },
         },
-        Subject: {
-          Charset: 'UTF-8',
-          Data: `Portfolio message from ${email}`,
+        Destination: {
+          ToAddresses: [context.env.EMAIL],
         },
-      },
-    },
-    Destination: {
-      ToAddresses: [context.env.EMAIL],
-    },
-    FromEmailAddress: context.env.FROM_EMAIL,
-    ReplyToAddresses: [email],
-  })});
+        FromEmailAddress: context.env.FROM_EMAIL,
+        ReplyToAddresses: [email],
+      }),
+    }
+  );
 
   console.log(await response.json());
 
@@ -101,7 +107,7 @@ export const Contact = () => {
     <Section className={styles.contact}>
       <Transition unmount in timeout={1600}>
         {(visible, status) => (
-          <Form className={styles.form} method="post">
+          <Form unstable_viewTransition className={styles.form} method="post">
             <Heading
               className={styles.title}
               data-status={status}
