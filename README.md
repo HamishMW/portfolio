@@ -1,38 +1,59 @@
-# Welcome to Remix!
+# Personal portfolio
 
-- [Remix Docs](https://remix.run/docs)
+[![Site preview](/public/site-preview.png)](https://hamishw.com)
 
-## Development
+My design portfolio to showcase a few projects. Built with [Remix](https://remix.run/), [Three.js](https://threejs.org/), and [Framer Motion](https://www.framer.com/motion/). View the [live site](https://hamishw.com) or check out a live version of the [components storybook](https://storybook.hamishw.com).
 
-From your terminal:
+## Install & run
 
-```sh
+Make sure you have nodejs `18.0.0` or higher and npm `8.6.0` or higher installed. Install dependencies with:
+
+```bash
+npm install
+```
+
+Once it's done start up a local server with:
+
+```bash
 npm run dev
 ```
 
-This starts your app in development mode, rebuilding assets on file changes.
+To view the components storybook:
+
+```bash
+npm run storybook
+```
+
+## Contact form
+
+To get the contact form working create an AWS account and set up SES. Then plug in your details into `.dev.vars.example` and rename it to `.dev.vars`. You'll also need to add these as enviroment variables in the Cloudflare dashboard for it to work in production.
 
 ## Deployment
 
-First, build your app for production:
+I've set up the site using Cloudflare for hosting.
 
-```sh
-npm run build
+Deploy the site to Cloudflare Pages:
+
+```bash
+npm run deploy
 ```
 
-Then run the app in production mode:
+## Permissions
 
-```sh
-npm start
-```
+I'm cool with anyone using the code or parts of the code for their own site, it is open source so people can learn from it and adapt it. However, I would encourage you to modify the theme and components it to make it your own. If you are using the site's design largely unmodified, I'd appreciate being credited as the designer of the website.
 
-Now you'll need to pick a host to deploy it to.
+I do not give permission to present any of my projects as your own (this is being actively used as my portfolio site and these are my real projects I've worked on).
 
-### DIY
+## FAQs
 
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
+<details>
+  <summary>How do I change the color on the <code>DisplacementSphere</code> (blobby rotating thing in the background).</summary>
+  
+  You'll need to edit the fragment shader. [Check out this issue for more details](https://github.com/HamishMW/portfolio/issues/19#issuecomment-870996615).
+</details>
 
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
+<details>
+  <summary>How do I get the contact form to work?</summary>
+  
+  It's set up using a serverless function with AWS Lambda. You'll need to set up an AWS account and deploy the function. [Refer to this issue for more details](https://github.com/HamishMW/portfolio/issues/21#issuecomment-958727113).
+</details>
