@@ -42,7 +42,7 @@
     margin-top: 1.2em;
   }
 
-  & + & {
+  + & {
     margin-top: 1.4em;
   }
 
@@ -58,7 +58,7 @@
   height: auto;
   grid-column: 2 / span 3;
 
-  & + & {
+  + & {
     margin-top: 0;
   }
 
@@ -90,7 +90,7 @@
 .pre {
   margin: var(--space3XL) calc(var(--space2XL) * -1);
 
-  & + & {
+  + & {
     margin-top: 0;
   }
 
@@ -147,7 +147,7 @@
   margin: var(--space3XL) 0;
 
   .pre + &,
-  & + & {
+  + & {
     margin-top: 0;
   }
 

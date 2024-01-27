@@ -3,7 +3,6 @@ import { Divider } from '~/components/Divider';
 import { Footer } from '~/components/Footer';
 import { Heading } from '~/components/Heading';
 import { Image } from '~/components/Image';
-import { Meta } from '~/components/Meta';
 import { Section } from '~/components/Section';
 import { Text } from '~/components/Text';
 import { tokens } from '~/components/ThemeProvider/theme';
@@ -37,7 +36,7 @@ export const Post = ({ children, title, date, abstract, banner, timecode, ogImag
 
   return (
     <article className={styles.post}>
-      <Meta title={title} prefix="" description={abstract} ogImage={ogImage} />
+      {/* <Meta title={title} prefix="" description={abstract} ogImage={ogImage} /> */}
       <Section>
         {banner && (
           <div className={styles.banner} ref={imageRef}>

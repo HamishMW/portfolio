@@ -318,8 +318,8 @@
 }
 
 .sectionText {
-  & + a,
-  & + & {
+  + a,
+  + & {
     margin-top: var(--spaceL);
   }
 }

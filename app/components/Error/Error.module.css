@@ -144,7 +144,7 @@
 }
 
 .titleFlatline {
-  color: rgb(var(--rgbAccent));
+  color: rgb(var(--rgbPrimary));
   display: flex;
   align-items: center;
   gap: var(--spaceM);
@@ -152,7 +152,7 @@
 
   svg {
     flex: 0 0 auto;
-    fill: rgb(var(--rgbAccent));
+    color: rgb(var(--rgbAccent));
   }
 }
 

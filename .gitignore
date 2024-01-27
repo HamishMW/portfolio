@@ -1,8 +1,12 @@
 node_modules
 
 /.cache
-/build
+/functions/\[\[path\]\].js
+/functions/\[\[path\]\].js.map
+/functions/metafile.*
+/functions/version.txt
 /public/build
-.env
+.dev.vars
 
 next
+remmy

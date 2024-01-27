@@ -20,6 +20,7 @@ export const Input = ({
   maxLength,
   type,
   onChange,
+  name,
   ...rest
 }) => {
   const [focused, setFocused] = useState(false);
@@ -68,6 +69,7 @@ export const Input = ({
           required={required}
           maxLength={maxLength}
           type={type}
+          name={name}
         />
         <div className={styles.underline} data-focused={focused} />
       </div>
