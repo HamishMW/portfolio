@@ -1,7 +1,7 @@
-import config from '~/config.json';
-
-const { name, url, twitter } = config;
 const defaultOgImage = `${url}/social-image.png`;
+const name = 'Hamish Williams';
+const twitter = '@hamishMW';
+const url = 'https://hamishw.com';
 
 export function baseMeta({
   title,
