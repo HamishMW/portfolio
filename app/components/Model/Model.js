@@ -13,7 +13,6 @@ import {
   Color,
   DirectionalLight,
   Group,
-  LinearSRGBColorSpace,
   MathUtils,
   Mesh,
   MeshBasicMaterial,

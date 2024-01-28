@@ -11,13 +11,11 @@ import {
   Mesh,
   MeshPhongMaterial,
   PerspectiveCamera,
-  SRGBColorSpace,
   Scene,
   SphereGeometry,
   UniformsUtils,
   Vector2,
   WebGLRenderer,
-  sRGBEncoding,
 } from 'three';
 import { media, rgbToThreeColor } from '~/utils/style';
 import { cleanRenderer, cleanScene, removeLights } from '~/utils/three';
