@@ -172,8 +172,8 @@ export const Navbar = () => {
         <NavbarIcons desktop />
       </nav>
       <Transition unmount in={menuOpen} timeout={msToNum(tokens.base.durationL)}>
-        {visible => (
-          <nav className={styles.mobileNav} data-visible={visible}>
+        {({ visible, nodeRef }) => (
+          <nav className={styles.mobileNav} data-visible={visible} ref={nodeRef}>
             {navLinks.map(({ label, pathname }, index) => (
               <RouterLink
                 unstable_viewTransition

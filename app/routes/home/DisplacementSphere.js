@@ -7,6 +7,7 @@ import {
   AmbientLight,
   Color,
   DirectionalLight,
+  LinearSRGBColorSpace,
   Mesh,
   MeshPhongMaterial,
   PerspectiveCamera,
@@ -15,13 +16,13 @@ import {
   UniformsUtils,
   Vector2,
   WebGLRenderer,
-  sRGBEncoding,
 } from 'three';
 import { media, rgbToThreeColor } from '~/utils/style';
 import { cleanRenderer, cleanScene, removeLights } from '~/utils/three';
 import styles from './DisplacementSphere.module.css';
 import fragShader from './displacementSphereFragment.js';
 import vertShader from './displacementSphereVertex.js';
+import { throttle } from '~/utils/throttle';
 
 const springConfig = {
   stiffness: 30,
@@ -61,7 +62,7 @@ export const DisplacementSphere = props => {
     });
     renderer.current.setSize(innerWidth, innerHeight);
     renderer.current.setPixelRatio(1);
-    renderer.current.outputEncoding = sRGBEncoding;
+    renderer.current.outputColorSpace = LinearSRGBColorSpace;
 
     camera.current = new PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 100);
     camera.current.position.z = 52;
@@ -95,8 +96,8 @@ export const DisplacementSphere = props => {
   }, []);
 
   useEffect(() => {
-    const dirLight = new DirectionalLight(colorWhite, 0.6);
-    const ambientLight = new AmbientLight(colorWhite, themeId === 'light' ? 0.8 : 0.1);
+    const dirLight = new DirectionalLight(colorWhite, 1.8);
+    const ambientLight = new AmbientLight(colorWhite, themeId === 'light' ? 2.7 : 0.4);
 
     dirLight.position.z = 200;
     dirLight.position.x = 100;
@@ -137,7 +138,7 @@ export const DisplacementSphere = props => {
   }, [reduceMotion, windowSize]);
 
   useEffect(() => {
-    const onMouseMove = event => {
+    const onMouseMove = throttle(event => {
       const position = {
         x: event.clientX / window.innerWidth,
         y: event.clientY / window.innerHeight,
@@ -145,7 +146,7 @@ export const DisplacementSphere = props => {
 
       rotationX.set(position.y / 2);
       rotationY.set(position.x / 2);
-    };
+    }, 100);
 
     if (!reduceMotion && isInViewport) {
       window.addEventListener('mousemove', onMouseMove);
@@ -185,13 +186,13 @@ export const DisplacementSphere = props => {
   }, [isInViewport, reduceMotion, rotationX, rotationY]);
 
   return (
-    <Transition in timeout={3000}>
-      {visible => (
+    <Transition in timeout={3000} nodeRef={canvasRef}>
+      {({ visible, nodeRef }) => (
         <canvas
           aria-hidden
           className={styles.canvas}
           data-visible={visible}
-          ref={canvasRef}
+          ref={nodeRef}
           {...props}
         />
       )}

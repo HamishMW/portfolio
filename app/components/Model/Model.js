@@ -20,12 +20,12 @@ import {
   OrthographicCamera,
   PerspectiveCamera,
   PlaneGeometry,
+  SRGBColorSpace,
   Scene,
   ShaderMaterial,
   Vector3,
   WebGLRenderTarget,
   WebGLRenderer,
-  sRGBEncoding,
 } from 'three';
 import { HorizontalBlurShader, VerticalBlurShader } from 'three-stdlib';
 import { resolveSrcFromSrcSet } from '~/utils/image';
@@ -39,6 +39,7 @@ import {
 } from '~/utils/three';
 import styles from './Model.module.css';
 import { ModelAnimationType } from './deviceModels';
+import { throttle } from '~/utils/throttle';
 
 const MeshType = {
   Frame: 'Frame',
@@ -99,8 +100,7 @@ export const Model = ({
 
     renderer.current.setPixelRatio(2);
     renderer.current.setSize(clientWidth, clientHeight);
-    renderer.current.outputEncoding = sRGBEncoding;
-    renderer.current.physicallyCorrectLights = true;
+    renderer.current.outputColorSpace = SRGBColorSpace;
 
     camera.current = new PerspectiveCamera(36, clientWidth / clientHeight, 0.1, 100);
     camera.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
@@ -206,8 +206,8 @@ export const Model = ({
     verticalBlurMaterial.current = new ShaderMaterial(VerticalBlurShader);
     verticalBlurMaterial.current.depthTest = false;
 
-    const unsubscribeX = rotationX.onChange(renderFrame);
-    const unsubscribeY = rotationY.onChange(renderFrame);
+    const unsubscribeX = rotationX.on('change', renderFrame);
+    const unsubscribeY = rotationY.on('change', renderFrame);
 
     return () => {
       renderTarget.current.dispose();
@@ -280,7 +280,7 @@ export const Model = ({
 
   // Handle mouse move animation
   useEffect(() => {
-    const onMouseMove = event => {
+    const onMouseMove = throttle(event => {
       const { innerWidth, innerHeight } = window;
 
       const position = {
@@ -290,7 +290,7 @@ export const Model = ({
 
       rotationY.set(position.x / 2);
       rotationX.set(position.y / 2);
-    };
+    }, 100);
 
     if (isInViewport && !reduceMotion) {
       window.addEventListener('mousemove', onMouseMove);
@@ -367,7 +367,7 @@ const Device = ({
 
   useEffect(() => {
     const applyScreenTexture = async (texture, node) => {
-      texture.encoding = sRGBEncoding;
+      texture.colorSpace = SRGBColorSpace;
       texture.flipY = false;
       texture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
       texture.generateMipmaps = false;
@@ -396,7 +396,6 @@ const Device = ({
       gltf.scene.traverse(async node => {
         if (node.material) {
           node.material.color = new Color(0x1f2025);
-          node.material.color.convertSRGBToLinear();
         }
 
         if (node.name === MeshType.Screen) {

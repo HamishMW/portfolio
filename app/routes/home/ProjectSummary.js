@@ -160,7 +160,7 @@ export const ProjectSummary = ({
     >
       <div className={styles.content}>
         <Transition in={sectionVisible || focused}>
-          {visible => (
+          {({ visible }) => (
             <>
               {!alternate && !isMobile && (
                 <>

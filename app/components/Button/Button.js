@@ -84,8 +84,9 @@ const ButtonContent = forwardRef(
           />
         )}
         <Transition unmount in={loading}>
-          {visible => (
+          {({ visible, nodeRef }) => (
             <Loader
+              ref={nodeRef}
               className={styles.loader}
               size={32}
               text={loadingText}

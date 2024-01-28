@@ -113,10 +113,11 @@ export const ProjectBackground = ({ opacity = 0.7, className, ...rest }) => {
 
   return (
     <Transition in timeout={msToNum(tokens.base.durationM)}>
-      {visible => (
+      {({ visible, nodeRef }) => (
         <div
           className={classes(styles.backgroundImage, className)}
           data-visible={visible}
+          ref={nodeRef}
         >
           <div className={styles.backgroundImageElement} ref={imageRef}>
             <Image alt="" role="presentation" {...rest} />
