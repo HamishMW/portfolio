@@ -24,15 +24,9 @@ To view the components storybook:
 npm run storybook
 ```
 
-## Contact form
-
-To get the contact form working create an AWS account and set up SES. Then plug in your details into `.dev.vars.example` and rename it to `.dev.vars`. You'll also need to add these as enviroment variables in the Cloudflare dashboard for it to work in production.
-
 ## Deployment
 
-I've set up the site using Cloudflare for hosting.
-
-Deploy the site to Cloudflare Pages:
+I've set up the site using Cloudflare for hosting. Deploy the site to Cloudflare Pages:
 
 ```bash
 npm run deploy
@@ -55,5 +49,5 @@ I do not give permission to present any of my projects as your own (this is bein
 <details>
   <summary>How do I get the contact form to work?</summary>
   
-  It's set up using a serverless function with AWS Lambda. You'll need to set up an AWS account and deploy the function. [Refer to this issue for more details](https://github.com/HamishMW/portfolio/issues/21#issuecomment-958727113).
+  To get the contact form working create an AWS account and set up SES (Simple Email service). Then plug in your details into `.dev.vars.example` and rename it to `.dev.vars`. You'll also need to add these as enviroment variables in the Cloudflare dashboard for it to work in production.
 </details>
