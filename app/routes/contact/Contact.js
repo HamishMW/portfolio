@@ -98,8 +98,13 @@ export const Contact = () => {
   return (
     <Section className={styles.contact}>
       <Transition unmount in={!actionData?.success} timeout={1600}>
-        {(visible, status) => (
-          <Form unstable_viewTransition className={styles.form} method="post">
+        {({ status, nodeRef }) => (
+          <Form
+            unstable_viewTransition
+            className={styles.form}
+            method="post"
+            ref={nodeRef}
+          >
             <Heading
               className={styles.title}
               data-status={status}
@@ -139,12 +144,14 @@ export const Contact = () => {
               {...message}
             />
             <Transition
+              unmount
               in={!sending && actionData?.errors}
               timeout={msToNum(tokens.base.durationM)}
             >
-              {errorStatus => (
+              {({ status: errorStatus, nodeRef }) => (
                 <div
                   className={styles.formError}
+                  ref={nodeRef}
                   data-status={errorStatus}
                   style={cssProps({
                     height: errorStatus ? errorRef.current?.offsetHeight : 0,
@@ -177,8 +184,8 @@ export const Contact = () => {
         )}
       </Transition>
       <Transition unmount in={actionData?.success}>
-        {(visible, status) => (
-          <div className={styles.complete} aria-live="polite">
+        {({ status, nodeRef }) => (
+          <div className={styles.complete} aria-live="polite" ref={nodeRef}>
             <Heading
               level={3}
               as="h3"

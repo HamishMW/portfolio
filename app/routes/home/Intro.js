@@ -8,7 +8,7 @@ import { VisuallyHidden } from '~/components/VisuallyHidden';
 import { AnimatePresence } from 'framer-motion';
 import { Link as RouterLink } from '@remix-run/react';
 import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
-import { Fragment, Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { cssProps } from '~/utils/style';
 import styles from './Intro.module.css';
 
@@ -58,12 +58,11 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
       {...rest}
     >
       <Transition in key={theme.themeId} timeout={3000}>
-        {(visible, status) => (
-          <Fragment>
+        {({ visible, status }) => (
+          <>
             <Suspense>
               <DisplacementSphere />
             </Suspense>
-            {/* <DisplacementSphere /> */}
             <header className={styles.text}>
               <h1 className={styles.name} data-visible={visible} id={titleId}>
                 <DecoderText text="Hamish Williams" delay={300} />
@@ -91,9 +90,10 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                         timeout={{ enter: 3000, exit: 2000 }}
                         key={item}
                       >
-                        {(visible, status) => (
+                        {({ status, nodeRef }) => (
                           <span
                             aria-hidden
+                            ref={nodeRef}
                             className={styles.word}
                             data-plus={true}
                             data-status={status}
@@ -135,7 +135,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                 <path d="M1 1l20.5 12L42 1" strokeWidth="2" fill="none" />
               </svg>
             </RouterLink>
-          </Fragment>
+          </>
         )}
       </Transition>
     </Section>

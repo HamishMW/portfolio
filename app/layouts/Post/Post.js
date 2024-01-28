@@ -60,8 +60,8 @@ export const Post = ({ children, title, date, abstract, banner, timecode, ogImag
         <header className={styles.header}>
           <div className={styles.headerText}>
             <Transition in timeout={msToNum(tokens.base.durationM)}>
-              {visible => (
-                <div className={styles.date}>
+              {({ visible, nodeRef }) => (
+                <div className={styles.date} ref={nodeRef}>
                   <Divider notchWidth="64px" notchHeight="8px" collapsed={!visible} />
                   <Text className={styles.dateText} data-visible={visible}>
                     {dateTime}

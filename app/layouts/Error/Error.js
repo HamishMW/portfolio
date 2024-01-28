@@ -7,7 +7,6 @@ import { DecoderText } from '~/components/DecoderText';
 import { Heading } from '~/components/Heading';
 import { Text } from '~/components/Text';
 import { Transition } from '~/components/Transition';
-import { Fragment } from 'react';
 import styles from './Error.module.css';
 
 export function Error({ error }) {
@@ -55,8 +54,8 @@ export function Error({ error }) {
         />
       )}
       <Transition in>
-        {visible => (
-          <Fragment>
+        {({ visible }) => (
+          <>
             <div className={styles.details}>
               <div className={styles.text}>
                 {!flatlined && (
@@ -144,7 +143,7 @@ export function Error({ error }) {
                 </a>
               )}
             </div>
-          </Fragment>
+          </>
         )}
       </Transition>
     </section>

@@ -2,19 +2,10 @@ import { AnimatePresence, usePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * A Framer Motion AnimatePresence implementation of `react-transition-group`
- * to be used for vanilla css transitions
+ * A lightweight Framer Motion `AnimatePresence` implementation of
+ * `react-transition-group` to be used for simple vanilla css transitions
  */
-export const Transition = ({
-  children,
-  timeout = 0,
-  onEnter,
-  onEntered,
-  onExit,
-  onExited,
-  in: show,
-  unmount,
-}) => {
+export const Transition = ({ children, in: show, unmount, initial = true, ...props }) => {
   const enterTimeout = useRef();
   const exitTimeout = useRef();
 
@@ -30,14 +21,11 @@ export const Transition = ({
     <AnimatePresence>
       {(show || !unmount) && (
         <TransitionContent
-          timeout={timeout}
           enterTimeout={enterTimeout}
           exitTimeout={exitTimeout}
-          onEnter={onEnter}
-          onEntered={onEntered}
-          onExit={onExit}
-          onExited={onExited}
-          show={show}
+          in={show}
+          initial={initial}
+          {...props}
         >
           {children}
         </TransitionContent>
@@ -48,19 +36,24 @@ export const Transition = ({
 
 const TransitionContent = ({
   children,
-  timeout,
+  timeout = 0,
   enterTimeout,
   exitTimeout,
   onEnter,
   onEntered,
   onExit,
   onExited,
-  show,
+  initial,
+  nodeRef: defaultNodeRef,
+  in: show,
 }) => {
-  const [status, setStatus] = useState('exited');
+  const [status, setStatus] = useState(initial ? 'exited' : 'entered');
   const [isPresent, safeToRemove] = usePresence();
-  const [hasEntered, setHasEntered] = useState(false);
+  const [hasEntered, setHasEntered] = useState(initial ? false : true);
   const splitTimeout = typeof timeout === 'object';
+  const internalNodeRef = useRef(null);
+  const nodeRef = defaultNodeRef || internalNodeRef;
+  const visible = hasEntered && show ? isPresent : false;
 
   useEffect(() => {
     if (hasEntered || !show) return;
@@ -73,6 +66,9 @@ const TransitionContent = ({
     setHasEntered(true);
     setStatus('entering');
     onEnter?.();
+
+    // Force reflow
+    nodeRef.current?.offsetHeight;
 
     enterTimeout.current = setTimeout(() => {
       setStatus('entered');
@@ -92,6 +88,9 @@ const TransitionContent = ({
     setStatus('exiting');
     onExit?.();
 
+    // Force reflow
+    nodeRef.current?.offsetHeight;
+
     exitTimeout.current = setTimeout(() => {
       setStatus('exited');
       safeToRemove?.();
@@ -100,5 +99,5 @@ const TransitionContent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPresent, onExit, safeToRemove, timeout, onExited, show]);
 
-  return children(hasEntered && show ? isPresent : false, status);
+  return children({ visible, status, nodeRef });
 };

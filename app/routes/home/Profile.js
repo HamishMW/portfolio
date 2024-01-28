@@ -52,8 +52,8 @@ export const Profile = ({ id, visible, sectionRef }) => {
       tabIndex={-1}
     >
       <Transition in={visible || focused} timeout={0}>
-        {visible => (
-          <div className={styles.content}>
+        {({ visible, nodeRef }) => (
+          <div className={styles.content} ref={nodeRef}>
             <div className={styles.column}>
               <ProfileText visible={visible} titleId={titleId} />
               <Button

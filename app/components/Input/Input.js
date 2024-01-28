@@ -74,8 +74,9 @@ export const Input = ({
         <div className={styles.underline} data-focused={focused} />
       </div>
       <Transition unmount in={error} timeout={msToNum(tokens.base.durationM)}>
-        {visible => (
+        {({ visible, nodeRef }) => (
           <div
+            ref={nodeRef}
             className={styles.error}
             data-visible={visible}
             id={errorId}

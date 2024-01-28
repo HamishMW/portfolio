@@ -185,13 +185,13 @@ export const DisplacementSphere = props => {
   }, [isInViewport, reduceMotion, rotationX, rotationY]);
 
   return (
-    <Transition in timeout={3000}>
-      {visible => (
+    <Transition in timeout={3000} nodeRef={canvasRef}>
+      {({ visible, nodeRef }) => (
         <canvas
           aria-hidden
           className={styles.canvas}
           data-visible={visible}
-          ref={canvasRef}
+          ref={nodeRef}
           {...props}
         />
       )}

@@ -36,10 +36,14 @@ export const Code = props => {
         <Button iconOnly onClick={handleCopy} aria-label="Copy">
           <span className={styles.copyIcon}>
             <Transition in={!copied}>
-              {visible => <Icon icon="copy" data-visible={visible} />}
+              {({ visible, nodeRef }) => (
+                <Icon ref={nodeRef} icon="copy" data-visible={visible} />
+              )}
             </Transition>
             <Transition in={copied}>
-              {visible => <Icon icon="check" data-visible={visible} />}
+              {({ visible, nodeRef }) => (
+                <Icon ref={nodeRef} icon="check" data-visible={visible} />
+              )}
             </Transition>
           </span>
         </Button>

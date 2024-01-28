@@ -215,7 +215,7 @@ export const Armor = ({
         in={!loaded && loaderVisible}
         timeout={msToNum(tokens.base.durationL)}
       >
-        {visible => <Loader className={styles.loader} data-visible={visible} />}
+        {({ visible }) => <Loader className={styles.loader} data-visible={visible} />}
       </Transition>
       <canvas
         className={styles.canvas}
