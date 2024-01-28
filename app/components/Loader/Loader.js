@@ -1,8 +1,5 @@
 import { Text } from '~/components/Text';
-import { VisuallyHidden } from '~/components/VisuallyHidden';
 import { useReducedMotion } from 'framer-motion';
-import { useHasMounted } from '~/hooks';
-import { createPortal } from 'react-dom';
 import { classes, cssProps } from '~/utils/style';
 import styles from './Loader.module.css';
 import { forwardRef } from 'react';
@@ -10,24 +7,11 @@ import { forwardRef } from 'react';
 export const Loader = forwardRef(
   ({ className, style, size = 32, text = 'Loading...', ...rest }, ref) => {
     const reduceMotion = useReducedMotion();
-    const hasMounted = useHasMounted();
-
-    const renderScreenReaderTextPortal = () => {
-      if (!hasMounted) return;
-
-      return createPortal(
-        <VisuallyHidden className="loader-announcement" aria-live="assertive">
-          {text}
-        </VisuallyHidden>,
-        document.getElementById('portal-root')
-      );
-    };
 
     if (reduceMotion) {
       return (
         <Text className={classes(styles.text, className)} weight="medium" {...rest}>
           {text}
-          {renderScreenReaderTextPortal()}
         </Text>
       );
     }
@@ -47,7 +31,6 @@ export const Loader = forwardRef(
           <div className={styles.span} />
           <div className={styles.span} />
         </div>
-        {renderScreenReaderTextPortal()}
       </div>
     );
   }

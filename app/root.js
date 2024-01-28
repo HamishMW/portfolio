@@ -56,12 +56,15 @@ __  __  __
 `;
 
 export default function App() {
+  const { canonicalUrl } = useLoaderData();
+
   return (
     <html lang="en">
       <head>
         <AppHead />
         <Meta />
         <Links />
+        <link rel="canonical" href={canonicalUrl} />
       </head>
       <body data-theme="dark" tabIndex={-1}>
         <AppMain>
@@ -76,14 +79,11 @@ export default function App() {
 }
 
 function AppHead() {
-  const { canonicalUrl } = useLoaderData();
-
   return (
     <>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content={`rgb(${theme.dark.rgbBackground})`} />
-      <link rel="canonical" href={canonicalUrl} />
       <style dangerouslySetInnerHTML={{ __html: `@layer base, components, layout;` }} />
       <style dangerouslySetInnerHTML={{ __html: fontStyles }} />
       <style dangerouslySetInnerHTML={{ __html: tokenStyles }} />
@@ -123,7 +123,6 @@ function AppMain({ children }) {
           <main id="main-content" className={styles.container} tabIndex={-1}>
             {children}
           </main>
-          <div id="portal-root" />
         </ThemeProvider>
       </LazyMotion>
     </AppContext.Provider>
