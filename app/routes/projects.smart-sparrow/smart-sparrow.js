@@ -60,7 +60,7 @@ import {
   ProjectSectionHeading,
   ProjectSectionText,
   ProjectTextRow,
-} from '~/layouts/Project';
+} from '~/layouts/project';
 import { baseMeta } from '~/utils/meta';
 import { Fragment, Suspense, lazy, useMemo } from 'react';
 import { media } from '~/utils/style';

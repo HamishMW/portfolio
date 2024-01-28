@@ -7,7 +7,7 @@ import { DecoderText } from '~/components/DecoderText';
 import { Heading } from '~/components/Heading';
 import { Text } from '~/components/Text';
 import { Transition } from '~/components/Transition';
-import styles from './Error.module.css';
+import styles from './error.module.css';
 
 export function Error({ error }) {
   const flatlined = !error.status;

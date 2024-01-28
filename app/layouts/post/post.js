@@ -12,7 +12,7 @@ import { useRef, useState, useEffect } from 'react';
 import { clamp } from '~/utils/clamp';
 import { formatDate } from '~/utils/date';
 import { cssProps, msToNum, numToMs } from '~/utils/style';
-import styles from './Post.module.css';
+import styles from './post.module.css';
 
 export const Post = ({ children, title, date, abstract, banner, timecode, ogImage }) => {
   const scrollToHash = useScrollToHash();

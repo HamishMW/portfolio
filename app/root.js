@@ -21,7 +21,7 @@ import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import { createContext, useEffect, useReducer } from 'react';
 import { initialState, reducer } from './reducer';
 import { useLocalStorage } from './hooks';
-import { Error } from '~/layouts/Error';
+import { Error } from '~/layouts/error';
 import { Sprites } from '~/components/Icon';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
 import { LazyMotion, domAnimation } from 'framer-motion';

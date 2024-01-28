@@ -25,8 +25,8 @@ export const Navbar = () => {
 
   useEffect(() => {
     // Prevent ssr mismatch by storing this in state
-    setCurrent(location.key);
-  }, [location.key]);
+    setCurrent(`${location.pathname}${location.hash}`);
+  }, [location]);
 
   // Handle smooth scroll nav items
   useEffect(() => {

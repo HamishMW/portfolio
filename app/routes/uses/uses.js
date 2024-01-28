@@ -13,7 +13,7 @@ import {
   ProjectSectionHeading,
   ProjectSectionText,
   ProjectTextRow,
-} from '~/layouts/Project';
+} from '~/layouts/project';
 import { baseMeta } from '~/utils/meta';
 import styles from './uses.module.css';
 

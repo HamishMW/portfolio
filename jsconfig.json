@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"]
-    },
+    }
   },
   "include": ["app", ".storybook/StoryContainer.js"]
 }

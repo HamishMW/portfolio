@@ -8,7 +8,7 @@ import { Transition } from '~/components/Transition';
 import { useParallax } from '~/hooks';
 import { forwardRef, useRef } from 'react';
 import { classes, cssProps, msToNum, numToMs } from '~/utils/style';
-import styles from './Project.module.css';
+import styles from './project.module.css';
 
 const initDelay = 300;
 
