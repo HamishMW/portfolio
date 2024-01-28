@@ -22,6 +22,7 @@ import { cleanRenderer, cleanScene, removeLights } from '~/utils/three';
 import styles from './DisplacementSphere.module.css';
 import fragShader from './displacementSphereFragment.js';
 import vertShader from './displacementSphereVertex.js';
+import { throttle } from '~/utils/throttle';
 
 const springConfig = {
   stiffness: 30,
@@ -137,7 +138,7 @@ export const DisplacementSphere = props => {
   }, [reduceMotion, windowSize]);
 
   useEffect(() => {
-    const onMouseMove = event => {
+    const onMouseMove = throttle(event => {
       const position = {
         x: event.clientX / window.innerWidth,
         y: event.clientY / window.innerHeight,
@@ -145,7 +146,7 @@ export const DisplacementSphere = props => {
 
       rotationX.set(position.y / 2);
       rotationY.set(position.x / 2);
-    };
+    }, 100);
 
     if (!reduceMotion && isInViewport) {
       window.addEventListener('mousemove', onMouseMove);

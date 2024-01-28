@@ -26,6 +26,7 @@ import {
 import { classes, cssProps, msToNum, numToMs } from '~/utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from '~/utils/three';
 import styles from './Armor.module.css';
+import { throttle } from '~/utils/throttle';
 
 const rotationSpringConfig = {
   stiffness: 40,
@@ -154,7 +155,7 @@ export const Armor = ({
 
   // Handle mouse move animation
   useEffect(() => {
-    const onMouseMove = event => {
+    const onMouseMove = throttle(event => {
       const { innerWidth, innerHeight } = window;
 
       const position = {
@@ -164,7 +165,7 @@ export const Armor = ({
 
       rotationX.set(position.y / 2);
       rotationY.set(position.x / 2);
-    };
+    }, 100);
 
     if (isInViewport) {
       setVisible(true);

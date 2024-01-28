@@ -39,6 +39,7 @@ import {
 } from '~/utils/three';
 import styles from './Model.module.css';
 import { ModelAnimationType } from './deviceModels';
+import { throttle } from '~/utils/throttle';
 
 const MeshType = {
   Frame: 'Frame',
@@ -205,8 +206,8 @@ export const Model = ({
     verticalBlurMaterial.current = new ShaderMaterial(VerticalBlurShader);
     verticalBlurMaterial.current.depthTest = false;
 
-    const unsubscribeX = rotationX.onChange(renderFrame);
-    const unsubscribeY = rotationY.onChange(renderFrame);
+    const unsubscribeX = rotationX.on('change', renderFrame);
+    const unsubscribeY = rotationY.on('change', renderFrame);
 
     return () => {
       renderTarget.current.dispose();
@@ -279,7 +280,7 @@ export const Model = ({
 
   // Handle mouse move animation
   useEffect(() => {
-    const onMouseMove = event => {
+    const onMouseMove = throttle(event => {
       const { innerWidth, innerHeight } = window;
 
       const position = {
@@ -289,7 +290,7 @@ export const Model = ({
 
       rotationY.set(position.x / 2);
       rotationX.set(position.y / 2);
-    };
+    }, 100);
 
     if (isInViewport && !reduceMotion) {
       window.addEventListener('mousemove', onMouseMove);
