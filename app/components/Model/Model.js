@@ -13,6 +13,7 @@ import {
   Color,
   DirectionalLight,
   Group,
+  LinearSRGBColorSpace,
   MathUtils,
   Mesh,
   MeshBasicMaterial,
@@ -20,12 +21,12 @@ import {
   OrthographicCamera,
   PerspectiveCamera,
   PlaneGeometry,
+  SRGBColorSpace,
   Scene,
   ShaderMaterial,
   Vector3,
   WebGLRenderTarget,
   WebGLRenderer,
-  sRGBEncoding,
 } from 'three';
 import { HorizontalBlurShader, VerticalBlurShader } from 'three-stdlib';
 import { resolveSrcFromSrcSet } from '~/utils/image';
@@ -99,8 +100,7 @@ export const Model = ({
 
     renderer.current.setPixelRatio(2);
     renderer.current.setSize(clientWidth, clientHeight);
-    renderer.current.outputEncoding = sRGBEncoding;
-    renderer.current.physicallyCorrectLights = true;
+    renderer.current.outputColorSpace = SRGBColorSpace;
 
     camera.current = new PerspectiveCamera(36, clientWidth / clientHeight, 0.1, 100);
     camera.current.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
@@ -367,7 +367,7 @@ const Device = ({
 
   useEffect(() => {
     const applyScreenTexture = async (texture, node) => {
-      texture.encoding = sRGBEncoding;
+      texture.colorSpace = SRGBColorSpace;
       texture.flipY = false;
       texture.anisotropy = renderer.current.capabilities.getMaxAnisotropy();
       texture.generateMipmaps = false;
@@ -396,7 +396,6 @@ const Device = ({
       gltf.scene.traverse(async node => {
         if (node.material) {
           node.material.color = new Color(0x1f2025);
-          node.material.color.convertSRGBToLinear();
         }
 
         if (node.name === MeshType.Screen) {

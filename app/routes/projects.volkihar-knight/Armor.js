@@ -20,8 +20,8 @@ import {
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
-  sRGBEncoding,
   MathUtils,
+  SRGBColorSpace,
 } from 'three';
 import { classes, cssProps, msToNum, numToMs } from '~/utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from '~/utils/three';
@@ -68,8 +68,7 @@ export const Armor = ({
 
     renderer.current.setPixelRatio(2);
     renderer.current.setSize(clientWidth, clientHeight);
-    renderer.current.outputEncoding = sRGBEncoding;
-    renderer.current.physicallyCorrectLights = true;
+    renderer.current.outputColorSpace = SRGBColorSpace;
     renderer.current.toneMapping = ACESFilmicToneMapping;
 
     camera.current = new PerspectiveCamera(36, clientWidth / clientHeight, 0.1, 100);
@@ -84,9 +83,9 @@ export const Armor = ({
     pmremGenerator.compileCubemapShader();
 
     // Lighting
-    const keyLight = new DirectionalLight(0xffffff, 3.2);
+    const keyLight = new DirectionalLight(0xffffff, 2.6);
     const fillLight = new DirectionalLight(0xffffff, 1.0);
-    const backLight = new DirectionalLight(0xffffff, 1.0);
+    const backLight = new DirectionalLight(0xffffff, 1.3);
 
     keyLight.position.set(1, 0.1, 2);
     fillLight.position.set(-1, 0.1, 8);

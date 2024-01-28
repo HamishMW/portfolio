@@ -7,9 +7,11 @@ import {
   AmbientLight,
   Color,
   DirectionalLight,
+  LinearSRGBColorSpace,
   Mesh,
   MeshPhongMaterial,
   PerspectiveCamera,
+  SRGBColorSpace,
   Scene,
   SphereGeometry,
   UniformsUtils,
@@ -61,7 +63,7 @@ export const DisplacementSphere = props => {
     });
     renderer.current.setSize(innerWidth, innerHeight);
     renderer.current.setPixelRatio(1);
-    renderer.current.outputEncoding = sRGBEncoding;
+    renderer.current.outputColorSpace = LinearSRGBColorSpace;
 
     camera.current = new PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 100);
     camera.current.position.z = 52;
@@ -95,8 +97,8 @@ export const DisplacementSphere = props => {
   }, []);
 
   useEffect(() => {
-    const dirLight = new DirectionalLight(colorWhite, 0.6);
-    const ambientLight = new AmbientLight(colorWhite, themeId === 'light' ? 0.8 : 0.1);
+    const dirLight = new DirectionalLight(colorWhite, 1.8);
+    const ambientLight = new AmbientLight(colorWhite, themeId === 'light' ? 2.7 : 0.4);
 
     dirLight.position.z = 200;
     dirLight.position.x = 100;

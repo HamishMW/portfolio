@@ -33,12 +33,12 @@ import {
   PMREMGenerator,
   PerspectiveCamera,
   Raycaster,
+  SRGBColorSpace,
   Scene,
   Sprite,
   Vector2,
   Vector3,
   WebGLRenderer,
-  sRGBEncoding,
 } from 'three';
 import { LinearFilter } from 'three';
 import { EquirectangularReflectionMapping } from 'three';
@@ -199,8 +199,7 @@ export const Earth = ({
       failIfMajorPerformanceCaveat: true,
     });
     renderer.current.setPixelRatio(1);
-    renderer.current.outputEncoding = sRGBEncoding;
-    renderer.current.physicallyCorrectLights = true;
+    renderer.current.outputColorSpace = SRGBColorSpace;
     renderer.current.toneMapping = ACESFilmicToneMapping;
 
     camera.current = new PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 100);
@@ -376,7 +375,7 @@ export const Earth = ({
     const loadBackground = async () => {
       const backgroundTexture = await textureLoader.loadAsync(milkywayBg);
       backgroundTexture.mapping = EquirectangularReflectionMapping;
-      backgroundTexture.encoding = sRGBEncoding;
+      backgroundTexture.colorSpace = SRGBColorSpace;
       scene.current.background = backgroundTexture;
       await renderer.current.initTexture(backgroundTexture);
     };

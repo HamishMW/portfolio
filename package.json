@@ -19,7 +19,7 @@
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.150.0",
+    "three": "^0.160.1",
     "three-stdlib": "^2.29.4"
   },
   "devDependencies": {
