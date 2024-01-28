@@ -12,12 +12,12 @@ import sprTexturePlaceholder from '~/assets/spr-lesson-builder-dark-placeholder.
 import sprTexture from '~/assets/spr-lesson-builder-dark.jpg';
 import { Footer } from '~/components/Footer';
 import { baseMeta } from '~/utils/meta';
-import { Intro } from './Intro';
-import { Profile } from './Profile';
-import { ProjectSummary } from './ProjectSummary';
+import { Intro } from './intro';
+import { Profile } from './profile';
+import { ProjectSummary } from './project-summary';
 import { useEffect, useRef, useState } from 'react';
-import styles from './Home.module.css';
-import { KatakanaSprites } from './Katakana';
+import { KatakanaSprites } from './katakana';
+import styles from './home.module.css';
 
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 

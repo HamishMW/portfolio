@@ -64,11 +64,11 @@ import {
 import { baseMeta } from '~/utils/meta';
 import { Fragment, Suspense, lazy, useMemo } from 'react';
 import { media } from '~/utils/style';
-import styles from './SmartSparrow.module.css';
+import styles from './smart-sparrow.module.css';
 
-const Earth = lazy(() => import('./Earth').then(module => ({ default: module.Earth })));
+const Earth = lazy(() => import('./earth').then(module => ({ default: module.Earth })));
 const EarthSection = lazy(() =>
-  import('./Earth').then(module => ({ default: module.EarthSection }))
+  import('./earth').then(module => ({ default: module.EarthSection }))
 );
 
 const title = 'Designing the future of education';

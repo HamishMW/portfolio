@@ -16,7 +16,7 @@ import { baseMeta } from '~/utils/meta';
 import { Form, useActionData, useNavigation } from '@remix-run/react';
 import { json } from '@remix-run/cloudflare';
 import { AwsClient } from 'aws4fetch';
-import styles from './Contact.module.css';
+import styles from './contact.module.css';
 
 export const meta = () => {
   return baseMeta({

@@ -38,14 +38,14 @@ import {
 import { Fragment, Suspense, lazy } from 'react';
 import { media } from '~/utils/style';
 import { baseMeta } from '~/utils/meta';
-import { VolkiharLogo } from './VolkiharLogo';
-import styles from './VolkiharKnight.module.css';
+import { VolkiharLogo } from './volkihar-logo';
+import styles from './volkihar-knight.module.css';
 
 const Carousel = lazy(() =>
   import('~/components/Carousel').then(module => ({ default: module.Carousel }))
 );
 
-const Armor = lazy(() => import('./Armor').then(module => ({ default: module.Armor })));
+const Armor = lazy(() => import('./armor').then(module => ({ default: module.Armor })));
 
 const title = 'Volkihar Knight';
 const description =

@@ -38,7 +38,7 @@ import {
 import { Fragment } from 'react';
 import { media } from '~/utils/style';
 import { baseMeta } from '~/utils/meta';
-import styles from './Slice.module.css';
+import styles from './slice.module.css';
 
 const title = 'Biomedical image collaboration';
 const description =

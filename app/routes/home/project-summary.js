@@ -10,8 +10,8 @@ import { Transition } from '~/components/Transition';
 import { useWindowSize } from '~/hooks';
 import { Suspense, lazy, useState } from 'react';
 import { cssProps, media } from '~/utils/style';
-import styles from './ProjectSummary.module.css';
-import { Katakana } from './Katakana';
+import { Katakana } from './katakana';
+import styles from './project-summary.module.css';
 
 const Model = lazy(() =>
   import('~/components/Model').then(module => ({ default: module.Model }))

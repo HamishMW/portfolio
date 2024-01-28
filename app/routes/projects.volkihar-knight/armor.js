@@ -25,8 +25,8 @@ import {
 } from 'three';
 import { classes, cssProps, msToNum, numToMs } from '~/utils/style';
 import { cleanRenderer, cleanScene, modelLoader, removeLights } from '~/utils/three';
-import styles from './Armor.module.css';
 import { throttle } from '~/utils/throttle';
+import styles from './armor.module.css';
 
 const rotationSpringConfig = {
   stiffness: 40,

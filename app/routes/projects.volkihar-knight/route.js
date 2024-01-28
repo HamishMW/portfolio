@@ -1,1 +1,1 @@
-export { VolkiharKnight as default } from './VolkiharKnight';
+export { VolkiharKnight as default } from './volkihar-knight';

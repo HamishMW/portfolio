@@ -10,10 +10,10 @@ import { Link as RouterLink } from '@remix-run/react';
 import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { cssProps } from '~/utils/style';
-import styles from './Intro.module.css';
+import styles from './intro.module.css';
 
 const DisplacementSphere = lazy(() =>
-  import('./DisplacementSphere').then(module => ({ default: module.DisplacementSphere }))
+  import('./displacement-sphere').then(module => ({ default: module.DisplacementSphere }))
 );
 
 export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {

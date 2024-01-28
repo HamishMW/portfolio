@@ -18,11 +18,10 @@ import {
   WebGLRenderer,
 } from 'three';
 import { media, rgbToThreeColor } from '~/utils/style';
-import { cleanRenderer, cleanScene, removeLights } from '~/utils/three';
-import styles from './DisplacementSphere.module.css';
-import fragShader from './displacementSphereFragment.js';
-import vertShader from './displacementSphereVertex.js';
 import { throttle } from '~/utils/throttle';
+import { cleanRenderer, cleanScene, removeLights } from '~/utils/three';
+import { fragmentShader, vertexShader } from './displacement-sphere.glsl';
+import styles from './displacement-sphere.module.css';
 
 const springConfig = {
   stiffness: 30,
@@ -77,8 +76,8 @@ export const DisplacementSphere = props => {
       ]);
 
       shader.uniforms = uniforms.current;
-      shader.vertexShader = vertShader;
-      shader.fragmentShader = fragShader;
+      shader.vertexShader = vertexShader;
+      shader.fragmentShader = fragmentShader;
     };
 
     startTransition(() => {

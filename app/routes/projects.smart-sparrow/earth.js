@@ -53,7 +53,7 @@ import {
   textureLoader,
 } from '~/utils/three';
 import { throttle } from '~/utils/throttle';
-import styles from './Earth.module.css';
+import styles from './earth.module.css';
 
 const nullTarget = { x: 0, y: 0, z: 2 };
 

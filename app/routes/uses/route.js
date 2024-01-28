@@ -1,1 +1,1 @@
-export { Uses as default } from './Uses';
+export { Uses as default } from './uses';

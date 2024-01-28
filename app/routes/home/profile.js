@@ -1,4 +1,3 @@
-// import profileKatakana from '~/assets/katakana-profile.svg?url';
 import profileImgLarge from '~/assets/profile-large.jpg';
 import profileImgPlaceholder from '~/assets/profile-placeholder.jpg';
 import profileImg from '~/assets/profile.jpg';
@@ -13,8 +12,8 @@ import { Text } from '~/components/Text';
 import { Transition } from '~/components/Transition';
 import { Fragment, useState } from 'react';
 import { media } from '~/utils/style';
-import styles from './Profile.module.css';
-import { Katakana } from './Katakana';
+import { Katakana } from './katakana';
+import styles from './profile.module.css';
 
 const ProfileText = ({ visible, titleId }) => (
   <Fragment>

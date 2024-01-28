@@ -14,9 +14,8 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from '~/layouts/Project';
-import { Fragment } from 'react';
-import styles from './Uses.module.css';
 import { baseMeta } from '~/utils/meta';
+import styles from './uses.module.css';
 
 export const meta = () => {
   return baseMeta({
@@ -27,7 +26,7 @@ export const meta = () => {
 
 export const Uses = () => {
   return (
-    <Fragment>
+    <>
       <ProjectContainer className={styles.uses}>
         <ProjectBackground
           src={usesBackground}
@@ -172,6 +171,6 @@ export const Uses = () => {
         </ProjectSection>
       </ProjectContainer>
       <Footer />
-    </Fragment>
+    </>
   );
 };
