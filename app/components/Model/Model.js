@@ -37,9 +37,9 @@ import {
   removeLights,
   textureLoader,
 } from '~/utils/three';
-import styles from './Model.module.css';
 import { ModelAnimationType } from './deviceModels';
 import { throttle } from '~/utils/throttle';
+import styles from './Model.module.css';
 
 const MeshType = {
   Frame: 'Frame',
