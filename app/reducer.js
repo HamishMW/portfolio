@@ -7,10 +7,11 @@ export function reducer(state, action) {
 
   switch (type) {
     case 'setTheme':
+      window.localStorage.setItem('theme', JSON.stringify(value));
       return { ...state, theme: value };
     case 'toggleTheme': {
       const newThemeId = state.theme === 'dark' ? 'light' : 'dark';
-      document.body.dataset.theme = newThemeId;
+      window.localStorage.setItem('theme', JSON.stringify(newThemeId));
       return { ...state, theme: newThemeId };
     }
     case 'toggleMenu':

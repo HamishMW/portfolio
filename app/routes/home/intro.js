@@ -5,7 +5,6 @@ import { useTheme } from '~/components/ThemeProvider';
 import { tokens } from '~/components/ThemeProvider/theme';
 import { Transition } from '~/components/Transition';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
-import { AnimatePresence } from 'framer-motion';
 import { Link as RouterLink } from '@remix-run/react';
 import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
 import { Suspense, lazy, useEffect, useState } from 'react';
@@ -65,7 +64,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
             </Suspense>
             <header className={styles.text}>
               <h1 className={styles.name} data-visible={visible} id={titleId}>
-                <DecoderText text="Hamish Williams" delay={300} />
+                <DecoderText text="Hamish Williams" delay={500} />
               </h1>
               <Heading level={0} as="h2" className={styles.title}>
                 <VisuallyHidden className={styles.label}>
@@ -82,29 +81,27 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                   <span className={styles.line} data-status={status} />
                 </span>
                 <div className={styles.row}>
-                  <AnimatePresence>
-                    {disciplines.map(item => (
-                      <Transition
-                        unmount
-                        in={item === currentDiscipline}
-                        timeout={{ enter: 3000, exit: 2000 }}
-                        key={item}
-                      >
-                        {({ status, nodeRef }) => (
-                          <span
-                            aria-hidden
-                            ref={nodeRef}
-                            className={styles.word}
-                            data-plus={true}
-                            data-status={status}
-                            style={cssProps({ delay: tokens.base.durationL })}
-                          >
-                            {item}
-                          </span>
-                        )}
-                      </Transition>
-                    ))}
-                  </AnimatePresence>
+                  {disciplines.map(item => (
+                    <Transition
+                      unmount
+                      in={item === currentDiscipline}
+                      timeout={{ enter: 3000, exit: 2000 }}
+                      key={item}
+                    >
+                      {({ status, nodeRef }) => (
+                        <span
+                          aria-hidden
+                          ref={nodeRef}
+                          className={styles.word}
+                          data-plus={true}
+                          data-status={status}
+                          style={cssProps({ delay: tokens.base.durationL })}
+                        >
+                          {item}
+                        </span>
+                      )}
+                    </Transition>
+                  ))}
                 </div>
               </Heading>
             </header>

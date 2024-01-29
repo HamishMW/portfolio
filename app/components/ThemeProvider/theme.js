@@ -142,4 +142,4 @@ export const tokens = {
   mobileS: tokensMobileSmall,
 };
 
-export const theme = { dark, light };
+export const themes = { dark, light };

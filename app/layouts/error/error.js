@@ -8,6 +8,7 @@ import { Heading } from '~/components/Heading';
 import { Text } from '~/components/Text';
 import { Transition } from '~/components/Transition';
 import styles from './error.module.css';
+import { Image } from '~/components/Image';
 
 export function Error({ error }) {
   const flatlined = !error.status;
@@ -107,20 +108,15 @@ export function Error({ error }) {
             </div>
 
             <div className={styles.videoContainer} data-visible={visible}>
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
+              <Image
+                reveal
+                cover
+                noPauseButton
+                delay={600}
                 className={styles.video}
-                data-visible={visible}
-                poster={flatlined ? flatlinePoster : notFoundPoster}
-              >
-                <source
-                  src={flatlined ? flatlineVideo : notFoundVideo}
-                  type="video/mp4"
-                />
-              </video>
+                src={flatlined ? flatlineVideo : notFoundVideo}
+                placeholder={flatlined ? flatlinePoster : notFoundPoster}
+              />
               {flatlined ? (
                 <a
                   className={styles.credit}

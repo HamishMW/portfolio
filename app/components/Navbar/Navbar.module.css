@@ -167,7 +167,6 @@
 
     @media (--mediaUseMotion) {
       transition-property: transform, background;
-      transform: translate3d(0, -100%, 0);
     }
 
     &[data-visible='true'] {

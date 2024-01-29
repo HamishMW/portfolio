@@ -1,6 +1,9 @@
 {
-  "name": "cf-remix-test",
-  "private": true,
+  "name": "portfolio",
+  "homepage": "https://hamishw.com",
+  "description": "Portfolio site for Hamish Williams",
+  "repository": "https://github.com/HamishMW/portfolio.git",
+  "author": "Hamish Williams",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -25,9 +28,7 @@
   "devDependencies": {
     "@csstools/postcss-global-data": "^2.1.1",
     "@remix-run/dev": "^2.5.1",
-    "@types/react": "^18.2.20",
-    "@types/react-dom": "^18.2.7",
-    "eslint": "^8.38.0",
+    "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.8.0",

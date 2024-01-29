@@ -70,6 +70,7 @@ const ImageElements = ({
   width,
   height,
   noPauseButton,
+  cover,
   ...rest
 }) => {
   const reduceMotion = useReducedMotion();
@@ -155,6 +156,7 @@ const ImageElements = ({
             playsInline
             className={styles.element}
             data-loaded={loaded}
+            data-cover={cover}
             autoPlay={!reduceMotion}
             onLoadStart={onLoad}
             src={videoSrc}
@@ -174,6 +176,7 @@ const ImageElements = ({
         <img
           className={styles.element}
           data-loaded={loaded}
+          data-cover={cover}
           onLoad={onLoad}
           decoding="async"
           src={showFullRes ? src : undefined}
@@ -190,6 +193,7 @@ const ImageElements = ({
           aria-hidden
           className={styles.placeholder}
           data-loaded={loaded}
+          data-cover={cover}
           style={cssProps({ delay: numToMs(delay) })}
           ref={placeholderRef}
           src={placeholder}

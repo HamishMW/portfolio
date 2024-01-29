@@ -120,7 +120,7 @@ export const ProjectBackground = ({ opacity = 0.7, className, ...rest }) => {
           ref={nodeRef}
         >
           <div className={styles.backgroundImageElement} ref={imageRef}>
-            <Image alt="" role="presentation" {...rest} />
+            <Image cover alt="" role="presentation" {...rest} />
           </div>
           <div className={styles.backgroundScrim} style={cssProps({ opacity })} />
         </div>

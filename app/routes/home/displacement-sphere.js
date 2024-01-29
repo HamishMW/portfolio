@@ -31,7 +31,7 @@ const springConfig = {
 
 export const DisplacementSphere = props => {
   const theme = useTheme();
-  const { rgbBackground, themeId, colorWhite } = theme;
+  const { themeId } = theme;
   const start = useRef(Date.now());
   const canvasRef = useRef();
   const mouse = useRef();
@@ -95,21 +95,20 @@ export const DisplacementSphere = props => {
   }, []);
 
   useEffect(() => {
-    const dirLight = new DirectionalLight(colorWhite, 1.8);
-    const ambientLight = new AmbientLight(colorWhite, themeId === 'light' ? 2.7 : 0.4);
+    const dirLight = new DirectionalLight(0xffffff, 1.8);
+    const ambientLight = new AmbientLight(0xffffff, themeId === 'light' ? 2.7 : 0.4);
 
     dirLight.position.z = 200;
     dirLight.position.x = 100;
     dirLight.position.y = 100;
 
     lights.current = [dirLight, ambientLight];
-    scene.current.background = new Color(...rgbToThreeColor(rgbBackground));
     lights.current.forEach(light => scene.current.add(light));
 
     return () => {
       removeLights(lights.current);
     };
-  }, [rgbBackground, colorWhite, themeId]);
+  }, [themeId]);
 
   useEffect(() => {
     const { width, height } = windowSize;

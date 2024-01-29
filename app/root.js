@@ -10,12 +10,7 @@ import {
   useLoaderData,
   useRouteError,
 } from '@remix-run/react';
-import {
-  ThemeProvider,
-  fontStyles,
-  theme,
-  tokenStyles,
-} from '~/components/ThemeProvider';
+import { ThemeProvider, themeStyles, themes } from '~/components/ThemeProvider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import { createContext, useEffect, useReducer } from 'react';
@@ -24,7 +19,6 @@ import { useLocalStorage } from './hooks';
 import { Error } from '~/layouts/error';
 import { Sprites } from '~/components/Icon';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
-import { LazyMotion, domAnimation } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import styles from './root.module.css';
 import './global.module.css';
@@ -57,17 +51,19 @@ __  __  __
 
 export default function App() {
   const { canonicalUrl } = useLoaderData();
+  const { state, dispatch } = useAppState();
+  const theme = state.theme || 'dark';
 
   return (
     <html lang="en">
       <head>
-        <AppHead />
+        <AppHead theme={theme} />
         <Meta />
         <Links />
         <link rel="canonical" href={canonicalUrl} />
       </head>
-      <body data-theme="dark" tabIndex={-1}>
-        <AppMain>
+      <body data-theme={theme} tabIndex={-1}>
+        <AppMain state={state} dispatch={dispatch}>
           <Outlet />
         </AppMain>
         <ScrollRestoration />
@@ -78,20 +74,18 @@ export default function App() {
   );
 }
 
-function AppHead() {
+function AppHead({ theme }) {
   return (
     <>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="theme-color" content={`rgb(${theme.dark.rgbBackground})`} />
-      <style dangerouslySetInnerHTML={{ __html: `@layer base, components, layout;` }} />
-      <style dangerouslySetInnerHTML={{ __html: fontStyles }} />
-      <style dangerouslySetInnerHTML={{ __html: tokenStyles }} />
+      <meta name="theme-color" content={`rgb(${themes[theme]?.rgbBackground})`} />
+      <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
     </>
   );
 }
 
-function AppMain({ children }) {
+function useAppState() {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -103,44 +97,40 @@ function AppMain({ children }) {
     dispatch({ type: 'setTheme', value: storedTheme || 'dark' });
   }, [storedTheme]);
 
+  return { state, dispatch, storedTheme };
+}
+
+function AppMain({ children, state, dispatch }) {
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
-      <LazyMotion features={domAnimation}>
-        <ThemeProvider themeId={state.theme}>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-              const initialTheme = JSON.parse(localStorage.getItem('theme'));
-              document.body.dataset.theme = initialTheme || 'dark';
-            `,
-            }}
-          />
-          <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
-            Skip to main content
-          </VisuallyHidden>
-          <Sprites />
-          <Navbar />
-          <main id="main-content" className={styles.container} tabIndex={-1}>
-            {children}
-          </main>
-        </ThemeProvider>
-      </LazyMotion>
+      <ThemeProvider themeId={state.theme}>
+        <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
+          Skip to main content
+        </VisuallyHidden>
+        <Sprites />
+        <Navbar />
+        <main id="main-content" className={styles.container} tabIndex={-1}>
+          {children}
+        </main>
+      </ThemeProvider>
     </AppContext.Provider>
   );
 }
 
 export function ErrorBoundary() {
   const error = useRouteError();
+  const { state, dispatch } = useAppState();
+  const theme = state.theme || 'dark';
 
   return (
     <html lang="en">
       <head>
-        <AppHead />
+        <AppHead theme={theme} />
         <Meta />
         <Links />
       </head>
-      <body data-theme="dark" tabIndex={-1}>
-        <AppMain>
+      <body data-theme={theme} tabIndex={-1}>
+        <AppMain state={state} dispatch={dispatch}>
           <Error error={error} />
         </AppMain>
         <Scripts />

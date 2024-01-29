@@ -273,13 +273,13 @@ export const Earth = ({
       camera.current.position[axis] = value;
     };
 
-    const unsubscribeCameraX = cameraXSpring.onChange(value =>
+    const unsubscribeCameraX = cameraXSpring.on('change', value =>
       handleCameraChange('x', value)
     );
-    const unsubscribeCameraY = cameraYSpring.onChange(value =>
+    const unsubscribeCameraY = cameraYSpring.on('change', value =>
       handleCameraChange('y', value)
     );
-    const unsubscribeCameraZ = cameraZSpring.onChange(value =>
+    const unsubscribeCameraZ = cameraZSpring.on('change', value =>
       handleCameraChange('z', value)
     );
 
@@ -287,17 +287,17 @@ export const Earth = ({
       chunk.position[axis] = value;
     };
 
-    const unsubscribeChunkX = chunkXSpring.onChange(value =>
+    const unsubscribeChunkX = chunkXSpring.on('change', value =>
       handleChunkChange('x', value)
     );
-    const unsubscribeChunkY = chunkYSpring.onChange(value =>
+    const unsubscribeChunkY = chunkYSpring.on('change', value =>
       handleChunkChange('y', value)
     );
-    const unsubscribeChunkZ = chunkZSpring.onChange(value =>
+    const unsubscribeChunkZ = chunkZSpring.on('change', value =>
       handleChunkChange('z', value)
     );
 
-    const unsubscribeOpacity = opacitySpring.onChange(value => {
+    const unsubscribeOpacity = opacitySpring.on('change', value => {
       atmosphere.material.opacity = value;
     });
 

@@ -5,10 +5,9 @@ import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMediumItalic from '~/assets/fonts/gotham-medium-italic.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import IPAGothic from '~/assets/fonts/ipa-gothic.woff2';
-import { useHasMounted } from '~/hooks';
-import { createContext, useEffect } from 'react';
+import { createContext } from 'react';
 import { classes, media } from '~/utils/style';
-import { theme, tokens } from './theme';
+import { themes, tokens } from './theme';
 import { useTheme } from './useTheme';
 
 export const ThemeContext = createContext({});
@@ -21,32 +20,16 @@ export const ThemeProvider = ({
   as: Component = 'div',
   ...rest
 }) => {
-  const currentTheme = { ...theme[themeId], ...themeOverrides };
+  const currentTheme = { ...themes[themeId], ...themeOverrides };
   const parentTheme = useTheme();
   const isRootProvider = !parentTheme.themeId;
-  const hasMounted = useHasMounted();
-
-  // Save root theme id to localstorage and apply class to body
-  useEffect(() => {
-    if (isRootProvider && hasMounted) {
-      window.localStorage.setItem('theme', JSON.stringify(themeId));
-      document.body.dataset.theme = themeId;
-      document
-        .querySelector('meta[name="theme-color"]')
-        .setAttribute('content', `rgb(${currentTheme.rgbBackground})`);
-    }
-  }, [themeId, isRootProvider, hasMounted, currentTheme.rgbBackground]);
 
   return (
     <ThemeContext.Provider value={currentTheme}>
       {isRootProvider && children}
       {/* Nested providers need a div to override theme tokens */}
       {!isRootProvider && (
-        <Component
-          className={classes('theme-provider', className)}
-          data-theme={themeId}
-          {...rest}
-        >
+        <Component className={classes(className)} data-theme={themeId} {...rest}>
           {children}
         </Component>
       )}
@@ -107,6 +90,10 @@ export function createMediaTokenProperties() {
   );
 }
 
+export const layerStyles = squish(`
+  @layer base, components, layout;
+`);
+
 export const tokenStyles = squish(`
   :root {
     ${createThemeProperties(tokens.base)}
@@ -115,11 +102,11 @@ export const tokenStyles = squish(`
   ${createMediaTokenProperties()}
 
   [data-theme='dark'] {
-    ${createThemeProperties(theme.dark)}
+    ${createThemeProperties(themes.dark)}
   }
 
   [data-theme='light'] {
-    ${createThemeProperties(theme.light)}
+    ${createThemeProperties(themes.light)}
   }
 `);
 
@@ -179,4 +166,10 @@ export const fontStyles = squish(`
     font-display: block;
     font-style: normal;
   }
+`);
+
+export const themeStyles = squish(`
+  ${layerStyles}
+  ${tokenStyles}
+  ${fontStyles}
 `);

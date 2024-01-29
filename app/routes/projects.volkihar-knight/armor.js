@@ -128,12 +128,12 @@ export const Armor = ({
       }, 1000);
     });
 
-    const unsubscribeX = rotationX.onChange(value => {
+    const unsubscribeX = rotationX.on('change', value => {
       modelGroup.current.rotation.x = value;
       renderFrame();
     });
 
-    const unsubscribeY = rotationY.onChange(value => {
+    const unsubscribeY = rotationY.on('change', value => {
       modelGroup.current.rotation.y = value;
       renderFrame();
     });
