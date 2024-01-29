@@ -90,11 +90,11 @@ export function createMediaTokenProperties() {
   );
 }
 
-export const layerStyles = squish(`
-  @layer base, components, layout;
+const layerStyles = squish(`
+  @layer theme, base, components, layout;
 `);
 
-export const tokenStyles = squish(`
+const tokenStyles = squish(`
   :root {
     ${createThemeProperties(tokens.base)}
   }
@@ -110,7 +110,7 @@ export const tokenStyles = squish(`
   }
 `);
 
-export const fontStyles = squish(`
+const fontStyles = squish(`
   @font-face {
     font-family: Gotham;
     font-weight: 400;
@@ -168,8 +168,18 @@ export const fontStyles = squish(`
   }
 `);
 
+const hideFOUCStyles = squish(`
+  body {
+    opacity: 0;
+  }
+`);
+
 export const themeStyles = squish(`
   ${layerStyles}
-  ${tokenStyles}
-  ${fontStyles}
+
+  @layer theme {
+    ${hideFOUCStyles}
+    ${tokenStyles}
+    ${fontStyles}
+  }
 `);

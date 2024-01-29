@@ -62,7 +62,7 @@ export default function App() {
         <Links />
         <link rel="canonical" href={canonicalUrl} />
       </head>
-      <body data-theme={theme} tabIndex={-1}>
+      <body data-theme={theme}>
         <AppMain state={state} dispatch={dispatch}>
           <Outlet />
         </AppMain>
@@ -80,7 +80,7 @@ function AppHead({ theme }) {
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content={`rgb(${themes[theme]?.rgbBackground})`} />
-      <style>{themeStyles}</style>
+      <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
     </>
   );
 }
@@ -129,7 +129,7 @@ export function ErrorBoundary() {
         <Meta />
         <Links />
       </head>
-      <body data-theme={theme} tabIndex={-1}>
+      <body data-theme={theme}>
         <AppMain state={state} dispatch={dispatch}>
           <Error error={error} />
         </AppMain>

@@ -18,10 +18,12 @@
     font-family: var(--fontStack);
     font-weight: var(--fontWeightRegular);
     background-color: rgb(var(--rgbBackground));
-    transition: background var(--durationM) ease;
+    transition: var(--durationM) ease;
+    transition-property: background, opacity;
     color: var(--colorTextBody);
     width: 100vw;
     overflow-x: hidden;
+    opacity: 1;
 
     &:focus {
       outline: none;
