@@ -29,8 +29,9 @@ export const links = () => [
   { rel: 'preload', href: GothamMedium, as: 'font', crossOrigin: 'true' },
   { rel: 'preload', href: GothamBook, as: 'font', crossOrigin: 'true' },
   { rel: 'manifest', href: '/manifest.json' },
+  { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+  { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
   { rel: 'shortcut_icon', href: '/favicon.png', type: 'image/png' },
-  { rel: 'shortcut_icon', href: '/favicon.svg', type: 'image/svg+xml' },
   { rel: 'apple-touch-icon', href: '/icon-256.png' },
   { rel: 'author', href: '/humans.txt', type: 'text/plain' },
 ];

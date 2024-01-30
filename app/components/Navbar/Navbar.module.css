@@ -49,11 +49,11 @@
   }
 
   .navList {
-    transform: rotate(-90deg) translate3d(-50%, 0, 0);
+    transform: rotate(180deg);
     display: flex;
     flex-direction: row-reverse;
     position: relative;
-    top: calc(var(--spaceM) * -1);
+    writing-mode: vertical-lr;
   }
 
   .navLink {
@@ -78,12 +78,12 @@
     &::after {
       content: '';
       position: absolute;
-      right: var(--spaceS);
-      left: var(--spaceS);
-      height: 4px;
+      inset-inline-start: var(--spaceS);
+      inset-inline-end: var(--spaceS);
+      block-size: 4px;
       background: rgb(var(--rgbAccent));
-      transform: scaleX(0);
-      transform-origin: right;
+      transform: scaleY(0);
+      transform-origin: bottom;
     }
 
     @media (--mediaUseMotion) {
@@ -96,8 +96,8 @@
     &:active::after,
     &:focus::after,
     &[aria-current='page']::after {
-      transform: scaleX(1);
-      transform-origin: left;
+      transform: scaleY(1);
+      transform-origin: top;
     }
   }
 

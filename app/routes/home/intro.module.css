@@ -72,30 +72,7 @@
 }
 
 .title {
-  display: flex;
-  flex-direction: column;
-  font-size: calc((140 / 16) * 1rem);
-  letter-spacing: -0.01em;
-
-  @media (--mediaDesktop) {
-    font-size: calc((120 / 16) * 1rem);
-  }
-
-  @media (--mediaLaptop) {
-    font-size: calc((100 / 16) * 1rem);
-  }
-
-  @media (max-width: 860px) {
-    font-size: calc((80 / 16) * 1rem);
-  }
-
-  @media (--mediaMobile) {
-    font-size: calc((56 / 16) * 1rem);
-  }
-
-  @media (--mediaMobileS) {
-    font-size: calc((42 / 16) * 1rem);
-  }
+  letter-spacing: -0.03em;
 }
 
 .row {
