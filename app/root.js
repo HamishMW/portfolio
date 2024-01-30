@@ -26,13 +26,25 @@ import './reset.module.css';
 
 export const links = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
-  { rel: 'preload', href: GothamMedium, as: 'font', crossOrigin: 'true' },
-  { rel: 'preload', href: GothamBook, as: 'font', crossOrigin: 'true' },
+  {
+    rel: 'preload',
+    href: GothamMedium,
+    as: 'font',
+    type: 'font/woff2',
+    crossOrigin: 'true',
+  },
+  {
+    rel: 'preload',
+    href: GothamBook,
+    as: 'font',
+    type: 'font/woff2',
+    crossOrigin: 'true',
+  },
   { rel: 'manifest', href: '/manifest.json' },
-  { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+  { rel: 'icon', href: '/favicon.ico' },
   { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
-  { rel: 'shortcut_icon', href: '/favicon.png', type: 'image/png' },
-  { rel: 'apple-touch-icon', href: '/icon-256.png' },
+  { rel: 'shortcut_icon', href: '/shortcut.png', type: 'image/png', sizes: '64x64' },
+  { rel: 'apple-touch-icon', href: '/icon-256.png', sizes: '256x256' },
   { rel: 'author', href: '/humans.txt', type: 'text/plain' },
 ];
 
