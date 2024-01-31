@@ -48,7 +48,6 @@ import { Image } from '~/components/Image';
 import { Link } from '~/components/Link';
 import { SegmentedControl, SegmentedControlOption } from '~/components/SegmentedControl';
 import { ThemeProvider, useTheme } from '~/components/ThemeProvider';
-import { useAppContext } from '~/hooks';
 import {
   ProjectBackground,
   ProjectContainer,
@@ -62,7 +61,8 @@ import {
   ProjectTextRow,
 } from '~/layouts/project';
 import { baseMeta } from '~/utils/meta';
-import { Fragment, Suspense, lazy, useMemo } from 'react';
+import { useFetcher } from '@remix-run/react';
+import { Suspense, lazy, useMemo } from 'react';
 import { media } from '~/utils/style';
 import styles from './smart-sparrow.module.css';
 
@@ -87,18 +87,18 @@ export const meta = () => {
 
 export const SmartSparrow = () => {
   const { themeId } = useTheme();
-  const { dispatch } = useAppContext();
+  const { submit } = useFetcher();
 
   const isDark = themeId === 'dark';
   const themes = ['dark', 'light'];
 
   const handleThemeChange = index => {
-    dispatch({ type: 'setTheme', value: themes[index] });
+    submit({ theme: themes[index] }, { action: '/api/set-theme', method: 'post' });
   };
 
   return (
-    <Fragment>
-      <ProjectContainer className="spr">
+    <>
+      <ProjectContainer>
         <ProjectBackground
           opacity={isDark ? 0.5 : 0.8}
           src={backgroundSpr}
@@ -541,6 +541,6 @@ export const SmartSparrow = () => {
         </ProjectSection>
       </ProjectContainer>
       <Footer />
-    </Fragment>
+    </>
   );
 };

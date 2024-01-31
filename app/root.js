@@ -6,16 +6,15 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  json,
   useLoaderData,
   useRouteError,
 } from '@remix-run/react';
+import { createCookieSessionStorage, json } from '@remix-run/cloudflare';
 import { ThemeProvider, themeStyles, themes } from '~/components/ThemeProvider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import { createContext, useEffect, useReducer } from 'react';
 import { initialState, reducer } from './reducer';
-import { useLocalStorage } from './hooks';
 import { Error } from '~/layouts/error';
 import { Sprites } from '~/components/Icon';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
@@ -48,10 +47,34 @@ export const links = () => [
   { rel: 'author', href: '/humans.txt', type: 'text/plain' },
 ];
 
-export const loader = async ({ request }) => {
+export const loader = async ({ request, context }) => {
   const { url } = request;
   const canonicalUrl = url.endsWith('/') ? url.slice(0, -1) : url;
-  return json({ canonicalUrl });
+
+  const { getSession, commitSession } = createCookieSessionStorage({
+    cookie: {
+      name: '__session',
+      httpOnly: true,
+      maxAge: 604_800,
+      path: '/',
+      sameSite: 'lax',
+      secrets: [context.env.SESSION_SECRET],
+      secure: true,
+    },
+  });
+
+  const session = await getSession(request.headers.get('Cookie'));
+
+  const theme = session.get('theme') || 'dark';
+
+  return json(
+    { canonicalUrl, theme },
+    {
+      headers: {
+        'Set-Cookie': await commitSession(session),
+      },
+    }
+  );
 };
 
 export const AppContext = createContext({});
@@ -63,9 +86,12 @@ __  __  __
 `;
 
 export default function App() {
-  const { canonicalUrl } = useLoaderData();
-  const { state, dispatch } = useAppState();
-  const theme = state.theme || 'dark';
+  const { canonicalUrl, theme } = useLoaderData();
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    console.info(`${repoPrompt}\n\n`);
+  }, []);
 
   return (
     <html lang="en">
@@ -76,9 +102,23 @@ export default function App() {
         <link rel="canonical" href={canonicalUrl} />
       </head>
       <body data-theme={theme}>
-        <AppMain state={state} dispatch={dispatch}>
-          <Outlet />
-        </AppMain>
+        <AppContext.Provider value={{ ...state, dispatch }}>
+          <ThemeProvider themeId={theme}>
+            <VisuallyHidden
+              showOnFocus
+              as="a"
+              className={styles.skip}
+              href="#main-content"
+            >
+              Skip to main content
+            </VisuallyHidden>
+            <Sprites />
+            <Navbar />
+            <main id="main-content" className={styles.container} tabIndex={-1}>
+              <Outlet />
+            </main>
+          </ThemeProvider>
+        </AppContext.Provider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -98,55 +138,22 @@ function AppHead({ theme }) {
   );
 }
 
-function useAppState() {
-  const [storedTheme] = useLocalStorage('theme', 'dark');
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    console.info(`${repoPrompt}\n\n`);
-  }, []);
-
-  useEffect(() => {
-    dispatch({ type: 'setTheme', value: storedTheme || 'dark' });
-  }, [storedTheme]);
-
-  return { state, dispatch, storedTheme };
-}
-
-function AppMain({ children, state, dispatch }) {
-  return (
-    <AppContext.Provider value={{ ...state, dispatch }}>
-      <ThemeProvider themeId={state.theme}>
-        <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
-          Skip to main content
-        </VisuallyHidden>
-        <Sprites />
-        <Navbar />
-        <main id="main-content" className={styles.container} tabIndex={-1}>
-          {children}
-        </main>
-      </ThemeProvider>
-    </AppContext.Provider>
-  );
-}
-
 export function ErrorBoundary() {
   const error = useRouteError();
-  const { state, dispatch } = useAppState();
-  const theme = state.theme || 'dark';
 
   return (
     <html lang="en">
       <head>
-        <AppHead theme={theme} />
+        <AppHead theme="dark" />
         <Meta />
         <Links />
       </head>
-      <body data-theme={theme}>
-        <AppMain state={state} dispatch={dispatch}>
-          <Error error={error} />
-        </AppMain>
+      <body data-theme="dark">
+        <Sprites />
+        <Error error={error} />
+        <ScrollRestoration />
         <Scripts />
+        <LiveReload />
       </body>
     </html>
   );

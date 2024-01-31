@@ -19,7 +19,7 @@ export function Error({ error }) {
         return {
           summary: 'Error: redacted',
           message:
-            'This page could not be found. It either doesn’t exist or was deleted. Or perhaps you don’t exist.',
+            'This page could not be found. It either doesn’t exist or was deleted. Or perhaps you don’t exist and this webpage couldn’t find you.',
         };
       case 405:
         return {
@@ -94,16 +94,29 @@ export function Error({ error }) {
                 <Text className={styles.description} data-visible={visible} as="p">
                   {message}
                 </Text>
-                <Button
-                  secondary
-                  iconHoverShift
-                  className={styles.button}
-                  data-visible={visible}
-                  href="/"
-                  icon="chevron-right"
-                >
-                  Back to homepage
-                </Button>
+                {flatlined ? (
+                  <Button
+                    secondary
+                    iconHoverShift
+                    className={styles.button}
+                    data-visible={visible}
+                    href="https://www.youtube.com/watch?v=EuQzHGcsjlA"
+                    icon="chevron-right"
+                  >
+                    Emotional support
+                  </Button>
+                ) : (
+                  <Button
+                    secondary
+                    iconHoverShift
+                    className={styles.button}
+                    data-visible={visible}
+                    href="/"
+                    icon="chevron-right"
+                  >
+                    Back to homepage
+                  </Button>
+                )}
               </div>
             </div>
 

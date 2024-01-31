@@ -1,15 +1,20 @@
-import { Button } from '~/components/Button';
-import { useAppContext } from '~/hooks';
 import { useId } from 'react';
+import { useFetcher } from '@remix-run/react';
+import { Button } from '~/components/Button';
+import { useTheme } from '~/components/ThemeProvider';
 import styles from './ThemeToggle.module.css';
 
 export const ThemeToggle = ({ isMobile, ...rest }) => {
-  const { dispatch } = useAppContext();
+  const { themeId } = useTheme();
   const id = useId();
   const maskId = `${id}theme-toggle-mask`;
+  const { submit } = useFetcher();
 
   const handleClick = () => {
-    dispatch({ type: 'toggleTheme' });
+    submit(
+      { theme: themeId === 'dark' ? 'light' : 'dark' },
+      { action: '/api/set-theme', method: 'post' }
+    );
   };
 
   return (

@@ -23,7 +23,7 @@
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.160.1",
+    "three": "^0.161.0",
     "three-stdlib": "^2.29.4"
   },
   "devDependencies": {
@@ -37,7 +37,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.33",
     "postcss-custom-media": "^10.0.2",
-    "wrangler": "3.25.0"
+    "wrangler": "3.22.1"
   },
   "engines": {
     "node": ">=18.0.0"
