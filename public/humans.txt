@@ -34,5 +34,6 @@ _______________________________________________________________________________
 
 FONTS | フォント
 
-Gotham (English)
-IPA Gothic Regular (Japanese)
+Gotham
+IPA Gothic Regular
+Hiragino Kaku Gothic W8

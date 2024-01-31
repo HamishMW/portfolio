@@ -148,9 +148,11 @@
   }
 
   .mobileNav {
+    --backdrop: blur(24px) saturate(120%);
+
     position: fixed;
     inset: 0;
-    background: rgb(var(--rgbBackground) / 0.9);
+    background: rgb(var(--rgbBackground) / 0.7);
     transform: translate3d(0, -100%, 0);
     transition-property: background;
     transition-duration: var(--durationL);
@@ -159,7 +161,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: var(--backdrop);
+    backdrop-filter: var(--backdrop);
 
     @media (--mediaMobile), (--mediaMobileLS) {
       display: flex;
