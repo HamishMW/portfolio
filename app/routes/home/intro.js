@@ -10,6 +10,7 @@ import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { cssProps } from '~/utils/style';
 import styles from './intro.module.css';
+import { useHydrated } from '~/hooks/useHydrated';
 
 const DisplacementSphere = lazy(() =>
   import('./displacement-sphere').then(module => ({ default: module.DisplacementSphere }))
@@ -25,6 +26,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
   const currentDiscipline = disciplines.find((item, index) => index === disciplineIndex);
   const titleId = `${id}-title`;
   const scrollToHash = useScrollToHash();
+  const isHydrated = useHydrated();
 
   useInterval(
     () => {
@@ -59,9 +61,11 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
       <Transition in key={theme.themeId} timeout={3000}>
         {({ visible, status }) => (
           <>
-            <Suspense>
-              <DisplacementSphere />
-            </Suspense>
+            {isHydrated && (
+              <Suspense>
+                <DisplacementSphere />
+              </Suspense>
+            )}
             <header className={styles.text}>
               <h1 className={styles.name} data-visible={visible} id={titleId}>
                 <DecoderText text="Hamish Williams" delay={500} />

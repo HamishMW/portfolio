@@ -10,6 +10,7 @@ import { Transition } from '~/components/Transition';
 import { useWindowSize } from '~/hooks';
 import { Suspense, lazy, useState } from 'react';
 import { cssProps, media } from '~/utils/style';
+import { useHydrated } from '~/hooks/useHydrated';
 import { Katakana } from './katakana';
 import styles from './project-summary.module.css';
 
@@ -33,6 +34,7 @@ export const ProjectSummary = ({
   const [focused, setFocused] = useState(false);
   const theme = useTheme();
   const { width } = useWindowSize();
+  const isHydrated = useHydrated();
   const titleId = `${id}-title`;
   const isMobile = width <= media.tablet;
   const svgOpacity = theme.themeId === 'light' ? 0.7 : 1;
@@ -165,12 +167,12 @@ export const ProjectSummary = ({
               {!alternate && !isMobile && (
                 <>
                   {renderDetails(visible)}
-                  {renderPreview(visible)}
+                  {isHydrated && renderPreview(visible)}
                 </>
               )}
               {(alternate || isMobile) && (
                 <>
-                  {renderPreview(visible)}
+                  {isHydrated && renderPreview(visible)}
                   {renderDetails(visible)}
                 </>
               )}
