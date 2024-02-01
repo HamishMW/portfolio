@@ -79,13 +79,13 @@
     }
 
     &:hover::before {
-      background: rgb(var(--rgbWhite) / 0.1);
+      background: color-mix(in srgb, var(--white) 10%, transparent);
     }
 
     & svg {
       position: relative;
       left: var(--offset);
-      fill: rgb(var(--rgbWhite));
+      fill: var(--white);
     }
 
     @media (--mediaMobile) {
@@ -114,7 +114,7 @@
 
   .navButton {
     --navButtonSize: 10px;
-    --buttonColor: rgb(var(--rgbText) / 0.2);
+    --buttonColor: color-mix(in srgb, var(--text) 20%, transparent);
 
     background: none;
     border: 0;
@@ -123,7 +123,7 @@
     cursor: pointer;
 
     &[aria-pressed='true'] {
-      --buttonColor: var(--colorTextBody);
+      --buttonColor: var(--textBody);
     }
 
     &::after {

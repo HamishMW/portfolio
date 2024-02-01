@@ -1,7 +1,7 @@
 @layer components {
   .heading {
     line-height: var(--lineHeightTitle);
-    color: var(--colorTextTitle);
+    color: var(--textTitle);
     background: 'papayawhip';
 
     &[data-level='0'] {

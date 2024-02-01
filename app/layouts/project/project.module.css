@@ -19,7 +19,7 @@
     }
 
     &[data-light='true'] {
-      background: rgb(var(--rgbBackgroundLight));
+      background: var(--backgroundLight);
     }
   }
 
@@ -80,9 +80,9 @@
     }
 
     &::after {
-      --background1: rgb(var(--rgbBackground) / 1);
-      --background2: rgb(var(--rgbBackground) / var(--opacity));
-      --background3: rgb(var(--rgbBackground) / 0);
+      --background1: var(--background);
+      --background2: color-mix(in srgb, var(--background) var(--opacity), transparent);
+      --background3: color-mix(in srgb, var(--background) 0%, transparent);
 
       content: '';
       position: absolute;
@@ -139,8 +139,8 @@
   }
 
   .backgroundScrim {
-    --background1: rgb(var(--rgbBackground) / var(--opacity));
-    --background2: rgb(var(--rgbBackground));
+    --background1: color-mix(in srgb, var(--background) var(--opacity), transparent);
+    --background2: var(--background);
 
     position: absolute;
     inset: 0;
@@ -267,7 +267,7 @@
     padding: var(--spaceL) 0;
     font-size: var(--fontSizeBodyS);
     font-weight: var(--fontWeightRegular);
-    border-top: 1px solid rgb(var(--rgbText) / 0.2);
+    border-top: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
 
     @media (--mediaUseMotion) {
       opacity: 0;
@@ -279,7 +279,7 @@
     }
 
     &:last-child {
-      border-bottom: 1px solid rgb(var(--rgbText) / 0.2);
+      border-bottom: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
     }
   }
 

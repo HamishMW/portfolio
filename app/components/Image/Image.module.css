@@ -7,8 +7,8 @@
     isolation: isolate;
 
     &[data-raised='true'] {
-      box-shadow: 0 50px 100px -20px rgb(var(--rgbBlack) / 0.25),
-        0 30px 60px -30px rgb(var(--rgbBlack) / 0.3);
+      box-shadow: 0 50px 100px -20px color-mix(in srgb, var(--black) 25%, transparent),
+        0 30px 60px -30px color-mix(in srgb, var(--black) 30%, transparent);
     }
 
     &[data-reveal='true'] {
@@ -22,7 +22,7 @@
 
       &::before {
         content: '';
-        background-color: rgb(var(--rgbAccent));
+        background-color: var(--accent);
         position: absolute;
         inset: 0;
         transform: scale3d(0, 1, 1);
@@ -107,11 +107,11 @@
     top: var(--spaceM);
     left: var(--spaceM);
     height: 32px;
-    color: rgb(var(--rgbWhite));
+    color: var(--white);
     padding: 0 8px 0 2px;
 
     &::after {
-      background-color: rgb(var(--rgbBlack) / 0.8);
+      background-color: color-mix(in srgb, var(--black) 80%, transparent);
     }
 
     .elementWrapper:hover &,

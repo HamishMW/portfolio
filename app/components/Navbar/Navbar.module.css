@@ -58,7 +58,7 @@
 
   .navLink {
     padding: var(--spaceM);
-    color: rgb(var(--rgbText) / 0.8);
+    color: color-mix(in srgb, var(--text) 80%, transparent);
     font-weight: var(--fontWeightMedium);
     font-size: var(--headerNavFontSize);
     text-decoration: none;
@@ -72,7 +72,7 @@
     &:active,
     &:focus,
     &[aria-current='page'] {
-      color: var(--colorTextBody);
+      color: var(--textBody);
     }
 
     &::after {
@@ -81,7 +81,7 @@
       inset-inline-start: var(--spaceS);
       inset-inline-end: var(--spaceS);
       block-size: 4px;
-      background: rgb(var(--rgbAccent));
+      background: var(--accent);
       transform: scaleY(0) translateZ(0);
       transform-origin: bottom;
     }
@@ -132,13 +132,13 @@
     padding: var(--spaceS);
     width: var(--space2XL);
     height: var(--space2XL);
-    color: var(--colorTextLight);
+    color: var(--textLight);
     transition: color var(--durationM) var(--bezierFastoutSlowin);
 
     &:hover,
     &:focus,
     &:active {
-      color: rgb(var(--rgbAccent));
+      color: var(--accent);
     }
   }
 
@@ -152,7 +152,7 @@
 
     position: fixed;
     inset: 0;
-    background: rgb(var(--rgbBackground) / 0.7);
+    background: color-mix(in srgb, var(--background) 70%, transparent);
     transform: translate3d(0, -100%, 0);
     transition-property: background;
     transition-duration: var(--durationL);
@@ -182,7 +182,7 @@
     font-size: var(--headerNavFontSize);
     text-align: center;
     text-decoration: none;
-    color: var(--colorTextBody);
+    color: var(--textBody);
     padding: var(--spaceL);
     opacity: 0;
     transition-property: opacity;
@@ -212,7 +212,7 @@
       right: var(--space3XL);
       left: var(--space3XL);
       height: 4px;
-      background: rgb(var(--rgbAccent));
+      background: var(--accent);
       transform: scaleX(0) translateY(-1px);
       transform-origin: right;
     }

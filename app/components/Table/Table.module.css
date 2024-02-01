@@ -5,7 +5,7 @@
   }
 
   .row {
-    --rowBorder: 1px solid rgb(var(--rgbText) / 0.2);
+    --rowBorder: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
 
     border-top: var(--rowBorder);
 

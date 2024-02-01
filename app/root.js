@@ -20,8 +20,9 @@ import { Sprites } from '~/components/Icon';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
 import { Navbar } from './components/Navbar';
 import styles from './root.module.css';
-import './global.module.css';
 import './reset.module.css';
+import './global.module.css';
+import './animation.module.css';
 
 export const links = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),

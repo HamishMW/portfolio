@@ -2,8 +2,8 @@ import { pxToRem } from '~/utils/style';
 
 // Full list of tokens
 const baseTokens = {
-  rgbBlack: '0 0 0',
-  rgbWhite: '255 255 255',
+  black: 'rgb(0 0 0)',
+  white: 'rgb(255 255 255)',
   bezierFastoutSlowin: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
   durationXS: '200ms',
   durationS: '300ms',
@@ -109,28 +109,28 @@ const tokensMobileSmall = {
 // Tokens that change based on theme
 const dark = {
   themeId: 'dark',
-  rgbBackground: '17 17 17',
-  rgbBackgroundLight: '26 26 26',
-  rgbPrimary: '0 229 255',
-  rgbAccent: '0 229 255',
-  rgbText: '255 255 255',
-  rgbError: '255 55 102',
-  colorTextTitle: 'rgb(var(--rgbText) / 1)',
-  colorTextBody: 'rgb(var(--rgbText) / 0.8)',
-  colorTextLight: 'rgb(var(--rgbText) / 0.6)',
+  background: 'rgb(17 17 17)',
+  backgroundLight: 'rgb(26 26 26)',
+  primary: 'rgb(0 229 255)',
+  accent: 'rgb(0 229 255)',
+  error: 'rgb(255 55 102)',
+  text: 'rgb(255 255 255)',
+  textTitle: 'var(--text)',
+  textBody: 'color-mix(in srgb, var(--text) 80%, transparent)',
+  textLight: 'color-mix(in srgb, var(--text) 60%, transparent)',
 };
 
 const light = {
   themeId: 'light',
-  rgbBackground: '242 242 242',
-  rgbBackgroundLight: '255 255 255',
-  rgbPrimary: '0 0 0',
-  rgbAccent: '0 229 255',
-  rgbText: '0 0 0',
-  rgbError: '255 0 60',
-  colorTextTitle: 'rgb(var(--rgbText) / 1)',
-  colorTextBody: 'rgb(var(--rgbText) / 0.8)',
-  colorTextLight: 'rgb(var(--rgbText) / 0.6)',
+  background: 'rgb(242 242 242)',
+  backgroundLight: 'rgb(255 255 255)',
+  primary: 'rgb(0 0 0)',
+  accent: 'rgb(0 229 255)',
+  error: 'rgb(255 0 60)',
+  text: 'rgb(0 0 0)',
+  textTitle: 'color-mix(in srgb, var(--text) 90%, transparent)',
+  textBody: 'color-mix(in srgb, var(--text) 75%, transparent)',
+  textLight: 'color-mix(in srgb, var(--text) 55%, transparent)',
 };
 
 export const tokens = {

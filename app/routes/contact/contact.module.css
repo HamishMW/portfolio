@@ -164,8 +164,7 @@
 
   &[data-sending='true'] {
     & svg {
-      transition:
-        transform var(--bezierFastoutSlowin) var(--durationXL),
+      transition: transform var(--bezierFastoutSlowin) var(--durationXL),
         opacity var(--durationS) ease var(--durationS);
       transform: translate3d(var(--space5XL), 0, 0);
       opacity: 0;
@@ -274,7 +273,7 @@
 }
 
 .formError {
-  color: rgb(var(--rgbError));
+  color: var(--error);
   overflow: hidden;
   height: var(--height);
 
@@ -293,7 +292,7 @@
   display: flex;
   padding: var(--spaceM);
   line-height: 24px;
-  background-color: rgb(var(--rgbError) / 0.1);
+  background-color: color-mix(in srgb, var(--error) 10%, transparent);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
 }
 

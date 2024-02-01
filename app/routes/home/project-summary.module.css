@@ -142,7 +142,7 @@
 .svg {
   opacity: 0;
   transition: opacity 1200ms ease 1400ms;
-  fill: var(--colorTextTitle);
+  fill: var(--textTitle);
 
   &[data-visible='true'] {
     opacity: var(--opacity);
@@ -192,7 +192,7 @@
 .indexNumber {
   font-size: var(--fontSizeBodyS);
   font-weight: var(--fontWeightMedium);
-  color: rgb(var(--rgbPrimary));
+  color: var(--primary);
   opacity: 0;
   transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);

@@ -37,7 +37,7 @@
   text-transform: uppercase;
   font-size: calc((24 / 16) * 1rem);
   letter-spacing: 0.3em;
-  color: var(--colorTextBody);
+  color: var(--textLight);
   margin-bottom: var(--space2XL);
   margin-top: 0;
   font-weight: var(--fontWeightMedium);
@@ -88,19 +88,19 @@
 
 @keyframes introTextReveal {
   0% {
-    color: rgb(var(--rgbText) / 0);
+    color: color-mix(in srgb, var(--text) 0%, transparent);
   }
 
   50% {
-    color: rgb(var(--rgbText) / 0);
+    color: color-mix(in srgb, var(--text) 0%, transparent);
   }
 
   60% {
-    color: var(--colorTextTitle);
+    color: var(--textTitle);
   }
 
   100% {
-    color: var(--colorTextTitle);
+    color: var(--textTitle);
   }
 }
 
@@ -113,13 +113,13 @@
   animation-delay: var(--delay);
   animation-fill-mode: forwards;
   animation-timing-function: var(--bezierFastoutSlowin);
-  color: rgb(var(--rgbText) / 0);
+  color: color-mix(in srgb, var(--text) 0%, transparent);
   transition: opacity 0.5s ease var(--durationM);
   isolation: isolate;
 
   &::after {
     content: '';
-    background: rgb(var(--rgbAccent));
+    background: var(--accent);
     animation-duration: 1.5s;
     animation-delay: var(--delay);
     animation-fill-mode: forwards;
@@ -149,7 +149,7 @@
   }
 
   &[data-status='entered'] {
-    color: var(--colorTextTitle);
+    color: var(--textTitle);
 
     &::after {
       opacity: 1;
@@ -159,7 +159,7 @@
   }
 
   &[data-status='exiting'] {
-    color: var(--colorTextTitle);
+    color: var(--textTitle);
     opacity: 0;
     position: absolute;
     top: 0;
@@ -182,7 +182,7 @@
 .line {
   content: '';
   height: 2px;
-  background: rgb(var(--rgbText) / 0.3);
+  background: color-mix(in srgb, var(--text) 30%, transparent);
   width: 120%;
   display: flex;
   margin-left: 20px;
@@ -229,7 +229,7 @@
 }
 
 .scrollIndicator {
-  border: 2px solid rgb(var(--rgbText) / 0.4);
+  border: 2px solid color-mix(in srgb, var(--text) 40%, transparent);
   border-radius: 20px;
   width: 26px;
   height: 38px;
@@ -244,7 +244,7 @@
     content: '';
     height: 7px;
     width: 2px;
-    background: rgb(var(--rgbText) / 0.4);
+    background: color-mix(in srgb, var(--text) 40%, transparent);
     border-radius: 4px;
     position: absolute;
     top: 6px;
@@ -326,7 +326,7 @@
   }
 
   & svg {
-    stroke: rgb(var(--rgbText) / 0.5);
+    stroke: color-mix(in srgb, var(--text) 50%, transparent);
   }
 
   &:focus-visible {

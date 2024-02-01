@@ -31,7 +31,7 @@
     transition-timing-function: var(--bezierFastoutSlowin);
     opacity: 1;
     transform: rotate(0deg);
-    fill: var(--colorTextBody);
+    fill: var(--textBody);
     width: var(--iconSize);
     height: var(--iconSize);
 

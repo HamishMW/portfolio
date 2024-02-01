@@ -1,6 +1,6 @@
 .earth {
   position: relative;
-  background-color: rgb(var(--rgbBackground));
+  background-color: var(--background);
   display: grid;
   place-content: center;
 }
@@ -62,8 +62,7 @@
   color: white;
   font-weight: var(--fontWeightMedium);
   font-size: var(--fontSizeBodyXS);
-  text-shadow: 0 0 3px rgb(var(--rgbBlack)), 0 0 5px rgb(var(--rgbBlack)),
-    0 0 20px rgb(var(--rgbBlack));
+  text-shadow: 0 0 3px var(--black), 0 0 5px var(--black), 0 0 20px var(--black);
   transition: opacity var(--durationM) ease;
   transition-delay: var(--delay);
   font-family: var(--systemFontStack);
@@ -85,8 +84,8 @@
   background-image: radial-gradient(
     transparent,
     transparent,
-    rgb(var(--rgbBackground) / 0.2),
-    rgb(var(--rgbBackground) / 0.7)
+    color-mix(in srgb, var(--background) 20%, transparent),
+    color-mix(in srgb, var(--background) 70%, transparent)
   );
   position: relative;
   pointer-events: none;
@@ -105,13 +104,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-shadow: 0 0 6px rgb(var(--rgbBlack));
+  text-shadow: 0 0 6px var(--black);
   overflow-x: hidden;
 
   &[data-scrim='true'] {
     background: linear-gradient(
-      rgb(var(--rgbBackground)),
-      rgb(var(--rgbBackground) / 0.7),
+      var(--background),
+      color-mix(in srgb, var(--background) 70%, transparent),
       transparent
     );
   }
@@ -119,8 +118,8 @@
   &[data-scrim-reverse='true'] {
     background: linear-gradient(
       transparent,
-      rgb(var(--rgbBackground) / 0.7),
-      rgb(var(--rgbBackground))
+      color-mix(in srgb, var(--background) 70%, transparent),
+      var(--background)
     );
   }
 }

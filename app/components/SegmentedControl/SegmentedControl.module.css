@@ -10,7 +10,7 @@
 
     &::before {
       content: '';
-      background-color: rgb(var(--rgbText) / 0.05);
+      background-color: color-mix(in srgb, var(--text) 5%, transparent);
       position: absolute;
       inset: 0;
       clip-path: polygon(
@@ -29,7 +29,7 @@
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    color: var(--colorTextLight);
+    color: var(--textLight);
     transition-property: color, background;
     transition-duration: var(--durationM);
     transition-timing-function: ease;
@@ -42,7 +42,7 @@
     cursor: pointer;
 
     &[aria-checked='true'] {
-      color: var(--colorTextBody);
+      color: var(--textBody);
     }
 
     &::before {
@@ -54,7 +54,7 @@
       bottom: var(--inset);
       left: 0;
       width: 1px;
-      background-color: rgb(var(--rgbText) / 0.1);
+      background-color: color-mix(in srgb, var(--text) 10%, transparent);
       transition: opacity var(--durationM) var(--bezierFastoutSlowin);
       opacity: 0;
     }
@@ -69,7 +69,7 @@
     top: var(--inset);
     bottom: var(--inset);
     left: 0;
-    filter: drop-shadow(0 6px 12px rgb(var(--rgbBlack) / 0.2));
+    filter: drop-shadow(0 6px 12px color-mix(in srgb, var(--black) 20%, transparent));
     transform: translate3d(var(--left), 0, 0);
     width: var(--width);
 
@@ -83,7 +83,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-color: rgb(var(--rgbBackgroundLight));
+      background-color: var(--backgroundLight);
       filter: brightness(2.2);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
 

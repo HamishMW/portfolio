@@ -2,7 +2,7 @@
   .code {
     --padding: var(--space2XL);
 
-    color: var(--colorTextBody);
+    color: var(--textBody);
     position: relative;
 
     @media (--mediaTablet) {
@@ -201,7 +201,7 @@
     top: 0;
     left: var(--padding);
     transform: translateY(-50%);
-    background-color: rgb(var(--rgbBackground));
+    background-color: var(--background);
     padding: var(--spaceXS) var(--spaceM);
     user-select: none;
   }

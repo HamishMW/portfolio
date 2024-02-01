@@ -1,7 +1,7 @@
 @layer components {
   .text {
     line-height: var(--lineHeightBody);
-    color: var(--colorTextBody);
+    color: var(--textBody);
 
     &[data-size='s'] {
       font-size: var(--fontSizeBodyS);
@@ -48,7 +48,7 @@
     }
 
     &[data-secondary='true'] {
-      color: var(--colorTextLight);
+      color: var(--textLight);
     }
   }
 }

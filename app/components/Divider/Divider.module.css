@@ -8,7 +8,7 @@
   .line {
     width: 100%;
     height: 100%;
-    background-color: rgb(var(--rgbPrimary));
+    background-color: var(--primary);
     opacity: 1;
     transition-property: opacity;
     transition-duration: var(--durationL);
@@ -28,7 +28,7 @@
   }
 
   .notch {
-    background-color: rgb(var(--rgbPrimary));
+    background-color: var(--primary);
     position: absolute;
     transition-property: opacity;
     transition-duration: var(--durationL);

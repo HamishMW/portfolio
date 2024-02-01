@@ -10,7 +10,7 @@
     padding: var(--space3XL) var(--spaceL);
     z-index: var(--zIndex2);
     position: relative;
-    color: var(--colorTextLight);
+    color: var(--textLight);
   }
 
   .link {

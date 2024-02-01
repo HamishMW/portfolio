@@ -1,19 +1,18 @@
 @layer components {
   .monogram {
-    fill: var(--colorTextTitle);
+    fill: var(--textTitle);
     transition: fill var(--durationL) ease;
   }
 
   .highlight {
-    fill: rgb(var(--rgbAccent));
+    fill: var(--accent);
     opacity: 0;
     transform: scale3d(1, 0, 1);
     transform-origin: top;
     transition: opacity 0.1s ease var(--durationM);
 
     @media (--mediaUseMotion) {
-      transition:
-        transform var(--durationM) var(--bezierFastoutSlowin),
+      transition: transform var(--durationM) var(--bezierFastoutSlowin),
         opacity 0.1s ease var(--durationM);
     }
 
@@ -24,8 +23,7 @@
       transition: opacity 0.1s ease;
 
       @media (--mediaUseMotion) {
-        transition:
-          transform var(--durationM) var(--bezierFastoutSlowin),
+        transition: transform var(--durationM) var(--bezierFastoutSlowin),
           opacity 0.1s ease;
       }
     }

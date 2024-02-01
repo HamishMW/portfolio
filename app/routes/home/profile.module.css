@@ -93,7 +93,7 @@
 .tagText {
   font-size: var(--fontSizeBodyS);
   font-weight: var(--fontWeightMedium);
-  color: rgb(var(--rgbPrimary));
+  color: var(--primary);
   opacity: 0;
   transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
@@ -125,7 +125,7 @@
   z-index: var(--zIndex3);
   opacity: 0;
   transition: opacity var(--durationM) ease var(--durationL);
-  fill: var(--colorTextTitle);
+  fill: var(--textTitle);
 
   &[data-visible='true'] {
     opacity: 1;

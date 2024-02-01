@@ -1,26 +1,24 @@
 @layer components {
   .link {
     --lineStrokeWidth: 2px;
-    --linkColor: var(--rgbPrimary);
-    --lineOpacity: 0.3;
-    --filledLineGradient: linear-gradient(rgb(var(--linkColor)), rgb(var(--linkColor)));
+    --linkColor: var(--primary);
+    --lineOpacity: 30%;
+    --filledLineGradient: linear-gradient(var(--linkColor), var(--linkColor));
     --unfilledLineGradient: linear-gradient(
-      rgb(var(--linkColor) / var(--lineOpacity)),
-      rgb(var(--linkColor) / var(--lineOpacity))
+      color-mix(in srgb, var(--linkColor) var(--lineOpacity), transparent),
+      color-mix(in srgb, var(--linkColor) var(--lineOpacity), transparent)
     );
 
     cursor: pointer;
     display: inline;
-    color: rgb(var(--linkColor));
-    background:
-      var(--filledLineGradient) no-repeat 100% 100% / 0 var(--lineStrokeWidth),
+    color: var(--linkColor);
+    background: var(--filledLineGradient) no-repeat 100% 100% / 0 var(--lineStrokeWidth),
       var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
     padding-bottom: var(--lineStrokeWidth);
 
     &:hover,
     &:focus {
-      background:
-        var(--filledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth),
+      background: var(--filledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth),
         var(--unfilledLineGradient) no-repeat 0 100% / 100% var(--lineStrokeWidth);
     }
 

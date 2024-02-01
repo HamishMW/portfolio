@@ -62,6 +62,10 @@ export function cssProps(props, style = {}) {
       value = numToPx(value);
     }
 
+    if (typeof value === 'number' && key === 'opacity') {
+      value = `${value * 100}%`;
+    }
+
     result[`--${key}`] = value;
   }
 

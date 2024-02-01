@@ -76,8 +76,8 @@
   }
 
   .credit {
-    color: rgb(var(--rgbWhite) / 0.4);
-    background: rgb(var(--rgbBlack) / 0.6);
+    color: color-mix(in srgb, var(--white) 40%, transparent);
+    background: color-mix(in srgb, var(--black) 60%, transparent);
     padding: var(--spaceXS) var(--spaceS);
     font-size: var(--fontSizeBodyS);
     position: absolute;
@@ -91,7 +91,7 @@
 
     &:hover,
     &:focus {
-      color: rgb(var(--rgbWhite));
+      color: var(--white);
     }
 
     &[data-visible='true'] {
@@ -140,7 +140,7 @@
   }
 
   .titleFlatline {
-    color: rgb(var(--rgbPrimary));
+    color: var(--primary);
     display: flex;
     align-items: center;
     gap: var(--spaceM);
@@ -148,7 +148,7 @@
 
     svg {
       flex: 0 0 auto;
-      color: rgb(var(--rgbAccent));
+      color: var(--accent);
     }
   }
 
@@ -156,7 +156,7 @@
     padding-bottom: var(--spaceL);
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: rgb(var(--rgbText) / 0.4);
+    color: color-mix(in srgb, var(--text) 40%, transparent);
     transition-property: opacity;
     transition-timing-function: var(--bezierFastoutSlowin);
     transition-duration: var(--durationXL);

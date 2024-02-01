@@ -17,10 +17,10 @@
   :global(body) {
     font-family: var(--fontStack);
     font-weight: var(--fontWeightRegular);
-    background-color: rgb(var(--rgbBackground));
+    background-color: var(--background);
     transition: var(--durationM) ease;
     transition-property: background, opacity;
-    color: var(--colorTextBody);
+    color: var(--textBody);
     width: 100vw;
     overflow-x: hidden;
     opacity: 1;
@@ -35,48 +35,16 @@
   }
 
   :global(::selection) {
-    background: rgb(var(--rgbAccent));
-    color: rgb(var(--rgbBlack));
+    background: var(--accent);
+    color: var(--black);
   }
 
   :global(:focus) {
-    outline: 4px solid rgb(var(--rgbText));
+    outline: 4px solid var(--text);
     outline-offset: 4px;
   }
 
   :global(:focus:not(:focus-visible)) {
     outline: none;
-  }
-
-  @keyframes :global(fadeIn) {
-    0% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes :global(reveal) {
-    0% {
-      transform: scale3d(0, 1, 1);
-      transform-origin: left;
-    }
-
-    50% {
-      transform: scale3d(1, 1, 1);
-      transform-origin: left;
-    }
-
-    51% {
-      transform: scale3d(1, 1, 1);
-      transform-origin: right;
-    }
-
-    100% {
-      transform: scale3d(0, 1, 1);
-      transform-origin: right;
-    }
   }
 }
