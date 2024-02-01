@@ -2,7 +2,6 @@
   .heading {
     line-height: var(--lineHeightTitle);
     color: var(--textTitle);
-    background: 'papayawhip';
 
     &[data-level='0'] {
       letter-spacing: -0.05em;
