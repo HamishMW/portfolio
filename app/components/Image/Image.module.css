@@ -95,8 +95,6 @@
 
   .element {
     opacity: 0;
-    /* stylelint-disable-next-line value-no-vendor-prefix */
-    image-rendering: -webkit-optimize-contrast;
 
     &[data-loaded='true'] {
       opacity: 1;
