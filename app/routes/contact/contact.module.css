@@ -305,6 +305,6 @@
   opacity: 0;
 
   &:global {
-    animation: fadeIn var(--durationL) ease var(--durationXL) forwards;
+    animation: fade-in var(--durationL) ease var(--durationXL) forwards;
   }
 }

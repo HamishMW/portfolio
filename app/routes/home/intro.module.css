@@ -197,7 +197,7 @@
 
   &[data-status='entering'] {
     &:global {
-      animation-name: fadeIn;
+      animation-name: fade-in;
     }
 
     @media (--mediaUseMotion) {

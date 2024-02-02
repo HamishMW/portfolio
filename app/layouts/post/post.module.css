@@ -183,7 +183,7 @@
     opacity: 0;
 
     &:global {
-      animation: fadeIn 0.6s var(--bezierFastoutSlowin) 1s forwards;
+      animation: fade-in 0.6s var(--bezierFastoutSlowin) 1s forwards;
     }
 
     & svg {
@@ -211,7 +211,7 @@
     opacity: 0;
 
     &:global {
-      animation: fadeIn 0.6s var(--bezierFastoutSlowin) 1s forwards;
+      animation: fade-in 0.6s var(--bezierFastoutSlowin) 1s forwards;
     }
 
     &::before {
@@ -241,7 +241,7 @@
     grid-template-columns: 1fr var(--gutterWidth) var(--contentWidth) var(--gutterWidth) 1fr;
 
     &:global {
-      animation: fadeIn 1.2s var(--bezierFastoutSlowin) 1s forwards;
+      animation: fade-in 1.2s var(--bezierFastoutSlowin) 1s forwards;
     }
 
     @media (--mediaTablet) {

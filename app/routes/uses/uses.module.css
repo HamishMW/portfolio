@@ -9,7 +9,7 @@
   margin-top: var(--space2XL);
 
   &:global {
-    animation: fadeIn 1s ease 1s forwards;
+    animation: fade-in 1s ease 1s forwards;
   }
 
   + & {

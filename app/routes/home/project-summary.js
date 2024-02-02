@@ -1,4 +1,3 @@
-// import projectKatakana from '~/assets/katakana-project.svg?url';
 import { Button } from '~/components/Button';
 import { Divider } from '~/components/Divider';
 import { Heading } from '~/components/Heading';
@@ -88,61 +87,67 @@ export const ProjectSummary = ({
 
   const renderPreview = visible => (
     <div className={styles.preview}>
-      <Suspense>
-        {model.type === 'laptop' && (
-          <>
-            {renderKatakana('laptop', visible)}
-            <div className={styles.model} data-device="laptop">
-              <Model
-                alt={model.alt}
-                cameraPosition={{ x: 0, y: 0, z: 8 }}
-                showDelay={700}
-                show={visible}
-                models={[
-                  {
-                    ...deviceModels.laptop,
-                    texture: {
-                      ...model.textures[0],
-                      sizes: laptopSizes,
+      {model.type === 'laptop' && (
+        <>
+          {renderKatakana('laptop', visible)}
+          <div className={styles.model} data-device="laptop">
+            {isHydrated && (
+              <Suspense>
+                <Model
+                  alt={model.alt}
+                  cameraPosition={{ x: 0, y: 0, z: 8 }}
+                  showDelay={700}
+                  show={visible}
+                  models={[
+                    {
+                      ...deviceModels.laptop,
+                      texture: {
+                        ...model.textures[0],
+                        sizes: laptopSizes,
+                      },
                     },
-                  },
-                ]}
-              />
-            </div>
-          </>
-        )}
-        {model.type === 'phone' && (
-          <>
-            {renderKatakana('phone', visible)}
-            <div className={styles.model} data-device="phone">
-              <Model
-                alt={model.alt}
-                cameraPosition={{ x: 0, y: 0, z: 11.5 }}
-                showDelay={300}
-                show={visible}
-                models={[
-                  {
-                    ...deviceModels.phone,
-                    position: { x: -0.6, y: 1.1, z: 0 },
-                    texture: {
-                      ...model.textures[0],
-                      sizes: phoneSizes,
+                  ]}
+                />
+              </Suspense>
+            )}
+          </div>
+        </>
+      )}
+      {model.type === 'phone' && (
+        <>
+          {renderKatakana('phone', visible)}
+          <div className={styles.model} data-device="phone">
+            {isHydrated && (
+              <Suspense>
+                <Model
+                  alt={model.alt}
+                  cameraPosition={{ x: 0, y: 0, z: 11.5 }}
+                  showDelay={300}
+                  show={visible}
+                  models={[
+                    {
+                      ...deviceModels.phone,
+                      position: { x: -0.6, y: 1.1, z: 0 },
+                      texture: {
+                        ...model.textures[0],
+                        sizes: phoneSizes,
+                      },
                     },
-                  },
-                  {
-                    ...deviceModels.phone,
-                    position: { x: 0.6, y: -0.5, z: 0.3 },
-                    texture: {
-                      ...model.textures[1],
-                      sizes: phoneSizes,
+                    {
+                      ...deviceModels.phone,
+                      position: { x: 0.6, y: -0.5, z: 0.3 },
+                      texture: {
+                        ...model.textures[1],
+                        sizes: phoneSizes,
+                      },
                     },
-                  },
-                ]}
-              />
-            </div>
-          </>
-        )}
-      </Suspense>
+                  ]}
+                />
+              </Suspense>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 
@@ -167,12 +172,12 @@ export const ProjectSummary = ({
               {!alternate && !isMobile && (
                 <>
                   {renderDetails(visible)}
-                  {isHydrated && renderPreview(visible)}
+                  {renderPreview(visible)}
                 </>
               )}
               {(alternate || isMobile) && (
                 <>
-                  {isHydrated && renderPreview(visible)}
+                  {renderPreview(visible)}
                   {renderDetails(visible)}
                 </>
               )}
