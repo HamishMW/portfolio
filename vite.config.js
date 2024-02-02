@@ -6,7 +6,10 @@ import { defineConfig } from 'vite';
 import jsconfigPaths from 'vite-jsconfig-paths';
 
 export default defineConfig({
-  assetsInclude: ['**/*.glb', '**/*.hdr'],
+  assetsInclude: ['**/*.glb', '**/*.hdr', '**/*.glsl'],
+  build: {
+    assetsInlineLimit: 256,
+  },
   plugins: [
     remix({
       presets: [cloudflare()],

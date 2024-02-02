@@ -1,7 +1,5 @@
-import { cssBundleHref } from '@remix-run/css-bundle';
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -16,7 +14,6 @@ import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import { createContext, useEffect, useReducer } from 'react';
 import { initialState, reducer } from './reducer';
 import { Error } from '~/layouts/error';
-import { Sprites } from '~/components/Icon';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
 import { Navbar } from './components/Navbar';
 import styles from './root.module.css';
@@ -24,7 +21,6 @@ import './reset.module.css';
 import './global.module.css';
 
 export const links = () => [
-  ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
   {
     rel: 'preload',
     href: GothamMedium,
@@ -112,7 +108,6 @@ export default function App() {
             >
               Skip to main content
             </VisuallyHidden>
-            <Sprites />
             <Navbar />
             <main id="main-content" className={styles.container} tabIndex={-1}>
               <Outlet />
@@ -121,7 +116,6 @@ export default function App() {
         </AppContext.Provider>
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );
@@ -132,7 +126,7 @@ function AppHead({ theme }) {
     <>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="theme-color" content={`rgb(${themes[theme]?.rgbBackground})`} />
+      <meta name="theme-color" content={`${themes[theme]?.background}`} />
       <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
     </>
   );
@@ -149,11 +143,9 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body data-theme="dark">
-        <Sprites />
         <Error error={error} />
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );

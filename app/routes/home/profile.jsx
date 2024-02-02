@@ -12,7 +12,7 @@ import { Text } from '~/components/Text';
 import { Transition } from '~/components/Transition';
 import { Fragment, useState } from 'react';
 import { media } from '~/utils/style';
-import { Katakana } from './katakana';
+import katakana from './katakana.svg';
 import styles from './profile.module.css';
 
 const ProfileText = ({ visible, titleId }) => (
@@ -88,7 +88,9 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
                   alt="Me standing in front of the Torii on Miyajima, an island off the coast of Hiroshima in Japan"
                 />
-                <Katakana type="profile" className={styles.svg} data-visible={visible} />
+                <svg className={styles.svg} data-visible={visible} viewBox="0 0 136 766">
+                  <use href={`${katakana}#katakana-profile`} />
+                </svg>
               </div>
             </div>
           </div>
