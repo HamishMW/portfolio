@@ -48,7 +48,7 @@
     outline: none;
   }
 
-  @keyframes :global(fadeIn) {
+  @keyframes :global(fade-in) {
     0% {
       opacity: 0;
     }
