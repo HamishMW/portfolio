@@ -106,8 +106,9 @@
   .hr {
     margin: var(--space4XL) 0;
     border: 0;
-    border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent) @media
-      (--mediaTablet) {
+    border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+
+    @media (--mediaTablet) {
       margin: var(--space3XL) 0;
     }
 
