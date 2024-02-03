@@ -70,6 +70,7 @@ export const SegmentedControl = ({
       <div
         className={styles.container}
         role="radiogroup"
+        tabIndex="0"
         aria-labelledby={labelId}
         onKeyDown={handleKeyDown}
         {...props}

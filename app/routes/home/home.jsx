@@ -16,7 +16,6 @@ import { Intro } from './intro';
 import { Profile } from './profile';
 import { ProjectSummary } from './project-summary';
 import { useEffect, useRef, useState } from 'react';
-import { KatakanaSprites } from './katakana';
 import styles from './home.module.css';
 
 const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
@@ -96,7 +95,6 @@ export const Home = () => {
 
   return (
     <div className={styles.home}>
-      <KatakanaSprites />
       <Intro
         id="intro"
         sectionRef={intro}

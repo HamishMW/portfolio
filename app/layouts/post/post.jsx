@@ -1,4 +1,3 @@
-import ArrowDown from '~/assets/arrow-down.svg';
 import { Divider } from '~/components/Divider';
 import { Footer } from '~/components/Footer';
 import { Heading } from '~/components/Heading';
@@ -13,8 +12,9 @@ import { clamp } from '~/utils/clamp';
 import { formatDate } from '~/utils/date';
 import { cssProps, msToNum, numToMs } from '~/utils/style';
 import styles from './post.module.css';
+import { Link as RouterLink } from '@remix-run/react';
 
-export const Post = ({ children, title, date, abstract, banner, timecode, ogImage }) => {
+export const Post = ({ children, title, date, banner, timecode }) => {
   const scrollToHash = useScrollToHash();
   const imageRef = useRef();
   const [dateTime, setDateTime] = useState(null);
@@ -33,25 +33,21 @@ export const Post = ({ children, title, date, abstract, banner, timecode, ogImag
     scrollToHash(event.currentTarget.href);
   };
 
+  const placeholder = `${banner?.split('.')[0]}-placeholder.jpg`;
+
   return (
     <article className={styles.post}>
-      {/* <Meta title={title} prefix="" description={abstract} ogImage={ogImage} /> */}
       <Section>
         {banner && (
           <div className={styles.banner} ref={imageRef}>
             <div className={styles.bannerImage}>
-              <Image
-                role="presentation"
-                src={banner}
-                placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
-                alt=""
-              />
+              <Image role="presentation" src={banner} placeholder={placeholder} alt="" />
             </div>
             <div className={styles.bannerImageBlur}>
               <Image
                 role="presentation"
-                src={`${banner.split('.')[0]}-placeholder.jpg`}
-                placeholder={{ src: `${banner.split('.')[0]}-placeholder.jpg` }}
+                src={placeholder}
+                placeholder={placeholder}
                 alt=""
               />
             </div>
@@ -75,7 +71,6 @@ export const Post = ({ children, title, date, abstract, banner, timecode, ogImag
                   <span
                     className={styles.titleWord}
                     style={cssProps({ delay: numToMs(index * 100 + 100) })}
-                    // index={index}
                   >
                     {word}
                     {index !== title.split(' ').length - 1 ? ' ' : ''}
@@ -84,15 +79,22 @@ export const Post = ({ children, title, date, abstract, banner, timecode, ogImag
               ))}
             </Heading>
             <div className={styles.details}>
-              {/* <RouterLink href="#postContent">
-                <a
-                  className={styles.arrow}
-                  aria-label="Scroll to post content"
-                  onClick={handleScrollIndicatorClick}
+              <RouterLink
+                to="#postContent"
+                className={styles.arrow}
+                aria-label="Scroll to post content"
+                onClick={handleScrollIndicatorClick}
+              >
+                <svg
+                  aria-hidden
+                  stroke="currentColor"
+                  width="43"
+                  height="15"
+                  viewBox="0 0 43 15"
                 >
-                  <ArrowDown aria-hidden />
-                </a>
-              </RouterLink> */}
+                  <path d="M1 1l20.5 12L42 1" strokeWidth="2" fill="none" />
+                </svg>
+              </RouterLink>
               <div className={styles.timecode}>{timecode}</div>
             </div>
           </div>

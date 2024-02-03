@@ -6,12 +6,13 @@ import { List, ListItem } from '~/components/List';
 import { Text } from '~/components/Text';
 import { Children } from 'react';
 import styles from './post-markdown.module.css';
+import { Link as RouterLink } from '@remix-run/react';
 
 const PostHeadingLink = ({ id }) => {
   return (
-    <a className={styles.headingLink} href={`#${id}`} aria-label="Link to heading">
+    <RouterLink className={styles.headingLink} to={`#${id}`} aria-label="Link to heading">
       <Icon icon="link" />
-    </a>
+    </RouterLink>
   );
 };
 
@@ -104,7 +105,6 @@ const PostImage = ({ src, alt, width, height, ...rest }) => {
     <img
       className={styles.image}
       src={src}
-      decoding="async"
       loading="lazy"
       alt={alt}
       width={width}

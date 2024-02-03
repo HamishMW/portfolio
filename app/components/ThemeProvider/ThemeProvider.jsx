@@ -5,10 +5,9 @@ import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMediumItalic from '~/assets/fonts/gotham-medium-italic.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import IPAGothic from '~/assets/fonts/ipa-gothic.woff2';
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import { classes, media } from '~/utils/style';
 import { themes, tokens } from './theme';
-import { useTheme } from './useTheme';
 
 export const ThemeContext = createContext({});
 
@@ -36,6 +35,11 @@ export const ThemeProvider = ({
     </ThemeContext.Provider>
   );
 };
+
+export function useTheme() {
+  const currentTheme = useContext(ThemeContext);
+  return currentTheme;
+}
 
 /**
  * Squeeze out spaces and newlines

@@ -10,7 +10,7 @@ import { useWindowSize } from '~/hooks';
 import { Suspense, lazy, useState } from 'react';
 import { cssProps, media } from '~/utils/style';
 import { useHydrated } from '~/hooks/useHydrated';
-import { Katakana } from './katakana';
+import katakana from './katakana.svg';
 import styles from './project-summary.module.css';
 
 const Model = lazy(() =>
@@ -42,14 +42,17 @@ export const ProjectSummary = ({
   const laptopSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
 
   const renderKatakana = (device, visible) => (
-    <Katakana
+    <svg
       type="project"
       data-visible={visible}
       data-light={theme.themeId === 'light'}
       style={cssProps({ opacity: svgOpacity })}
       className={styles.svg}
       data-device={device}
-    />
+      viewBox="0 0 751 136"
+    >
+      <use href={`${katakana}#katakana-project`} />
+    </svg>
   );
 
   const renderDetails = visible => (
