@@ -18,3 +18,10 @@ export function formatTimecode(time) {
 export function zeroPrefix(value) {
   return value < 10 ? `0${value}` : `${value}`;
 }
+
+export function readingTime(text) {
+  const wpm = 225;
+  const words = text.trim().split(/\s+/).length;
+  const time = words / wpm;
+  return time * 1000 * 60;
+}

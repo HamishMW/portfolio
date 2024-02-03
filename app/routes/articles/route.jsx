@@ -3,8 +3,7 @@ import { Outlet, useLoaderData } from '@remix-run/react';
 import { MDXProvider } from '@mdx-js/react';
 import { Post, postMarkdown } from '~/layouts/post';
 import { baseMeta } from '~/utils/meta';
-import { formatTimecode } from '~/utils/timecode';
-import readingTime from 'reading-time';
+import { formatTimecode, readingTime } from '~/utils/timecode';
 
 export async function loader({ request }) {
   const slug = request.url.split('/').at(-1);
@@ -14,7 +13,7 @@ export async function loader({ request }) {
 
   return json({
     frontmatter: module.frontmatter,
-    timecode: formatTimecode(readTime.time),
+    timecode: formatTimecode(readTime),
   });
 }
 

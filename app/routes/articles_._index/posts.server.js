@@ -1,5 +1,4 @@
-import readingTime from 'reading-time';
-import { formatTimecode } from '~/utils/timecode';
+import { formatTimecode, readingTime } from '~/utils/timecode';
 
 export async function getPosts() {
   const modules = import.meta.glob('../articles.*.mdx', { eager: true });
@@ -13,7 +12,7 @@ export async function getPosts() {
 
       const text = await import(`../articles.${slug}.mdx?raw`);
       const readTime = readingTime(text.default);
-      const timecode = formatTimecode(readTime.time);
+      const timecode = formatTimecode(readTime);
 
       return {
         slug,
