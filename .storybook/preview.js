@@ -14,7 +14,7 @@ export const decorators = [
     }, [theme]);
 
     return (
-      <ThemeProvider themeId={theme}>
+      <ThemeProvider theme={theme}>
         <style>{fontStyles}</style>
         <style>{tokenStyles}</style>
         <div id="story-root" className="storyRoot">

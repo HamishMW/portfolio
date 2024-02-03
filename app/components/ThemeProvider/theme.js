@@ -108,7 +108,6 @@ const tokensMobileSmall = {
 
 // Tokens that change based on theme
 const dark = {
-  themeId: 'dark',
   background: 'rgb(17 17 17)',
   backgroundLight: 'rgb(26 26 26)',
   primary: 'rgb(0 229 255)',
@@ -121,7 +120,6 @@ const dark = {
 };
 
 const light = {
-  themeId: 'light',
   background: 'rgb(242 242 242)',
   backgroundLight: 'rgb(255 255 255)',
   primary: 'rgb(0 0 0)',

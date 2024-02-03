@@ -12,23 +12,27 @@ import { themes, tokens } from './theme';
 export const ThemeContext = createContext({});
 
 export const ThemeProvider = ({
-  themeId = 'dark',
-  theme: themeOverrides,
+  theme = 'dark',
   children,
   className,
   as: Component = 'div',
+  toggleTheme,
   ...rest
 }) => {
-  const currentTheme = { ...themes[themeId], ...themeOverrides };
   const parentTheme = useTheme();
-  const isRootProvider = !parentTheme.themeId;
+  const isRootProvider = !parentTheme.theme;
 
   return (
-    <ThemeContext.Provider value={currentTheme}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        toggleTheme: toggleTheme || parentTheme.toggleTheme,
+      }}
+    >
       {isRootProvider && children}
       {/* Nested providers need a div to override theme tokens */}
       {!isRootProvider && (
-        <Component className={classes(className)} data-theme={themeId} {...rest}>
+        <Component className={classes(className)} data-theme={theme} {...rest}>
           {children}
         </Component>
       )}
@@ -54,7 +58,6 @@ export function squish(styles) {
 export function createThemeProperties(theme) {
   return squish(
     Object.keys(theme)
-      .filter(key => key !== 'themeId')
       .map(key => `--${key}: ${theme[key]};`)
       .join('\n\n')
   );
@@ -67,9 +70,7 @@ export function createThemeStyleObject(theme) {
   let style = {};
 
   for (const key of Object.keys(theme)) {
-    if (key !== 'themeId') {
-      style[`--${key}`] = theme[key];
-    }
+    style[`--${key}`] = theme[key];
   }
 
   return style;

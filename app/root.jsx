@@ -4,6 +4,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useFetcher,
   useLoaderData,
   useRouteError,
 } from '@remix-run/react';
@@ -11,8 +12,7 @@ import { createCookieSessionStorage, json } from '@remix-run/cloudflare';
 import { ThemeProvider, themeStyles, themes } from '~/components/ThemeProvider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
-import { createContext, useEffect, useReducer } from 'react';
-import { initialState, reducer } from './reducer';
+import { useEffect } from 'react';
 import { Error } from '~/layouts/error';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
 import { Navbar } from './components/Navbar';
@@ -73,8 +73,6 @@ export const loader = async ({ request, context }) => {
   );
 };
 
-export const AppContext = createContext({});
-
 const repoPrompt = `
 __  __  __
 \u005C \u005C \u005C \u005C \u005C\u2215\n \u005C \u005C\u2215\u005C \u005C\n  \u005C\u2215  \u005C\u2215
@@ -82,8 +80,19 @@ __  __  __
 `;
 
 export default function App() {
-  const { canonicalUrl, theme } = useLoaderData();
-  const [state, dispatch] = useReducer(reducer, initialState);
+  let { canonicalUrl, theme } = useLoaderData();
+  let fetcher = useFetcher();
+
+  if (fetcher.formData?.has('theme')) {
+    theme = fetcher.formData.get('theme');
+  }
+
+  function toggleTheme(newTheme) {
+    fetcher.submit(
+      { theme: newTheme ? newTheme : theme === 'dark' ? 'light' : 'dark' },
+      { action: '/api/set-theme', method: 'post' }
+    );
+  }
 
   useEffect(() => {
     console.info(`${repoPrompt}\n\n`);
@@ -92,43 +101,28 @@ export default function App() {
   return (
     <html lang="en">
       <head>
-        <AppHead theme={theme} />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content={themes[theme]?.background} />
+        <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
         <Meta />
         <Links />
         <link rel="canonical" href={canonicalUrl} />
       </head>
       <body data-theme={theme}>
-        <AppContext.Provider value={{ ...state, dispatch }}>
-          <ThemeProvider themeId={theme}>
-            <VisuallyHidden
-              showOnFocus
-              as="a"
-              className={styles.skip}
-              href="#main-content"
-            >
-              Skip to main content
-            </VisuallyHidden>
-            <Navbar />
-            <main id="main-content" className={styles.container} tabIndex={-1}>
-              <Outlet />
-            </main>
-          </ThemeProvider>
-        </AppContext.Provider>
+        <ThemeProvider theme={theme} toggleTheme={toggleTheme}>
+          <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
+            Skip to main content
+          </VisuallyHidden>
+          <Navbar />
+          <main id="main-content" className={styles.container} tabIndex={-1}>
+            <Outlet />
+          </main>
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
     </html>
-  );
-}
-
-function AppHead({ theme }) {
-  return (
-    <>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="theme-color" content={`${themes[theme]?.background}`} />
-      <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
-    </>
   );
 }
 
@@ -138,7 +132,10 @@ export function ErrorBoundary() {
   return (
     <html lang="en">
       <head>
-        <AppHead theme="dark" />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content={themes.dark.background} />
+        <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
         <Meta />
         <Links />
       </head>

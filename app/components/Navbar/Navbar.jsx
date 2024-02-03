@@ -3,7 +3,7 @@ import { Monogram } from '~/components/Monogram';
 import { useTheme } from '~/components/ThemeProvider';
 import { tokens } from '~/components/ThemeProvider/theme';
 import { Transition } from '~/components/Transition';
-import { useAppContext, useScrollToHash, useWindowSize } from '~/hooks';
+import { useScrollToHash, useWindowSize } from '~/hooks';
 import { Link as RouterLink, useLocation } from '@remix-run/react';
 import { useEffect, useRef, useState } from 'react';
 import { cssProps, media, msToNum, numToMs } from '~/utils/style';
@@ -14,9 +14,9 @@ import { navLinks, socialLinks } from './navData';
 
 export const Navbar = () => {
   const [current, setCurrent] = useState();
+  const [menuOpen, setMenuOpen] = useState(false);
   const [target, setTarget] = useState();
-  const { themeId } = useTheme();
-  const { menuOpen, dispatch } = useAppContext();
+  const { theme } = useTheme();
   const location = useLocation();
   const windowSize = useWindowSize();
   const headerRef = useRef();
@@ -38,7 +38,7 @@ export const Navbar = () => {
   // Handle swapping the theme when intersecting with inverse themed elements
   useEffect(() => {
     const navItems = document.querySelectorAll('[data-navbar-item]');
-    const inverseTheme = themeId === 'dark' ? 'light' : 'dark';
+    const inverseTheme = theme === 'dark' ? 'light' : 'dark';
     const { innerHeight } = window;
 
     let inverseMeasurements = [];
@@ -90,7 +90,7 @@ export const Navbar = () => {
     };
 
     // Currently only the light theme has dark full-width elements
-    if (themeId === 'light') {
+    if (theme === 'light') {
       navItemMeasurements = Array.from(navItems).map(item => {
         const rect = item.getBoundingClientRect();
 
@@ -109,7 +109,7 @@ export const Navbar = () => {
       document.removeEventListener('scroll', handleInversion);
       resetNavTheme();
     };
-  }, [themeId, windowSize, location.key]);
+  }, [theme, windowSize, location.key]);
 
   // Check if a nav item should be active
   const getCurrent = (url = '') => {
@@ -135,7 +135,7 @@ export const Navbar = () => {
 
   const handleMobileNavClick = event => {
     handleNavItemClick(event);
-    if (menuOpen) dispatch({ type: 'toggleMenu' });
+    if (menuOpen) setMenuOpen(false);
   };
 
   return (
@@ -151,7 +151,7 @@ export const Navbar = () => {
       >
         <Monogram highlight />
       </RouterLink>
-      <NavToggle onClick={() => dispatch({ type: 'toggleMenu' })} menuOpen={menuOpen} />
+      <NavToggle onClick={() => setMenuOpen(!menuOpen)} menuOpen={menuOpen} />
       <nav className={styles.nav}>
         <div className={styles.navList}>
           {navLinks.map(({ label, pathname }) => (

@@ -1,21 +1,12 @@
 import { useId } from 'react';
-import { useFetcher } from '@remix-run/react';
 import { Button } from '~/components/Button';
 import { useTheme } from '~/components/ThemeProvider';
 import styles from './ThemeToggle.module.css';
 
 export const ThemeToggle = ({ isMobile, ...rest }) => {
-  const { themeId } = useTheme();
   const id = useId();
+  const { toggleTheme } = useTheme();
   const maskId = `${id}theme-toggle-mask`;
-  const { submit } = useFetcher();
-
-  const handleClick = () => {
-    submit(
-      { theme: themeId === 'dark' ? 'light' : 'dark' },
-      { action: '/api/set-theme', method: 'post' }
-    );
-  };
 
   return (
     <Button
@@ -23,7 +14,7 @@ export const ThemeToggle = ({ isMobile, ...rest }) => {
       className={styles.toggle}
       data-mobile={isMobile}
       aria-label="Toggle theme"
-      onClick={handleClick}
+      onClick={() => toggleTheme()}
       {...rest}
     >
       <svg aria-hidden className={styles.svg} width="38" height="38" viewBox="0 0 38 38">

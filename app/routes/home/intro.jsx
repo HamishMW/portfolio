@@ -17,7 +17,7 @@ const DisplacementSphere = lazy(() =>
 );
 
 export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
-  const theme = useTheme();
+  const { theme } = useTheme();
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const prevTheme = usePrevious(theme);
   const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(
@@ -34,14 +34,14 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
       setDisciplineIndex(index);
     },
     5000,
-    theme.themeId
+    theme
   );
 
   useEffect(() => {
-    if (prevTheme && prevTheme.themeId !== theme.themeId) {
+    if (prevTheme && prevTheme !== theme) {
       setDisciplineIndex(0);
     }
-  }, [theme.themeId, prevTheme]);
+  }, [theme, prevTheme]);
 
   const handleScrollClick = event => {
     event.preventDefault();
@@ -58,7 +58,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
       tabIndex={-1}
       {...rest}
     >
-      <Transition in key={theme.themeId} timeout={3000}>
+      <Transition in key={theme} timeout={3000}>
         {({ visible, status }) => (
           <>
             {isHydrated && (

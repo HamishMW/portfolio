@@ -61,7 +61,6 @@ import {
   ProjectTextRow,
 } from '~/layouts/project';
 import { baseMeta } from '~/utils/meta';
-import { useFetcher } from '@remix-run/react';
 import { Suspense, lazy, useMemo } from 'react';
 import { media } from '~/utils/style';
 import styles from './smart-sparrow.module.css';
@@ -86,14 +85,12 @@ export const meta = () => {
 };
 
 export const SmartSparrow = () => {
-  const { themeId } = useTheme();
-  const { submit } = useFetcher();
-
-  const isDark = themeId === 'dark';
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === 'dark';
   const themes = ['dark', 'light'];
 
   const handleThemeChange = index => {
-    submit({ theme: themes[index] }, { action: '/api/set-theme', method: 'post' });
+    toggleTheme(themes[index]);
   };
 
   return (
@@ -115,7 +112,7 @@ export const SmartSparrow = () => {
           <ProjectSectionContent>
             <ProjectImage
               raised
-              key={themeId}
+              key={theme}
               srcSet={
                 isDark
                   ? `${imageSprLessonBuilderDark} 1280w, ${imageSprLessonBuilderDarkLarge} 2560w`
@@ -150,7 +147,7 @@ export const SmartSparrow = () => {
         <ProjectSection light={isDark}>
           <ProjectSectionContent>
             <Image
-              key={themeId}
+              key={theme}
               srcSet={
                 isDark
                   ? `${imageSprComponentsDark} 1024w, ${imageSprComponentsDarkLarge} 2048w`
@@ -163,12 +160,12 @@ export const SmartSparrow = () => {
                   ? imageSprComponentsDarkPlaceholder
                   : imageSprComponentsLightPlaceholder
               }
-              alt={`A set of ${themeId} themed components for the aero design system`}
+              alt={`A set of ${theme} themed components for the aero design system`}
               sizes="100vw"
             />
             <ProjectTextRow>
               <SegmentedControl
-                currentIndex={themes.indexOf(themeId)}
+                currentIndex={themes.indexOf(theme)}
                 onChange={handleThemeChange}
               >
                 <SegmentedControlOption>Dark theme</SegmentedControlOption>
@@ -191,7 +188,7 @@ export const SmartSparrow = () => {
           <ProjectSectionContent>
             <Image
               raised
-              key={themeId}
+              key={theme}
               srcSet={
                 isDark
                   ? `${imageSprDesignSystemDark} 1280w, ${imageSprDesignSystemDarkLarge} 2560w`
@@ -218,7 +215,7 @@ export const SmartSparrow = () => {
             </ProjectTextRow>
           </ProjectSectionContent>
         </ProjectSection>
-        <ThemeProvider themeId="dark" data-invert>
+        <ThemeProvider theme="dark" data-invert>
           <ProjectSection
             backgroundOverlayOpacity={0.5}
             backgroundElement={
@@ -271,7 +268,7 @@ export const SmartSparrow = () => {
             </ProjectTextRow>
             <Image
               raised
-              key={themeId}
+              key={theme}
               srcSet={
                 isDark
                   ? `${imageSprStoryboarderDark} 1280w, ${imageSprStoryboarderDarkLarge} 2560w`
@@ -343,7 +340,7 @@ export const SmartSparrow = () => {
             </div>
           </ProjectSectionColumns>
         </ProjectSection>
-        <ThemeProvider themeId="dark" data-invert>
+        <ThemeProvider theme="dark" data-invert>
           <Suspense>
             <Earth
               className={styles.earth}
