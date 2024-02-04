@@ -1,0 +1,35 @@
+@layer components {
+  .progress {
+    --duration: 300ms;
+    --progress: 0;
+    --delay: 0ms;
+    --opacity: 1;
+
+    height: 3px;
+    background: var(--accent);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: var(--zIndex4);
+    opacity: var(--opacity);
+    transform: scaleX(var(--progress));
+    transform-origin: left;
+    transition: transform var(--duration) var(--bezierFastoutSlowin) var(--delay),
+      opacity var(--duration) var(--bezierFastoutSlowin);
+
+    &[data-status='idle'][data-complete='true'] {
+      --progress: 0;
+      --delay: 300ms;
+      --opacity: 0;
+    }
+
+    &[data-status='loading'] {
+      --progress: 0.6;
+    }
+
+    &[data-status='idle'][data-complete='false'] {
+      --progress: 1;
+    }
+  }
+}

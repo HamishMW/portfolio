@@ -93,7 +93,7 @@ export const Contact = () => {
   const initDelay = tokens.base.durationS;
   const actionData = useActionData();
   const { state } = useNavigation();
-  const sending = state !== 'idle';
+  const sending = state === 'submitting';
 
   return (
     <Section className={styles.contact}>

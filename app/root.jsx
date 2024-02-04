@@ -15,7 +15,8 @@ import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import { useEffect } from 'react';
 import { Error } from '~/layouts/error';
 import { VisuallyHidden } from '~/components/VisuallyHidden';
-import { Navbar } from './components/Navbar';
+import { Navbar } from '~/components/Navbar';
+import { Progress } from '~/components/progress';
 import styles from './root.module.css';
 import './reset.module.css';
 import './global.module.css';
@@ -111,6 +112,7 @@ export default function App() {
       </head>
       <body data-theme={theme}>
         <ThemeProvider theme={theme} toggleTheme={toggleTheme}>
+          <Progress />
           <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
             Skip to main content
           </VisuallyHidden>
