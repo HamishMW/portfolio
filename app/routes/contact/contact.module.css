@@ -292,7 +292,7 @@
   display: flex;
   padding: var(--spaceM);
   line-height: 24px;
-  background-color: color-mix(in srgb, var(--error) 10%, transparent);
+  background-color: color-mix(in lab, var(--error) 10%, transparent);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
 }
 

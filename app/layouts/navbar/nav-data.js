@@ -1,3 +1,5 @@
+import { config } from '~/config';
+
 export const navLinks = [
   {
     label: 'Projects',
@@ -20,17 +22,17 @@ export const navLinks = [
 export const socialLinks = [
   {
     label: 'Twitter',
-    url: 'https://twitter.com/hamishMW',
+    url: `https://twitter.com/${config.twitter}`,
     icon: 'twitter',
   },
   {
     label: 'Figma',
-    url: 'https://www.figma.com/@Hamish',
+    url: `https://www.figma.com/${config.figma}`,
     icon: 'figma',
   },
   {
     label: 'Github',
-    url: 'https://github.com/HamishMW',
+    url: `https://github.com/${config.github}`,
     icon: 'github',
   },
 ];

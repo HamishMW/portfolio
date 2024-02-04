@@ -79,7 +79,7 @@
     }
 
     &:hover::before {
-      background: color-mix(in srgb, var(--white) 10%, transparent);
+      background: color-mix(in lab, var(--white) 10%, transparent);
     }
 
     & svg {
@@ -114,7 +114,7 @@
 
   .navButton {
     --navButtonSize: 10px;
-    --buttonColor: color-mix(in srgb, var(--text) 20%, transparent);
+    --buttonColor: color-mix(in lab, var(--text) 20%, transparent);
 
     background: none;
     border: 0;

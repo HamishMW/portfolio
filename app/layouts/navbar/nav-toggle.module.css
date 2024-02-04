@@ -1,5 +1,5 @@
-@layer components {
-  button.toggle {
+@layer layout {
+  .toggle {
     --offset: var(--spaceXS);
     --inset: calc(var(--spaceOuter) - var(--offset));
 

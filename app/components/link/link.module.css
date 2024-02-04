@@ -5,8 +5,8 @@
     --lineOpacity: 30%;
     --filledLineGradient: linear-gradient(var(--linkColor), var(--linkColor));
     --unfilledLineGradient: linear-gradient(
-      color-mix(in srgb, var(--linkColor) var(--lineOpacity), transparent),
-      color-mix(in srgb, var(--linkColor) var(--lineOpacity), transparent)
+      color-mix(in lab, var(--linkColor) var(--lineOpacity), transparent),
+      color-mix(in lab, var(--linkColor) var(--lineOpacity), transparent)
     );
 
     cursor: pointer;

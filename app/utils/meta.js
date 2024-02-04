@@ -1,6 +1,6 @@
-const name = 'Hamish Williams';
-const twitter = '@hamishMW';
-const url = 'https://hamishw.com';
+import { config } from '~/config';
+
+const { name, url, twitter } = config;
 const defaultOgImage = `${url}/social-image.png`;
 
 export function baseMeta({

@@ -76,8 +76,8 @@
   }
 
   .credit {
-    color: color-mix(in srgb, var(--white) 40%, transparent);
-    background: color-mix(in srgb, var(--black) 60%, transparent);
+    color: color-mix(in lab, var(--white) 40%, transparent);
+    background: color-mix(in lab, var(--black) 60%, transparent);
     padding: var(--spaceXS) var(--spaceS);
     font-size: var(--fontSizeBodyS);
     position: absolute;
@@ -156,7 +156,7 @@
     padding-bottom: var(--spaceL);
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: color-mix(in srgb, var(--text) 40%, transparent);
+    color: color-mix(in lab, var(--text) 40%, transparent);
     transition-property: opacity;
     transition-timing-function: var(--bezierFastoutSlowin);
     transition-duration: var(--durationXL);

@@ -9,15 +9,17 @@ import { Link as RouterLink } from '@remix-run/react';
 import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { cssProps } from '~/utils/style';
-import styles from './intro.module.css';
+import { config } from '~/config';
 import { useHydrated } from '~/hooks/useHydrated';
+import styles from './intro.module.css';
 
 const DisplacementSphere = lazy(() =>
   import('./displacement-sphere').then(module => ({ default: module.DisplacementSphere }))
 );
 
-export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...rest }) {
+export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
   const { theme } = useTheme();
+  const { disciplines } = config;
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const prevTheme = usePrevious(theme);
   const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(
@@ -68,11 +70,11 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
             )}
             <header className={styles.text}>
               <h1 className={styles.name} data-visible={visible} id={titleId}>
-                <DecoderText text="Hamish Williams" delay={500} />
+                <DecoderText text={config.name} delay={500} />
               </h1>
               <Heading level={0} as="h2" className={styles.title}>
                 <VisuallyHidden className={styles.label}>
-                  {`Designer + ${introLabel}`}
+                  {`${config.role} + ${introLabel}`}
                 </VisuallyHidden>
                 <span aria-hidden className={styles.row}>
                   <span
@@ -80,7 +82,7 @@ export function Intro({ id, sectionRef, disciplines, scrollIndicatorHidden, ...r
                     data-status={status}
                     style={cssProps({ delay: tokens.base.durationXS })}
                   >
-                    Designer
+                    {config.role}
                   </span>
                   <span className={styles.line} data-status={status} />
                 </span>

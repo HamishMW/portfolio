@@ -7,7 +7,7 @@ import {
   Mesh,
   OrthographicCamera,
   PlaneGeometry,
-  SRGBColorSpace,
+  LinearSRGBColorSpace,
   Scene,
   ShaderMaterial,
   WebGLRenderer,
@@ -101,7 +101,7 @@ export const Carousel = ({ width, height, images, placeholder, ...rest }) => {
         const imageSrc = image.srcSet ? await resolveSrcFromSrcSet(image) : image.src;
         const imageTexture = await textureLoader.loadAsync(imageSrc);
         await renderer.current.initTexture(imageTexture);
-        imageTexture.colorSpace = SRGBColorSpace;
+        imageTexture.colorSpace = LinearSRGBColorSpace;
         imageTexture.minFilter = LinearFilter;
         imageTexture.magFilter = LinearFilter;
         imageTexture.anisotropy = anisotropy;

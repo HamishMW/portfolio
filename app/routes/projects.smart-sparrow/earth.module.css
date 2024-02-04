@@ -84,8 +84,8 @@
   background-image: radial-gradient(
     transparent,
     transparent,
-    color-mix(in srgb, var(--background) 20%, transparent),
-    color-mix(in srgb, var(--background) 70%, transparent)
+    color-mix(in lab, var(--background) 20%, transparent),
+    color-mix(in lab, var(--background) 70%, transparent)
   );
   position: relative;
   pointer-events: none;
@@ -110,7 +110,7 @@
   &[data-scrim='true'] {
     background: linear-gradient(
       var(--background),
-      color-mix(in srgb, var(--background) 70%, transparent),
+      color-mix(in lab, var(--background) 70%, transparent),
       transparent
     );
   }
@@ -118,7 +118,7 @@
   &[data-scrim-reverse='true'] {
     background: linear-gradient(
       transparent,
-      color-mix(in srgb, var(--background) 70%, transparent),
+      color-mix(in lab, var(--background) 70%, transparent),
       var(--background)
     );
   }

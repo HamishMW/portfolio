@@ -16,9 +16,8 @@ import { Intro } from './intro';
 import { Profile } from './profile';
 import { ProjectSummary } from './project-summary';
 import { useEffect, useRef, useState } from 'react';
+import { config } from '~/config';
 import styles from './home.module.css';
-
-const disciplines = ['Developer', 'Prototyper', 'Animator', 'Illustrator', 'Modder'];
 
 // Prefetch draco decoader wasm
 export const links = () => {
@@ -43,8 +42,7 @@ export const links = () => {
 export const meta = () => {
   return baseMeta({
     title: 'Designer + Developer',
-    description:
-      'Design portfolio of Hamish Williams — a product designer working on web & mobile apps with a focus on motion, experience design, and accessibility.',
+    description: `Design portfolio of ${config.name} — a product designer working on web & mobile apps with a focus on motion, experience design, and accessibility.`,
   });
 };
 
@@ -98,7 +96,6 @@ export const Home = () => {
       <Intro
         id="intro"
         sectionRef={intro}
-        disciplines={disciplines}
         scrollIndicatorHidden={scrollIndicatorHidden}
       />
       <ProjectSummary

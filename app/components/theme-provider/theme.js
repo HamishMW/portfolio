@@ -2,8 +2,8 @@ import { pxToRem } from '~/utils/style';
 
 // Full list of tokens
 const baseTokens = {
-  black: 'rgb(0 0 0)',
-  white: 'rgb(255 255 255)',
+  black: 'oklch(0% 0 0)',
+  white: 'oklch(100% 0 0)',
   bezierFastoutSlowin: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
   durationXS: '200ms',
   durationS: '300ms',
@@ -108,27 +108,27 @@ const tokensMobileSmall = {
 
 // Tokens that change based on theme
 const dark = {
-  background: 'rgb(17 17 17)',
-  backgroundLight: 'rgb(26 26 26)',
-  primary: 'rgb(0 229 255)',
-  accent: 'rgb(0 229 255)',
-  error: 'rgb(255 55 102)',
-  text: 'rgb(255 255 255)',
+  background: 'oklch(17.76% 0 0)',
+  backgroundLight: 'oklch(21.78% 0 0)',
+  primary: 'oklch(84.42% 0.19 202.24)',
+  accent: 'oklch(84.42% 0.19 202.24)',
+  error: 'oklch(65.91% 0.249 13.76)',
+  text: 'var(--white)',
   textTitle: 'var(--text)',
-  textBody: 'color-mix(in srgb, var(--text) 80%, transparent)',
-  textLight: 'color-mix(in srgb, var(--text) 60%, transparent)',
+  textBody: 'color-mix(in lab, var(--text) 80%, transparent)',
+  textLight: 'color-mix(in lab, var(--text) 60%, transparent)',
 };
 
 const light = {
-  background: 'rgb(242 242 242)',
-  backgroundLight: 'rgb(255 255 255)',
-  primary: 'rgb(0 0 0)',
-  accent: 'rgb(0 229 255)',
-  error: 'rgb(255 0 60)',
-  text: 'rgb(0 0 0)',
-  textTitle: 'color-mix(in srgb, var(--text) 90%, transparent)',
-  textBody: 'color-mix(in srgb, var(--text) 75%, transparent)',
-  textLight: 'color-mix(in srgb, var(--text) 55%, transparent)',
+  background: 'oklch(96.12% 0 0)',
+  backgroundLight: 'var(--white)',
+  primary: 'var(--black)',
+  accent: 'oklch(84.42% 0.19 202.24)',
+  error: 'oklch(63.17% 0.259 25.41)',
+  text: 'var(--black)',
+  textTitle: 'color-mix(in lab, var(--text) 90%, transparent)',
+  textBody: 'color-mix(in lab, var(--text) 75%, transparent)',
+  textLight: 'color-mix(in lab, var(--text) 55%, transparent)',
 };
 
 export const tokens = {

@@ -134,8 +134,8 @@
     }
 
     &::after {
-      --background1: color-mix(in srgb, var(--background) 70%, transparent);
-      --background2: color-mix(in srgb, var(--background) 90%, transparent);
+      --background1: color-mix(in lab, var(--background) 70%, transparent);
+      --background2: color-mix(in lab, var(--background) 90%, transparent);
       --background3: var(--background);
 
       content: '';
@@ -187,7 +187,7 @@
     }
 
     & svg {
-      stroke: color-mix(in srgb, var(--text) 50%, transparent);
+      stroke: color-mix(in lab, var(--text) 50%, transparent);
     }
 
     @media (--mediaTablet) {
@@ -217,7 +217,7 @@
     &::before {
       content: '';
       height: 2px;
-      background: color-mix(in srgb, var(--text) 40%, transparent);
+      background: color-mix(in lab, var(--text) 40%, transparent);
     }
   }
 

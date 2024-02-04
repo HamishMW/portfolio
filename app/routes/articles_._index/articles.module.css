@@ -79,7 +79,7 @@
 
 .divider {
   border: 0;
-  border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  border-top: 1px solid color-mix(in lab, var(--text) 10%, transparent);
 }
 
 .skeleton {
@@ -92,13 +92,13 @@
 }
 
 .skeletonBone {
-  background-color: color-mix(in srgb, var(--text) 20%, transparent);
+  background-color: color-mix(in lab, var(--text) 20%, transparent);
 }
 
 .post {
   --featuredPostPadding: var(--space5XL);
   --featuredPostClip: polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%);
-  --postBorder: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  --postBorder: 1px solid color-mix(in lab, var(--text) 10%, transparent);
 
   position: relative;
   isolation: isolate;
@@ -307,9 +307,9 @@
     inset: 0;
     background-image: linear-gradient(
       -135deg,
-      color-mix(in srgb, var(--backgroundLight) 50%, transparent) 0%,
-      color-mix(in srgb, var(--backgroundLight) 86%, transparent) 60%,
-      color-mix(in srgb, var(--backgroundLight) 90%, transparent) 100%
+      color-mix(in lab, var(--backgroundLight) 50%, transparent) 0%,
+      color-mix(in lab, var(--backgroundLight) 86%, transparent) 60%,
+      color-mix(in lab, var(--backgroundLight) 90%, transparent) 100%
     );
   }
 
@@ -366,7 +366,7 @@
     content: '';
     width: 42px;
     height: 2px;
-    background-color: color-mix(in srgb, var(--text) 20%, transparent);
+    background-color: color-mix(in lab, var(--text) 20%, transparent);
   }
 }
 

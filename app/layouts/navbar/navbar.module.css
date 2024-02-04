@@ -1,4 +1,4 @@
-@layer components {
+@layer layout {
   .navbar {
     --headerNavFontSize: calc((16 / 16) * 1rem);
 
@@ -58,7 +58,7 @@
 
   .navLink {
     padding: var(--spaceM);
-    color: color-mix(in srgb, var(--text) 80%, transparent);
+    color: color-mix(in lab, var(--text) 80%, transparent);
     font-weight: var(--fontWeightMedium);
     font-size: var(--headerNavFontSize);
     text-decoration: none;
@@ -70,7 +70,6 @@
 
     &:hover,
     &:active,
-    &:focus,
     &[aria-current='page'] {
       color: var(--textBody);
     }
@@ -94,7 +93,6 @@
 
     &:hover::after,
     &:active::after,
-    &:focus::after,
     &[aria-current='page']::after {
       transform: scaleY(1) translateZ(0);
       transform-origin: top;
@@ -136,7 +134,6 @@
     transition: color var(--durationM) var(--bezierFastoutSlowin);
 
     &:hover,
-    &:focus,
     &:active {
       color: var(--accent);
     }
@@ -152,7 +149,7 @@
 
     position: fixed;
     inset: 0;
-    background: color-mix(in srgb, var(--background) 70%, transparent);
+    background: color-mix(in lab, var(--background) 70%, transparent);
     transform: translate3d(0, -100%, 0);
     transition-property: background;
     transition-duration: var(--durationL);

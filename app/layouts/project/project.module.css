@@ -81,8 +81,8 @@
 
     &::after {
       --background1: var(--background);
-      --background2: color-mix(in srgb, var(--background) var(--opacity), transparent);
-      --background3: color-mix(in srgb, var(--background) 0%, transparent);
+      --background2: color-mix(in lab, var(--background) var(--opacity), transparent);
+      --background3: color-mix(in lab, var(--background) 0%, transparent);
 
       content: '';
       position: absolute;
@@ -139,7 +139,7 @@
   }
 
   .backgroundScrim {
-    --background1: color-mix(in srgb, var(--background) var(--opacity), transparent);
+    --background1: color-mix(in lab, var(--background) var(--opacity), transparent);
     --background2: var(--background);
 
     position: absolute;
@@ -267,7 +267,7 @@
     padding: var(--spaceL) 0;
     font-size: var(--fontSizeBodyS);
     font-weight: var(--fontWeightRegular);
-    border-top: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+    border-top: 1px solid color-mix(in lab, var(--text) 20%, transparent);
 
     @media (--mediaUseMotion) {
       opacity: 0;
@@ -279,7 +279,7 @@
     }
 
     &:last-child {
-      border-bottom: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+      border-bottom: 1px solid color-mix(in lab, var(--text) 20%, transparent);
     }
   }
 

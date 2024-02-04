@@ -2,7 +2,7 @@
   .container {
     --inputFontSize: calc((16 / 16) * 1rem);
     --inputFocusColor: var(--primary);
-    --inputUnderlineColor: color-mix(in srgb, var(--text) 20%, transparent);
+    --inputUnderlineColor: color-mix(in lab, var(--text) 20%, transparent);
 
     position: relative;
     display: flex;
@@ -32,13 +32,13 @@
 
     &:-internal-autofill-selected {
       -webkit-text-fill-color: var(--textBody);
-      box-shadow: 0 0 0 1000px color-mix(in srgb, var(--text) 10%, transparent) inset;
+      box-shadow: 0 0 0 1000px color-mix(in lab, var(--text) 10%, transparent) inset;
     }
 
     /* Needs to be a single selector to work in safari */
     &:-webkit-autofill {
       -webkit-text-fill-color: var(--textBody);
-      box-shadow: 0 0 0 1000px color-mix(in srgb, var(--text) 10%, transparent) inset;
+      box-shadow: 0 0 0 1000px color-mix(in lab, var(--text) 10%, transparent) inset;
     }
 
     &::-webkit-contacts-auto-fill-button:hover {
@@ -71,7 +71,7 @@
   }
 
   .label {
-    color: color-mix(in srgb, var(--text) 80%, transparent);
+    color: color-mix(in lab, var(--text) 80%, transparent);
     position: absolute;
     top: var(--spaceL);
     left: 0;
@@ -87,7 +87,7 @@
 
     &[data-filled='true'],
     &[data-focused='true'] {
-      color: color-mix(in srgb, var(--text) 54%, transparent);
+      color: color-mix(in lab, var(--text) 54%, transparent);
       transform: scale(0.8) translateY(calc(var(--spaceL) * -1));
     }
   }

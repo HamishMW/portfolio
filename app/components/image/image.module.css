@@ -7,8 +7,8 @@
     isolation: isolate;
 
     &[data-raised='true'] {
-      box-shadow: 0 50px 100px -20px color-mix(in srgb, var(--black) 25%, transparent),
-        0 30px 60px -30px color-mix(in srgb, var(--black) 30%, transparent);
+      box-shadow: 0 50px 100px -20px color-mix(in lab, var(--black) 25%, transparent),
+        0 30px 60px -30px color-mix(in lab, var(--black) 30%, transparent);
     }
 
     &[data-reveal='true'] {
@@ -111,7 +111,7 @@
     padding: 0 8px 0 2px;
 
     &::after {
-      background-color: color-mix(in srgb, var(--black) 80%, transparent);
+      background-color: color-mix(in lab, var(--black) 80%, transparent);
     }
 
     .elementWrapper:hover &,
