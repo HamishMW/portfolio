@@ -2,12 +2,30 @@
   Cache-Control: public, max-age=3600, s-maxage=3600
 /favicon.svg
   Cache-Control: public, max-age=3600, s-maxage=3600
-/build/*
+/icon-256.png
+  Cache-Control: public, max-age=3600, s-maxage=3600
+/icon-512.png
+  Cache-Control: public, max-age=3600, s-maxage=3600
+/shortcut.png
+  Cache-Control: public, max-age=3600, s-maxage=3600
+/*.css
   Cache-Control: public, max-age=31536000, immutable
-/static/*
+/*.woff2
   Cache-Control: public, max-age=31536000, immutable
-/draco/*
+/*.glb
   Cache-Control: public, max-age=31536000, immutable
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+/*.wasm
+  Cache-Control: public, max-age=31536000, immutable
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
 /*
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-XSS-Protection: 1; mode=block
