@@ -1,0 +1,1 @@
+export { Model } from './model';

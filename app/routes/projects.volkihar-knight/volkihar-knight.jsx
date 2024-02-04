@@ -20,9 +20,9 @@ import volkiharSlide2 from '~/assets/volkihar-slide-2.jpg';
 import volkiharSlide3Large from '~/assets/volkihar-slide-3-large.jpg';
 import volkiharSlide3 from '~/assets/volkihar-slide-3.jpg';
 import volkiharSlidePlaceholder from '~/assets/volkihar-slide-placeholder.jpg';
-import { Button } from '~/components/Button';
-import { Footer } from '~/components/Footer';
-import { Image } from '~/components/Image';
+import { Button } from '~/components/button';
+import { Footer } from '~/components/footer';
+import { Image } from '~/components/image';
 import {
   ProjectBackground,
   ProjectContainer,

@@ -9,13 +9,13 @@ import {
   useRouteError,
 } from '@remix-run/react';
 import { createCookieSessionStorage, json } from '@remix-run/cloudflare';
-import { ThemeProvider, themeStyles, themes } from '~/components/ThemeProvider';
+import { ThemeProvider, themeStyles, themes } from '~/components/theme-provider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import { useEffect } from 'react';
 import { Error } from '~/layouts/error';
-import { VisuallyHidden } from '~/components/VisuallyHidden';
-import { Navbar } from '~/components/Navbar';
+import { VisuallyHidden } from '~/components/visually-hidden';
+import { Navbar } from '~/components/navbar';
 import { Progress } from '~/components/progress';
 import styles from './root.module.css';
 import './reset.module.css';

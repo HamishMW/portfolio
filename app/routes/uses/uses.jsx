@@ -1,9 +1,9 @@
 import usesBackgroundPlaceholder from '~/assets/uses-background-placeholder.jpg';
 import usesBackground from '~/assets/uses-background.mp4';
-import { Footer } from '~/components/Footer';
-import { Link } from '~/components/Link';
-import { List, ListItem } from '~/components/List';
-import { Table, TableBody, TableCell, TableHeadCell, TableRow } from '~/components/Table';
+import { Footer } from '~/components/footer';
+import { Link } from '~/components/link';
+import { List, ListItem } from '~/components/list';
+import { Table, TableBody, TableCell, TableHeadCell, TableRow } from '~/components/table';
 import {
   ProjectBackground,
   ProjectContainer,

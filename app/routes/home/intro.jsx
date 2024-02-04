@@ -1,10 +1,10 @@
-import { DecoderText } from '~/components/DecoderText';
-import { Heading } from '~/components/Heading';
-import { Section } from '~/components/Section';
-import { useTheme } from '~/components/ThemeProvider';
-import { tokens } from '~/components/ThemeProvider/theme';
-import { Transition } from '~/components/Transition';
-import { VisuallyHidden } from '~/components/VisuallyHidden';
+import { DecoderText } from '~/components/decoder-text';
+import { Heading } from '~/components/heading';
+import { Section } from '~/components/section';
+import { useTheme } from '~/components/theme-provider';
+import { tokens } from '~/components/theme-provider/theme';
+import { Transition } from '~/components/transition';
+import { VisuallyHidden } from '~/components/visually-hidden';
 import { Link as RouterLink } from '@remix-run/react';
 import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
 import { Suspense, lazy, useEffect, useState } from 'react';

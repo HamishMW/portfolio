@@ -3,14 +3,14 @@ import { useRef, useEffect, useState } from 'react';
 import styles from './progress.module.css';
 
 export function Progress() {
-  let [animationComplete, setAnimationComplete] = useState(false);
-  let { state } = useNavigation();
-  let progressRef = useRef();
+  const [animationComplete, setAnimationComplete] = useState(false);
+  const { state } = useNavigation();
+  const progressRef = useRef();
 
   useEffect(() => {
     if (!progressRef.current) return;
 
-    let controller = new AbortController();
+    const controller = new AbortController();
 
     if (state !== 'idle') {
       return setAnimationComplete(false);

@@ -2,13 +2,13 @@ import notFoundPoster from '~/assets/notfound.jpg';
 import notFoundVideo from '~/assets/notfound.mp4';
 import flatlinePoster from '~/assets/flatline.png';
 import flatlineVideo from '~/assets/flatline.mp4';
-import { Button } from '~/components/Button';
-import { DecoderText } from '~/components/DecoderText';
-import { Heading } from '~/components/Heading';
-import { Text } from '~/components/Text';
-import { Transition } from '~/components/Transition';
+import { Button } from '~/components/button';
+import { DecoderText } from '~/components/decoder-text';
+import { Heading } from '~/components/heading';
+import { Text } from '~/components/text';
+import { Transition } from '~/components/transition';
 import styles from './error.module.css';
-import { Image } from '~/components/Image';
+import { Image } from '~/components/image';
 import flatlineSkull from './error-flatline.svg';
 
 export function Error({ error }) {

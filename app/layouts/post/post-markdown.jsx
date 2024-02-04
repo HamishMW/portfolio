@@ -1,9 +1,9 @@
-import { Code } from '~/components/Code';
-import { Heading } from '~/components/Heading';
-import { Icon } from '~/components/Icon';
-import { Link } from '~/components/Link';
-import { List, ListItem } from '~/components/List';
-import { Text } from '~/components/Text';
+import { Code } from '~/components/code';
+import { Heading } from '~/components/heading';
+import { Icon } from '~/components/icon';
+import { Link } from '~/components/link';
+import { List, ListItem } from '~/components/list';
+import { Text } from '~/components/text';
 import { Children } from 'react';
 import styles from './post-markdown.module.css';
 import { Link as RouterLink } from '@remix-run/react';

@@ -43,11 +43,11 @@ import imageSprStoryboarderDark from '~/assets/spr-storyboarder-dark.png';
 import imageSprStoryboarderLightLarge from '~/assets/spr-storyboarder-light-large.png';
 import imageSprStoryboarderLightPlaceholder from '~/assets/spr-storyboarder-light-placeholder.png';
 import imageSprStoryboarderLight from '~/assets/spr-storyboarder-light.png';
-import { Footer } from '~/components/Footer';
-import { Image } from '~/components/Image';
-import { Link } from '~/components/Link';
-import { SegmentedControl, SegmentedControlOption } from '~/components/SegmentedControl';
-import { ThemeProvider, useTheme } from '~/components/ThemeProvider';
+import { Footer } from '~/components/footer';
+import { Image } from '~/components/image';
+import { Link } from '~/components/link';
+import { SegmentedControl, SegmentedControlOption } from '~/components/segmented-control';
+import { ThemeProvider, useTheme } from '~/components/theme-provider';
 import {
   ProjectBackground,
   ProjectContainer,

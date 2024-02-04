@@ -6,10 +6,10 @@ import mwpx from '~/assets/milkyway-px.hdr';
 import mwpy from '~/assets/milkyway-py.hdr';
 import mwpz from '~/assets/milkyway-pz.hdr';
 import milkywayBg from '~/assets/milkyway.jpg';
-import { Loader } from '~/components/Loader';
-import { Section } from '~/components/Section';
-import { tokens } from '~/components/ThemeProvider/theme';
-import { Transition } from '~/components/Transition';
+import { Loader } from '~/components/loader';
+import { Section } from '~/components/section';
+import { tokens } from '~/components/theme-provider/theme';
+import { Transition } from '~/components/transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport, useWindowSize } from '~/hooks';
 import {

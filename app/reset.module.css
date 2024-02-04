@@ -27,6 +27,10 @@
     appearance: none;
   }
 
+  :global(:where(button, a)) {
+    touch-action: manipulation;
+  }
+
   :global(:where(svg, img, picture, video, iframe, canvas)) {
     display: block;
   }
