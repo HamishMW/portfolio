@@ -17,7 +17,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-color: var(--background);
+      background-color: var(--surface);
       clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
     }
 
@@ -30,7 +30,7 @@
 
     /* Based on the Poimandres theme */
     &[data-theme='dark'] {
-      --background: rgb(26 26 28);
+      --surface: rgb(26 26 28);
       --className: #5de4c7;
       --comment: #a6accd;
       --punctuation: #e4f0fb;
@@ -46,7 +46,7 @@
     }
 
     &[data-theme='light'] {
-      --background: rgb(255 255 255);
+      --surface: rgb(255 255 255);
       --comment: rgba(0 0 0 / 0.6);
       --keyword: #00378c;
       --string: rgb(4 98 108);
@@ -201,7 +201,7 @@
     top: 0;
     left: var(--padding);
     transform: translateY(-50%);
-    background-color: var(--background);
+    background: var(--background);
     padding: var(--spaceXS) var(--spaceM);
     user-select: none;
   }

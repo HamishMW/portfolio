@@ -6,6 +6,7 @@ import {
   ScrollRestoration,
   useFetcher,
   useLoaderData,
+  useNavigation,
   useRouteError,
 } from '@remix-run/react';
 import { createCookieSessionStorage, json } from '@remix-run/cloudflare';
@@ -61,7 +62,6 @@ export const loader = async ({ request, context }) => {
   });
 
   const session = await getSession(request.headers.get('Cookie'));
-
   const theme = session.get('theme') || 'dark';
 
   return json(
@@ -82,7 +82,8 @@ __  __  __
 
 export default function App() {
   let { canonicalUrl, theme } = useLoaderData();
-  let fetcher = useFetcher();
+  const fetcher = useFetcher();
+  const { state } = useNavigation();
 
   if (fetcher.formData?.has('theme')) {
     theme = fetcher.formData.get('theme');
@@ -117,7 +118,12 @@ export default function App() {
             Skip to main content
           </VisuallyHidden>
           <Navbar />
-          <main id="main-content" className={styles.container} tabIndex={-1}>
+          <main
+            id="main-content"
+            className={styles.container}
+            tabIndex={-1}
+            data-loading={state === 'loading'}
+          >
             <Outlet />
           </main>
         </ThemeProvider>

@@ -1,11 +1,11 @@
 @layer components {
   .progress {
-    --duration: 300ms;
+    --duration: 500ms;
     --progress: 0;
-    --delay: 0ms;
+    --delay: 300ms;
     --opacity: 1;
 
-    height: 3px;
+    height: 2px;
     background: var(--accent);
     position: fixed;
     top: 0;
@@ -15,13 +15,19 @@
     opacity: var(--opacity);
     transform: scaleX(var(--progress));
     transform-origin: left;
-    transition: transform var(--duration) var(--bezierFastoutSlowin) var(--delay),
-      opacity var(--duration) var(--bezierFastoutSlowin);
+    transition: transform var(--duration) var(--bezierFastoutSlowin) var(--delay);
+
+    [data-theme='light'] & {
+      height: 3px;
+    }
 
     &[data-status='idle'][data-complete='true'] {
       --progress: 0;
       --delay: 300ms;
       --opacity: 0;
+
+      transition: transform var(--duration) var(--bezierFastoutSlowin) var(--delay),
+        opacity var(--duration) var(--bezierFastoutSlowin);
     }
 
     &[data-status='loading'] {
@@ -30,6 +36,11 @@
 
     &[data-status='idle'][data-complete='false'] {
       --progress: 1;
+    }
+
+    &[data-visible='false'] {
+      transform: scaleX(0);
+      opacity: 0;
     }
   }
 }

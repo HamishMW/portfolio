@@ -4,8 +4,24 @@ import styles from './progress.module.css';
 
 export function Progress() {
   const [animationComplete, setAnimationComplete] = useState(false);
+  const [visible, setVisible] = useState(false);
   const { state } = useNavigation();
   const progressRef = useRef();
+  const timeout = useRef(0);
+
+  useEffect(() => {
+    clearTimeout(timeout.current);
+
+    if (state !== 'idle') {
+      timeout.current = setTimeout(() => {
+        setVisible(true);
+      }, 500);
+    } else if (animationComplete) {
+      timeout.current = setTimeout(() => {
+        setVisible(false);
+      }, 300);
+    }
+  }, [state, animationComplete]);
 
   useEffect(() => {
     if (!progressRef.current) return;
@@ -34,6 +50,7 @@ export function Progress() {
     <div
       className={styles.progress}
       data-status={state}
+      data-visible={visible}
       data-complete={animationComplete}
       ref={progressRef}
     />
