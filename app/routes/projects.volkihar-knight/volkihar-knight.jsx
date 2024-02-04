@@ -42,7 +42,7 @@ import { VolkiharLogo } from './volkihar-logo';
 import styles from './volkihar-knight.module.css';
 
 const Carousel = lazy(() =>
-  import('~/components/Carousel').then(module => ({ default: module.Carousel }))
+  import('~/components/carousel').then(module => ({ default: module.Carousel }))
 );
 
 const Armor = lazy(() => import('./armor').then(module => ({ default: module.Armor })));
