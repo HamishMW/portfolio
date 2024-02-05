@@ -44,12 +44,12 @@ export function Error({ error }) {
           dangerouslySetInnerHTML={{
             __html: `
             [data-theme='dark'] {
-              --primary: rgb(255 94 89);
-              --accent: rgb(255 94 89);
+              --primary: oklch(69.27% 0.242 25.41);
+              --accent: oklch(69.27% 0.242 25.41);
             }
             [data-theme='light'] {
-              --primary: rgb(202 58 54);
-              --accent: rgb(202 58 54);
+              --primary: oklch(56.29% 0.182 26.5);
+              --accent: oklch(56.29% 0.182 26.5);
             }
           `,
           }}
