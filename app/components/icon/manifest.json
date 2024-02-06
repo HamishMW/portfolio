@@ -1,0 +1,62 @@
+{
+  "send": {
+    "width": 24,
+    "height": 24
+  },
+  "arrow-right": {
+    "width": 24,
+    "height": 24
+  },
+  "chevron-right": {
+    "width": 24,
+    "height": 24
+  },
+  "twitter": {
+    "width": 24,
+    "height": 24
+  },
+  "github": {
+    "width": 24,
+    "height": 24
+  },
+  "menu": {
+    "width": 24,
+    "height": 24
+  },
+  "figma": {
+    "width": 24,
+    "height": 24
+  },
+  "copy": {
+    "width": 24,
+    "height": 24
+  },
+  "error": {
+    "width": 24,
+    "height": 24
+  },
+  "arrow-left": {
+    "width": 24,
+    "height": 24
+  },
+  "check": {
+    "width": 24,
+    "height": 24
+  },
+  "link": {
+    "width": 24,
+    "height": 24
+  },
+  "close": {
+    "width": 24,
+    "height": 24
+  },
+  "pause": {
+    "width": 24,
+    "height": 24
+  },
+  "play": {
+    "width": 24,
+    "height": 24
+  }
+}

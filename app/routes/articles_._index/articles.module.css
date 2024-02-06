@@ -178,14 +178,14 @@
   transform: translateY(-100%);
 
   @media (--mediaUseMotion) {
-    animation: labelIn 0.8s ease 1.6s forwards;
+    animation: labelIn 0.8s ease 0.5s forwards;
   }
 
   @media (--mediaReduceMotion) {
     transform: translateY(-50%);
 
     &:global {
-      animation: fade-in 0.8s ease 1.6s forwards;
+      animation: fade-in 0.8s ease 0.5s forwards;
     }
   }
 }
@@ -208,14 +208,14 @@
   transform: translateX(100%) rotate(-90deg);
 
   @media (--mediaUseMotion) {
-    animation: tagIn 0.8s ease 1.6s forwards;
+    animation: tagIn 0.8s ease 0.5s forwards;
   }
 
   @media (--mediaReduceMotion) {
     transform: translateX(50%) rotate(-90deg);
 
     &:global {
-      animation: fade-in 0.8s ease 1.6s forwards;
+      animation: fade-in 0.8s ease 0.5s forwards;
     }
   }
 }
@@ -298,7 +298,7 @@
   opacity: 0;
 
   &:global {
-    animation: fade-in 1s var(--bezierFastoutSlowin) forwards 0.9s;
+    animation: fade-in 1s var(--bezierFastoutSlowin) forwards 0.2s;
   }
 
   &::after {
@@ -338,7 +338,7 @@
     opacity: 0;
 
     &:global {
-      animation: fade-in 1s var(--bezierFastoutSlowin) forwards 0.9s;
+      animation: fade-in 1s var(--bezierFastoutSlowin) forwards 0.2s;
     }
   }
 }

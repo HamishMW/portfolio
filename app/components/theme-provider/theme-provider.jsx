@@ -173,17 +173,10 @@ const fontStyles = squish(`
   }
 `);
 
-const hideFOUCStyles = squish(`
-  body {
-    opacity: 0;
-  }
-`);
-
 export const themeStyles = squish(`
   ${layerStyles}
 
   @layer theme {
-    ${hideFOUCStyles}
     ${tokenStyles}
     ${fontStyles}
   }

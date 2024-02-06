@@ -1,5 +1,5 @@
 import { List } from '~/components/list';
-import { StoryContainer } from '../../../.storybook/StoryContainer';
+import { StoryContainer } from '../../../.storybook/story-container';
 import { ListItem } from './list';
 
 export default {

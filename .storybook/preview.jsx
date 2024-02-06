@@ -1,25 +1,22 @@
-import '../src/layouts/App/reset.css';
-import '../src/layouts/App/global.css';
+import { useLayoutEffect } from 'react';
+import { ThemeProvider, themeStyles } from '../app/components/theme-provider';
+import '../app/reset.module.css';
+import '../app/global.module.css';
 import './preview.css';
-
-import { useEffect } from 'react';
-import { ThemeProvider, fontStyles, tokenStyles } from '../src/components/ThemeProvider';
 
 export const decorators = [
   (Story, context) => {
     const theme = context.globals.theme;
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       document.body.dataset.theme = theme;
     }, [theme]);
 
     return (
       <ThemeProvider theme={theme}>
-        <style>{fontStyles}</style>
-        <style>{tokenStyles}</style>
+        <style>{themeStyles}</style>
         <div id="story-root" className="storyRoot">
           <Story />
-          <div id="portal-root" />
         </div>
       </ThemeProvider>
     );

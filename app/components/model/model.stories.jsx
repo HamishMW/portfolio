@@ -7,8 +7,8 @@ import phoneTexture from '~/assets/gamestack-login.jpg';
 import laptopTexture from '~/assets/spr-lesson-builder-dark-large.jpg';
 import laptopTextureLarge from '~/assets/spr-lesson-builder-dark-large.jpg';
 import laptopTexturePlaceholder from '~/assets/spr-lesson-builder-dark-placeholder.jpg';
-import { Model } from '~/components/model/Model';
-import { StoryContainer } from '../../../.storybook/StoryContainer';
+import { Model } from '~/components/model';
+import { StoryContainer } from '../../../.storybook/story-container';
 import { deviceModels } from './device-models';
 
 export default {
@@ -28,7 +28,7 @@ export const Phone = () => (
           ...deviceModels.phone,
           position: { x: -0.6, y: 0.8, z: 0.1 },
           texture: {
-            srcSet: [phoneTexture, phoneTextureLarge],
+            srcSet: `${phoneTexture} 375w, ${phoneTextureLarge} 750w`,
             placeholder: phoneTexturePlaceholder,
           },
         },
@@ -36,7 +36,7 @@ export const Phone = () => (
           ...deviceModels.phone,
           position: { x: 0.6, y: -0.8, z: 0.4 },
           texture: {
-            srcSet: [phoneTexture2, phoneTexture2Large],
+            srcSet: `${phoneTexture2} 375w, ${phoneTexture2Large} 750w`,
             placeholder: phoneTexture2Placeholder,
           },
         },
@@ -56,7 +56,7 @@ export const Laptop = () => (
           ...deviceModels.laptop,
           position: { x: 0, y: 0, z: 0 },
           texture: {
-            srcSet: [laptopTexture, laptopTextureLarge],
+            srcSet: `${laptopTexture} 800w, ${laptopTextureLarge} 1920w`,
             placeholder: laptopTexturePlaceholder,
           },
         },

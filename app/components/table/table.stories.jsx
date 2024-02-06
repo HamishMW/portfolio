@@ -1,5 +1,5 @@
 import { Table, TableCell, TableRow } from '~/components/table';
-import { StoryContainer } from '../../../.storybook/StoryContainer';
+import { StoryContainer } from '../../../.storybook/story-container';
 import { TableBody, TableHead, TableHeadCell } from './table';
 
 export default {

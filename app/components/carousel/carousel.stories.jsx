@@ -1,5 +1,5 @@
 import { Carousel } from '~/components/carousel';
-import { StoryContainer } from '../../../.storybook/StoryContainer';
+import { StoryContainer } from '../../../.storybook/story-container';
 
 export default {
   title: 'Carousel',
@@ -15,16 +15,15 @@ export const Images = () => (
       placeholder={{ src: placeholderImg }}
       images={[
         {
-          src: { src: 'https://source.unsplash.com/ANJHXftvvJ8/1280x720', width: 1280 },
+          src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=960&h=540&q=80',
           alt: 'A neon sign with kanji',
         },
         {
-          src: { src: 'https://source.unsplash.com/qEWEz-U5p8Q/1280x720', width: 1280 },
+          src: 'https://images.unsplash.com/photo-1560052775-e4f689f06f07?auto=format&fit=crop&w=960&h=540&q=80',
           alt: 'Tokyo at night',
         },
         {
-          src: { src: 'https://source.unsplash.com/lx9RWIg1Rdg/1280x720', width: 1280 },
-          alt: 'A rad cyberpunk dude',
+          src: 'https://source.unsplash.com/lx9RWIg1Rdg/1280x720',
         },
       ]}
       width={1920}

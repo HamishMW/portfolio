@@ -34,3 +34,6 @@ https://:project.pages.dev/*
   Referrer-Policy: no-referrer-when-downgrade
   Content-Security-Policy: script-src 'self'; frame-ancestors 'none';
   Permissions-Policy: document-domain=()
+https://storybook.hamishw.com/*
+! Content-Security-Policy
+  Content-Security-Policy: script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:;

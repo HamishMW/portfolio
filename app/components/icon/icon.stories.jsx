@@ -1,5 +1,6 @@
-import { Icon, icons } from '~/components/icon';
-import { StoryContainer } from '../../../.storybook/StoryContainer';
+import { Icon } from '~/components/icon';
+import manifest from '~/components/icon/manifest.json';
+import { StoryContainer } from '../../../.storybook/story-container';
 
 export default {
   title: 'Icon',
@@ -8,7 +9,7 @@ export default {
 export const Icons = () => {
   return (
     <StoryContainer>
-      {Object.keys(icons).map(key => (
+      {Object.keys(manifest).map(key => (
         <Icon key={key} icon={key} />
       ))}
     </StoryContainer>

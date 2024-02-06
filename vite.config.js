@@ -11,6 +11,8 @@ import rehypeImgSize from 'rehype-img-size';
 import rehypeSlug from 'rehype-slug';
 import rehypePrism from '@mapbox/rehype-prism';
 
+const isStorybook = process.argv[1]?.includes('storybook');
+
 export default defineConfig({
   assetsInclude: ['**/*.glb', '**/*.hdr', '**/*.glsl'],
   build: {
@@ -25,14 +27,15 @@ export default defineConfig({
       remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
       providerImportSource: '@mdx-js/react',
     }),
-    remix({
-      presets: [cloudflare()],
-      routes(defineRoutes) {
-        return defineRoutes(route => {
-          route('/', 'routes/home/route.js', { index: true });
-        });
-      },
-    }),
+    !isStorybook &&
+      remix({
+        presets: [cloudflare()],
+        routes(defineRoutes) {
+          return defineRoutes(route => {
+            route('/', 'routes/home/route.js', { index: true });
+          });
+        },
+      }),
     jsconfigPaths(),
   ],
   ssr: {

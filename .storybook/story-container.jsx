@@ -1,4 +1,4 @@
-import './StoryContainer.css';
+import './story-container.css';
 
 export const StoryContainer = ({
   padding = 32,
