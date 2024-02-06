@@ -1,5 +1,5 @@
 import { Image } from '~/components/image';
-import { StoryContainer } from '../../../.storybook/StoryContainer';
+import { StoryContainer } from '../../../.storybook/story-container';
 
 export default {
   title: 'Image',
@@ -7,16 +7,11 @@ export default {
 
 const imageData = {
   alt: 'An abstract purple and pink neon thing',
-  src: {
-    src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=960&h=540&q=80',
-    width: 960,
-    height: 540,
-  },
-  placeholder: {
-    src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=64&h=36&q=0',
-    width: 64,
-    height: 36,
-  },
+  src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=960&h=540&q=80',
+  width: 960,
+  height: 540,
+  placeholder:
+    'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=64&h=36&q=0',
 };
 
 const Story = args => (
