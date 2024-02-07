@@ -17,12 +17,12 @@
     "deploy:storybook": "wrangler pages deploy ./storybook-static --project-name portfolio-storybook --branch main"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.507.0",
     "@mdx-js/react": "^3.0.0",
     "@remix-run/cloudflare": "^2.6.0",
     "@remix-run/cloudflare-pages": "^2.6.0",
     "@remix-run/css-bundle": "^2.6.0",
     "@remix-run/react": "^2.6.0",
-    "aws4fetch": "^1.0.17",
     "framer-motion": "11.0.3",
     "isbot": "^4.1.0",
     "react": "^18.2.0",

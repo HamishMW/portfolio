@@ -107,6 +107,7 @@
 .word {
   position: relative;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   line-height: 1;
   animation-duration: 1.5s;

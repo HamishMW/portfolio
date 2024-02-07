@@ -146,7 +146,7 @@ export const Slice = () => {
                 <Image
                   srcSet={`${sliceBackgroundBar} 440w, ${sliceBackgroundBarLarge} 880w`}
                   width={440}
-                  height={900}
+                  height={790}
                   placeholder={sliceBackgroundBarPlaceholder}
                   alt=""
                   role="presentation"

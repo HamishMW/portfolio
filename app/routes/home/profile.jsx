@@ -74,7 +74,7 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   collapseDelay={1000}
                 />
                 <div className={styles.tagText} data-visible={visible}>
-                  About Me
+                  About me
                 </div>
               </div>
               <div className={styles.image}>
@@ -83,10 +83,10 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   delay={100}
                   placeholder={profileImgPlaceholder}
                   srcSet={`${profileImg} 480w, ${profileImgLarge} 960w`}
-                  width={480}
-                  height={560}
+                  width={960}
+                  height={1280}
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
-                  alt="Me standing in front of the Torii on Miyajima, an island off the coast of Hiroshima in Japan"
+                  alt="Me smiling like a goofball at the Qwilr office in Sydney"
                 />
                 <svg className={styles.svg} data-visible={visible} viewBox="0 0 136 766">
                   <use href={`${katakana}#katakana-profile`} />
