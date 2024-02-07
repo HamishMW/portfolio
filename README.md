@@ -21,7 +21,7 @@ npm run dev
 To view the components storybook:
 
 ```bash
-npm run storybook
+npm run dev:storybook
 ```
 
 ## Deployment

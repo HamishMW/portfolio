@@ -11,10 +11,10 @@
     "dev": "node ./scripts/dev.cjs && remix vite:dev",
     "start": "wrangler pages dev ./build/client",
     "postinstall": "node ./scripts/draco.cjs",
-    "deploy": "npm run build && wrangler pages deploy ./build/client",
-    "storybook": "storybook dev -p 6006",
+    "deploy": "npm run build && wrangler pages deploy ./build/client --project-name portfolio",
+    "dev:storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
-    "deploy:storybook": "wrangler pages deploy ./storybook-static --name "
+    "deploy:storybook": "wrangler pages deploy ./storybook-static --project-name portfolio-storybook --branch main"
   },
   "dependencies": {
     "@mdx-js/react": "^3.0.0",
@@ -37,10 +37,10 @@
     "@mapbox/rehype-prism": "^0.9.0",
     "@mdx-js/rollup": "^3.0.0",
     "@remix-run/dev": "^2.6.0",
+    "@storybook/addon-a11y": "^7.6.13",
     "@storybook/addon-essentials": "^7.6.12",
     "@storybook/addon-interactions": "^7.6.12",
     "@storybook/addon-links": "^7.6.12",
-    "@storybook/addon-onboarding": "^1.0.11",
     "@storybook/blocks": "^7.6.12",
     "@storybook/react": "^7.6.12",
     "@storybook/react-vite": "^7.6.12",

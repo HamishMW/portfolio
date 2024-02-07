@@ -22,7 +22,7 @@ export const Image = ({
   const [loaded, setLoaded] = useState(false);
   const { theme } = useTheme();
   const containerRef = useRef();
-  const src = baseSrc || srcSet;
+  const src = baseSrc || srcSet.split(' ')[0];
   const inViewport = useInViewport(containerRef, !getIsVideo(src));
 
   const onLoad = useCallback(() => {

@@ -5,25 +5,23 @@ export default {
   title: 'Carousel',
 };
 
-const placeholderImg =
-  'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAICAgICAQICAgIDAgIDAwYEAwMDAwcFBQQGCAcJCAgHCAgJCg0LCQoMCggICw8LDA0ODg8OCQsQERAOEQ0ODg7/2wBDAQIDAwMDAwcEBAcOCQgJDg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg7/wgARCAASACADAREAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAABAUHBgn/xAAZAQEAAwEBAAAAAAAAAAAAAAAFAwQGAgj/2gAMAwEAAhADEAAAAOanpHEuRHdAjSk8GcqnLA1RdO5nscBYolLViNGLY7CLKMf/xAAjEAABBAEDBAMAAAAAAAAAAAABAAIDBAUSFFETJTIzNILB/9oACAEBAAE/AIYbMngCVRZJXnDpAsndbNhXNPCezuTtPKw23ZS1PaFfmjfaIjCyU5Zj3KkepkTq5VX4CPvKynoKxwG6+w/V/8QAGxEAAwADAQEAAAAAAAAAAAAAAAECAwQRMhL/2gAIAQIBAT8AzpRBirtDxfSJxSmbGwrniNaX0u5xwVtLpJgNryyvR//EABwRAAMAAwEBAQAAAAAAAAAAAAABAgMEESEyE//aAAgBAwEBPwDXzu74U0kXsJTwzW6fhp6lRXWZ/nwvFdMxaN0Sl+Y/sSRrpcP/2Q==';
-
 export const Images = () => (
   <StoryContainer>
     <Carousel
       style={{ maxWidth: 800, width: '100%' }}
-      placeholder={{ src: placeholderImg }}
+      placeholder="/static/modern-styling-in-react-banner-placeholder.jpg"
       images={[
         {
-          src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=960&h=540&q=80',
-          alt: 'A neon sign with kanji',
+          src: '/static/modern-styling-in-react-banner.jpg',
+          alt: 'Neon pink and blue lights',
         },
         {
-          src: 'https://images.unsplash.com/photo-1560052775-e4f689f06f07?auto=format&fit=crop&w=960&h=540&q=80',
-          alt: 'Tokyo at night',
+          src: '/static/hello-world-banner.jpg',
+          alt: 'Geometric blue shapes',
         },
         {
           src: 'https://source.unsplash.com/lx9RWIg1Rdg/1280x720',
+          alt: 'Cyberpunk dude',
         },
       ]}
       width={1920}

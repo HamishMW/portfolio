@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { ThemeProvider, themeStyles } from '../app/components/theme-provider';
 import '../app/reset.module.css';
 import '../app/global.module.css';
@@ -8,7 +8,7 @@ export const decorators = [
   (Story, context) => {
     const theme = context.globals.theme;
 
-    useLayoutEffect(() => {
+    useEffect(() => {
       document.body.dataset.theme = theme;
     }, [theme]);
 

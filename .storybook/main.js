@@ -4,10 +4,10 @@ import { mergeConfig } from 'vite';
 const config = {
   stories: ['../app/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
+    { name: '@storybook/addon-essentials', options: { backgrounds: false } },
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
   ],
   framework: {
     name: '@storybook/react-vite',
@@ -26,4 +26,5 @@ const config = {
     });
   },
 };
+
 export default config;

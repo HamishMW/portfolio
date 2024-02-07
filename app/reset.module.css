@@ -15,6 +15,7 @@
   :global(:where(*, *::before, *::after)) {
     box-sizing: border-box;
     margin: 0;
+    min-width: 0;
   }
 
   :global(:where(input, textarea, select, button)) {
