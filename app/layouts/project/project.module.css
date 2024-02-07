@@ -1,4 +1,22 @@
 @layer layout {
+  @property --background1 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+  }
+
+  @property --background2 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+  }
+
+  @property --background3 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+  }
+
   .project {
     position: relative;
     width: 100%;
@@ -87,18 +105,33 @@
       content: '';
       position: absolute;
       inset: 0;
+      transition: var(--durationM) ease;
+      transition-property: --background1, --background2, --background3;
       background: linear-gradient(
-          in lab,
           var(--background1) 0%,
           var(--background2) 20%,
           var(--background3) 100%
         ),
         linear-gradient(
-          in lab,
           var(--background3) 0%,
           var(--background2) 80%,
           var(--background1) 100%
         );
+
+      @supports (background: linear-gradient(in lab, red, red)) {
+        background: linear-gradient(
+            in lab,
+            var(--background1) 0%,
+            var(--background2) 20%,
+            var(--background3) 100%
+          ),
+          linear-gradient(
+            in lab,
+            var(--background3) 0%,
+            var(--background2) 80%,
+            var(--background1) 100%
+          );
+      }
     }
   }
 
@@ -146,8 +179,14 @@
 
     position: absolute;
     inset: 0;
+    transition: var(--durationM) ease;
+    transition-property: --background1, --background2;
     z-index: var(--zIndex1);
-    background: linear-gradient(in lab, var(--background1), var(--background2));
+    background: linear-gradient(var(--background1), var(--background2));
+
+    @supports (background: linear-gradient(in lab, red, red)) {
+      background: linear-gradient(in lab, var(--background1), var(--background2));
+    }
   }
 
   .header {

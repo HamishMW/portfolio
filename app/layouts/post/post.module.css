@@ -1,4 +1,22 @@
 @layer layout {
+  @property --background1 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+  }
+
+  @property --background2 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+  }
+
+  @property --background3 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: transparent;
+  }
+
   .post {
     --contentWidth: 740px;
     --gutterWidth: 100px;
@@ -142,12 +160,23 @@
       position: absolute;
       inset: 0;
       z-index: var(--zIndex1);
+      transition: var(--durationM) ease;
+      transition-property: --background1, --background2, --background3;
+
       background: linear-gradient(
-        in lab,
         var(--background1),
         var(--background2),
         var(--background3)
       );
+
+      @supports (background: linear-gradient(in lab, red, red)) {
+        background: linear-gradient(
+          in lab,
+          var(--background1),
+          var(--background2),
+          var(--background3)
+        );
+      }
     }
 
     & img,
