@@ -306,7 +306,7 @@
     position: absolute;
     inset: 0;
     background-image: linear-gradient(
-      -135deg,
+      in lab -135deg,
       color-mix(in lab, var(--backgroundLight) 50%, transparent) 0%,
       color-mix(in lab, var(--backgroundLight) 86%, transparent) 60%,
       color-mix(in lab, var(--backgroundLight) 90%, transparent) 100%

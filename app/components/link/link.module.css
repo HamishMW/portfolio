@@ -3,8 +3,9 @@
     --lineStrokeWidth: 2px;
     --linkColor: var(--primary);
     --lineOpacity: 30%;
-    --filledLineGradient: linear-gradient(var(--linkColor), var(--linkColor));
+    --filledLineGradient: linear-gradient(in lab, var(--linkColor), var(--linkColor));
     --unfilledLineGradient: linear-gradient(
+      in lab,
       color-mix(in lab, var(--linkColor) var(--lineOpacity), transparent),
       color-mix(in lab, var(--linkColor) var(--lineOpacity), transparent)
     );

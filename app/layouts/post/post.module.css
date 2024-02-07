@@ -143,6 +143,7 @@
       inset: 0;
       z-index: var(--zIndex1);
       background: linear-gradient(
+        in lab,
         var(--background1),
         var(--background2),
         var(--background3)

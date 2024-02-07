@@ -109,6 +109,7 @@
 
   &[data-scrim='true'] {
     background: linear-gradient(
+      in lab,
       var(--background),
       color-mix(in lab, var(--background) 70%, transparent),
       transparent
@@ -117,6 +118,7 @@
 
   &[data-scrim-reverse='true'] {
     background: linear-gradient(
+      in lab,
       transparent,
       color-mix(in lab, var(--background) 70%, transparent),
       var(--background)
