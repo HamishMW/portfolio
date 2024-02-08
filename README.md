@@ -1,6 +1,6 @@
 # Personal portfolio
 [![Deploy Next.js site to Pages](https://github.com/Tresillo2017/portfolio-1/actions/workflows/nextjs.yml/badge.svg)](https://github.com/Tresillo2017/portfolio-1/actions/workflows/nextjs.yml)
-[![Site preview](/public/site-preview.png)](https://tomasps.tk)
+[![Site preview](/public/site-preview.png)](https://tomasps.com)
 
 My design portfolio to showcase a few projects. Built with [Next.js](https://nextjs.org/), [Three.js](https://threejs.org/), and [Framer Motion](https://www.framer.com/motion/). View the [live site](https://hamishw.com) or check out a live version of the [components storybook](https://storybook.hamishw.com).
 

@@ -1,10 +1,10 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "homepage": "https://tomasps.tk",
+  "homepage": "https://tomasps.com",
   "description": "Portfolio site for TomasPS",
   "repository": "https://github.com/Tresillo2017/portfolio-1",
-  "author": "TomasPS <contact@tomasps.tk>",
+  "author": "TomasPS <contact@tomasps.com>",
   "devDependencies": {
     "@mapbox/rehype-prism": "^0.8.0",
     "@storybook/addon-a11y": "^6.5.10",

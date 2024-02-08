@@ -104,7 +104,7 @@ export const SmartSparrow = () => {
         <ProjectHeader
           title={title}
           description={description}
-          url="https://tesladashboard.tomasps.tk"
+          url="https://tesladashboard.tomasps.com"
           roles={roles}
         />
         <ProjectSection padding="top">

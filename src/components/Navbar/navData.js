@@ -17,11 +17,11 @@ export const navLinks = [
   // },
   {
     label: 'Photography',
-    pathname: 'https://photography.tomasps.tk',
+    pathname: 'https://photography.tomasps.com',
   },
   {
     label: 'Drive',
-    pathname: 'https://drive.tomasps.tk',
+    pathname: 'https://drive.tomasps.com',
   },
 ];
 
