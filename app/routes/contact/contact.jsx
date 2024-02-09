@@ -40,9 +40,13 @@ export async function action({ context, request }) {
   });
 
   const formData = await request.formData();
+  const isBot = String(formData.get('name'));
   const email = String(formData.get('email'));
   const message = String(formData.get('message'));
   const errors = {};
+
+  // Return without sending if a bot trips the honeypot
+  if (isBot) return json({ success: true });
 
   // Handle input validation on the server
   if (!email || !EMAIL_PATTERN.test(email)) {
@@ -122,13 +126,20 @@ export const Contact = () => {
               data-status={status}
               style={getDelay(tokens.base.durationXS, initDelay, 0.4)}
             />
+            {/* Hidden honeypot field to identify bots */}
+            <Input
+              className={styles.botkiller}
+              label="Name"
+              name="name"
+              maxLength={MAX_EMAIL_LENGTH}
+            />
             <Input
               required
               className={styles.input}
               data-status={status}
               style={getDelay(tokens.base.durationXS, initDelay)}
               autoComplete="email"
-              label="Your Email"
+              label="Your email"
               type="email"
               name="email"
               maxLength={MAX_EMAIL_LENGTH}
