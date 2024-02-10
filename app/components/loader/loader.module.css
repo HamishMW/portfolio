@@ -1,63 +1,50 @@
 @layer components {
   .loader {
-    display: flex;
-    justify-content: center;
-    width: var(--size);
-    height: var(--size);
+    display: grid;
+    grid-template-columns: 100%;
+    width: var(--width);
+    height: var(--height);
+    background: color-mix(in lab, currentColor 20%, transparent);
+
+    &[data-center='true'] {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
   .text {
     color: inherit;
   }
 
-  .content {
-    display: grid;
-    grid-template-columns: repeat(3, var(--spanSize));
-    gap: var(--gapSize);
-    align-items: center;
-    justify-content: center;
-    transform: skewX(22deg);
-  }
-
   @keyframes loaderSpan {
     0% {
-      transform: scaleY(0);
-      opacity: 0.5;
-      transform-origin: top;
+      transform: scaleX(0);
+      transform-origin: left;
     }
 
-    40% {
-      transform: scaleY(1);
-      opacity: 1;
-      transform-origin: top;
+    50% {
+      transform: scaleX(1);
+      transform-origin: left;
     }
 
-    60% {
-      transform: scaleY(1);
-      opacity: 1;
-      transform-origin: bottom;
+    51% {
+      transform: scaleX(1);
+      transform-origin: right;
     }
 
     100% {
-      transform: scaleY(0);
-      opacity: 0.5;
-      transform-origin: bottom;
+      transform: scaleX(0);
+      transform-origin: right;
     }
   }
 
   .span {
-    height: 60%;
+    grid-area: 1 / 1;
     background: currentColor;
-    animation: loaderSpan 1s var(--bezierFastoutSlowin) infinite;
-    transform: scaleY(0);
-    transform-origin: top left;
-
-    &:nth-child(2) {
-      animation-delay: 0.1s;
-    }
-
-    &:nth-child(3) {
-      animation-delay: 0.2s;
-    }
+    animation: loaderSpan 0.7s var(--bezierFastoutSlowin) infinite;
+    transform: scaleX(0);
+    transform-origin: left;
   }
 }

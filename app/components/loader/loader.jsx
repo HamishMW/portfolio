@@ -5,7 +5,10 @@ import { forwardRef } from 'react';
 import styles from './loader.module.css';
 
 export const Loader = forwardRef(
-  ({ className, style, size = 32, text = 'Loading...', ...rest }, ref) => {
+  (
+    { className, style, width = 32, height = 4, text = 'Loading...', center, ...rest },
+    ref
+  ) => {
     const reduceMotion = useReducedMotion();
 
     if (reduceMotion) {
@@ -16,21 +19,15 @@ export const Loader = forwardRef(
       );
     }
 
-    const gapSize = Math.round((size / 3) * 0.2);
-    const spanSize = Math.round(size / 3 - gapSize * 2 - 1);
-
     return (
       <div
         ref={ref}
         className={classes(styles.loader, className)}
-        style={cssProps({ size, spanSize, gapSize }, style)}
+        data-center={center}
+        style={cssProps({ width, height }, style)}
         {...rest}
       >
-        <div className={styles.content}>
-          <div className={styles.span} />
-          <div className={styles.span} />
-          <div className={styles.span} />
-        </div>
+        <div className={styles.span} />
       </div>
     );
   }

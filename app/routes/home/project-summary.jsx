@@ -6,6 +6,7 @@ import { Section } from '~/components/section';
 import { Text } from '~/components/text';
 import { useTheme } from '~/components/theme-provider';
 import { Transition } from '~/components/transition';
+import { Loader } from '~/components/loader';
 import { useWindowSize } from '~/hooks';
 import { Suspense, lazy, useState } from 'react';
 import { cssProps, media } from '~/utils/style';
@@ -104,7 +105,10 @@ export function ProjectSummary({
           <>
             {renderKatakana('laptop', visible)}
             <div className={styles.model} data-device="laptop">
-              {isHydrated && (
+              {!modelLoaded && (
+                <Loader center className={styles.loader} data-visible={visible} />
+              )}
+              {isHydrated && visible && (
                 <Suspense>
                   <Model
                     alt={model.alt}
@@ -131,7 +135,10 @@ export function ProjectSummary({
           <>
             {renderKatakana('phone', visible)}
             <div className={styles.model} data-device="phone">
-              {isHydrated && (
+              {!modelLoaded && (
+                <Loader center className={styles.loader} data-visible={visible} />
+              )}
+              {isHydrated && visible && (
                 <Suspense>
                   <Model
                     alt={model.alt}

@@ -139,6 +139,15 @@
   }
 }
 
+.loader {
+  opacity: 0;
+  transition: opacity 400ms ease 1000ms;
+
+  &[data-visible='true'] {
+    opacity: 1;
+  }
+}
+
 .svg {
   opacity: 0;
   transition: opacity 1200ms ease 1400ms;

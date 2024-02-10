@@ -7,6 +7,6 @@ export default {
 
 export const Default = () => (
   <StoryContainer>
-    <Loader size={48} />
+    <Loader width={48} />
   </StoryContainer>
 );
