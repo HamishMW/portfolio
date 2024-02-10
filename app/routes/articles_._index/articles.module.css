@@ -305,8 +305,18 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(
-      in lab -135deg,
+
+    @supports (linear-gradient(in lab, red, red)) {
+      background: linear-gradient(
+        in lab -135deg,
+        color-mix(in lab, var(--backgroundLight) 50%, transparent) 0%,
+        color-mix(in lab, var(--backgroundLight) 86%, transparent) 60%,
+        color-mix(in lab, var(--backgroundLight) 90%, transparent) 100%
+      );
+    }
+
+    background: linear-gradient(
+      -135deg,
       color-mix(in lab, var(--backgroundLight) 50%, transparent) 0%,
       color-mix(in lab, var(--backgroundLight) 86%, transparent) 60%,
       color-mix(in lab, var(--backgroundLight) 90%, transparent) 100%
