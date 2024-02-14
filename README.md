@@ -9,8 +9,6 @@ My design portfolio to showcase a few projects. Built with [Remix](https://remix
 
 ## Install & run
 
-Rename `.dev.vars.example` to `.dev.vars`. This is where you can include your credn
-
 Make sure you have nodejs `18.0.0` or higher and npm `8.6.0` or higher installed. Install dependencies with:
 
 ```bash
