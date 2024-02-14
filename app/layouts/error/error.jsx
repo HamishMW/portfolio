@@ -30,7 +30,7 @@ export function Error({ error }) {
       default:
         return {
           summary: 'Error: anomaly',
-          message: error.data || error.toString(),
+          message: error.statusText || error.data || error.toString(),
         };
     }
   };

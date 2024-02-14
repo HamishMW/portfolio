@@ -59,7 +59,7 @@ export const loader = async ({ request, context }) => {
       maxAge: 604_800,
       path: '/',
       sameSite: 'lax',
-      secrets: [context.env.SESSION_SECRET],
+      secrets: [context.env.SESSION_SECRET || ' '],
       secure: true,
     },
   });
