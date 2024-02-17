@@ -1,6 +1,5 @@
 @layer base {
   :global(:root) {
-    color-scheme: dark light;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;

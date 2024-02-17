@@ -121,20 +121,8 @@ export const Uses = () => {
               <Table>
                 <TableBody>
                   <TableRow>
-                    <TableHeadCell>CPU</TableHeadCell>
-                    <TableCell>AMD Ryzen 5800x</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableHeadCell>GPU</TableHeadCell>
-                    <TableCell>MSI Gaming X Trio RTX 3080</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableHeadCell>Memory</TableHeadCell>
-                    <TableCell>GSkill 32GB DDR4 3600mhz CAS 18</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableHeadCell>Motherboard</TableHeadCell>
-                    <TableCell>MSI B550 Tomahawk</TableCell>
+                    <TableHeadCell>Desktop</TableHeadCell>
+                    <TableCell>Custom built</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Operating system</TableHeadCell>
@@ -146,7 +134,7 @@ export const Uses = () => {
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Keyboard</TableHeadCell>
-                    <TableCell>Logitech MX Keys</TableCell>
+                    <TableCell>Tofu65</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Mouse</TableHeadCell>
@@ -154,7 +142,7 @@ export const Uses = () => {
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Laptop</TableHeadCell>
-                    <TableCell>Macbook Pro 14″ (2022 M1 Max)</TableCell>
+                    <TableCell>Macbook Pro 14″</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Headphones</TableHeadCell>

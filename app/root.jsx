@@ -109,6 +109,10 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content={themes[theme]?.background} />
+        <meta
+          name="color-scheme"
+          content={theme === 'light' ? 'light dark' : 'dark light'}
+        />
         <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
         <Meta />
         <Links />
@@ -146,6 +150,7 @@ export function ErrorBoundary() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content={themes.dark.background} />
+        <meta name="color-scheme" content="dark light" />
         <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
         <Meta />
         <Links />
