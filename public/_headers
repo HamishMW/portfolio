@@ -26,14 +26,3 @@
   Cache-Control: public, max-age=31536000, immutable
 https://:project.pages.dev/*
   X-Robots-Tag: noindex
-/*
-  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  X-XSS-Protection: 1; mode=block
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
-  Referrer-Policy: no-referrer-when-downgrade
-  Content-Security-Policy: script-src 'self'; frame-ancestors 'none';
-  Permissions-Policy: document-domain=()
-https://storybook.hamishw.com/*
-! Content-Security-Policy
-  Content-Security-Policy: script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:;

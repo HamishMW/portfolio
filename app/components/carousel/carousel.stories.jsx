@@ -19,10 +19,6 @@ export const Images = () => (
           src: '/static/hello-world-banner.jpg',
           alt: 'Geometric blue shapes',
         },
-        {
-          src: 'https://source.unsplash.com/lx9RWIg1Rdg/1280x720',
-          alt: 'Cyberpunk dude',
-        },
       ]}
       width={1920}
       height={1080}

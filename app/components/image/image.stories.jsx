@@ -7,11 +7,10 @@ export default {
 
 const imageData = {
   alt: 'An abstract purple and pink neon thing',
-  src: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=960&h=540&q=80',
+  src: '/static/modern-styling-in-react-banner.jpg',
   width: 960,
   height: 540,
-  placeholder:
-    'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=64&h=36&q=0',
+  placeholder: '/static/modern-styling-in-react-banner-placeholder.jpg',
 };
 
 const Story = args => (

@@ -168,7 +168,7 @@ const fontStyles = squish(`
     font-family: IPA Gothic;
     font-weight: 400;
     src: url(${IPAGothic}) format('woff2');
-    font-display: block;
+    font-display: swap;
     font-style: normal;
   }
 `);
