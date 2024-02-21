@@ -3,7 +3,7 @@ import { Outlet, useLoaderData } from '@remix-run/react';
 import { MDXProvider } from '@mdx-js/react';
 import { Post, postMarkdown } from '~/layouts/post';
 import { baseMeta } from '~/utils/meta';
-import { config } from '~/config';
+import config from '~/config.json';
 import { formatTimecode, readingTime } from '~/utils/timecode';
 
 export async function loader({ request }) {

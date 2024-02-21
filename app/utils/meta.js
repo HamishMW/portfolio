@@ -1,4 +1,4 @@
-import { config } from '~/config';
+import config from '~/config.json';
 
 const { name, url, twitter } = config;
 const defaultOgImage = `${url}/social-image.png`;

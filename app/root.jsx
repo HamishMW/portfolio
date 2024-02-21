@@ -18,7 +18,7 @@ import { Error } from '~/layouts/error';
 import { VisuallyHidden } from '~/components/visually-hidden';
 import { Navbar } from '~/layouts/navbar';
 import { Progress } from '~/components/progress';
-import { config } from '~/config';
+import config from '~/config.json';
 import styles from './root.module.css';
 import './reset.module.css';
 import './global.module.css';
@@ -29,14 +29,14 @@ export const links = () => [
     href: GothamMedium,
     as: 'font',
     type: 'font/woff2',
-    crossOrigin: 'true',
+    crossOrigin: '',
   },
   {
     rel: 'preload',
     href: GothamBook,
     as: 'font',
     type: 'font/woff2',
-    crossOrigin: 'true',
+    crossOrigin: '',
   },
   { rel: 'manifest', href: '/manifest.json' },
   { rel: 'icon', href: '/favicon.ico' },
@@ -59,7 +59,7 @@ export const loader = async ({ request, context }) => {
       maxAge: 604_800,
       path: '/',
       sameSite: 'lax',
-      secrets: [context.env.SESSION_SECRET || ' '],
+      secrets: [context.cloudflare.env.SESSION_SECRET || ' '],
       secure: true,
     },
   });
@@ -76,12 +76,6 @@ export const loader = async ({ request, context }) => {
     }
   );
 };
-
-const repoPrompt = `
-__  __  __
-\u005C \u005C \u005C \u005C \u005C\u2215\n \u005C \u005C\u2215\u005C \u005C\n  \u005C\u2215  \u005C\u2215
-\n\nTaking a peek huh? Check out the source code: https://github.com/HamishMW/portfolio
-`;
 
 export default function App() {
   let { canonicalUrl, theme } = useLoaderData();
@@ -100,7 +94,10 @@ export default function App() {
   }
 
   useEffect(() => {
-    console.info(`${repoPrompt}\n\n`);
+    console.info(
+      `${config.ascii}\n`,
+      `Taking a peek huh? Check out the source code: ${config.repo}\n\n`
+    );
   }, []);
 
   return (

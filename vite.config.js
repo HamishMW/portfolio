@@ -1,6 +1,6 @@
 import {
-  unstable_vitePlugin as remix,
-  unstable_cloudflarePreset as cloudflare,
+  vitePlugin as remix,
+  cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,
 } from '@remix-run/dev';
 import { defineConfig } from 'vite';
 import jsconfigPaths from 'vite-jsconfig-paths';
@@ -27,20 +27,14 @@ export default defineConfig({
       remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
       providerImportSource: '@mdx-js/react',
     }),
-    !isStorybook &&
-      remix({
-        presets: [cloudflare()],
-        routes(defineRoutes) {
-          return defineRoutes(route => {
-            route('/', 'routes/home/route.js', { index: true });
-          });
-        },
-      }),
+    remixCloudflareDevProxy(),
+    remix({
+      routes(defineRoutes) {
+        return defineRoutes(route => {
+          route('/', 'routes/home/route.js', { index: true });
+        });
+      },
+    }),
     jsconfigPaths(),
   ],
-  ssr: {
-    resolve: {
-      externalConditions: ['workerd', 'worker'],
-    },
-  },
 });

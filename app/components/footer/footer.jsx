@@ -1,7 +1,7 @@
 import { Link } from '~/components/link';
 import { Text } from '~/components/text';
 import { classes } from '~/utils/style';
-import { config } from '~/config';
+import config from '~/config.json';
 import styles from './footer.module.css';
 
 export const Footer = ({ className }) => (
