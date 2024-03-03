@@ -9,7 +9,7 @@ My design portfolio to showcase a few projects. Built with [Remix](https://remix
 
 ## Install & run
 
-Make sure you have nodejs `18.0.0` or higher and npm `8.6.0` or higher installed. Install dependencies with:
+Make sure you have nodejs `19.9.0` or higher and npm `9.6.3` or higher installed. Install dependencies with:
 
 ```bash
 npm install
