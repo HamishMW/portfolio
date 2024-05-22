@@ -84,7 +84,7 @@ const ArticlesPost = ({
             </Text>
             <div className={styles.postFooter}>
               <Button secondary iconHoverShift icon="chevronRight" as="div">
-                Leer Artículo
+                Read article
               </Button>
               <Text className={styles.timecode} size="s">
                 {timecode}
@@ -175,7 +175,7 @@ export const Articles = ({ posts, featured }) => {
     <article className={styles.articles}>
       <Meta
         title="Articles"
-        description="A collection of technical design and development articles. May contain incoherent ramblings."
+        description="A collection of my written articles."
       />
       <Section className={styles.content}>
         {!isSingleColumn && (

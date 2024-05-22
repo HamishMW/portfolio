@@ -44,7 +44,7 @@ export const Uses = () => {
                   <ListItem>
                     Any video I made is edited with Sony Vegas Pro 19. So
                     far I haven’t found a opensource product that’s as good. If anyone has
-                    suggestions please <Link href="/contact">message me</Link>.
+                    suggestions please let me know.
                   </ListItem>
                   <ListItem>
                     For any 3D models I use{' '}
@@ -88,11 +88,6 @@ export const Uses = () => {
                     <Link href="https://postcss.org/">PostCSS</Link> to get upcoming CSS
                     features today.
                   </ListItem>
-                  <ListItem>
-                    For Javascript animations I use{' '}
-                    <Link href="https://www.framer.com/motion/">Framer Motion</Link>, it’s
-                    a great way to add spring animations to React and three.js.
-                  </ListItem>
                 </List>
               </ProjectSectionText>
             </ProjectTextRow>
@@ -110,7 +105,7 @@ export const Uses = () => {
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>GPU</TableHeadCell>
-                    <TableCell>Gigabyte RTX 2060 v2</TableCell>
+                    <TableCell>Gigabyte RTX 2060 6G</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Memory</TableHeadCell>
@@ -123,10 +118,6 @@ export const Uses = () => {
                   <TableRow>
                     <TableHeadCell>Storage</TableHeadCell>
                     <TableCell>WD_BLACK SN770 NVMe SSD 1TB (Main SO Windows)</TableCell>
-                    <TableCell>WD Blue SATA SSD M.2 2280 500GB (Secondary SO Fedora Workstation)</TableCell>
-                    <TableCell>SanDisk SSD Plus 480GB (Programs)</TableCell>
-                    <TableCell>KIOXIA-EXCERIA SATA SSD 1TB (Games)</TableCell>
-                    <TableCell>ST1000DM010-2EP102 1TB (Files)</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Monitors</TableHeadCell>
@@ -148,7 +139,7 @@ export const Uses = () => {
                 </TableBody>
                     <TableRow>
                       <TableHeadCell>Laptop</TableHeadCell>
-                      <TableCell>Lenovo Thinkpad E16 (AMD R7, 40gb RAM, 1TB SSD, Fedora 39)</TableCell>
+                      <TableCell>Lenovo Thinkpad E16 (AMD R7, 40gb RAM, 1TB SSD, Arch Linux)</TableCell>
                     </TableRow>
               </Table>
             </ProjectTextRow>
