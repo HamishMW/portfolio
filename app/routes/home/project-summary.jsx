@@ -42,6 +42,7 @@ export function ProjectSummary({
   const indexText = index < 10 ? `0${index}` : index;
   const phoneSizes = `(max-width: ${media.tablet}px) 30vw, 20vw`;
   const laptopSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
+  const droneSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
 
   function handleModelLoad() {
     setModelLoaded(true);
@@ -161,6 +162,37 @@ export function ProjectSummary({
                         texture: {
                           ...model.textures[1],
                           sizes: phoneSizes,
+                        },
+                      },
+                    ]}
+                  />
+                </Suspense>
+              )}
+            </div>
+          </>
+        )}
+        {model.type === 'drone' && (
+          <>
+            {renderKatakana('drone', visible)}
+            <div className={styles.model} data-device="drone">
+              {!modelLoaded && (
+                <Loader center className={styles.loader} data-visible={visible} />
+              )}
+              {isHydrated && visible && (
+                <Suspense>
+                  <Model
+                    alt={model.alt}
+                    cameraPosition={{ x: 0, y: 0, z: 10 }}
+                    showDelay={500}
+                    onLoad={handleModelLoad}
+                    show={visible}
+                    models={[
+                      {
+                        ...deviceModels.drone,
+                        position: { x: 0, y: 0, z: 0 },
+                        texture: {
+                          ...model.textures[0],
+                          sizes: droneSizes,
                         },
                       },
                     ]}

@@ -137,6 +137,31 @@
       max-height: none;
     }
   }
+  &[data-device='drone'] {
+    --width: 150%;
+    --aspectRatio: 16 / 9;
+
+    top: 8%;
+    left: 10%;
+
+    @media (--mediaDesktop) {
+      --width: 140%;
+      top: 10%;
+      left: 5%;
+    }
+
+    @media (--mediaTablet) {
+      --width: 120%;
+      top: 12%;
+      left: 0;
+    }
+
+    @media (--mediaMobile) {
+      --width: 100%;
+      top: 15%;
+      left: 0;
+    }
+  }
 }
 
 .loader {
@@ -185,6 +210,25 @@
     @media (--mediaTablet) {
       width: 80%;
       bottom: 23%;
+    }
+  }
+  &[data-device='drone'] {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 100%;
+    transition-delay: 1000ms;
+
+    @media (--mediaTablet) {
+      width: 80%;
+      top: 22%;
+      left: 5%;
+    }
+
+    @media (--mediaMobile) {
+      width: 70%;
+      top: 25%;
+      left: 0;
     }
   }
 }
