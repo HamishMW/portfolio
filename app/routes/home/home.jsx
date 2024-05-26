@@ -148,13 +148,13 @@ export const Home = () => {
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index={3}
-        title="Biomedical image collaboration"
-        description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
+        title="Object Detection Localization and Classification System"
+        description="Autonomous drone landing and hazard detection system using computer vision and machine learning"
         buttonText="View project"
-        buttonLink="/projects/slice"
+        buttonLink="/projects/slice" //Change
         model={{
-          type: 'laptop',
-          alt: 'Annotating a biomedical image in the Slice app',
+          type: 'drone',
+          alt: 'Autonomous drone object detection system',
           textures: [
             {
               srcSet: `${sliceTexture} 800w, ${sliceTextureLarge} 1920w`,
