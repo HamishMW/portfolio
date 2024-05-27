@@ -60,6 +60,7 @@ export const Model = ({
   showDelay = 0,
   cameraPosition = { x: 0, y: 0, z: 8 },
   style,
+  scale = 1,
   className,
   onLoad,
   alt,
@@ -108,6 +109,7 @@ export const Model = ({
     scene.current = new Scene();
 
     modelGroup.current = new Group();
+    modelGroup.current.scale.set(scale, scale, scale);
     scene.current.add(modelGroup.current);
 
     // Lighting

@@ -42,7 +42,7 @@ export function ProjectSummary({
   const indexText = index < 10 ? `0${index}` : index;
   const phoneSizes = `(max-width: ${media.tablet}px) 30vw, 20vw`;
   const laptopSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
-  const droneSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
+  const droneSizes = `(max-width: ${media.tablet}px) 100vw, 60vw`;
 
   function handleModelLoad() {
     setModelLoaded(true);
@@ -186,6 +186,7 @@ export function ProjectSummary({
                     showDelay={500}
                     onLoad={handleModelLoad}
                     show={visible}
+                    scale={10}
                     models={[
                       {
                         ...deviceModels.drone,
