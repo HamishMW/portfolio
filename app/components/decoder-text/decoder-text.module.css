@@ -9,7 +9,7 @@
   .glyph {
     opacity: 0.8;
     font-weight: var(--fontWeightRegular);
-    font-family: var(--japaneseFontStack);
+    font-family: var(--arabicFontStack);
     line-height: 0;
   }
 

@@ -21,16 +21,17 @@ const ProfileText = ({ visible, titleId }) => (
       <DecoderText text="Hi there" start={visible} delay={500} />
     </Heading>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
-      <Link href="https://www.qwilr.com">Qwilr</Link>. My projects include UX design, UI
-      animations, and icon illustration. Being comfortable with code allows me to rapidly
-      prototype and validate experiences. If you’re interested in the tools and software I
-      use check out my <Link href="/uses">uses page</Link>.
+      I'm Tareq, a computer engineering student at the University of British Columbia. I
+      have a highly versatile skill set, including but not limited to full-stack web
+      development, embedded systems design, and machine learning.
     </Text>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
-      <Link href="/projects/volkihar-knight">make mods</Link>. I’m always down for hearing
-      about new projects, so feel free to drop me a line.
+      I always enjoy taking on new challenges and documenting them in my{' '}
+      <Link href="/articles">blogs page</Link>. This includes my extra curricular hobbies
+      such as climbing, skiing, mountain biking, piano, and coding adventures of course!
+    </Text>
+    <Text className={styles.description} data-visible={visible} size="l" as="p">
+      Feel free to reach out to me if you have any questions or just want to chat!
     </Text>
   </Fragment>
 );

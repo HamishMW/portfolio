@@ -138,14 +138,14 @@
     }
   }
   &[data-device='drone'] {
-    --width: 150%;
+    --width: 100%;
     --aspectRatio: 16 / 9;
 
     top: 8%;
     left: 10%;
 
     @media (--mediaDesktop) {
-      --width: 140%;
+      --width: 180%;
       top: 10%;
       left: 5%;
     }

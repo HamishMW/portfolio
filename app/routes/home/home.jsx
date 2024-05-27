@@ -103,8 +103,8 @@ export const Home = () => {
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Designing the future of education"
-        description="Designing a platform to help educators build better online courseware"
+        title="Designing a simple RISC machine"
+        description="Using VHDL and an FPGA to design and test a simple RISC (Reduced Instruction Set Computer) machine from scratch"
         buttonText="View project"
         buttonLink="/projects/smart-sparrow"
         model={{
@@ -124,8 +124,8 @@ export const Home = () => {
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
-        title="Video game progress tracking"
-        description="Design and development for a video game tracking app built in React Native"
+        title="Messenger Web App"
+        description="Designing a messenger web app with real-time messaging, user authentication, and AI features"
         buttonText="View website"
         buttonLink="https://gamestack.hamishw.com"
         model={{
