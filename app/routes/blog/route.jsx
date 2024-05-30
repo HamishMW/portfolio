@@ -8,8 +8,8 @@ import { formatTimecode, readingTime } from '~/utils/timecode';
 
 export async function loader({ request }) {
   const slug = request.url.split('/').at(-1);
-  const module = await import(`../articles.${slug}.mdx`);
-  const text = await import(`../articles.${slug}.mdx?raw`);
+  const module = await import(`../blog.${slug}.mdx`);
+  const text = await import(`../blog.${slug}.mdx?raw`);
   const readTime = readingTime(text.default);
   const ogImage = `${config.url}/static/${slug}-og.jpg`;
 
@@ -25,7 +25,7 @@ export function meta({ data }) {
   return baseMeta({ title, description: abstract, prefix: '', ogImage: data.ogImage });
 }
 
-export default function Articles() {
+export default function Blog() {
   const { frontmatter, timecode } = useLoaderData();
 
   return (

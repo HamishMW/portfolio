@@ -16,6 +16,10 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://hamishw.com/projects/risc/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://hamishw.com/projects/slice/</loc>
     <changefreq>monthly</changefreq>
   </url>

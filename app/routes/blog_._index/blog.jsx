@@ -12,9 +12,9 @@ import { Link as RouterLink, useLoaderData } from '@remix-run/react';
 import { useState, useEffect } from 'react';
 import { formatDate } from '~/utils/date';
 import { classes, cssProps } from '~/utils/style';
-import styles from './articles.module.css';
+import styles from './blog.module.css';
 
-function ArticlesPost({ slug, frontmatter, timecode, index }) {
+function BlogPosts({ slug, frontmatter, timecode, index }) {
   const [hovered, setHovered] = useState(false);
   const [dateTime, setDateTime] = useState(null);
   const reduceMotion = useReducedMotion();
@@ -58,7 +58,7 @@ function ArticlesPost({ slug, frontmatter, timecode, index }) {
       <RouterLink
         unstable_viewTransition
         prefetch="intent"
-        to={`/articles/${slug}`}
+        to={`/blog/${slug}`}
         className={styles.postLink}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -133,7 +133,7 @@ function SkeletonPost({ index }) {
   );
 }
 
-export function Articles() {
+export function Blog() {
   const { posts, featured } = useLoaderData();
   const { width } = useWindowSize();
   const singleColumnWidth = 1190;
@@ -142,7 +142,7 @@ export function Articles() {
   const postsHeader = (
     <header className={styles.header}>
       <Heading className={styles.heading} level={5} as="h1">
-        <DecoderText text="Latest articles" />
+        <DecoderText text="Latest posts" />
       </Heading>
       <Barcode className={styles.barcode} />
     </header>
@@ -152,7 +152,7 @@ export function Articles() {
     <div className={styles.list}>
       {!isSingleColumn && postsHeader}
       {posts.map(({ slug, ...post }, index) => (
-        <ArticlesPost key={slug} slug={slug} index={index} {...post} />
+        <BlogPosts key={slug} slug={slug} index={index} {...post} />
       ))}
       {Array(2)
         .fill()
@@ -162,10 +162,10 @@ export function Articles() {
     </div>
   );
 
-  const featuredPost = <ArticlesPost {...featured} />;
+  const featuredPost = <BlogPosts {...featured} />;
 
   return (
-    <article className={styles.articles}>
+    <article className={styles.blog}>
       <Section className={styles.content}>
         {!isSingleColumn && (
           <div className={styles.grid}>

@@ -1,7 +1,7 @@
 import { formatTimecode, readingTime } from '~/utils/timecode';
 
 export async function getPosts() {
-  const modules = import.meta.glob('../articles.*.mdx', { eager: true });
+  const modules = import.meta.glob('../blog.*.mdx', { eager: true });
   const build = await import('virtual:remix/server-build');
 
   const posts = await Promise.all(
@@ -10,7 +10,7 @@ export async function getPosts() {
       let slug = build.routes[id].path;
       if (slug === undefined) throw new Error(`No route for ${id}`);
 
-      const text = await import(`../articles.${slug}.mdx?raw`);
+      const text = await import(`../blog.${slug}.mdx?raw`);
       const readTime = readingTime(text.default);
       const timecode = formatTimecode(readTime);
 

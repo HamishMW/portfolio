@@ -106,7 +106,7 @@ export const Home = () => {
         title="Designing a simple RISC machine"
         description="Using VHDL and an FPGA to design and test a simple RISC (Reduced Instruction Set Computer) machine from scratch"
         buttonText="View project"
-        buttonLink="/projects/smart-sparrow"
+        buttonLink="/projects/risc"
         model={{
           type: 'laptop',
           alt: 'Smart Sparrow lesson builder',

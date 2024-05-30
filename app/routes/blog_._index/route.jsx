@@ -12,10 +12,10 @@ export async function loader() {
 
 export function meta() {
   return baseMeta({
-    title: 'Articles',
+    title: 'Blog',
     description:
       'A collection of technical design and development articles. May contain incoherent ramblings.',
   });
 }
 
-export { Articles as default } from './articles';
+export { Blog as default } from './blog';
