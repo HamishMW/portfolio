@@ -27,8 +27,8 @@ const ProfileText = ({ visible, titleId }) => (
     </Text>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
       I always enjoy taking on new challenges and documenting them in my{' '}
-      <Link href="/articles">blogs page</Link>. This includes my extra curricular hobbies
-      such as climbing, skiing, mountain biking, piano, and coding adventures of course!
+      <Link href="/blog">blogs</Link> page. This includes my extra curricular hobbies such
+      as climbing, skiing, mountain biking, piano, and coding adventures of course!
     </Text>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
       Feel free to reach out to me if you have any questions or just want to chat!

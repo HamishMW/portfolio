@@ -76,7 +76,7 @@ function BlogPosts({ slug, frontmatter, timecode, index }) {
           </Text>
           <div className={styles.postFooter}>
             <Button secondary iconHoverShift icon="chevron-right" as="div">
-              Read article
+              Read post
             </Button>
             <Text className={styles.timecode} size="s">
               {timecode}
