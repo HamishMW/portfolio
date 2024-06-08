@@ -1,0 +1,47 @@
+---
+title: Making a Shell
+abstract: Learn how to build a shell in C with prompt parsing and control flow of processes.
+date: '2024-02-04'
+banner: /static/modern-styling-in-react-banner.jpg
+# featured: true
+---
+
+In this post, I will explain how I recreated a shell, called `crash`. This shell incorporates all
+commands in a normal `UNIX` system as well as additional commands which will be described later. To
+start though, we first have to create the string parsing system.
+
+## Parsing and Tokenization
+
+when parsing, we eliminate whitespace and focus on combining characters into tokens that can be interpereted
+by the kernel.
+
+```c
+void parse_and_eval(char *s) {
+    assert(s);
+    const char *toks[MAXLINE+1];
+
+    while (*s != '\0') {
+        bool end = false;
+        bool bg = false;
+        int t = 0;
+
+        while (*s != '\0' && !end) {
+            while (*s == '\n' || *s == '\t' || *s == ' ') ++s;
+            if (*s != ';' && *s != '&' && *s != '\0') toks[t++] = s;
+            while (strchr("&;\n\t ", *s) == NULL) ++s;
+            switch (*s) {
+            case '&':
+                bg = true;
+                end = true;
+                break;
+            case ';':
+                end = true;
+                break;
+            }
+            if (*s) *s++ = '\0';
+        }
+        toks[t] = NULL;
+        eval(toks, bg);
+    }
+}
+```

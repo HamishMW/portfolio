@@ -17,10 +17,14 @@ import {
   ProjectSectionText,
   ProjectTextRow,
 } from '~/layouts/project';
-import { Fragment } from 'react';
+import { Fragment, Suspense, lazy } from 'react';
 import { media } from '~/utils/style';
 import { baseMeta } from '~/utils/meta';
 import styles from './risc.module.css';
+
+const Carousel = lazy(() =>
+  import('~/components/carousel').then(module => ({ default: module.Carousel }))
+);
 
 const title = 'Simple RISC machine';
 const description =
@@ -158,13 +162,29 @@ export const Risc = () => {
           <ProjectSectionContent className={styles.grid}>
             <div className={styles.gridImage}>
               <div className={styles.gridForeground}>
-                <Image
-                  srcSet={`${lab5Image} 440w, ${lab5Image} 880w`}
-                  width={440}
-                  height={340}
-                  alt="An annotation preview popover with statistics for shape perimeter and area."
-                  sizes={`(max-width: ${media.mobile}px) 584px, (max-width: ${media.tablet}px) 747px, 556px`}
-                />
+                <Suspense>
+                  <Carousel
+                    images={[
+                      {
+                        srcSet: `${riscBackground} 960w, ${riscBackground} 1920w`,
+                        sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
+                        alt: 'A female character wearing the black coloured armor set.',
+                      },
+                      {
+                        srcSet: `${lab5Image} 960w, ${lab5Image} 1920w`,
+                        sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
+                        alt: 'A close up of the custom gauntlets design.',
+                      },
+                      {
+                        srcSet: `${FPGA} 960w, ${FPGA} 1920w`,
+                        sizes: `(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1096px`,
+                        alt: 'A female character wielding a sword and wearing the red coloured armor.',
+                      },
+                    ]}
+                    width={1920}
+                    height={1080}
+                  />
+                </Suspense>
               </div>
             </div>
             <div className={styles.gridText}>
@@ -179,21 +199,6 @@ export const Risc = () => {
                 test my design on the FPGA board using Quartus.
               </ProjectSectionText>
             </div>
-          </ProjectSectionContent>
-        </ProjectSection>
-        <ProjectSection>
-          <ProjectSectionContent>
-            <ProjectTextRow>
-              <ProjectSectionHeading>I/O and FPGA</ProjectSectionHeading>
-              <ProjectSectionText>Testing was done on the FPGA.</ProjectSectionText>
-            </ProjectTextRow>
-            <Image
-              src={lab5Image}
-              width={940}
-              height={500}
-              placeholder={lab5Image}
-              alt="Students at the University of New South Wales using the new collaborative annotation features"
-            />
           </ProjectSectionContent>
         </ProjectSection>
       </ProjectContainer>
