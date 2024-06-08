@@ -1,7 +1,14 @@
 {
   "name": "Tareq Alansari",
   "role": "Comp Eng",
-  "disciplines": ["Developer", "Prototyper", "Animator", "Illustrator", "Modder"],
+  "disciplines": [
+    "Developer",
+    "Cybersecurity",
+    "Trader",
+    "Entrepreneur",
+    "Athelete",
+    "Mathematician"
+  ],
   "url": "https://hamishw.com",
   "twitter": "",
   "figma": "@tareqalansari",
