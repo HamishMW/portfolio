@@ -117,7 +117,7 @@ export const Uses = () => {
         <ProjectSection padding="none" className={styles.section}>
           <ProjectSectionContent>
             <ProjectTextRow stretch width="m">
-              <ProjectSectionHeading>Hardware</ProjectSectionHeading>
+              <ProjectSectionHeading>System</ProjectSectionHeading>
               <Table>
                 <TableBody>
                   <TableRow>
@@ -127,6 +127,10 @@ export const Uses = () => {
                   <TableRow>
                     <TableHeadCell>Operating system</TableHeadCell>
                     <TableCell>Arch Linux (by the way)</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeadCell>Browser</TableHeadCell>
+                    <TableCell>Zen Browser</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableHeadCell>Monitor</TableHeadCell>
