@@ -70,14 +70,14 @@ const EarthSection = lazy(() =>
   import('./earth').then(module => ({ default: module.EarthSection }))
 );
 
-const title = 'Designing the future of education';
+const title = 'Taleemabad: Offline-First EdTech Platform';
 const description =
-  'I worked as the design lead on a major iteration of Smart Sparrow’s product. We took the platform in a bold new direction, focusing on becoming the best tool for learning designers.';
+  'Architected and implemented key modules of an offline-first learning platform supporting web and mobile. Designed DexieDB schemas and sync algorithms, developed interactive course modules, and integrated mobile capabilities for hands-on activities and offline downloads.';
 const roles = [
-  'Art Direction',
-  'UX and UI Design',
-  'Front End Development',
-  'Motion Design',
+  'Frontend Development',
+  'Offline-First Architecture',
+  'Data Synchronization',
+  'Cross-Platform Engineering',
 ];
 
 export const meta = () => {
@@ -126,21 +126,15 @@ export const SmartSparrow = () => {
                   : imageSprLessonBuilderLightPlaceholder
               }
               sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 800px, 1000px`}
-              alt="The aero lesson builder app dragging an audio component into a screen about plant cells."
+              alt="Taleemabad EdTech platform screenshot"
             />
           </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection>
           <ProjectTextRow>
-            <ProjectSectionHeading>The problem</ProjectSectionHeading>
+            <ProjectSectionHeading>The challenge</ProjectSectionHeading>
             <ProjectSectionText>
-              In 2017, Smart Sparrow began a project to build an entirely new platform to
-              from the ground up to serve as the most powerful tool for educators to
-              create online learning experiences. The old platform was built in Flash, and
-              there were a number of user experience problems to solve in the process of
-              moving the platform to Javascript. The primary goals for the project were
-              reducing barriers to collaboration, and making the platform both easier for
-              new users, but with plenty of room to scale for advanced users.
+              Building an EdTech platform for millions of learners in regions with unreliable internet required a robust offline-first architecture. The goal was to deliver seamless learning experiences on both web and mobile, ensuring data integrity and usability regardless of connectivity.
             </ProjectSectionText>
           </ProjectTextRow>
         </ProjectSection>
@@ -160,7 +154,7 @@ export const SmartSparrow = () => {
                   ? imageSprComponentsDarkPlaceholder
                   : imageSprComponentsLightPlaceholder
               }
-              alt={`A set of ${theme} themed components for the aero design system`}
+              alt={`A set of ${theme} themed components for the Taleemabad platform`}
               sizes="100vw"
             />
             <ProjectTextRow>
@@ -173,13 +167,13 @@ export const SmartSparrow = () => {
               </SegmentedControl>
             </ProjectTextRow>
             <ProjectTextRow>
-              <ProjectSectionHeading>The aero design system</ProjectSectionHeading>
+              <ProjectSectionHeading>Key solutions</ProjectSectionHeading>
               <ProjectSectionText>
-                To streamline the design process across designers and engineers for such a
-                large project, it was important to lay the foundations with a strong,
-                flexible design system that could evolve during the product’s development
-                cycle. This would inform both the aesthetics and user experience across
-                the product itself as well as the website and marketing material.
+                - Designed DexieDB schemas and sync algorithms to queue, batch, and resolve conflicts between local and server data.<br/>
+                - Developed interactive course modules, quiz engines, and multimedia lesson players in React with Material Design.<br/>
+                - Integrated mobile-specific capabilities (camera, file storage, push notifications) via Capacitor and Cordova for hands-on activities and offline downloads.<br/>
+                - Implemented analytics and data sync with PostHog to monitor engagement and ensure reliability.<br/>
+                - Collaborated with backend and mobile teams to design RESTful APIs and define data models.
               </ProjectSectionText>
             </ProjectTextRow>
           </ProjectSectionContent>

@@ -10,6 +10,7 @@ import sliceTexture from '~/assets/slice-app.jpg';
 import sprTextureLarge from '~/assets/spr-lesson-builder-dark-large.jpg';
 import sprTexturePlaceholder from '~/assets/spr-lesson-builder-dark-placeholder.jpg';
 import sprTexture from '~/assets/spr-lesson-builder-dark.jpg';
+import taleemabadScreenshot from '~/assets/tbd.png';
 import { Footer } from '~/components/footer';
 import { baseMeta } from '~/utils/meta';
 import { Intro } from './intro';
@@ -103,17 +104,17 @@ export const Home = () => {
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Designing the future of education"
-        description="Designing a platform to help educators build better online courseware"
+        title="Taleemabad: Offline-First EdTech Platform"
+        description="Architected and implemented key modules of an offline-first learning platform supporting web and mobile. Designed DexieDB schemas and sync algorithms, developed interactive course modules, and integrated mobile capabilities for hands-on activities and offline downloads."
         buttonText="View project"
         buttonLink="/projects/smart-sparrow"
         model={{
           type: 'laptop',
-          alt: 'Smart Sparrow lesson builder',
+          alt: 'Taleemabad EdTech platform',
           textures: [
             {
-              srcSet: `${sprTexture} 1280w, ${sprTextureLarge} 2560w`,
-              placeholder: sprTexturePlaceholder,
+              srcSet: `${taleemabadScreenshot} 1280w, ${taleemabadScreenshot} 2560w`,
+              placeholder: taleemabadScreenshot,
             },
           ],
         }}
@@ -127,7 +128,7 @@ export const Home = () => {
         title="Video game progress tracking"
         description="Design and development for a video game tracking app built in React Native"
         buttonText="View website"
-        buttonLink="https://gamestack.hamishw.com"
+        buttonLink="https://gamestack.tariqw.com"
         model={{
           type: 'phone',
           alt: 'App login screen',
