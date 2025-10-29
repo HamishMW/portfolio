@@ -3,10 +3,10 @@ import config from '~/config.json';
 export const navLinks = [
   {
     label: 'Projects',
-    pathname: '/#project-1',
+    pathname: '/projects',
   },
   {
-    label: 'Details',
+    label: 'About',
     pathname: '/#details',
   },
   {
@@ -21,14 +21,24 @@ export const navLinks = [
 
 export const socialLinks = [
   {
-    label: 'Bluesky',
-    url: `https://bsky.app/profile/${config.bluesky}`,
-    icon: 'bluesky',
+    label: 'Dribbble',
+    url: config.dribbble,
+    icon: 'dribbble',
+  },
+  {
+    label: 'Medium',
+    url: config.medium,
+    icon: 'medium',
   },
   {
     label: 'Figma',
-    url: `https://www.figma.com/${config.figma}`,
+    url: config.figma,
     icon: 'figma',
+  },
+  {
+    label: 'Instagram',
+    url: config.instagram,
+    icon: 'instagram',
   },
   {
     label: 'Github',
