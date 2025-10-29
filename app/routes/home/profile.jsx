@@ -21,16 +21,21 @@ const ProfileText = ({ visible, titleId }) => (
       <DecoderText text="Hi there" start={visible} delay={500} />
     </Heading>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
-      <Link href="https://www.qwilr.com">Qwilr</Link>. My projects include UX design, UI
-      animations, and icon illustration. Being comfortable with code allows me to rapidly
-      prototype and validate experiences. If you’re interested in the tools and software I
-      use check out my <Link href="/uses">uses page</Link>.
+      I'm Ketan, a Product Designer based in Mumbai working as Founding Designer & Product
+      Strategist at <Link href="https://www.qwark.in">Qwark</Link>. My journey started in
+      design, driven by a need to understand the 'why' behind user behavior. I thrive on
+      turning messy user research into clear strategy and shipping products that work.
     </Text>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
-      <Link href="/projects/volkihar-knight">make mods</Link>. I’m always down for hearing
-      about new projects, so feel free to drop me a line.
+      In a fast-paced fintech startup, I stepped up to fill the PM gap, taking a product
+      from whiteboard concept to market reality. I've validated product direction through
+      50+ user interviews, built scalable design systems, and launched 0-to-1 products.
+      Being comfortable with code allows me to rapidly prototype and ship experiences that
+      solve real user problems.
+    </Text>
+    <Text className={styles.description} data-visible={visible} size="l" as="p">
+      I'm always excited to hear about new projects and opportunities. Feel free to drop
+      me a line!
     </Text>
   </Fragment>
 );
@@ -86,7 +91,7 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   width={960}
                   height={1280}
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
-                  alt="Me smiling like a goofball at the Qwilr office in Sydney"
+                  alt="Ketan Damle - Product Designer and UX Strategist"
                 />
                 <svg className={styles.svg} data-visible={visible} viewBox="0 0 136 766">
                   <use href={`${katakana}#katakana-profile`} />
