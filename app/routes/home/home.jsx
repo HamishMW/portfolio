@@ -103,34 +103,13 @@ export const Home = () => {
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Designing the future of education"
-        description="Designing a platform to help educators build better online courseware"
+        title="PCOS Healthcare App"
+        description="Healthcare app helping women manage PCOS through research-driven UX design"
         buttonText="View project"
-        buttonLink="/projects/smart-sparrow"
-        model={{
-          type: 'laptop',
-          alt: 'Smart Sparrow lesson builder',
-          textures: [
-            {
-              srcSet: `${sprTexture} 1280w, ${sprTextureLarge} 2560w`,
-              placeholder: sprTexturePlaceholder,
-            },
-          ],
-        }}
-      />
-      <ProjectSummary
-        id="project-2"
-        alternate
-        sectionRef={projectTwo}
-        visible={visibleSections.includes(projectTwo.current)}
-        index={2}
-        title="Video game progress tracking"
-        description="Design and development for a video game tracking app built in React Native"
-        buttonText="View website"
-        buttonLink="https://gamestack.hamishw.com"
+        buttonLink="/projects/pcos-femcare"
         model={{
           type: 'phone',
-          alt: 'App login screen',
+          alt: 'PCOS FemCare app interface showing health tracking',
           textures: [
             {
               srcSet: `${gamestackTexture} 375w, ${gamestackTextureLarge} 750w`,
@@ -144,17 +123,38 @@ export const Home = () => {
         }}
       />
       <ProjectSummary
+        id="project-2"
+        alternate
+        sectionRef={projectTwo}
+        visible={visibleSections.includes(projectTwo.current)}
+        index={2}
+        title="AI-Powered B2B SaaS Platform"
+        description="Designing intelligent workflows for enterprise teams with AI-driven insights"
+        buttonText="View project"
+        buttonLink="/projects/ai-b2b-saas"
+        model={{
+          type: 'laptop',
+          alt: 'AI-powered SaaS dashboard with intelligent workflows',
+          textures: [
+            {
+              srcSet: `${sprTexture} 1280w, ${sprTextureLarge} 2560w`,
+              placeholder: sprTexturePlaceholder,
+            },
+          ],
+        }}
+      />
+      <ProjectSummary
         id="project-3"
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index={3}
-        title="Biomedical image collaboration"
-        description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
+        title="Micro-Interactions Collection"
+        description="A curated collection of delightful UI animations and micro-interactions"
         buttonText="View project"
-        buttonLink="/projects/slice"
+        buttonLink="/projects/microanimations"
         model={{
-          type: 'laptop',
-          alt: 'Annotating a biomedical image in the Slice app',
+          type: 'phone',
+          alt: 'Micro-interactions and UI animations showcase',
           textures: [
             {
               srcSet: `${sliceTexture} 800w, ${sliceTextureLarge} 1920w`,
