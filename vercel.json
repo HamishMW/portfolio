@@ -1,0 +1,16 @@
+{
+  "buildCommand": "npm install && npm run build",
+  "installCommand": "npm install",
+  "framework": "remix",
+  "headers": [
+    {
+      "source": "/draco/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}

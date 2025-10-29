@@ -1,4 +1,4 @@
-import { json } from '@remix-run/cloudflare';
+import { json } from '@remix-run/node';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { MDXProvider } from '@mdx-js/react';
 import { Post, postMarkdown } from '~/layouts/post';

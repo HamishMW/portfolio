@@ -2,7 +2,7 @@ import { Button } from '~/components/button';
 import { Icon } from '~/components/icon';
 import { useTheme } from '~/components/theme-provider';
 import { useReducedMotion } from 'framer-motion';
-import { useHasMounted, useInViewport } from '~/hooks';
+import { useMounted, useInViewport } from '~/hooks';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { resolveSrcFromSrcSet } from '~/utils/image';
 import { classes, cssProps, numToMs } from '~/utils/style';
@@ -82,7 +82,7 @@ const ImageElements = ({
   const videoRef = useRef();
   const isVideo = getIsVideo(src);
   const showFullRes = inViewport;
-  const hasMounted = useHasMounted();
+  const hasMounted = useMounted();
 
   useEffect(() => {
     const resolveVideoSrc = async () => {
