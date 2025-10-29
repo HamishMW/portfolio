@@ -7,5 +7,4 @@ node_modules
 .wrangler
 .dev.vars
 
-public/draco
 storybook-static
