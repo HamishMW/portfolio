@@ -1,11 +1,13 @@
 {
-  "name": "Hamish Williams",
-  "role": "Designer",
-  "disciplines": ["Developer", "Prototyper", "Animator", "Illustrator", "Modder"],
-  "url": "https://hamishw.com",
-  "bluesky": "hamishw.com",
-  "figma": "@Hamish",
-  "github": "HamishMW",
-  "repo": "https://github.com/HamishMW/portfolio",
-  "ascii": "__  __  __\n\u005C \u005C \u005C \u005C \u005C\u2215\n \u005C \u005C\u2215\u005C \u005C\n  \u005C\u2215  \u005C\u2215\n"
+  "name": "Ketan Damle",
+  "role": "UX/UI Designer",
+  "disciplines": ["UX Designer", "Product Designer", "Design Systems", "Prototyper", "Interaction Designer"],
+  "url": "https://ketandamle.com",
+  "dribbble": "https://dribbble.com/koriigami",
+  "medium": "https://medium.com/@koriigami",
+  "figma": "https://www.figma.com/@Kagadmodyaa",
+  "instagram": "https://www.instagram.com/kagadmodyaaa/",
+  "github": "koriigami",
+  "repo": "https://github.com/koriigami/portfolio_v2",
+  "ascii": "__  __  __\n\\ \\ \\ \\ \\/\n \\ \\/\\ \\\n  \\/  \\/\n"
 }
