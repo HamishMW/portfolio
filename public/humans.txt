@@ -8,9 +8,9 @@ and graphic assets behind this site humanstxt.org.
 
 _______________________________________________________________________________
 
-DESIGNER | デザイナー
+DESIGNER | KARTHIK
 
-Hamish Williams
+Karthikeyan
 Hand crafted design & web development
 
 Design tools:
@@ -18,12 +18,11 @@ Figma
 Photoshop
 Blender
 
-twitter.com/hamishmw
-github.com/hamishmw
+github.com/KarthikOffl
 
 _______________________________________________________________________________
 
-TECHNOLOGY | テクノロジー
+TECHNOLOGY
 
 React
 Remix
@@ -32,7 +31,7 @@ Framer Motion
 
 _______________________________________________________________________________
 
-FONTS | フォント
+FONTS
 
 Gotham
 IPA Gothic Regular

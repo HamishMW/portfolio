@@ -1,9 +1,9 @@
 {
   "name": "portfolio",
   "homepage": "https://hamishw.com",
-  "description": "Portfolio site for Hamish Williams",
+  "description": "Portfolio site for Karthikeyan",
   "repository": "https://github.com/HamishMW/portfolio.git",
-  "author": "Hamish Williams",
+  "author": "Karthikeyan",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -18,12 +18,16 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.515.0",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@mdx-js/react": "^3.0.1",
     "@remix-run/cloudflare": "^2.7.1",
     "@remix-run/cloudflare-pages": "^2.7.1",
     "@remix-run/react": "^2.7.1",
+    "emailjs-com": "^3.2.0",
     "framer-motion": "11.0.5",
     "isbot": "^4.1.0",
+    "lucide-react": "^0.485.0",
     "miniflare": "^3.20231030.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
